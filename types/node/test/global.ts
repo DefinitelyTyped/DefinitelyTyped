@@ -1,8 +1,8 @@
 import { Readable, Writable } from 'stream';
 
 {
-    const x: NodeModule = {} as any;
-    const y: NodeModule = {} as any;
+    const x: NodeJS.Module = {} as any;
+    const y: NodeJS.Module = {} as any;
     x.children.push(y);
     x.parent = require.main!;
     require.main = y;
@@ -32,10 +32,21 @@ import { Readable, Writable } from 'stream';
 const a: NodeJS.TypedArray = new Buffer(123);
 
 {
-    const stdin: Readable = process.stdin;
     let writableFinished: boolean;
-    const stdout: Writable = process.stdout;
-    writableFinished = process.stdout.writableFinished;
-    const stderr: Writable = process.stderr;
-    writableFinished = process.stderr.writableFinished;
+    const readable: Readable = new Readable({
+        read() {
+            this.push('hello');
+            this.push('world');
+            this.push(null);
+        },
+    });
+    readable.destroyed;
+    const writable: Writable = new Writable({
+        write(chunk, _, cb) {
+            cb();
+        },
+    });
+    readable.pipe(writable);
+    writableFinished = writable.writableFinished;
+    writable.destroyed;
 }

@@ -273,7 +273,7 @@ class LegacyContext extends React.Component {
 
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
-    context!: { foo: React.ReactNode };
+    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
 
     render() {
         // $ExpectType ReactNode
@@ -284,7 +284,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context!: React.ContextType<typeof ContextWithRenderProps>;
+    context: React.ContextType<typeof ContextWithRenderProps> = "";
 
     render() {
         // $ExpectType string

@@ -12,12 +12,15 @@ export type TimePickerProps = TimeBaseProps & {
         /* Post meridiem for 12 hour clock. */
         meridiemPM: string;
     };
+    popoverProps?: { [x: string]: any };
     /* Additional props to be spread to the `Time` component. */
     timeProps?: { [x: string]: any };
     /* Initial time value for the input. */
     value?: string;
 } & { [x: string]: any };
 
-declare class TimePicker extends React.Component<TimePickerProps> {}
+declare class TimePicker extends React.Component<TimePickerProps> {
+    static displayName: "TimePicker";
+}
 
 export default TimePicker;

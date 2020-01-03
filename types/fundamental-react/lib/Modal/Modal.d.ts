@@ -10,6 +10,8 @@ export type ModalProps = {
     closeProps?: { [x: string]: any };
     /* Additional props to be spread to the content section of the dialog. */
     contentProps?: { [x: string]: any };
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Additional props to be spread to the footer of the dialog. */
     footerProps?: { [x: string]: any };
     /* Additional props to be spread to the header of the dialog. */

@@ -1,4 +1,4 @@
-// Type definitions for Victory 31.0
+// Type definitions for Victory 33.1
 // Project: https://github.com/FormidableLabs/victory, https://formidable.com/open-source/victory
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 //                 snerks <https://github.com/snerks>
@@ -9,6 +9,7 @@
 //                 Esteban Ibarra <https://github.com/ibarrae>
 //                 Dominic Lee <https://github.com/dominictwlee>
 //                 Dave Vedder <https://github.com/veddermatic>
+//                 Alec Flett <https://github.com/alecf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -85,8 +86,17 @@ declare module 'victory' {
     type PaddingProps = number | BlockProps;
 
     // Many victory components accept string or number or callback which returns string or number
-    type StringOrNumberOrCallback = string | number | ((datum: any, active: boolean) => string | number);
-    type NumberOrCallback = ((datum: any, active: boolean) => number) | number;
+    interface CallbackArgs {
+        active: boolean;
+        datum: any;
+        horizontal: boolean;
+        x: number;
+        y: number;
+    }
+    type VictoryStringOrNumberCallback = (args: CallbackArgs) => string | number;
+    type VictoryNumberCallback = (args: CallbackArgs) => number;
+    type StringOrNumberOrCallback = string | number | VictoryStringOrNumberCallback;
+    type NumberOrCallback = number | VictoryNumberCallback;
 
     type VictoryStyleObject = { [K in keyof React.CSSProperties]: StringOrNumberOrCallback };
     /**
@@ -161,6 +171,10 @@ declare module 'victory' {
          * @default "0.71em"
          */
         capHeight?: StringOrNumberOrCallback;
+        /**
+         * The className prop specifies a class name that will be applied to the rendered text element.
+         */
+        className?: string;
         /**
          * Victory components can pass a datum prop to their label component. This can be used to calculate functional styles, and determine child text
          */
@@ -321,6 +335,107 @@ declare module 'victory' {
         x: number;
         y: number;
     };
+
+    export interface VictoryClipContainerProps {
+        /**
+         * `VictoryClipContainer` renders a single child, or an array of children in group element.
+         */
+        children?: React.ReactElement | React.ReactElement[];
+        /**
+         * The `circleComponent` specifies the element to use when a `VictoryClipContainer` renders
+         * a circular clip path. By default, `VictoryClipContainer` uses the `Circle` component.
+         * @default circleComponent={<Circle/>}
+         */
+        circleComponent?: React.ReactElement;
+        /**
+         * The `className` prop specifies a class name that will be applied to the rendered element.
+         * @example: className="myClipPath"
+         */
+        className?: string;
+        /**
+         * The `clipHeight` prop determines the base height of the rectangular clip path. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the height and padding
+         * of the parent chart.
+         */
+        clipHeight?: number;
+        /**
+         * The `clipId` prop may be used to set a deterministic id for the container.
+         * When a `clipId` is not manually set, a unique id will be generated.
+         * It is usually necessary to set deterministic ids for automated testing.
+         */
+        clipId?: number | string;
+        /**
+         * The `clipPadding` prop is used when the clipped area should be larger than the range of a chart.
+         * This prop should be given as an object with `top`, `bottom`, `left`, and `right` properties. Set
+         * the `clipPadding` prop is useful for extending the visible area of a chart in some dimension so
+         * that data or labels are not cut off.
+         */
+        clipPadding?: BlockProps;
+        /**
+         * The `clipPathComponent` prop specifies the clip path to apply to the rendered group when appropriate.
+         * By default, `VictoryClipContainer` uses the `ClipPath` component.
+         * @default clipPathComponent={<ClipPath/>}
+         */
+        clipPathComponent?: React.ReactElement;
+        /**
+         * The `clipWidth` prop determines the base width of the rectangular clip path. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the width and padding
+         * of the parent chart.
+         */
+        clipWidth?: number;
+        /**
+         * The `events` prop attaches arbitrary event handlers to the group element.
+         * This prop should be given as an object of event names and corresponding event handlers.
+         * When events are provided via Victory's event system, event handlers will be called with
+         * the event, the props of the component it is attached to, and an `eventKey` when applicable.
+         * @example events={{onClick: (evt) => alert("x: " + evt.clientX)}}
+         */
+        events?: React.DOMAttributes<any>;
+        /**
+         * `VictoryClipContainer` uses the standard `groupComponent` prop.
+         * @default groupComponent={<g/>}
+         */
+        groupComponent?: React.ReactElement;
+        /**
+         * Victory components will pass an `origin` prop is to define the center point in svg coordinates for polar charts.
+         * **This prop should not be set manually.**
+         */
+        origin?: {
+            x?: number;
+            y?: number;
+        };
+        /**
+         * Victory components can pass a boolean `polar` prop to specify whether a label is part of a polar chart.
+         * **This prop should not be set manually.**
+         */
+        polar?: boolean;
+        /**
+         * The `radius` prop determines the radius of the circular clip path used for polar charts. This prop should be
+         * given as a number. If this prop is not given, it will be calculated based on the dimensions and padding
+         * of the parent chart.
+         */
+        radius?: number;
+        /**
+         * The `rectComponent` specifies the element to use when a `VictoryClipContainer` renders a rectangular clip path.
+         * By default, `VictoryClipContainer` uses the `Rect` component.
+         * @default rectComponent={<Rect/>}
+         */
+        rectComponent?: React.ReactElement;
+        /**
+         * The `translateX` prop determines the offset of the clip path from the base x coordinate. This prop
+         * should be given as a number. If this prop is not given, it will be calculated based on the padding
+         * of the parent chart.
+         */
+        translateX?: number;
+        /**
+         * The `translateY` prop determines the offset of the clip path from the base y coordinate. This prop
+         * should be given as a number. If this prop is not given, it will be calculated based on the padding
+         * of the parent chart.
+         */
+        translateY?: number;
+    }
+
+    export class VictoryClipContainer extends React.Component<VictoryClipContainerProps, any> {}
 
     export interface VictoryCursorContainerProps extends VictoryContainerProps {
         /**
@@ -623,42 +738,114 @@ declare module 'victory' {
 
     export class VictoryZoomContainer extends React.Component<VictoryZoomContainerProps, any> {}
 
+    type ThemeBaseProps = {
+        width: number;
+        height: number;
+        colorScale: string[];
+        padding?: number;
+    };
+
     // Note: Many SVG attributes are missed in CSSProperties interface
     export interface VictoryThemeDefinition {
-        area?: VictoryStyleInterface;
+        area?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
         axis?: {
-            axis: React.CSSProperties;
-            axisLabel: React.CSSProperties;
-            grid: React.CSSProperties;
-            ticks: React.CSSProperties;
-            tickLabels: React.CSSProperties;
-        };
-        bar?: VictoryStyleInterface;
-        candlestick?: VictoryStyleInterface & {
-            props: {
-                width: number;
-                height: number;
-                candleColors: {
-                    positive: string;
-                    negative: string;
+            style?: {
+                axis?: React.CSSProperties;
+                axisLabel?: React.CSSProperties;
+                grid?: React.CSSProperties;
+                ticks?: React.CSSProperties;
+                tickLabels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        bar?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        boxplot?: {
+            style?: {
+                max?: React.CSSProperties;
+                maxLabels?: React.CSSProperties;
+                median?: React.CSSProperties;
+                medianLabels?: React.CSSProperties;
+                min?: React.CSSProperties;
+                minLabels?: React.CSSProperties;
+                q1?: React.CSSProperties;
+                q1Labels?: React.CSSProperties;
+                q3?: React.CSSProperties;
+                q3Labels?: React.CSSProperties;
+            };
+            boxWidth?: number;
+        } & ThemeBaseProps;
+        candlestick?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+            candleColors?: {
+                positive?: string;
+                negative?: string;
+            };
+        } & ThemeBaseProps;
+        chart?: ThemeBaseProps;
+        errorbar?: {
+            borderWidth?: number;
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        group?: ThemeBaseProps;
+        legend?: {
+            gutter?: number;
+            orientation?: 'vertical' | 'horizontal';
+            titleOrientation?: OrientationTypes;
+            style?: {
+                data?: React.CSSProperties & {
+                    type?: ScatterSymbolType;
                 };
+                labels?: React.CSSProperties;
+                title?: React.CSSProperties;
             };
-        };
-        line?: VictoryStyleInterface;
+        } & ThemeBaseProps;
+        line?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
         pie?: {
-            props: {
-                width: number;
-                height: number;
-                colorScale: string[];
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
             };
-            style: VictoryStyleInterface;
+        } & ThemeBaseProps;
+        scatter?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
+        stack?: ThemeBaseProps;
+        tooltip?: {
+            style?: React.CSSProperties;
+            flyoutStyle?: React.CSSProperties;
+            cornerRadius?: number;
+            pointerLength?: number;
         };
-        scatter?: VictoryStyleInterface;
-        props?: {
-            width: number;
-            height: number;
-            colorScale: string[];
-        };
+        voronoi?: {
+            style?: {
+                data?: React.CSSProperties;
+                labels?: React.CSSProperties;
+                flyout?: React.CSSProperties;
+            };
+        } & ThemeBaseProps;
     }
 
     interface VictoryThemeInterface {
@@ -717,6 +904,16 @@ declare module 'victory' {
          */
         events?: {};
         /**
+         * The flyoutHeight prop defines the height of the tooltip flyout. This prop may be given as a positive number or a function of datum. If this prop
+         * is not set, flyoutHeight will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
+         */
+        flyoutHeight?: NumberOrCallback;
+        /**
+         * The flyoutWidth prop defines the width of the tooltip flyout. This prop may be given as a positive number or a function of datum. If this prop is
+         * not set, flyoutWidth will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
+         */
+        flyoutWidth?: NumberOrCallback;
+        /**
          * The style prop applies SVG style properties to the rendered flyout container. These props will be passed to the flyoutComponent.
          */
         flyoutStyle?: VictoryStyleObject;
@@ -736,10 +933,10 @@ declare module 'victory' {
          */
         groupComponent?: React.ReactElement;
         /**
-         * The height prop defines the height of the tooltip flyout. This prop may be given as a positive number or a function of datum.
-         * If this prop is not set, height will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
+         * This prop refers to the height of the svg that VictoryLabel is rendered within. This prop is passed from parents of VictoryLabel, and should not be set
+         * manually. In versions before ^33.0.0 this prop referred to the height of the tooltip flyout. Please use flyoutHeight instead
          */
-        height?: NumberOrCallback;
+        height?: number;
         /**
          * The horizontal prop determines whether to plot the flyouts to the left / right of the (x, y) coordinate rather than top / bottom.
          * This is useful when an orientation prop is not provided, and data will determine the default orientation. i.e.
@@ -764,7 +961,7 @@ declare module 'victory' {
          * This prop can be given as “top”, “bottom”, “left”, “right”, or as a function of datum that returns one of these values.
          * If this prop is not provided it will be determined from the sign of the datum, and the value of the horizontal prop.
          */
-        orientation?: OrientationTypes;
+        orientation?: OrientationTypes | VictoryNumberCallback;
         /**
          * The pointerLength prop determines the length of the triangular pointer extending from the flyout. This prop may be given as a positive number or a function of datum.
          */
@@ -794,10 +991,10 @@ declare module 'victory' {
          */
         theme?: VictoryThemeDefinition;
         /**
-         * The width prop defines the width of the tooltip flyout. This prop may be given as a positive number or a function of datum.
-         * If this prop is not set, width will be determined based on an approximate text size calculated from the text and style props provided to VictoryTooltip.
+         * This prop refers to the width of the svg that VictoryLabel is rendered within. This prop is passed from parents of VictoryLabel,
+         * and should not be set manually. In versions before ^33.0.0 this prop referred to the width of the tooltip flyout. Please use flyoutWidth instead
          */
-        width?: NumberOrCallback;
+        width?: number;
         /**
          * The x prop defines the x coordinate to use as a basis for horizontal positioning.
          */
@@ -807,6 +1004,115 @@ declare module 'victory' {
          */
         y?: number;
     }
+
+    export interface FlyoutProps extends VictoryCommonProps {
+        /**
+         * a flag signifying whether the component is active
+         */
+        active?: boolean;
+        /**
+         * the center coordinates of the flyout
+         */
+        center?: {
+          x?: number;
+          y?: number;
+        };
+        /**
+         * the class name that will be applied to the rendered element
+         */
+        className?: string;
+        /**
+         * the corner radius of the flyout
+         */
+        cornerRadius?: number;
+        /**
+         * the entire dataset if applicable
+         */
+        data?: any[];
+        /**
+         * the data point corresponding to this flyout if applicable
+         */
+        datum?: object;
+        /**
+         * offset in the x dimension.
+         */
+        dx?: number;
+        /**
+         * offset in the y dimension.
+         */
+        dy?: number;
+        /**
+         * events to attach to the rendered element
+         */
+        events?: object;
+        /**
+         * the height of the flyout
+         */
+        height?: number;
+        /**
+         * an id to apply to the rendered component
+         */
+        id?: string | number;
+        /**
+         * the index of this flyout within the dataset
+         */
+        index?: number;
+        orientation?: 'top' | 'bottom' | 'left' | 'right';
+        /**
+         * the svg coordinates of the center point of a polar chart
+         */
+        origin?: object;
+        /**
+         * the rendered path element
+         * @default pathComponent={<Path/>}
+         */
+        pathComponent?: React.ReactElement;
+        /**
+         * the length of the triangular pointer
+         */
+        pointerLength?: number;
+        /**
+         * the width of the base of the triangular pointer
+         */
+        pointerWidth?: number;
+        /**
+         * a flag specifying whether the component is part of a polar chart
+         */
+        polar?: boolean;
+        /**
+         * the aria role to assign to the element
+         */
+        role?: string;
+        /**
+         * the shape rendering attribute to apply to the rendered elements
+         */
+        shapeRendering?: string;
+        /**
+         * the styles to apply to the rendered element
+         */
+        style?: VictoryStyleObject;
+        /**
+         * a transform that will be supplied to elements this component renders
+         */
+        transform?: string;
+        /**
+         * the width of the flyout
+         */
+        width?: number;
+        /**
+         * the x coordinate of data point associated with this flyout
+         */
+        x?: number;
+        /**
+         * the y coordinate of data point associated with this flyout
+         */
+        y?: number;
+    }
+
+    /**
+     * `VictoryTooltip` uses `Flyout` to render a flyout style path around text. `Flyout` renders `<Path>` element.
+     */
+    export class Flyout extends React.Component<FlyoutProps, any> {}
 
     /**
      * VictoryTooltip renders a tooltip component with a set of default events. When VictoryTooltip is used as a label
@@ -993,9 +1299,9 @@ declare module 'victory' {
          * The animate prop should also be used to specify enter and exit
          * transition configurations with the `onExit` and `onEnter` namespaces respectively.
          * @example
-         * {duration: 500, onExit: () => {}, onEnter: {duration: 500, before: () => ({y: 0})})}
+         * {duration: 500, onExit: () => {}, onEnter: {duration: 500, before: () => ({y: 0})}}
          */
-        animate?: AnimatePropTypeInterface;
+        animate?: boolean | AnimatePropTypeInterface;
         /**
          * The name prop is used to reference a component instance when defining shared events.
          */
@@ -1012,6 +1318,28 @@ declare module 'victory' {
          * @default false
          */
         horizontal?: boolean;
+        /**
+         * The maxDomain prop defines a maximum domain value for a chart. This prop is useful in
+         * situations where the maximum domain of a chart is static, while the minimum value
+         * depends on data or other variable information.
+         * If the domain prop is set in addition to maximumDomain, domain will be used.
+         *
+         * note: The x value supplied to the maxDomain prop refers to the independent variable,
+         * and the y value refers to the dependent variable. This may cause confusion in
+         * horizontal charts, as the independent variable will corresponds to the y axis.
+         */
+        maxDomain?: number | { x?: number; y?: number };
+        /**
+         * The minDomain prop defines a minimum domain value for a chart. This prop is useful in
+         * situations where the minimum domain of a chart is static, while the maximum value
+         * depends on data or other variable information. If the domain prop is set in addition
+         * to minimumDomain, domain will be used.
+         *
+         * note: The x value supplied to the minDomain prop refers to the independent variable,
+         * and the y value refers to the dependent variable. This may cause confusion in
+         * horizontal charts, as the independent variable will corresponds to the y axis.
+         */
+        minDomain?: number | { x?: number; y?: number };
         /**
          * The padding props specifies the amount of padding in number of pixels between
          * the edge of the chart and any rendered child components. This prop can be given
@@ -1510,12 +1838,12 @@ declare module 'victory' {
         cornerRadius?:
             | NumberOrCallback
             | {
-                  top?: number | (NumberOrCallback);
-                  topLeft?: number | (NumberOrCallback);
-                  topRight?: number | (NumberOrCallback);
-                  bottom?: number | (NumberOrCallback);
-                  bottomLeft?: number | (NumberOrCallback);
-                  bottomRight?: number | (NumberOrCallback);
+                  top?: NumberOrCallback;
+                  topLeft?: NumberOrCallback;
+                  topRight?: NumberOrCallback;
+                  bottom?: NumberOrCallback;
+                  bottomLeft?: NumberOrCallback;
+                  bottomRight?: NumberOrCallback;
               };
         /**
          * The event prop take an array of event objects. Event objects are composed of
@@ -1689,28 +2017,172 @@ declare module 'victory' {
         labels?: boolean;
         /**
          * Use the max data accessor prop to define the max value of a box plot.
+         *
+         * string: specify which property in an array of data objects should be used as the max value
+         * @example // max="max_value"
+         *
+         * function: use a function to translate each element in a data array into a max value
+         * @example // max={() => 10}
+         *
+         * path string or path array: specify which property in an array of nested data objects should
+         * be used as a max value
+         * @example // max="bonds.max", max={["bonds", "max"]}
          */
-        max?: StringOrNumberOrCallback;
+        max?: StringOrNumberOrCallback | string[];
+        /**
+         * The maxComponent prop takes a component instance which will be responsible for rendering
+         * an element to represent the maximum value of the box plot. The new element created from
+         * the passed maxComponent will be provided with the following props calculated by
+         * VictoryBoxPlot: datum, index, scale, style, events, majorWhisker and minorWhisker. The
+         * majorWhisker and minorWhisker props are given as objects with values for x1, y1, x2 and
+         * y2 that describes the lines that make up the major and minor whisker. Any of these
+         * props may be overridden by passing in props to the supplied component, or modified or
+         * ignored within the custom component itself. If a maxComponent is not provided,
+         * VictoryBoxPlot will use its default Whisker component.
+         */
+        maxComponent?: React.ReactElement;
+        /**
+         * The maxLabelComponent prop takes a component instance which will be used to render the
+         * label corresponding to the maximum value for each box. The new element created from the
+         * passed maxLabelComponent will be supplied with the following props: x, y, datum, index,
+         * scale, verticalAnchor, textAnchor, angle, transform, style and events. Any of these
+         * props may be overridden by passing in props to the supplied component, or modified or
+         * ignored within the custom component itself. If maxLabelComponent is omitted, a new
+         * VictoryLabel will be created with props described above.
+         */
+        maxLabelComponent?: React.ReactElement;
         /**
          * Use the median data accessor prop to define the median value of a box plot.
+         *
+         * string: specify which property in an array of data objects should be used as the median value
+         * @example // median="median_value"
+         *
+         * function: use a function to translate each element in a data array into a median value
+         * @example // median={() => 10}
+         *
+         * path string or path array: specify which property in an array of nested data objects should
+         * be used as a median value
+         * @example // median="bonds.median", median={["bonds", "median"]}
          */
-        median?: StringOrNumberOrCallback;
+        median?: StringOrNumberOrCallback | string[];
+        /**
+         * The medianComponent prop takes a component instance which will be responsible for rendering an
+         * element to represent the median value of the box plot. The new element created from the passed
+         * medianComponent will be provided with the following props calculated by VictoryBoxPlot: datum,
+         * index, scale, style, events, x1, y1, x2 and y2 Any of these props may be overridden by passing
+         * in props to the supplied component, or modified or ignored within the custom component itself.
+         * If a medianComponent is not provided, VictoryBoxPlot will use its default Line component.
+         */
+        medianComponent?: React.ReactElement;
+        /**
+         * The medianLabelComponent prop takes a component instance which will be used to render the label
+         * corresponding to the median value for each box. The new element created from the passed
+         * medianLabelComponent will be supplied with the following props: x, y, datum, index, scale,
+         * verticalAnchor, textAnchor, angle, transform, style and events. Any of these props may be overridden
+         * by passing in props to the supplied component, or modified or ignored within the custom component
+         * itself. If medianLabelComponent is omitted, a new VictoryLabel will be created with props described above.
+         */
+        medianLabelComponent?: React.ReactElement;
         /**
          * Use the min data accessor prop to define the min value of a box plot.
+         *
+         * string: specify which property in an array of data objects should be used as the min value
+         * @example // min="min_value"
+         *
+         * function: use a function to translate each element in a data array into a min value
+         * @example // min={() => 10}
+         *
+         * path string or path array: specify which property in an array of nested data objects should
+         * be used as a min value
+         * @example // min="bonds.min", min={["bonds", "min"]}
          */
-        min?: StringOrNumberOrCallback;
+        min?: StringOrNumberOrCallback | string[];
+        /**
+         * The medianComponent prop takes a component instance which will be responsible for rendering an
+         * element to represent the median value of the box plot. The new element created from the passed
+         * medianComponent will be provided with the following props calculated by VictoryBoxPlot: datum,
+         * index, scale, style, events, x1, y1, x2 and y2 Any of these props may be overridden by passing
+         * in props to the supplied component, or modified or ignored within the custom component itself.
+         * If a medianComponent is not provided, VictoryBoxPlot will use its default Line component.
+         */
+        minComponent?: React.ReactElement;
+        /**
+         * The minLabelComponent prop takes a component instance which will be used to render the label
+         * corresponding to the minimum value for each box. The new element created from the passed
+         * minLabelComponent will be supplied with the following props: x, y, datum, index, scale, verticalAnchor,
+         * textAnchor, angle, transform, style and events. Any of these props may be overridden by passing in
+         * props to the supplied component, or modified or ignored within the custom component itself. If
+         * minLabelComponent is omitted, a new VictoryLabel will be created with props described above.
+         */
+        minLabelComponent?: React.ReactElement;
         /**
          * Use the q1 data accessor prop to define the q1 value of a box plot.
+         *
+         * string: specify which property in an array of data objects should be used as the q1 value
+         * @example // q1="q1_value"
+         *
+         * function: use a function to translate each element in a data array into a q1 value
+         * @example // q1={() => 10}
+         *
+         * path string or path array: specify which property in an array of nested data objects should
+         * be used as a q1 value
+         * @example // q1="bonds.q1", q1={["bonds", "q1"]}
          */
-        q1?: StringOrNumberOrCallback;
+        q1?: StringOrNumberOrCallback | string[];
         /**
-         * Use the q3 data accessor prop to define the q1 value of a box plot.
+         * The q1Component prop takes a component instance which will be responsible for rendering an
+         * element to represent the q1 value of the box plot. The new element created from the passed
+         * q1Component will be provided with the following props calculated by VictoryBoxPlot: datum,
+         * index, scale, style, events, x, y, width and height Any of these props may be overridden by
+         * passing in props to the supplied component, or modified or ignored within the custom component
+         * itself. If a q1Component is not provided, VictoryBoxPlot will use its default Box component.
          */
-        q3?: StringOrNumberOrCallback;
+        q1Component?: React.ReactElement;
+        /**
+         * The q1LabelComponent prop takes a component instance which will be used to render the label
+         * corresponding to the q1 value for each box. The new element created from the passed q1LabelComponent
+         * will be supplied with the following props: x, y, datum, index, scale, verticalAnchor, textAnchor,
+         * angle, transform, style and events. Any of these props may be overridden by passing in props to
+         * the supplied component, or modified or ignored within the custom component itself. If
+         * q1LabelComponent is omitted, a new VictoryLabel will be created with props described above.
+         */
+        q1LabelComponent?: React.ReactElement;
+        /**
+         * Use the q3 data accessor prop to define the q3 value of a box plot.
+         *
+         * string: specify which property in an array of data objects should be used as the q3 value
+         * @example // q3="q3_value"
+         *
+         * function: use a function to translate each element in a data array into a q3 value
+         * @example // q3={() => 10}
+         *
+         * path string or path array: specify which property in an array of nested data objects should
+         * be used as a q3 value
+         * @example // q3="bonds.q3", q3={["bonds", "q3"]}
+         */
+        q3?: StringOrNumberOrCallback | string[];
+        /**
+         * The q3Component prop takes a component instance which will be responsible for rendering an
+         * element to represent the q3 value of the box plot. The new element created from the passed
+         * q3Component will be provided with the following props calculated by VictoryBoxPlot: datum,
+         * index, scale, style, events, x, y, width and height Any of these props may be overridden by
+         * passing in props to the supplied component, or modified or ignored within the custom component
+         * itself. If a q3Component is not provided, VictoryBoxPlot will use its default Box component.
+         */
+        q3Component?: React.ReactElement;
+        /**
+         * The q3LabelComponent prop takes a component instance which will be used to render the label
+         * corresponding to the q3 value for each box. The new element created from the passed q3LabelComponent
+         * will be supplied with the following props: x, y, datum, index, scale, verticalAnchor, textAnchor,
+         * angle, transform, style and events. Any of these props may be overridden by passing in props to
+         * the supplied component, or modified or ignored within the custom component itself. If q3LabelComponent
+         * is omitted, a new VictoryLabel will be created with props described above.
+         */
+        q3LabelComponent?: React.ReactElement;
         /**
          * The style prop defines the style of the component. The style prop
          * should be given as an object with styles defined for parent, max,
-         * maxLabels, min, minLabels,median, medianLabels,q1, q1Labels,q3,
+         * maxLabels, min, minLabels, median, medianLabels, q1, q1Labels, q3,
          * q3Labels. Any valid svg styles are supported, but width, height, a
          * nd padding should be specified via props as they determine relative
          * layout for components in VictoryChart. Functional styles may be
@@ -2521,4 +2993,18 @@ declare module 'victory' {
      * @param c2 : "brush" | "cursor" | "selection" | "voronoi" | "zoom"
      */
     export function createContainer<V, W>(c1: ContainerType, c2: ContainerType): React.ComponentType<V & W>;
+
+    export class VictoryPortal extends React.Component<VictoryPortalProps, any> {}
+
+    export interface VictoryPortalProps {
+        /**
+         * The children of this component define the content of the label.
+         * This makes using the component similar to normal HTML spans or labels. strings, numbers, and functions of data / value are supported.
+         */
+        children?: React.ReactElement;
+        /**
+         * The groupComponent prop takes a component instance which will be used to create a group element for VictoryPortal to render its child component into. This prop defaults to a <g> tag.
+         */
+        groupComponent?: React.ReactElement;
+    }
 }

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package ej.web.all 17.2
+// Type definitions for non-npm package ej.web.all 17.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 17.2.0.46
+*  version : 17.3.0.26
 *  Copyright Syncfusion Inc. 2001 - 2019. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -37655,6 +37655,10 @@ declare namespace ej {
              */
             parameters?: Parameter[];
 
+            /** Specifies the parameter settings.
+             */
+            parameterSettings?: ParameterSettings;
+
             /** Enables and disables the print mode.
              * @Default {false}
              */
@@ -37663,7 +37667,7 @@ declare namespace ej {
             /** Specifies the print option of the report.
              * @Default {ej.ReportViewer.PrintOptions.Default}
              */
-            printOptions?: ej.ReportViewer.PrintOptions|string;
+            printOption?: ej.ReportViewer.PrintOptions|string;
 
             /** Specifies the processing mode of the report.
              * @Default {ej.ReportViewer.ProcessingMode.Remote}
@@ -37693,10 +37697,6 @@ declare namespace ej {
             /** Specifies the toolbar settings.
              */
             toolbarSettings?: ToolbarSettings;
-
-            /** Specifies the parameter settings.
-             */
-            parameterSettings?: ParameterSettings;
 
             /** Gets or sets the zoom factor for report viewer.
              * @Default {1}
@@ -37743,6 +37743,11 @@ declare namespace ej {
              */
             enablePageVirtualization?: boolean;
 
+            /** Gets or sets the showExceptionsInDialog for report viewer.
+             * @Default {false}
+             */
+            showExceptionsInDialog?: boolean;
+
             /** Fires when the report viewer is destroyed successfully.If you want to perform any operation after destroying the reportviewer control,you can make use of the destroy event.
              */
             destroy?(e: DestroyEventArgs): void;
@@ -37780,22 +37785,6 @@ declare namespace ej {
              */
             viewReportClick?(e: ViewReportClickEventArgs): void;
 
-            /** Fires before the ajax request process started.
-             */
-            ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
-
-            /** Fires when ajax post call succeed.
-             */
-            ajaxSuccess?(e: AjaxSuccessEventArgs): void;
-
-            /** Fires when ajax request failed.
-             */
-            ajaxError?(e: AjaxErrorEventArgs): void;
-
-            /** This event will be triggered on rendering the Report Viewer toolbar.
-             */
-            toolbarRendering?(e: ToolbarRenderingEventArgs): void;
-
             /** Fires when the export progress is changed. To perform any operation when the export progress is changed, use the exportProgressChanged event.
              */
             exportProgressChanged?(e: ExportProgressChangedEventArgs): void;
@@ -37808,6 +37797,10 @@ declare namespace ej {
              */
             exportItemClick?(e: ExportItemClickEventArgs): void;
 
+            /** This event will be triggered on rendering the Report Viewer toolbar.
+             */
+            toolbarRendering?(e: ToolbarRenderingEventArgs): void;
+
             /** Fires when the toolbar items are clicked. To perform any operation when the toolbar items are clicked, use the toolBarItemClick event.
              */
             toolBarItemClick?(e: ToolBarItemClickEventArgs): void;
@@ -37819,6 +37812,23 @@ declare namespace ej {
             /** Fires when the report print action is performed in the report. To perform any operation during the report print action, use the ReportPrint event.
              */
             reportPrint?(e: ReportPrintEventArgs): void;
+
+            /** Fires before the ajax request process started.
+             */
+            ajaxBeforeLoad?(e: AjaxBeforeLoadEventArgs): void;
+
+            /** Fires when ajax post call succeed.
+             */
+            ajaxSuccess?(e: AjaxSuccessEventArgs): void;
+
+            /** Fires when ajax request failed.
+             */
+            ajaxError?(e: AjaxErrorEventArgs): void;
+
+            /** Fires when the dependent parameter value is changing in the parameter block. You can add custom user interface, loading indicator and modify the default progress text, using the
+             * ParameterUpdateStateChange event.
+             */
+            parameterUpdateStateChange?(e: ParameterUpdateStateChangeEventArgs): void;
         }
 
         export interface DestroyEventArgs {
@@ -37976,46 +37986,6 @@ declare namespace ej {
             type?: string;
         }
 
-        export interface AjaxBeforeLoadEventArgs {
-
-            /** returns the reportViewerToken.
-             */
-            reportViewerToken?: string;
-
-            /** returns the serviceAuthorizationToken.
-             */
-            serviceAuthorizationToken?: string;
-
-            /** Send the headerReq collection.
-             */
-            headerReq?: any;
-
-            /** Send the headers collection.
-             */
-            headers?: any;
-
-            /** Send the custom data.
-             */
-            data?: string;
-        }
-
-        export interface AjaxSuccessEventArgs {
-
-            /** returns the success data.
-             */
-            data?: any;
-        }
-
-        export interface AjaxErrorEventArgs {
-
-            /** returns the error details
-             */
-            msg?: string;
-        }
-
-        export interface ToolbarRenderingEventArgs {
-        }
-
         export interface ExportProgressChangedEventArgs {
 
             /** returns the export format
@@ -38063,6 +38033,9 @@ declare namespace ej {
             /** returns the export format value.
              */
             value?: string;
+        }
+
+        export interface ToolbarRenderingEventArgs {
         }
 
         export interface ToolBarItemClickEventArgs {
@@ -38114,6 +38087,78 @@ declare namespace ej {
             isStyleLoad?: boolean;
         }
 
+        export interface AjaxBeforeLoadEventArgs {
+
+            /** returns the reportViewerToken.
+             */
+            reportViewerToken?: string;
+
+            /** returns the serviceAuthorizationToken.
+             */
+            serviceAuthorizationToken?: string;
+
+            /** Send the headerReq collection.
+             */
+            headerReq?: any;
+
+            /** Send the headers collection.
+             */
+            headers?: any;
+
+            /** Send the custom data.
+             */
+            data?: string;
+        }
+
+        export interface AjaxSuccessEventArgs {
+
+            /** returns the success data.
+             */
+            data?: any;
+        }
+
+        export interface AjaxErrorEventArgs {
+
+            /** returns the error details
+             */
+            msg?: string;
+        }
+
+        export interface ParameterUpdateStateChangeEventArgs {
+
+            /** true if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** true, if the event handled by user; otherwise, false.
+             */
+            handled?: boolean;
+
+            /** The processing state.
+             */
+            state?: string;
+
+            /** returns the report model
+             */
+            model?: any;
+
+            /** The parameter block id.
+             */
+            containerId?: string;
+
+            /** Its only to notify the the current parameter.
+             */
+            name?: string;
+
+            /** Its only to notify the current parameter prompt value.
+             */
+            prompt?: string;
+
+            /** The progress text that is displayed on the loading indicator.
+             */
+            progressText?: string;
+        }
+
         export interface DataSource {
 
             /** Gets or sets the name of the data source.
@@ -38143,6 +38188,11 @@ declare namespace ej {
              * @Default {ej.ReportViewer.WordFormats.Doc}
              */
             wordFormat?: ej.ReportViewer.WordFormats|string;
+
+            /** Specifies the ppt export format.
+             * @Default {ej.ReportViewer.PPTFormats.PowerPoint97to2003}
+             */
+            pptFormat?: ej.ReportViewer.PPTFormats|string;
 
             /** Add the custom icon item to the export options.
              * @Default {empty}
@@ -38191,6 +38241,36 @@ declare namespace ej {
             values?: any[];
         }
 
+        export interface ParameterSettings {
+
+            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled with the dropdown. When you enter the delimiter value, the texts after the delimiter are
+             * considered as a separate word or query. The delimiter string is a single character and must be a symbol. Mostly, the delimiter symbol is used as comma (,) or semi-colon (;) or
+             * any other special character.
+             * @Default {,}
+             */
+            delimiterChar?: string;
+
+            /** Specifies the height of the combobox parameter popup list. By default, the popup height value is &quot;152px&quot;.
+             * @Default {152px}
+             */
+            popupHeight?: string;
+
+            /** Specifies the width of the combobox parameter popup list. By default, the popup width sets based on the width of the component.
+             * @Default {auto}
+             */
+            popupWidth?: string;
+
+            /** Specifies the width of the parameter item. By default, the item width value is set as &quot;185px&quot;.
+             * @Default {185px}
+             */
+            itemWidth?: string;
+
+            /** Specifies the width of the parameter label. By default, the parameter label width value is set as &quot;110px&quot;.
+             * @Default {110px}
+             */
+            labelWidth?: string;
+        }
+
         export interface ToolbarSettings {
 
             /** Fires when user click on toolbar item in the toolbar.
@@ -38229,33 +38309,13 @@ declare namespace ej {
             customGroups?: any[];
         }
 
-        export interface ParameterSettings {
-
-            /** Sets the separator when the multiSelectMode with delimiter option or checkbox is enabled with the dropdown. When you enter the delimiter value, the texts after the delimiter are
-             * considered as a separate word or query. The delimiter string is a single character and must be a symbol. Mostly, the delimiter symbol is used as comma (,) or semi-colon (;) or
-             * any other special character.
-             * @Default {,}
-             */
-            delimiterChar?: string;
-
-            /** Specifies the height of the combobox parameter popup list. By default, the popup height value is &quot;152px&quot;.
-             * @Default {152px}
-             */
-            popupHeight?: string;
-
-            /** Specifies the width of the combobox parameter popup list. By default, the popup width sets based on the width of the component.
-             * @Default {auto}
-             */
-            popupWidth?: string;
-        }
-
         enum ExportOptions {
 
             ///Specifies the All property in ExportOptions to get all available options.
             All,
 
-            ///Specifies the PDF property in ExportOptions to get PDF option.
-            PDF,
+            ///Specifies the Pdf property in ExportOptions to get Pdf option.
+            Pdf,
 
             ///Specifies the Word property in ExportOptions to get Word option.
             Word,
@@ -38263,8 +38323,17 @@ declare namespace ej {
             ///Specifies the Excel property in ExportOptions to get Excel option.
             Excel,
 
-            ///Specifies the HTML property in ExportOptions to get HTML option.
-            HTML
+            ///Specifies the Html property in ExportOptions to get Html option.
+            Html,
+
+            ///Specifies the PPT property in ExportOptions to get PPT option.
+            PPT,
+
+            ///Specifies the CSV property in ExportOptions to get CSV option.
+            CSV,
+
+            ///Specifies the customItems property in ExportOptions to get customItems option.
+            CustomItems
         }
 
 
@@ -38348,6 +38417,22 @@ declare namespace ej {
 
             ///Specifies the Automatic property in WordFormats to get specified version of exported format.
             Automatic
+        }
+
+
+        enum PPTFormats {
+
+            ///Represents PowerPoint97to2003 version.
+            PowerPoint97to2003,
+
+            ///Represents PowerPoint2007 version.
+            PowerPoint2007,
+
+            ///Represents PowerPoint2010 version.
+            PowerPoint2010,
+
+            ///Represents PowerPoint2013 version.
+            PowerPoint2013
         }
 
 
@@ -49439,7 +49524,7 @@ declare namespace ej {
          * @param {any} JSON for the new report item to be added
          * @returns {void}
          */
-        addReportItem(item: any): void;
+        addItem(item: any): void;
 
         /** Visually move the selected report item over its closest intersected report items.
          * @returns {void}
@@ -49538,6 +49623,11 @@ declare namespace ej {
          */
         openReport(): void;
 
+        /** This method opens the report using raw report data.
+         * @returns {void}
+         */
+        openReportDefinition(): void;
+
         /** Opens the client browse dialog to browse the report.
          * @returns {void}
          */
@@ -49579,12 +49669,17 @@ declare namespace ej {
          * @param {string} Name of the report item to be removed from report
          * @returns {void}
          */
-        removeReportItem(itemName: string): void;
+        removeItem(itemName: string): void;
 
         /** This method saves the report into the server.
          * @returns {void}
          */
         saveReport(): void;
+
+        /** This method returns the report in JSON or XML format.
+         * @returns {void}
+         */
+        saveReportDefinition(): void;
 
         /** Opens the report designer browse dialog to save the report into server.
          * @returns {void}
@@ -49596,11 +49691,11 @@ declare namespace ej {
          */
         saveToDevice(): void;
 
-        /** Update the selection to report item at runtime.
-         * @param {string} Name of the report item.
+        /** Update the selection to report items at runtime.
+         * @param {any[]} Name of the report items as string array.
          * @returns {void}
          */
-        selectReportItem(itemName: string): void;
+        selectItems(itemNames: any[]): void;
 
         /** Visually move the selected report item behind its closest intersected report item.
          * @returns {void}
@@ -49656,7 +49751,6 @@ declare namespace ej {
         export interface Model {
 
             /** Shows or hides the items of configuration pane in ReportDesigner control.
-             * @Default {ej.ReportDesigner.ConfigureItems.All}
              */
             configurePaneSettings?: ConfigurePaneSettings;
 
@@ -49664,6 +49758,11 @@ declare namespace ej {
              * @Default {en-US}
              */
             locale?: string;
+
+            /** Shows or hides the create, edit, and delete options in data source and dataset panels.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            permissionSettings?: PermissionSettings;
 
             /** Gets or sets the list of custom data extension items.
              * @Default {[]}
@@ -49679,6 +49778,11 @@ declare namespace ej {
              * @Default {null}
              */
             reportPath?: string;
+
+            /** Gets or sets the report type.
+             * @Default {ej.ReportDesigner.ReportType.RDL}
+             */
+            reportType?: string;
 
             /** Gets or sets the reports server URL.
              * @Default {null}
@@ -49724,9 +49828,17 @@ declare namespace ej {
              */
             destroy?(e: DestroyEventArgs): void;
 
+            /** This event will be triggered while initiating new data click action. You can suppress the new data creation panel and perform custom actions.
+             */
+            newDataClick?(e: NewDataClickEventArgs): void;
+
             /** This event will be triggered while clicking open menu items.
              */
             openReportClick?(e: OpenReportClickEventArgs): void;
+
+            /** This event will be triggered while previewing the report in RDLC mode. It can be used to suppress the preview data dialog in RDLC mode.
+             */
+            previewReport?(e: PreviewReportEventArgs): void;
 
             /** This event will be triggered when the report is modified.
              */
@@ -49751,10 +49863,6 @@ declare namespace ej {
             /** This event will be triggered on rendering the Report Designer toolbar.
              */
             toolbarRendering?(e: ToolbarRenderingEventArgs): void;
-
-            /** This event will be triggered on locale change action in report designer.
-             */
-            extensionLocaleChanged?(e: ExtensionLocaleChangedEventArgs): void;
         }
 
         export interface AjaxBeforeLoadEventArgs {
@@ -49792,6 +49900,9 @@ declare namespace ej {
         export interface DestroyEventArgs {
         }
 
+        export interface NewDataClickEventArgs {
+        }
+
         export interface OpenReportClickEventArgs {
 
             /** DOM of the clicked target.
@@ -49801,6 +49912,21 @@ declare namespace ej {
             /** Name of selected item.
              */
             select?: string;
+        }
+
+        export interface PreviewReportEventArgs {
+
+            /** Contains the instance of Report Viewer component.
+             */
+            reportViewer?: any;
+
+            /** Specifies whether to show or hide preview data dialog.
+             */
+            cancelDataInputDialog?: boolean;
+
+            /** Contains the required data to load the report.
+             */
+            dataSets?: any[];
         }
 
         export interface ReportModifiedEventArgs {
@@ -49861,15 +49987,25 @@ declare namespace ej {
         export interface ToolbarRenderingEventArgs {
         }
 
-        export interface ExtensionLocaleChangedEventArgs {
-        }
-
         export interface ConfigurePaneSettings {
+
+            /** Shows or hides the grouped items in the configuration pane with the help of enum ej.ReportDesigner.ConfigureItems
+             * @Default {ej.ReportDesigner.ConfigureItems.All}
+             */
+            items?: ej.ReportDesigner.ConfigureItems|string;
 
             /** Shows or hides the configuration pane in ReportDesigner control.
              * @Default {true}
              */
             showConfigurePane?: boolean;
+        }
+
+        export interface PermissionSettings {
+
+            /** Shows or hides the create, edit and delete options in data source pane with the help of ej.ReportDesigner.Permission enum.
+             * @Default {ej.ReportDesigner.Permission.All}
+             */
+            dataSource?: ej.ReportDesigner.Permission|string;
         }
 
         export interface ReportDataExtension {
@@ -49946,6 +50082,41 @@ declare namespace ej {
             templateId?: string;
         }
 
+        enum ConfigureItems {
+
+            ///Shows or hides the properties panel in configuration pane.
+            Property,
+
+            ///Shows or hides the data panel in configuration pane.
+            Data,
+
+            ///Shows or hides the parameter panel in configuration pane.
+            Parameter,
+
+            ///Shows or hides the image manager panel in configuration pane.
+            ImageManager,
+
+            ///Shows all the configuration pane items.
+            All
+        }
+
+
+        enum Permission {
+
+            ///Shows or hides create option in data source pane.
+            Create,
+
+            ///Shows or hides the edit option in data source pane.
+            Edit,
+
+            ///Shows or hides the delete option in data source pane.
+            Delete,
+
+            ///Shows all the options in data source pane.
+            All
+        }
+
+
         enum ToolbarItems {
 
             ///Creates a new, blank report.
@@ -49978,32 +50149,32 @@ declare namespace ej {
             ///Used to "zoom in" to get a close-up view of a report or "zoom out" to see more of the page at a reduced size.
             Zoom,
 
-            ///Previews the active report in report viewer.
-            Preview,
+            ///Used to change the layout order of report items in design area surface.
+            Order,
 
-            ///Enables/Disables the gridline in active report.
-            GridLine,
+            ///Aligns all report items to the center position of design surface in horizontal or vertical direction.
+            Center,
 
-            ///Enables header area in the report.
-            Header,
+            ///Aligns the selected report item in the design surface.
+            Alignment,
 
-            ///Enables footer area in the report.
-            Footer,
+            ///Distributes selected report items at equal intervals from each other.
+            Distribute,
 
-            ///Visually move the selected report item behind its closest intersected report item.
-            SendBackward,
+            ///Equally size the selected report items in the design surface.
+            Sizing,
 
-            ///Visually move the selected report item over its closest intersected report items.
-            BringForward,
-
-            ///Visually move the selected report item behind all other intersected report items.
-            SendToBack,
-
-            ///Visually move the selected report item over all other intersected report items.
-            BringToFront,
+            ///Snaps the selected report items to the closest gridline.
+            AlignGrid,
 
             ///Switches from preview to design view of the report.
             EditDesign,
+
+            ///Contains options to show or hide `Header`, `Footer`, `Grid Lines`, `Snap To Shape` in the report design.
+            View,
+
+            ///Previews the active report in report viewer.
+            Preview,
 
             ///Shows all the toolbar items.
             All

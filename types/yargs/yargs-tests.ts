@@ -307,6 +307,19 @@ function Argv$command() {
         )
         .help()
         .argv;
+
+    yargs
+        .command('get <source> [proxy]', 'make a get HTTP request', yargs => {
+            yargs.positional('source', {
+                describe: 'URL to fetch content from',
+                type: 'string',
+                default: 'http://www.google.com'
+            }).positional('proxy', {
+                describe: 'optional proxy URL'
+            });
+        })
+        .help()
+        .argv;
 }
 
 function Argv$commandModule() {
@@ -1056,10 +1069,10 @@ function Argv$inferArrayOptionTypes() {
     // $ExpectType string[] | undefined
     yargs.option("a", { normalize: true, type: "array" }).argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToArray<string | undefined>
     yargs.string("a").array("a").argv.a;
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[] | undefined || ToString<(string | number)[] | undefined>
     yargs.array("a").string("a").argv.a;
 
     // $ExpectType string[]

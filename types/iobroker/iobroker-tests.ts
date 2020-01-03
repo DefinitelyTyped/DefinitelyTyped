@@ -191,6 +191,22 @@ adapter.getForeignObjectAsync("obj.id").then(obj => obj && obj._id.toLowerCase()
 adapter.getForeignObjects("*", (err, objs) => objs["foo"]._id.toLowerCase());
 adapter.getForeignObjectsAsync("*").then(objs => objs["foo"]._id.toLowerCase());
 
+adapter.getObjectView("system", "admin", {startkey: "foo", endkey: "bar"}, (err, docs) => {
+    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+});
+adapter.getObjectViewAsync("system", "admin", {startkey: "foo", endkey: "bar"}).then(docs => {
+    docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
+});
+
+// TODO: https://github.com/ioBroker/ioBroker.js-controller/issues/574
+// {} should be left out or undefined
+adapter.getObjectList({startkey: "foo", endkey: "bar"}, {}, (err, result) => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
+adapter.getObjectListAsync({startkey: "foo", endkey: "bar"}, {}).then(result => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
+
 adapter.subscribeObjects("*");
 adapter.subscribeStates("*");
 adapter.subscribeForeignObjects("*");
@@ -276,10 +292,15 @@ adapter.unsubscribeForeignObjectsAsync("*").catch(handleError);
 
 adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {});
 
-adapter.terminate();
-adapter.terminate(1);
-adapter.terminate("Reason");
-adapter.terminate("Reason", 4);
+(() => adapter.terminate())();
+(() => adapter.terminate(1))();
+(() => adapter.terminate("Reason"))();
+(() => adapter.terminate("Reason", 4))();
+
+// $ExpectError
+adapter.states.getStates();
+// $ExpectError
+adapter.objects.getObjectView();
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {

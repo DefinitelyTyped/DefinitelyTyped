@@ -1,4 +1,4 @@
-// Type definitions for auth0 2.9.4
+// Type definitions for auth0 2.20.0
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Ian Howe <https://github.com/ianhowe76>
@@ -6,6 +6,7 @@
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
+//                 Johannes Schneider <https://github.com/neshanjo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -236,7 +237,7 @@ export interface Client {
     // The algorithm used to sign the JsonWebToken
     alg?: 'HS256' | 'RS256';
   };
-  /** 
+  /**
    * A set of grant types that the client is authorized to use
    */
   grant_types?: Grant[];
@@ -555,6 +556,12 @@ export interface PasswordGrantOptions {
   username: string;
   password: string;
   realm?: string;
+  scope?: string;
+}
+
+export interface AuthorizationCodeGrantOptions {
+  code: string;
+  redirect_uri: string;
 }
 
 export interface ObjectWithId {
@@ -775,6 +782,20 @@ export interface GetClientsOptions {
     is_first_party?: boolean;
     app_type?: ClientAppType[];
 }
+
+export interface ObjectWithIdentifier {
+    identifier: string;
+}
+
+export interface BlockedForEntry {
+    identifier: string;
+    ip?: string;
+}
+
+export interface UserBlocks {
+    blocked_for: BlockedForEntry[];
+}
+
 
 export class AuthenticationClient {
 
@@ -1011,6 +1032,16 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   assignPermissionsToUser(params: ObjectWithId, data: PermissionsData): Promise<void>;
   assignPermissionsToUser(params: ObjectWithId, data: PermissionsData, cb: (err: Error) => void): void;
 
+  // User Blocks
+  getUserBlocks(params: ObjectWithId): Promise<UserBlocks>;
+  getUserBlocks(params: ObjectWithId, cb: (err: Error, response: UserBlocks) => void): void;
+  getUserBlocksByIdentifier(params: ObjectWithIdentifier): Promise<UserBlocks>;
+  getUserBlocksByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: UserBlocks) => void): void;
+  unblockUser(params: ObjectWithId): Promise<string>;
+  unblockUser(params: ObjectWithId, cb: (err: Error, response: string) => void): void;
+  unblockUserByIdentifier(params: ObjectWithIdentifier): Promise<string>;
+  unblockUserByIdentifier(params: ObjectWithIdentifier, cb: (err: Error, response: string) => void): void;
+
   // Tokens
   getBlacklistedTokens(): Promise<any>;
   getBlacklistedTokens(cb?: (err: Error, data: any) => void): void;
@@ -1135,6 +1166,9 @@ export class OAuthAuthenticator {
 
   socialSignIn(data: SocialSignInOptions): Promise<SignInToken>;
   socialSignIn(data: SocialSignInOptions, cb: (err: Error, data: SignInToken) => void): void;
+
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions): Promise<SignInToken>;
+  authorizationCodeGrant(data: AuthorizationCodeGrantOptions, cb: (err: Error, data: SignInToken) => void): void;
 }
 
 export class PasswordlessAuthenticator {

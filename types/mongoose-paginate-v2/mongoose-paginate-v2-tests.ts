@@ -43,6 +43,9 @@ router.get('/users.json', (req: Request, res: Response) => {
     options.sort = { username: (descending ? -1 : 1) };
     options.collation = { locale: 'en_US', strength: 1 };
     options.populate = '';
+    options.populate = {
+      path: '',
+    };
     options.lean = true;
     options.leanWithId = false;
     options.offset = 0;

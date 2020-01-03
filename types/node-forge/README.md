@@ -1,7 +1,7 @@
 # DefinitelyTyped for node-forge
 
 ## Current node-forge Version
-`v0.7.6`
+`v0.9.1`
 ## Usage
 
 ```bash

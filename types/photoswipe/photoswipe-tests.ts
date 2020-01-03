@@ -1,5 +1,5 @@
-import PhotoSwipeUI_Default = require('./dist/photoswipe-ui-default/index');
-import PhotoSwipe = require('./index');
+import PhotoSwipeUI_Default = require('photoswipe/dist/photoswipe-ui-default');
+import PhotoSwipe = require('photoswipe');
 
 function test_defaultUI() {
     var items: PhotoSwipeUI_Default.Item[] = [

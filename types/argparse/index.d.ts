@@ -4,6 +4,7 @@
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kannan Goundan <https://github.com/cakoose>
+//                 Halvor Holsten Strand <https://github.com/ondkloss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -108,5 +109,13 @@ export interface ArgumentOptions {
     choices?: string | string[];
     required?: boolean;
     help?: string;
-    metavar?: string;
+    metavar?: string | string[];
+}
+
+export namespace Const {
+    const SUPPRESS: string;
+    const OPTIONAL: string;
+    const ZERO_OR_MORE: string;
+    const ONE_OR_MORE: string;
+    const REMAINDER: string;
 }

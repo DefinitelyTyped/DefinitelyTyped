@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-    ViewState,
     InteractiveMap,
     CanvasOverlay,
     SVGOverlay,
@@ -10,22 +9,41 @@ import {
     CanvasRedrawOptions,
     HTMLRedrawOptions,
     SVGRedrawOptions,
-    StaticMap
+    StaticMap,
+    ViewportProps,
+    Source,
+    Layer,
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
+import { FeatureCollection } from "geojson";
 
 interface State {
-    viewState: ViewState;
+    viewport: ViewportProps;
 }
+
+const geojson: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [
+      {type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: [-122.4, 37.8]}}
+    ]
+  };
 
 class MyMap extends React.Component<{}, State> {
     readonly state: State = {
-        viewState: {
+        viewport: {
+            width: 400,
+            height: 400,
             bearing: 0,
             latitude: 0,
             longitude: 0,
             zoom: 3,
-        }
+            pitch: 0,
+            altitude: 1.5,
+            maxZoom: 20,
+            minZoom: 0,
+            maxPitch: 60,
+            minPitch: 0,
+        },
     };
     private map: MapboxGL.Map;
 
@@ -33,11 +51,11 @@ class MyMap extends React.Component<{}, State> {
         return (
             <div>
                 <InteractiveMap
-                    {...this.state.viewState}
+                    {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
-                    height={400}
-                    width={400}
                     ref={this.setRefInteractive}
+                    onViewportChange={viewport => this.setState({ viewport })}
+                    onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
                     <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
@@ -100,9 +118,16 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
+
+                    <Source type="geojson" data={geojson}>
+                        <Layer type="point" paint={{
+                                                    'circle-radius': 10,
+                                                    'circle-color': '#007cbf'
+                                                    }}></Layer>
+                    </Source>
                 </InteractiveMap>
                 <StaticMap
-                    {...this.state.viewState}
+                    {...this.state.viewport}
                     mapboxApiAccessToken="pk.test"
                     height={400}
                     width={400}

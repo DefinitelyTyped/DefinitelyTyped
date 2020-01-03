@@ -10,6 +10,7 @@
 //                 Saad Tazi <https://github.com/saadtazi>
 //                 Agustin N. R. Ramirez <https://github.com/agustin107>
 //                 Chancellor Clark <https://github.com/chanceaclark>
+//                 Benoît Sepe <https://github.com/ogdentrod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -34,6 +35,7 @@ declare module 'react-jsonschema-form' {
         showErrorList?: boolean;
         ErrorList?: React.StatelessComponent<ErrorListProps>;
         validate?: (formData: T, errors: FormValidation) => FormValidation;
+        onBlur?: (id: string, value: boolean | number | string | null) => void;
         onChange?: (e: IChangeEvent<T>, es?: ErrorSchema) => any;
         onError?: (e: any) => any;
         onSubmit?: (e: ISubmitEvent<T>) => any;
@@ -44,6 +46,7 @@ declare module 'react-jsonschema-form' {
         safeRenderCompletion?: boolean;
         transformErrors?: (errors: AjvError[]) => AjvError[];
         idPrefix?: string;
+        additionalMetaSchemas?: ReadonlyArray<object>;
 
         // HTML Attributes
         id?: string;
@@ -256,16 +259,19 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
     import { JSONSchema6 } from 'json-schema';
     import { FieldProps, UiSchema, IdSchema, FormValidation } from 'react-jsonschema-form';
 
-    export interface SchemaFieldProps<T = any> {
-      schema: JSONSchema6;
-      uiSchema: UiSchema;
-      idSchema: IdSchema;
-      formData: T;
-      errorSchema: FormValidation;
-      registry: FieldProps['registry'];
-    }
+    export type SchemaFieldProps<T = any> = Pick<
+      FieldProps<T>,
+      | 'schema'
+      | 'uiSchema'
+      | 'idSchema'
+      | 'formData'
+      | 'errorSchema'
+      | 'registry'
+    >;
 
-    export class SchemaField<T> extends React.Component<SchemaFieldProps<T>> {}
+    export default class SchemaField extends React.Component<
+      SchemaFieldProps
+    > {}
 }
 
 declare module 'react-jsonschema-form/lib/utils' {

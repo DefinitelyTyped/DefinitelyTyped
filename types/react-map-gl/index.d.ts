@@ -1,10 +1,15 @@
-// Type definitions for react-map-gl 5.0
+// Type definitions for react-map-gl 5.1
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
+//                 Otto Urpelainen <https://github.com/oturpe>
+//                 Arman Safikhani <https://github.com/Arman92>
+//                 William Chiu <https://github.com/chiuhow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
+
+/// <reference lib='dom' />
 
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
@@ -80,18 +85,24 @@ export class StaticMap extends React.PureComponent<StaticMapProps> {
 }
 
 export interface ExtraState {
-    isDragging: boolean;
-    isHovering: boolean;
+    inTransition?: boolean;
+    isDragging?: boolean;
+    isHovering?: boolean;
+    isPanning?: boolean;
+    isRotating?: boolean;
+    isZooming?: boolean;
 }
 
 export interface PositionInput {
     pos: [number, number];
 }
 
-export type ViewportChangeHandler = (viewState: ViewState) => void;
+export type ViewportChangeHandler = (viewState: ViewportProps) => void;
+
+export type ContextViewportChangeHandler = (viewState: ViewportProps, interactionState: ExtraState, oldViewState: ViewportProps) => void;
 
 export interface MapControllerOptions {
-    onViewportChange?: ViewportChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onStateChange?: (state: MapState) => void;
     eventManager?: any;
     isInteractive: boolean;
@@ -117,7 +128,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -206,23 +217,40 @@ export class LinearInterpolator extends TransitionInterpolator {
     constructor(transitionProps?: string[]);
 }
 
-export class FlyToInterpolator extends TransitionInterpolator {}
+export interface FlyToInterpolatorProps {
+    curve?: number;
+    speed?: number;
+    screenSpeed?: number;
+    maxDuraiton?: number;
+}
+
+export class FlyToInterpolator extends TransitionInterpolator {
+    constructor(props?: FlyToInterpolatorProps);
+}
 
 export interface ViewStateChangeInfo {
-    viewState: ViewState;
+    viewState: ViewportProps;
+}
+
+export interface ContextViewStateChangeInfo {
+    viewState: ViewportProps;
+    interactionState: ExtraState;
+    newViewState: ViewportProps;
 }
 
 export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
+
+export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -272,8 +300,8 @@ export interface MapContextProps {
     viewport?: WebMercatorViewport;
     map?: MapboxGL.Map;
     mapContainer: HTMLElement | null;
-    onViewStateChange?: ViewStateChangeHandler;
-    onViewportChange?: ViewportChangeHandler;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     isDragging: boolean;
     eventManager?: EventManager;
 }
@@ -396,3 +424,47 @@ export interface SVGOverlayProps extends BaseControlProps {
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}
+
+export interface SourceProps {
+    id?: string;
+    type: string;
+    url?: string;
+    tiles?: string[];
+    tileSize?: number;
+    bounds?: number[];
+    schema?: 'xyz'|'tms';
+    minzoom?: number;
+    maxzoon?: number;
+    attribution?: string;
+    encoding?: 'terrarium' |'mapbox';
+    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+    buffer?: number;
+    tolerance?: number;
+    cluster?: boolean;
+    clusterRadius?: number;
+    clusterProperties?: object;
+    clusterMaxZoom?: number;
+    lineMetrics?: boolean;
+    generateId?: boolean;
+    coordinates?: number[][];
+    urls?: string[];
+    children?: React.ReactNode;
+}
+
+export class Source extends React.PureComponent<SourceProps> {}
+
+export interface LayerProps {
+    id?: string;
+    type: string;
+    source?: string;
+    beforeId?: string;
+    layout?: MapboxGL.AnyLayout;
+    paint: MapboxGL.BackgroundPaint | MapboxGL.FillPaint | MapboxGL.FillExtrusionPaint |
+           MapboxGL.LinePaint | MapboxGL.SymbolPaint | MapboxGL.RasterPaint | MapboxGL.CirclePaint |
+           MapboxGL.HeatmapPaint | MapboxGL.HillshadePaint;
+    filter?: any[];
+    minzoom?: number;
+    maxzoom?: number;
+}
+
+export class Layer extends React.PureComponent<LayerProps> {}

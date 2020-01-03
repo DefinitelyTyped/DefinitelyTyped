@@ -62,6 +62,15 @@ let _algoliaSecuredApiOptions: SecuredApiOptions = {
     userToken: '',
 };
 
+let _algoliaSecuredApiOptionsAdvanced: SecuredApiOptions = {
+  filters: '',
+  validUntil: 0,
+  restrictIndices: ['', ''],
+  userToken: '',
+  attributesToRetrieve: ['foo', 'bar'],
+  restrictSearchableAttributes: [''],
+};
+
 let _algoliaIndexSettings: IndexSettings = {
     attributesToIndex: [''],
     attributesForFaceting: [''],

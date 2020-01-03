@@ -1,8 +1,9 @@
-// Type definitions for prettier 1.18
+// Type definitions for prettier 1.19
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
-//                 Florian Keller <https://github.com/ffflorian>
+//                 Florian Keller <https://github.com/ffflorian>,
+//                 Sosuke Suzuki <https://github.com/sosukesuzuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -129,6 +130,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Change when properties in objects are quoted.
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     */
+    vueIndentScriptAndStyle: boolean;
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -257,6 +262,22 @@ export namespace resolveConfig {
 }
 
 /**
+ * `resolveConfigFile` can be used to find the path of the Prettier configuration file,
+ * that will be used when resolving the config (i.e. when calling `resolveConfig`).
+ *
+ * A promise is returned which will resolve to:
+ *
+ * - The path of the configuration file.
+ * - `null`, if no file was found.
+ *
+ * The promise will be rejected if there was an error parsing the configuration file.
+ */
+export function resolveConfigFile(filePath?: string): Promise<null | string>;
+export namespace resolveConfigFile {
+    function sync(filePath?: string): null | string;
+}
+
+/**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
  * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
@@ -327,6 +348,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {

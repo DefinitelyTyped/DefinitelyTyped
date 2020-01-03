@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.3
+// Type definitions for react-stripe-elements 6.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -8,6 +8,8 @@
 //                 Piotr Dabrowski <https://github.com/yhnavein>
 //                 Victor Irzak <https://github.com/virzak>
 //                 Alex Price <https://github.com/remotealex>
+//                 Maciej Dabek <https://github.com/bombek92>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -48,9 +50,15 @@ export namespace ReactStripeElements {
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
             data?: stripe.CreatePaymentMethodOptions,
         ): Promise<stripe.PaymentMethodResponse>;
+        /**
+         * Use `stripe.handleCardAction` in the Payment Intents API manual confirmation flow
+         * to handle a PaymentIntent with the requires_action status.
+         * It will throw an error if the PaymentIntent has a different status.
+         */
+        handleCardAction(clientSecret: string): Promise<stripe.PaymentIntentResponse>;
         handleCardPayment(
             clientSecret: string,
-            options?: stripe.HandleCardPaymentOptions,
+            options?: stripe.HandleCardPaymentWithoutElementsOptions,
         ): Promise<stripe.PaymentIntentResponse>;
         handleCardSetup(
             clientSecret: string,
@@ -63,7 +71,8 @@ export namespace ReactStripeElements {
     }
 
     interface InjectedStripeProps {
-        stripe?: StripeProps;
+        stripe: StripeProps | null;
+        elements: stripe.elements.Elements | null;
     }
 
     interface ElementProps extends ElementsOptions {
@@ -80,6 +89,10 @@ export namespace ReactStripeElements {
         onFocus?(event: ElementChangeResponse): void;
 
         onReady?(el: HTMLStripeElement): void;
+    }
+
+    interface PaymentRequestButtonElementProps extends ElementProps {
+        onClick?(event: any): void;
     }
 }
 
@@ -105,7 +118,7 @@ export class CardCVCElement extends CardCvcElement {}
 
 export class PostalCodeElement extends React.Component<ReactStripeElements.ElementProps> {}
 
-export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.ElementProps> {}
+export class PaymentRequestButtonElement extends React.Component<ReactStripeElements.PaymentRequestButtonElementProps> {}
 
 export class IbanElement extends React.Component<ReactStripeElements.ElementProps> {}
 

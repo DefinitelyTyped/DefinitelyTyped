@@ -1869,7 +1869,7 @@ declare namespace SP {
         manageAlerts,
         /** Create e-mail alerts. */
         createAlerts,
-        /** Allows a user to change his or her user information, such as adding a picture. */
+        /** Allows a user to change their user information, such as adding a picture. */
         editMyUserInfo,
         /** Enumerate permissions on the Web site, list, folder, document, or list item. */
         enumeratePermissions,

@@ -139,6 +139,8 @@ class WrappedComponent extends React.Component<ComponentProps & InjectedStripePr
     }
 
     onSubmit = () => {
+        const elements = this.props.elements;
+
         this.props
             .stripe!.createToken({
                 name: '',
@@ -270,6 +272,12 @@ class CreatePaymentMethod extends React.Component<InjectedStripeProps> {
 }
 
 class HandleCardPayment extends React.Component<InjectedStripeProps> {
+    testHandleCardAction = () => {
+        this.props
+            .stripe!.handleCardAction('{PAYMENT_INTENT_CLIENT_SECRET}')
+            .then((response) => response.paymentIntent);
+    }
+
     testHandleCardPayment = () => {
         this.props
             .stripe!.handleCardPayment('clientSecret')

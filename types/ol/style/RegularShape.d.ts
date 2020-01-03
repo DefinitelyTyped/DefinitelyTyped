@@ -32,7 +32,6 @@ export default class RegularShape extends ImageStyle {
     protected radius_: number;
     protected render_(atlasManager: AtlasManager | undefined): void;
     clone(): RegularShape;
-    clone(): ImageStyle;
     getAngle(): number;
     getChecksum(): string;
     getFill(): Fill;

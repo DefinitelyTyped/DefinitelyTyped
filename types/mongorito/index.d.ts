@@ -2,7 +2,7 @@
 // Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import { Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
 

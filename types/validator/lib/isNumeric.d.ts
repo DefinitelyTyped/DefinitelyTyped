@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isNumeric: typeof validator.isNumeric;
-export = isNumeric;
+import validator from '../';
+export default validator.isNumeric;

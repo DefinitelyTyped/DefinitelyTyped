@@ -1,7 +1,7 @@
 import * as React from "react";
 import { UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, TransitionStatus } from "react-transition-group/Transition";
 import { modes } from "react-transition-group/SwitchTransition";
-import { Transition, CSSTransition, TransitionGroup, SwitchTransition } from "react-transition-group";
+import { Transition, CSSTransition, TransitionGroup, SwitchTransition, config } from "react-transition-group";
 
 interface ContainerProps {
     theme: string;
@@ -213,3 +213,5 @@ const Test: React.StatelessComponent = () => {
         </>
     );
 };
+
+config.disabled = false;
