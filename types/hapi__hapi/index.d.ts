@@ -3968,7 +3968,7 @@ export class Server {
 /**
  * Supporting v17 introduced new syntax
  */
-export function server(opts?: ServerOptions): Server
+export function server(opts?: ServerOptions): Server;
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
