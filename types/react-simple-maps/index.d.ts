@@ -1,176 +1,217 @@
-// Type definitions for react-simple-maps 0.12
+// Type definitions for react-simple-maps 1.0.0-beta.0
 // Project: https://github.com/zcreativelabs/react-simple-maps#readme
 // Definitions by: Novikov Mihail <https://github.com/thepocp>
 //                 Andrej Mihajlov <https://github.com/pronebird>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import { GeoPath, GeoProjection } from 'd3-geo';
+import { Feature } from 'geojson';
 import * as React from 'react';
-import { GeoProjection } from 'd3-geo';
 
 export type Point = [number, number];
 
-export interface MarkerType {
-    coordinates: Point;
-}
-
-export interface Line {
-    coordinates: {
-        start: Point;
-        end: Point;
-    };
-}
-
 export interface ProjectionConfig {
-    scale: number;
-    xOffset: number;
-    yOffset: number;
-    rotation: [number, number, number];
-    precision: number;
+    scale?: number;
+    xOffset?: number;
+    yOffset?: number;
+    rotate?: [number, number, number];
+    precision?: number;
 }
-
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
-export interface ComposableMapProps {
+export interface ComposableMapProps extends React.SVGAttributes<SVGSVGElement> {
+    /**
+     * @default 800
+     */
     width?: number;
+    /**
+     * @default 600
+     */
     height?: number;
+    /**
+     * @default "geoEqualEarth"
+     */
     projection?: string | ProjectionFunction;
-    projectionConfig?: Partial<ProjectionConfig>;
-    style?: React.CSSProperties;
-    defs?: SVGDefsElement;
-    className?: string;
-    showCenter?: boolean;
-    preserveAspectRatio?: string;
-    viewBox?: string;
+    /**
+     * @default {}
+     */
+    projectionConfig?: ProjectionConfig;
 }
 
-export interface ZoomableGlobeProps {
+export interface Position {
+    x: number;
+    y: number;
+    last: Point;
+    zoom: number;
+    dragging: boolean;
+    zooming: boolean;
+}
+
+export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
+    /**
+     * @default [0, 0]
+     */
     center?: Point;
+    /**
+     * @default 1
+     */
     zoom?: number;
+    /**
+     * @default 1
+     */
+    minZoom?: number;
+    /**
+     * @default 5
+     */
+    maxZoom?: number;
+    /**
+     * @default 0.025
+     */
+    zoomSensitivity?: number;
+    /**
+     * @default false
+     */
     disablePanning?: boolean;
-    style?: React.CSSProperties;
-    width?: number;
-    height?: number;
-    onMoveStart?: (currentCenter: Point) => void;
-    onMoveEnd?: (newCenter: Point) => void;
-    sensitivity?: number;
+    /**
+     * @default false
+     */
+    disableZooming?: boolean;
+    onMoveStart?: (event: any, position: Position) => void;
+    onMoveEnd?: (event: any, position: Position) => void;
+    onZoomStart?: (event: any, position: Position) => void;
+    onZoomEnd?: (event: any, position: Position) => void;
 }
 
-export interface ZoomableGroupProps {
-    center?: Point;
-    zoom?: number;
-    disablePanning?: boolean;
-    style?: React.CSSProperties;
-    width?: number;
-    height?: number;
-    onMoveStart?: (currentCenter: Point) => void;
-    onMoveEnd?: (newCenter: Point) => void;
-    backdrop?: {
-        x: Point;
-        y: Point;
-    };
+interface GeographiesChildrenArgument {
+    geographies: object[];
+    path: GeoPath;
+    projection: GeoProjection;
 }
 
-export interface GeographiesProps {
-    disableOptimization?: boolean;
-    geography?: string | { [key: string]: any } | string[];
-    children?: (geographies: object[], projection: GeoProjection) => void;
+export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
+    parseGeographies?: (features: Array<Feature<any, any>>) => Array<Feature<any, any>>;
+    geography?: string | Record<string, any> | string[];
+    children?: (data: GeographiesChildrenArgument) => void;
 }
 
-export interface GeographyProps {
-    cacheId?: number | string | null;
-    precision?: number;
-    round?: boolean;
+export interface GeographyProps extends React.SVGProps<SVGPathElement> {
     geography?: object;
-    projection?: GeoProjection;
-    tabable?: boolean;
     style?: {
         default?: React.CSSProperties;
         hover?: React.CSSProperties;
         pressed?: React.CSSProperties;
     };
-    onClick?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseEnter?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseMove?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseLeave?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseDown?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseUp?: (geography: object, evt: React.MouseEvent<SVGPathElement>) => void;
-    onFocus?: (geography: object, evt: React.FocusEvent<SVGPathElement>) => void;
-    onBlur?: (geography: object, evt: React.FocusEvent<SVGPathElement>) => void;
+    onMouseEnter?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseLeave?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseDown?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseUp?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onFocus?: (event: React.FocusEvent<SVGPathElement>) => void;
+    onBlur?: (event: React.FocusEvent<SVGPathElement>) => void;
 }
 
-export interface MarkerProps {
-    marker?: MarkerType;
-    tabable?: boolean;
+export interface MarkerProps extends React.SVGProps<SVGGElement> {
+    coordinates?: Point;
     style?: {
         default?: React.CSSProperties;
         hover?: React.CSSProperties;
         pressed?: React.CSSProperties;
     };
-    preserveMarkerAspect?: boolean;
-    onClick?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onMouseEnter?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onMouseMove?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onMouseLeave?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onMouseDown?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onMouseUp?: (marker: MarkerType, evt: React.MouseEvent<SVGGElement>) => void;
-    onFocus?: (marker: MarkerType, evt: React.FocusEvent<SVGGElement>) => void;
-    onBlur?: (marker: MarkerType, evt: React.FocusEvent<SVGGElement>) => void;
+    onMouseEnter?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseLeave?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseDown?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseUp?: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onFocus?: (event: React.FocusEvent<SVGPathElement>) => void;
+    onBlur?: (event: React.FocusEvent<SVGPathElement>) => void;
 }
 
-export interface AnnotationProps {
+export interface AnnotationProps extends React.SVGProps<SVGGElement> {
     subject?: Point;
-    dx?: number;
-    dy?: number;
-    zoom?: number;
-    stroke?: string;
-    strokeWidth?: number;
-    style?: React.CSSProperties;
-    markerEnd?: string;
+    connectorProps: React.SVGProps<SVGPathElement>;
+    /**
+     * @default 30
+     */
+    dx?: number | string;
+    /**
+     * @default 30
+     */
+    dy?: number | string;
+    /**
+     * @default 0
+     */
     curve?: number;
 }
 
-export interface GraticuleProps {
+export interface GraticuleProps extends React.SVGProps<SVGPathElement> {
+    /**
+     * @default [10, 10]
+     */
     step?: Point;
-    round?: boolean;
-    precision?: number;
-    outline?: boolean;
+    /**
+     * @default "currentcolor"
+     */
     stroke?: string;
+    /**
+     * @default "transparent"
+     */
     fill?: string;
-    style?: React.CSSProperties;
-    disableOptimization?: boolean;
-    Globe?: boolean;
 }
 
-export interface LineProps {
-    line?: Line;
-    tabable?: boolean;
-    style?: {
-        default?: React.CSSProperties;
-        hover?: React.CSSProperties;
-        pressed?: React.CSSProperties;
-    };
-    preserveMarkerAspect?: boolean;
-    buildPath?: (start: Point, end: Point, line: Line) => string;
-    onClick?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseEnter?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseMove?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseLeave?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseDown?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onMouseUp?: (line: Line, evt: React.MouseEvent<SVGPathElement>) => void;
-    onFocus?: (line: Line, evt: React.FocusEvent<SVGPathElement>) => void;
-    onBlur?: (line: Line, evt: React.FocusEvent<SVGPathElement>) => void;
+export interface LineProps
+    extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'from' | 'to'>> {
+    /**
+     * @default [0, 0]
+     */
+    from?: Point;
+    /**
+     * @default [0, 0]
+     */
+    to?: Point;
+    /**
+     * @default [[0, 0], [0, 0]]
+     */
+    coordinates?: Point[];
+    /**
+     * @default "currentcolor"
+     */
+    stroke?: string;
+    /**
+     * @default 3
+     */
+    strokeWidth?: number | string;
+    /**
+     * @default "transparent"
+     */
+    fill?: string;
 }
 
-export class ComposableMap extends React.Component<ComposableMapProps> {}
-export class ZoomableGroup extends React.Component<ZoomableGroupProps> {}
-export class ZoomableGlobe extends React.Component<ZoomableGlobeProps> {}
-export class Geographies extends React.Component<GeographiesProps> {}
-export class Geography extends React.Component<GeographyProps> {}
-export class Markers extends React.Component {}
-export class Marker extends React.Component<MarkerProps> {}
-export class Annotations extends React.Component {}
-export class Annotation extends React.Component<AnnotationProps> {}
-export class Graticule extends React.Component<GraticuleProps> {}
-export class Lines extends React.Component {}
-export class Line extends React.Component<LineProps> {}
+interface SphereProps extends React.SVGProps<SVGPathElement> {
+    /**
+     * @default "rsm-sphere"
+     */
+    id: string;
+    /**
+     * @default "transparent"
+     */
+    fill: string;
+    /**
+     * @default "currentcolor"
+     */
+    stroke: string;
+    /**
+     * @default 0.5
+     */
+    strokeWidth: number;
+}
+
+declare const ComposableMap: React.FunctionComponent<ComposableMapProps>;
+declare const ZoomableGroup: React.FunctionComponent<ZoomableGroupProps>;
+declare const Geographies: React.FunctionComponent<GeographiesProps>;
+declare const Geography: React.FunctionComponent<GeographyProps>;
+declare const Marker: React.FunctionComponent<MarkerProps>;
+declare const Annotation: React.FunctionComponent<AnnotationProps>;
+declare const Graticule: React.FunctionComponent<GraticuleProps>;
+declare const Line: React.FunctionComponent<LineProps>;
+declare const Sphere: React.FunctionComponent<SphereProps>;
+
+export { ComposableMap, ZoomableGroup, Geographies, Geography, Marker, Annotation, Graticule, Line, Sphere };
