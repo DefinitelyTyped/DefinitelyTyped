@@ -1,7 +1,9 @@
 import DOMException = require('domexception/webidl2js-wrapper');
 
-declare const global: object;
 declare const any: unknown;
+const global: { [prop: string]: any; Error: ErrorConstructor } = { Error };
+
+DOMException.install(global);
 
 DOMException.create(global, []); // $ExpectType DOMException
 DOMException.create(global, ['foo']); // $ExpectType DOMException
@@ -21,3 +23,8 @@ if (DOMException.is(any)) {
 if (DOMException.isImpl(any)) {
 	any; // $ExpectType DOMExceptionImpl
 }
+
+DOMException.setup<DOMException>(Object.create(global.DOMException.prototype), global, [
+	'foo',
+	'SyntaxError',
+]);

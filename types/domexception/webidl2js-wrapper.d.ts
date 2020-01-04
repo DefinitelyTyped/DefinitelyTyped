@@ -47,13 +47,6 @@ export function createImpl(
 ): DOMExceptionImpl;
 
 /**
- * Adds `[Unforgeable]` properties to the `DOMException` instance, called by `setup()`.
- *
- * Calls `_internalSetup()` of the parent WebIDL interface, if any.
- */
-export function _internalSetup(obj: DOMException): void;
-
-/**
  * Initializes the `DOMException` instance, called by `create()`.
  *
  * Useful when manually sub-classing a non-constructable wrapper object.
