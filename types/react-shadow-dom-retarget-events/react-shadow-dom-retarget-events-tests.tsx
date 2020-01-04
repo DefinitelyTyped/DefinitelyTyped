@@ -19,4 +19,4 @@ class MyCustomElement extends HTMLElement {
     }
 }
 
-customElements.define(name, MyCustomElement);
+customElements.define(name, () => new MyCustomElement());
