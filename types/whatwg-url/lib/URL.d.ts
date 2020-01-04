@@ -1,24 +1,24 @@
-import { WebIDLConversionOptions } from '../webidl2js-wrapper';
+import { Options as WebIDLConversionOptions } from 'webidl-conversions';
 import { implementation as URLImpl } from './URL-impl';
 
 /**
  * Checks whether `obj` is a `URL` object with an implementation
  * provided by this package.
  */
-export function is(obj: any): obj is URL;
+export function is(obj: unknown): obj is URL;
 
 /**
  * Checks whether `obj` is a `URLImpl` WebIDL2JS implementation object
  * provided by this package.
  */
-export function isImpl(obj: any): obj is URLImpl;
+export function isImpl(obj: unknown): obj is URLImpl;
 
 /**
  * Converts the `URL` wrapper into a `URLImpl` object.
  *
  * @throws {TypeError} If `obj` is not a `URL` wrapper instance provided by this package.
  */
-export function convert(obj: any, options?: WebIDLConversionOptions): URLImpl;
+export function convert(obj: unknown, options?: WebIDLConversionOptions): URLImpl;
 
 /**
  * Creates a new `URL` instance.

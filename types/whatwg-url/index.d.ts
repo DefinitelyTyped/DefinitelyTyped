@@ -3,6 +3,7 @@
 // Definitions by: Alexander Marks <https://github.com/aomarks>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="node"/>
 

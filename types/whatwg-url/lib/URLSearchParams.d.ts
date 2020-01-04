@@ -1,24 +1,24 @@
-import { WebIDLConversionOptions } from '../webidl2js-wrapper';
+import { Options as WebIDLConversionOptions } from 'webidl-conversions';
 import { implementation as URLSearchParamsImpl } from './URLSearchParams-impl';
 
 /**
  * Checks whether `obj` is a `URLSearchParams` object with an implementation
  * provided by this package.
  */
-export function is(obj: any): obj is URLSearchParams;
+export function is(obj: unknown): obj is URLSearchParams;
 
 /**
  * Checks whether `obj` is a `URLSearchParamsImpl` WebIDL2JS implementation object
  * provided by this package.
  */
-export function isImpl(obj: any): obj is URLSearchParamsImpl;
+export function isImpl(obj: unknown): obj is URLSearchParamsImpl;
 
 /**
  * Converts the `URLSearchParams` wrapper into a `URLSearchParamsImpl` object.
  *
  * @throws {TypeError} If `obj` is not a `URLSearchParams` wrapper instance provided by this package.
  */
-export function convert(obj: any, options?: WebIDLConversionOptions): URLSearchParamsImpl;
+export function convert(obj: unknown, options?: WebIDLConversionOptions): URLSearchParamsImpl;
 
 /**
  * Creates a new `URLSearchParams` instance.
