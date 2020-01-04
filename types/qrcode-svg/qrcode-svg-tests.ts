@@ -15,6 +15,7 @@ assert(qrCode.options.width === 256, "Default value for width", "matches expecte
 assert(qrCode.options.height === 256, "Default value for height", "matches expected.", "does not match expected.");
 assert(qrCode.options.background === "#ffffff", "Default value for background", "matches expected.", "does not match expected.");
 assert(qrCode.options.color === "#000000", "Default value for color", "matches expected.", "does not match expected.");
+assert(qrCode.options.ecl === "M", "Default value for ecl", "matches expected.", "does not match expected");
 
 assert(Array.isArray(qrCode.qrcode.modules) &&
     qrCode.qrcode.modules.length === 0 ||
