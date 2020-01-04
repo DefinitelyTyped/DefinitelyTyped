@@ -6,12 +6,12 @@
 import * as React from 'react';
 import SignaturePad from 'signature_pad';
 
-export interface SignatureCanvasProps extends SignaturePad.SignaturePadOptions {
+export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
     canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement>;
     clearOnResize?: boolean;
 }
 
-declare class ReactSignatureCanvas extends React.Component<SignatureCanvasProps> {
+declare class ReactSignatureCanvas extends React.Component<ReactSignatureCanvasProps> {
     on: SignaturePad['on'];
 
     off: SignaturePad['off'];
