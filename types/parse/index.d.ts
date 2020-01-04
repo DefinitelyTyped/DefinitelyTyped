@@ -598,7 +598,7 @@ namespace Parse {
         count(options?: Query.CountOptions): Promise<number>;
         descending<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
         doesNotExist<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
-        doesNotMatchKeyInQuery<U extends Object, K extends keyof T['attributes'], X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
+        doesNotMatchKeyInQuery<U extends Object, K extends (keyof T['attributes'] | keyof BaseAttributes), X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;

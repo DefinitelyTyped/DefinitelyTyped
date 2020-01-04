@@ -1147,7 +1147,7 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class AnotherSubclass extends Parse.Object<{x: any}> { }
+        class AnotherSubclass extends Parse.Object<{x: number}> { }
         class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
         const query = new Parse.Query(MySubClass);
 
@@ -1219,6 +1219,10 @@ function testQuery() {
         query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
         // $ExpectError
         query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubclass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
