@@ -19,7 +19,7 @@ const queryVariables = useQuery(['todos', {param}],
     (variables) => Promise.resolve(variables.param === 'test'));
 
 queryVariables.data; // $ExpectType boolean | null
-queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType void
+queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<void>
 queryVariables.refetch({variables: {other: 'foo'}}); // $ExpectError
 
 // Query with falsey query key
