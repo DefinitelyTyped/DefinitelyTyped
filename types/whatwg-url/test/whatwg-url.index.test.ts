@@ -10,23 +10,12 @@ new whatwgUrl.URL('foo', 'http://example.com');
 const urlRecord = whatwgUrl.parseURL('http://example.com');
 
 if (urlRecord !== null) {
-    // $ExpectType URLRecord | null
-    whatwgUrl.basicURLParse('http://example.com', {url: urlRecord});
-
-    // $ExpectType string
-    whatwgUrl.serializeURL(urlRecord);
-    //
-    // $ExpectType string
-    whatwgUrl.serializeURLOrigin(urlRecord);
-    //
-    // $ExpectType void
-    whatwgUrl.setTheUsername(urlRecord, 'user');
-    //
-    // $ExpectType void
-    whatwgUrl.setThePassword(urlRecord, 'secret');
-    //
-    // $ExpectType boolean
-    whatwgUrl.cannotHaveAUsernamePasswordPort(urlRecord);
+	whatwgUrl.basicURLParse('http://example.com', { url: urlRecord }); // $ExpectType URLRecord | null
+	whatwgUrl.serializeURL(urlRecord); // $ExpectType string
+	whatwgUrl.serializeURLOrigin(urlRecord); // $ExpectType string
+	whatwgUrl.setTheUsername(urlRecord, 'user'); // $ExpectType void
+	whatwgUrl.setThePassword(urlRecord, 'secret'); // $ExpectType void
+	whatwgUrl.cannotHaveAUsernamePasswordPort(urlRecord); // $ExpectType boolean
 }
 
 // $ExpectType string
