@@ -33,9 +33,7 @@ declare class QRCode {
      * @param  opt Set the container. Defaults to `{ container: "svg" }`.
      * @return The svg string.
      */
-    svg(opt?: {
-        container: "svg" | "g" | "none"
-    }): string;
+    svg(opt?: { container: 'svg' | 'g' | 'none' }): string;
     /**
      * Writes this QRCode to a file. Requires `fs`.
      * @param  file The filename to write to
@@ -48,7 +46,7 @@ declare namespace QRCode {
     interface Options {
         /** QR Code content, the only **required** parameter. */
         content: string;
-        /** White space padding. `0` for no border. Default is `4`*/
+        /** White space padding. `0` for no border. Default is `4`. */
         padding?: number;
         /** QR Code width in pixels. Default is `256`. */
         width?: number;
@@ -59,7 +57,7 @@ declare namespace QRCode {
         /** Background - color of background, color name or hex string. Default is `#fffff`. */
         background?: string;
         /** Error correction level. Default is `"M"`. */
-        ecl?: "L" | "M" | "H" | "Q";
+        ecl?: 'L' | 'M' | 'H' | 'Q';
         /** Join modules (squares) into one shape, into the SVG path element, recommended for web and responsive use. Default is `false`. */
         join?: boolean;
         /** To create a squares as pattern, then populate the canvas. Default is `false`. */
@@ -80,7 +78,7 @@ declare namespace QRCode {
          * Useful when you need to put multiple QR Codes in a single SVG document \
          * `none`: No wrapper.
          */
-        container?: "svg" | "svg-viewbox" | "g" | "none"
+        container?: 'svg' | 'svg-viewbox' | 'g' | 'none';
     }
 
     interface Model {
