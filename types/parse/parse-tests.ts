@@ -1147,7 +1147,7 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class AnotherSubclass extends Parse.Object<{x: number}> { }
+        class AnotherSubclass extends Parse.Object<{x: any}> { }
         class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
         const query = new Parse.Query(MySubClass);
 
