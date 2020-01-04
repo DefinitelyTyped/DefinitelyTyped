@@ -8,7 +8,7 @@ const querySimple = useQuery('todos',
 querySimple.data; // $ExpectType string | null
 querySimple.error; // $ExpectType Error | null
 querySimple.isLoading; // $ExpectType boolean
-querySimple.refetch(); // $ExpectType void
+querySimple.refetch(); // $ExpectType Promise<void>
 queryPaginated.fetchMore; // $ExpectError
 queryPaginated.canFetchMore; // $ExpectError
 queryPaginated.isFetchingMore; // $ExpectError
