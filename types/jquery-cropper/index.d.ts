@@ -1,4 +1,4 @@
-// Type definitions for jquery-cropper v1.0.1
+// Type definitions for jquery-cropper v1.0.0
 // Project: https://github.com/fengyuanchen/jquery-cropper
 // Definitions by: Mustafa Salaheldin <https://github.com/mustafasalahuldin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
