@@ -1,4 +1,90 @@
-import * as semver from "semver";
+// As a node module:
+import * as semver from 'semver';
+
+semver.valid('1.2.3'); // $ExpectType string | null
+semver.valid('a.b.c'); // $ExpectType string | null
+semver.clean('  =v1.2.3   '); // $ExpectType string | null
+semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); // $ExpectType boolean
+semver.gt('1.2.3', '9.8.7'); // $ExpectType boolean
+semver.lt('1.2.3', '9.8.7'); // $ExpectType boolean
+semver.minVersion('>=1.0.0'); // $ExpectType SemVer | null
+semver.valid(semver.coerce('v2')); // $ExpectType string | null
+semver.valid(semver.coerce('42.6.7.9.3-alpha')); // $ExpectType string | null
+
+// This module uses getters to lazily load only the parts of the package that are used.
+// To use it with Webpack and other projects that need string literals as the argument to require(),
+// load it this way:
+
+// load the whole API at once in a single object
+import semverPreload = require('semver/preload');
+semverPreload.valid('1.2.3'); // $ExpectType string | null
+semverPreload.valid('a.b.c'); // $ExpectType string | null
+semverPreload.clean('  =v1.2.3   '); // $ExpectType string | null
+semverPreload.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); // $ExpectType boolean
+semverPreload.gt('1.2.3', '9.8.7'); // $ExpectType boolean
+semverPreload.lt('1.2.3', '9.8.7'); // $ExpectType boolean
+semverPreload.minVersion('>=1.0.0'); // $ExpectType SemVer | null
+semverPreload.valid(semverPreload.coerce('v2')); // $ExpectType string | null
+semverPreload.valid(semverPreload.coerce('42.6.7.9.3-alpha')); // $ExpectType string | null
+
+// or just load the bits you need
+// all of them listed here, just pick and choose what you want
+
+// classes
+import SemVer = require('semver/classes/semver');
+import Comparator = require('semver/classes/comparator');
+import Range = require('semver/classes/range');
+
+// functions for working with versions
+import semverParse = require('semver/functions/parse');
+import semverValid = require('semver/functions/valid');
+import semverClean = require('semver/functions/clean');
+import semverInc = require('semver/functions/inc');
+import semverDiff = require('semver/functions/diff');
+import semverMajor = require('semver/functions/major');
+import semverMinor = require('semver/functions/minor');
+import semverPatch = require('semver/functions/patch');
+import semverPrerelease = require('semver/functions/prerelease');
+import semverCompare = require('semver/functions/compare');
+import semverRcompare = require('semver/functions/rcompare');
+import semverCompareLoose = require('semver/functions/compare-loose');
+import semverCompareBuild = require('semver/functions/compare-build');
+import semverSort = require('semver/functions/sort');
+import semverRsort = require('semver/functions/rsort');
+
+// low-level comparators between versions
+import semverGt = require('semver/functions/gt');
+import semverLt = require('semver/functions/lt');
+import semverEq = require('semver/functions/eq');
+import semverNeq = require('semver/functions/neq');
+import semverGte = require('semver/functions/gte');
+import semverLte = require('semver/functions/lte');
+import semverCmp = require('semver/functions/cmp');
+import semverCoerce = require('semver/functions/coerce');
+
+// working with ranges
+import semverSatisfies = require('semver/functions/satisfies');
+import semverMaxSatisfying = require('semver/ranges/max-satisfying');
+import semverMinSatisfying = require('semver/ranges/min-satisfying');
+import semverToComparators = require('semver/ranges/to-comparators');
+import semverMinVersion = require('semver/ranges/min-version');
+import semverValidRange = require('semver/ranges/valid');
+import semverOutside = require('semver/ranges/outside');
+import semverGtr = require('semver/ranges/gtr');
+import semverLtr = require('semver/ranges/ltr');
+import semverIntersects = require('semver/ranges/intersects');
+
+semverValid('1.2.3'); // $ExpectType string | null
+semverValid('a.b.c'); // $ExpectType string | null
+semverClean('  =v1.2.3   '); // $ExpectType string | null
+semverSatisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); // $ExpectType boolean
+semverGt('1.2.3', '9.8.7'); // $ExpectType boolean
+semverLt('1.2.3', '9.8.7'); // $ExpectType boolean
+semverMinVersion('>=1.0.0'); // $ExpectType SemVer | null
+semverValid(semverCoerce('v2')); // $ExpectType string | null
+semverValid(semverCoerce('42.6.7.9.3-alpha')); // $ExpectType string | null
+
+// v6 tests
 
 let bool: boolean;
 let num: number;
@@ -8,8 +94,8 @@ let str = String(Math.random());
 let strn: string | null = Math.random() < 0.5 ? null : str;
 let diff: semver.ReleaseType | null;
 const op: semver.Operator = '';
-declare const arr: any[];
-declare const exp: RegExp;
+// declare const arr: any[];
+// declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
@@ -36,14 +122,14 @@ strn = semver.clean(str);
 
 strn = semver.valid(str, loose);
 strn = semver.clean(str, loose);
-strn = semver.inc(str, "major", loose);
-strn = semver.inc(str, "premajor", loose);
-strn = semver.inc(str, "minor", loose);
-strn = semver.inc(str, "preminor", loose);
-strn = semver.inc(str, "patch", loose);
-strn = semver.inc(str, "prepatch", loose);
-strn = semver.inc(str, "prerelease", loose);
-strn = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.inc(str, 'major', loose);
+strn = semver.inc(str, 'premajor', loose);
+strn = semver.inc(str, 'minor', loose);
+strn = semver.inc(str, 'preminor', loose);
+strn = semver.inc(str, 'patch', loose);
+strn = semver.inc(str, 'prepatch', loose);
+strn = semver.inc(str, 'prerelease', loose);
+strn = semver.inc(str, 'prerelease', loose, 'alpha');
 strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
@@ -114,14 +200,14 @@ ver.prerelease = strNumArr;
 comparatorResult = ver.compare(ver);
 comparatorResult = ver.compareMain(ver);
 comparatorResult = ver.comparePre(ver);
-ver = ver.inc("major");
-ver = ver.inc("premajor");
-ver = ver.inc("minor");
-ver = ver.inc("preminor");
-ver = ver.inc("patch");
-ver = ver.inc("prepatch");
-ver = ver.inc("prerelease");
-ver = ver.inc("prerelease", "alpha");
+ver = ver.inc('major');
+ver = ver.inc('premajor');
+ver = ver.inc('minor');
+ver = ver.inc('preminor');
+ver = ver.inc('patch');
+ver = ver.inc('prepatch');
+ver = ver.inc('prerelease');
+ver = ver.inc('prerelease', 'alpha');
 
 const comp = new semver.Comparator(str, bool);
 str = comp.toString();
@@ -144,8 +230,6 @@ bool = range.test(ver);
 bool = range.intersects(new semver.Range(''));
 bool = range.intersects(new semver.Range(''), bool);
 
-let sets: ReadonlyArray<ReadonlyArray<semver.Comparator>>;
-sets = range.set;
+const sets: ReadonlyArray<ReadonlyArray<semver.Comparator>> = range.set;
 
-let lims: ReadonlyArray<semver.Comparator>;
-lims = range.parseRange(str);
+const lims: ReadonlyArray<semver.Comparator> = range.parseRange(str);

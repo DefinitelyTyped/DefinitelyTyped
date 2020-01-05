@@ -1,14 +1,22 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es5", "es6"],
+        "lib": ["es5"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
         "types": [],
+        "paths": {
+            "semver": [
+                "semver/v6"
+            ],
+            "semver/*": [
+                "semver/v6/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
