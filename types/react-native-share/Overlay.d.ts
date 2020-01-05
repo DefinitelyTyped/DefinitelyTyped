@@ -1,15 +1,15 @@
 import { Component, ReactNode } from 'react';
 import { Animated, ViewProps, StyleProp } from 'react-native';
-export type OverlayState = {
+export interface OverlayState {
     fadeAnim: Animated.Value;
     overlayStyle: StyleProp<ViewProps>;
-};
+}
 
-export type OverlayProps = {
+export interface OverlayProps {
     visible: boolean;
     onCancel: () => void;
     children: ReactNode;
-};
+}
 
 declare class Overlay extends Component<OverlayProps, OverlayState> {
     onAnimatedEnd(): void;

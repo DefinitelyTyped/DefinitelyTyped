@@ -1,14 +1,14 @@
 import { Component, ReactNode } from 'react';
 import { Animated, ViewProps } from 'react-native';
 
-export type SheetProps = {
+export interface SheetProps {
     visible: boolean;
     children: ReactNode;
-};
+}
 
-export type SheetState = {
+export interface SheetState {
     bottom: Animated.Value;
-};
+}
 
 declare class Sheet extends Component<SheetProps, SheetState> {
     UNSAFE_componentWillReceiveProps(newProps: SheetProps): void;

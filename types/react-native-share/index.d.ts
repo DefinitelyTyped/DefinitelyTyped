@@ -61,18 +61,18 @@ export type SupportedSocialApps =
     | 'googleplus'
     | 'email';
 
-export type ShareSheetProps = {
+export interface ShareSheetProps {
     visible: boolean;
     onCancel: () => void;
     children: ReactNode;
     style?: StyleProp<ViewProps>;
     overlayStyle?: StyleProp<ViewProps>;
-};
+}
 
 export { Overlay, Button, Sheet };
-export declare class ShareSheet extends Component<ShareSheetProps> {
+export class ShareSheet extends Component<ShareSheetProps> {
     backButtonHandler: () => boolean;
-    componentDidMount: () => void;
-    componentWillUnMount: () => void;
-    render: () => JSX.Element;
+    componentDidMount(): void;
+    componentWillUnMount(): void;
+    render(): JSX.Element;
 }
