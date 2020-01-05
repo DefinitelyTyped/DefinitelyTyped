@@ -12,7 +12,7 @@ declare namespace jsqubits {
     namespace jsqubits {
         interface QState {
             numBits(): number;
-            amplitude(basisState: string | QState): Complex;
+            amplitude(basisState: string | number): Complex;
             each: (callBack: (stateWithAmplitude: StateWithAmplitude) => false | void) => void;
 
             multiply(amount: number | Complex): QState;
