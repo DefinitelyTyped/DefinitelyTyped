@@ -1,4 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
-    "interface-name": false
+    "rules": {
+        "interface-name": false
+    },
+    "extends": ["dtslint/dt.json"]
 }
