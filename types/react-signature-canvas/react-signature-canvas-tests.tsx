@@ -18,7 +18,13 @@ const ReactSignatureCanvasAllOptions: JSX.Element = (
         velocityFilterWeight={2}
         onBegin={(event: MouseEvent) => {}}
         onEnd={(event: MouseEvent) => {}}
-        canvasProps={{ title: 'canvas' }}
+        canvasProps={{
+            title: 'canvas',
+            width: '50%',
+            height: 300,
+            className: 'canvas',
+            style: { border: '2px solid #000' },
+        }}
         clearOnResize
     />
 );
