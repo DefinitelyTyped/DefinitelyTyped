@@ -58,6 +58,7 @@ declare namespace Stylus {
         /**
          * Render the given `str` with `options` and callback `fn(err, css)`.
          */
+        render(str: string): string;
         render(str: string, callback: RenderCallback): void;
         render(str: string, options: RenderOptions, callback: RenderCallback): void;
 
