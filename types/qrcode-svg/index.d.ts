@@ -54,11 +54,11 @@ declare namespace QRCode {
         height?: number;
         /** Color of modules (squares), color name or hex string. Default is `#000000`. */
         color?: string;
-        /** Background - color of background, color name or hex string. Default is `#fffff`. */
+        /** Color of background, color name or hex string. Default is `#fffff`. */
         background?: string;
         /** Error correction level. Default is `"M"`. */
         ecl?: 'L' | 'M' | 'H' | 'Q';
-        /** Join modules (squares) into one shape, into the SVG path element, recommended for web and responsive use. Default is `false`. */
+        /** Join modules (squares) into one shape, into the SVG path element, **recommended** for web and responsive use. Default is `false`. */
         join?: boolean;
         /** To create a squares as pattern, then populate the canvas. Default is `false`. */
         predefined?: boolean;
@@ -73,7 +73,7 @@ declare namespace QRCode {
          * `svg`: Populate squares in a SVG document with `width` and `height` attribute.
          * Recommended for converting to raster images or PDF where QR Code is being static (exact size). \
          * `svg-viewbox`: Populate squares in a SVG document with viewBox attriute.
-         * Recommended for responsive web pages. \
+         * **Recommended** for responsive web pages. \
          * `g`: Put squares in `g` element.
          * Useful when you need to put multiple QR Codes in a single SVG document \
          * `none`: No wrapper.
