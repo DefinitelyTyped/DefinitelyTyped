@@ -1026,6 +1026,12 @@ const cloudFormationCustomResourceHandler: AWSLambda.CloudFormationCustomResourc
     cb: AWSLambda.Callback<void>,
 ) => {};
 
+const eventBridgeHandler: AWSLambda.EventBridgeHandler<{}> = (
+    event: AWSLambda.EventBridgeEvent<{}>,
+    context: AWSLambda.Context,
+    cb: AWSLambda.Callback<void>,
+) => {};
+
 const cloudWatchLogsHandler: AWSLambda.CloudWatchLogsHandler = (
     event: AWSLambda.CloudWatchLogsEvent,
     context: AWSLambda.Context,

@@ -33,6 +33,7 @@
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
+//                 Chris Shepherd <https://github.com/sheepsteak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -465,17 +466,25 @@ export type CloudFormationCustomResourceResponse =
     | CloudFormationCustomResourceFailedResponse;
 
 /**
- * See https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-scheduled-event
+ * See https://docs.aws.amazon.com/eventbridge/latest/userguide/aws-events.html
  */
-export interface ScheduledEvent {
+export interface EventBridgeEvent<T> {
+    "detail-type": string;
     account: string;
+    detail: T;
+    id: string;
     region: string;
-    detail: any;
-    'detail-type': string;
+    resources: string[];
     source: string;
     time: string;
-    id: string;
-    resources: string[];
+    version: string;
+}
+
+/**
+ * See https://docs.aws.amazon.com/eventbridge/latest/userguide/event-types.html#schedule-event-type
+ */
+export interface ScheduledEvent extends EventBridgeEvent<{}> {
+    'detail-type': "Scheduled Event";
 }
 
 /**
@@ -1153,7 +1162,7 @@ export type SQSHandler = Handler<SQSEvent, void>;
 
 export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
 
-// TODO: CloudWatchEvents
+export type EventBridgeHandler<T = object> = Handler<EventBridgeEvent<T>, void>;
 
 export type CloudWatchLogsHandler = Handler<CloudWatchLogsEvent, void>;
 
