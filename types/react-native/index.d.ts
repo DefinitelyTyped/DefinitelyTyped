@@ -23,6 +23,8 @@
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
 //                 Eli White <https://github.com/TheSavior>
+
+
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
@@ -160,6 +162,31 @@ interface EmitterSubscription extends EventSubscription {
      * for removing the subscription lies with the EventEmitter.
      */
     remove(): void;
+}
+
+interface DEPRECATED_RCTExport<T> {
+	getConstants(): Function;
+}
+
+interface TurboModule extends DEPRECATED_RCTExport<void> {}
+
+interface Spec extends TurboModule {
+    addListener(eventName: string): void;
+    removeListeners(count: number): void;
+}
+
+declare class TurboModuleRegistry {
+	get<TurboModule>(name: string): (legacyModule: any) => TurboModule
+}
+
+interface NativeTVNavigationEventEmitter {
+	addListener(eventName: string, callback: Function): NativeEventEmitter;
+}
+ 
+declare class TVEventHandler {
+	new (): TVEventHandler;
+    enable(component: any, callback: Function): void;
+    disable(): void;
 }
 
 interface EventEmitterListener {
