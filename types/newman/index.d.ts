@@ -35,7 +35,15 @@ export interface NewmanRunOptions {
      * The name or ID of the folder (ItemGroup) in the collection which would
      * be run instead of the entire collection.
      */
-    folder?: string;
+    folder?: string | string[];
+    /**
+     * The path of the directory to be used as working directory.
+     */
+    workingDir?: string;
+    /**
+     * Allow reading files outside of working directory.
+     */
+    insecureFileRead?: boolean;
     /**
      * Specify the time (in milliseconds) to wait for the entire collection run
      * to complete execution.
@@ -105,16 +113,11 @@ export interface NewmanRunOptions {
      */
     reporter?: any;
     /**
-     * Forces colored CLI output (for use in CI / non TTY environments).
+     * Enable or Disable colored CLI output.
+     * 
+     * Default value: auto
      */
-    color?: boolean;
-    /**
-     * Newman attempts to automatically turn off color output to terminals when
-     * it detects the lack of color support. With this property, one can
-     * forcibly turn off the usage of color in terminal output for reporters
-     * and other parts of Newman that output to console.
-     */
-    noColor?: boolean;
+    color?: "on" | "off" | "auto";
     /**
      * The path to the public client certificate file.
      */
