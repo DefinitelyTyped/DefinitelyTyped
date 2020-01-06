@@ -36,9 +36,6 @@ Apptimize.setup('appKey', {log_level: 'LOG_LEVEL_WARN', result_post_delay_ms: 60
 Apptimize.track('eventName'); // $ExpectType void
 Apptimize.trackValue('eventName', 1); // $ExpectType void
 Apptimize.updateApptimizeMetadataOnce(); // $ExpectType void
-Apptimize.setOnEnrolledInExperimentCallback((arg) => {
-    const argType = arg; // $ExpectType VariantInfo
-});
 
 // Apptimize methods called without required properties should error
 Apptimize.getBool(); // $ExpectError
