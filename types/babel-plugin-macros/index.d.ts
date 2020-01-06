@@ -1,9 +1,9 @@
-// Type definitions for babel-plugin-macros 2.6
+// Type definitions for babel-plugin-macros 2.8
 // Project: https://github.com/kentcdodds/babel-plugin-macros
 // Definitions by: Billy Kwok <https://github.com/billykwok>
 //                 Jake Runzer <https://github.com/coffee-cup>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.7
 import * as Babel from '@babel/core';
 
 export interface References {
