@@ -648,15 +648,14 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.number().required(),
+yup.object<MyInterface>({ stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
             testField: yup.string().required(),
         })
         .required(),
-    arrayField: yup.array(yup.string()).required(),
+    arrayField: yup.array(yup.string()).required(), // + 1
 });
 
 // $ExpectError
@@ -667,14 +666,13 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.string().required(),
-    numberField: yup.number().required(),
-    subFields: yup
+yup.object<MyInterface>({ subFields: yup
         .object({
             testField: yup.number().required(),
         })
         .required(),
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
 });
 

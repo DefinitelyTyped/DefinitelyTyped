@@ -17,20 +17,11 @@ authOpts.tokenManager = null; // $ExpectError
 
 // Must use valid tokenManager options
 // $ExpectError
-authOpts.tokenManager = {
-    storage: 'bad-option'
-};
+authOpts.tokenManager = { storage: 'bad-option' };
 // $ExpectError
-authOpts.tokenManager = {
-    storage: 'cookie',
-    secure: 'string'
-};
+authOpts.tokenManager = { storage: 'cookie', secure: 'string' };
 // $ExpectError
-authOpts.tokenManager = {
-    storage: 'cookie',
-    secure: true,
-    autoRenew: 'string'
-};
+authOpts.tokenManager = { storage: 'cookie', secure: true, autoRenew: 'string' };
 // Valid token manager options
 authOpts.tokenManager = {
     storage: 'cookie',
