@@ -13,7 +13,6 @@
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
 //                 Norman Perrin <https://github.com/NormanPerrin>
-//                 Dan Manastireanu <https://github.com/danmana>
 //                 stablio <https://github.com/stablio>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Frontend Monster <https://github.com/frontendmonster>
