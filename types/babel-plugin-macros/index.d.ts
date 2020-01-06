@@ -22,18 +22,6 @@ export interface MacroParams {
 
 export type MacroHandler = (params: MacroParams) => void;
 
-declare function babel_plugin_macros(
-    babel: typeof Babel,
-    ref: {
-        require: (path: string) => any;
-        resolvePath: (src: string, baseDir: string) => any;
-    },
-): Babel.PluginObj;
+export class MacroError extends Error {}
 
-declare namespace babel_plugin_macros {
-    class MacroError extends Error {}
-
-    function createMacro(handler: MacroHandler, options?: Options): any;
-}
-
-export = babel_plugin_macros;
+export function createMacro(handler: MacroHandler, options?: Options): any;
