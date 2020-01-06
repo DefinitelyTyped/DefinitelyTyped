@@ -1,4 +1,4 @@
-import { createStore, combineReducers, Action } from "redux";
+import { createStore, combineReducers, Action, CombinedState } from "redux";
 import TinaRedux from "@tinajs/tina-redux";
 
 interface Todo {
@@ -9,14 +9,14 @@ interface Todo {
 
 interface TodoAction extends Action, Todo {}
 
-const intialState: Todo[] = [
+const initialState: Todo[] = [
     { id: 1, text: "Star Tina.js", completed: false },
     { id: 2, text: "Star Tina-Redux", completed: true },
     { id: 3, text: "Build a mini-program with Tina.js", completed: false },
     { id: 4, text: "Add to Showcase of Tina.js", completed: false }
 ];
 
-const todos = (state = intialState, action: TodoAction) => {
+const todos = (state = initialState, action: TodoAction) => {
     switch (action.type) {
         case "ADD_TODO":
             return [
