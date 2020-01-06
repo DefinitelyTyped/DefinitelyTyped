@@ -23,8 +23,6 @@
 //                 Mike Martin <https://github.com/mcmar>
 //                 Theo Henry de Villeneuve <https://github.com/theohdv>
 //                 Eli White <https://github.com/TheSavior>
-
-
 //                 Romain Faust <https://github.com/romain-faust>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Jesse Katsumata <https://github.com/Naturalclar>
