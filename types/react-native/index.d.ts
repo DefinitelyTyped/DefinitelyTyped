@@ -182,7 +182,7 @@ interface NativeTVNavigationEventEmitter {
 }
  
 declare class TVEventHandler {
-	new (): TVEventHandler;
+	constructor();
     enable(component: any, callback: Function): void;
     disable(): void;
 }
