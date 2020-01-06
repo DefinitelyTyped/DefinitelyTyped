@@ -655,7 +655,7 @@ yup.object<MyInterface>({ stringField: yup.number().required(),
             testField: yup.string().required(),
         })
         .required(),
-    arrayField: yup.array(yup.string()).required(), // + 1
+    arrayField: yup.array(yup.string()).required(),
 });
 
 // $ExpectError
