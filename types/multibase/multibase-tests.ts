@@ -5,7 +5,6 @@ const bufOut = 'mw7fDr8O/8J+lsMO3w6/Dv/CfmI7wn6W28J+krw';
 const str = 'foobar';
 const strOut = 'mZm9vYmFy';
 
-// $ExpectType string | false
 const name = multibase.isEncoded(bufOut);
 multibase.isEncoded(buf);
 
@@ -17,7 +16,5 @@ multibase.encode('base64', Buffer.from(str));
 multibase.decode(strOut);
 multibase.decode(buf); // Error but right type
 
-console.log(multibase.codes);
-
-// $ExpectType ReadonlyArray<string>
-multibase.names;
+console.log(multibase.codes[0] !== 'm');
+console.log(multibase.names[0] === 'base1');
