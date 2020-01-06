@@ -1,4 +1,4 @@
-import { createStore, combineReducers, Action, CombinedState } from "redux";
+import { createStore, combineReducers, Action } from "redux";
 import TinaRedux from "@tinajs/tina-redux";
 
 interface Todo {
