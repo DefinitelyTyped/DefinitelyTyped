@@ -1219,6 +1219,10 @@ function testQuery() {
         query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
         // $ExpectError
         query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubclass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
