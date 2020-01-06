@@ -187,6 +187,11 @@ const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
+// correct use of the StyleSheet.flatten
+const styleArray: StyleProp<ViewStyle>[] = [];
+const flattenStyle = StyleSheet.flatten(styleArray);
+const { top } = flattenStyle;
+
 const s = StyleSheet.create({
     shouldWork: {
         fontWeight: "900", // if we comment this line, errors gone
