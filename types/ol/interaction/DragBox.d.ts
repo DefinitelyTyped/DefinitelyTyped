@@ -1,7 +1,7 @@
 import { Coordinate } from '../coordinate';
 import { EventsKey } from '../events';
 import { Condition } from '../events/condition';
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
 import Polygon from '../geom/Polygon';
 import MapBrowserEvent from '../MapBrowserEvent';
 import { ObjectEvent } from '../Object';
@@ -14,7 +14,7 @@ export interface Options {
     condition?: Condition;
     minArea?: number;
     boxEndCondition?: EndCondition;
-    onBoxEnd: (this: DragBox, p0: MapBrowserEvent) => void;
+    onBoxEnd?: (this: DragBox, p0: MapBrowserEvent) => void;
 }
 export enum DragBoxEventType {
     BOXSTART = 'boxstart',
@@ -37,17 +37,20 @@ export default class DragBox extends PointerInteraction {
     on(type: 'boxstart', listener: (evt: DragBoxEvent) => void): EventsKey;
     once(type: 'boxstart', listener: (evt: DragBoxEvent) => void): EventsKey;
     un(type: 'boxstart', listener: (evt: DragBoxEvent) => void): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
     on(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:active', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:active', listener: (evt: ObjectEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export class DragBoxEvent extends Event {
+export class DragBoxEvent extends BaseEvent {
     constructor(type: string, coordinate: Coordinate, mapBrowserEvent: MapBrowserEvent);
     coordinate: Coordinate;
     mapBrowserEvent: MapBrowserEvent;
