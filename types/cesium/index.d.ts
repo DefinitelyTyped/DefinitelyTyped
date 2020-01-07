@@ -2461,7 +2461,7 @@ declare namespace Cesium {
             shadows?: Property | ShadowMode;
             distanceDisplayCondition?: Property;
             classificationType?: Property | ClassificationType;
-            zIndex: ConstantProperty | number;
+            zIndex?: ConstantProperty | number;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
