@@ -88,6 +88,21 @@ interface MyCompleteOption {
 </C.ButtonGroup>;
 
 //
+// card
+//
+<C.Card
+    as="button"
+    className="card"
+    isElevated
+    onClick={ onClick }
+    style={ style }
+    aria-haspopup="dialog"
+    aria-controls={ dialogId }
+>
+    Test
+</C.Card>;
+
+//
 // checkbox-control
 //
 <C.CheckboxControl checked onChange={isChecked => console.log(isChecked)} />;
