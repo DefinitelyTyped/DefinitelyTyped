@@ -1,4 +1,5 @@
 import { ComponentType } from '@wordpress/element';
+import { StyledComponent } from '@emotion/styled';
 
 declare namespace Card {
     interface Props {
@@ -20,6 +21,6 @@ declare namespace Card {
         size?: string;
     }
 }
-declare const Card: ComponentType<Card.Props>;
+declare const Card: StyledComponent<React.ComponentProps<'div'>, Card.Props, {}>;
 
 export default Card;
