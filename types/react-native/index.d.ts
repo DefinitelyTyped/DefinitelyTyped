@@ -163,7 +163,7 @@ interface EmitterSubscription extends EventSubscription {
 }
 
 interface DEPRECATED_RCTExport<T> {
-	getConstants(): Function;
+	getConstants?: () => {};
 }
 
 interface TurboModule extends DEPRECATED_RCTExport<void> {}
