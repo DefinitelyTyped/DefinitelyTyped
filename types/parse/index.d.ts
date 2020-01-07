@@ -1011,10 +1011,14 @@ namespace Parse {
             message: (response: any) => void;
         }
 
-        interface FunctionRequest {
+        interface Params {
+            [key: string]: any;
+        }
+
+        interface FunctionRequest<T extends Params = Params> {
             installationId?: string;
             master?: boolean;
-            params?: any;
+            params: T;
             user?: User;
         }
 
@@ -1075,7 +1079,13 @@ namespace Parse {
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
         function beforeLogin(func?: (request: TriggerRequest) => any): void;
-        function define(name: string, func?: (request: FunctionRequest) => any): void;
+        function define(name: string, func: (request: FunctionRequest) => any): void;
+        function define<T extends (
+            param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
+        ) => any>(
+            name: string,
+            func: (request: FunctionRequest<Parameters<T>[0]>) => ReturnType<T>
+        ): void;
         /**
          * Gets data for the current set of cloud jobs.
          * @returns A promise that will be resolved with the result of the function.
@@ -1089,7 +1099,19 @@ namespace Parse {
         function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
-        function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        function run(name: string, data?: Params, options?: RunOptions): Promise<any>;
+        function run<T extends () => any>(
+            name: string,
+            data?: null,
+            options?: RunOptions
+        ): Promise<ReturnType<T>>;
+        function run<T extends (
+            param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
+        ) => any>(
+            name: string,
+            data: Parameters<T>[0],
+            options?: RunOptions
+        ): Promise<ReturnType<T>>;
         /**
          * Starts a given cloud job, which will process asynchronously.
          * @param jobName The function name.
