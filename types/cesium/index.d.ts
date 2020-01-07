@@ -829,7 +829,7 @@ declare namespace Cesium {
         modelMatrix: Matrix4;
         id: any;
         attributes: any;
-        constructor(options: { geometry: Geometry| PolygonGeometry; modelMatrix?: Matrix4; id?: any; attributes?: any });
+        constructor(options: { geometry: Geometry | PolygonGeometry; modelMatrix?: Matrix4; id?: any; attributes?: any });
     }
 
     class GeometryInstanceAttribute {
@@ -5055,8 +5055,6 @@ declare namespace Cesium {
         TRIANGLE_STRIP,
         TRIANGLE_FAN,
     }
-
-
 
     namespace QuadraticRealPolynomial {
         function computeDiscriminant(a: number, b: number, c: number): number;
