@@ -234,10 +234,10 @@ export function timeout<T, E = Error>(fn: AsyncFunction<T, E>, milliseconds: num
 export function timeout<T, R, E = Error>(fn: AsyncResultIterator<T, R, E>, milliseconds: number, info?: any): AsyncResultIterator<T, R, E>;
 
 export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
-export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>): Promise<void>;
+export function times<T, E = Error>(n: number, iterator: AsyncResultIterator<number, T, E>): Promise<T>;
 export const timesSeries: typeof times;
 export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>, callback: AsyncResultArrayCallback<T, E>): void;
-export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>): Promise<void>;
+export function timesLimit<T, E = Error>(n: number, limit: number, iterator: AsyncResultIterator<number, T, E>): Promise<T>;
 
 export function transform<T, R, E = Error>(arr: T[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
 export function transform<T, R, E = Error>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: number, callback: (error?: E) => void) => void, callback?: AsyncResultArrayCallback<T, E>): void;
