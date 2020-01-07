@@ -27,18 +27,18 @@
 
 declare namespace Joi {
     type Types =
-    | 'any'
-    | 'alternatives'
-    | 'array'
-    | 'boolean'
-    | 'binary'
-    | 'date'
-    | 'function'
-    | 'link'
-    | 'number'
-    | 'object'
-    | 'string'
-    | 'symbol';
+        | 'any'
+        | 'alternatives'
+        | 'array'
+        | 'boolean'
+        | 'binary'
+        | 'date'
+        | 'function'
+        | 'link'
+        | 'number'
+        | 'object'
+        | 'string'
+        | 'symbol';
 
     type LanguageMessages = Record<string, string>;
 
@@ -576,10 +576,6 @@ declare namespace Joi {
         warn?: boolean;
     }
 
-    interface JoiObject {
-        isJoi: boolean;
-    }
-
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
@@ -590,8 +586,10 @@ declare namespace Joi {
         value: any;
     }
 
-    interface ValidationError extends Error, JoiObject {
+    interface ValidationError extends Error {
         name: 'ValidationError';
+
+        isJoi: boolean;
 
         /**
          * array of errors.
@@ -757,7 +755,7 @@ declare namespace Joi {
         $_validate(value: any, state: State, prefs: ValidationOptions): ValidationResult;
     }
 
-    interface AnySchema extends JoiObject {
+    interface AnySchema extends SchemaInternals {
         /**
          * Flags of current schema.
          */
@@ -1857,7 +1855,7 @@ declare namespace Joi {
 
     type ExtensionFactory = (joi: Root) => Extension;
 
-    interface Err extends JoiObject {
+    interface Err {
         toString(): string;
     }
 
@@ -1919,7 +1917,8 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        object<TSchema = any>(schema?: SchemaMap<TSchema>): ObjectSchema<TSchema>;
+        // tslint:disable-next-line:no-unnecessary-generics
+        object<TSchema = any, T = TSchema>(schema?: SchemaMap<T>): ObjectSchema<TSchema>;
 
         /**
          * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
@@ -2012,7 +2011,7 @@ declare namespace Joi {
         /**
          * Creates a new Joi instance customized with the extension(s) you provide included.
          */
-        extend(...extensions: Array<Extension|ExtensionFactory>): any;
+        extend(...extensions: Array<Extension | ExtensionFactory>): any;
 
         /**
          * Creates a reference that when resolved, is used as an array of values to match against the rule.

@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-export type LoadImageCallback = (image: HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
+export type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
 
 export type ParseMetaDataCallback = (data: ImageHead) => void;
 

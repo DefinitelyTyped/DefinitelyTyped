@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, jsx, InitializeColorMode, ColorMode, Styled, Theme } from 'theme-ui';
+import { Flex, jsx, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme } from 'theme-ui';
 
 export const Component = () => {
     return (
@@ -73,16 +73,10 @@ const workingThemeColorModes: Theme = {
     },
 };
 
-const incompleteThemeColorModes: Theme = {
-    initialColorMode: 'light',
-    // $ExpectError
-    colors: {
-        text: '#000',
-        background: '#fff',
-        primary: '#07c',
-        secondary: '#05a',
-        muted: '#f6f6f6f',
-        modes: {
+// $ExpectError
+const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
+                text: '#433',
+            },
             dark: {
                 text: '#fff',
                 background: '#000',
@@ -90,11 +84,14 @@ const incompleteThemeColorModes: Theme = {
                 secondary: '#09c',
                 muted: '#111',
             },
-            papaya: {
-                text: '#433',
-            },
         },
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+        secondary: '#05a',
+        muted: '#f6f6f6f',
     },
+    initialColorMode: 'light',
 };
 
 const themeWithStyles: Theme = {
@@ -112,3 +109,25 @@ const themeWithStyles: Theme = {
         },
     },
 };
+
+function SpreadingAndMergingInSxProp() {
+    const buttonStyles: SxStyleProp = {
+        font: 'inherit',
+        color: 'primary',
+        background: 'papayawhip',
+        border: 'none',
+        boxShadow: () => `0 0 4px black`,
+        ':hover': {
+            background: 'yellow',
+            width: ['80%', '40%', '20%'],
+        },
+        height: '2rem',
+        width: ['100%', '50%', '25%'],
+    };
+
+    return (
+        <button type="button" sx={{ ...buttonStyles, background: 'red' }}>
+            click me
+        </button>
+    );
+}

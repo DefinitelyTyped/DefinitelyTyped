@@ -21,6 +21,8 @@
 //                 Takuya Uehara <https://github.com/indigolain>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
+//                 Oscar Cabrera <https://github.com/mrjack88>
+//                 Carlos Anoceto <https://github.com/canoceto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -35,9 +37,9 @@ declare class Chart {
     destroy: () => {};
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
+    stop: () => Chart;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
@@ -105,18 +107,27 @@ interface MetaData {
     hidden?: boolean;
 }
 
+// NOTE: This model is generic with a bunch of optional properties to represent all types of chart models.
+// Each chart type defines their own unique model structure so some of these optional properties
+// might always have values depending on the chart type.
 interface Model {
     backgroundColor: string;
+    borderAlign?: Chart.BorderAlignment;
     borderColor: string;
     borderWidth?: number;
+    circumference?: number;
     controlPointNextX: number;
     controlPointNextY: number;
     controlPointPreviousX: number;
     controlPointPreviousY: number;
+    endAngle?: number;
     hitRadius: number;
+    innerRadius?: number;
+    outerRadius?: number;
     pointStyle: string;
     radius: string;
     skip?: boolean;
+    startAngle?: number;
     steppedLine?: undefined;
     tension: number;
     x: number;
@@ -293,6 +304,7 @@ declare namespace Chart {
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -352,6 +364,7 @@ declare namespace Chart {
 
     interface ChartTooltipModel {
         backgroundColor: string;
+        body: ChartTooltipModelBody[];
         bodyFontColor: string;
         bodyFontSize: number;
         bodySpacing: number;
@@ -361,6 +374,7 @@ declare namespace Chart {
         caretX: number;
         caretY: number;
         cornerRadius: number;
+        dataPoints: ChartTooltipItem[];
         displayColors: boolean;
         footerFontColor: string;
         footerFontSize: number;
@@ -389,6 +403,12 @@ declare namespace Chart {
         _titleAlign: string;
         _titleFontFamily: string;
         _titleFontStyle: string;
+    }
+
+    interface ChartTooltipModelBody {
+        before: string[];
+        lines: string[];
+        after: string[];
     }
 
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
@@ -501,6 +521,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {
@@ -611,6 +632,7 @@ declare namespace Chart {
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
         maxBarThickness?: number;
@@ -800,6 +822,21 @@ declare namespace Chart {
         duration?: number;
         lazy?: boolean;
         easing?: Easing;
+    }
+
+    // Model used with the doughnut chart
+    interface DoughnutModel {
+        backgroundColor: ChartColor;
+        borderAlign: BorderAlignment;
+        borderColor: string;
+        borderWidth: number;
+        circumference: number;
+        endAngle: number;
+        innerRadius: number;
+        outerRadius: number;
+        startAngle: number;
+        x: number;
+        y: number;
     }
 }
 

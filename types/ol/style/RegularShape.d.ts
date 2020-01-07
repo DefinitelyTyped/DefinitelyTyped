@@ -1,5 +1,7 @@
 import { ColorLike } from '../colorlike';
-import AtlasManager from './AtlasManager';
+import BaseEvent from '../events/Event';
+import ImageState from '../ImageState';
+import { Size } from '../size';
 import Fill from './Fill';
 import ImageStyle from './Image';
 import Stroke from './Stroke';
@@ -14,29 +16,37 @@ export interface Options {
     stroke?: Stroke;
     rotation?: number;
     rotateWithView?: boolean;
-    atlasManager?: AtlasManager;
 }
 export interface RenderOptions {
     strokeStyle?: ColorLike;
     strokeWidth: number;
     size: number;
-    lineCap: string;
+    lineCap: CanvasLineCap;
     lineDash: number[];
     lineDashOffset: number;
-    lineJoin: string;
+    lineJoin: CanvasLineJoin;
     miterLimit: number;
 }
 export default class RegularShape extends ImageStyle {
     constructor(options: Options);
-    protected atlasManager_: AtlasManager;
     protected radius_: number;
-    protected render_(atlasManager: AtlasManager | undefined): void;
+    protected render(): void;
     clone(): RegularShape;
+    getAnchor(): number[];
     getAngle(): number;
-    getChecksum(): string;
     getFill(): Fill;
+    getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getHitDetectionImageSize(): Size;
+    getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getImageSize(): Size;
+    getImageState(): ImageState;
+    getOrigin(): number[];
     getPoints(): number;
     getRadius(): number;
-    getRadius2(): number | undefined;
+    getRadius2(): number;
+    getSize(): Size;
     getStroke(): Stroke;
+    listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    load(): void;
+    unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
 }

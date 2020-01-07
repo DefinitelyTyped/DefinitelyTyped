@@ -31,6 +31,10 @@ screen = blessed.screen({
   warnings: true
 });
 
+// `clickable` and `keyable` are arrays
+console.log(screen.clickable.length);
+console.log(screen.keyable.length);
+
 const box1 = blessed.box({
   parent: screen,
   top: "center",
@@ -57,6 +61,11 @@ screen.render();
 const extraProps = blessed.box({
   parent: box1,
   id: 'box3'
+});
+
+// Props on `progressbar()` are optional
+const progressbar = blessed.progressbar({
+  parent: screen
 });
 
 // https://github.com/chjj/blessed/blob/master/test/widget-bigtext.js
@@ -768,6 +777,12 @@ setTimeout(() => {
   table.setData(data1);
   screen.render();
 }, 3000);
+
+// https://github.com/chjj/blessed#helpers
+
+blessed.escape('{bold}{/bold}');
+blessed.parseTags('{bold}hi{/bold}');
+blessed.generateTags({ fg: 'red' }, 'red text');
 
 // https://github.com/chjj/blessed/blob/master/test/program-mouse.js
 

@@ -1,6 +1,7 @@
 // Type definitions for amqp-connection-manager 2.0
 // Project: https://github.com/benbria/node-amqp-connection-manager
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
+//                 tstelzer <https://github.com/tstelzer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -158,7 +159,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
+    publish(exchange: string, routingKey: string, content: Buffer | object, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -167,7 +168,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
+    sendToQueue(queue: string, content: Buffer | object, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib

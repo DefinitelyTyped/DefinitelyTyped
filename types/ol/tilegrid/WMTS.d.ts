@@ -19,4 +19,8 @@ export default class WMTSTileGrid extends TileGrid {
     getMatrixId(z: number): string;
     getMatrixIds(): string[];
 }
-export function createFromCapabilitiesMatrixSet(matrixSet: any, opt_extent?: Extent, opt_matrixLimits?: object[]): WMTSTileGrid;
+export function createFromCapabilitiesMatrixSet(
+    matrixSet: any,
+    opt_extent?: Extent,
+    opt_matrixLimits?: object[],
+): WMTSTileGrid;
