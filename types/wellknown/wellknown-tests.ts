@@ -1,6 +1,6 @@
 import * as wellknown from 'wellknown';
 
-// $ExpectType GeoJSONGeometry
+// $ExpectType GeoJSONGeometry | null
 wellknown.parse("POINT(1 2)");
 
 const geoJson: wellknown.GeoJSONGeometry = {
