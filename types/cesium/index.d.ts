@@ -3833,45 +3833,6 @@ declare namespace Cesium {
         update(): void;
     }
 
-    class GroundPrimitive {
-        readonly allowPicking: boolean;
-        appearance: Appearance;
-        readonly asynchronous: boolean;
-        classificationType: ClassificationType;
-        readonly compressVertices: boolean;
-        debugShowBoundingVolume: boolean;
-        debugShowShadowVolume: boolean;
-        depthFailAppearance: Appearance;
-        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
-        readonly interleave: boolean;
-        readonly ready: boolean;
-        readonly readyPromise: Promise<Primitive>;
-        readonly releaseGeometryInstances: boolean;
-        show: boolean;
-        readonly vertexCacheOptimize: boolean;
-        constructor(options?: {
-            geometryInstances?: any[] | GeometryInstance;
-            appearance?: Appearance;
-            show?: boolean;
-            vertexCacheOptimize?: boolean;
-            interleave?: boolean;
-            compressVertices?: boolean;
-            releaseGeometryInstances?: boolean;
-            allowPicking?: boolean;
-            asynchronous?: boolean;
-            classificationType?: ClassificationType;
-            debugShowBoundingVolume?: boolean;
-            debugShowShadowVolume?: boolean;
-        });
-        static initializeTerrainHeights(): Promise<void>;
-        static isSupported(scene: Scene): boolean;
-        static supportsMaterials(scene: Scene): boolean;
-        destroy(): void;
-        getGeometryInstanceAttributes(id: any): any;
-        isDestroyed(): boolean;
-        update(): void;
-    }
-
     class PrimitiveCollection {
         show: boolean;
         destroyPrimitives: boolean;
@@ -5095,11 +5056,7 @@ declare namespace Cesium {
         TRIANGLE_FAN,
     }
 
-    enum ClassificationType {
-        CESIUM_3D_TILE,
-        BOTH,
-        TERRAIN
-    }
+
 
     namespace QuadraticRealPolynomial {
         function computeDiscriminant(a: number, b: number, c: number): number;
@@ -5546,7 +5503,7 @@ declare namespace Cesium {
       function setBaseUrl(value: string): undefined;
     }
 
-    enum WebGLConstants  {
+    enum WebGLConstants {
         DEPTH_BUFFER_BIT,
         STENCIL_BUFFER_BIT,
         COLOR_BUFFER_BIT,
