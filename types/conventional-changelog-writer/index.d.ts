@@ -138,7 +138,7 @@ declare namespace conventionalChangelogWriter {
          *
          * The string can be a dot path to a nested object property.
          */
-        commitGroupsSort?: Options.Sort<CommitGroup<C>> | false;
+        commitGroupsSort?: Options.Sort<CommitGroup<C>>;
 
         /**
          * A compare function used to sort commits. If it's a string or array, it sorts
@@ -150,7 +150,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'header'
          */
-        commitsSort?: Options.Sort<TransformedCommit<C>> | false;
+        commitsSort?: Options.Sort<TransformedCommit<C>>;
 
         /**
          * A compare function used to sort note groups. If it's a string or array, it
@@ -162,7 +162,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'title'
          */
-        noteGroupsSort?: Options.Sort<NoteGroup> | false;
+        noteGroupsSort?: Options.Sort<NoteGroup>;
 
         /**
          * A compare function used to sort note groups. If it's a string or array, it
@@ -174,7 +174,7 @@ declare namespace conventionalChangelogWriter {
          * @default
          * 'text'
          */
-        notesSort?: Options.Sort<Commit.Note> | false;
+        notesSort?: Options.Sort<Commit.Note>;
 
         /**
          * When the upstream finishes pouring the commits it will generate a block of
@@ -197,7 +197,7 @@ declare namespace conventionalChangelogWriter {
          *   return semverValid(commit.version)
          * }
          */
-        generateOn?: Options.GenerateOn | object;
+        generateOn?: Options.GenerateOn;
 
         /**
          * Last chance to modify your context before generating a changelog.
@@ -304,7 +304,7 @@ declare namespace conventionalChangelogWriter {
             (context: Context, options: Options, commits: Array<TransformedCommit<C>>, keyCommit: TransformedCommit<C>): Context;
         }
 
-        type GenerateOn<C extends Commit = Commit> = GenerateOn.Function<C> | string;
+        type GenerateOn<C extends Commit = Commit> = GenerateOn.Function<C> | string | object;
 
         namespace GenerateOn {
             interface GenerateOnFunction<C extends Commit = Commit> {
@@ -323,7 +323,7 @@ declare namespace conventionalChangelogWriter {
             };
         }
 
-        type Sort<T = any> = Sort.Function | string | ReadonlyArray<string>;
+        type Sort<T = any> = Sort.Function | string | ReadonlyArray<string> | false;
 
         namespace Sort {
             type SortFunction<T = any> = (a: T, b: T) => number;
