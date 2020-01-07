@@ -6,10 +6,9 @@
 //                 Radek Goláň jr. <https://github.com/golyalpha>
 //                 Emma Krantz <https://github.com/KeyboardSounds>
 //                 Wing Ho <https://github.com/soyarsauce>
-//                 Federico Giacomini <https://github.com/crocsx>
-=======
 //                 Joey Rafidi <https://github.com/jrafidi>
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
+//                 Federico Giacomini <https://github.com/crocsx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
