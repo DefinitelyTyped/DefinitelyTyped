@@ -174,7 +174,7 @@ interface Spec extends TurboModule {
 }
 
 declare class TurboModuleRegistry {
-	get<TurboModule>(name: string): (legacyModule: any) => TurboModule
+	get<T extends TurboModule>(name: string): T | null | undefined
 }
 
 interface NativeTVNavigationEventEmitter {
