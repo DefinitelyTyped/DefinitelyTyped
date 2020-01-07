@@ -287,13 +287,9 @@ declare namespace conventionalCommitsParser {
 
     namespace Options {
         type Actions = string[] | string | null;
-
         type Correspondence = string[] | string | null;
-
         type Keywords = string[] | string | null;
-
         type Pattern = RegExp | string | null;
-
         type Prefixes = string[] | string | null;
     }
 
