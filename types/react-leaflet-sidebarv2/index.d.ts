@@ -33,7 +33,7 @@ interface SidebarProps {
   selected: string;
   closeIcon?: Icon;
   onClose?: () => void;
-  onOpen?: (id:string) => void;
+  onOpen?: (id: string) => void;
   children: TabType;
 }
 
