@@ -193,7 +193,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[]): this;
+        setFilter(layer: string, filter?: any[] | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -511,7 +511,7 @@ declare namespace mapboxgl {
 
         /**
          * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
-         * 
+         *
          * @default null
          */
         accessToken?: string;
