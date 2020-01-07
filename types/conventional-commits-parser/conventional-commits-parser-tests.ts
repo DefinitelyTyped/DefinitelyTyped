@@ -11,10 +11,10 @@ conventionalCommitsParser();
 // $ExpectType Transform
 conventionalCommitsParser(options);
 
-// $ExpectType Commit
+// $ExpectType Commit<string | number | symbol>
 conventionalCommitsParser.sync(commit);
 
-// $ExpectType Commit
+// $ExpectType Commit<string | number | symbol>
 conventionalCommitsParser.sync(commit, options);
 
 // $ExpectError

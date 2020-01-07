@@ -2,7 +2,7 @@
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
@@ -25,7 +25,47 @@ declare namespace conventionalCommitsParser {
      */
     function sync(commit: string, options?: Options): Commit;
 
-    interface Commit {
+    type Commit<Fields extends string | number | symbol = string | number | symbol> = CommitBase & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
+
+    namespace Commit {
+        type Field = string | null;
+
+        interface Note {
+            title: string;
+            text: string;
+        }
+
+        interface Reference {
+            issue: string;
+
+            /**
+             * @default
+             * null
+             */
+            action: Field;
+
+            /**
+             * @default
+             * null
+             */
+            owner: Field;
+
+            /**
+             * @default
+             * null
+             */
+            repository: Field;
+
+            prefix: string;
+            raw: string;
+        }
+
+        interface Revert {
+            [field: string]: Field;
+        }
+    }
+
+    interface CommitBase {
         /**
          * @default
          * null
@@ -77,44 +117,6 @@ declare namespace conventionalCommitsParser {
         type?: Commit.Field;
         scope?: Commit.Field;
         subject?: Commit.Field;
-    }
-
-    namespace Commit {
-        type Field = string | null;
-
-        interface Note {
-            title: string;
-            text: string;
-        }
-
-        interface Reference {
-            issue: string;
-
-            /**
-             * @default
-             * null
-             */
-            action: Field;
-
-            /**
-             * @default
-             * null
-             */
-            owner: Field;
-
-            /**
-             * @default
-             * null
-             */
-            repository: Field;
-
-            prefix: string;
-            raw: string;
-        }
-
-        interface Revert {
-            [field: string]: Field;
-        }
     }
 
     interface Options {
@@ -294,6 +296,12 @@ declare namespace conventionalCommitsParser {
 
         type Prefixes = string[] | string | null;
     }
+
+    export {
+        Commit,
+        Options,
+        sync,
+    };
 }
 
 export = conventionalCommitsParser;
