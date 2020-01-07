@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-type Icon = string | React.ElementType;
+type Icon = string | React.ReactElement;
 type Anchor = 'top' | 'bottom';
 type Position = 'left' | 'right';
 
@@ -33,7 +33,7 @@ interface SidebarProps {
   selected: string;
   closeIcon?: Icon;
   onClose?: () => void;
-  onOpen?: () => void;
+  onOpen?: (id:string) => void;
   children: TabType;
 }
 
