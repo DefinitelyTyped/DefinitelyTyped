@@ -430,7 +430,7 @@ function test_facebook_util() {
     });
 }
 
-function test_cloud_functions() {
+async function test_cloud_functions() {
     Parse.Cloud.run(
         'hello',
         {},
@@ -441,6 +441,39 @@ function test_cloud_functions() {
             error: (error: any) => {},
         },
     );
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction');
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction', { something: 'whatever' });
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction', null, { useMasterKey: true });
+
+    // ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction');
+
+    // $ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction', null);
+
+    // $ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction', null, { useMasterKey: true });
+
+    // $ExpectType number
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', { paramA: 'hello' });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction');
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', { paramZ: 'hello' });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string}) => number>('SomeFunction', null, { useMasterKey: true });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: string) => any>('SomeFunction', 'hello');
 
     Parse.Cloud.afterDelete('MyCustomClass', (request: Parse.Cloud.AfterDeleteRequest) => {
         // result
@@ -528,6 +561,33 @@ function test_cloud_functions() {
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
+
+    Parse.Cloud.define('AFunc', (request) => {
+        // $ExpectType Params
+        request.params;
+
+        // $ExpectType any
+        request.params.anything;
+    });
+
+    Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
+        // $ExpectType { something: string; }
+        request.params;
+
+        // $ExpectError
+        request.params.somethingElse;
+
+        return 123;
+    });
+
+    // $ExpectError
+    Parse.Cloud.define('AFunc');
+
+    // $ExpectError
+    Parse.Cloud.define<() => string>('AFunc', () => 123);
+
+    // $ExpectError
+    Parse.Cloud.define<(params: string) => number>('AFunc', () => 123);
 
     Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
         request.message('Message to associate with this job run');
