@@ -18,17 +18,12 @@ const timeoutAt: Timeout = setTimeoutAt(() => {}, 1000);
 const timeoutAtWithArgs: Timeout = setTimeoutAt((hero: string, powerLevel: number) => {}, 1000, 'Goku', 9000);
 
 timeout.clear();
-timeout.fireAt(1000);
-timeout.fireIn(2000);
-timeout.fireNow();
-timeout.reschedule(3000);
 
 clearTimeout(timeout);
 
 const interval: Interval = setInterval(() => {}, 1000);
 const intervalWithArgs: Interval = setInterval((hero: string, powerLevel: number) => {}, 1000, 'Goku', 9000);
 
-interval.fireEvery(4000);
 interval.clear();
 
 clearInterval(interval);
