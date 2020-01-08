@@ -21,7 +21,7 @@ declare namespace Card {
         /**
          * Determines the amount of padding within the card.
          *
-         * @default "medium"
+         * @defaultValue "medium"
          */
         size?: CardSize;
     }
