@@ -114,7 +114,7 @@ export interface NewmanRunOptions {
     reporter?: any;
     /**
      * Enable or Disable colored CLI output.
-     * 
+     *
      * Default value: auto
      */
     color?: "on" | "off" | "auto";
