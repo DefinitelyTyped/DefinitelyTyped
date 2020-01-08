@@ -28,7 +28,8 @@ export type GeoJSONGeometry =
     | GeoJSONLineString
     | GeoJSONMultiLineString
     | GeoJSONPolygon
-    | GeoJSONMultiPolygon;
+    | GeoJSONMultiPolygon
+    | null;
 
-export function parse(input: string): GeoJSONGeometry | null;
+export function parse(input: string): GeoJSONGeometry;
 export function stringify(gj: GeoJSONGeometry): string;
