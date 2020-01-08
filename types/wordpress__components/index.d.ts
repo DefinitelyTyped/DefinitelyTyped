@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/components 8.2
+// Type definitions for @wordpress/components 8.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
