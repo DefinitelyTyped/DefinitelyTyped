@@ -51,6 +51,18 @@ pino({
             },
             error(o) {
             }
+        },
+        serialize: true,
+        asObject: true,
+        transmit: {
+            level: 'fatal',
+            send: (level, logEvent) => {
+                level;
+                logEvent.bindings;
+                logEvent.level;
+                logEvent.ts;
+                logEvent.messages;
+            }
         }
     }
 });

@@ -6,7 +6,9 @@
 
 /// <reference types="node" />
 
-export class VASTTracker extends NodeJS.EventEmitter {
+import { EventEmitter } from 'events';
+
+export class VASTTracker extends EventEmitter {
     /**
      * The VAST tracker constructor will process the tracking URLs of the selected ad/creative and returns an instance of VASTTracker.
      */
@@ -170,7 +172,7 @@ export class VASTClient {
     getParser(): VASTParser;
 }
 
-export class VASTParser extends NodeJS.EventEmitter {
+export class VASTParser extends EventEmitter {
     /**
      * util method for handling urls, it is used to make the requests.
      */

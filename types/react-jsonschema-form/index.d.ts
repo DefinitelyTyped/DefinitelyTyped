@@ -46,6 +46,7 @@ declare module 'react-jsonschema-form' {
         safeRenderCompletion?: boolean;
         transformErrors?: (errors: AjvError[]) => AjvError[];
         idPrefix?: string;
+        additionalMetaSchemas?: ReadonlyArray<object>;
 
         // HTML Attributes
         id?: string;

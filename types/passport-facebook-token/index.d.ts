@@ -46,6 +46,7 @@ declare namespace PassportFacebookToken {
         scopeSeparator?: string;
         enableProof?: boolean;
         profileFields?: string[];
+        fbGraphVersion?: string;
     }
 
     interface StrategyOptionsWithRequest extends StrategyOptions {

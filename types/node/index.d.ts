@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 12.12
+// Type definitions for non-npm package Node.js 13.1
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -47,7 +47,7 @@
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
+//          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
 //          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
 
 // NOTE: Augmentations for TypeScript 3.2 and later should use individual files for overrides
@@ -57,29 +57,14 @@
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
-// TypeScript 2.1-specific augmentations:
-
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
-// just to ensure the names are known and node typings can be sued without importing these libs.
+// just to ensure the names are known and node typings can be used without importing these libs.
 // if someone really needs these types the libs need to be added via --lib or in tsconfig.json
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface Set<T> {}
-interface Map<K, V> {}
-interface ReadonlySet<T> {}
-interface Iterable<T> { }
-interface IteratorResult<T> { }
 interface AsyncIterable<T> { }
-interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
-}
 interface IterableIterator<T> { }
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
-    readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
@@ -91,12 +76,6 @@ interface SharedArrayBuffer {
 }
 
 declare module "util" {
-    namespace inspect {
-        const custom: symbol;
-    }
-    namespace promisify {
-        const custom: symbol;
-    }
     namespace types {
         function isBigInt64Array(value: any): boolean;
         function isBigUint64Array(value: any): boolean;
