@@ -1,4 +1,3 @@
-import { ComponentType } from '@wordpress/element';
 import { StyledComponent } from '@emotion/styled';
 
 declare namespace Card {
@@ -27,6 +26,7 @@ declare namespace Card {
         size?: CardSize;
     }
 }
+
 declare const Card: StyledComponent<JSX.IntrinsicElements['div'], Card.Props, {}>;
 
 export default Card;
