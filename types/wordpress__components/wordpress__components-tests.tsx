@@ -112,9 +112,9 @@ interface MyCompleteOption {
 </C.CardFooter>;
 
 // Divider has no children or props except className
-// #ExpectError
+// $ExpectError
 <C.CardDivider>Hello world!</C.CardDivider>;
-// #ExpectError
+// $ExpectError
 <C.CardDivider isShady />;
 <C.CardDivider />;
 
