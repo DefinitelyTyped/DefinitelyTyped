@@ -749,6 +749,17 @@ const autocomplete = new google.maps.places.Autocomplete(document.createElement(
 const placeResult = autocomplete.getPlace();
 placeResult.name; // $ExpectType string
 
+/***** google.maps.places.AutocompleteService *****/
+new google.maps.places.AutocompleteService()
+    .getPlacePredictions(
+        {input: 'Kyiv, Ukr'},
+        (result) => {
+            result[0]
+                .structured_formatting
+                .secondary_text_matched_substrings // $ExpectType PredictionSubstring[] | undefined
+        }
+    );
+
 /***** google.maps.ImageMapType *****/
 const imageMapType = new google.maps.ImageMapType({
     alt: 'alt',
