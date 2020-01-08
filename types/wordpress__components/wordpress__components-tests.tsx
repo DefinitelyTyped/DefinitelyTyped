@@ -99,6 +99,10 @@ interface MyCompleteOption {
 // $ExpectError
 <C.Card autoFocus>`div` can't have autoFocus :(</C.Card>;
 
+// `withComponent` renders a `button`
+const ButtonCard = C.Card.withComponent('button');
+<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
+
 <C.CardBody isShady size="extraSmall">
     Hello world!
 </C.CardBody>;
@@ -117,10 +121,6 @@ interface MyCompleteOption {
 // $ExpectError
 <C.CardDivider isShady />;
 <C.CardDivider />;
-
-// `withComponent` renders a `button`
-const ButtonCard = C.Card.withComponent('button');
-<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
 
 //
 // checkbox-control
