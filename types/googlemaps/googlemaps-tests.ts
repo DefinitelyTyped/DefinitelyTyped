@@ -756,7 +756,7 @@ new google.maps.places.AutocompleteService()
         (result) => {
             result[0]
                 .structured_formatting
-                .secondary_text_matched_substrings // $ExpectType PredictionSubstring[] | undefined
+                .secondary_text_matched_substrings; // $ExpectType PredictionSubstring[] | undefined
         }
     );
 
