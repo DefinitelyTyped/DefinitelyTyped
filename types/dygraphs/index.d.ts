@@ -1289,8 +1289,8 @@ declare class Dygraph {
      * Returns null if there is no such x-value in the data.
      * If there are multiple rows with the same x-value, this will return the
      * first one.
-     * @param {number} xVal The x-value to look for (e.g. millis since epoch).
-     * @return {?number} The row number, which you can pass to getValue(), or null.
+     * @param xVal The x-value to look for (e.g. millis since epoch).
+     * @return The row number, which you can pass to getValue(), or null.
      */
     getRowForX(xVal: number): number | null;
 
