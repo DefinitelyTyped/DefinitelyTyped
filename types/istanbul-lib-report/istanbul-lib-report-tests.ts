@@ -8,14 +8,15 @@ import {
 import { CoverageMap } from 'istanbul-lib-coverage';
 
 const watermarks: Watermarks = {
-	statements: [],
-	branches: [],
-	functions: [],
-	lines: []
+	statements: [50, 100],
+	branches: [10, 50],
+	functions: [50, 99],
+	lines: [25, 75]
 };
 
 createContext();
 createContext({});
+
 const context = createContext({
 	dir: 'foo',
 	watermarks,
@@ -24,6 +25,14 @@ const context = createContext({
 
 context.watermarks;
 context.sourceFinder('foo').trim();
+
+const context2 = createContext({
+	watermarks: {
+		statements: [75, 100]
+	}
+});
+
+context2.watermarks.functions[1];
 
 const defaultMarks: Watermarks = getDefaultWatermarks();
 
