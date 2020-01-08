@@ -3184,7 +3184,7 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * scrollResponderScrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
@@ -5890,7 +5890,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * scrollResponderScrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollResponderScrollTo(
@@ -6357,7 +6357,7 @@ export class ScrollView extends ScrollViewBase {
      * scrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
