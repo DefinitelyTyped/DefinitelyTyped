@@ -1,4 +1,4 @@
-// Type definitions for newman 3.11
+// Type definitions for newman 4.5
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 //                 Graham McGregor <https://github.com/Graham42>
