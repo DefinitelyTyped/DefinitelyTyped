@@ -1,13 +1,16 @@
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
 import { FrameState } from '../PluggableMap';
-import WebGLContext from '../webgl/Context';
+import { Transform } from '../transform';
 import EventType from './EventType';
-import VectorContext from './VectorContext';
 
-export default class RenderEvent extends Event {
-    constructor(type: EventType, opt_vectorContext?: VectorContext, opt_frameState?: FrameState, opt_context?: CanvasRenderingContext2D, opt_glContext?: WebGLContext);
+export default class RenderEvent extends BaseEvent {
+    constructor(
+        type: EventType,
+        opt_inversePixelTransform?: Transform,
+        opt_frameState?: FrameState,
+        opt_context?: CanvasRenderingContext2D,
+    );
     context: CanvasRenderingContext2D;
     frameState: FrameState;
-    glContext: WebGLContext;
-    vectorContext: VectorContext;
+    inversePixelTransform: Transform;
 }

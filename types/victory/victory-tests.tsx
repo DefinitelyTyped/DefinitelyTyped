@@ -23,7 +23,8 @@ import {
     ScatterSymbolType,
     Flyout,
     VictoryClipContainer,
-    VictoryPortal
+    VictoryPortal,
+    VictoryStringOrNumberCallback,
 } from 'victory';
 
 const commonData1 = [
@@ -59,7 +60,7 @@ let test = (
 // VictoryClipContainer test
 test = (
     <VictoryClipContainer
-        circleComponent={<circle/>}
+        circleComponent={<circle />}
         className="container-class"
         clipHeight={100}
         clipId={10}
@@ -67,23 +68,20 @@ test = (
             top: 10,
             bottom: 20,
             left: 30,
-            right: 40
+            right: 40,
         }}
-        clipPathComponent={<clipPath/>}
+        clipPathComponent={<clipPath />}
         clipWidth={300}
-        events={{onClick: () => {}}}
-        groupComponent={<g/>}
-        origin={{x: 0, y: 30}}
+        events={{ onClick: () => {} }}
+        groupComponent={<g />}
+        origin={{ x: 0, y: 30 }}
         polar={true}
         radius={45}
-        rectComponent={<rect/>}
+        rectComponent={<rect />}
         translateX={50}
         translateY={70}
     >
-        {[
-            <span>child a</span>,
-            <span>child b</span>
-        ]}
+        {[<span>child a</span>, <span>child b</span>]}
     </VictoryClipContainer>
 );
 
@@ -91,22 +89,22 @@ test = (
 test = (
     <Flyout
         active={true}
-        center={{x: 0, y: 2}}
+        center={{ x: 0, y: 2 }}
         className="flyout-class"
         cornerRadius={3}
         data={[]}
-        datum={{x: -3, y: 3}}
+        datum={{ x: -3, y: 3 }}
         dx={-6}
         dy={30}
         events={{
-            onClick: () => {}
+            onClick: () => {},
         }}
         height={50}
         id="ab"
         index={0}
         orientation="top"
-        origin={{x: 0, y: 0}}
-        pathComponent={<rect/>}
+        origin={{ x: 0, y: 0 }}
+        pathComponent={<rect />}
         pointerLength={5}
         pointerWidth={10}
         polar={false}
@@ -335,11 +333,19 @@ test = (
     />
 );
 
+const getOpacity: VictoryStringOrNumberCallback = arg1 => {
+    const { datum, horizontal, x, y, scale } = arg1;
+    const newX = scale.x(1);
+    const newY = scale.y(1);
+    const orientation = horizontal ? x : y;
+    return orientation;
+};
+
 test = (
     <VictoryBar
         height={500}
         style={{
-            data: { fill: 'blue', width: 20 },
+            data: { fill: 'blue', width: 20, opacity: getOpacity },
             labels: { fontSize: 20 },
         }}
         labels={['a', 'b', 'c', 'd', 'e']}
@@ -821,7 +827,7 @@ type RecursiveRequired<T> = {
 // tslint:disable-next-line: no-object-literal-type-assertion
 const cssProps: Required<React.CSSProperties> = {} as Required<React.CSSProperties>;
 const colorScale: string[] = ['blue'];
-const scatterSymbolType: {type: ScatterSymbolType} = { type: 'square' };
+const scatterSymbolType: { type: ScatterSymbolType } = { type: 'square' };
 const victoryStyle: RecursiveRequired<Required<VictoryStyleInterface>> = {
     parent: cssProps,
     data: cssProps,
@@ -904,7 +910,7 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
         width: 0,
     },
     legend: {
-        style: { data: {...cssProps, ...scatterSymbolType}, labels: cssProps, title: cssProps },
+        style: { data: { ...cssProps, ...scatterSymbolType }, labels: cssProps, title: cssProps },
         colorScale,
         gutter: 0,
         height: 0,
