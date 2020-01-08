@@ -106,6 +106,8 @@ function log(_: string) {
 }
 
 async function test() {
+    polly.adapters.get('node-http');
+
     polly.pause();
     polly.play();
     const { server } = polly;
@@ -119,6 +121,14 @@ async function test() {
     server.get('/session').on('response', (req, res) => {
         log(`${req.url} took ${req.responseTime}ms with a status of ${res.statusCode}.`);
     });
+
+    const fn = () => {};
+    server
+        .any()
+        .on('request', fn)
+        .on('request', () => {})
+        .off('request', fn)
+        .off('request');
 
     polly.configure({
         adapterOptions: {

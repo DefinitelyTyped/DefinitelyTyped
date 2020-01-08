@@ -1,4 +1,4 @@
-import { Module } from 'module';
+import Module = require('module');
 import { URL } from 'url';
 require.extensions[".ts"] = () => "";
 
@@ -10,6 +10,7 @@ const m2: Module = new Module("moduleId");
 const b: string[] = Module.builtinModules;
 let paths: string[] = [];
 paths = m1.paths;
+m1 instanceof Module;
 
 Module.createRequireFromPath('./test')('test');
 

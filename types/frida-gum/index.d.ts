@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 14.5
+// Type definitions for non-npm package frida-gum 15.0
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -4045,9 +4045,8 @@ declare namespace Java {
     /**
      * Enumerates class loaders.
      *
-     * You may assign such a loader to `Java.classFactory.loader` to make
-     * `Java.use()` look for classes on a specific loader instead of the default
-     * loader used by the app.
+     * You may pass such a loader to `Java.ClassFactory.get()` to be able to
+     * `.use()` classes on the specified class loader.
      *
      * @param callbacks Object with callbacks.
      */
@@ -4092,12 +4091,12 @@ declare namespace Java {
      * unloaded. Static and non-static methods are available, and you can even
      * replace method implementations.
      *
-     * Uses the app's class loader by default, but you may customize this by
-     * assigning a different loader instance to `Java.classFactory.loader`.
+     * Uses the app's class loader, but you may access classes on other loaders
+     * by calling `Java.ClassFactory.get()`.
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string, options?: UseOptions): Wrapper;
+    function use(className: string): Wrapper;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -4164,15 +4163,21 @@ declare namespace Java {
 
     const vm: VM;
 
+    /**
+     * The default class factory used to implement e.g. `Java.use()`.
+     * Uses the application's main class loader.
+     */
     const classFactory: ClassFactory;
 
     interface EnumerateLoadedClassesCallbacks {
         /**
-         * Called with the name of each currently loaded class.
+         * Called with the name of each currently loaded class, and a JNI
+         * reference for its Java Class object.
          *
-         * Pass this to `Java.use()` to get a JavaScript wrapper.
+         * Pass the `name` to `Java.use()` to get a JavaScript wrapper.
+         * You may also `Java.cast()` the `handle` to `java.lang.Class`.
          */
-        onMatch: (className: string) => void;
+        onMatch: (name: string, handle: NativePointer) => void;
 
         /**
          * Called when all loaded classes have been enumerated.
@@ -4191,17 +4196,6 @@ declare namespace Java {
          * Called when all class loaders have been enumerated.
          */
         onComplete: () => void;
-    }
-
-    interface UseOptions {
-        /**
-         * Whether to consult the class wrapper cache – which is the default
-         * behavior – or skip it and create a brand new class wrapper.
-         *
-         * Skipping the cache is useful when dealing with multiple class-loaders
-         * and colliding class names.
-         */
-        cache?: "consult" | "skip";
     }
 
     interface ChooseCallbacks {
@@ -4511,20 +4505,26 @@ declare namespace Java {
 
     type Env = any;
 
-    interface ClassFactory {
+    class ClassFactory {
         /**
-         * Class loader currently being used. Typically updated by the
-         * first call to `Java.perform()`.
+         * Gets the class factory instance for a given class loader.
          *
-         * You may assign a different `java.lang.ClassLoader` to make
-         * `Java.use()` look for classes on a specific loader instead of
-         * the default loader used by the app.
+         * The default class factory used behind the scenes only interacts
+         * with the application's main class loader. Other class loaders
+         * can be discovered through `Java.enumerateClassLoaders()` and
+         * interacted with through this API.
          */
-        loader: Wrapper | null;
+        static get(classLoader: Wrapper): ClassFactory;
 
         /**
-         * Path to cache directory currently being used. Typically updated by
-         * the first call to `Java.perform()`.
+         * Class loader currently being used. For the default class factory this
+         * is updated by the first call to `Java.perform()`.
+         */
+        readonly loader: Wrapper | null;
+
+        /**
+         * Path to cache directory currently being used. For the default class
+         * factory this is updated by the first call to `Java.perform()`.
          */
         cacheDir: string;
 
@@ -4534,6 +4534,69 @@ declare namespace Java {
          * Defaults to `{ prefix: "frida", suffix: "dat" }`.
          */
         tempFileNaming: TempFileNaming;
+
+        /**
+         * Dynamically generates a JavaScript wrapper for `className` that you can
+         * instantiate objects from by calling `$new()` on to invoke a constructor.
+         * Call `$dispose()` on an instance to clean it up explicitly, or wait for
+         * the JavaScript object to get garbage-collected, or script to get
+         * unloaded. Static and non-static methods are available, and you can even
+         * replace method implementations.
+         *
+         * @param className Canonical class name to get a wrapper for.
+         */
+        use(className: string): Wrapper;
+
+        /**
+         * Opens the .dex file at `filePath`.
+         *
+         * @param filePath Path to .dex to open.
+         */
+        openClassFile(filePath: string): DexFile;
+
+        /**
+         * Enumerates live instances of the `className` class by scanning the Java
+         * VM's heap.
+         *
+         * @param className Name of class to enumerate instances of.
+         * @param callbacks Object with callbacks.
+         */
+        choose(className: string, callbacks: ChooseCallbacks): void;
+
+        /**
+         * Duplicates a JavaScript wrapper for later use outside replacement method.
+         *
+         * @param handle An existing wrapper retrieved from `this` in replacement method.
+         */
+        retain(obj: Wrapper): Wrapper;
+
+        /**
+         * Creates a JavaScript wrapper given the existing instance at `handle` of
+         * given class `klass` as returned from `Java.use()`.
+         *
+         * @param handle An existing wrapper or a JNI handle.
+         * @param klass Class wrapper for type to cast to.
+         */
+        cast(handle: Wrapper | NativePointerValue, klass: Wrapper): Wrapper;
+
+        /**
+         * Creates a Java array with elements of the specified `type`, from a
+         * JavaScript array `elements`. The resulting Java array behaves like
+         * a JS array, but can be passed by reference to Java APIs in order to
+         * allow them to modify its contents.
+         *
+         * @param type Type name of elements.
+         * @param elements Array of JavaScript values to use for constructing the
+         *                 Java array.
+         */
+        array(type: string, elements: any[]): any[];
+
+        /**
+         * Creates a new Java class.
+         *
+         * @param spec Object describing the class to be created.
+         */
+        registerClass(spec: ClassSpec): Wrapper;
     }
 
     interface TempFileNaming {

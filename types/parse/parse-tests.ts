@@ -543,7 +543,16 @@ function test_cloud_functions() {
 class PlaceObject extends Parse.Object {}
 
 function test_geo_points() {
-    const point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
+    let point = new Parse.GeoPoint();
+    // $ExpectError
+    point = new Parse.GeoPoint('40.0');
+    // $ExpectError
+    point = new Parse.GeoPoint(40.0);
+    // $ExpectError
+    point = new Parse.GeoPoint([40.0, -30.0, 20.0]);
+    point = new Parse.GeoPoint([40.0, -30.0]);
+    point = new Parse.GeoPoint(40.0, -30.0);
+    point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
     const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
 
@@ -651,7 +660,7 @@ function test_polygon() {
 
     const query = new Parse.Query('TestObject');
     query.polygonContains('key', point);
-    query.withinPolygon('key', [point, point, point]);
+    query.withinPolygon('key', [[0, 0], [1, 0], [1, 1], [0, 1]]);
 }
 
 async function test_local_datastore() {
@@ -746,9 +755,6 @@ function testObject() {
 
         // $ExpectType Object<{ example: string; }>
         new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
-
-        // $ExpectError
-        new Parse.Object<{ example?: string }>('TestObject');
 
         // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
@@ -1140,12 +1146,234 @@ function testQuery() {
         new Parse.Query<Parse.User<{ example: string }>>(Parse.User);
     }
 
+    async function testQueryMethodTypes() {
+        class AnotherSubclass extends Parse.Object<{x: any}> { }
+        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
+        const query = new Parse.Query(MySubClass);
+
+        // $ExpectType Query<MySubClass>
+        query.addAscending(['attribute1', 'attribute2', 'updatedAt']);
+        // $ExpectError
+        query.addAscending(['attribute1', 'unexistenProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.addDescending(['attribute1', 'attribute2', 'createdAt']);
+        // $ExpectError
+        query.addDescending(['attribute1', 'unexistenProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.ascending(['attribute1', 'attribute2', 'objectId']);
+        // $ExpectError
+        query.ascending(['attribute1', 'nonexistentProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.containedBy('attribute1', ['a', 'b', 'c']);
+        // $ExpectType Query<MySubClass>
+        query.containedBy('attribute3', ['objectId1', 'objectId2', 'objectId3']);
+        // $ExpectError
+        query.containedBy('attribute2', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containedBy('attribute1', [1, 2, 3]);
+        // $ExpectError
+        query.containedBy('nonexistentProp', ['a', 'b', 'c']);
+
+        // $ExpectType Query<MySubClass>
+        query.containedIn('attribute1', ['a', 'b', 'c']);
+        // $ExpectType Query<MySubClass>
+        query.containedIn('attribute3', ['objectId1', 'objectId2', 'objectId3']);
+        // $ExpectError
+        query.containedIn('attribute2', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containedIn('attribute1', [1, 2, 3]);
+        // $ExpectError
+        query.containedIn('nonexistentProp', ['a', 'b', 'c']);
+
+        // $ExpectType Query<MySubClass>
+        query.contains('attribute1', 'a substring');
+        // $ExpectError
+        query.contains('nonexistentProp', 'a substring');
+
+        // $ExpectType Query<MySubClass>
+        query.containsAll('attribute1', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containsAll('nonexistentProp', ['a', 'b', 'c']);
+
+        // $ExpectType Query<MySubClass>
+        query.containsAllStartingWith('attribute1', ['a', 'b', 'c']);
+        // $ExpectError
+        query.containsAllStartingWith('nonexistentProp', ['a', 'b', 'c']);
+
+        // $ExpectType Query<MySubClass>
+        query.descending(['attribute1', 'attribute2', 'objectId']);
+        // $ExpectError
+        query.descending(['attribute1', 'nonexistentProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.doesNotExist('attribute1');
+        // $ExpectError
+        query.doesNotExist('nonexistentProp');
+
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
+        // $ExpectError
+        query.doesNotMatchQuery('nonexistentProp', new Parse.Query('Example'));
+
+        // $ExpectType Query<MySubClass>
+        query.endsWith('attribute1', 'asuffixstring');
+        // $ExpectError
+        query.endsWith('nonexistentProp', 'asuffixstring');
+
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute2', 0);
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute3', new AnotherSubclass('Another'));
+        // $ExpectType Query<MySubClass>
+        query.equalTo('attribute3', new AnotherSubclass('Another').toPointer());
+        // $ExpectError
+        query.equalTo('attribute1', new AnotherSubclass('Another').toPointer());
+        // $ExpectError
+        query.equalTo('attribute2', 'a string value');
+        // $ExpectError
+        query.equalTo('nonexistentProp', 'any value');
+
+        // $ExpectType Query<MySubClass>
+        query.exists('attribute1');
+        // $ExpectError
+        query.exists('nonexistentProp');
+
+        // $ExpectType Query<MySubClass>
+        query.fullText('attribute1', 'full text');
+        // $ExpectError
+        query.fullText('nonexistentProp', 'full text');
+
+        // $ExpectType Query<MySubClass>
+        query.greaterThan('attribute2', 1000);
+        // $ExpectError
+        query.greaterThan('attribute2', '1000');
+        // $ExpectError
+        query.greaterThan('nonexistentProp', 1000);
+
+        // $ExpectType Query<MySubClass>
+        query.greaterThanOrEqualTo('attribute2', 1000);
+        // $ExpectError
+        query.greaterThanOrEqualTo('attribute2', '1000');
+        // $ExpectError
+        query.greaterThanOrEqualTo('nonexistentProp', 1000);
+
+        // $ExpectType Query<MySubClass>
+        query.include(['attribute1', 'attribute2']);
+        // $ExpectType Query<MySubClass>
+        query.include<any>('attribute3.someProp');
+        // $ExpectError
+        query.include(['attribute1', 'nonexistentProp']);
+
+        // $ExpectType Query<MySubClass>
+        query.lessThan('attribute2', 1000);
+        // $ExpectError
+        query.lessThan('attribute2', '1000');
+        // $ExpectError
+        query.lessThan('nonexistentProp', 1000);
+
+        // $ExpectType Query<MySubClass>
+        query.lessThanOrEqualTo('attribute2', 1000);
+        // $ExpectError
+        query.lessThanOrEqualTo('attribute2', '1000');
+        // $ExpectError
+        query.lessThanOrEqualTo('nonexistentProp', 1000);
+
+        // $ExpectType Query<MySubClass>
+        query.matches('attribute1', /a regex/);
+        // $ExpectError
+        query.matches('nonexistentProp', /a regex/);
+
+        // $ExpectType Query<MySubClass>
+        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubclass));
+        // $ExpectError
+        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+
+        // $ExpectType Query<MySubClass>
+        query.matchesQuery('attribute1', new Parse.Query('Example'));
+        // $ExpectError
+        query.matchesQuery('nonexistentProp', new Parse.Query('Example'));
+
+        // $ExpectType Query<MySubClass>
+        query.near('attribute1', new Parse.GeoPoint());
+        // $ExpectError
+        query.near('nonexistentProp', new Parse.GeoPoint());
+
+        // $ExpectType Query<MySubClass>
+        query.notContainedIn('attribute2', [1, 2, 3]);
+        // $ExpectError
+        query.notContainedIn('attribute2', ['1', '2', '3']);
+        // $ExpectError
+        query.notContainedIn('nonexistentProp', [1, 2, 3]);
+
+        // $ExpectType Query<MySubClass>
+        query.notEqualTo('attribute1', '1');
+        // $ExpectError
+        query.notEqualTo('attribute1', 1);
+        // $ExpectError
+        query.notEqualTo('nonexistentProp', 1);
+
+        // $ExpectType Query<MySubClass>
+        query.polygonContains('attribute1', new Parse.GeoPoint());
+        // $ExpectError
+        query.polygonContains('nonexistentProp', new Parse.GeoPoint());
+
+        // $ExpectType Query<MySubClass>
+        query.select('attribute1', 'attribute2');
+        // $ExpectError
+        query.select('attribute1', 'nonexistentProp');
+
+        // $ExpectType Query<MySubClass>
+        query.startsWith('attribute1', 'prefix string');
+        // $ExpectError
+        query.startsWith('nonexistentProp', 'prefix string');
+
+        // $ExpectType Query<MySubClass>
+        query.withinGeoBox('attribute1', new Parse.GeoPoint(), new Parse.GeoPoint());
+        // $ExpectError
+        query.withinGeoBox('nonexistentProp', new Parse.GeoPoint(), new Parse.GeoPoint());
+
+        // $ExpectType Query<MySubClass>
+        query.withinKilometers('attribute1', new Parse.GeoPoint(), 100);
+        // $ExpectError
+        query.withinKilometers('nonexistentProp', new Parse.GeoPoint(), 100);
+
+        // $ExpectType Query<MySubClass>
+        query.withinMiles('attribute1', new Parse.GeoPoint(), 100);
+        // $ExpectError
+        query.withinMiles('nonexistentProp', new Parse.GeoPoint(), 100);
+
+        // $ExpectType Query<MySubClass>
+        query.withinPolygon('attribute1', [[12.3, 45.6], [-78.9, 10.1]]);
+        // $ExpectError
+        query.withinPolygon('nonexistentProp', [[12.3, 45.6], [-78.9, 10.1]]);
+
+        // $ExpectType Query<MySubClass>
+        query.withinRadians('attribute1', new Parse.GeoPoint(), 100);
+        // $ExpectError
+        query.withinRadians('nonexistentProp', new Parse.GeoPoint(), 100);
+    }
+
     async function testQueryMethods(queryUntyped: Parse.Query, queryTyped: Parse.Query<Parse.Object<{ example: string }>>) {
         // $ExpectType Object<Attributes>
         await queryUntyped.get('objectId');
 
         // $ExpectType Object<Attributes>[]
         await queryUntyped.find();
+
+        // $ExpectType string
+        await queryTyped.distinct('example');
 
         // $ExpectType Object<Attributes> | undefined
         await queryUntyped.first();

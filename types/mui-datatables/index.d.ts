@@ -204,12 +204,17 @@ export interface MUIDataTableOptions {
     onChangeRowsPerPage?: (numberOfRows: number) => void;
     onColumnSortChange?: (changedColumn: string, direction: string) => void;
     onColumnViewChange?: (changedColumn: string, action: string) => void;
+    /**
+     * A callback function that triggers when the user downloads the CSV file.
+     * In the callback, you can control what is written to the CSV file.
+     * Return false to cancel download of file.
+     */
     onDownload?: (
         buildHead: (columns: any) => string,
         buildBody: (data: any) => string,
         columns: any,
-        data: any
-    ) => string;
+        data: any,
+    ) => string | boolean;
     onFilterChange?: (changedColumn: string, filterList: any[], type: FilterType | 'chip' | 'reset') => void;
     onFilterDialogOpen?: () => void;
     onFilterDialogClose?: () => void;

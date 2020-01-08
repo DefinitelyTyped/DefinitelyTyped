@@ -198,6 +198,15 @@ adapter.getObjectViewAsync("system", "admin", {startkey: "foo", endkey: "bar"}).
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
 });
 
+// TODO: https://github.com/ioBroker/ioBroker.js-controller/issues/574
+// {} should be left out or undefined
+adapter.getObjectList({startkey: "foo", endkey: "bar"}, {}, (err, result) => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
+adapter.getObjectListAsync({startkey: "foo", endkey: "bar"}, {}).then(result => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
+
 adapter.subscribeObjects("*");
 adapter.subscribeStates("*");
 adapter.subscribeForeignObjects("*");

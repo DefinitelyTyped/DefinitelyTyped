@@ -31,6 +31,7 @@
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 LKHO <https://github.com/lkho>
 //                 Tom Yam <https://github.com/tomyam1>
 //                 Thomas Pischulski <https://github.com/nephix>
 //                 Sam Kim <https://github.com/rlaace423>
@@ -370,6 +371,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** Flag for using new Server Discovery and Monitoring engine instead of current (deprecated) one */
+    useUnifiedTopology?: boolean;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;
@@ -1031,6 +1034,11 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: boolean | SchemaTimestampsConfig;
+    /**
+     * Determines whether a type set to a POJO becomes
+     * a Mixed path or a Subdocument (defaults to true).
+     */
+    typePojoToMixed?:boolean;
   }
 
   interface SchemaTimestampsConfig {
@@ -2022,6 +2030,12 @@ declare module "mongoose" {
      */
     lte<T>(val: T): this;
     lte<T>(path: string, val: T): this;
+
+    /**
+     * Runs a function fn and treats the return value of fn as the new value for the query to resolve to.
+     * Any functions you pass to map() will run after any post hooks.
+     */
+    map<TRes>(fn: (res: T) => TRes): DocumentQuery<TRes, DocType, QueryHelpers> & QueryHelpers;
 
     /**
      * Specifies a $maxDistance query condition.
@@ -3327,6 +3341,7 @@ declare module "mongoose" {
     where(path: string, val?: any): Query<any> & QueryHelpers;
   }
 
+  class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
