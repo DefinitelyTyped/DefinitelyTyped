@@ -40,6 +40,19 @@ declare namespace ReactModal {
         modal?: boolean | 'false' | 'true';
     }
 
+    /** Describes overlay and content element references passed to onAfterOpen function */
+    interface OnAfterOpenCallbackOptions {
+        /** overlay element reference */
+        overlayEl: Element;
+        /** content element reference */
+        contentEl: HTMLDivElement;
+    }
+
+    /** Describes unction that will be run after the modal has opened */
+    interface OnAfterOpenCallback {
+        (obj?: OnAfterOpenCallbackOptions): void;
+    }
+
     interface Props {
         /* Boolean describing if the modal should be shown or not. Defaults to false. */
         isOpen: boolean;
@@ -66,7 +79,7 @@ declare namespace ReactModal {
         appElement?: HTMLElement | {};
 
         /* Function that will be run after the modal has opened. */
-        onAfterOpen?(): void;
+        onAfterOpen?: OnAfterOpenCallback;
 
         /* Function that will be run after the modal has closed. */
         onAfterClose?(): void;
