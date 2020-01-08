@@ -17,13 +17,15 @@ import {
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
 const globals: VariableScopeDefinition = {};
+const color = 'auto';
 
 // $ExpectType EventEmitter
 run(
     {
         collection,
         environment,
-        globals
+        globals,
+        color
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun
