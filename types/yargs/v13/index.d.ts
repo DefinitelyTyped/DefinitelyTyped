@@ -1,4 +1,4 @@
-// Type definitions for yargs 15.0
+// Type definitions for yargs 13.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -387,12 +387,6 @@ declare namespace yargs {
          */
         number<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToNumber<T[key]> }>;
         number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
-
-        /**
-         * Method to execute when a command finishes successfully.
-         * @param func Is called with the successful result of the command that finished.
-         */
-        onFinishCommand(func: (result: any) => void): Argv<T>;
 
         /**
          * This method can be used to make yargs aware of options that could exist.
