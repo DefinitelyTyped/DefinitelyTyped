@@ -1,6 +1,6 @@
 // Type definitions for bent 7.0
 // Project: https://github.com/mikeal/bent#readme
-// Definitions by: Ovyerus <https://github.com/me>
+// Definitions by: Ovyerus <https://github.com/Ovyerus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
