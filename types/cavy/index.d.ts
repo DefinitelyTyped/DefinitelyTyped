@@ -53,6 +53,7 @@ export class TestScope {
     beforeEach(fn: () => void): void;
     press(identifier: string): Promise<void>;
     fillIn(identifier: string, str: string): Promise<void>;
+    focus(identifier: string): Promise<void>;
     pause(time: number): Promise<void>;
     exists(identifier: string): Promise<true>;
     notExists(identifier: string): Promise<true>;
