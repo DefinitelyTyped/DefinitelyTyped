@@ -133,6 +133,7 @@ resultStr = card.name;
 resultStr = card.address.streetA;
 const contextualCard = faker.helpers.contextualCard();
 resultStr = contextualCard.name;
+resultStr = contextualCard.avatar;
 resultStr = contextualCard.address.suite;
 const userCard = faker.helpers.userCard();
 resultStr = userCard.name;
