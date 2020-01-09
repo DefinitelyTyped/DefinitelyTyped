@@ -17,11 +17,11 @@ import * as events from "events";
 import * as url from "url";
 import * as stream from "stream";
 
-type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailled;
+type ProxyTarget = ProxyTargetUrl | ProxyTargetDetailed;
 
 type ProxyTargetUrl = string | Partial<url.Url>;
 
-interface ProxyTargetDetailled {
+interface ProxyTargetDetailed {
   host: string;
   port: number;
   protocol?: string;
