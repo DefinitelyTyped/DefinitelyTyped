@@ -1,4 +1,4 @@
-// Type definitions for cavy 3.1
+// Type definitions for cavy 3.2
 // Project: https://github.com/pixielabs/cavy
 // Definitions by: Tyler Hoffman <https://github.com/tyler-hoffman>
 //                 Abigail McPhillips <https://github.com/AbigailMcP>
