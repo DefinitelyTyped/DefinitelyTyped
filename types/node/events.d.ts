@@ -17,7 +17,19 @@ declare module "events" {
     namespace EventEmitter {
         function once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
         function once(emitter: DOMEventTarget, event: string): Promise<any[]>;
+        function on(emitter: EventEmitter, event: string): AsyncIterableIterator<any>;
         const captureRejectionSymbol: unique symbol;
+
+        /**
+         * This symbol shall be used to install a listener for only monitoring `'error'`
+         * events. Listeners installed using this symbol are called before the regular
+         * `'error'` listeners are called.
+         *
+         * Installing a listener using this symbol does not change the behavior once an
+         * `'error'` event is emitted, therefore the process will still crash if no
+         * regular `'error'` listener is installed.
+         */
+        const errorMonitor: unique symbol;
         /**
          * Sets or gets the default captureRejection value for all emitters.
          */
