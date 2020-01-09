@@ -326,6 +326,8 @@ export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
     onClick?: RechartsFunction;
+    onMouseEnter?: RechartsFunction;
+    onMouseLeave?: RechartsFunction;
 }
 
 export class Cell extends React.Component<CellProps> { }
@@ -808,6 +810,7 @@ export interface SectorProps extends EventAttributes, Partial<PresentationAttrib
 export class Sector extends React.Component<SectorProps> { }
 
 export interface TextProps extends Partial<PresentationAttributes> {
+    className?: string;
     scaleToFit?: boolean;
     angle?: number;
     textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
