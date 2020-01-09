@@ -1158,6 +1158,10 @@ id(value: number|string): this;
         margin(): Margin;
         /*Object containing the margins for the chart or component. You can specify only certain margins in the object to change just those parts.*/
         margin(value: Margin): this;
+        /* Toggle whether to highlight the minimum and maximum values with points*/
+        showMinMaxPoints(): boolean;
+        /* Toggle whether to highlight the minimum and maximum values with points*/
+        showMinMaxPoints(value: boolean): this;
         /* The width the graph or component created inside the SVG should be made*/
         width(): number;
         /*The width the graph or component created inside the SVG should be made.*/
