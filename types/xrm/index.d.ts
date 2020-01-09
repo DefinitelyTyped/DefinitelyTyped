@@ -3468,7 +3468,7 @@ declare namespace Xrm {
              * Use this method to get a reference to the current view.
              * @returns The current view.
              */
-            getCurrentView(): ViewSelectorItem;
+            getCurrentView(): LookupValue;
 
             /**
              * Use this method to determine whether the view selector is visible.
@@ -3480,7 +3480,7 @@ declare namespace Xrm {
              * Use this method to set the current view.
              * @param viewSelectorItem The view selector item.
              */
-            setCurrentView(viewSelectorItem: ViewSelectorItem): void;
+            setCurrentView(viewSelectorItem: LookupValue): void;
         }
 
         /**
