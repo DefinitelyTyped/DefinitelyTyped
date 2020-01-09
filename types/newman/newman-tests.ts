@@ -17,7 +17,10 @@ import {
 const collection: CollectionDefinition = {};
 const environment: VariableScopeDefinition = {};
 const globals: VariableScopeDefinition = {};
+const folder: string | string[] = ['collectionFolderA', 'collectionFolderB'];
 const color = 'auto';
+const workingDir = 'path/to/working/directory';
+const insecureFileRead = true;
 
 // $ExpectType EventEmitter
 run(
@@ -25,7 +28,10 @@ run(
         collection,
         environment,
         globals,
-        color
+        folder,
+        color,
+        workingDir,
+        insecureFileRead
     },
     (err, summary: NewmanRunSummary) => {
         summary.run; // $ExpectType NewmanRun
