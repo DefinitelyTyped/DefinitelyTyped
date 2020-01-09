@@ -5,15 +5,15 @@
 
 import { Sink, Stream, DataFactory, BaseQuad, Quad } from 'rdf-js';
 
-interface ParserOptions {
+interface ParserOptions<Q extends BaseQuad = Quad> {
     baseIRI?: string;
-    factory?: DataFactory;
+    factory?: DataFactory<Q>;
 }
 
 declare class Parser<Q extends BaseQuad = Quad> implements Sink<Q> {
-    constructor(options?: ParserOptions);
+    constructor(options?: ParserOptions<Q>);
 
-    import(stream: Stream<Q>, options?: ParserOptions): Stream<Q>;
+    import(stream: Stream<Q>, options?: ParserOptions<Q>): Stream<Q>;
 }
 
 export = Parser;

@@ -7,17 +7,17 @@ import { Context } from 'jsonld/jsonld-spec';
 import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Parser {
-    interface ParserOptions {
+    interface ParserOptions<Q extends BaseQuad = Quad> {
         baseIRI?: string;
         context?: Context;
-        factory?: DataFactory;
+        factory?: DataFactory<Q>;
     }
 }
 
 declare class Parser<Q extends BaseQuad = Quad> implements Sink<Q> {
-    constructor(options?: Parser.ParserOptions);
+    constructor(options?: Parser.ParserOptions<Q>);
 
-    import(stream: Stream<Q>, options?: Parser.ParserOptions): Stream<Q>;
+    import(stream: Stream<Q>, options?: Parser.ParserOptions<Q>): Stream<Q>;
 }
 
 export = Parser;

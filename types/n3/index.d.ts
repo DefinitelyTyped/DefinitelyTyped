@@ -132,10 +132,10 @@ export interface ParserConstructor {
 }
 export const Parser: ParserConstructor;
 
-export interface ParserOptions {
+export interface ParserOptions<Q extends BaseQuad = Quad> {
     format?: string;
     prefixes?: string[];
-    factory?: RDF.DataFactory;
+    factory?: RDF.DataFactory<Q>;
     baseIRI?: string;
 }
 
@@ -147,7 +147,7 @@ export interface N3Parser<Q extends BaseQuad = Quad> {
 }
 
 export interface StreamParserConstructor {
-  new<Q extends BaseQuad = Quad> (options?: ParserOptions): N3StreamParser<Q>;
+  new<Q extends BaseQuad = Quad> (options?: ParserOptions<Q>): N3StreamParser<Q>;
 }
 export const StreamParser: StreamParserConstructor;
 
@@ -229,8 +229,8 @@ export interface StoreConstructor {
 }
 export const Store: StoreConstructor;
 
-export interface StoreOptions {
-    factory?: RDF.DataFactory;
+export interface StoreOptions<Q extends BaseQuad = Quad> {
+    factory?: RDF.DataFactory<Q>;
 }
 
 export namespace Util {
@@ -240,9 +240,9 @@ export namespace Util {
     function isVariable(value: RDF.Term | null): boolean;
     function isDefaultGraph(value: RDF.Term | null): boolean;
     function inDefaultGraph(value: RDF.Quad): boolean;
-    function prefix(iri: RDF.NamedNode|string, factory?: RDF.DataFactory): PrefixedToIri;
-    function prefixes(
+    function prefix<Q extends BaseQuad = Quad>(iri: RDF.NamedNode|string, factory?: RDF.DataFactory<Q>): PrefixedToIri;
+    function prefixes<Q extends BaseQuad = Quad>(
       defaultPrefixes: Prefixes<RDF.NamedNode|string>,
-      factory?: RDF.DataFactory
+      factory?: RDF.DataFactory<Q>
     ): (prefix: string) => PrefixedToIri;
 }

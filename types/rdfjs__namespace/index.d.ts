@@ -3,7 +3,7 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, NamedNode } from 'rdf-js';
+import { BaseQuad, DataFactory, NamedNode, Quad } from 'rdf-js';
 
 declare function namespace(baseIRI: string, options?: namespace.BuilderOptions): namespace.NamespaceBuilder;
 
@@ -14,8 +14,8 @@ declare namespace namespace {
         readonly [property: string]: NamedNode;
     }
 
-    interface BuilderOptions {
-        factory?: DataFactory;
+    interface BuilderOptions<Q extends BaseQuad = Quad> {
+        factory?: DataFactory<Q>;
     }
 }
 
