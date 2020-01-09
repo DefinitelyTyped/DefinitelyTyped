@@ -14,10 +14,11 @@ declare const math: math.MathJsStatic;
 export as namespace math;
 export = math;
 
-type NoLiteralType<T> = T extends number ? number : 
-    T extends string ? string : 
-        T extends boolean ? boolean : 
-            T;
+type NoLiteralType<T> =
+    T extends number ? number :
+    T extends string ? string :
+    T extends boolean ? boolean :
+    T;
 declare namespace math {
     type MathArray = number[] | number[][];
     type MathType =
