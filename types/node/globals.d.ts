@@ -141,7 +141,7 @@ interface RequireResolve extends NodeJS.RequireResolve {}
 interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
-declare var global: NodeJS.Global;
+declare var global: NodeJS.Global & typeof globalThis;
 declare var console: Console;
 
 declare var __filename: string;
@@ -1026,7 +1026,8 @@ declare namespace NodeJS {
         isNaN: typeof isNaN;
         parseFloat: typeof parseFloat;
         parseInt: typeof parseInt;
-        process: Process;
+        // TODO: remove others too
+        // process: Process;
         /**
          * @deprecated Use `global`.
          */

@@ -50,3 +50,14 @@ const a: NodeJS.TypedArray = new Buffer(123);
     writableFinished = writable.writableFinished;
     writable.destroyed;
 }
+
+declare global {
+    var foo: number;
+}
+{
+    process;
+    global.process;
+
+    foo;
+    global.foo;
+}
