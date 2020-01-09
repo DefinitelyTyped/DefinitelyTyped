@@ -126,4 +126,9 @@ declare class ReactModal extends React.Component<ReactModal.Props> {
      * and other assistive technologies while the modal is open.
      */
     static setAppElement(appElement: string | HTMLElement): void;
+
+    portal: {
+        overlay: Element;
+        content: HTMLDivElement;
+    };
 }

@@ -590,6 +590,15 @@ const asTest = (
     </>
 );
 
+const ForwardedAsNestedComponent = styled.div``;
+const ForwardedAsComponent = styled(ForwardedAsNestedComponent)``;
+const forwardedAsTest = (
+    <>
+        <ForwardedAsComponent forwardedAs="h2" />
+        <ForwardedAsComponent forwardedAs={WithComponentH2} />
+    </>
+);
+
 interface TestContainerProps {
     size: "big" | "small";
     test?: boolean;
@@ -1027,6 +1036,30 @@ const StyledWrapperFunc = styled(WrapperFunc)``;
 // No `children` in props, so this should generate an error
 const wrapperFunc = <StyledWrapperFunc>Text</StyledWrapperFunc>; // $ExpectError
 
+// Test if static properties added to the underlying component is passed through.
+function staticPropertyPassthrough() {
+    interface AProps { a: number; }
+    interface BProps { b?: string; }
+    interface BState { b?: string; }
+    class A extends React.Component<AProps> {}
+    class B extends React.Component<BProps, BState> {
+        static A = A;
+        PUBLIC = 'PUBIC_VAL';
+        static F = (props: BProps, state: BState) => props && state;
+        static getDerivedStateFromProps(props: BProps, state: BState) {
+            return state;
+        }
+    }
+    const StyledB = styled(B)``;
+    <StyledB.A />; // $ExpectError
+    <StyledB.A a='a' />; // $ExpectError
+    <StyledB.A a={0} />;
+    StyledB.PUBLIC; // $ExpectError
+    StyledB.componentDidMount(); // $ExpectError
+    StyledB.F({ b: 'b' } , { b: 'b' });
+    StyledB.getDerivedStateFromProps({ b: 'b' } , { b: 'b' }); // $ExpectError
+}
+
 function unionTest() {
     interface Book {
         kind: 'book';
@@ -1052,7 +1085,8 @@ function unionTest() {
         font-size: ${props => props.kind === 'book' ? 16 : 14}
     `;
 
-    <StyledReadable kind="book" author="Hejlsberg" />;
+    // undesired, fix was reverted because of https://github.com/Microsoft/TypeScript/issues/30663
+    <StyledReadable kind="book" author="Hejlsberg" />; // $ExpectError
     <StyledReadable kind="magazine" author="Hejlsberg" />; // $ExpectError
 }
 

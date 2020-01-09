@@ -6,15 +6,23 @@
 //                 Alvis HT Tang <https://github.com/alvis>
 //                 Jack Wearden <https://github.com/notbobthebuilder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
 
 // TODO export the top-level functions
 
 // TODO figure out curry arguments
-// TODO create more overloads for nested data, like streams-of-streams or streams-of-array-of-streams etc
 // TODO use externalised Readable/Writable (not node's)
+
+// Returns the type of a flattened stream.
+// Uses trick described in https://github.com/microsoft/TypeScript/pull/33050#issuecomment-552218239
+// with string keys to support TS 2.8
+type Flattened<R> = {
+	value: R,
+	stream: R extends Highland.Stream<infer U> ? Flattened<U> : never,
+	array: R extends Array<infer U> ? Flattened<U> : never;
+}[R extends Array<any> ? 'array' : R extends Highland.Stream<any> ? 'stream' : 'value'];
 
 /**
  * Highland: the high-level streams library
@@ -997,10 +1005,10 @@ declare namespace Highland {
 
 		/**
 		 * Creates a new Stream of values by applying each item in a Stream to an
-		 * iterator function which may return a Stream. Each item on these result
-		 * Streams are then emitted on a single output Stream.
-		 *
-		 * The same as calling `stream.map(f).flatten()`.
+		 * iterator function which must return a (possibly empty) Stream. Each
+		 * item on these result Streams are then emitted on a single output Stream.
+		 * 
+		 * This transform is functionally equivalent to `.map(f).sequence()`.
 		 *
 		 * @id flatMap
 		 * @section Streams
@@ -1021,8 +1029,7 @@ declare namespace Highland {
 		 * @name Stream.flatten()
 		 * @api public
 		 */
-		flatten(): Stream<R>;
-		flatten<U>(): Stream<U>;
+		flatten<U extends Flattened<R>>(): Stream<U>;
 
 		/**
 		 * Forks a stream, allowing you to add additional consumers with shared
@@ -1109,6 +1116,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		sequence<U>(this: Stream<Stream<U>>): Stream<U>;
+		sequence<U>(this: Stream<U[]>): Stream<U>;
 
 		/**
 		 * An alias for the [sequence](#sequence) method.
@@ -1118,8 +1126,8 @@ declare namespace Highland {
 		 * @name Stream.series()
 		 * @api public
 		 */
-		// TODO figure out typing
-		series<U>(): Stream<U>;
+		series<U>(this: Stream<Stream<U>>): Stream<U>;
+		series<U>(this: Stream<U[]>): Stream<U>;
 
 		/**
 		 * Transforms a stream using an arbitrary target transform.

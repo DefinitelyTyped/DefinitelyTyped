@@ -16,7 +16,7 @@
         * [创建一个新的包](#创建一个新的包)
         * [常见错误](#常见错误)
         * [删除一个包](#删除一个包)
-        * [Lint](#lint)
+        * [Linter](#linter)
 * [FAQ](#faq)
 
 ## 当前状态
@@ -26,8 +26,8 @@
 
 * 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.dtslint-runner?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=2&branchName=master)
-* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher): [![Publish Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.types-publisher-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=13)
-* [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://typescript.visualstudio.com/TypeScript/_apis/build/status/sandersn.typescript-bot-watchdog)](https://typescript.visualstudio.com/TypeScript/_build/latest?definitionId=14)
+* 所有的包都会在1小时内 [发布到 npm](https://github.com/Microsoft/types-publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* [typescript-bot](https://github.com/typescript-bot) 在 DefinitelyTyped 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the DefinitelyTyped Gitter channel](https://gitter.im/DefinitelyTyped/DefinitelyTyped) 提出问题。
 
@@ -195,7 +195,7 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 如果这个包从未发布到 Definitely Typed 过，则不需要将其添加到 `notNeededPackages.json`.
 
-#### Lint
+#### Linter
 
 所有新的包都必须通过 lint. 需要添加 `tslint.json` 文件去 lint 这个包。
 ```js
@@ -229,7 +229,9 @@ f("one");
 
 你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
 
-通过运行 `npm run lint package-name` 去测试，其中 `package-name` 是你的包名。
+## 验证
+
+通过运行 `npm run lint package-name` 去测试你的改动，其中 `package-name` 是你的包名。
 这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint).
 
 
@@ -254,10 +256,17 @@ NPM 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 我注意带这里有一些包含 `package.json` 的包。
 
-通常你不需要它，当你发布包的时候会自动创建一个 `package.json` 的文件。
+通常你不需要它。
+Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的包创建一个 `package.json` 文件。
+`package.json` 包含了指定的而不是其他 `@types` 包的依赖。
+当你发布包的时候会自动创建一个 `package.json` 的文件。
+[Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
 包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
-我们不允许手动定义其他字段，比如 `"description"`.
-另外，如果你需要引用旧版本的类型，你必须通过在 `package.json` 添加 `"dependencies": { "@types/foo": "x.y.z" }` 来实现。
+你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/types-publisher/blob/master/dependenciesWhitelist.txt)。
+即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
+该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
+在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
+再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 #### 有些包没有 `tslint.json` 文件，有些 `tsconfig.json` 文件缺少 `"noImplicitAny": true`, `"noImplicitThis": true`, 或 `"strictNullChecks": true`.
 

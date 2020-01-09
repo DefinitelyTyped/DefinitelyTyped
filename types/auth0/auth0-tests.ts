@@ -517,3 +517,55 @@ management.getEmailTemplate({name: 'template_name'}).then(data => {console.log(d
 management.getEmailTemplate({name: 'template_name'}, (err, data) => {console.log(data)});
 management.updateEmailTemplate({name: 'template_name'}, {type:'type'}).then(data => {console.log(data)});
 management.updateEmailTemplate({name: 'template_name'}, {type:'type'}, (err, data) => {console.log(data)});
+
+management.getUserBlocks({ id: 'user_id' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocks({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.getUserBlocksByIdentifier({ identifier: 'email' })
+    .then(response => {
+        response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+    })
+    .catch(err => console.log('Error: ' + err));
+
+management.getUserBlocksByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    response.blocked_for.forEach(blockedFor => console.log(`${blockedFor.identifier}:${blockedFor.ip}`));
+});
+
+management.unblockUser({ id: 'user_id' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUser({ id: 'user_id' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});
+
+management.unblockUserByIdentifier({ identifier: 'email' })
+    .then(response => console.log(response))
+    .catch(err => console.log('Error: ' + err));
+
+management.unblockUserByIdentifier({ identifier: 'email' }, (err, response) => {
+    if (err) {
+        console.log('Error: ' + err);
+        return;
+    }
+    console.log(response);
+});

@@ -29,6 +29,8 @@ const chart: Chart = new Chart(ctx, {
                 borderWidth: { top: 1, right: 1, bottom: 0, left: 1 },
                 label: 'test',
                 data: [1, 3, 5],
+                barThickness: 'flex',
+                minBarLength: 2,
             }
         ],
     },
@@ -67,7 +69,6 @@ const chart: Chart = new Chart(ctx, {
                     ticks: {
                         callback: Math.floor,
                     },
-                    minBarLength: 2,
                     gridLines: {
                         display: false,
                         borderDash: [5, 15],
@@ -80,6 +81,7 @@ const chart: Chart = new Chart(ctx, {
             ],
         },
         legend: {
+            align: 'center',
             display: true,
             labels: {
                 usePointStyle: true,
@@ -160,7 +162,8 @@ const scaleOptions: Chart.RadialLinearScale = {
         zeroLineColor: 'rgba(0, 0, 0, 0.25)',
         zeroLineBorderDash: [],
         zeroLineBorderDashOffset: 0.0,
-        offsetGridLines: false
+        offsetGridLines: false,
+        z: 9
     }
 };
 const radarChartOptions: Chart.RadialChartOptions = {
@@ -293,3 +296,109 @@ const customTooltipsPieChart = new Chart(ctx, {
         },
     },
 });
+
+// platform global values
+Chart.platform.disableCSSInjection = true;
+
+// default global static values
+Chart.defaults.global.defaultFontColor = '#544615';
+Chart.defaults.global.defaultFontFamily = 'Arial';
+Chart.defaults.global.tooltips.backgroundColor = '#0a2c54';
+Chart.defaults.global.tooltips.cornerRadius = 2;
+Chart.defaults.global.tooltips.displayColors = false;
+
+const doughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [
+            {
+                backgroundColor: '#ff0000',
+                borderColor: '#000000',
+                borderWidth: 3,
+                data: [1, 3, 5]
+            }
+        ]
+    }
+});
+
+// Testing Model properties
+if (doughnutChart.getDatasetMeta(0).data.length > 0) {
+    const doughnutChartModel = doughnutChart.getDatasetMeta(0).data[0]._model;
+    console.log(doughnutChartModel.backgroundColor);
+    console.log(doughnutChartModel.borderAlign);
+    console.log(doughnutChartModel.borderColor);
+    console.log(doughnutChartModel.borderWidth);
+    console.log(doughnutChartModel.circumference);
+    console.log(doughnutChartModel.controlPointNextX);
+    console.log(doughnutChartModel.controlPointNextY);
+    console.log(doughnutChartModel.controlPointPreviousX);
+    console.log(doughnutChartModel.controlPointPreviousY);
+    console.log(doughnutChartModel.endAngle);
+    console.log(doughnutChartModel.hitRadius);
+    console.log(doughnutChartModel.innerRadius);
+    console.log(doughnutChartModel.outerRadius);
+    console.log(doughnutChartModel.pointStyle);
+    console.log(doughnutChartModel.radius);
+    console.log(doughnutChartModel.skip);
+    console.log(doughnutChartModel.startAngle);
+    console.log(doughnutChartModel.steppedLine);
+    console.log(doughnutChartModel.tension);
+    console.log(doughnutChartModel.x);
+    console.log(doughnutChartModel.y);
+    console.log(doughnutChartModel.base);
+    console.log(doughnutChartModel.head);
+
+    const doughnutChartView = doughnutChart.getDatasetMeta(0).data[0]._view;
+    console.log(doughnutChartView.backgroundColor);
+    console.log(doughnutChartView.borderAlign);
+    console.log(doughnutChartView.borderColor);
+    console.log(doughnutChartView.borderWidth);
+    console.log(doughnutChartView.circumference);
+    console.log(doughnutChartView.controlPointNextX);
+    console.log(doughnutChartView.controlPointNextY);
+    console.log(doughnutChartView.controlPointPreviousX);
+    console.log(doughnutChartView.controlPointPreviousY);
+    console.log(doughnutChartView.endAngle);
+    console.log(doughnutChartView.hitRadius);
+    console.log(doughnutChartView.innerRadius);
+    console.log(doughnutChartView.outerRadius);
+    console.log(doughnutChartView.pointStyle);
+    console.log(doughnutChartView.radius);
+    console.log(doughnutChartView.skip);
+    console.log(doughnutChartView.startAngle);
+    console.log(doughnutChartView.steppedLine);
+    console.log(doughnutChartView.tension);
+    console.log(doughnutChartView.x);
+    console.log(doughnutChartView.y);
+    console.log(doughnutChartView.base);
+    console.log(doughnutChartView.head);
+}
+
+// Testing DoughnutModel properties
+if (doughnutChart.getDatasetMeta(0).data.length > 0) {
+    const doughnutChartModel = doughnutChart.getDatasetMeta(0).data[0]._model as Chart.DoughnutModel;
+    console.log(doughnutChartModel.backgroundColor);
+    console.log(doughnutChartModel.borderAlign);
+    console.log(doughnutChartModel.borderColor);
+    console.log(doughnutChartModel.borderWidth);
+    console.log(doughnutChartModel.circumference);
+    console.log(doughnutChartModel.endAngle);
+    console.log(doughnutChartModel.innerRadius);
+    console.log(doughnutChartModel.outerRadius);
+    console.log(doughnutChartModel.startAngle);
+    console.log(doughnutChartModel.x);
+    console.log(doughnutChartModel.y);
+
+    const doughnutChartView = doughnutChart.getDatasetMeta(0).data[0]._view as Chart.DoughnutModel;
+    console.log(doughnutChartView.backgroundColor);
+    console.log(doughnutChartView.borderAlign);
+    console.log(doughnutChartView.borderColor);
+    console.log(doughnutChartView.borderWidth);
+    console.log(doughnutChartView.circumference);
+    console.log(doughnutChartView.endAngle);
+    console.log(doughnutChartView.innerRadius);
+    console.log(doughnutChartView.outerRadius);
+    console.log(doughnutChartView.startAngle);
+    console.log(doughnutChartView.x);
+    console.log(doughnutChartView.y);
+}

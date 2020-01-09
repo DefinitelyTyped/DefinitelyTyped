@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.3
+// Type definitions for react-stripe-elements 6.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -9,6 +9,8 @@
 //                 Victor Irzak <https://github.com/virzak>
 //                 Alex Price <https://github.com/remotealex>
 //                 Maciej Dabek <https://github.com/bombek92>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -49,6 +51,18 @@ export namespace ReactStripeElements {
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
             data?: stripe.CreatePaymentMethodOptions,
         ): Promise<stripe.PaymentMethodResponse>;
+        createPaymentMethod(
+            paymentMethodType: stripe.paymentMethod.paymentMethodType,
+            element: HTMLStripeElement,
+            data?: stripe.CreatePaymentMethodOptions,
+        ): Promise<stripe.PaymentMethodResponse>;
+        createPaymentMethod(data: stripe.PaymentMethodData): Promise<stripe.PaymentMethodResponse>;
+        /**
+         * Use `stripe.handleCardAction` in the Payment Intents API manual confirmation flow
+         * to handle a PaymentIntent with the requires_action status.
+         * It will throw an error if the PaymentIntent has a different status.
+         */
+        handleCardAction(clientSecret: string): Promise<stripe.PaymentIntentResponse>;
         handleCardPayment(
             clientSecret: string,
             options?: stripe.HandleCardPaymentWithoutElementsOptions,
@@ -57,6 +71,11 @@ export namespace ReactStripeElements {
             clientSecret: string,
             data?: stripe.HandleCardSetupOptions,
         ): Promise<stripe.SetupIntentResponse>;
+        confirmCardPayment(
+            clientSecret: string,
+            data?: stripe.ConfirmCardPaymentData,
+        ): Promise<stripe.PaymentIntentResponse>;
+        confirmCardSetup(clientSecret: string, data?: stripe.ConfirmCardSetupData): Promise<stripe.SetupIntentResponse>;
     }
 
     interface InjectOptions {
@@ -64,7 +83,8 @@ export namespace ReactStripeElements {
     }
 
     interface InjectedStripeProps {
-        stripe?: StripeProps;
+        stripe: StripeProps | null;
+        elements: stripe.elements.Elements | null;
     }
 
     interface ElementProps extends ElementsOptions {
@@ -83,9 +103,9 @@ export namespace ReactStripeElements {
         onReady?(el: HTMLStripeElement): void;
     }
 
-	interface PaymentRequestButtonElementProps extends ElementProps {
-		onClick?(event: any): void;
-	}
+    interface PaymentRequestButtonElementProps extends ElementProps {
+        onClick?(event: any): void;
+    }
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}

@@ -6,6 +6,8 @@
 //                 Michael Pertl <https://github.com/viamuli>
 //                 Orblazer <https://github.com/orblazer>
 //                 Taylor Herron <https://github.com/gbhmt>
+//                 Lane Goldberg <https://github.com/builtbylane>
+//                 Lorenzo Adinolfi <https://github.com/loru88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
@@ -16,7 +18,7 @@ export = sftp;
 declare class sftp {
     connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
 
-    list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
+    list(remoteFilePath: string, pattern?: string|RegExp): Promise<sftp.FileInfo[]>;
 
     exists(remotePath: string): Promise<false | "d" | "-" | "l">;
 
@@ -24,7 +26,7 @@ declare class sftp {
 
     realPath(remotePath: string): Promise<string>;
 
-    get(path: string, dst?: string | NodeJS.ReadableStream, options?: boolean): Promise<string | NodeJS.ReadableStream | Buffer>;
+    get(path: string, dst?: string | NodeJS.ReadableStream, options?: ssh2Stream.TransferOptions): Promise<string | NodeJS.ReadableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 

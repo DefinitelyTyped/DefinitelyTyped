@@ -50,6 +50,10 @@ export interface Dictionary<T> {
     [key: string]: T;
 }
 
+/* tslint:disable-next-line:no-empty-interface */
+export interface ServerMethods extends Dictionary<ServerMethod> {
+}
+
 /**
  * Server
  * The Server object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080).
@@ -101,7 +105,7 @@ export class Server extends Podium {
      * An object providing access to the server methods cs://hapijs.com/api/16.1.1#servermethodname-method-options} where each server method name is an object property.
      * [See docs](https://hapijs.com/api/16.1.1#servermethods)
      */
-    methods: Dictionary<ServerMethod>;
+    methods: ServerMethods;
     /**
      * Provides access to the server MIME database used for setting content-type information. The object must not be modified directly but only through the mime server setting.
      * [See docs](https://hapijs.com/api/16.1.1#servermime)

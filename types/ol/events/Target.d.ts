@@ -1,12 +1,12 @@
 import Disposable from '../Disposable';
 import { ListenerFunction } from '../events';
-import Event from './Event';
+import BaseEvent from './Event';
 
 export type EventTargetLike = EventTarget | Target;
 export default class Target extends Disposable {
-    constructor();
+    constructor(opt_target?: any);
     addEventListener(type: string, listener: ListenerFunction): void;
-    dispatchEvent(event: object | Event | string): boolean | undefined;
+    dispatchEvent(event: object | BaseEvent | string): boolean;
     getListeners(type: string): ListenerFunction[];
     hasListener(opt_type?: string): boolean;
     removeEventListener(type: string, listener: ListenerFunction): void;

@@ -6,7 +6,7 @@
 /// <reference types="google.visualization" />
 
 declare namespace dygraphs {
-    type DataArray = (number|Date)[][];
+    type DataArray = (number|Date|null)[][];
 
     type Data = string | DataArray | google.visualization.DataTable;
 
@@ -1283,6 +1283,16 @@ declare class Dygraph {
      * x-axis, so the data series start with index 1.
      */
     indexFromSetName(name: string): number;
+
+    /**
+     * Find the row number corresponding to the given x-value.
+     * Returns null if there is no such x-value in the data.
+     * If there are multiple rows with the same x-value, this will return the
+     * first one.
+     * @param xVal The x-value to look for (e.g. millis since epoch).
+     * @return The row number, which you can pass to getValue(), or null.
+     */
+    getRowForX(xVal: number): number | null;
 
     /**
      * Trigger a callback when the dygraph has drawn itself and is ready to be

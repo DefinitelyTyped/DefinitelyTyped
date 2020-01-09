@@ -13,7 +13,6 @@
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
 //                 Norman Perrin <https://github.com/NormanPerrin>
-//                 Dan Manastireanu <https://github.com/danmana>
 //                 stablio <https://github.com/stablio>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Frontend Monster <https://github.com/frontendmonster>
@@ -31,8 +30,11 @@
 //                 Simon Driscoll <https://github.com/dinodeSimon>
 //                 Anton Kenikh <https://github.com/anthony-kenikh>
 //                 Chathu Vishwajith <https://github.com/iamchathu>
+//                 LKHO <https://github.com/lkho>
 //                 Tom Yam <https://github.com/tomyam1>
 //                 Thomas Pischulski <https://github.com/nephix>
+//                 Sam Kim <https://github.com/rlaace423>
+//                 Dongjun Lee <https://github.com/ChazEpps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -368,6 +370,8 @@ declare module "mongoose" {
     useNewUrlParser?: boolean;
     /** Set to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify(). */
     useFindAndModify?: boolean;
+    /** Flag for using new Server Discovery and Monitoring engine instead of current (deprecated) one */
+    useUnifiedTopology?: boolean;
 
     // Legacy properties - passed to the connection server instance(s)
     mongos?: any;
@@ -1029,6 +1033,11 @@ declare module "mongoose" {
      * assigned is Date.
      */
     timestamps?: boolean | SchemaTimestampsConfig;
+    /**
+     * Determines whether a type set to a POJO becomes
+     * a Mixed path or a Subdocument (defaults to true).
+     */
+    typePojoToMixed?:boolean;
   }
 
   interface SchemaTimestampsConfig {
@@ -1123,7 +1132,8 @@ declare module "mongoose" {
     validate?: RegExp | [RegExp, string] |
     SchemaTypeOpts.ValidateFn<T> | [SchemaTypeOpts.ValidateFn<T>, string] |
     SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
-    SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts |
+    SchemaTypeOpts.AsyncPromiseValidationFn<T> | [SchemaTypeOpts.AsyncPromiseValidationFn<T>, string] |
+    SchemaTypeOpts.AsyncPromiseValidationOpts |
     (SchemaTypeOpts.ValidateOpts | SchemaTypeOpts.AsyncValidateOpts |
       SchemaTypeOpts.AsyncPromiseValidationFn<T> | SchemaTypeOpts.AsyncPromiseValidationOpts)[];
 
@@ -1198,6 +1208,7 @@ declare module "mongoose" {
 
     interface ValidateOptsBase {
       msg?: string;
+      message?: string;
       type?: string;
     }
 
@@ -2000,7 +2011,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param {Boolean|Object} bool defaults to true
      */
-    lean(bool?: boolean | object): Query<any> & QueryHelpers;
+    lean<P = any>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
@@ -2018,6 +2029,12 @@ declare module "mongoose" {
      */
     lte<T>(val: T): this;
     lte<T>(path: string, val: T): this;
+
+    /**
+     * Runs a function fn and treats the return value of fn as the new value for the query to resolve to.
+     * Any functions you pass to map() will run after any post hooks.
+     */
+    map<TRes>(fn: (res: T) => TRes): DocumentQuery<TRes, DocType, QueryHelpers> & QueryHelpers;
 
     /**
      * Specifies a $maxDistance query condition.
@@ -2128,7 +2145,7 @@ declare module "mongoose" {
     /**
      * Determines the MongoDB nodes from which to read.
      * @param pref one of the listed preference options or aliases
-     * @tags optional tags for this query
+     * @param tags optional tags for this query
      */
     read(pref: string, tags?: any[]): this;
 
@@ -2278,6 +2295,8 @@ declare module "mongoose" {
     rawResult?: boolean;
     /** overwrites the schema's strict mode option for this update */
     strict?: boolean|string;
+    /** use client session for transaction */
+    session?: ClientSession;
   }
 
   interface QueryFindOneAndUpdateOptions extends QueryFindOneAndRemoveOptions {
@@ -2308,6 +2327,7 @@ declare module "mongoose" {
     if this is set, Mongoose will delete baz from the update in Model.updateOne({}, { foo: 'bar', baz: undefined })
     before sending the update to the server.**/
     omitUndefined?: boolean;
+    session?: ClientSession;
   }
 
   interface QueryUpdateOptions extends ModelUpdateOptions {
@@ -2416,15 +2436,17 @@ declare module "mongoose" {
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
+        discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
 
         /**
          * Adds a discriminator type.
          * @param name discriminator model name
          * @param schema discriminator model schema
+         * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema): M;
+        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
       }
 
@@ -3247,7 +3269,7 @@ declare module "mongoose" {
      * @param options.ordered  if true, will fail fast on the first error encountered.
      *        If false, will insert all the documents it can and report errors later.
      * @param options.rawResult if false, the returned promise resolves to the documents that passed mongoose document validation.
-     *        If `false`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
+     *        If `true`, will return the [raw result from the MongoDB driver](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#~insertWriteOpCallback)
      *        with a `mongoose` property that contains `validationErrors` if this is an unordered `insertMany`.
      */
     insertMany(docs: any[], callback?: (error: any, docs: T[]) => void): Promise<T[]>;
@@ -3289,6 +3311,7 @@ declare module "mongoose" {
     /** Removes documents from the collection. */
     remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteOne(conditions: any, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**
@@ -3318,6 +3341,7 @@ declare module "mongoose" {
     where(path: string, val?: any): Query<any> & QueryHelpers;
   }
 
+  class Document {}
   interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
     /** Signal that we desire an increment of this documents version. */
     increment(): this;

@@ -7,6 +7,7 @@ declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
 declare var expressionStatement: ESTree.ExpressionStatement;
+declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
 declare var labeledStatement: ESTree.LabeledStatement;
 declare var breakStatement: ESTree.BreakStatement;
@@ -119,6 +120,15 @@ statement = blockStatement.body[0];
 // ExpressionStatement
 var expressionStatement: ESTree.ExpressionStatement;
 expression = expressionStatement.expression;
+
+// Directive
+literal = directive.expression;
+// $ExpectType string
+directive.directive;
+
+// pattern
+var pattern: ESTree.Pattern;
+var patternOrNull: ESTree.Pattern | null;
 
 // IfStatement
 var ifStatement: ESTree.IfStatement;
@@ -250,7 +260,7 @@ statement = switchCase.consequent[0];
 
 // CatchClause
 string = catchClause.type;
-pattern = catchClause.param;
+patternOrNull = catchClause.param;
 blockStatement = catchClause.body;
 
 // Misc

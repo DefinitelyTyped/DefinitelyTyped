@@ -2,21 +2,23 @@ import * as React from "react";
 
 export type ActionBarProps = {
     className?: string;
-    /* Set to **true** for mobile view of the Action Bar.*/
-    mobile?: boolean;
-    /* The width of the Action Bar in mobile view. */
-    width?: string;
-} & { [x: string]: any };
+    customStyles?: { [x: string]: any };
+    disableStyles?: boolean;
+    ref?: React.Ref<HTMLDivElement>;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export type ActionBarActionsProps = {
     className?: string;
-} & { [x: string]: any };
+    ref?: React.Ref<HTMLDivElement>;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export type ActionBarBackProps = {
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     className?: string;
+    disableStyles?: boolean;
     buttonProps?: { [x: string]: any };
-} & { [x: string]: any };
+    ref?: React.Ref<HTMLDivElement>;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export type ActionBarHeaderProps = {
     title: string;
@@ -27,13 +29,15 @@ export type ActionBarHeaderProps = {
     descriptionProps?: { [x: string]: any };
     /* Heading level. `<h1>` is reserved for the page title. */
     headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+    ref?: React.Ref<HTMLDivElement>;
     titleProps?: { [x: string]: any };
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLDivElement>;
 
-declare class ActionBar extends React.Component<ActionBarProps> {
-    static Actions: React.FunctionComponent<ActionBarActionsProps>;
-    static Back: React.FunctionComponent<ActionBarBackProps>;
-    static Header: React.FunctionComponent<ActionBarHeaderProps>;
-}
+export const ActionBar: React.FunctionComponent<ActionBarProps> & {
+    displayName: "ActionBar";
+    Actions: React.FunctionComponent<ActionBarActionsProps> & {displayName: "ActionBar.Actions"};
+    Back: React.FunctionComponent<ActionBarBackProps> & {displayName: "ActionBar.Back"};
+    Header: React.FunctionComponent<ActionBarHeaderProps> & {displayName: "ActionBar.Header"};
+};
 
 export default ActionBar;

@@ -725,21 +725,15 @@ expect.extend({
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
 
-        const diff: string = this.utils.diff({}, {});
+        const diff: string | null = this.utils.diff({}, {});
 
-        this.utils.ensureActualIsNumber({});
         this.utils.ensureActualIsNumber({}, 'matcher');
 
-        this.utils.ensureExpectedIsNumber({});
         this.utils.ensureExpectedIsNumber({}, 'matcher');
 
-        this.utils.ensureNoExpected({});
         this.utils.ensureNoExpected({}, 'matcher');
 
-        this.utils.ensureNumbers({}, {});
         this.utils.ensureNumbers({}, {}, 'matcher');
-
-        const valueType: string = this.utils.getType({});
 
         this.utils.matcherHint('matcher');
         this.utils.matcherHint('matcher', 'received');
@@ -819,6 +813,11 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
+
+        // $ExpectError
+        expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
+        // $ExpectError
+        expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
 
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
@@ -1537,6 +1536,14 @@ test.each`
     },
     5000
 );
+
+test.each([
+    [1, "1"],
+    [2, "2"]
+])("", (a, b) => {
+    a; // $ExpectType number
+    b; // $ExpectType string
+});
 
 test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
     expect(a + b).toBe(expected);

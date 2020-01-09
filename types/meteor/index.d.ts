@@ -13,8 +13,9 @@
 //                 alesn <https://github.com/alesn>
 //                 Per Bergland <https://github.com/perbergland>
 //                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
+//                 Evan Broder <https://github.com/ebroder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.7
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />

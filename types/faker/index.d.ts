@@ -233,6 +233,7 @@ declare namespace Faker {
 		};
 
 		seed(value: number): void;
+		seedValue?: number;
 
 		vehicle: {
 			vehicle(): string;

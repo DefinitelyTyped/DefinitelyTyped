@@ -24,8 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "loadable-components.d.ts",
-        "react-loadable.d.ts",
         "react-loadable-visibility-tests.tsx"
     ]
 }

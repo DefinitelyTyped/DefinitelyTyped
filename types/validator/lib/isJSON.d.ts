@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isJSON: typeof validator.isJSON;
-export = isJSON;
+import validator from '../';
+export default validator.isJSON;

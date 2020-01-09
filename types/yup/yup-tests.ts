@@ -167,7 +167,11 @@ mixed
     .when('$other', (value: any, schema: MixedSchema) => (value === 4 ? schema.required() : schema));
 // tslint:disable-next-line:no-invalid-template-strings
 mixed.test('is-jimmy', '${path} is not Jimmy', value => value === 'jimmy');
-mixed.test('is-jimmy', ({ path, value }) => `${path} has an error, it is ${value}`, value => value === 'jimmy');
+mixed.test(
+    'is-jimmy',
+    ({ path, value }) => `${path} has an error, it is ${value}`,
+    value => value === 'jimmy',
+);
 mixed.test({
     name: 'lessThan5',
     exclusive: true,
@@ -213,24 +217,34 @@ yup.object({ name: yup.string() }).concat(yup.object({ when: yup.date() })); // 
 yup.mixed<string>().concat(yup.date()); // $ExpectType MixedSchema<string | Date>
 
 // Async ValidationError
-const asyncValidationErrorTest = function(this: TestContext): Promise<ValidationError> {
-    return new Promise(resolve => resolve(this.createError({ path: 'testPath', message: 'testMessage' })));
-};
+const asyncValidationErrorTest = (includeParams: boolean) =>
+    function(this: TestContext): Promise<ValidationError> {
+        return new Promise(resolve =>
+            resolve(
+                includeParams
+                    ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
+                    : this.createError(),
+            ),
+        );
+    };
 
-mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest);
-mixed.test({
-    test: asyncValidationErrorTest,
-});
+mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest(true));
+mixed.test('async-validation-error', 'Returns async ValidationError', asyncValidationErrorTest(false));
+mixed.test({ test: asyncValidationErrorTest(true) });
+mixed.test({ test: asyncValidationErrorTest(false) });
 
 // Sync ValidationError
-const syncValidationErrorTest = function(this: TestContext): ValidationError {
-    return this.createError({ path: 'testPath', message: 'testMessage' });
-};
+const syncValidationErrorTest = (includeParams: boolean) =>
+    function(this: TestContext): ValidationError {
+        return includeParams
+            ? this.createError({ path: 'testPath', message: 'testMessage', params: { foo: 'bar' } })
+            : this.createError();
+    };
 
-mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest);
-mixed.test({
-    test: syncValidationErrorTest,
-});
+mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest(true));
+mixed.test('sync-validation-error', 'Returns sync ValidationError', syncValidationErrorTest(false));
+mixed.test({ test: syncValidationErrorTest(true) });
+mixed.test({ test: syncValidationErrorTest(false) });
 
 yup.string().transform(function(this, value: any, originalvalue: any) {
     return this.isType(value) && value !== null ? value.toUpperCase() : value;
@@ -431,7 +445,10 @@ const description: SchemaDescription = {
     type: 'type',
     label: 'label',
     meta: { key: 'value' },
-    tests: [{ name: 'test1', params: {} }, { name: 'test2', params: {} }],
+    tests: [
+        { name: 'test1', params: {} },
+        { name: 'test2', params: {} },
+    ],
     fields: { key: 'value' },
 };
 
@@ -631,8 +648,7 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.number().required(),
+yup.object<MyInterface>({ stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -650,14 +666,13 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.string().required(),
-    numberField: yup.number().required(),
-    subFields: yup
+yup.object<MyInterface>({ subFields: yup
         .object({
             testField: yup.number().required(),
         })
         .required(),
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
 });
 

@@ -1,7 +1,6 @@
 import tar = require("tar-fs");
 import fs = require("fs");
 import path = require("path");
-import stream = require("stream");
 
 /*
  * Default test
@@ -96,3 +95,9 @@ tar.pack('./my-directory', {
 	strict: false,
 	dereference: true,
 });
+
+/*
+ * Return type of tar-stream
+ */
+tar.pack('./my-directory').entry({ name: 'generated-file.txt' }, '1234');
+tar.pack('./my-directory').finalize();

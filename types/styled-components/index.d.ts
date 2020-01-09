@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.1
+// Type definitions for styled-components 4.4
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -8,6 +8,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 David Ruisinger <https://github.com/flavordaaave>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
+//                 Yuki Ito <https://github.com/Lazyuki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -21,6 +22,7 @@ declare global {
 
 import * as CSS from "csstype";
 import * as React from "react";
+import * as hoistNonReactStatics from 'hoist-non-react-statics';
 
 export type CSSProperties = CSS.Properties<string | number>;
 
@@ -87,7 +89,7 @@ type StyledComponentPropsWithAs<
     T extends object,
     O extends object,
     A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C };
+> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: C };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
@@ -159,7 +161,7 @@ export type StyledComponent<
     A extends keyof any = never
 > = // the "string" allows this to be used as an object key
     // I really want to avoid this if possible but it's the only way to use nesting with object styles...
-    string & StyledComponentBase<C, T, O, A>;
+    string & StyledComponentBase<C, T, O, A> & hoistNonReactStatics.NonReactStatics<C extends React.ComponentType<any> ? C : never>;
 
 export interface StyledComponentBase<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
@@ -188,6 +190,7 @@ export interface StyledComponentBase<
              * String types need to be cast to themselves to become literal types (as={'a' as 'a'}).
              */
             as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
+            forwardedAs?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
         }
     ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
 
@@ -346,7 +349,7 @@ export type ThemedCssFunction<T extends object> = BaseThemedCssFunction<
 >;
 
 // Helper type operators
-type Omit<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, "theme"> & {
     theme?: T;
 };
@@ -414,7 +417,7 @@ export const withTheme: WithThemeFnInterface<DefaultTheme>;
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {
-    children?: React.ReactChild; // only one child is allowed, goes through React.Children.only
+    children?: React.ReactNode;
     theme: T | ((theme: U) => T);
 }
 export type BaseThemeProviderComponent<

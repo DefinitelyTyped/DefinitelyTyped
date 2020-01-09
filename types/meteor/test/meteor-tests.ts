@@ -23,6 +23,15 @@ import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        interface User {
+            // One of the tests assigns a new property to the user so it has to be typed
+            dexterity?: number;
+        }
+    }
+}
+
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 
@@ -71,8 +80,10 @@ Meteor.publish("adminSecretInfo", function () {
     return Rooms.find({ admin: this.userId }, { fields: { secretInfo: 1 } });
 });
 
-Meteor.publish("roomAndMessages", function (roomId: string) {
+Meteor.publish("roomAndMessages", function (roomId: unknown) {
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     return [
         Rooms.find({ _id: roomId }, { fields: { secretInfo: 0 } }),
         Messages.find({ roomId: roomId })
@@ -82,9 +93,11 @@ Meteor.publish("roomAndMessages", function (roomId: string) {
 /**
  * Also from Publish and Subscribe, Meteor.publish section
  */
-Meteor.publish("counts-by-room", function (roomId: string) {
+Meteor.publish("counts-by-room", function (roomId: unknown) {
     var self = this;
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     var count = 0;
     var initializing = true;
     var handle = Messages.find({ roomId: roomId }).observeChanges({
@@ -141,9 +154,14 @@ Tracker.autorun(function () {
  * From Methods, Meteor.methods section
  */
 Meteor.methods({
-    foo: function (arg1: string, arg2: number[]) {
+    foo: function (arg1: unknown, arg2: unknown) {
         check(arg1, String);
         check(arg2, [Number]);
+
+        // $ExpectType string
+        arg1;
+        // $ExpectType number[]
+        arg2;
 
         var you_want_to_throw_an_error = true;
         if (you_want_to_throw_an_error)
@@ -532,7 +550,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any, dexterity: number }) {
+Accounts.onCreateUser(function (options: { profile: any }, user) {
     var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
@@ -546,7 +564,7 @@ Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any,
  */
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
-Accounts.emailTemplates.enrollAccount.subject = function (user: { profile: { name: string } }) {
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Welcome to Awesome Town, " + user.profile.name;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {
@@ -600,14 +618,16 @@ var body = Template.body;
  */
 var Chats = new Mongo.Collection('chats');
 
-Meteor.publish("chats-in-room", function (roomId: string) {
+Meteor.publish("chats-in-room", function (roomId: unknown) {
     // Make sure roomId is a string, not an arbitrary mongo selector object.
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     return Chats.find({ room: roomId });
 });
 
 Meteor.methods({
-    addChat: function (roomId: string, message: { text: string, timestamp: Date, tags: string }) {
+    addChat: function (roomId: unknown, message: unknown) {
         check(roomId, String);
         check(message, {
             text: String,
@@ -616,7 +636,14 @@ Meteor.methods({
             tags: Match.Optional('Test String')
         });
 
-        // ... do something with the message ...
+        // $ExpectType string
+        roomId;
+        // $ExpectType string
+        message.text;
+        // $ExpectType Date
+        message.timestamp;
+        // $ExpectType "Test String"
+        message.tags;
     }
 });
 
@@ -624,8 +651,9 @@ Meteor.methods({
  * From Match patterns section
  */
 var pat = { name: Match.Optional('test') };
-check({ name: "something" }, pat) // OK
+check({ name: "test" }, pat) // OK
 check({}, pat) // OK
+check({ name: "something" }, pat) // Throws an exception
 check({ name: undefined }, pat) // Throws an exception
 
 // Outside an object

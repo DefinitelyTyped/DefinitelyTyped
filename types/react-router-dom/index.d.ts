@@ -19,6 +19,7 @@ export {
     MemoryRouter,
     RedirectProps,
     Redirect,
+    RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,
@@ -52,7 +53,6 @@ export interface HashRouterProps {
 export class HashRouter extends React.Component<HashRouterProps, any> {}
 
 export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-    ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
     component?: React.ComponentType<any>;
     to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
     replace?: boolean;

@@ -187,6 +187,9 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         }
     ]);
 
+    const attr: forge.pki.Attribute | undefined = cert.getAttribute({ name: "challengePassword" });
+
+
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
 }
@@ -373,11 +376,30 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         message: toSign,
         privateKey
     });
-    
+
     const toSign2 = 'foo';
     forge.pki.ed25519.sign({
         message: toSign2,
         encoding: 'utf8',
         privateKey
+    });
+}
+
+{
+    let byteBuffer: forge.util.ByteBuffer = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+    });
+
+    let hex: forge.Hex = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+        encoding: 'hex'
+    });
+
+    let bytes: forge.Bytes = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+        encoding: 'binary'
     });
 }

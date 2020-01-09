@@ -314,11 +314,18 @@ async function testPromisify() {
         const dirEnt: fs.Dirent | null = await dir.read();
     });
 
-    const dirEnt: fs.Dirent = fs.opendirSync('test', {
+    const dir: fs.Dir = fs.opendirSync('test', {
         encoding: 'utf8',
     });
 
-    const dirEntProm: Promise<fs.Dirent> = fs.promises.opendir('test', {
+    // Pending lib upgrade
+    // (async () => {
+    //     for await (const thing of dir) {
+    //     }
+    // });
+
+    const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
+        bufferSize: 42,
     });
 }

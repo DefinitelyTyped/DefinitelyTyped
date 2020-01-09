@@ -432,7 +432,7 @@ declare namespace process {
   class Translator {
     constructor(traversalSource: AnonymousTraversalSource | GraphTraversalSource);
     getTraversalSource(): Translator;
-    of(traversalSource: AnonymousTraversalSource | GraphTraversalSource): void;
+    of(traversalSource: AnonymousTraversalSource | GraphTraversalSource | string): void;
     translate(bytecode: Bytecode): string;
   }
 
