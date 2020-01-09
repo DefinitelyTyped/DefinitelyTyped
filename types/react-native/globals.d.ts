@@ -305,3 +305,39 @@ declare var WebSocket: {
         } | null,
     ): WebSocket;
 };
+
+//
+// Abort Controller
+//
+
+interface AbortEvent extends Event {
+    type: 'abort'
+}
+
+declare class AbortSignal {
+    /**
+     * AbortSignal cannot be constructed directly.
+     */
+    constructor()
+    /**
+     * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
+     */
+    readonly aborted: boolean
+
+    onabort: (event: AbortEvent) => void
+}
+
+declare class AbortController {
+    /**
+     * Initialize this controller.
+     */
+    constructor()
+    /**
+     * Returns the `AbortSignal` object associated with this object.
+     */
+    readonly signal: AbortSignal
+    /**
+     * Abort and signal to any observers that the associated activity is to be aborted.
+     */
+    abort(): void
+}
