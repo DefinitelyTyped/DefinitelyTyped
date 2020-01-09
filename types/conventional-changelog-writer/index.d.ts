@@ -323,7 +323,7 @@ declare namespace conventionalChangelogWriter {
         type GenerateOn<TContext extends Context = Context, TCommit extends Commit = Commit> = GenerateOn.Function<TContext, TCommit> | string | object;
 
         namespace GenerateOn {
-            interface IFunction<TContext extends Context = Context, TCommit extends Commit = Commit> {
+            interface FunctionType<TContext extends Context = Context, TCommit extends Commit = Commit> {
                 /**
                  * @param commit  Current commit.
                  * @param commits Current collected commits.
@@ -335,40 +335,40 @@ declare namespace conventionalChangelogWriter {
             }
 
             export {
-                IFunction as Function,
+                FunctionType as Function,
             };
         }
 
         type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
 
         namespace Sort {
-            type SortFunction<T = any> = (a: T, b: T) => number;
+            type FunctionType<T = any> = (a: T, b: T) => number;
 
             export {
-                SortFunction as Function,
+                FunctionType as Function,
             };
         }
 
         type Transform<TCommit extends Commit = Commit, TContext extends Context = Context> = Transform.Object | Transform.Function<TCommit, TContext>;
 
         namespace Transform {
-            interface TransformFunction<TCommit extends Commit = Commit, TContext extends Context = Context> {
+            interface FunctionType<TCommit extends Commit = Commit, TContext extends Context = Context> {
                 (commit: Commit, context: TContext): TCommit | false;
             }
 
-            type TransformObject = Record<string, object | TransformObject.Function>;
+            type ObjectType = Record<string, object | ObjectType.Function>;
 
-            namespace TransformObject {
-                type TransformObjectFunction<T = any> = (value: T, path: string) => T;
+            namespace ObjectType {
+                type FunctionType<T = any> = (value: T, path: string) => T;
 
                 export {
-                    TransformObjectFunction as Function,
+                    FunctionType as Function,
                 };
             }
 
             export {
-                TransformFunction as Function,
-                TransformObject as Object,
+                FunctionType as Function,
+                ObjectType as Object,
             };
         }
     }
