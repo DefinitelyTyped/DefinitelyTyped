@@ -21,7 +21,7 @@
 //                  Linus Unnebäck <https://github.com/LinusU>
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
@@ -177,6 +177,12 @@ namespace Parse {
         [key: string]: any;
     }
 
+    interface BaseAttributes {
+        createdAt: Date;
+        objectId: string;
+        updatedAt: Date;
+    }
+
     /**
      * Creates a new ACL.
      * If no argument is given, the ACL has no permissions for anyone.
@@ -286,7 +292,8 @@ namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: any, arg2?: any);
+        constructor(latitude: number, longitude: number);
+        constructor(coords?: { latitude: number, longitude: number } | [number, number]);
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
@@ -454,7 +461,7 @@ namespace Parse {
         unPinAllWithName(name: string, objects: Object[]): Promise<void>;
     }
     interface ObjectConstructor extends ObjectStatic {
-        new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
+        new <T extends Attributes>(className: string, attributes?: T, options?: any): Object<T>;
         new(className?: string, attributes?: Attributes, options?: any): Object;
     }
     const Object: ObjectConstructor;
@@ -579,58 +586,60 @@ namespace Parse {
         static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
         static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
-        addAscending(key: string | string[]): this;
-        addDescending(key: string | string[]): this;
-        ascending(key: string | string[]): this;
+        addAscending<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
+        addDescending<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
+        ascending<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
         aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-        containedBy(key: string, values: any[]): this;
-        containedIn(key: string, values: any[]): this;
-        contains(key: string, substring: string): this;
-        containsAll(key: string, values: any[]): this;
-        containsAllStartingWith(key: string, values: any[]): this;
+        containedBy<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K] | (T['attributes'][K] extends Object ? string : never)>): this;
+        containedIn<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K] | (T['attributes'][K] extends Object ? string : never)>): this;
+        contains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, substring: string): this;
+        containsAll<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: any[]): this;
+        containsAllStartingWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: any[]): this;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string | string[]): this;
-        doesNotExist(key: string): this;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): this;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): this;
-        distinct<V = any>(key: string): Promise<V>;
+        descending<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
+        doesNotExist<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
+        doesNotMatchKeyInQuery<U extends Object,
+            K extends (keyof T['attributes'] | keyof BaseAttributes),
+            X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
+        doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
+        distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): this;
-        equalTo(key: string, value: any): this;
-        exists(key: string): this;
+        endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
+        equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
+        exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
         fromLocalDatastore(): void;
         fromPin(): void;
         fromPinWithName(name: string): void;
-        fullText(key: string, value: string, options?: Query.FullTextOptions): this;
+        fullText<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: string, options?: Query.FullTextOptions): this;
         get(objectId: string, options?: Query.GetOptions): Promise<T>;
-        greaterThan(key: string, value: any): this;
-        greaterThanOrEqualTo(key: string, value: any): this;
-        include(key: string | string[]): this;
-        includeAll(): this;
-        lessThan(key: string, value: any): this;
-        lessThanOrEqualTo(key: string, value: any): this;
-        limit(n: number): this;
-        matches(key: string, regex: RegExp, modifiers: any): this;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): this;
-        matchesQuery<U extends Object>(key: string, query: Query<U>): this;
-        near(key: string, point: GeoPoint): this;
-        notContainedIn(key: string, values: any[]): this;
-        notEqualTo(key: string, value: any): this;
-        polygonContains(key: string, point: GeoPoint): this;
-        select(...keys: string[]): this;
-        skip(n: number): this;
+        greaterThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        greaterThanOrEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        include<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
+        includeAll(): Query<T>;
+        lessThan<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        lessThanOrEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        limit(n: number): Query<T>;
+        matches<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, regex: RegExp, modifiers?: string): this;
+        matchesKeyInQuery<U extends Object, K extends keyof T['attributes'], X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
+        matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
+        near<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
+        notContainedIn<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, values: Array<T['attributes'][K]>): this;
+        notEqualTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K]): this;
+        polygonContains<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint): this;
+        select<K extends (keyof T['attributes'] | keyof BaseAttributes)>(...keys: K[]): this;
+        skip(n: number): Query<T>;
         sortByTextScore(): this;
-        startsWith(key: string, prefix: string): this;
+        startsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, prefix: string): this;
         subscribe(): Promise<LiveQuerySubscription>;
         toJSON(): any;
         withJSON(json: any): this;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): this;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): this;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): this;
-        withinPolygon(key: string, points: GeoPoint[]): this;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): this;
+        withinGeoBox<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, southwest: GeoPoint, northeast: GeoPoint): this;
+        withinKilometers<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinMiles<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
+        withinPolygon<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, points: number[][]): this;
+        withinRadians<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, point: GeoPoint, maxDistance: number): this;
     }
 
     namespace Query {
@@ -816,7 +825,7 @@ namespace Parse {
     }
     interface UserConstructor extends ObjectStatic {
         new <T extends Attributes>(attributes: T): User<T>;
-        new(): User;
+        new(attributes?: Attributes): User;
 
         allowCustomUserClass(isAllowed: boolean): void;
         become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
@@ -1002,10 +1011,14 @@ namespace Parse {
             message: (response: any) => void;
         }
 
-        interface FunctionRequest {
+        interface Params {
+            [key: string]: any;
+        }
+
+        interface FunctionRequest<T extends Params = Params> {
             installationId?: string;
             master?: boolean;
-            params?: any;
+            params: T;
             user?: User;
         }
 
@@ -1066,7 +1079,13 @@ namespace Parse {
         ): void;
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
         function beforeLogin(func?: (request: TriggerRequest) => any): void;
-        function define(name: string, func?: (request: FunctionRequest) => any): void;
+        function define(name: string, func: (request: FunctionRequest) => any): void;
+        function define<T extends (
+            param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
+        ) => any>(
+            name: string,
+            func: (request: FunctionRequest<Parameters<T>[0]>) => ReturnType<T>
+        ): void;
         /**
          * Gets data for the current set of cloud jobs.
          * @returns A promise that will be resolved with the result of the function.
@@ -1080,7 +1099,19 @@ namespace Parse {
         function getJobStatus(jobStatusId: string): Promise<Object>;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest) => Promise<void> | void): HttpResponse;
-        function run(name: string, data?: any, options?: RunOptions): Promise<any>;
+        function run(name: string, data?: Params, options?: RunOptions): Promise<any>;
+        function run<T extends () => any>(
+            name: string,
+            data?: null,
+            options?: RunOptions
+        ): Promise<ReturnType<T>>;
+        function run<T extends (
+            param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
+        ) => any>(
+            name: string,
+            data: Parameters<T>[0],
+            options?: RunOptions
+        ): Promise<ReturnType<T>>;
         /**
          * Starts a given cloud job, which will process asynchronously.
          * @param jobName The function name.

@@ -22,6 +22,7 @@
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
 //                 Oscar Cabrera <https://github.com/mrjack88>
+//                 Carlos Anoceto <https://github.com/canoceto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -631,6 +632,7 @@ declare namespace Chart {
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
         maxBarThickness?: number;

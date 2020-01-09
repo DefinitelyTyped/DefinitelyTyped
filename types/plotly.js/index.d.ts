@@ -14,6 +14,7 @@
 //                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
+//                 Michael Arnett <https://github.com/marnett-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -372,6 +373,7 @@ export interface LayoutAxis extends Axis {
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
+	autotick: boolean;
 }
 
 export interface SceneAxis extends Axis {
@@ -468,6 +470,53 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface Gauge {
+	shape: 'angular' | 'bullet';
+	bar: {
+		color: Color
+		line: {
+			color: Color
+			width: number
+		};
+		thickness: number
+	};
+	bgcolor: Color;
+	bordercolor: Color;
+	borderwidth: number;
+	axis: Partial<Axis>;
+	steps: Array<{range: number[], color: Color}>;
+	threshold: {
+		line: {
+			color: Color
+			width: number
+		};
+		value: number
+		thickness: number
+		};
+}
+
+export interface Delta {
+	reference: number;
+	position: 'top' | 'bottom' | 'left' | 'right';
+	relative: boolean;
+	valueformat: string;
+	increasing: {
+		symbol: string;
+		color: Color;
+	};
+	decreasing: {
+		symbol: string;
+		color: Color;
+	};
+}
+
+export interface PlotNumber {
+	valueformat: string;
+	font: Partial<Font>;
+	prefix: string;
+	suffix: string;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
@@ -562,61 +611,16 @@ export interface PlotData {
 	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
+	showlegend: boolean;
 	legendgroup: string;
 	parents: string[];
 	name: string;
 	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
-	delta: {
-		reference: number;
-		position: 'top' | 'bottom' | 'left' | 'right';
-		relative: boolean
-		valueformat: string
-		increasing: {
-			symbol: string;
-			color: Color;
-		}
-		decreasing: {
-			symbol: string;
-			color: Color;
-		}
-	};
-	gauge: {
-		shape: 'angular' | 'bullet'
-		bar: {
-			color: Color
-			line: {
-				color: Color
-				width: number
-			}
-			thickness: number
-		}
-		bgcolor: Color
-		bordercolor: Color
-		borderwidth: number
-		axis: {
-			range: number[]
-			visible: boolean
-		}
-		threshold: {
-			line: {
-				color: Color
-				width: number
-			}
-			value: number
-		}
-	};
-	number: {
-		valueformat: string
-		font: {
-			family: string
-			size: number
-			color: Color
-		}
-		prefix: string
-		suffix: string
-	};
+	delta: Partial<Delta>;
+	gauge: Partial<Gauge>;
+	number: Partial<PlotNumber>;
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
 	width: number | number[];

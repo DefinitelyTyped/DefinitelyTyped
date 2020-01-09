@@ -14,3 +14,4 @@ const node3: NamedNode = builder1('Thing');
 const node4: NamedNode = builder1('url');
 const node5: NamedNode = builder1`'Thing'`;
 const node6: NamedNode = builder1`url`;
+const node7: NamedNode = builder1();

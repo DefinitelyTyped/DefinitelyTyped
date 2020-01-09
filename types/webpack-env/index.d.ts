@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.14
+// Type definitions for webpack (module API) 1.15
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -10,6 +10,10 @@
  */
 
 declare namespace __WebpackModuleApi {
+    interface RequireResolve {
+        (id: string): string | number;
+    }
+
     interface RequireContext {
         keys(): string[];
         (id: string): any;
@@ -42,7 +46,7 @@ declare namespace __WebpackModuleApi {
          *
          * The module id is a number in webpack (in contrast to node.js where it is a string, the filename).
          */
-        resolve(path: string): number | string;
+        resolve: NodeJS.RequireResolve;
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
@@ -55,19 +59,17 @@ declare namespace __WebpackModuleApi {
          * Multiple requires to the same module result in only one module execution and only one export. Therefore a cache in the runtime exists. Removing values from this cache cause new module execution and a new export. This is only needed in rare cases (for compatibility!).
          */
         cache: {
-            [id: string]: any;
+            [id: string]: NodeModule;
         }
     }
 
     interface Module {
         exports: any;
-        require(id: string): any;
-        require<T>(id: string): T;
         id: string;
         filename: string;
         loaded: boolean;
-        parent: any;
-        children: any[];
+        parent: NodeModule | null;
+        children: NodeModule[];
         hot?: Hot;
     }
     type ModuleId = string|number;
@@ -276,8 +278,7 @@ declare namespace __WebpackModuleApi {
     type RequireLambda = __Require1 & __Require2;
 }
 
-interface NodeRequire extends __WebpackModuleApi.RequireFunction {
-}
+interface NodeRequire extends NodeJS.Require {}
 
 declare var require: NodeRequire;
 
@@ -328,7 +329,7 @@ declare var __non_webpack_require__: any;
  */
 declare var DEBUG: boolean;
 
-interface NodeModule extends __WebpackModuleApi.Module {}
+interface NodeModule extends NodeJS.Module {}
 
 declare var module: NodeModule;
 
@@ -337,5 +338,8 @@ declare var module: NodeModule;
 */
 declare namespace NodeJS {
     interface Process extends __WebpackModuleApi.NodeProcess {}
+    interface RequireResolve extends __WebpackModuleApi.RequireResolve {}
+    interface Module extends __WebpackModuleApi.Module {}
+    interface Require extends __WebpackModuleApi.RequireFunction {}
 }
 declare var process: NodeJS.Process;

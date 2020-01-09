@@ -1,8 +1,11 @@
 import { EventsKey } from '../events';
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
+import { Extent } from '../extent';
 import { LoadFunction } from '../Image';
+import ImageBase from '../ImageBase';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
 import ImageSource, { ImageSourceEvent } from './Image';
 import { AttributionLike } from './Source';
 
@@ -19,18 +22,27 @@ export interface Options {
 }
 export default class ImageArcGISRest extends ImageSource {
     constructor(opt_options?: Options);
+    protected getImageInternal(
+        extent: Extent,
+        resolution: number,
+        pixelRatio: number,
+        projection: Projection,
+    ): ImageBase;
     getImageLoadFunction(): LoadFunction;
     getParams(): any;
-    getUrl(): string | undefined;
+    getUrl(): string;
     setImageLoadFunction(imageLoadFunction: LoadFunction): void;
     setUrl(url: string | undefined): void;
     updateParams(params: any): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
     once(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): EventsKey;
     un(type: 'imageloadend', listener: (evt: ImageSourceEvent) => void): void;

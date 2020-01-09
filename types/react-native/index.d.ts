@@ -28,6 +28,7 @@
 //                 Jesse Katsumata <https://github.com/Naturalclar>
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
+//                 Sergey Sychev <https://github.com/SychevSP>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1962,10 +1963,10 @@ export interface ViewPropsAndroid {
 }
 
 type Falsy = undefined | null | false;
-interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
-export type StyleProp<T> = T | RegisteredStyle<T> | ReadonlyArray<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
+export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
 
 /**
  * @see https://facebook.github.io/react-native/docs/accessibility.html#accessibility-properties
@@ -3183,7 +3184,7 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * scrollResponderScrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
@@ -5135,7 +5136,7 @@ export namespace StyleSheet {
      * an array, saving allocations and maintaining reference equality for
      * PureComponent checks.
      */
-    export function compose<T>(style1: StyleProp<T>, style2: StyleProp<T>): StyleProp<T>;
+    export function compose<T>(style1: StyleProp<T> | Array<StyleProp<T>>, style2: StyleProp<T> | Array<StyleProp<T>>): StyleProp<T>;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
@@ -5568,7 +5569,8 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>(specifics: { [platform in PlatformOSType | 'default']?: T }): T;
+    select<T>(specifics: ({ [platform in PlatformOSType]?: T } & { default: T }) | ({ [platform in PlatformOSType]: T })): T;
+    select<T>(specifics: { [platform in PlatformOSType]?: T }): T | undefined;
 }
 
 interface PlatformIOSStatic extends PlatformStatic {
@@ -5888,7 +5890,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * scrollResponderScrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollResponderScrollTo(
@@ -6355,7 +6357,7 @@ export class ScrollView extends ScrollViewBase {
      * scrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
      *
      * Note: The weird argument signature is due to the fact that, for historical reasons,
-     * the function also accepts separate arguments as as alternative to the options object.
+     * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
     scrollTo(y?: number | { x?: number; y?: number; animated?: boolean }, x?: number, animated?: boolean): void;
