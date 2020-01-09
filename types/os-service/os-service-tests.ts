@@ -1,7 +1,6 @@
-
 import * as service from 'os-service';
 
-const name : string = "MyTestService";
+const name = "MyTestService";
 
 service.add(name);
 service.add(name, (error): void => {
