@@ -77,3 +77,28 @@ $(function () {
             $('#dp5').datepicker('hide');
         });
 });
+
+$("#dp6").datepicker({
+    startView: "days",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "months",
+    daysOfWeekDisabled: [1, 2, 3, 4, 5]
+})
+$("#dp6").datepicker({
+    startView: "years",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "decades",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "centuries",
+    daysOfWeekDisabled: "12345"
+})
+$("#dp6").datepicker({
+    startView: "millenium",
+    daysOfWeekDisabled: "12345"
+})
