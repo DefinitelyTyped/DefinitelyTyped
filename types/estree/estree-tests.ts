@@ -126,6 +126,10 @@ literal = directive.expression;
 // $ExpectType string
 directive.directive;
 
+// pattern
+var pattern: ESTree.Pattern;
+var patternOrNull: ESTree.Pattern | null;
+
 // IfStatement
 var ifStatement: ESTree.IfStatement;
 expression = ifStatement.test;
@@ -256,7 +260,7 @@ statement = switchCase.consequent[0];
 
 // CatchClause
 string = catchClause.type;
-pattern = catchClause.param;
+patternOrNull = catchClause.param;
 blockStatement = catchClause.body;
 
 // Misc

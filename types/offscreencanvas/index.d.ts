@@ -72,8 +72,8 @@ interface MessagePort extends EventTarget {
     postMessage(message: any, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 
-interface Window extends EventTarget, WindowTimers, WindowSessionStorage, WindowLocalStorage, WindowConsole,
-    GlobalEventHandlers, IDBEnvironment, WindowBase64, WindowOrWorkerGlobalScope, WindowEventHandlers {
+interface Window extends EventTarget, WindowSessionStorage, WindowLocalStorage, WindowConsole,
+    GlobalEventHandlers, WindowOrWorkerGlobalScope, WindowEventHandlers {
     postMessage(message: any, targetOrigin: string, transfer?: Array<Transferable | OffscreenCanvas>): void;
 }
 

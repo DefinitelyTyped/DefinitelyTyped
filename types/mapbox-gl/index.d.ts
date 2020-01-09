@@ -361,7 +361,7 @@ declare namespace mapboxgl {
         crossSourceCollisions?: boolean;
 
         /** ID of the container element */
-        container: string | Element;
+        container: string | HTMLElement;
 
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */

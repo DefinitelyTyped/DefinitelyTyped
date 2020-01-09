@@ -1107,6 +1107,37 @@ schema = Joi.any();
 const terms = schema.$_terms;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Test Joi.object, Joi.append and Joi.extends (with `any` type)
+
+// should be able to append any new properties
+let anyObject = Joi.object({
+    name: Joi.string().required(),
+    family: Joi.string(),
+});
+
+anyObject = anyObject.append({
+    age: Joi.number(),
+}).append({
+    height: Joi.number(),
+});
+
+anyObject = anyObject.keys({
+    length: Joi.string()
+});
+
+// test with keys
+Joi.object().keys({
+    name: Joi.string().required(),
+    family: Joi.string(),
+}).append({
+    age: Joi.number(),
+}).append({
+    height: Joi.number(),
+}).keys({
+    length: Joi.string()
+});
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // Test generic types
 
 interface User {
@@ -1131,6 +1162,12 @@ userSchema = userSchema.append({
 
 userSchema = userSchema.append({
     height: Joi.number(), // $ExpectError
+});
+
+const userSchema2 = Joi.object<User>().keys({
+    name: Joi.string().required(),
+}).keys({
+    family: Joi.string(),
 });
 
 const userSchemaError = Joi.object<User>().keys({

@@ -16,4 +16,5 @@ declare module "module" {
 
         constructor(id: string, parent?: Module);
     }
+    export = Module;
 }

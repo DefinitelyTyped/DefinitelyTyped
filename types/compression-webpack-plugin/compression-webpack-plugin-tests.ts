@@ -46,10 +46,7 @@ const zlib: Configuration = {
 const badZlib: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: "deflate",
-            compressionOptions: 5
-        })
+        new CompressionPlugin({ algorithm: "deflate", compressionOptions: 5 })
     ]
 };
 
@@ -68,9 +65,6 @@ const custom: Configuration = {
 const badCustom: Configuration = {
     plugins: [
         // $ExpectError
-        new CompressionPlugin({
-            algorithm: customAlgorithm,
-            compressionOptions: { flush: 5 }
-        })
+        new CompressionPlugin({ algorithm: customAlgorithm, compressionOptions: { flush: 5 } })
     ]
 };

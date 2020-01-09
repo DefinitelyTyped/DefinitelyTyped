@@ -94,33 +94,33 @@ export class AuthClientThreeLegged {
 export type AuthClient = AuthClientTwoLegged | AuthClientThreeLegged;
 
 export interface Activity {
-    id: string;
-    instruction: object;
-    appPackages: string[];
-    requiredEngineVersion: string;
-    parameters: object;
-    allowedChildProcesses: object[];
-    version: number;
-    description?: string;
-    hostApplication?: string;
-    isPublic: boolean;
+    Id: string;
+    Instruction: object;
+    AppPackages: string[];
+    RequiredEngineVersion: string;
+    Parameters: object;
+    AllowedChildProcesses: object[];
+    Version: number;
+    Description?: string;
+    HostApplication?: string;
+    IsPublic: boolean;
 }
 
 export interface ActivityOptional {
-    id?: string;
-    instruction?: object;
-    appPackages?: string[];
-    requiredEngineVersion?: string;
-    parameters?: object;
-    allowedChildProcesses?: object[];
-    version?: number;
-    description?: string;
-    hostApplication?: string;
-    isPublic?: boolean;
+    Id?: string;
+    Instruction?: object;
+    AppPackages?: string[];
+    RequiredEngineVersion?: string;
+    Parameters?: object;
+    AllowedChildProcesses?: object[];
+    Version?: number;
+    Description?: string;
+    HostApplication?: string;
+    IsPublic?: boolean;
 }
 
 export interface ActivityVersion {
-    version?: number;
+    Version?: number;
 }
 
 export class ActivitiesApi {
@@ -840,7 +840,7 @@ export class ObjectsApi {
         bucketKey: string,
         objectName: string,
         postBucketsSigned: PostBucketsSigned,
-        access: string,
+        opts: { access?: string },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -868,7 +868,7 @@ export class ObjectsApi {
     /**
      * Download an object.
      */
-    deleteSignedResource(
+    getObject(
         bucketKey: string,
         objectName: string,
         opts: { range?: string; ifNoneMatch?: string; ifModifiedSince?: Date; acceptEncoding?: string },
@@ -1155,14 +1155,14 @@ export class VersionsApi {
 }
 
 export interface WorkItem {
-    id: string;
-    _arguments: object;
-    status?: string;
-    statusDetail?: object;
-    availabilityZone?: string;
-    activityId: string;
-    version?: number;
-    timestamp?: string;
+    Id: string;
+    Arguments: object;
+    Status?: string;
+    StatusDetail?: object;
+    AvailabilityZone?: string;
+    ActivityId: string;
+    Version?: number;
+    Timestamp?: string;
 }
 
 export class WorkItemsApi {

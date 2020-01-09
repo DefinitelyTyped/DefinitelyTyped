@@ -71,9 +71,9 @@ function test_doc_rdf_to_triples_2() {
     const parser2: N3.N3Parser = new N3.Parser({ format: 'application/trig' });
     // Notation3 (N3) is supported only through the format argument:
 
-    const parser3: N3.N3Parser = N3.Parser({ format: 'N3' });
-    const parser4: N3.N3Parser = N3.Parser({ format: 'Notation3' });
-    const parser5: N3.N3Parser = N3.Parser({ format: 'text/n3' });
+    const parser3: N3.N3Parser = new N3.Parser({ format: 'N3' });
+    const parser4: N3.N3Parser = new N3.Parser({ format: 'Notation3' });
+    const parser5: N3.N3Parser = new N3.Parser({ format: 'text/n3' });
 }
 
 function test_doc_rdf_sync_to_triples_1() {
@@ -95,7 +95,7 @@ function test_doc_rdf_stream_to_triples_1() {
     const parser: N3.N3Parser<QuadBnode> = new N3.Parser<QuadBnode>({factory: N3.DataFactory});
     parser.parse('abc', console.log);
 
-    const streamParser: N3.N3StreamParser = N3.StreamParser();
+    const streamParser: N3.N3StreamParser = new N3.StreamParser();
     const quad: RDF.Quad = streamParser.read();
     const rdfStream = fs.createReadStream('cartoons.ttl');
     const pipedStreamParser: N3.N3StreamParser = rdfStream.pipe(streamParser);
@@ -124,8 +124,8 @@ function test_doc_from_triples_to_string() {
     ));
     writer.end((error, result: string) => { console.log(result); });
 
-    const writer1: N3.N3Writer = N3.Writer({ format: 'N-Triples' });
-    const writer2: N3.N3Writer = N3.Writer({ format: 'application/trig' });
+    const writer1: N3.N3Writer = new N3.Writer({ format: 'N-Triples' });
+    const writer2: N3.N3Writer = new N3.Writer({ format: 'application/trig' });
 }
 
 function test_doc_from_triples_to_rdf_stream() {
@@ -239,4 +239,5 @@ function test_doc_utility() {
     const prefixes: N3.Prefixes = { rdfs: N3.DataFactory.namedNode('http://www.w3.org/2000/01/rdf-schema#') };
     const namedNode1: RDF.NamedNode = N3Util.prefix('http://www.w3.org/2000/01/rdf-schema#')('label');
     const namedNode2: RDF.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
+    const namedNode3: N3.NamedNode = N3Util.prefixes(prefixes)('rdfs')('label');
 }

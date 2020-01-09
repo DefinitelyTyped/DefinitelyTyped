@@ -3548,6 +3548,7 @@ declare namespace google.maps {
             main_text: string;
             main_text_matched_substrings: PredictionSubstring[];
             secondary_text: string;
+            secondary_text_matched_substrings?: PredictionSubstring[];
         }
 
         interface OpeningHours {

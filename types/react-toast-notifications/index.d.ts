@@ -1,4 +1,4 @@
-// Type definitions for react-toast-notifications 2.0
+// Type definitions for react-toast-notifications 2.4
 // Project: https://github.com/jossmac/react-toast-notifications
 // Definitions by: Spencer Elliott <https://github.com/elliottsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,13 +62,19 @@ export interface Options {
     appearance: AppearanceTypes;
     autoDismiss?: boolean;
     onDismiss?: (id: string) => void;
-    pauseOnHover?: boolean;
+}
+
+export interface UpdateOptions extends Options {
+    content?: string;
 }
 
 export type AddToast = (content: ReactNode, options?: Options, callback?: (id: string) => void) => void;
 
-export type RemoveToast = (id: string, callback: () => void) => void;
+export type RemoveToast = (id: string, callback?: () => void) => void;
 
+export type RemoveAllToasts = () => void;
+
+export type UpdateToast = (id: string, options?: Options, callback?: (id: string) => void) => void;
 export const DefaultToastContainer: ComponentType<ToastContainerProps>;
 export const DefaultToast: ComponentType<ToastProps>;
 export const ToastConsumer: ComponentType<ToastConsumerProps>;
@@ -77,9 +83,11 @@ export function withToastManager(...args: any[]): any;
 export function useToasts(): {
     addToast: AddToast;
     removeToast: RemoveToast;
+    removeAllToasts: RemoveAllToasts;
     toastStack: Array<{
         content: ReactNode;
         id: string;
         appearance: AppearanceTypes;
     }>;
+    updateToast: UpdateToast;
 };
