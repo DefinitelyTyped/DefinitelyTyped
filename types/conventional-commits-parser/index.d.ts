@@ -61,7 +61,9 @@ declare namespace conventionalCommitsParser {
         }
 
         interface Revert {
-            [field: string]: Field;
+            hash?: Field;
+            header?: Field;
+            [field: string]: Field | undefined;
         }
     }
 
