@@ -14,7 +14,7 @@
     },
     "files": [
         "index.d.ts",
-        "semver-tests.ts",
-        "semver-preload-tests.ts"
+        "test/semver-tests.ts",
+        "test/semver-preload-tests.ts"
     ]
 }
