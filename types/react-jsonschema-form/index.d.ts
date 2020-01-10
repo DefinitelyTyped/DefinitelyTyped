@@ -11,6 +11,7 @@
 //                 Agustin N. R. Ramirez <https://github.com/agustin107>
 //                 Chancellor Clark <https://github.com/chanceaclark>
 //                 Benoît Sepe <https://github.com/ogdentrod>
+//                 Andre Nguyen <https://github.com/andrenguyener>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -47,7 +48,7 @@ declare module 'react-jsonschema-form' {
         transformErrors?: (errors: AjvError[]) => AjvError[];
         idPrefix?: string;
         additionalMetaSchemas?: ReadonlyArray<object>;
-
+        customFormats?: { [k: string]: string };
         // HTML Attributes
         id?: string;
         className?: string;
@@ -61,8 +62,16 @@ declare module 'react-jsonschema-form' {
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
-                     submit: () => void;
-                   }
+        validate: (
+            formData: T,
+            schema?: FormProps<T>['schema'],
+            additionalMetaSchemas?: FormProps<T>['additionalMetaSchemas'],
+            customFormats?: FormProps<T>['customFormats'],
+        ) => { errors: AjvError[]; errorSchema: ErrorSchema };
+        onChange: (formData: T, newErrorSchema: ErrorSchema) => void;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
+        submit: () => void;
+    }
 
     export type UiSchema = {
         'ui:field'?: Field | string;
@@ -102,13 +111,15 @@ declare module 'react-jsonschema-form' {
 
     export type Widget = React.StatelessComponent<WidgetProps> | React.ComponentClass<WidgetProps>;
 
-    export interface FieldProps<T = any> extends React.HTMLAttributes<HTMLElement> {
+    export interface FieldProps<T = any>
+        extends Pick<React.HTMLAttributes<HTMLElement>, Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur'>> {
         schema: JSONSchema6;
         uiSchema: UiSchema;
         idSchema: IdSchema;
         formData: T;
         errorSchema: ErrorSchema;
         onChange: (e: IChangeEvent<T> | any, es?: ErrorSchema) => any;
+        onBlur: (id: string, value: boolean | number | string | null) => void;
         registry: {
             fields: { [name: string]: Field };
             widgets: { [name: string]: Widget };
@@ -245,7 +256,7 @@ declare module 'react-jsonschema-form' {
     export type ThemeProps<T = any> = Omit<FormProps<T>, 'schema'>;
 
     export function withTheme<T = any>(
-        themeProps: ThemeProps<T>
+        themeProps: ThemeProps<T>,
     ): React.ComponentClass<FormProps<T>> | React.StatelessComponent<FormProps<T>>;
 
     export type AddButtonProps = {
@@ -260,18 +271,11 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
     import { FieldProps, UiSchema, IdSchema, FormValidation } from 'react-jsonschema-form';
 
     export type SchemaFieldProps<T = any> = Pick<
-      FieldProps<T>,
-      | 'schema'
-      | 'uiSchema'
-      | 'idSchema'
-      | 'formData'
-      | 'errorSchema'
-      | 'registry'
+        FieldProps<T>,
+        'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry'
     >;
 
-    export default class SchemaField extends React.Component<
-      SchemaFieldProps
-    > {}
+    export default class SchemaField extends React.Component<SchemaFieldProps> {}
 }
 
 declare module 'react-jsonschema-form/lib/utils' {
@@ -287,26 +291,26 @@ declare module 'react-jsonschema-form/lib/utils' {
     export function getWidget(
         schema: JSONSchema6,
         widget: Widget,
-        registeredWidgets: { [name: string]: Widget }
+        registeredWidgets: { [name: string]: Widget },
     ): Widget | Error;
 
     export function hasWidget(
         schema: JSONSchema6,
-        wdiget: Widget,
-        registeredWidgets: { [name: string]: Widget }
+        widget: Widget,
+        registeredWidgets: { [name: string]: Widget },
     ): boolean;
 
     export function computeDefaults<T = any>(
         schema: JSONSchema6,
         parentDefaults: JSONSchema6['default'][],
         definitions: FieldProps['registry']['definitions'],
-        rawFormData: T
+        rawFormData: T,
     ): JSONSchema6['default'][];
 
     export function getDefaultFormState<T = any>(
         schema: JSONSchema6,
         formData: T,
-        definitions: FieldProps['registry']['definitions']
+        definitions: FieldProps['registry']['definitions'],
     ): T | JSONSchema6['default'][];
 
     export function getUiOptions(uiSchema: UiSchema): UiSchema['ui:options'];
@@ -315,7 +319,7 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function mergeObjects(obj1: object, obj2: object, concatArrays: boolean): object;
 
-    export function asNumber(value: any): Number | string;
+    export function asNumber(value: any): number | string;
 
     export function orderProperties(properties: [], order: []): [];
 
@@ -327,6 +331,10 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function isMultiSelect(schema: JSONSchema6, definitions: FieldProps['registry']['definitions']): boolean;
 
+    export function isFixedItems(schema: JSONSchema6): boolean;
+
+    export function allowAdditionalItems(schema: JSONSchema6): boolean;
+
     export function dataURItoBlob(dataURI: string): { name: string; blob: Blob };
 
     export function shouldRender(comp: React.Component, nextProps: any, nextState: any): boolean;
@@ -334,6 +342,12 @@ declare module 'react-jsonschema-form/lib/utils' {
     export function setState(instance: React.Component, state: any, callback: Function): void;
 
     export function guessType(value: any): string;
+
+    export function stubExistingAdditionalProperties<T = any>(
+        schema: JSONSchema6,
+        definitions: FieldProps['registry']['definitions'],
+        formData: T,
+    ): JSONSchema6;
 
     export interface IRangeSpec {
         min?: number;
@@ -346,13 +360,34 @@ declare module 'react-jsonschema-form/lib/utils' {
     export function resolveSchema<T = any>(
         schema: JSONSchema6Definition,
         definitions: FieldProps['registry']['definitions'],
-        formData: T
+        formData: T,
     ): JSONSchema6;
+
+    export function retrieveSchema<T = any>(
+        schema: JSONSchema6Definition,
+        definitions?: FieldProps['registry']['definitions'],
+        formData?: T,
+    ): JSONSchema6;
+
+    export function toIdSchema<T = any>(
+        schema: JSONSchema6Definition,
+        id: string,
+        definitions: FieldProps['registry']['definitions'],
+        formData: T,
+        idPredix: string,
+    ): IdSchema;
 }
 
 declare module 'react-jsonschema-form/lib/validate' {
     import { JSONSchema6Definition } from 'json-schema';
-    import { AjvError } from 'react-jsonschema-form';
+    import { AjvError, ErrorSchema, FormProps } from 'react-jsonschema-form';
 
-    export default function validateFormData<T = any>(formData: T, schema: JSONSchema6Definition): AjvError[];
+    export default function validateFormData<T = any>(
+        formData: T,
+        schema: JSONSchema6Definition,
+        customValidate?: FormProps<T>['validate'],
+        transformErrors?: FormProps<T>['transformErrors'],
+        additionalMetaSchemas?: FormProps<T>['additionalMetaSchemas'],
+        customFormats?: FormProps<T>['customFormats'],
+    ): { errors: AjvError[]; errorSchema: ErrorSchema };
 }
