@@ -4,6 +4,7 @@
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Stephen Pittman <https://github.com/Stephen2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
