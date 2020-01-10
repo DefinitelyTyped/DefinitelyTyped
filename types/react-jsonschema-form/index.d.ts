@@ -296,7 +296,7 @@ declare module 'react-jsonschema-form/lib/utils' {
 
     export function hasWidget(
         schema: JSONSchema6,
-        wdiget: Widget,
+        widget: Widget,
         registeredWidgets: { [name: string]: Widget },
     ): boolean;
 
