@@ -31,6 +31,8 @@ new URI({
 });
 new URI(document.createElement('a'));
 
+URI.preventInvalidHostname = false;
+
 URI('').setQuery('foo', 'bar');
 URI('').setQuery({ foo: 'bar' });
 URI('').setSearch('foo', 'bar');
