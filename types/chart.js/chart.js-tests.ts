@@ -68,6 +68,7 @@ const chart: Chart = new Chart(ctx, {
                 {
                     ticks: {
                         callback: Math.floor,
+                        sampleSize: 10,
                     },
                     gridLines: {
                         display: false,
@@ -266,7 +267,8 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 distribution: 'series',
                 ticks: {
                     source: 'data',
-                    autoSkip: true
+                    autoSkip: true,
+                    sampleSize: 1,
                 }
             }],
             yAxes: [{

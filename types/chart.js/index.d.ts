@@ -563,6 +563,13 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        /**
+         * The number of ticks to examine when deciding how many labels will fit.
+         * Setting a smaller value will be faster, but may be less accurate
+         * when there is large variability in label length.
+         * Deault: `ticks.length`
+         */
+        sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
         stepSize?: number;
