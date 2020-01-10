@@ -1,5 +1,5 @@
 // Type definitions for multicodec 1.0
-// Project: https://github.com/multiformats/js_multicodec#readme
+// Project: https://github.com/multiformats/js-multicodec#readme
 // Definitions by: Carson Farmer <https://github.com/carsonfarmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
