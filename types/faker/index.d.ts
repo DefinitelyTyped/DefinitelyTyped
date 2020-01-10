@@ -291,6 +291,7 @@ declare namespace Faker {
 	interface ContextualCard {
 		name: string;
 		username: string;
+		avatar: string;
 		email: string;
 		dob: Date;
 		phone: string;
