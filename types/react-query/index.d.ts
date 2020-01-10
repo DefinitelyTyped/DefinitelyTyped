@@ -52,7 +52,7 @@ export interface QueryResult<TResult, TVariables> {
     isFetching: boolean;
     isCached: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => void;
+    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
 }
 
 export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<TResult[], TVariables> {

@@ -31,7 +31,7 @@ class Component extends React.Component<{}, ComponentState> {
 
     private renderCustomizedElement(props: any) {
         console.log('Customized props', props);
-        return (<Text x={0} y={0} width={100} height={20}>Customized element</Text>);
+        return (<Text x={0} y={0} width={100} height={20} className="customized-text">Customized element</Text>);
     }
     render() {
         const data = [

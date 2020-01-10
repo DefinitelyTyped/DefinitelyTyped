@@ -261,7 +261,7 @@ export namespace ec {
         getPublic(): curve.base.BasePoint;
         getPrivate(enc: "hex"): string;
         getPrivate(): BN;
-        derive(pub: any): any; // ?
+        derive(pub: curve.base.BasePoint): BN;
         sign(msg: BNInput, enc: string, options?: SignOptions): Signature;
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(

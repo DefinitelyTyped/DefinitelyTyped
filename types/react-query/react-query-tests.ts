@@ -8,7 +8,7 @@ const querySimple = useQuery('todos',
 querySimple.data; // $ExpectType string | null
 querySimple.error; // $ExpectType Error | null
 querySimple.isLoading; // $ExpectType boolean
-querySimple.refetch(); // $ExpectType void
+querySimple.refetch(); // $ExpectType Promise<void>
 queryPaginated.fetchMore; // $ExpectError
 queryPaginated.canFetchMore; // $ExpectError
 queryPaginated.isFetchingMore; // $ExpectError
@@ -19,7 +19,7 @@ const queryVariables = useQuery(['todos', {param}],
     (variables) => Promise.resolve(variables.param === 'test'));
 
 queryVariables.data; // $ExpectType boolean | null
-queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType void
+queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<void>
 queryVariables.refetch({variables: {other: 'foo'}}); // $ExpectError
 
 // Query with falsey query key
