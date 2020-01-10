@@ -6,6 +6,7 @@ const dropzoneRenameFunction = (name: string): string => {
 
 Dropzone.createElement('<div id="divTest"></div>');
 Dropzone.isBrowserSupported();
+Dropzone.options['divTest'] = { clickable: true };
 console.log(Dropzone.instances.length);
 
 const dropzoneWithOptions = new Dropzone('.test', {
@@ -172,6 +173,7 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 
 const dropzone = new Dropzone('.test');
 
+dropzone.options.clickable = true;
 dropzone.enable();
 dropzone.disable();
 

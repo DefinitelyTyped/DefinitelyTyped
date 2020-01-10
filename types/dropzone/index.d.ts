@@ -154,7 +154,7 @@ declare class Dropzone {
     constructor(container: string | HTMLElement, options?: Dropzone.DropzoneOptions);
 
     static autoDiscover: boolean;
-    static options: any;
+    static options: { [key: string]: Dropzone.DropzoneOptions };
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
     static createElement(string: string): HTMLElement;
     static isBrowserSupported(): boolean;
@@ -171,6 +171,7 @@ declare class Dropzone {
 
     files: Dropzone.DropzoneFile[];
     defaultOptions: Dropzone.DropzoneOptions;
+    options: Dropzone.DropzoneOptions;
 
     enable(): void;
 
