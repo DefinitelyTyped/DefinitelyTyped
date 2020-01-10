@@ -22,3 +22,5 @@ declare function downscale(source: ImageSource, width: number, height: number, o
 declare function downscale(source: ImageSource, width: number, height: number, options?: DownscaleOptions & { returnCanvas: true; }): Promise<HTMLCanvasElement>;
 
 export = downscale;
+
+export as namespace downscale;
