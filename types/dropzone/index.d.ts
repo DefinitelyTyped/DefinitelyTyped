@@ -71,7 +71,7 @@ declare namespace Dropzone {
         filesizeBase?: number;
         maxFiles?: number;
         params?: {};
-        headers?: {};
+        headers?: { [key: string]: string };
         clickable?: boolean | string | HTMLElement | (string | HTMLElement)[];
         ignoreHiddenFiles?: boolean;
         acceptedFiles?: string;
