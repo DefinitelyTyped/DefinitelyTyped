@@ -310,6 +310,10 @@ export namespace AttributeSource {
         | {
               type: 'array';
               default?: any[];
+          } 
+        | {
+              type: 'object';
+              default?: object;
           }
         | {
               type: 'boolean';
