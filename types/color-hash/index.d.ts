@@ -54,5 +54,5 @@ declare class ColorHash {
     hex(input: string): string;
 }
 
-declare namespace ColorHash {}
+export as namespace ColorHash;
 export = ColorHash;

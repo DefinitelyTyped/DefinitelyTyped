@@ -1,4 +1,4 @@
-import * as ColorHash from 'color-hash';
+import ColorHash = require('color-hash');
 
 const colorHash = new ColorHash();
 
