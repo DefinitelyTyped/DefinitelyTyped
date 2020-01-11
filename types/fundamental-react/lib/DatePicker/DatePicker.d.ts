@@ -7,6 +7,7 @@ export type DatePickerProps = CalendarBaseProps & {
     /* Set to **true** to enable the selection of a date range (begin and end). */
     enableRangeSelection?: boolean;
     inputProps?: { [x: string]: any };
+    onBlur?: ({date, formattedDate}: {date: Date, formattedDate: string}) => void;
 } & { [x: string]: any };
 
 declare class DatePicker extends React.Component<DatePickerProps> {}

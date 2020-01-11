@@ -806,7 +806,8 @@ laboris nisi ut aliquip ex ea commodo consequat.`;
     const obj = canvas.getActiveObject();
     if (obj) {
       obj.setGradient("fill", {
-        coords: {x2: (getRandomInt(0, 1) ? 0 : obj.width), y2: (getRandomInt(0, 1) ? 0 : obj.height)},
+        y2: (getRandomInt(0, 1) ? 0 : obj.height),
+        x2: (getRandomInt(0, 1) ? 0 : obj.width),
         colorStops: {
           0: '#' + getRandomColor(),
           1: '#' + getRandomColor()
@@ -1039,4 +1040,11 @@ function sample11() {
    const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
    const webglFilterBackend = new fabric.WebglFilterBackend();
    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+}
+
+function sample12() {
+  const canvas = new fabric.Canvas('c');
+  const position = fabric.util.getScrollLeftTop(canvas.getElement());
+  const x = position.left;
+  const y = position.top;
 }

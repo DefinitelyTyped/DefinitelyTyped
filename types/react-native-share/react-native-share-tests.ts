@@ -40,3 +40,14 @@ Share.shareSingle({
     subject: '',
     social: 'facebook',
 });
+
+// $ExpectType Promise<ShareSingleReturn>
+Share.shareSingle({
+    url: '',
+    type: '',
+    message: '',
+    title: '',
+    subject: '',
+    filename: 'test',
+    social: 'facebook',
+});

@@ -310,6 +310,7 @@ function allModuleNames(): string[] {
         "min",
         "minBy",
         "mixin",
+        "multiply",
         "negate",
         "noConflict",
         "noop",

@@ -478,3 +478,8 @@ googletag.pubads().display("/1234567/science/physics", [[300, 250], ["fluid"]], 
 
 // Request non-personalized ads
 googletag.pubads().setRequestNonPersonalizedAds(1);
+
+// Set Privact Settings
+googletag.pubads().setPrivacySettings({
+    restrictDataProcessing: true,
+});

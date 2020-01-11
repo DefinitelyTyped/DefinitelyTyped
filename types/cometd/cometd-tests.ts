@@ -1,4 +1,18 @@
-import { CometD, Listener, Message, SubscriptionHandle } from "cometd";
+import {
+    BaseMessage,
+    ConnectionType,
+    CometD,
+    HandshakeListener,
+    HandshakeMessage,
+    Listener,
+    Message,
+    ReconnectAdvice,
+    SubscribeListener,
+    SubscribeMessage,
+    SuccessfulHandshakeMessage,
+    SubscriptionHandle,
+    UnsuccessfulHandshakeMessage,
+} from "cometd";
 import TimeSyncExtension from 'cometd/TimeSyncExtension';
 import AckExtension from 'cometd/AckExtension';
 import BinaryExtension from 'cometd/BinaryExtension';
@@ -41,6 +55,26 @@ cometd.unregisterTransport("websocket");
 cometd.handshake(handshakeReply => {
     if (handshakeReply.successful) {
         // Successfully connected to the server.
+
+        if (handshakeReply.reestablish) {
+            // Restablished a connection to the server.
+        }
+
+        const { advice, supportedConnectionTypes } = handshakeReply;
+
+        const callbackPollingType: ConnectionType = 'callback-polling';
+
+        if (supportedConnectionTypes.indexOf(callbackPollingType) > -1) {
+            // Callback polling is supported by the server.
+        }
+
+        if (advice && advice.reconnect === 'none') {
+            // Server advises not to reconnect, CometD will stop attempting to connect or handshake.
+        }
+    }
+
+    if (!handshakeReply.successful) {
+        const { error } = handshakeReply;
     }
 });
 
@@ -92,7 +126,7 @@ const additionalInfoUnsubscribe = {
     "com.acme.discard": true
 };
 cometd.unsubscribe(subscription3, additionalInfoUnsubscribe, unsubscribeReply => {
-    // Your logic here.
+    const { subscription } = unsubscribeReply;
 });
 
 // Subscribers versus Listeners
@@ -106,10 +140,14 @@ cometd.addListener("/meta/handshake", message => {
         // Batch all subscriptions together
         cometd.batch(() => {
             // Correct to subscribe to broadcast channels
-            cometd.subscribe("/members", m => {});
+            cometd.subscribe("/members", m => {
+                const { subscription } = m;
+            });
 
             // Correct to subscribe to service channels
-            cometd.subscribe("/service/status", m => {});
+            cometd.subscribe("/service/status", m => {
+                const { subscription } = m;
+            });
 
             // Messy to add listeners after removal, prefer using cometd.subscribe(...)
             if (_reportListener) {
@@ -232,6 +270,10 @@ cometd.publishBinary("/binary", view, true, { prolog: "java" });
 cometd.disconnect(disconnectReply => {
     if (disconnectReply.successful) {
         // Server truly received the disconnect request
+    }
+
+    if (disconnectReply.successful) {
+        const { error } = disconnectReply;
     }
 });
 

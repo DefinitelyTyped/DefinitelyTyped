@@ -7,6 +7,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 /************************************
  * Gpio
  ************************************/
@@ -14,7 +16,7 @@
 /**
  * General Purpose Input Output
  */
-export class Gpio extends NodeJS.EventEmitter {
+export class Gpio extends EventEmitter {
     /**
      * Returns a new Gpio object for accessing a GPIO
      * @param gpio      an unsigned integer specifying the GPIO number

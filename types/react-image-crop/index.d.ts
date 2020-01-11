@@ -3,6 +3,8 @@
 // Definitions by: Daniela Yassuda <https://github.com/danielasy>
 //                 Elias Chaaya <https://github.com/chaaya>
 //                 Søren Englund <https://github.com/englund0110>
+//                 Jonathan Guo <https://github.com/JonathanGuo>
+//                 Lewis Monteith <https://github.com/lemonJS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -17,7 +19,11 @@ declare namespace ReactCrop {
         y?: number;
         width?: number;
         height?: number;
-        unit?: "px" | "%";
+        unit?: 'px' | '%';
+    }
+
+    interface PercentCrop extends Crop {
+        unit?: '%';
     }
 
     interface ReactCropProps {
@@ -29,8 +35,8 @@ declare namespace ReactCrop {
         maxWidth?: number;
         maxHeight?: number;
         keepSelection?: boolean;
-        onChange: (crop: Crop) => void;
-        onComplete?: (crop: Crop) => void;
+        onChange: (crop: Crop, percentCrop: PercentCrop) => void;
+        onComplete?: (crop: Crop, percentCrop: PercentCrop) => void;
         onImageLoaded?: (target: HTMLImageElement) => void;
         onDragStart?: () => void;
         onDragEnd?: () => void;
@@ -44,6 +50,8 @@ declare namespace ReactCrop {
         locked?: boolean;
         renderComponent?: ReactNode;
         renderSelectionAddon?: (state: any) => ReactNode;
+        ruleOfThirds?: boolean;
+        circularCrop?: boolean;
     }
 
     function makeAspectCrop(crop: Crop, imageWidth: number, imageHeight: number): Crop;

@@ -65,7 +65,7 @@ interface MyCompleteOption {
 //
 // base-control
 //
-<C.BaseControl id="foo" label="hello world">
+<C.BaseControl id="foo" label="hello world" hideLabelFromVision>
     <C.BaseControl.VisualLabel>My Label</C.BaseControl.VisualLabel>
 </C.BaseControl>;
 
@@ -86,6 +86,41 @@ interface MyCompleteOption {
     <button>Hello</button>
     <button>World</button>
 </C.ButtonGroup>;
+
+//
+// card
+//
+<C.Card>I'm a card!</C.Card>;
+<C.Card isElevated isBorderless className="card" size="large">
+    I'm a card with props!
+</C.Card>;
+
+// Card is <div /> by default, autoFocus prop is not allowed
+// $ExpectError
+<C.Card autoFocus>`div` can't have autoFocus :(</C.Card>;
+
+// `withComponent` renders a `button`
+const ButtonCard = C.Card.withComponent('button');
+<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
+
+<C.CardBody isShady size="extraSmall">
+    Hello world!
+</C.CardBody>;
+
+<C.CardHeader isShady size="extraSmall">
+    Hello world!
+</C.CardHeader>;
+
+<C.CardFooter isBorderless isShady size="extraSmall">
+    Hello world!
+</C.CardFooter>;
+
+// Divider has no children or props except className
+// $ExpectError
+<C.CardDivider>Hello world!</C.CardDivider>;
+// $ExpectError
+<C.CardDivider isShady />;
+<C.CardDivider />;
 
 //
 // checkbox-control
@@ -454,9 +489,16 @@ const kbshortcuts = {
             return anchorEl.parentElement.getBoundingClientRect();
         }
     }}
+    onClose={() => {}}
+    onClickOutside={() => {}}
+    onFocusOutside={e => {
+        if (e.relatedTarget === document.querySelector('#my-element')) return;
+    }}
 >
     Hello World
 </C.Popover>;
+
+<C.Popover.Slot />;
 
 //
 // query-controls
@@ -635,7 +677,13 @@ const kbshortcuts = {
 // text-control
 //
 <C.TextControl label="My text value" value={'foo'} onChange={value => console.log(value.toUpperCase())} />;
-<C.TextControl type="number" label="My numeric value" value={3} onChange={value => console.log(value.toUpperCase())} />;
+<C.TextControl
+    type="number"
+    label="My numeric value"
+    hideLabelFromVision
+    value={3}
+    onChange={value => console.log(value.toUpperCase())}
+/>;
 
 //
 // textarea-control
@@ -900,7 +948,7 @@ const MySlotFillProvider = () => {
             render() {
                 return <div>{this.props.foo}</div>;
             }
-        }
+        },
     );
     <EnhancedComponentClassExpression foo="hello world" />;
 

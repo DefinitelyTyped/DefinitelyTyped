@@ -16,14 +16,12 @@ import * as React from "react";
 import {
     Alert,
     AppState,
-    AppStateIOS,
-    AlertIOS,
-    BackAndroid,
     BackHandler,
     Button,
     CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
+    DeviceEventEmitter,
     DeviceEventEmitterStatic,
     Dimensions,
     Image,
@@ -79,7 +77,6 @@ import {
     TextInputContentSizeChangeEventData,
     TextInputEndEditingEventData,
     TextInputSubmitEditingEventData,
-    WebView,
     KeyboardAvoidingView,
     Modal,
     TimePickerAndroid,
@@ -87,11 +84,12 @@ import {
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
-    NetInfo,
     PermissionsAndroid,
     Platform,
     ProgressBarAndroid,
     PushNotificationIOS,
+    AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -122,8 +120,6 @@ function testDimensions() {
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
-
-BackAndroid.addEventListener("hardwareBackPress", () => {});
 
 interface LocalStyles {
     container: ViewStyle;
@@ -192,6 +188,11 @@ const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
+// correct use of the StyleSheet.flatten
+const styleArray: StyleProp<ViewStyle>[] = [];
+const flattenStyle = StyleSheet.flatten(styleArray);
+const { top } = flattenStyle;
+
 const s = StyleSheet.create({
     shouldWork: {
         fontWeight: "900", // if we comment this line, errors gone
@@ -199,6 +200,62 @@ const s = StyleSheet.create({
     },
 });
 const f1: TextStyle = s.shouldWork;
+
+// StyleSheet.compose
+// It creates a new style object by composing two existing styles
+const composeTextStyle: StyleProp<TextStyle> = {
+    color: '#000000',
+    fontSize: 20,
+};
+
+const composeImageStyle: StyleProp<ImageStyle> = {
+    resizeMode: 'contain',
+};
+
+// The following use of the compose method is valid
+const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    composeTextStyle,
+);
+
+const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(
+    composeImageStyle,
+    composeImageStyle,
+);
+
+const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
+
+const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    null,
+);
+
+const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
+
+const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    Math.random() < 0.5 ? composeTextStyle : null,
+);
+
+const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(
+    null,
+    null,
+);
+
+// The following use of the compose method is invalid:
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -239,8 +296,9 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
         color: ColorPropType,
     };
 
-    refs: {
-        [key: string]: any;
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    refs = {} as {
+        [key: string]: React.ReactInstance;
         rootView: View;
         customView: CustomView;
     };
@@ -310,11 +368,6 @@ function appStateTest() {
     AppState.addEventListener("change", appStateListener);
 }
 
-function appStateIOSTest() {
-    console.log("Current state: " + AppStateIOS.currentState);
-    AppStateIOS.addEventListener("change", appStateListener);
-}
-
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
     render() {
@@ -369,17 +422,24 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
+                ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
+                ListHeaderComponentStyle={{ padding: 8 }}
             />
         );
     }
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: SectionList<any>;
+    myList: React.RefObject<SectionList<string>>;
+
+    constructor(props: SectionListProps<string>) {
+        super(props);
+        this.myList = React.createRef();
+    }
 
     scrollMe = () => {
-        this.myList.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
     };
 
     render() {
@@ -404,7 +464,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                 <Button title="Press" onPress={this.scrollMe} />
 
                 <SectionList
-                    ref={(ref: any) => (this.myList = ref)}
+                    ref={this.myList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
                         <View>
@@ -534,6 +594,32 @@ class AlertTest extends React.Component {
     }
 }
 
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    text => {
+        console.log(text);
+    },
+    'secure-text',
+);
+
+Alert.prompt(
+    'Enter password',
+    'Enter your password to claim your $1.5B in lottery winnings',
+    [
+        {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+        },
+        {
+            text: 'OK',
+            onPress: password => console.log('OK Pressed, password: ' + password),
+        },
+    ],
+    'secure-text',
+);
+
 class MaskedViewTest extends React.Component {
     render() {
         return (
@@ -576,7 +662,7 @@ const dataSourceAssetCallback1: DataSourceAssetCallback = {
 const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 
 // DeviceEventEmitterStatic
-const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
+const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
@@ -641,7 +727,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
     render() {
         return (
             <View>
-                <Text onPress={() => this.username.focus()}>Username</Text>
+                <Text onPress={() => this.username && this.username.focus()}>Username</Text>
 
                 <TextInput
                     ref={input => (this.username = input)}
@@ -685,28 +771,13 @@ class StatusBarTest extends React.Component {
     }
 }
 
-class WebViewTest extends React.Component {
-    render() {
-        return (
-            <WebView
-                nativeConfig={{ component: "test", props: {}, viewManager: {} }}
-                onShouldStartLoadWithRequest={event => event.navigationType !== "formresubmit"}
-                originWhitelist={["https://origin.test"]}
-                saveFormDataDisabled={false}
-                useWebKit={true}
-                allowFileAccess={true}
-            />
-        );
-    }
-}
-
 export class ImageTest extends React.Component {
     componentDidMount(): void {
         const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
-        Image.queryCache([uri]).then(({ [uri]: status }) => {
+        Image.queryCache && Image.queryCache([uri]).then(({ [uri]: status }) => {
             if (status === undefined) {
                 console.log("Image is not in cache");
             } else {
@@ -790,28 +861,9 @@ class AccessibilityTest extends React.Component {
     }
 }
 
-const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
+const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then((isEnabled) => {console.log(isEnabled)});
 
-const AlertIOSTest = () => {
-    AlertIOS.prompt(
-        "My Prompt",
-        "Enter your email",
-        [
-            {
-                text: "Cancel",
-                style: "cancel",
-            },
-            {
-                text: "Add",
-                onPress: (value: string) => {
-                    console.log(value);
-                },
-            },
-        ],
-        "default",
-        "email-address"
-    );
-};
+const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
 const ModalTest = () => <Modal hardwareAccelerated />;
 
@@ -884,11 +936,6 @@ const KeyboardTest = () => {
     subscriber.remove();
 }
 
-const NetInfoTest = () => {
-    const subscription = NetInfo.addEventListener('connectionChange', (result) => console.log(result));
-    subscription.remove();
-}
-
 const PermissionsAndroidTest = () => {
     PermissionsAndroid.request('android.permission.CAMERA').then(result => {
         switch (result) {
@@ -939,6 +986,11 @@ const PlatformTest = () => {
     }
 };
 
+Platform.select({ android: 1 }); // $ExpectType number | undefined
+Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid
@@ -951,6 +1003,13 @@ const ProgressBarAndroidTest = () => {
 
 // Push notification
 const PushNotificationTest = () => {
+    PushNotificationIOS.presentLocalNotification({
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
+    });
+
     PushNotificationIOS.scheduleLocalNotification({
         alertAction: 'view',
         alertBody: 'Look at me!',
@@ -965,3 +1024,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;

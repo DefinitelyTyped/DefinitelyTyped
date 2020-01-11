@@ -1,6 +1,10 @@
-// Type definitions for react-leaflet 2.2
+// Type definitions for react-leaflet 2.5
 // Project: https://github.com/PaulLeCam/react-leaflet
-// Definitions by: Dave Leaver <https://github.com/danzel>, David Schneider <https://github.com/davschne>, Yui T. <https://github.com/yuit>
+// Definitions by: Dave Leaver <https://github.com/danzel>
+//                 David Schneider <https://github.com/davschne>
+//                 Yui T. <https://github.com/yuit>
+//                 Jeroen Claassens <https://github.com/favna>
+//                 Tom Fenech <https://github.com/fenech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -137,6 +141,8 @@ export class MapComponent<P extends MapComponentProps, E extends Leaflet.Evented
 
 export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateOptions, Leaflet.FitBoundsOptions {
     animate?: boolean;
+    duration?: number;
+    noMoveStart?: boolean;
     bounds?: Leaflet.LatLngBoundsExpression;
     boundsOptions?: Leaflet.FitBoundsOptions;
     children: Children;
@@ -274,6 +280,14 @@ export interface ImageOverlayProps extends MapLayerProps, Leaflet.ImageOverlayOp
     zIndex?: number;
 }
 export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
+    createLeafletElement(props: P): E;
+    updateLeafletElement(fromProps: P, toProps: P): void;
+}
+
+export interface SVGOverlayProps extends Leaflet.ImageOverlayOptions, MapComponentProps {
+    children?: Children;
+}
+export class SVGOverlay<P extends SVGOverlayProps = SVGOverlayProps, E extends Leaflet.SVGOverlay = Leaflet.SVGOverlay> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
@@ -464,3 +478,4 @@ export interface ContextProps {
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export function withLeaflet<T extends ContextProps>(WrappedComponent: React.ComponentType<T>): React.ComponentType<Omit<T, 'leaflet'>>;
+export function useLeaflet(): LeafletContext;

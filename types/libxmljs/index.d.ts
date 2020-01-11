@@ -2,6 +2,7 @@
 // Project: https://github.com/libxmljs/libxmljs
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
 //                 ComFreek <https://github.com/ComFreek>
+//                 Roeland <https://github.com/r03>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -48,6 +49,7 @@ interface ParserOptions {
     oldsax?: boolean;
     ignore_enc?: boolean;
     big_lines?: boolean;
+    baseUrl?: string;
 }
 
 export function parseXml(source: string, options?: ParserOptions): Document;
@@ -154,6 +156,7 @@ export class Element extends Node {
     find(xpath: string, ns_uri?: string): Node[];
     find(xpath: string, namespaces: StringMap): Node[];
     get(xpath: string, ns_uri?: string): Element|null;
+    get(xpath: string, namespaces: StringMap): Element|null;
 
     defineNamespace(prefixOrHref: string, hrefInCaseOfPrefix?: string): Namespace;
 

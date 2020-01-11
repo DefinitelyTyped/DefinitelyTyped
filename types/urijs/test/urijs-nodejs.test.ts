@@ -28,6 +28,8 @@ declare var $: (arg?: any) => JQuery;
         fragment: 'frag',
     });
 
+    URI.preventInvalidHostname = false;
+
     URI('').setQuery('foo', 'bar');
     URI('').setQuery({ foo: 'bar' });
     URI('').setSearch('foo', 'bar');
@@ -65,12 +67,14 @@ declare var $: (arg?: any) => JQuery;
     void URITemplate;
     ```
     */
-    URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
-        URI.expand('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
-            p: ['foo', 'bar.html'],
-            q: { foo: 'bar', bar: 'baz' },
-            h: 'frag',
-        })
+    URI(
+      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag',
+    ).equals(
+      URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+        p: ['foo', 'bar.html'],
+        q: { foo: 'bar', bar: 'baz' },
+        h: 'frag',
+      }),
     );
 
     // Basic URITemplate type usage

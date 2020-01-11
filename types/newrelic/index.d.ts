@@ -1,8 +1,10 @@
-// Type definitions for newrelic 4.11
+// Type definitions for newrelic 5.11
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Kenneth Aasan <https://github.com/kennethaasan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -66,14 +68,14 @@ export function setControllerName(name: string, action: string): void;
  *
  * Most recently set value wins.
  */
-export function addCustomAttribute(key: string, value: string|number): void;
+export function addCustomAttribute(key: string, value: string | number | boolean): void;
 
 /**
  * Adds all custom attributes in an object to the current transaction.
  *
  * See documentation for `addCustomAttribute` for more information on setting custom attributes.
  */
-export function addCustomAttributes(atts: { [key: string]: string|number }): void;
+export function addCustomAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Tell the tracer whether to ignore the current transaction.
@@ -93,7 +95,7 @@ export function setIgnoreTransaction(ignored: boolean): void;
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string }): void;
+export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }): void;
 
 /**
  * If the URL for a transaction matches the provided pattern, name the
@@ -163,7 +165,12 @@ export function getBrowserTimingHeader(): string;
  * If a promise is returned from the handler, the segment's ending will be tied to that promise resolving or rejecting.
  */
 export function startSegment<T extends PromiseLike<any>>(name: string, record: boolean, handler: T): T;
-export function startSegment<T, C extends (...args: any[]) => any>(name: string, record: boolean, handler: (cb?: C) => T, callback?: C): T;
+export function startSegment<T, C extends (...args: any[]) => any>(
+    name: string,
+    record: boolean,
+    handler: (cb?: C) => T,
+    callback?: C,
+): T;
 
 /**
  * Instrument a particular callback to improve visibility into a transaction.
@@ -176,7 +183,6 @@ export function startSegment<T, C extends (...args: any[]) => any>(name: string,
  * The agent begins timing the segment when createTracer is called, and ends the segment when the callback
  * defined by the callback argument finishes executing.
  *
- * @deprecated
  * This method has been deprecated in favor of newrelic.startSegment()
  */
 export function createTracer<T extends (...args: any[]) => any>(name: string, handle: T): T;
@@ -192,7 +198,7 @@ export function createTracer<T extends (...args: any[]) => any>(name: string, ha
  *    transaction as externally handled.  In this case the transaction
  *    will be ended when `TransactionHandle#end` is called in the user's code.
  *
- * @example
+ * Example:
  * var newrelic = require('newrelic')
  * newrelic.startWebTransaction('/some/url/path', function() {
  *   var transaction = newrelic.getTransaction()
@@ -205,7 +211,8 @@ export function createTracer<T extends (...args: any[]) => any>(name: string, ha
  * The `url` is used to name and group related transactions in APM,
  * so it should be a generic name and not include any variable parameters.
  */
-export function startWebTransaction(url: string, handle: (...args: any[]) => any): any;
+export function startWebTransaction<T>(url: string, handle: Promise<T>): Promise<T>;
+export function startWebTransaction<T>(url: string, handle: (...args: any[]) => T): T;
 
 /**
  * Creates and starts a background transaction to record work done in the handle supplied.
@@ -218,7 +225,7 @@ export function startWebTransaction(url: string, handle: (...args: any[]) => any
  *    transaction as externally handled.  In this case the transaction
  *    will be ended when `TransactionHandle#end` is called in the user's code.
  *
- * @example
+ * Example:
  * var newrelic = require('newrelic')
  * newrelic.startBackgroundTransaction('Red October', 'Subs', function() {
  *   var transaction = newrelic.getTransaction()
@@ -235,8 +242,10 @@ export function startWebTransaction(url: string, handle: (...args: any[]) => any
  * For more information see:
  *  https://docs.newrelic.com/docs/apm/applications-menu/monitoring/transactions-page#txn-type-dropdown
  */
-export function startBackgroundTransaction(name: string, handle: (...args: any[]) => any): any;
-export function startBackgroundTransaction(name: string, group: string, handle: (...args: any[]) => any): any;
+export function startBackgroundTransaction<T>(name: string, handle: Promise<T>): Promise<T>;
+export function startBackgroundTransaction<T>(name: string, handle: (...args: any[]) => T): T;
+export function startBackgroundTransaction<T>(name: string, group: string, handle: Promise<T>): Promise<T>;
+export function startBackgroundTransaction<T>(name: string, group: string, handle: (...args: any[]) => T): T;
 
 /**
  * End the current web or background custom transaction.
@@ -320,18 +329,21 @@ export const instrumentMessages: Instrument;
  * before shutting down. Defaults to `false`.
  */
 export function shutdown(cb?: (error?: Error) => void): void;
-export function shutdown(options?: { collectPendingData?: boolean, timeout?: number }, cb?: (error?: Error) => void): void;
+export function shutdown(
+    options?: { collectPendingData?: boolean; timeout?: number },
+    cb?: (error?: Error) => void,
+): void;
 
 /**
  * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
  *
- * @param handler a callback function whose value is returned from setLambdaHandler
- * @returns the value returned by handler
+ * The handler is a callback function whose value is returned from setLambdaHandler
+ * Returns the value returned by handler
  */
 export function setLambdaHandler<T>(handler: (...args: any[]) => T): T;
 
 export interface Instrument {
-    (opts: { moduleName: string, onRequire: () => void, onError?: (err: Error) => void }): void;
+    (opts: { moduleName: string; onRequire: () => void; onError?: (err: Error) => void }): void;
     (moduleName: string, onRequire: () => void, onError?: (err: Error) => void): void;
 }
 
@@ -341,6 +353,18 @@ export interface Metric {
     min: number;
     max: number;
     sumOfSquares: number;
+}
+
+export interface DistributedTracePayload {
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    text(): string;
+
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    httpSafe(): string;
 }
 
 export interface TransactionHandle {
@@ -353,4 +377,14 @@ export interface TransactionHandle {
      * Mark the transaction to be ignored.
      */
     ignore(): void;
+
+    /**
+     * Creates a distributed trace payload.
+     */
+    createDistributedTracePayload(): DistributedTracePayload;
+
+    /**
+     * Parses incoming distributed trace header payload.
+     */
+    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
 }

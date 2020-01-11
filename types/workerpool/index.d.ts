@@ -1,9 +1,9 @@
-// Type definitions for workerpool 3.1
+// Type definitions for workerpool 5.0
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.1
 
 /// <reference types="node" />
 
@@ -17,6 +17,10 @@ export interface WorkerPoolStats {
     activeTasks: number;
 }
 
+export type Proxy<T extends {[k: string]: (...args: any[]) => any}> = {
+    [M in keyof T]: (...args: Parameters<T[M]>) => Promise<ReturnType<T[M]>>;
+};
+
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
@@ -27,14 +31,15 @@ export interface WorkerPool {
      * and executed there with the provided parameters. The provided function must be static,
      * it must not depend on variables in a surrounding scope.
      */
-    exec(method: ((...args: any[]) => any) | string, params: any[] | null): Promise<any>;
+    exec<T extends (...args: any[]) => any>(method: T | string, params: Parameters<T> | null): Promise<ReturnType<T>>;
 
     /**
      * Create a proxy for the worker pool.
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    proxy(): Promise<any>;
+    // tslint:disable-next-line: no-unnecessary-generics
+    proxy<T extends {[k: string]: (...args: any[]) => any}>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */
     stats(): WorkerPoolStats;
@@ -96,8 +101,20 @@ export interface WorkerPoolOptions {
      * In case of 'process' (default), child_process will be used.
      * In case of 'thread', worker_threads will be used. If worker_threads are not available, an error is thrown.
      * In case of 'auto', worker_threads will be used if available (Node.js >= 11.7.0), else child_process will be used as fallback.
+     * @deprecated
      */
     nodeWorker?: 'process' | 'thread' | 'auto';
+
+    /**
+     * - In case of `'auto'` (default), workerpool will automatically pick a suitable type of worker:
+     *   when in a browser environment, `'web'` will be used. When in a node.js environment, `worker_threads` will be used
+     *   if available (Node.js >= 11.7.0), else `child_process` will be used.
+     * - In case of `'web'`, a Web Worker will be used. Only available in a browser environment.
+     * - In case of `'process'`, `child_process` will be used. Only available in a node.js environment.
+     * - In case of `'thread'`, `worker_threads` will be used. If `worker_threads` are not available, an error is thrown.
+     *   Only available in a node.js environment.
+     */
+    workerType?: 'auto' | 'web' | 'process' | 'thread';
 
     /** 2nd argument to pass to childProcess.fork() */
     forkArgs?: string[];
@@ -106,9 +123,11 @@ export interface WorkerPoolOptions {
 }
 
 /**
- * When a script argument is provided, the provided script will be started as a dedicated worker.
- * When no script argument is provided, a default worker is started which can be used to offload functions dynamically via Pool.exec.
- * Note that on node.js, script must be an absolute file path like __dirname + '/myWorker.js'.
+ * When a `script` argument is provided, the provided script will be started as a dedicated worker.
+ * When no `script` argument is provided, a default worker is started which can be used to offload functions dynamically via `Pool.exec`.
+ * Note that on node.js, `script` must be an absolute file path like `__dirname + '/myWorker.js'`.
+ * In a browser environment, `script` can also be a data URL like `'data:application/javascript;base64,...'`.
+ * This allows embedding the bundled code of a worker in your main application. See `examples/embeddedWorker` for a demo.
  */
 export function pool(pathToScript?: string, options?: WorkerPoolOptions): WorkerPool;
 

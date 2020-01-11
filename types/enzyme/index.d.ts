@@ -12,6 +12,7 @@
 //                 Mateusz Sokoła <https://github.com/mateuszsokola>
 //                 Braiden Cutforth <https://github.com/braidencutforth>
 //                 Erick Zhao <https://github.com/erickzhao>
+//                 Jack Tomaszewski <https://github.com/jtomaszewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -407,6 +408,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
+    find<C2 extends Component>(
+      componentClass: ComponentClass<C2['props']>,
+    ): ShallowWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -540,6 +544,9 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
+    find<C2 extends Component>(
+      componentClass: ComponentClass<C2['props']>,
+    ): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
@@ -597,6 +604,13 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * If a wrappingComponent was passed in options,
+     * this methods returns a ReactWrapper around the rendered wrappingComponent.
+     * This ReactWrapper can be used to update the wrappingComponent's props and state
+     */
+    getWrappingComponent: () => ReactWrapper;
 }
 
 export interface Lifecycles {
@@ -642,15 +656,15 @@ export interface ShallowRendererProps {
     lifecycles?: Lifecycles;
     /**
      * A component that will render as a parent of the node.
-     * It can be used to provide context to the node, among other things.
-     * See https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html
-     * Note: wrappingComponent must render its children.
+     * It can be used to provide context to the `node`, among other things.
+     * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
+     * **Note**: `wrappingComponent` must render its children.
      */
     wrappingComponent?: ComponentType<any>;
     /**
-     * Initial props to pass to the wrappingComponent if it is specified.
+     * Initial props to pass to the `wrappingComponent` if it is specified.
      */
-    wrappingComponentProps?: any;
+    wrappingComponentProps?: {};
     /**
      * If set to true, when rendering Suspense enzyme will replace all the lazy components in children
      * with fallback element prop. Otherwise it won't handle fallback of lazy component.
@@ -677,6 +691,17 @@ export interface MountRendererProps {
      * Merged contextTypes for all children of the wrapper
      */
     childContextTypes?: {};
+    /**
+     * A component that will render as a parent of the node.
+     * It can be used to provide context to the `node`, among other things.
+     * See the [getWrappingComponent() docs](https://airbnb.io/enzyme/docs/api/ShallowWrapper/getWrappingComponent.html) for an example.
+     * **Note**: `wrappingComponent` must render its children.
+     */
+    wrappingComponent?: ComponentType<any>;
+    /**
+     * Initial props to pass to the `wrappingComponent` if it is specified.
+     */
+    wrappingComponentProps?: {};
 }
 
 /**

@@ -160,14 +160,14 @@ const spec9Handler = (ctx: koa.Context) => {
 
 router().get('/user', spec9, spec9Handler);
 
-const middleware1 = async (ctx: koa.Context, next: () => Promise<any>) => {
+const middleware1 = async (ctx: koa.Context, next: koa.Next) => {
   console.log('middleware1');
   await next();
 };
 
 router().get('/', middleware1, handler1);
 
-const middleware2 = async (ctx: koa.Context, next: () => Promise<any>) => {
+const middleware2 = async (ctx: koa.Context, next: koa.Next) => {
   console.log('middleware2');
   await next();
 };
@@ -178,7 +178,7 @@ router().use(middleware1);
 
 router().use('/:id', middleware1);
 
-router().param('/:id', async (id: string, ctx: koa.Context, next: () => Promise<any>) => {
+router().param('/:id', async (id: string, ctx: koa.Context, next: koa.Next) => {
   ctx.state.id = id;
   await next();
 });

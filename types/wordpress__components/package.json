@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@emotion/styled": "^10.0.0",
         "re-resizable": "^4.7.1"
     }
 }

@@ -8,6 +8,7 @@ export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLEleme
   container?: string | HTMLElement;
   delay?: number | {show: number, hide: number};
   className?: string;
+  popperClassName?: string;
   innerClassName?: string;
   autohide?: boolean;
   placement?: Popper.Placement;
@@ -18,7 +19,7 @@ export interface UncontrolledTooltipProps extends React.HTMLAttributes<HTMLEleme
 }
 
 export interface TooltipProps extends UncontrolledTooltipProps {
-  toggle?: () => void;
+  toggle?: React.MouseEventHandler<any> | (() => void);
   isOpen?: boolean;
 }
 

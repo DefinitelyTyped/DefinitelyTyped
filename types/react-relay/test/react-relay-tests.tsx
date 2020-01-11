@@ -2,20 +2,31 @@
 // tslint:disable:use-default-type-parameter
 
 import * as React from 'react';
-import { Environment, Network, RecordSource, Store, ConnectionHandler } from 'relay-runtime';
+import {
+    Environment,
+    Network,
+    RecordSource,
+    Store,
+    ConnectionHandler,
+    _FragmentRefs,
+    FragmentRefs,
+} from 'relay-runtime';
 
 import {
-    graphql,
     commitMutation,
     createFragmentContainer,
     createPaginationContainer,
     createRefetchContainer,
-    requestSubscription,
+    FragmentRef,
+    graphql,
     QueryRenderer,
+    LocalQueryRenderer,
     ReactRelayContext,
-    RelayRefetchProp,
+    readInlineData,
     RelayPaginationProp,
     RelayProp,
+    RelayRefetchProp,
+    requestSubscription,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -34,19 +45,19 @@ const modernEnvironment = new Environment({ network, store });
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-type MyQueryRendererVariables = {
+type MyQueryVariables = {
     pageID: string;
 };
-type MyQueryRendererResponse = {
+type MyQueryResponse = {
     name: string;
 };
-type MyQueryRenderer = {
-    variables: MyQueryRendererVariables;
-    response: MyQueryRendererResponse;
+type MyQuery = {
+    variables: MyQueryVariables;
+    response: MyQueryResponse;
 };
 
 const MyQueryRenderer = (props: { name: string; show: boolean }) => (
-    <QueryRenderer<MyQueryRenderer>
+    <QueryRenderer<MyQuery>
         environment={modernEnvironment}
         query={
             props.show
@@ -59,6 +70,7 @@ const MyQueryRenderer = (props: { name: string; show: boolean }) => (
                   `
                 : null
         }
+        fetchPolicy="store-and-network"
         variables={{
             pageID: '110798995619330',
         }}
@@ -91,19 +103,66 @@ const MyEmptyQueryRenderer = () => (
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// LocalQueryRenderer
+// ~~~~~~~~~~~~~~~~~~~~~
+// should behave the same as QueryRenderer less the two optional props, cacheConfig and fetchPolicy
+
+const MyLocalQueryRenderer = (props: { name: string; show: boolean }) => (
+    <LocalQueryRenderer<MyQuery>
+        environment={modernEnvironment}
+        query={
+            props.show
+                ? graphql`
+                      query ExampleQuery($pageID: ID!) {
+                          page(id: $pageID) {
+                              name
+                          }
+                      }
+                  `
+                : null
+        }
+        variables={{
+            pageID: '110798995619330',
+        }}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                return <div>{props.name} is great!</div>;
+            }
+            return <div>Loading</div>;
+        }}
+    />
+);
+
+const MyEmptyLocalQueryRenderer = () => (
+    <LocalQueryRenderer
+        environment={modernEnvironment}
+        query={undefined}
+        variables={{}}
+        render={({ error, props }) => {
+            if (error) {
+                return <div>{error.message}</div>;
+            } else if (props) {
+                throw new Error('This code path should never be hit');
+            }
+            return <div>Loading</div>;
+        }}
+    />
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
 
 type StoryLike = (storyID: string) => void;
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _Story_story$ref: unique symbol;
-type Story_story$ref = typeof _Story_story$ref;
 type Story_story = {
     readonly id: string;
     readonly text: string;
     readonly isPublished: boolean;
-    readonly ' $refType': Story_story$ref;
+    readonly ' $refType': 'Story_story';
 };
 
 const Story = (() => {
@@ -135,7 +194,7 @@ const Story = (() => {
                 error => {
                     this.setState({ isLoading: false });
                 },
-                { force: true }
+                { force: true },
             );
         }
 
@@ -168,25 +227,25 @@ const Story = (() => {
                     ...Story_story
                 }
             }
-        `
+        `,
     );
 
     function requiresTheRightProps() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} />;
     }
 
     function requiresTheCorrectFragmentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         // $ExpectError
         <StoryRefetchContainer story={feed} onLike={onLike} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         const relayProp: RelayRefetchProp = {} as any;
         // $ExpectError
         <StoryRefetchContainer story={story} onLike={onLike} relay={relayProp} />;
@@ -219,7 +278,7 @@ const Story = (() => {
 
     function canTakeComponentRef() {
         const onLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         <StoryRefetchContainer story={story} onLike={onLike} componentRef={ref => console.log(ref)} />;
     }
 
@@ -231,23 +290,19 @@ const Story = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _FeedStories_feed$ref: unique symbol;
-type FeedStories_feed$ref = typeof _FeedStories_feed$ref;
-declare const _FeedStory_edges$ref: unique symbol;
-type FeedStory_edges$ref = typeof _FeedStory_edges$ref;
 type FeedStories_feed = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
-            readonly ' $fragmentRefs': Story_story$ref & FeedStories_feed$ref;
+            readonly ' $fragmentRefs': FragmentRefs<'Story_story' | 'FeedStories_feed'>;
         };
-        readonly ' $fragmentRefs': FeedStory_edges$ref;
+        readonly ' $fragmentRefs': FragmentRefs<'FeedStory_edges'>;
     }>;
-    readonly ' $refType': FeedStories_feed$ref;
+    readonly ' $refType': 'FeedStories_feed';
 };
 type FeedStory_edges = ReadonlyArray<{
     readonly publishedAt: string;
-    readonly ' $refType': FeedStory_edges$ref;
+    readonly ' $refType': 'FeedStory_edges';
 }>;
 
 const Feed = (() => {
@@ -301,20 +356,20 @@ const Feed = (() => {
 
     function requiresTheRightProps() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} />;
     }
 
     function requiresTheCorrectFragmentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         // $ExpectError
         <FeedFragmentContainer feed={story} onStoryLike={onStoryLike} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         const relayProp: RelayProp = {} as any;
         // $ExpectError
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} relay={relayProp} />;
@@ -340,7 +395,7 @@ const Feed = (() => {
 
     function canTakeComponentRef() {
         const onStoryLike = (id: string) => console.log(`Liked story #${id}`);
-        const feed: { ' $fragmentRefs': FeedStories_feed$ref } = {} as any;
+        const feed: _FragmentRefs<'FeedStories_feed'> = {} as any;
         <FeedFragmentContainer feed={feed} onStoryLike={onStoryLike} componentRef={ref => console.log(ref)} />;
     }
 
@@ -352,17 +407,15 @@ const Feed = (() => {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 // Artifact produced by relay-compiler-language-typescript
-declare const _UserFeed_user$ref: unique symbol;
-type UserFeed_user$ref = typeof _UserFeed_user$ref;
 type UserFeed_user = {
     readonly feed: {
         readonly pageInfo: {
             readonly endCursor?: string | null;
             readonly hasNextPage: boolean;
         };
-        readonly ' $fragmentRefs': FeedStories_feed$ref;
+        readonly ' $fragmentRefs': FragmentRefs<'FeedStories_feed'>;
     };
-    readonly ' $refType': UserFeed_user$ref;
+    readonly ' $refType': 'UserFeed_user';
 };
 () => {
     interface Props {
@@ -392,7 +445,7 @@ type UserFeed_user = {
                 10, // Fetch the next 10 feed items
                 e => {
                     console.log(e);
-                }
+                },
             );
         }
     }
@@ -444,22 +497,22 @@ type UserFeed_user = {
                     }
                 }
             `,
-        }
+        },
     );
 
     function requiresTheRightProps() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} />;
     }
 
     function requiresTheCorrectFragmentRef() {
-        const story: { ' $fragmentRefs': Story_story$ref } = {} as any;
+        const story: _FragmentRefs<'Story_story'> = {} as any;
         // $ExpectError
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={story} />;
     }
 
     function doesNotRequireRelayPropToBeProvidedByParent() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         const relayProp: RelayPaginationProp = {} as any;
         // $ExpectError
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} relay={relayProp} />;
@@ -491,7 +544,7 @@ type UserFeed_user = {
     }
 
     function canTakeComponentRef() {
-        const user: { ' $fragmentRefs': UserFeed_user$ref } = {} as any;
+        const user: _FragmentRefs<'UserFeed_user'> = {} as any;
         <UserFeedPaginationContainer loadMoreTitle="Load More" user={user} componentRef={ref => console.log(ref)} />;
     }
 };
@@ -595,6 +648,25 @@ function markNotificationAsRead(source: string, storyID: string) {
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~
+// readInlineData
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const storyFragment = graphql`
+    fragment Story_story on Todo {
+        id
+        text
+        isPublished
+    }
+`;
+
+function functionWithInline(storyRef: FragmentRef<Story_story>): Story_story {
+    return readInlineData<Story_story>(storyFragment, storyRef);
+}
+
+const inlineData: _FragmentRefs<'Story_story'> = {} as any;
+functionWithInline(inlineData).isPublished;
+
+// ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
 // ~~~~~~~~~~~~~~~~~~~~~
 const subscription = graphql`
@@ -629,11 +701,11 @@ requestSubscription(
                 store,
                 notifications!,
                 notification!,
-                '<TypeOfNotificationsEdge>'
+                '<TypeOfNotificationsEdge>',
             );
             ConnectionHandler.insertEdgeAfter(notifications!, edge);
         },
-    }
+    },
 );
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -642,3 +714,45 @@ requestSubscription(
 
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
+
+const MyRelayContextProvider: React.FunctionComponent = children => {
+    return (
+        <ReactRelayContext.Provider
+            value={{
+                environment: modernEnvironment,
+            }}>
+            {children}
+        </ReactRelayContext.Provider>
+    );
+};
+
+const MyRelayContextConsumer: React.FunctionComponent = () => {
+    const relayContext = React.useContext(ReactRelayContext);
+    if (!relayContext || !relayContext.environment) {
+        return null;
+    }
+
+    return (
+        <QueryRenderer<MyQuery>
+            environment={relayContext.environment}
+            query={graphql`
+                query ExampleQuery($pageID: ID!) {
+                    page(id: $pageID) {
+                        name
+                    }
+                }
+            `}
+            variables={{
+                pageID: '110798995619330',
+            }}
+            render={({ error, props }) => {
+                if (error) {
+                    return <div>{error.message}</div>;
+                } else if (props) {
+                    return <div>{props.name} is great!</div>;
+                }
+                return <div>Loading</div>;
+            }}
+        />
+    );
+};

@@ -1,18 +1,18 @@
 import { DownloadPreloadOption } from '../system/download-preload';
 import { RGB, ContextMenuSettings } from '../../shapes';
 export interface WindowOption {
-    accelerator?: object;
+    accelerator?: Accelerator;
     alphaMask?: RGB;
     alwaysOnTop?: boolean;
-    api?: object;
+    api?: Api;
     applicationIcon?: string;
     aspectRatio?: number;
     autoShow?: boolean;
     backgroundColor?: string;
-    contentNavigation?: object;
+    contentNavigation?: ContentNavigation;
     contextMenu?: boolean;
     contextMenuSettings?: ContextMenuSettings;
-    cornerRounding?: object;
+    cornerRounding?: CornerRounding;
     customData?: any;
     customRequestHeaders?: Array<CustomRequestHeaders>;
     defaultCentered?: boolean;
@@ -33,7 +33,7 @@ export interface WindowOption {
     opacity?: number;
     preloadScripts?: Array<DownloadPreloadOption>;
     resizable?: boolean;
-    resizeRegion?: object;
+    resizeRegion?: ResizeRegion;
     saveWindowState?: boolean;
     shadow?: boolean;
     showTaskbarIcon?: boolean;
@@ -54,3 +54,33 @@ export declare type WindowOptionDiff = {
         newVal: WindowOption[key];
     };
 };
+export interface ResizeRegion {
+    size?: number;
+    bottomRightCorner?: number;
+    sides?: {
+        top?: boolean;
+        bottom?: boolean;
+        left?: boolean;
+        right?: boolean;
+    };
+}
+export interface Accelerator {
+    devtools?: boolean;
+    reload?: boolean;
+    reloadIgnoringCache?: boolean;
+    zoom?: boolean;
+}
+export interface Api {
+    iframe?: {
+        crossOriginInjection?: boolean;
+        sameOriginInjection?: boolean;
+    };
+}
+export interface ContentNavigation {
+    whitelist?: string[];
+    blacklist?: string[];
+}
+export interface CornerRounding {
+    height?: number;
+    width?: number;
+}

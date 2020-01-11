@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "bignumber.js": "9.0.0"
-    }
-}

@@ -1,6 +1,6 @@
 // Type definitions for in-app-purchase 1.10
 // Project: https://github.com/voltrue2/in-app-purchase#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>, Dennis Kugelmann <https://github.com/IchordeDionysos>
+// Definitions by: Jonas Lochmann <https://github.com/l-jonas>, Dennis Kugelmann <https://github.com/IchordeDionysos>, Alexander Tartmin <https://github.com/Baskerville42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -78,7 +78,7 @@ export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDO
 export type UnityReceipt = object | string;
 export type AppleReceipt = string;
 export type GoogleReceipt = {
-  date: string;
+  data: string;
   signature: string;
 } | string;
 export type WindowsReceipt = string;

@@ -1,4 +1,4 @@
-// Type definitions for React 16.8
+// Type definitions for React 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -9,7 +9,6 @@
 //                 Digiguru <https://github.com/digiguru>
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Stéphane Goetz <https://github.com/onigoetz>
 //                 Josh Rutherford <https://github.com/theruther4d>
 //                 Guilherme Hübner <https://github.com/guilhermehubner>
 //                 Ferdy Budhidharma <https://github.com/ferdaber>
@@ -21,8 +20,14 @@
 //                 Saransh Kataria <https://github.com/saranshkataria>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Kyle Scully <https://github.com/zieka>
+//                 Cong Zhang <https://github.com/dancerphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 /// <reference path="global.d.ts" />
 
@@ -41,6 +46,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
+type Booleanish = boolean | 'true' | 'false';
 
 /**
  * defined in scheduler/tracing
@@ -86,6 +92,10 @@ declare namespace React {
 
     type ComponentState = any;
 
+    /**
+     * @internal You shouldn't need to use this type since you never see these attributes
+     * inside your component or have to validate them.
+     */
     interface Attributes {
         key?: Key;
     }
@@ -334,6 +344,8 @@ declare namespace React {
         displayName?: string;
     }
     function createContext<T>(
+        // If you thought this should be optional, see
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/24509#issuecomment-382213106
         defaultValue: T,
         calculateChangedBits?: (prev: T, next: T) => number
     ): Context<T>;
@@ -349,13 +361,12 @@ declare namespace React {
 
         /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
         fallback: NonNullable<ReactNode>|null;
-
-        // I tried looking at the code but I have no idea what it does.
-        // https://github.com/facebook/react/issues/13206#issuecomment-432489986
         /**
-         * Not implemented yet, requires unstable_ConcurrentMode
+         * Tells React whether to “skip” revealing this boundary during the initial load.
+         * This API will likely be removed in a future release.
          */
-        // maxDuration?: number;
+        // NOTE: this is unflagged and is respected even in stable builds
+        unstable_avoidThisFallback?: boolean;
     }
     /**
      * This feature is not yet available for server-side rendering.
@@ -382,7 +393,7 @@ declare namespace React {
         onRender: ProfilerOnRenderCallback;
     }
 
-    const unstable_Profiler: ExoticComponent<ProfilerProps>;
+    const Profiler: ExoticComponent<ProfilerProps>;
 
     //
     // Component API
@@ -420,14 +431,17 @@ declare namespace React {
         /**
          * If using the new style context, re-declare this in your class to be the
          * `React.ContextType` of your `static contextType`.
+         * Should be used with type annotation or static contextType.
          *
          * ```ts
          * static contextType = MyContext
+         * // For TS pre-3.7:
          * context!: React.ContextType<typeof MyContext>
+         * // For TS 3.7 and above:
+         * declare context: React.ContextType<typeof MyContext>
          * ```
          *
-         * @deprecated if used without a type annotation, or without static contextType
-         * @see https://reactjs.org/docs/legacy-context.html
+         * @see https://reactjs.org/docs/context.html
          */
         // TODO (TypeScript 3.0): unknown
         context: any;
@@ -447,7 +461,7 @@ declare namespace React {
             callback?: () => void
         ): void;
 
-        forceUpdate(callBack?: () => void): void;
+        forceUpdate(callback?: () => void): void;
         render(): ReactNode;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -733,6 +747,7 @@ declare namespace React {
     // but can be given its own specific name
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         defaultProps?: Partial<P>;
+        propTypes?: WeakValidationMap<P>;
     }
 
     function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
@@ -808,13 +823,19 @@ declare namespace React {
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
     type Dispatch<A> = (value: A) => void;
+    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    type DispatchWithoutAction = () => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
+    // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
+    type ReducerWithoutAction<S> = (prevState: S) => S;
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
+        R extends ReducerWithoutAction<infer S> ? S : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
 
@@ -850,6 +871,38 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>, I>(
+        reducer: R,
+        initializerArg: I,
+        initializer: (arg: I) => ReducerStateWithoutAction<R>
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>>(
+        reducer: R,
+        initializerArg: ReducerStateWithoutAction<R>,
+        initializer?: undefined
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
      *
@@ -1085,7 +1138,7 @@ declare namespace React {
     }
 
     interface FocusEvent<T = Element> extends SyntheticEvent<T, NativeFocusEvent> {
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         target: EventTarget & T;
     }
 
@@ -1138,7 +1191,7 @@ declare namespace React {
         movementY: number;
         pageX: number;
         pageY: number;
-        relatedTarget: EventTarget;
+        relatedTarget: EventTarget | null;
         screenX: number;
         screenY: number;
         shiftKey: boolean;
@@ -1636,30 +1689,29 @@ declare namespace React {
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: string | number | string[];
         suppressContentEditableWarning?: boolean;
         suppressHydrationWarning?: boolean;
 
         // Standard HTML Attributes
         accessKey?: string;
         className?: string;
-        contentEditable?: boolean;
+        contentEditable?: Booleanish | "inherit";
         contextMenu?: string;
         dir?: string;
-        draggable?: boolean;
+        draggable?: Booleanish;
         hidden?: boolean;
         id?: string;
         lang?: string;
         placeholder?: string;
         slot?: string;
-        spellCheck?: boolean;
+        spellCheck?: Booleanish;
         style?: CSSProperties;
         tabIndex?: number;
         title?: string;
+        translate?: 'yes' | 'no';
 
         // Unknown
-        inputMode?: string;
-        is?: string;
         radioGroup?: string; // <command>, <menuitem>
 
         // WAI-ARIA
@@ -1688,6 +1740,18 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: 'on' | 'off';
+
+        // Living Standard
+        /**
+         * Hints at the type of data that might be entered by the user while editing the element or its contents
+         * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
+         */
+        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+        /**
+         * Specify that a standard HTML element should behave like a defined custom built-in element
+         * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
+         */
+        is?: string;
     }
 
     interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -1862,6 +1926,10 @@ declare namespace React {
 
     interface ColgroupHTMLAttributes<T> extends HTMLAttributes<T> {
         span?: number;
+    }
+
+    interface DataHTMLAttributes<T> extends HTMLAttributes<T> {
+        value?: string | string[] | number;
     }
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2168,6 +2236,8 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
+        valign?: "top" | "middle" | "bottom" | "baseline";
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2176,6 +2246,7 @@ declare namespace React {
         headers?: string;
         rowSpan?: number;
         scope?: string;
+        abbr?: string;
     }
 
     interface TimeHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2195,6 +2266,7 @@ declare namespace React {
         playsInline?: boolean;
         poster?: string;
         width?: number | string;
+        disablePictureInPicture?: boolean;
     }
 
     // this list is "complete" in that it contains every SVG attribute
@@ -2226,6 +2298,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2240,7 +2313,7 @@ declare namespace React {
         ascent?: number | string;
         attributeName?: string;
         attributeType?: string;
-        autoReverse?: number | string;
+        autoReverse?: Booleanish;
         azimuth?: number | string;
         baseFrequency?: number | string;
         baselineShift?: number | string;
@@ -2280,7 +2353,7 @@ declare namespace React {
         enableBackground?: number | string;
         end?: number | string;
         exponent?: number | string;
-        externalResourcesRequired?: number | string;
+        externalResourcesRequired?: Booleanish;
         fill?: string;
         fillOpacity?: number | string;
         fillRule?: "nonzero" | "evenodd" | "inherit";
@@ -2289,7 +2362,7 @@ declare namespace React {
         filterUnits?: number | string;
         floodColor?: number | string;
         floodOpacity?: number | string;
-        focusable?: number | string;
+        focusable?: Booleanish | "auto";
         fontFamily?: string;
         fontSize?: number | string;
         fontSizeAdjust?: number | string;
@@ -2367,7 +2440,7 @@ declare namespace React {
         pointsAtX?: number | string;
         pointsAtY?: number | string;
         pointsAtZ?: number | string;
-        preserveAlpha?: number | string;
+        preserveAlpha?: Booleanish;
         preserveAspectRatio?: string;
         primitiveUnits?: number | string;
         r?: number | string;
@@ -2518,7 +2591,7 @@ declare namespace React {
         code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
         colgroup: DetailedHTMLFactory<ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-        data: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        data: DetailedHTMLFactory<DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
         datalist: DetailedHTMLFactory<HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
         dd: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         del: DetailedHTMLFactory<DelHTMLAttributes<HTMLElement>, HTMLElement>;
@@ -2850,7 +2923,7 @@ declare global {
             code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
             colgroup: React.DetailedHTMLProps<React.ColgroupHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
-            data: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            data: React.DetailedHTMLProps<React.DataHTMLAttributes<HTMLDataElement>, HTMLDataElement>;
             datalist: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDataListElement>, HTMLDataListElement>;
             dd: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             del: React.DetailedHTMLProps<React.DelHTMLAttributes<HTMLElement>, HTMLElement>;

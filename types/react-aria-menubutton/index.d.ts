@@ -41,8 +41,6 @@ export interface WrapperProps<T extends HTMLElement>
 	 */
 	closeOnBlur?: boolean;
 
-	isOpen?: boolean;
-
 	tag?: T["tagName"];
 }
 

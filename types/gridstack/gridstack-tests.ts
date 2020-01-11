@@ -1,6 +1,6 @@
 /// <reference types="jquery"/>
 
-var options: IGridstackOptions = {
+var options: GridstackOptions = {
     float: true
 };
 var element: JQuery = $(document).gridstack(options);

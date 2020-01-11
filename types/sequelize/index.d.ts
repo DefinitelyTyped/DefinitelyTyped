@@ -20,6 +20,7 @@
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Dan Rumney <https://github.com/dancrumb>
 //                 Kan Yueh Chen <https://github.com/lalayueh>
+//                 Rohit Sud <https://github.com/rohitsud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -30,12 +31,11 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="validator" />
-
-
 import * as _ from "lodash";
 import Promise = require("bluebird");
 import * as cls from "continuation-local-storage"
+
+import ValidatorJS from 'validator'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -1519,7 +1519,7 @@ declare namespace sequelize {
      * user.addPicture(req.query.pid) // Here pid is just an integer, representing the primary key of the picture
      * ```
      *
-     * In the example above we have specified that a user belongs to his profile picture. Conceptually, this might
+     * In the example above we have specified that a user belongs to their profile picture. Conceptually, this might
      * not make sense, but since we want to add the foreign key to the user model this is the way to do it.
      *
      * Note how we also specified `constraints: false` for profile picture. This is because we add a foreign key
@@ -4109,7 +4109,7 @@ declare namespace sequelize {
          *
          * @param records List of objects (key/value pairs) to create instances from
          */
-        bulkCreate(records: TAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
+        bulkCreate(records: TCreationAttributes[], options?: BulkCreateOptions): Promise<TInstance[]>;
 
         /**
          * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).
@@ -5096,7 +5096,7 @@ declare namespace sequelize {
         /**
          * Index type. Only used by mysql. One of `UNIQUE`, `FULLTEXT` and `SPATIAL`
          */
-        index?: string;
+        type?: IndexType;
 
         /**
          * The method to create the index by (`USING` statement in SQL). BTREE and HASH are supported by mysql and
@@ -6338,10 +6338,12 @@ declare namespace sequelize {
     //  Validator
     // ~~~~~~~~~~~
 
+    type ValidatorJSType = typeof ValidatorJS
+
     /**
      * Validator Interface
      */
-    interface Validator extends ValidatorJS.ValidatorStatic {
+    interface Validator extends ValidatorJSType {
 
         notEmpty(str: string): boolean;
         len(str: string, min: number, max: number): boolean;

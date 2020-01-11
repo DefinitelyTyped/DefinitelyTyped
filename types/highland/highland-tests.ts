@@ -74,6 +74,7 @@ var barStream: Highland.Stream<Bar>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
 var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
+var barStreamArrStream: Highland.Stream<Highland.Stream<Bar>[]>;
 
 var fooArrStream: Highland.Stream<Foo[]>;
 var barArrStream: Highland.Stream<Bar[]>;
@@ -301,7 +302,13 @@ barStream = fooStream.flatMap((x: Foo) => {
   return bar;
 });
 
-barStream = fooStream.flatten<Bar>();
+barStream = barArrStream.flatten<Bar>();
+barStream = barArrStream.flatten();
+barStream = barStreamStream.flatten();
+barStream = barStreamArrStream.flatten();
+
+// $ExpectError
+barArrStream.flatten<Foo>();
 
 fooStream = fooStream.fork();
 
@@ -315,7 +322,14 @@ fooStream = fooStreamStream.parallel(num);
 
 barStream = barStreamStream.sequence();
 
-barStream = fooStream.series<Bar>();
+barStream = barStreamStream.series<Bar>();
+
+// $ExpectError
+fooStream.sequence();
+// $ExpectError
+barStream.series();
+// $ExpectError
+fooStreamStream.sequence<Bar>();
 
 bar = fooStream.through(x => bar);
 barStream = fooStream.through(readwritable);

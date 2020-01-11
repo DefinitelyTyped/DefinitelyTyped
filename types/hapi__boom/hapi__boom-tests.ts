@@ -169,6 +169,7 @@ const unauthorizedError = Boom.unauthorized() as Error;
 const error = Boom.badRequest('Cannot feed after midnight');
 error.output.statusCode = 499;    // Assign a custom error code
 error.reformat();
+error.reformat(true);
 
 /**
  * Add a custom key to the payload

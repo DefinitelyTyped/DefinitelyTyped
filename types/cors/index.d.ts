@@ -2,7 +2,7 @@
 // Project: https://github.com/troygoode/node-cors/
 // Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import express = require('express');
 

@@ -3,6 +3,7 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 e-cloud <https://github.com/e-cloud>
 //                 Ruben Schmidmeister <https://github.com/bash>
+//                 Oganexon <https://github.com/oganexon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/rimraf.d.ts
@@ -21,7 +22,7 @@ declare namespace rimraf {
     let BUSYTRIES_MAX: number;
     interface Options {
         maxBusyTries?: number;
-        emfileWait?: boolean;
+        emfileWait?: number;
         disableGlob?: boolean;
         glob?: glob.IOptions | false;
 

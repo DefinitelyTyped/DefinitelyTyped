@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "paths": {
+            "@storybook/addon-storyshots": [
+                "storybook__addon-storyshots"
+            ],
+            "@storybook/addon-storyshots-puppeteer": [
+                "storybook__addon-storyshots-puppeteer"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "storybook__addon-storyshots-puppeteer-tests.ts"
+    ]
+}

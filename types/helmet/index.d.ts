@@ -13,6 +13,7 @@ declare namespace helmet {
     export interface IHelmetConfiguration {
         contentSecurityPolicy?: boolean | IHelmetContentSecurityPolicyConfiguration;
         dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration;
+        featurePolicy?: IFeaturePolicyOptions;
         frameguard?: boolean | IHelmetFrameguardConfiguration;
         hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration;
         hpkp?: boolean | IHelmetHpkpConfiguration;
@@ -24,6 +25,12 @@ declare namespace helmet {
         xssFilter?: boolean | IHelmetXssFilterConfiguration;
         expectCt?: boolean | IHelmetExpectCtConfiguration;
         permittedCrossDomainPolicies?: boolean | IHelmetPermittedCrossDomainPoliciesConfiguration;
+    }
+
+    export interface IFeaturePolicyOptions {
+        features: {
+            [featureName: string]: string[];
+        };
     }
 
     export interface IHelmetPermittedCrossDomainPoliciesConfiguration {
@@ -162,6 +169,7 @@ declare namespace helmet {
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+        reportUri?: string;
     }
 
     export interface IHelmetExpectCtConfiguration {
@@ -194,6 +202,13 @@ declare namespace helmet {
          * @return {RequestHandler} The Request handler
          */
         dnsPrefetchControl(options?: IHelmetDnsPrefetchControlConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Restrict which browser features can be used
+         * @param {IFeaturePolicyOptions} options The options
+         * @return {RequestHandler} The Request handler
+         */
+        featurePolicy(options: IFeaturePolicyOptions): express.RequestHandler;
 
         /**
          * @summary Prevent clickjacking.

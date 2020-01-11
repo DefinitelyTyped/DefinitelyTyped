@@ -5,22 +5,22 @@ declare namespace echarts {
          *
          * Radar chart is mainly used to show multi-variable data, such as the
          * analysis of a football player's varied attributes. It relies
-         * [radar](https://ecomfe.github.io/echarts-doc/public/en/option.html#radar)
+         * [radar](https://echarts.apache.org/en/option.html#radar)
          * component.
          *
          * Here is the example of AQI data which is presented in radar chart.
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar)
+         * [see doc](https://echarts.apache.org/en/option.html#series-radar)
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar
+         * @see https://echarts.apache.org/en/option.html#series-radar
          */
         interface SeriesRadar {
 
             /**
              * @default
              * "radar"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.type
+             * @see https://echarts.apache.org/en/option.html#series-radar.type
              */
             type?: string;
 
@@ -30,29 +30,29 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.id
+             * @see https://echarts.apache.org/en/option.html#series-radar.id
              */
             id?: string;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.name
+             * @see https://echarts.apache.org/en/option.html#series-radar.name
              */
             name?: string;
 
             /**
              * Index of
-             * [radar](https://ecomfe.github.io/echarts-doc/public/en/option.html#radar)
+             * [radar](https://echarts.apache.org/en/option.html#radar)
              * component that radar chart uses.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radarIndex
+             * @see https://echarts.apache.org/en/option.html#series-radar.radarIndex
              */
             radarIndex?: number;
 
@@ -75,7 +75,7 @@ declare namespace echarts {
              *
              * A `dataURI` example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              * Icons can be set to arbitrary vector path via `'path://'` in
              * ECharts.
@@ -89,12 +89,12 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              *
              * @default
              * "circle"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.symbol
+             * @see https://echarts.apache.org/en/option.html#series-radar.symbol
              */
             symbol?: string;
 
@@ -114,14 +114,14 @@ declare namespace echarts {
              * ```
              *
              * The first parameter `value` is the value in
-             * [data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data)
+             * [data](https://echarts.apache.org/en/option.html#series-radar.data)
              * , and the second parameter `params` is the rest parameters of
              * data item.
              *
              *
              * @default
              * 4
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.symbolSize
+             * @see https://echarts.apache.org/en/option.html#series-radar.symbolSize
              */
             symbolSize?: any[] | Function | number;
 
@@ -132,7 +132,7 @@ declare namespace echarts {
              * angle.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.symbolRotate
+             * @see https://echarts.apache.org/en/option.html#series-radar.symbolRotate
              */
             symbolRotate?: number;
 
@@ -140,7 +140,7 @@ declare namespace echarts {
              * Whether to keep aspect for symbols in the form of `path://`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.symbolKeepAspect
+             * @see https://echarts.apache.org/en/option.html#series-radar.symbolKeepAspect
              */
             symbolKeepAspect?: boolean;
 
@@ -162,7 +162,7 @@ declare namespace echarts {
              *
              * @default
              * [0, 0]
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.symbolOffset
+             * @see https://echarts.apache.org/en/option.html#series-radar.symbolOffset
              */
             symbolOffset?: any[];
 
@@ -175,7 +175,7 @@ declare namespace echarts {
              * as `itemStyle` does.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label
+             * @see https://echarts.apache.org/en/option.html#series-radar.label
              */
             label?: {
 
@@ -183,7 +183,7 @@ declare namespace echarts {
                  * Whether to show label.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.show
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.show
                  */
                 show?: boolean;
 
@@ -198,7 +198,7 @@ declare namespace echarts {
                  * position of label relative to top-left corner of bounding
                  * box. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  * + 'top'
                  *
@@ -216,13 +216,13 @@ declare namespace echarts {
                  * + 'insideBottomRight'
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * "top"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.position
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.position
                  */
                 position?: any[] | string;
 
@@ -231,13 +231,13 @@ declare namespace echarts {
                  * Works when position is string value (like `'top'`、`'insideRight'`).
                  *
                  * See:
-                 * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                 * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.distance
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.distance
                  */
                 distance?: number;
 
@@ -246,11 +246,11 @@ declare namespace echarts {
                  * rotate anti-clockwise.
                  *
                  * See:
-                 * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                 * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                  * .
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rotate
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.rotate
                  */
                 rotate?: number;
 
@@ -260,7 +260,7 @@ declare namespace echarts {
                  * move `40` vertically.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.offset
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.offset
                  */
                 offset?: any[];
 
@@ -300,10 +300,10 @@ declare namespace echarts {
                  * where `params` is the single dataset needed by formatter,
                  * which is formed as:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.formatter
                  */
                 formatter?: Function | string;
 
@@ -316,7 +316,7 @@ declare namespace echarts {
                  *
                  * @default
                  * ""#fff""
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.color
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.color
                  */
                 color?: string;
 
@@ -332,7 +332,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.fontStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.fontStyle
                  */
                 fontStyle?: string;
 
@@ -350,7 +350,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "normal"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.fontWeight
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.fontWeight
                  */
                 fontWeight?: string;
 
@@ -362,7 +362,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "sans-serif"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.fontFamily
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.fontFamily
                  */
                 fontFamily?: string;
 
@@ -372,7 +372,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 12
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.fontSize
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.fontSize
                  */
                 fontSize?: number;
 
@@ -388,10 +388,10 @@ declare namespace echarts {
                  * If `align` is not set in `rich`, `align` in parent level
                  * will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.align
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.align
                  */
                 align?: string;
 
@@ -407,10 +407,10 @@ declare namespace echarts {
                  * If `verticalAlign` is not set in `rich`, `verticalAlign`
                  * in parent level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.verticalAlign
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.verticalAlign
                  */
                 verticalAlign?: string;
 
@@ -420,10 +420,10 @@ declare namespace echarts {
                  * If `lineHeight` is not set in `rich`, `lineHeight` in parent
                  * level will be used. For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.lineHeight
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.lineHeight
                  */
                 lineHeight?: number;
 
@@ -434,7 +434,7 @@ declare namespace echarts {
                  *
                  * Or image can be used, for example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  * `width` or `height` can be specified when using background
                  * image, or auto adapted by default.
@@ -445,7 +445,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.backgroundColor
                  */
                 backgroundColor?: object | string;
 
@@ -458,7 +458,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.borderColor
                  */
                 borderColor?: string;
 
@@ -466,7 +466,7 @@ declare namespace echarts {
                  * Border width of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.borderWidth
                  */
                 borderWidth?: number;
 
@@ -474,7 +474,7 @@ declare namespace echarts {
                  * Border radius of the text fregment.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.borderRadius
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.borderRadius
                  */
                 borderRadius?: number;
 
@@ -490,7 +490,7 @@ declare namespace echarts {
                  * of the content, without `padding`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.padding
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.padding
                  */
                 padding?: any[] | number;
 
@@ -500,7 +500,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.shadowColor
                  */
                 shadowColor?: string;
 
@@ -508,7 +508,7 @@ declare namespace echarts {
                  * Show blur of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -516,7 +516,7 @@ declare namespace echarts {
                  * Shadow X offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -524,7 +524,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text block.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -548,7 +548,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.width
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.width
                  */
                 width?: number | string;
 
@@ -564,7 +564,7 @@ declare namespace echarts {
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.height
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.height
                  */
                 height?: number | string;
 
@@ -577,7 +577,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textBorderColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textBorderColor
                  */
                 textBorderColor?: string;
 
@@ -585,7 +585,7 @@ declare namespace echarts {
                  * Storke line width of the text.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textBorderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textBorderWidth
                  */
                 textBorderWidth?: number;
 
@@ -595,7 +595,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "transparent"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textShadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textShadowColor
                  */
                 textShadowColor?: string;
 
@@ -603,7 +603,7 @@ declare namespace echarts {
                  * Shadow blue of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textShadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textShadowBlur
                  */
                 textShadowBlur?: number;
 
@@ -611,7 +611,7 @@ declare namespace echarts {
                  * Shadow X offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textShadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textShadowOffsetX
                  */
                 textShadowOffsetX?: number;
 
@@ -619,7 +619,7 @@ declare namespace echarts {
                  * Shadow Y offset of the text itself.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.textShadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.textShadowOffsetY
                  */
                 textShadowOffsetY?: number;
 
@@ -627,19 +627,19 @@ declare namespace echarts {
                  * "Rich text styles" can be defined in this `rich` property.
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label)
                  *
                  * For more details, see
-                 * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                 * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich
+                 * @see https://echarts.apache.org/en/option.html#series-radar.label.rich
                  */
                 rich?: {
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E
+                     * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E
                      */
                     [userStyle: string]: {
 
@@ -652,7 +652,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.color
                          */
                         color?: string;
 
@@ -668,7 +668,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                          */
                         fontStyle?: string;
 
@@ -686,7 +686,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                          */
                         fontWeight?: string;
 
@@ -698,7 +698,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                          */
                         fontFamily?: string;
 
@@ -708,7 +708,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                          */
                         fontSize?: number;
 
@@ -724,10 +724,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string;
 
@@ -743,10 +743,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -756,10 +756,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
                         lineHeight?: number;
 
@@ -770,7 +770,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -781,7 +781,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -794,7 +794,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                          */
                         borderColor?: string;
 
@@ -802,7 +802,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number;
 
@@ -810,7 +810,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
                         borderRadius?: number;
 
@@ -827,7 +827,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number;
 
@@ -837,7 +837,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                          */
                         shadowColor?: string;
 
@@ -845,7 +845,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -853,7 +853,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -861,7 +861,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -888,7 +888,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string;
 
@@ -905,7 +905,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string;
 
@@ -918,7 +918,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -926,7 +926,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -936,7 +936,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -944,7 +944,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -952,7 +952,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -960,7 +960,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
                     };
@@ -971,13 +971,13 @@ declare namespace echarts {
              * Item style of the inflection point of the lines.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle
+             * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle
              */
             itemStyle?: {
 
                 /**
                  * color. Color is taken from
-                 * [option.color Palette](https://ecomfe.github.io/echarts-doc/public/en/option.html#color)
+                 * [option.color Palette](https://echarts.apache.org/en/option.html#color)
                  * by default.
                  *
                  * > Color can be represented in RGB, for example `'rgb(128,
@@ -988,7 +988,7 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.itemStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.itemStyle)
                  *
                  * Supports callback functions, in the form of:
                  *
@@ -1001,7 +1001,7 @@ declare namespace echarts {
                  * `value`, and etc. of data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.color
                  */
                 color?: string | Function;
 
@@ -1011,7 +1011,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.borderColor
                  */
                 borderColor?: string;
 
@@ -1019,7 +1019,7 @@ declare namespace echarts {
                  * border width. No border when it is set to be 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.borderWidth
                  */
                 borderWidth?: number;
 
@@ -1030,7 +1030,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.borderType
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.borderType
                  */
                 borderType?: string;
 
@@ -1041,10 +1041,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.itemStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.itemStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -1052,7 +1052,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1060,7 +1060,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1068,7 +1068,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1078,7 +1078,7 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.itemStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-radar.itemStyle.opacity
                  */
                 opacity?: number;
             };
@@ -1087,7 +1087,7 @@ declare namespace echarts {
              * Line style.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle
+             * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle
              */
             lineStyle?: {
 
@@ -1102,12 +1102,12 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.lineStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.lineStyle)
                  *
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.color
                  */
                 color?: string;
 
@@ -1115,7 +1115,7 @@ declare namespace echarts {
                  * line width.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.width
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.width
                  */
                 width?: number;
 
@@ -1131,7 +1131,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.type
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.type
                  */
                 type?: string;
 
@@ -1142,10 +1142,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.lineStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.lineStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -1153,7 +1153,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1161,7 +1161,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1169,7 +1169,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1179,7 +1179,7 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.lineStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-radar.lineStyle.opacity
                  */
                 opacity?: number;
             };
@@ -1188,7 +1188,7 @@ declare namespace echarts {
              * Area filling style.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle
+             * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle
              */
             areaStyle?: {
 
@@ -1203,12 +1203,12 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.areaStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.areaStyle)
                  *
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.color
                  */
                 color?: string;
 
@@ -1219,10 +1219,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.areaStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.areaStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -1230,7 +1230,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1238,7 +1238,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1246,7 +1246,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1256,18 +1256,18 @@ declare namespace echarts {
                  * drawn when set to 0.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.areaStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-radar.areaStyle.opacity
                  */
                 opacity?: number;
             };
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis
              */
             emphasis?: {
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle
                  */
                 itemStyle?: {
 
@@ -1282,10 +1282,10 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.itemStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.color
                      */
                     color?: string;
 
@@ -1295,7 +1295,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.borderColor
                      */
                     borderColor?: string;
 
@@ -1303,7 +1303,7 @@ declare namespace echarts {
                      * border width. No border when it is set to be 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.borderWidth
                      */
                     borderWidth?: number;
 
@@ -1314,7 +1314,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.borderType
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.borderType
                      */
                     borderType?: string;
 
@@ -1325,10 +1325,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1336,7 +1336,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1344,7 +1344,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1352,7 +1352,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1362,13 +1362,13 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.itemStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label
+                 * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label
                  */
                 label?: {
 
@@ -1376,7 +1376,7 @@ declare namespace echarts {
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.show
                      */
                     show?: boolean;
 
@@ -1391,7 +1391,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      * + 'top'
                      *
@@ -1409,11 +1409,11 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.position
                      */
                     position?: any[] | string;
 
@@ -1422,13 +1422,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.distance
                      */
                     distance?: number;
 
@@ -1437,11 +1437,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rotate
                      */
                     rotate?: number;
 
@@ -1451,7 +1451,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.offset
                      */
                     offset?: any[];
 
@@ -1492,10 +1492,10 @@ declare namespace echarts {
                      * where `params` is the single dataset needed by formatter,
                      * which is formed as:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.formatter
                      */
                     formatter?: Function | string;
 
@@ -1508,7 +1508,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.color
                      */
                     color?: string;
 
@@ -1524,7 +1524,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -1542,7 +1542,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.fontWeight
                      */
                     fontWeight?: string;
 
@@ -1554,7 +1554,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -1564,7 +1564,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.fontSize
                      */
                     fontSize?: number;
 
@@ -1580,10 +1580,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.align
                      */
                     align?: string;
 
@@ -1599,10 +1599,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -1612,10 +1612,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -1626,7 +1626,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -1637,7 +1637,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -1650,7 +1650,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.borderColor
                      */
                     borderColor?: string;
 
@@ -1658,7 +1658,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -1666,7 +1666,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -1682,7 +1682,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.padding
                      */
                     padding?: any[] | number;
 
@@ -1692,7 +1692,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -1700,7 +1700,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -1708,7 +1708,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -1716,7 +1716,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -1741,7 +1741,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.width
                      */
                     width?: number | string;
 
@@ -1757,7 +1757,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.height
                      */
                     height?: number | string;
 
@@ -1770,7 +1770,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -1778,7 +1778,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -1788,7 +1788,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -1796,7 +1796,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -1804,7 +1804,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -1812,7 +1812,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -1820,19 +1820,19 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich
                      */
                     rich?: {
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
 
@@ -1845,7 +1845,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -1861,7 +1861,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -1879,7 +1879,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
                             fontWeight?: string;
 
@@ -1891,7 +1891,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -1901,7 +1901,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -1917,10 +1917,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -1936,10 +1936,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -1949,10 +1949,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -1964,7 +1964,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -1975,7 +1975,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -1988,7 +1988,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -1996,7 +1996,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -2004,7 +2004,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -2022,7 +2022,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -2032,7 +2032,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -2040,7 +2040,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -2048,7 +2048,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -2056,7 +2056,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -2083,7 +2083,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -2100,7 +2100,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -2113,7 +2113,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -2121,7 +2121,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -2131,7 +2131,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -2139,7 +2139,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -2147,7 +2147,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -2155,7 +2155,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -2163,7 +2163,7 @@ declare namespace echarts {
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle
                  */
                 lineStyle?: {
 
@@ -2178,12 +2178,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.color
                      */
                     color?: string;
 
@@ -2191,7 +2191,7 @@ declare namespace echarts {
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.width
                      */
                     width?: number;
 
@@ -2207,7 +2207,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.type
                      */
                     type?: string;
 
@@ -2218,10 +2218,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -2229,7 +2229,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -2237,7 +2237,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -2245,7 +2245,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -2255,13 +2255,13 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.lineStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle
                  */
                 areaStyle?: {
 
@@ -2276,12 +2276,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.areaStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.areaStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.color
                      */
                     color?: string;
 
@@ -2292,10 +2292,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.emphasis.areaStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.emphasis.areaStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -2303,7 +2303,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -2311,7 +2311,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -2319,7 +2319,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -2329,7 +2329,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.emphasis.areaStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.emphasis.areaStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -2339,15 +2339,15 @@ declare namespace echarts {
              * The data in radar chart is multi-variable (dimension).
              * Here is an example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              * Among them, `value` item array contains data that is corresponding
              * to
-             * [radar.indicator](https://ecomfe.github.io/echarts-doc/public/en/option.html#radar.indicator)
+             * [radar.indicator](https://echarts.apache.org/en/option.html#radar.indicator)
              * .
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data
+             * @see https://echarts.apache.org/en/option.html#series-radar.data
              */
             data?: SeriesRadar.DataObject[];
 
@@ -2366,7 +2366,7 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-radar.zlevel
              */
             zlevel?: number;
 
@@ -2382,7 +2382,7 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.z
+             * @see https://echarts.apache.org/en/option.html#series-radar.z
              */
             z?: number;
 
@@ -2392,7 +2392,7 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.silent
+             * @see https://echarts.apache.org/en/option.html#series-radar.silent
              */
             silent?: boolean;
 
@@ -2402,7 +2402,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animation
+             * @see https://echarts.apache.org/en/option.html#series-radar.animation
              */
             animation?: boolean;
 
@@ -2414,7 +2414,7 @@ declare namespace echarts {
              *
              * @default
              * 2000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationThreshold
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationThreshold
              */
             animationThreshold?: number;
 
@@ -2422,25 +2422,25 @@ declare namespace echarts {
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              *
              * @default
              * 1000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationDuration
              */
             animationDuration?: Function | number;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationEasing
              */
             animationEasing?: string;
 
@@ -2450,14 +2450,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationDelay
              */
             animationDelay?: Function | number;
 
@@ -2465,12 +2465,12 @@ declare namespace echarts {
              * Time for animation to complete, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              *
              * @default
              * 300
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationDurationUpdate
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationDurationUpdate
              */
             animationDurationUpdate?: Function | number;
 
@@ -2480,7 +2480,7 @@ declare namespace echarts {
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationEasingUpdate
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationEasingUpdate
              */
             animationEasingUpdate?: string;
 
@@ -2490,14 +2490,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar)
+             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.animationDelayUpdate
+             * @see https://echarts.apache.org/en/option.html#series-radar.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
 
@@ -2505,14 +2505,14 @@ declare namespace echarts {
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-radar.tooltip
              */
             tooltip?: {
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The position of the tooltip's floating layer, which would
@@ -2527,13 +2527,13 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * + `Function`
                  *
                  * Callback function in the following form:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * **Parameters:**
                  * point: Mouse position.
@@ -2554,56 +2554,56 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * Or:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * + `'inside'`
                  *
                  * Center position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'top'`
                  *
                  * Top position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'left'`
                  *
                  * Left position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'right'`
                  *
                  * Right position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'bottom'`
                  *
                  * Bottom position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.position
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.position
                  */
                 position?: any[] | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The content formatter of tooltip's floating layer which supports
@@ -2614,7 +2614,7 @@ declare namespace echarts {
                  * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
                  * `{e}`, which stands for series name, data name and data value
                  * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is set to be `'axis'`, there may be data from multiple series.
                  * In this time, series index can be refered as `{a0}`, `{a1}`,
                  * or `{a2}`.
@@ -2647,22 +2647,22 @@ declare namespace echarts {
                  *
                  * The format of callback function:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * The first parameter `params` is the data that the formatter
                  * needs. Its format is shown as follows:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
                  * , `params` is the data array of multiple series.
                  * The content of each item of the array is the same as above.
                  * Besides,
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  * **Note:** Using array to present all the parameters in ECharts
                  * 2.x is not supported anymore.
@@ -2678,17 +2678,17 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.formatter
                  */
                 formatter?: Function | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The background color of tooltip's floating layer.
@@ -2696,14 +2696,14 @@ declare namespace echarts {
                  *
                  * @default
                  * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.backgroundColor
                  */
                 backgroundColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border color of tooltip's floating layer.
@@ -2711,27 +2711,27 @@ declare namespace echarts {
                  *
                  * @default
                  * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.borderColor
                  */
                 borderColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border width of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.borderWidth
                  */
                 borderWidth?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The floating layer of tooltip space around content.
@@ -2742,25 +2742,25 @@ declare namespace echarts {
                  *
                  * Examples:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip)
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.padding
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.padding
                  */
                 padding?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The text syle of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle
                  */
                 textStyle?: {
 
@@ -2770,7 +2770,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.color
                      */
                     color?: string;
 
@@ -2786,7 +2786,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.fontStyle
                      */
                     fontStyle?: string;
 
@@ -2804,7 +2804,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.fontWeight
                      */
                     fontWeight?: string;
 
@@ -2816,7 +2816,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.fontFamily
                      */
                     fontFamily?: string;
 
@@ -2826,7 +2826,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.fontSize
                      */
                     fontSize?: number;
 
@@ -2836,10 +2836,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.tooltip.textStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.tooltip.textStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.lineHeight
                      */
                     lineHeight?: number;
 
@@ -2864,7 +2864,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.width
                      */
                     width?: number | string;
 
@@ -2880,7 +2880,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.height
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.height
                      */
                     height?: number | string;
 
@@ -2890,7 +2890,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -2898,7 +2898,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -2908,7 +2908,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -2916,7 +2916,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -2924,7 +2924,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -2932,7 +2932,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.textStyle.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.textStyle.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
                 };
@@ -2940,7 +2940,7 @@ declare namespace echarts {
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * Extra CSS style for floating layer.
@@ -2952,7 +2952,7 @@ declare namespace echarts {
                  * ```
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.tooltip.extraCssText
+                 * @see https://echarts.apache.org/en/option.html#series-radar.tooltip.extraCssText
                  */
                 extraCssText?: string;
             };
@@ -2965,7 +2965,7 @@ declare namespace echarts {
                  * Data item name
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.name
                  */
                 name?: string;
 
@@ -2973,7 +2973,7 @@ declare namespace echarts {
                  * Numerical value of a single data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.value
                  */
                 value?: number | number[];
 
@@ -2996,7 +2996,7 @@ declare namespace echarts {
                  *
                  * A `dataURI` example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data)
                  *
                  * Icons can be set to arbitrary vector path via `'path://'`
                  * in ECharts.
@@ -3011,12 +3011,12 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data)
                  *
                  *
                  * @default
                  * "circle"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.symbol
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.symbol
                  */
                 symbol?: string;
 
@@ -3030,7 +3030,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 4
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.symbolSize
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.symbolSize
                  */
                 symbolSize?: any[] | number;
 
@@ -3041,7 +3041,7 @@ declare namespace echarts {
                  * tangent angle.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.symbolRotate
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.symbolRotate
                  */
                 symbolRotate?: number;
 
@@ -3049,7 +3049,7 @@ declare namespace echarts {
                  * Whether to keep aspect for symbols in the form of `path://`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.symbolKeepAspect
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.symbolKeepAspect
                  */
                 symbolKeepAspect?: boolean;
 
@@ -3072,7 +3072,7 @@ declare namespace echarts {
                  *
                  * @default
                  * [0, 0]
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.symbolOffset
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.symbolOffset
                  */
                 symbolOffset?: any[];
 
@@ -3080,7 +3080,7 @@ declare namespace echarts {
                  * Style setting of the text on single inflection point.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.label
                  */
                 label?: {
 
@@ -3088,7 +3088,7 @@ declare namespace echarts {
                      * Whether to show label.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.show
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.show
                      */
                     show?: boolean;
 
@@ -3103,7 +3103,7 @@ declare namespace echarts {
                      * represent position of label relative to top-left corner
                      * of bounding box. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      * + 'top'
                      *
@@ -3121,13 +3121,13 @@ declare namespace echarts {
                      * + 'insideBottomRight'
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * "top"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.position
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.position
                      */
                     position?: any[] | string;
 
@@ -3136,13 +3136,13 @@ declare namespace echarts {
                      * Works when position is string value (like `'top'`、`'insideRight'`).
                      *
                      * See:
-                     * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                     * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.distance
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.distance
                      */
                     distance?: number;
 
@@ -3151,11 +3151,11 @@ declare namespace echarts {
                      * rotate anti-clockwise.
                      *
                      * See:
-                     * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                     * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                      * .
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rotate
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rotate
                      */
                     rotate?: number;
 
@@ -3165,7 +3165,7 @@ declare namespace echarts {
                      * and move `40` vertically.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.offset
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.offset
                      */
                     offset?: any[];
 
@@ -3178,7 +3178,7 @@ declare namespace echarts {
                      *
                      * @default
                      * ""#fff""
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.color
                      */
                     color?: string;
 
@@ -3194,7 +3194,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.fontStyle
                      */
                     fontStyle?: string;
 
@@ -3212,7 +3212,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.fontWeight
                      */
                     fontWeight?: string;
 
@@ -3224,7 +3224,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.fontFamily
                      */
                     fontFamily?: string;
 
@@ -3234,7 +3234,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 12
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.fontSize
                      */
                     fontSize?: number;
 
@@ -3250,10 +3250,10 @@ declare namespace echarts {
                      * If `align` is not set in `rich`, `align` in parent level
                      * will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.align
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.align
                      */
                     align?: string;
 
@@ -3269,10 +3269,10 @@ declare namespace echarts {
                      * If `verticalAlign` is not set in `rich`, `verticalAlign`
                      * in parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.verticalAlign
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.verticalAlign
                      */
                     verticalAlign?: string;
 
@@ -3282,10 +3282,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.lineHeight
                      */
                     lineHeight?: number;
 
@@ -3296,7 +3296,7 @@ declare namespace echarts {
                      *
                      * Or image can be used, for example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      * `width` or `height` can be specified when using background
                      * image, or auto adapted by default.
@@ -3307,7 +3307,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.backgroundColor
                      */
                     backgroundColor?: object | string;
 
@@ -3320,7 +3320,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.borderColor
                      */
                     borderColor?: string;
 
@@ -3328,7 +3328,7 @@ declare namespace echarts {
                      * Border width of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.borderWidth
                      */
                     borderWidth?: number;
 
@@ -3336,7 +3336,7 @@ declare namespace echarts {
                      * Border radius of the text fregment.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.borderRadius
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.borderRadius
                      */
                     borderRadius?: number;
 
@@ -3352,7 +3352,7 @@ declare namespace echarts {
                      * height of the content, without `padding`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.padding
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.padding
                      */
                     padding?: any[] | number;
 
@@ -3362,7 +3362,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.shadowColor
                      */
                     shadowColor?: string;
 
@@ -3370,7 +3370,7 @@ declare namespace echarts {
                      * Show blur of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -3378,7 +3378,7 @@ declare namespace echarts {
                      * Shadow X offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -3386,7 +3386,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text block.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -3411,7 +3411,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.width
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.width
                      */
                     width?: number | string;
 
@@ -3427,7 +3427,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.height
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.height
                      */
                     height?: number | string;
 
@@ -3440,7 +3440,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -3448,7 +3448,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -3458,7 +3458,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -3466,7 +3466,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -3474,7 +3474,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -3482,7 +3482,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
 
@@ -3490,19 +3490,19 @@ declare namespace echarts {
                      * "Rich text styles" can be defined in this `rich` property.
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label)
                      *
                      * For more details, see
-                     * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                     * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich
                      */
                     rich?: {
 
                         /**
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E
                          */
                         [userStyle: string]: {
 
@@ -3515,7 +3515,7 @@ declare namespace echarts {
                              *
                              * @default
                              * ""#fff""
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.color
                              */
                             color?: string;
 
@@ -3531,7 +3531,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                              */
                             fontStyle?: string;
 
@@ -3549,7 +3549,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "normal"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                              */
                             fontWeight?: string;
 
@@ -3561,7 +3561,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "sans-serif"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                              */
                             fontFamily?: string;
 
@@ -3571,7 +3571,7 @@ declare namespace echarts {
                              *
                              * @default
                              * 12
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                              */
                             fontSize?: number;
 
@@ -3587,10 +3587,10 @@ declare namespace echarts {
                              * If `align` is not set in `rich`, `align` in parent
                              * level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string;
 
@@ -3606,10 +3606,10 @@ declare namespace echarts {
                              * If `verticalAlign` is not set in `rich`, `verticalAlign`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string;
 
@@ -3619,10 +3619,10 @@ declare namespace echarts {
                              * If `lineHeight` is not set in `rich`, `lineHeight`
                              * in parent level will be used. For example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
                             lineHeight?: number;
 
@@ -3634,7 +3634,7 @@ declare namespace echarts {
                              *
                              * Or image can be used, for example:
                              *
-                             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
+                             * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
                              * `width` or `height` can be specified when using
                              * background image, or auto adapted by default.
@@ -3645,7 +3645,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                              */
                             backgroundColor?: object | string;
 
@@ -3658,7 +3658,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                              */
                             borderColor?: string;
 
@@ -3666,7 +3666,7 @@ declare namespace echarts {
                              * Border width of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number;
 
@@ -3674,7 +3674,7 @@ declare namespace echarts {
                              * Border radius of the text fregment.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
                             borderRadius?: number;
 
@@ -3692,7 +3692,7 @@ declare namespace echarts {
                              * and height of the content, without `padding`.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number;
 
@@ -3702,7 +3702,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                              */
                             shadowColor?: string;
 
@@ -3710,7 +3710,7 @@ declare namespace echarts {
                              * Show blur of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number;
 
@@ -3718,7 +3718,7 @@ declare namespace echarts {
                              * Shadow X offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number;
 
@@ -3726,7 +3726,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text block.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
                             shadowOffsetY?: number;
 
@@ -3753,7 +3753,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string;
 
@@ -3770,7 +3770,7 @@ declare namespace echarts {
                              * specified.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string;
 
@@ -3783,7 +3783,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                              */
                             textBorderColor?: string;
 
@@ -3791,7 +3791,7 @@ declare namespace echarts {
                              * Storke line width of the text.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number;
 
@@ -3801,7 +3801,7 @@ declare namespace echarts {
                              *
                              * @default
                              * "transparent"
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                              */
                             textShadowColor?: string;
 
@@ -3809,7 +3809,7 @@ declare namespace echarts {
                              * Shadow blue of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number;
 
@@ -3817,7 +3817,7 @@ declare namespace echarts {
                              * Shadow X offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number;
 
@@ -3825,7 +3825,7 @@ declare namespace echarts {
                              * Shadow Y offset of the text itself.
                              *
                              *
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
                             textShadowOffsetY?: number;
                         };
@@ -3836,7 +3836,7 @@ declare namespace echarts {
                  * Style setting of the symbol on single inflection point.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle
                  */
                 itemStyle?: {
 
@@ -3846,7 +3846,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "auto"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.color
                      */
                     color?: string;
 
@@ -3856,7 +3856,7 @@ declare namespace echarts {
                      *
                      * @default
                      * '#000'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.barBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.barBorderColor
                      */
                     barBorderColor?: string;
 
@@ -3864,7 +3864,7 @@ declare namespace echarts {
                      * The bodrder width of bar. defaults to have no border.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.barBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.barBorderWidth
                      */
                     barBorderWidth?: number;
 
@@ -3875,10 +3875,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.itemStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.itemStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -3886,7 +3886,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -3894,7 +3894,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -3902,7 +3902,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -3912,7 +3912,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.itemStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.itemStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -3921,7 +3921,7 @@ declare namespace echarts {
                  * Line style of a single item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle
                  */
                 lineStyle?: {
 
@@ -3936,12 +3936,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.color
                      */
                     color?: string;
 
@@ -3949,7 +3949,7 @@ declare namespace echarts {
                      * line width.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.width
                      */
                     width?: number;
 
@@ -3965,7 +3965,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.type
                      */
                     type?: string;
 
@@ -3976,10 +3976,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -3987,7 +3987,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -3995,7 +3995,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -4003,7 +4003,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -4013,7 +4013,7 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.lineStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -4022,7 +4022,7 @@ declare namespace echarts {
                  * Area filling style of a single item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle
                  */
                 areaStyle?: {
 
@@ -4037,12 +4037,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.areaStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.areaStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.color
                      */
                     color?: string;
 
@@ -4053,10 +4053,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.areaStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.areaStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -4064,7 +4064,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -4072,7 +4072,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -4080,7 +4080,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -4090,18 +4090,18 @@ declare namespace echarts {
                      * be drawn when set to 0.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.areaStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.areaStyle.opacity
                      */
                     opacity?: number;
                 };
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis
                  */
                 emphasis?: {
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label
                      */
                     label?: {
 
@@ -4109,7 +4109,7 @@ declare namespace echarts {
                          * Whether to show label.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.show
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.show
                          */
                         show?: boolean;
 
@@ -4124,7 +4124,7 @@ declare namespace echarts {
                          * to represent position of label relative to top-left
                          * corner of bounding box. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          * + 'top'
                          *
@@ -4142,13 +4142,13 @@ declare namespace echarts {
                          * + 'insideBottomRight'
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/view.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * "top"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.position
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.position
                          */
                         position?: any[] | string;
 
@@ -4157,13 +4157,13 @@ declare namespace echarts {
                          * Works when position is string value (like `'top'`、`'insideRight'`).
                          *
                          * See:
-                         * [label position](https://ecomfe.github.io/echarts-examples/public/editor.html?c=doc-example/label-position)
+                         * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
                          *
                          * @default
                          * 5
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.distance
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.distance
                          */
                         distance?: number;
 
@@ -4172,11 +4172,11 @@ declare namespace echarts {
                          * represents rotate anti-clockwise.
                          *
                          * See:
-                         * [label rotation](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-label-rotation)
+                         * [label rotation](https://echarts.apache.org/examples/en/editor.html?c=bar-label-rotation)
                          * .
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rotate
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rotate
                          */
                         rotate?: number;
 
@@ -4186,7 +4186,7 @@ declare namespace echarts {
                          * and move `40` vertically.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.offset
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.offset
                          */
                         offset?: any[];
 
@@ -4199,7 +4199,7 @@ declare namespace echarts {
                          *
                          * @default
                          * ""#fff""
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.color
                          */
                         color?: string;
 
@@ -4215,7 +4215,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.fontStyle
                          */
                         fontStyle?: string;
 
@@ -4233,7 +4233,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.fontWeight
                          */
                         fontWeight?: string;
 
@@ -4245,7 +4245,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.fontFamily
                          */
                         fontFamily?: string;
 
@@ -4255,7 +4255,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 12
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.fontSize
                          */
                         fontSize?: number;
 
@@ -4271,10 +4271,10 @@ declare namespace echarts {
                          * If `align` is not set in `rich`, `align` in parent
                          * level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.align
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.align
                          */
                         align?: string;
 
@@ -4290,10 +4290,10 @@ declare namespace echarts {
                          * If `verticalAlign` is not set in `rich`, `verticalAlign`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.verticalAlign
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string;
 
@@ -4303,10 +4303,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.lineHeight
                          */
                         lineHeight?: number;
 
@@ -4317,7 +4317,7 @@ declare namespace echarts {
                          *
                          * Or image can be used, for example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          * `width` or `height` can be specified when using background
                          * image, or auto adapted by default.
@@ -4328,7 +4328,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.backgroundColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.backgroundColor
                          */
                         backgroundColor?: object | string;
 
@@ -4341,7 +4341,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.borderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.borderColor
                          */
                         borderColor?: string;
 
@@ -4349,7 +4349,7 @@ declare namespace echarts {
                          * Border width of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.borderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.borderWidth
                          */
                         borderWidth?: number;
 
@@ -4357,7 +4357,7 @@ declare namespace echarts {
                          * Border radius of the text fregment.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.borderRadius
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.borderRadius
                          */
                         borderRadius?: number;
 
@@ -4374,7 +4374,7 @@ declare namespace echarts {
                          * and height of the content, without `padding`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.padding
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.padding
                          */
                         padding?: any[] | number;
 
@@ -4384,7 +4384,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4392,7 +4392,7 @@ declare namespace echarts {
                          * Show blur of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4400,7 +4400,7 @@ declare namespace echarts {
                          * Shadow X offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4408,7 +4408,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text block.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4435,7 +4435,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.width
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.width
                          */
                         width?: number | string;
 
@@ -4452,7 +4452,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.height
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.height
                          */
                         height?: number | string;
 
@@ -4465,7 +4465,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -4473,7 +4473,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -4483,7 +4483,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -4491,7 +4491,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -4499,7 +4499,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -4507,7 +4507,7 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
 
@@ -4515,19 +4515,19 @@ declare namespace echarts {
                          * "Rich text styles" can be defined in this `rich`
                          * property. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label)
                          *
                          * For more details, see
-                         * [Rich Text](https://ecomfe.github.io/echarts-doc/public/en/option.htmltutorial.html#Rich%20Text)
+                         * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich
                          */
                         rich?: {
 
                             /**
-                             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
+                             * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E
                              */
                             [userStyle: string]: {
 
@@ -4540,7 +4540,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * ""#fff""
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.color
                                  */
                                 color?: string;
 
@@ -4556,7 +4556,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontStyle
                                  */
                                 fontStyle?: string;
 
@@ -4574,7 +4574,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "normal"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
                                  */
                                 fontWeight?: string;
 
@@ -4586,7 +4586,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "sans-serif"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
                                  */
                                 fontFamily?: string;
 
@@ -4596,7 +4596,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * 12
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontSize
                                  */
                                 fontSize?: number;
 
@@ -4614,10 +4614,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string;
 
@@ -4635,10 +4635,10 @@ declare namespace echarts {
                                  * `verticalAlign` in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string;
 
@@ -4649,10 +4649,10 @@ declare namespace echarts {
                                  * in parent level will be used.
                                  * For example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
                                 lineHeight?: number;
 
@@ -4664,7 +4664,7 @@ declare namespace echarts {
                                  *
                                  * Or image can be used, for example:
                                  *
-                                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
+                                 * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
                                  * `width` or `height` can be specified when
                                  * using background image, or auto adapted by
@@ -4676,7 +4676,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
                                  */
                                 backgroundColor?: object | string;
 
@@ -4689,7 +4689,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
                                  */
                                 borderColor?: string;
 
@@ -4697,7 +4697,7 @@ declare namespace echarts {
                                  * Border width of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number;
 
@@ -4705,7 +4705,7 @@ declare namespace echarts {
                                  * Border radius of the text fregment.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
                                 borderRadius?: number;
 
@@ -4724,7 +4724,7 @@ declare namespace echarts {
                                  * `padding`.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number;
 
@@ -4734,7 +4734,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowColor
                                  */
                                 shadowColor?: string;
 
@@ -4742,7 +4742,7 @@ declare namespace echarts {
                                  * Show blur of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number;
 
@@ -4750,7 +4750,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number;
 
@@ -4758,7 +4758,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text block.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
                                 shadowOffsetY?: number;
 
@@ -4789,7 +4789,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string;
 
@@ -4807,7 +4807,7 @@ declare namespace echarts {
                                  * `rich` specified.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string;
 
@@ -4820,7 +4820,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
                                  */
                                 textBorderColor?: string;
 
@@ -4828,7 +4828,7 @@ declare namespace echarts {
                                  * Storke line width of the text.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number;
 
@@ -4838,7 +4838,7 @@ declare namespace echarts {
                                  *
                                  * @default
                                  * "transparent"
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowColor
                                  */
                                 textShadowColor?: string;
 
@@ -4846,7 +4846,7 @@ declare namespace echarts {
                                  * Shadow blue of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number;
 
@@ -4854,7 +4854,7 @@ declare namespace echarts {
                                  * Shadow X offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number;
 
@@ -4862,7 +4862,7 @@ declare namespace echarts {
                                  * Shadow Y offset of the text itself.
                                  *
                                  *
-                                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
+                                 * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
                                 textShadowOffsetY?: number;
                             };
@@ -4870,7 +4870,7 @@ declare namespace echarts {
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle
                      */
                     itemStyle?: {
 
@@ -4880,7 +4880,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "auto"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.color
                          */
                         color?: string;
 
@@ -4890,7 +4890,7 @@ declare namespace echarts {
                          *
                          * @default
                          * '#000'
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.barBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.barBorderColor
                          */
                         barBorderColor?: string;
 
@@ -4899,7 +4899,7 @@ declare namespace echarts {
                          * defaults to have no border.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.barBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.barBorderWidth
                          */
                         barBorderWidth?: number;
 
@@ -4910,10 +4910,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.itemStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.itemStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -4921,7 +4921,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -4929,7 +4929,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -4937,7 +4937,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -4947,13 +4947,13 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.itemStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.itemStyle.opacity
                          */
                         opacity?: number;
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle
                      */
                     lineStyle?: {
 
@@ -4969,12 +4969,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.lineStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.lineStyle)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.color
                          */
                         color?: string;
 
@@ -4982,7 +4982,7 @@ declare namespace echarts {
                          * line width.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.width
                          */
                         width?: number;
 
@@ -4998,7 +4998,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.type
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.type
                          */
                         type?: string;
 
@@ -5009,10 +5009,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.lineStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.lineStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -5020,7 +5020,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -5028,7 +5028,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -5036,7 +5036,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -5046,13 +5046,13 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.lineStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.lineStyle.opacity
                          */
                         opacity?: number;
                     };
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle
                      */
                     areaStyle?: {
 
@@ -5068,12 +5068,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.areaStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.areaStyle)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.color
                          */
                         color?: string;
 
@@ -5084,10 +5084,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.emphasis.areaStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.emphasis.areaStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -5095,7 +5095,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -5103,7 +5103,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -5111,7 +5111,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -5121,7 +5121,7 @@ declare namespace echarts {
                          * not be drawn when set to 0.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.emphasis.areaStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.emphasis.areaStyle.opacity
                          */
                         opacity?: number;
                     };
@@ -5131,13 +5131,13 @@ declare namespace echarts {
                  * tooltip settings in this series data.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip
+                 * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip
                  */
                 tooltip?: {
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The position of the tooltip's floating layer, which would
@@ -5153,13 +5153,13 @@ declare namespace echarts {
                      *
                      * Example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * + `Function`
                      *
                      * Callback function in the following form:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * **Parameters:**
                      * point: Mouse position.
@@ -5180,55 +5180,55 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * Or:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * + `'inside'`
                      *
                      * Center position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'top'`
                      *
                      * Top position of the graphic element where the mouse is
                      * in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'left'`
                      *
                      * Left position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'right'`
                      *
                      * Right position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      * + `'bottom'`
                      *
                      * Bottom position of the graphic element where the mouse
                      * is in, which is only valid when
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'item'`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.position
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.position
                      */
                     position?: any[] | string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The content formatter of tooltip's floating layer which
@@ -5239,7 +5239,7 @@ declare namespace echarts {
                      * The template variables are `{a}`, `{b}`, `{c}`, `{d}`
                      * and `{e}`, which stands for series name, data name and
                      * data value and ect. When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is set to be `'axis'`, there may be data from multiple
                      * series.
                      * In this time, series index can be refered as `{a0}`,
@@ -5273,22 +5273,22 @@ declare namespace echarts {
                      *
                      * The format of callback function:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * The first parameter `params` is the data that the formatter
                      * needs. Its format is shown as follows:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * When
-                     * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * is `'axis'`, or when tooltip is triggered by
-                     * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                     * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
                      * , `params` is the data array of multiple series.
                      * The content of each item of the array is the same as
                      * above. Besides,
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      * **Note:** Using array to present all the parameters in
                      * ECharts 2.x is not supported anymore.
@@ -5304,16 +5304,16 @@ declare namespace echarts {
                      *
                      * Example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.formatter
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.formatter
                      */
                     formatter?: Function | string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The background color of tooltip's floating layer.
@@ -5321,13 +5321,13 @@ declare namespace echarts {
                      *
                      * @default
                      * "rgba(50,50,50,0.7)"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.backgroundColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.backgroundColor
                      */
                     backgroundColor?: string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The border color of tooltip's floating layer.
@@ -5335,25 +5335,25 @@ declare namespace echarts {
                      *
                      * @default
                      * '#333'
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.borderColor
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.borderColor
                      */
                     borderColor?: string;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The border width of tooltip's floating layer.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.borderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.borderWidth
                      */
                     borderWidth?: number;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The floating layer of tooltip space around content.
@@ -5364,24 +5364,24 @@ declare namespace echarts {
                      *
                      * Examples:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip)
                      *
                      *
                      * @default
                      * 5
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.padding
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.padding
                      */
                     padding?: number;
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * The text syle of tooltip's floating layer.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle
                      */
                     textStyle?: {
 
@@ -5391,7 +5391,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "#fff"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.color
                          */
                         color?: string;
 
@@ -5407,7 +5407,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.fontStyle
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.fontStyle
                          */
                         fontStyle?: string;
 
@@ -5425,7 +5425,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "normal"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.fontWeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.fontWeight
                          */
                         fontWeight?: string;
 
@@ -5437,7 +5437,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "sans-serif"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.fontFamily
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.fontFamily
                          */
                         fontFamily?: string;
 
@@ -5447,7 +5447,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 14
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.fontSize
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.fontSize
                          */
                         fontSize?: number;
 
@@ -5457,10 +5457,10 @@ declare namespace echarts {
                          * If `lineHeight` is not set in `rich`, `lineHeight`
                          * in parent level will be used. For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.radar.data.tooltip.textStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-radar.radar.data.tooltip.textStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.lineHeight
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.lineHeight
                          */
                         lineHeight?: number;
 
@@ -5487,7 +5487,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.width
                          */
                         width?: number | string;
 
@@ -5504,7 +5504,7 @@ declare namespace echarts {
                          * specified.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.height
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.height
                          */
                         height?: number | string;
 
@@ -5514,7 +5514,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textBorderColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textBorderColor
                          */
                         textBorderColor?: string;
 
@@ -5522,7 +5522,7 @@ declare namespace echarts {
                          * Storke line width of the text.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textBorderWidth
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textBorderWidth
                          */
                         textBorderWidth?: number;
 
@@ -5532,7 +5532,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "transparent"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textShadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textShadowColor
                          */
                         textShadowColor?: string;
 
@@ -5540,7 +5540,7 @@ declare namespace echarts {
                          * Shadow blue of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textShadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textShadowBlur
                          */
                         textShadowBlur?: number;
 
@@ -5548,7 +5548,7 @@ declare namespace echarts {
                          * Shadow X offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textShadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textShadowOffsetX
                          */
                         textShadowOffsetX?: number;
 
@@ -5556,14 +5556,14 @@ declare namespace echarts {
                          * Shadow Y offset of the text itself.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.textStyle.textShadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.textStyle.textShadowOffsetY
                          */
                         textShadowOffsetY?: number;
                     };
 
                     /**
                      * > **Notice：**series.data.tooltip only works when
-                     * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                     * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                      * > is `'item'`.
                      *
                      * Extra CSS style for floating layer.
@@ -5575,7 +5575,7 @@ declare namespace echarts {
                      * ```
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-radar.data.tooltip.extraCssText
+                     * @see https://echarts.apache.org/en/option.html#series-radar.data.tooltip.extraCssText
                      */
                     extraCssText?: string;
                 };

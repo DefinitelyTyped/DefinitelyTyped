@@ -2,6 +2,7 @@
 // Project: https://github.com/amplitude/Amplitude-Javascript
 // Definitions by: Arvydas Sidorenko <https://github.com/Asido>
 //                 Dan Manastireanu <https://github.com/danmana>
+//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace amplitude;
@@ -32,6 +33,7 @@ interface Config {
     savedMaxCount?: number;
     saveParamsReferrerOncePerSession?: boolean;
     sessionTimeout?: number;
+    useNativeDeviceInfo?: boolean;
     trackingOptions?: {
         city?: boolean;
         country?: boolean;
@@ -84,7 +86,7 @@ export class AmplitudeClient {
     getSessionId(): number;
 
     setDomain(domain: string): void;
-    setUserId(userId: string): void;
+    setUserId(userId: string | null): void;
 
     setDeviceId(id: string): void;
     regenerateDeviceId(): void;
@@ -120,7 +122,7 @@ export function getSessionId(): number;
 
 export function setDomain(domain: string): void;
 
-export function setUserId(userId: string): void;
+export function setUserId(userId: string | null): void;
 
 export function setDeviceId(id: string): void;
 export function regenerateDeviceId(): void;

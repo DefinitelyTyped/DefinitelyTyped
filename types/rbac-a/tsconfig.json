@@ -18,9 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/attributes-manager.d.ts",
-        "lib/provider.d.ts",
-        "lib/rbac.d.ts",
         "rbac-a-tests.ts"
     ]
 }

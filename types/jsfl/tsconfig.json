@@ -17,7 +17,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "xJSFL.d.ts"
+        "index.d.ts"
     ]
 }

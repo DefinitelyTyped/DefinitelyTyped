@@ -3,8 +3,8 @@ import { ColorLike } from '../colorlike';
 
 export interface Options {
     color?: Color | ColorLike;
-    lineCap?: string;
-    lineJoin?: string;
+    lineCap?: CanvasLineCap;
+    lineJoin?: CanvasLineJoin;
     lineDash?: number[];
     lineDashOffset?: number;
     miterLimit?: number;
@@ -13,19 +13,18 @@ export interface Options {
 export default class Stroke {
     constructor(opt_options?: Options);
     clone(): Stroke;
-    getChecksum(): string;
     getColor(): Color | ColorLike;
-    getLineCap(): string;
+    getLineCap(): CanvasLineCap;
     getLineDash(): number[];
     getLineDashOffset(): number;
-    getLineJoin(): string;
+    getLineJoin(): CanvasLineJoin;
     getMiterLimit(): number;
     getWidth(): number;
     setColor(color: Color | ColorLike): void;
-    setLineCap(lineCap: string): void;
+    setLineCap(lineCap: CanvasLineCap | undefined): void;
     setLineDash(lineDash: number[]): void;
-    setLineDashOffset(lineDashOffset: number): void;
-    setLineJoin(lineJoin: string): void;
-    setMiterLimit(miterLimit: number): void;
-    setWidth(width: number): void;
+    setLineDashOffset(lineDashOffset: number | undefined): void;
+    setLineJoin(lineJoin: CanvasLineJoin | undefined): void;
+    setMiterLimit(miterLimit: number | undefined): void;
+    setWidth(width: number | undefined): void;
 }

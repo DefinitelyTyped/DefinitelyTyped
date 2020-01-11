@@ -1,4 +1,4 @@
-// Type definitions for non-npm package OpenFin API 43.0
+// Type definitions for non-npm package OpenFin API 45.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
 //                 Ricardo de Pena <https://github.com/rdepena>
@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
-// based on v12.69.43.15
+// based on v13.76.45.9
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -460,7 +460,7 @@ declare namespace fin {
     /**
      * Notification
      * Notification represents a window on OpenFin Runtime which is shown briefly to the user on the bottom-right corner of the primary monitor.
-     * A notification is typically used to alert the user of some important event which requires his or her attention.
+     * A notification is typically used to alert the user of some important event which requires their attention.
      * Notifications are a child or your application that are controlled by the runtime.
      */
     interface OpenFinNotification {
@@ -626,6 +626,11 @@ declare namespace fin {
          * Retrieves system information.
          */
         getHostSpecs(callback?: (info: HostSpecs) => void, errorCallback?: (reason: string) => void): void;
+        /**
+         *
+         * Returns an array of version numbers of the runtimes installed. Requires RVM 5.2+
+         */
+        getInstalledRuntimes(): Promise<string[]>;
         /**
          * Retrieves the contents of the log with the specified filename.
          */

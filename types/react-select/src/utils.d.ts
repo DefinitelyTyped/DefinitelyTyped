@@ -3,6 +3,7 @@ import {
   ClassNamesState,
   InputActionMeta,
   OptionsType,
+  OptionTypeBase,
   ValueType,
 } from './types';
 
@@ -28,7 +29,7 @@ export function classNames(
 // Clean Value
 // ==============================
 
-export function cleanValue<OptionType>(value: ValueType<OptionType>): OptionsType<OptionType>;
+export function cleanValue<OptionType extends OptionTypeBase>(value: ValueType<OptionType>): OptionsType<OptionType>;
 
 // ==============================
 // Handle Input Change

@@ -1,4 +1,4 @@
-import { StorageBase, Image, ReadOptions } from 'ghost-storage-base';
+import StorageBase, { Image, ReadOptions } from 'ghost-storage-base';
 import { Request, Response, NextFunction } from 'express';
 
 class MyCustomAdapter extends StorageBase {
@@ -41,5 +41,5 @@ storage.getSanitizedFileName('IMAGE.jpg'); // $ExpectType string
 
 storage.exists('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>
 storage.save(image, '/'); // $ExpectType Promise<string>
-storage.serve(); // $ExpectType (req: Request, res: Response, next: NextFunction) => void
+storage.serve(); // $ExpectType (req: Request<ParamsDictionary>, res: Response, next: NextFunction) => void
 storage.delete('tmp/123456.jpg', '/'); // $ExpectType Promise<boolean>

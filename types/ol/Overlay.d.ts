@@ -1,6 +1,6 @@
 import { Coordinate } from './coordinate';
 import { EventsKey } from './events';
-import Event from './events/Event';
+import BaseEvent from './events/Event';
 import { Extent } from './extent';
 import BaseObject, { ObjectEvent } from './Object';
 import OverlayPositioning from './OverlayPositioning';
@@ -23,7 +23,7 @@ export interface Options {
 }
 export interface PanOptions {
     duration?: number;
-    easing?: ((p0: number) => number);
+    easing?: (p0: number) => number;
 }
 export default class Overlay extends BaseObject {
     constructor(options: Options);
@@ -47,7 +47,7 @@ export default class Overlay extends BaseObject {
     protected render(): void;
     protected setVisible(visible: boolean): void;
     protected updatePixelPosition(): void;
-    protected updateRenderedPosition(pixel: Pixel, mapSize: Size): void;
+    protected updateRenderedPosition(pixel: Pixel, mapSize: Size | undefined): void;
     getElement(): HTMLElement;
     getId(): number | string;
     getMap(): PluggableMap;
@@ -55,17 +55,17 @@ export default class Overlay extends BaseObject {
     getOptions(): Options;
     getPosition(): Coordinate;
     getPositioning(): OverlayPositioning;
-    setElement(element: HTMLElement): void;
-    setMap(map: PluggableMap): void;
+    setElement(element: HTMLElement | undefined): void;
+    setMap(map: PluggableMap | undefined): void;
     setOffset(offset: number[]): void;
-    setPosition(position: Coordinate): void;
+    setPosition(position: Coordinate | undefined): void;
     setPositioning(positioning: OverlayPositioning): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
     on(type: 'change:element', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:element', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:element', listener: (evt: ObjectEvent) => void): void;
@@ -81,6 +81,9 @@ export default class Overlay extends BaseObject {
     on(type: 'change:positioning', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'change:positioning', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'change:positioning', listener: (evt: ObjectEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;

@@ -31,6 +31,9 @@ videoQueue.process((job, done) => {
     // transcode video asynchronously and report progress
     job.progress(42);
 
+    // get current job progress
+    const progress = job.progress();
+
     job.log('loglog');
     job.isCompleted();
     job.isFailed();
@@ -51,11 +54,17 @@ videoQueue.process((job, done) => {
 
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error('some unexpected error');
+}).catch(error => {
+    // Catch the general error, like redis connection
+    console.log(error);
 });
 
 audioQueue.process((job, done) => {
     // transcode audio asynchronously and report progress
     job.progress(42);
+
+    // get current job progress
+    const progress = job.progress();
 
     // call done when finished
     done();
@@ -206,6 +215,7 @@ myQueue.on('active', (job: Queue.Job) => {
             const nextJobId: Queue.JobId = val[1];
         }
     });
+    job.moveToCompleted('done', true, false);
 
     job.moveToFailed({ message: "Call to external service failed!" }, true);
     job.moveToFailed(new Error('test error'), true);
@@ -218,6 +228,13 @@ myQueue.on('active', (job: Queue.Job) => {
 
     job.discard();
 });
+
+// Close queues
+
+myQueue.close();
+
+const doNotWaitForJobs = true;
+myQueue.close(doNotWaitForJobs);
 
 // Get Redis clients
 const clients = myQueue.clients;

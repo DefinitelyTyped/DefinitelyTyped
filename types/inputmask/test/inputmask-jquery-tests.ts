@@ -78,4 +78,10 @@ $("#testmask").inputmask({
     unmaskAsNumber: false,
     inputType: "text",
     inputmode: "numeric",
+    definitions: {
+        X: {
+            validator: "[xX]",
+            casing: "upper"
+        }
+    }
 });

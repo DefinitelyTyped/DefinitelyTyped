@@ -18,7 +18,26 @@ declare module "net" {
         writable?: boolean;
     }
 
-    interface TcpSocketConnectOpts {
+    interface OnReadOpts {
+        buffer: Uint8Array | (() => Uint8Array);
+        /**
+         * This function is called for every chunk of incoming data.
+         * Two arguments are passed to it: the number of bytes written to buffer and a reference to buffer.
+         * Return false from this function to implicitly pause() the socket.
+         */
+        callback(bytesWritten: number, buf: Uint8Array): boolean;
+    }
+
+    interface ConnectOpts {
+        /**
+         * If specified, incoming data is stored in a single buffer and passed to the supplied callback when data arrives on the socket.
+         * Note: this will cause the streaming functionality to not provide any data, however events like 'error', 'end', and 'close' will
+         * still be emitted as normal and methods like pause() and resume() will also behave as expected.
+         */
+        onread?: OnReadOpts;
+    }
+
+    interface TcpSocketConnectOpts extends ConnectOpts {
         port: number;
         host?: string;
         localAddress?: string;
@@ -28,7 +47,7 @@ declare module "net" {
         lookup?: LookupFunction;
     }
 
-    interface IpcSocketConnectOpts {
+    interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
     }
 
@@ -38,8 +57,8 @@ declare module "net" {
         constructor(options?: SocketConstructorOpts);
 
         // Extended base methods
-        write(buffer: Buffer | Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Buffer | Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
+        write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
+        write(str: Uint8Array | string, encoding?: string, cb?: (err?: Error) => void): boolean;
 
         connect(options: SocketConnectOpts, connectionListener?: () => void): this;
         connect(port: number, host: string, connectionListener?: () => void): this;
@@ -53,8 +72,8 @@ declare module "net" {
         setNoDelay(noDelay?: boolean): this;
         setKeepAlive(enable?: boolean, initialDelay?: number): this;
         address(): AddressInfo | string;
-        unref(): void;
-        ref(): void;
+        unref(): this;
+        ref(): this;
 
         readonly bufferSize: number;
         readonly bytesRead: number;
@@ -69,8 +88,8 @@ declare module "net" {
 
         // Extended base methods
         end(cb?: () => void): void;
-        end(buffer: Buffer | Uint8Array | string, cb?: () => void): void;
-        end(str: Buffer | Uint8Array | string, encoding?: string, cb?: () => void): void;
+        end(buffer: Uint8Array | string, cb?: () => void): void;
+        end(str: Uint8Array | string, encoding?: string, cb?: () => void): void;
 
         /**
          * events.EventEmitter

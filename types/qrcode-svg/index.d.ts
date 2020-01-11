@@ -1,4 +1,4 @@
-// Type definitions for qrcode-svg 1.0
+// Type definitions for qrcode-svg 1.1
 // Project: https://github.com/papnkukn/qrcode-svg
 // Definitions by: Eric Ferreira <https://github.com/ericbf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -33,9 +33,7 @@ declare class QRCode {
      * @param  opt Set the container. Defaults to `{ container: "svg" }`.
      * @return The svg string.
      */
-    svg(opt?: {
-        container: "svg" | "g" | "none"
-    }): string;
+    svg(opt?: { container: 'svg' | 'g' | 'none' }): string;
     /**
      * Writes this QRCode to a file. Requires `fs`.
      * @param  file The filename to write to
@@ -46,20 +44,41 @@ declare class QRCode {
 
 declare namespace QRCode {
     interface Options {
-        /** Default is `"#ffffff"`. */
-        background?: string;
-        /** Default is `"#000000"`. */
-        color?: string;
-        /** The actual content of the QR code */
+        /** QR Code content, the only **required** parameter. */
         content: string;
-        /** Default is `"M"`. */
-        ecl?: "L" | "M" | "H" | "Q";
-        /** Default is `256`. */
-        height?: number;
-        /** Default is `4`. */
+        /** White space padding. `0` for no border. Default is `4`. */
         padding?: number;
-        /** Default is `256`. */
+        /** QR Code width in pixels. Default is `256`. */
         width?: number;
+        /** QR Code height in pixels. Default is `256`. */
+        height?: number;
+        /** Color of modules (squares), color name or hex string. Default is `#000000`. */
+        color?: string;
+        /** Color of background, color name or hex string. Default is `#fffff`. */
+        background?: string;
+        /** Error correction level. Default is `"M"`. */
+        ecl?: 'L' | 'M' | 'H' | 'Q';
+        /** Join modules (squares) into one shape, into the SVG path element, **recommended** for web and responsive use. Default is `false`. */
+        join?: boolean;
+        /** To create a squares as pattern, then populate the canvas. Default is `false`. */
+        predefined?: boolean;
+        /** Apply indents and new lines. Default is `true`. */
+        pretty?: boolean;
+        /** Swap X and Y modules, only if you have issues with some QR readers. Default is `false`. */
+        swap?: boolean;
+        /** Prepend XML declaration to the SVG document, i.e. ```<?xml version="1.0" standalone="yes"?>```. Default is `true`. */
+        xmlDeclaration?: boolean;
+        /**
+         * Wrapping element. Default is `svg`. \
+         * `svg`: Populate squares in a SVG document with `width` and `height` attribute.
+         * Recommended for converting to raster images or PDF where QR Code is being static (exact size). \
+         * `svg-viewbox`: Populate squares in a SVG document with viewBox attriute.
+         * **Recommended** for responsive web pages. \
+         * `g`: Put squares in `g` element.
+         * Useful when you need to put multiple QR Codes in a single SVG document \
+         * `none`: No wrapper.
+         */
+        container?: 'svg' | 'svg-viewbox' | 'g' | 'none';
     }
 
     interface Model {

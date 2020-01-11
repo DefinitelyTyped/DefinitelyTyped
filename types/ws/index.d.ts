@@ -5,6 +5,7 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
+//                 reduckted <https://github.com/reduckted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -13,6 +14,8 @@ import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as url from 'url';
+import * as zlib from 'zlib';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -33,13 +36,13 @@ declare class WebSocket extends events.EventEmitter {
     CLOSING: number;
     CLOSED: number;
 
-    onopen: (event: { target: WebSocket }) => void;
-    onerror: (event: {error: any, message: string, type: string, target: WebSocket }) => void;
-    onclose: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void;
-    onmessage: (event: { data: WebSocket.Data; type: string; target: WebSocket }) => void;
+    onopen: (event: WebSocket.OpenEvent) => void;
+    onerror: (event: WebSocket.ErrorEvent) => void;
+    onclose: (event: WebSocket.CloseEvent) => void;
+    onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string, options?: WebSocket.ClientOptions);
-    constructor(address: string, protocols?: string | string[], options?: WebSocket.ClientOptions);
+    constructor(address: string | url.URL, options?: WebSocket.ClientOptions);
+    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions);
 
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
@@ -160,8 +163,33 @@ declare namespace WebSocket {
             dictionary?: Buffer | Buffer[] | DataView;
             info?: boolean;
         };
+        zlibInflateOptions?: zlib.ZlibOptions;
         threshold?: number;
         concurrencyLimit?: number;
+    }
+
+    interface OpenEvent {
+        target: WebSocket;
+    }
+
+    interface ErrorEvent {
+        error: any;
+        message: string;
+        type: string;
+        target: WebSocket;
+    }
+
+    interface CloseEvent {
+        wasClean: boolean;
+        code: number;
+        reason: string;
+        target: WebSocket;
+    }
+
+    interface MessageEvent {
+        data: Data;
+        type: string;
+        target: WebSocket;
     }
 
     interface ServerOptions {

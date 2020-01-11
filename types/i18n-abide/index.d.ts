@@ -2,7 +2,7 @@
 // Project: https://github.com/mozilla/i18n-abide
 // Definitions by: Steven Bell <https://github.com/smbell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { RequestHandler } from 'express';
 
