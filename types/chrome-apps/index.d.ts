@@ -2839,6 +2839,67 @@ declare namespace chrome {
          */
         function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean, callback: (response: ArrayBuffer) => void): void;
     }
+    /**
+     * @requires Permissions: 'enterprise.reportingPrivate'
+     * @requires Explicit whitelisting.
+     * Private API for reporting Chrome browser status to admin console.
+     * @see https://cs.chromium.org/chromium/src/chrome/common/extensions/api/enterprise_reporting_private.idl
+     */
+    namespace enterprise.reportingPrivate {
+      type DataCallback = (result: ArrayBuffer) => void;
+
+      /**
+       * @enum
+       * Represents a device info property type.
+       */
+      const SettingValue: {
+        UNKNOWN: 'UNKNOWN',
+        DISABLED: 'DISABLED',
+        ENABLED: 'ENABLED'
+      }
+
+      /** Type of the object returned by getDeviceInfo. */
+      interface DeviceInfo {
+        readonly osName: string;
+        readonly osVersion: string;
+        readonly deviceHostName: string;
+        readonly deviceModel: string;
+        readonly serialNumber: string;
+        readonly screenLockSecured: SettingValue;
+        readonly diskEncrypted: SettingValue;
+      }
+
+      /**
+       * @since Chrome 80.
+       * Returns a random secret stored in a platform specific storage.
+       * @param callback Called back with the response.
+       */
+      function getPersistentSecret(callback: DataCallback): void;
+      /**
+       * @since Chrome 80.
+       * Returns byte string associated with the data item stored in a platform
+       * specific storage.
+       * @param item Item name (can have containers separated by '/').
+       * @param callback Called back with the response.
+       */
+      function getDeviceData(item: string, callback: DataCallback): void;
+      /**
+       * @since Chrome 80.
+       * Stores byte string associated with the data item in a platform
+       * specific storage.
+       * @param item Item name (can have containers separated by '/').
+       * @param data Byte string to associate with the data item.
+       * @param callback Called back with the response.
+       */
+      function setDeviceData(
+          item: string, data: ArrayBuffer, callback: () => void): void;
+      /**
+       * @since Chrome 80.
+       * Returns the device information object.
+       * @param callback Called back with the response.
+       */
+      function getDeviceInfo(callback: (result: DeviceInfo) => void): void;
+    }
     // #endregion chrome.enterprise.*
 
     // #region chrome.events
