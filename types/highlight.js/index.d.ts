@@ -158,6 +158,13 @@ declare namespace hljs
 	}
 }
 
+declare module 'highlight.js/lib/highlight.js' {
+	export = hljs;
+}
+
+declare module 'highlight.js/lib/languages/*' {
+	export default function(hljs?: hljs.HLJSStatic): hljs.IModeBase;
+}
 
 export = hljs;
 export as namespace hljs;
