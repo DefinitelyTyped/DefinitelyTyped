@@ -11,7 +11,6 @@ var output2 = Mustache.render(template2, view2);
 
 var view3 = { firstName: "John", lastName: "Smith", blogURL: "http://testblog.com" };
 var template3 = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}";
-var html = Mustache.to_html(template3, view3);
 
 var view4 = new class extends Mustache.Context
 {

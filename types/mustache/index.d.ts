@@ -103,25 +103,6 @@ interface MustacheStatic {
      * The tags to use.
      */
     render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
-
-    /**
-     * Renders the `template` with the given `view` and `partials` using the default writer.
-     *
-     * @param template
-     * The template to render.
-     *
-     * @param view
-     * The view to render the template with.
-     *
-     * @param partials
-     * Either an object that contains the names and templates of partials that are used in a template
-     *
-     * -- or --
-     *
-     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
-     */
-    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn): string;
-    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, send?: (result: string) => void): void;
 }
 
 /**
