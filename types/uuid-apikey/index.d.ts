@@ -1,4 +1,4 @@
-// Type definitions for uuid-apikey v1.4.6
+// Type definitions for uuid-apikey 1.4
 // Project: https://github.com/chronosis/uuid-apikey
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
