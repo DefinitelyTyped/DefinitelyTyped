@@ -52,6 +52,11 @@ interface Foo {
 interface Bar {
   bar(): string;
 }
+interface Baz {
+  foo: string;
+  bar: number;
+  baz: boolean;
+}
 
 interface StrFooArrMap {
   [key: string]: Foo[];
@@ -71,6 +76,7 @@ var barArr: Bar[];
 
 var fooStream: Highland.Stream<Foo>;
 var barStream: Highland.Stream<Bar>;
+var bazStream: Highland.Stream<Baz>;
 var voidStream: Highland.Stream<void>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
@@ -257,6 +263,12 @@ barStream = fooStream.map((x: Foo) => {
   return bar;
 });
 
+// $ExpectType Stream<Pick<Baz, "foo" | "bar">>
+bazStream.pick(['foo', 'bar']);
+
+// $ExpectType Stream<Partial<Foo>>
+fooStream.pickBy((key, value) => key === 'foo');
+
 // $ExpectType Stream<() => string>
 fooStream.pluck('foo');
 barStream = fooStream.pluck<Bar>(str);
@@ -267,7 +279,7 @@ barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
   return memo;
 });
 
-barStream = fooStream.reduce1(bar, (memo: Bar, x: Foo) => {
+barStream = fooStream.reduce1((memo: Bar, x: Foo) => {
   return memo;
 });
 
@@ -340,8 +352,11 @@ barStream.series();
 // $ExpectError
 fooStreamStream.sequence<Bar>();
 
-bar = fooStream.through(x => bar);
+bar = fooStream.through((x: Highland.Stream<Foo>) => bar);
 barStream = fooStream.through(readwritable);
+
+// $ExpectError
+fooStream.through((x: Highland.Stream<Bar>) => bar);
 
 fooStream = fooStream.zip(fooStream);
 fooStream = fooStream.zip([foo, foo]);

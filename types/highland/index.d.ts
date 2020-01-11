@@ -740,7 +740,7 @@ declare namespace Highland {
 		 * firstBlogpost(docs)
 		 * // => {type: 'blogpost', title: 'foo'}
 		 */
-		findWhere(props: Object): Stream<R>;
+		findWhere(props: Partial<R>): Stream<R>;
 
 		/**
 		 * A convenient form of reduce, which groups items based on a function or property name
@@ -767,6 +767,19 @@ declare namespace Highland {
 		 * _([1, 2, 3, 4]).head() // => 1
 		 */
 		head(): Stream<R>;
+
+		/**
+		 * Creates a new Stream with the separator interspersed between the elements of the source.
+		 *
+		 * `intersperse` is effectively the inverse of [splitBy](#splitBy).
+		 *
+		 * @id intersperse
+		 * @section Transforms
+		 * @name Stream.intersperse(sep)
+		 * @param {R} sep - the value to intersperse between the source elements
+		 * @api public
+		 */
+		intersperse(separator: R): Stream<R>;
 
 		/**
 		 * Calls a named method on each object from the Stream - returning
@@ -817,6 +830,22 @@ declare namespace Highland {
 		 * @api public
 		 */
 		map<U>(f: (x: R) => U): Stream<U>;
+
+		pick<Prop extends keyof R>(props: Prop[]): Stream<Pick<R, Prop>>;
+		/**
+		 *
+		 * Retrieves copies of all the elements in the collection
+		 * that satisfy a given predicate. Note: When using ES3,
+		 * only enumerable elements are selected. Both enumerable
+		 * and non-enumerable elements are selected when using ES5.
+		 *
+		 * @id pickBy
+		 * @section Transforms
+		 * @name Stream.pickBy(f)
+		 * @param {Function} f - the predicate function
+		 * @api public
+		 */
+		pickBy(f: (key: string, value: any) => boolean): Stream<Partial<R>>
 
 		/**
 		 * Retrieves values associated with a given property from all elements in
@@ -877,7 +906,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		reduce1<U>(memo: U, f: (memo: U, x: R) => U): Stream<U>;
+		reduce1<U>(f: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * The inverse of [filter](#filter).
@@ -919,7 +948,82 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).scan1(add) // => 1, 3, 6, 10
 		 */
-		scan1<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
+		scan1<U>(x: (memo: U, x: R) => U): Stream<U>;
+
+		/**
+		 * Creates a new Stream with the values from the source in the range of `start` (inclusive) to `end` (exclusive).
+		 * `start` and `end` must be of type `Number`, if `start` is not a `Number` it will default to `0`
+		 * and, likewise, `end` will default to `Infinity`: this could result in the whole stream being be
+		 * returned.
+		 *
+		 * @id slice
+		 * @section Transforms
+		 * @name Stream.slice(start, end)
+		 * @param {Number} start - integer representing index to start reading from source (inclusive)
+		 * @param {Number} end - integer representing index to stop reading from source (exclusive)
+		 * @api public
+		 */
+		slice(start: number, end: number): Stream<R>;
+
+		/**
+		 * Collects all values together then emits each value individually but in sorted order.
+		 * The method for sorting the elements is ascending lexical.
+		 *
+		 * @id sort
+		 * @section Transforms
+		 * @name Stream.sort()
+		 * @api public
+		 *
+		 * var sorted = _(['b', 'z', 'g', 'r']).sort().toArray(_.log);
+		 * // => ['b', 'g', 'r', 'z']
+		 */
+		sort(): Stream<R>;
+
+		/**
+		 * Collects all values together then emits each value individually in sorted
+		 * order. The method for sorting the elements is defined by the comparator
+		 * function supplied as a parameter.
+		 *
+		 * The comparison function takes two arguments `a` and `b` and should return
+		 *
+		 * - a negative number if `a` should sort before `b`.
+		 * - a positive number if `a` should sort after `b`.
+		 * - zero if `a` and `b` may sort in any order (i.e., they are equal).
+		 *
+		 * This function must also define a [partial
+		 * order](https://en.wikipedia.org/wiki/Partially_ordered_set). If it does not,
+		 * the resulting ordering is undefined.
+		 *
+		 * @id sortBy
+		 * @section Transforms
+		 * @name Stream.sortBy(f)
+		 * @param {Function} f - the comparison function
+		 * @api public
+		 */
+		sortBy(f: (a: R, b: R) => number): Stream<R>;
+
+		/**
+		 * [splitBy](#splitBy) over newlines.
+		 *
+		 * @id split
+		 * @section Transforms
+		 * @name Stream.split()
+		 * @api public
+		 */
+		split(this: Stream<string>): Stream<string>;
+
+		/**
+		 * Splits the source Stream by a separator and emits the pieces in between, much like splitting a string.
+		 *
+		 * `splitBy` is effectively the inverse of [intersperse](#intersperse).
+		 *
+		 * @id splitBy
+		 * @section Transforms
+		 * @name Stream.splitBy(sep)
+		 * @param {String | RegExp} sep - the separator to split on
+		 * @api public
+		 */
+		splitBy(this: Stream<string>, sep: string): Stream<string>;
 
 		/**
 		 * Like the [errors](#errors) method, but emits a Stream end marker after
@@ -1001,7 +1105,7 @@ declare namespace Highland {
 		 * @param {Object} props - the properties to match against
 		 * @api public
 		 */
-		where(props: Object): Stream<R>;
+		where(props: Partial<R>): Stream<R>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// HIGHER-ORDER STREAMS
@@ -1099,7 +1203,36 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-	  merge<U>(this: Stream<Stream<U>>): Stream<U>;
+		merge<U>(this: Stream<Stream<U>>): Stream<U>;
+		
+		/**
+		 * Takes a Stream of Streams and merges their values and errors into a
+		 * single new Stream, limitting the number of unpaused streams that can
+		 * running at any one time.
+		 *
+		 * Note that no guarantee is made with respect to the order in which
+		 * values for each stream end up in the merged stream. Values in the
+		 * merged stream will, however, respect the order they were emitted from
+		 * their respective streams.
+		 *
+		 * @id mergeWithLimit
+		 * @section Higher-order Streams
+		 * @name Stream.mergeWithLimit(n)
+		 * @param {Number} n - the maximum number of streams to run in parallel
+		 * @api public
+		 *
+		 * var readFile = _.wrapCallback(fs.readFile);
+		 *
+		 * var txt = _(['foo.txt', 'bar.txt']).flatMap(readFile)
+		 * var md = _(['baz.md']).flatMap(readFile)
+		 * var js = _(['bosh.js']).flatMap(readFile)
+		 *
+		 * _([txt, md, js]).mergeWithLimit(2);
+		 * // => contents of foo.txt, bar.txt, baz.txt and bosh.js in the order
+		 * // they were read, but bosh.js is not read until either foo.txt and bar.txt
+		 * // has completely been read or baz.md has been read
+		 */
+		mergeWithLimit<U>(this: Stream<Stream<U>>, n: number): Stream<U>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
@@ -1223,7 +1356,7 @@ declare namespace Highland {
 		 *   console.log(err); // => SyntaxError: Unexpected token z
 		 * });
 		 */
-		through<R, U>(f: (x: R) => U): U;
+		through<U>(f: (x: Stream<R>) => U): U;
 		through(thru: NodeJS.ReadWriteStream): Stream<any>;
 
 
@@ -1238,6 +1371,38 @@ declare namespace Highland {
 		 */
 		zip(ys: R[]): Stream<R>;
 		zip(ys: Stream<R>): Stream<R>;
+
+		/**
+		 * Takes a stream and a *finite* stream of `N` streams
+		 * and returns a stream of the corresponding `(N+1)`-tuples.
+		 *
+		 * *Note:* This transform will be renamed `zipEach` in the next major version
+		 * release.
+		 *
+		 * @id zipAll
+		 * @section Higher-order Streams
+		 * @name Stream.zipAll(ys)
+		 * @param {Array | Stream} ys - the array of streams to combine values with
+		 * @api public
+		 */
+		zipAll(ys: R[][]): Stream<R[]>;
+		zipAll(ys: Stream<R[]>): Stream<R[]>;
+
+		/**
+		 * Takes a *finite* stream of streams and returns a stream where the first
+		 * element from each separate stream is combined into a single data event,
+		 * followed by the second elements of each stream and so on until the shortest
+		 * input stream is exhausted.
+		 *
+		 * *Note:* This transform will be renamed `zipAll` in the next major version
+		 * release.
+		 *
+		 * @id zipAll0
+		 * @section Higher-order Streams
+		 * @name Stream.zipAll0()
+		 * @api public
+		 */
+		zipAll0(this: Stream<Stream<R>>): Stream<R[]>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// CONSUMPTION
