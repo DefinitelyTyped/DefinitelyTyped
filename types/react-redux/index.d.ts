@@ -43,10 +43,10 @@ import hoistNonReactStatics = require('hoist-non-react-statics');
  * https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
 // tslint:disable-next-line:no-empty-interface
-export interface ConfigurableRootState {}
+export interface DefaultRootState {}
 
-export type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
-export type SafeRootState = AnyIfEmpty<ConfigurableRootState>;
+export type ObjectIfEmpty<T extends object> = keyof T extends never ? {} : T;
+export type SafeRootState = ObjectIfEmpty<DefaultRootState>;
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -551,7 +551,7 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  *   return <div>{counter}</div>
  * }
  */
-export function useSelector<TState = SafeRootState, TSelected = any>(
+export function useSelector<TState = SafeRootState, TSelected = unknown>(
     selector: (state: TState) => TSelected,
     equalityFn?: (left: TSelected, right: TSelected) => boolean
 ): TSelected;
