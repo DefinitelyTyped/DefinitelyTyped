@@ -1705,6 +1705,60 @@
             "asOfVersion": "8.6.1"
         },
         {
+            "libraryName": "@hapi/accept",
+            "typingsPackageName": "hapi__accept",
+            "sourceRepoURL": "https://github.com/hapijs/accept",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/boom",
+            "typingsPackageName": "hapi__boom",
+            "sourceRepoURL": "https://github.com/hapijs/boom",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "@hapi/code",
+            "typingsPackageName": "hapi__code",
+            "sourceRepoURL": "https://github.com/hapijs/code",
+            "asOfVersion": "8.0.0"
+        },
+        {
+            "libraryName": "@hapi/cryptiles",
+            "typingsPackageName": "hapi__cryptiles",
+            "sourceRepoURL": "https://github.com/hapijs/cryptiles",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/hoek",
+            "typingsPackageName": "hapi__hoek",
+            "sourceRepoURL": "https://github.com/hapijs/hoek",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "@hapi/iron",
+            "typingsPackageName": "hapi__iron",
+            "sourceRepoURL": "https://github.com/hapijs/iron",
+            "asOfVersion": "6.0.0"
+        },
+        {
+            "libraryName": "@hapi/lab",
+            "typingsPackageName": "hapi__lab",
+            "sourceRepoURL": "https://github.com/hapijs/lab",
+            "asOfVersion": "22.0.0"
+        },
+        {
+            "libraryName": "@hapi/topo",
+            "typingsPackageName": "hapi__topo",
+            "sourceRepoURL": "https://github.com/hapijs/topo",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/wreck",
+            "typingsPackageName": "hapi__wreck",
+            "sourceRepoURL": "https://github.com/hapijs/wreck",
+            "asOfVersion": "17.0.0"
+        },
+        {
             "libraryName": "hard-rejection",
             "typingsPackageName": "hard-rejection",
             "sourceRepoURL": "https://github.com/sindresorhus/hard-rejection",
