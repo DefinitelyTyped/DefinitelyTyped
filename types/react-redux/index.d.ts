@@ -376,7 +376,7 @@ export interface Options<State = SafeRootState, TStateProps = {}, TOwnProps = {}
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
-export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions>(
+export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
     // tslint:disable-next-line no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
