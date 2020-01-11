@@ -5,6 +5,8 @@
 // TypeScript Version: 2.9
 /// <reference types="node" />
 
+export as namespace Multicodec
+
 /**
  * Prefix a buffer with a multicodec_packed.
  */
