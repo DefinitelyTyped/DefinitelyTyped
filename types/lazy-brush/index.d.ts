@@ -65,6 +65,20 @@ export interface UpdateOptions {
 }
 
 export class LazyBrush {
+    radius: number;
+
+    _isEnabled: boolean;
+
+    pointer: LazyPoint;
+
+    brush: LazyPoint;
+
+    angle: number;
+
+    distance: number;
+
+    _hasMoved: boolean;
+
     constructor(options?: Options);
 
     /**

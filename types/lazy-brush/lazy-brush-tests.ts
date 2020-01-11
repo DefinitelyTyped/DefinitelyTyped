@@ -23,6 +23,14 @@ const lazy = new LazyBrush({
     initialPoint: { x: 0, y: 0 },
 });
 
+const radiusValue: number = lazy.radius;
+const _isEnabledValue: boolean = lazy._isEnabled;
+const pointerValue: LazyPoint = lazy.pointer;
+const brushValue: LazyPoint = lazy.brush;
+const angleValue: number = lazy.angle;
+const distanceValue: number = lazy.distance;
+const _hasMovedValue: boolean = lazy._hasMoved;
+
 const updateResult: boolean = lazy.update({ x: 50, y: 0 });
 const updateResult2: boolean = lazy.update({ x: 50, y: 0 }, { both: true });
 const brushHasMovedResult: boolean = lazy.brushHasMoved();
