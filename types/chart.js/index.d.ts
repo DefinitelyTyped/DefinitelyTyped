@@ -77,6 +77,10 @@ declare class Chart {
 
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
+
+    static readonly instances: {
+        [key: string]: Chart;
+    };
 }
 declare class PluginServiceStatic {
     register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
