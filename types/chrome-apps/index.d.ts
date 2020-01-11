@@ -2856,7 +2856,7 @@ declare namespace chrome {
         UNKNOWN: 'UNKNOWN',
         DISABLED: 'DISABLED',
         ENABLED: 'ENABLED'
-      }
+      };
 
       /** Type of the object returned by getDeviceInfo. */
       interface DeviceInfo {
