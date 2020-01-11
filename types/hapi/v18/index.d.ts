@@ -1,4 +1,4 @@
-// Type definitions for hapi 19.0
+// Type definitions for hapi 18.0
 // Project: https://github.com/hapijs/hapi, https://hapijs.com
 // Definitions by: Rafael Souza Fijalkowski <https://github.com/rafaelsouzaf>
 //                 Justin Simms <https://github.com/jhsimms>
@@ -29,7 +29,7 @@ import * as zlib from 'zlib';
 
 import { MimosOptions } from 'mimos';
 import { SealOptions, SealOptionsSub } from 'iron';
-import { ValidationOptions, SchemaMap, Schema, Root } from 'joi';
+import { ValidationOptions, SchemaMap, Schema } from 'joi';
 import Podium = require('podium');
 import { PolicyOptionVariants, EnginePrototypeOrObject, PolicyOptions, EnginePrototype, Policy, ClientApi, ClientOptions } from 'catbox';
 
@@ -1341,6 +1341,7 @@ export interface RouteOptionsPayload {
     maxBytes?: number;
 
     /**
+     * Default value: none.
      * Overrides payload processing for multipart requests. Value can be one of:
      * * false - disable multipart processing.
      * an object with the following required options:
@@ -1350,7 +1351,6 @@ export interface RouteOptionsPayload {
      * * * * filename - the part file name.
      * * * * payload - the processed part payload.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionspayloadmultipart)
-     * @default false
      */
     multipart?: false | {
         output: PayloadOutput | 'annotated';
@@ -1459,7 +1459,7 @@ export type RouteOptionsResponseSchema =
  */
 export interface RouteOptionsResponse {
     /**
-     * Default value: 204.
+     * Default value: 200.
      * The default HTTP status code when the payload is considered empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time of response transmission (the
      * response status code will remain 200 throughout the request lifecycle unless manually set).
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseemptystatuscode)
@@ -2830,8 +2830,6 @@ export interface ServerOptionsCompression {
 export interface ServerOptionsApp {
 }
 
-export type SameSitePolicy = false | 'None' | 'Lax' | 'Strict';
-
 /**
  * The server options control the behavior of the server object. Note that the options object is deeply cloned
  * (with the exception of listener which is shallowly copied) and should not contain any values that are unsafe to perform deep copy on.
@@ -2931,6 +2929,11 @@ export interface ServerOptions {
         /** the frequency of sampling in milliseconds. When set to 0, the other load options are ignored. Defaults to 0 (no sampling). */
         sampleInterval?: number;
 
+        /**
+         * Max concurrent requests.
+         */
+        concurrent?: number;
+
         /** maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit). */
         maxHeapUsedBytes?: number;
         /**
@@ -3006,7 +3009,7 @@ export interface ServerOptions {
         ignoreErrors?: boolean,
         isSecure?: boolean,
         isHttpOnly?: boolean,
-        isSameSite?: SameSitePolicy,
+        isSameSite?: false | 'Strict' | 'Lax',
         encoding?: 'none' | 'base64' | 'base64json' | 'form' | 'iron'
     };
 
@@ -3220,7 +3223,7 @@ export interface ServerStateCookieOptions {
      *  * 'Strict' - sets the value to 'Strict' (this is the default value).
      *  * 'Lax' - sets the value to 'Lax'.
      */
-    isSameSite?: SameSitePolicy;
+    isSameSite?: false | 'Strict' | 'Lax';
     /** the path scope. Defaults to null (no path). */
     path?: string | null;
     /** the domain scope. Defaults to null (no domain). */
@@ -3487,6 +3490,10 @@ export class Server {
          */
         eventLoopDelay: number;
 
+        /**
+         * Max concurrent requests.
+         */
+        concurrent: number
         /**
          * V8 heap usage.
          */
@@ -3927,12 +3934,6 @@ export class Server {
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-servertablehost)
      */
     table(host?: string): RequestRoute[];
-
-    /**
-     * Registers a server validation module used to compile raw validation rules into validation schemas for all routes.
-     * The validator is only used when validation rules are not pre-compiled schemas. When a validation rules is a function or schema object, the rule is used as-is and the validator is not used.
-     */
-    validator(joi: Root): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
