@@ -1388,7 +1388,8 @@ function testUseStore() {
 
     const untypedStore = useStore();
     const state = untypedStore.getState();
-    state.things.stuff.anything; // any by default
+    // untyped store has {} as the state by default
+    state.things; // $ExpectError
 
     const typedStore = useStore<TypedState, TypedAction>();
     const typedState = typedStore.getState();
@@ -1400,7 +1401,7 @@ function testUseStore() {
 function testCreateHookFunctions() {
     // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
     createDispatchHook();
-    // $ExpectType <TState = {}, TSelected = unknown>(selector: (state: TState) => TSel ected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    // $ExpectType <TState = {}, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
     createSelectorHook();
     interface RootState {
         property: string;
