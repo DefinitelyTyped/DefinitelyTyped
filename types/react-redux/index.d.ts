@@ -376,7 +376,7 @@ export interface Options<State = SafeRootState, TStateProps = {}, TOwnProps = {}
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
-export function connectAdvanced<S = SafeRootState, TProps = {}, TOwnProps = {}, TFactoryOptions = {}>(
+export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions>(
     // tslint:disable-next-line no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
@@ -390,10 +390,10 @@ export function connectAdvanced<S = SafeRootState, TProps = {}, TOwnProps = {}, 
  * call, the component will not be re-rendered. It's the responsibility of <code>selector</code> to return that
  * previous object when appropriate.
  */
-export type SelectorFactory<S = SafeRootState, TProps = {}, TOwnProps = {}, TFactoryOptions = {}> =
+export type SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> =
     (dispatch: Dispatch<Action>, factoryOptions: TFactoryOptions) => Selector<S, TProps, TOwnProps>;
 
-export type Selector<S = SafeRootState, TProps = {}, TOwnProps = null> = TOwnProps extends null | undefined
+export type Selector<S, TProps, TOwnProps = null> = TOwnProps extends null | undefined
     ? (state: S) => TProps
     : (state: S, ownProps: TOwnProps) => TProps;
 
@@ -448,7 +448,7 @@ export interface ConnectOptions {
     context?: Context<ReactReduxContextValue>;
 }
 
-export interface ReactReduxContextValue<SS = SafeRootState, A extends Action = AnyAction> {
+export interface ReactReduxContextValue<SS = any, A extends Action = AnyAction> {
     store: Store<SS, A>;
     storeState: SS;
 }
@@ -569,7 +569,7 @@ export function useSelector<TState = SafeRootState, TSelected = unknown>(
  * const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
  *
  */
-export interface TypedUseSelectorHook<TState = SafeRootState> {
+export interface TypedUseSelectorHook<TState> {
     <TSelected>(
         selector: (state: TState) => TSelected,
         equalityFn?: (left: TSelected, right: TSelected) => boolean
