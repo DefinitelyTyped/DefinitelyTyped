@@ -1,5 +1,5 @@
 # TypeScript typings for Tasks API v1
-Lets you manage your tasks and task lists.
+Manages your tasks and task lists.
 For detailed description please check [documentation](https://developers.google.com/google-apps/tasks/firstapp).
 
 ## Installing
@@ -33,7 +33,7 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage your tasks
+        // Create, edit, organize, and delete all your tasks
         'https://www.googleapis.com/auth/tasks',
     
         // View your tasks
@@ -44,7 +44,7 @@ var client_id = '',
 
 gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
     if (authResult && !authResult.error) {
-        /* handle succesfull authorization */
+        /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
