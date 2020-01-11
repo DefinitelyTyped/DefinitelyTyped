@@ -1,4 +1,4 @@
-// Type definitions for Mustache 3.2.1
+// Type definitions for Mustache 4.0.0
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
 //                 Manuel Thalmann <https://github.com/manuth>,
@@ -58,6 +58,17 @@ interface MustacheStatic {
      * Clears all cached templates in this writer.
      */
     clearCache(): void;
+
+    /**
+     * Customise the template caching behaviour by either:
+     *
+     * disable it completely by setting it to `undefined`
+     *
+     * -- or --
+     *
+     * provide a custom cache strategy that satisfies the `TemplateCache` interface
+     */
+    templateCache: TemplateCache | undefined;
 
     /**
      * Parses and caches the given template in the default writer and returns the array of tokens it contains.
@@ -265,6 +276,12 @@ type OpeningAndClosingTags = [string, string];
  */
 type PartialsOrLookupFn = Record<string, string> | PartialLookupFn
 type PartialLookupFn = (partialName: string) => string | undefined
+
+interface TemplateCache {
+    set(cacheKey: string, value: string): void
+    get(cacheKey: string): string | undefined
+    clear(): void
+}
 
 /**
  * Provides the functionality to render templates with `{{mustaches}}`.
