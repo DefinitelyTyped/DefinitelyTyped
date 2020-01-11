@@ -2865,8 +2865,8 @@ declare namespace chrome {
         readonly deviceHostName: string;
         readonly deviceModel: string;
         readonly serialNumber: string;
-        readonly screenLockSecured: SettingValue;
-        readonly diskEncrypted: SettingValue;
+        readonly screenLockSecured: ToStringLiteral<typeof SettingValue>;
+        readonly diskEncrypted: ToStringLiteral<typeof SettingValue>;
       }
 
       /**
