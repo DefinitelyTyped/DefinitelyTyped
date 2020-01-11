@@ -1408,7 +1408,7 @@ function testCreateHookFunctions() {
     }
     // Should be able to create a version typed for a specific root state.
     const useTypedSelector: TypedUseSelectorHook<RootState> = createSelectorHook();
-    // $ExpectType <S = any, A extends Action<any> = AnyAction>() => Store<S, A>
+    // $ExpectType <S = {}, A extends Action<any> = AnyAction>() => Store<S, A>
     createStoreHook();
 }
 
