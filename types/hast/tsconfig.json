@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "hast-format-tests.ts"]
+    "files": ["index.d.ts", "hast-tests.ts"]
 }
