@@ -3,7 +3,7 @@
 
 import conventionalChangelogPresetLoader from "conventional-changelog-preset-loader";
 
-namespace Test {
+namespace Module {
     declare const path: string;
     declare const config: conventionalChangelogPresetLoader.Config;
 
@@ -16,7 +16,7 @@ namespace Test {
     conventionalChangelogPresetLoader();
 }
 
-namespace Test.presetLoader {
+namespace Module.presetLoader {
     declare const require: conventionalChangelogPresetLoader.presetLoader.RequireMethod;
 
     // $ExpectType typeof conventionalChangelogPresetLoader
@@ -26,7 +26,7 @@ namespace Test.presetLoader {
     conventionalChangelogPresetLoader.presetLoader();
 }
 
-namespace Test.Config {
+namespace Module.Config {
     declare const config: conventionalChangelogPresetLoader.Config;
 
     // $ExpectType Config
