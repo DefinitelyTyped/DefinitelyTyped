@@ -4,7 +4,7 @@
 import conventionalCommitsParser from "conventional-commits-parser";
 import conventionalRecommendedBump from "conventional-recommended-bump";
 
-namespace Test {
+namespace Module {
     declare const callback: conventionalRecommendedBump.Callback;
     declare const options: conventionalRecommendedBump.Options;
     declare const parserOpts: conventionalCommitsParser.Options;
@@ -18,7 +18,7 @@ namespace Test {
     conventionalRecommendedBump();
 }
 
-namespace Test.Callback {
+namespace Module.Callback {
     const callback: conventionalRecommendedBump.Callback = (error, recommendation) => {
         // $ExpectType any
         error;
@@ -31,7 +31,7 @@ namespace Test.Callback {
     };
 }
 
-namespace Test.Options {
+namespace Module.Options {
     declare const options: conventionalRecommendedBump.Options;
 
     // $ExpectType Options
@@ -44,7 +44,7 @@ namespace Test.Options {
     options.whatBump; // $ExpectType WhatBump | undefined
 }
 
-namespace Test.Options.WhatBump {
+namespace Module.Options.WhatBump {
     declare const commits: conventionalCommitsParser.Commit[];
     declare const whatBump: conventionalRecommendedBump.Options.WhatBump;
 
@@ -55,7 +55,7 @@ namespace Test.Options.WhatBump {
     whatBump();
 }
 
-namespace Test.Options.WhatBump.Result {
+namespace Module.Options.WhatBump.Result {
     declare const result: conventionalRecommendedBump.Options.WhatBump.Result;
 
     // $ExpectType Result
