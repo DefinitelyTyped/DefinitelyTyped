@@ -3,14 +3,14 @@
 
 import conventionalCommitsParser from "conventional-commits-parser";
 
-namespace Test {
+namespace Module {
     declare const options: conventionalCommitsParser.Options;
 
     conventionalCommitsParser(); // $ExpectType Transform
     conventionalCommitsParser(options); // $ExpectType Transform
 }
 
-namespace Test.sync {
+namespace Module.sync {
     declare const commit: string;
     declare const options: conventionalCommitsParser.Options;
 
@@ -18,7 +18,7 @@ namespace Test.sync {
     conventionalCommitsParser.sync(commit, options); // $ExpectType Commit<string | number | symbol>
 }
 
-namespace Test.Commit {
+namespace Module.Commit {
     namespace Case01 {
         declare const commit: conventionalCommitsParser.Commit;
 
@@ -38,7 +38,7 @@ namespace Test.Commit {
     }
 }
 
-namespace Test.Commit.Note {
+namespace Module.Commit.Note {
     declare const note: conventionalCommitsParser.Commit.Note;
 
     // $ExpectType Note
@@ -47,7 +47,7 @@ namespace Test.Commit.Note {
     note.title; // $ExpectType string
 }
 
-namespace Test.Commit.Reference {
+namespace Module.Commit.Reference {
     declare const reference: conventionalCommitsParser.Commit.Reference;
 
     // $ExpectType Reference
@@ -60,7 +60,7 @@ namespace Test.Commit.Reference {
     reference.repository; // $ExpectType Field
 }
 
-namespace Test.Commit.Revert {
+namespace Module.Commit.Revert {
     declare const revert: conventionalCommitsParser.Commit.Revert;
 
     // $ExpectType Revert
