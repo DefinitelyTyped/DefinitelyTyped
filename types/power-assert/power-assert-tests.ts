@@ -85,3 +85,8 @@ var customizedAssert2 = assert.customize({
 });
 
 (): typeof assert => assert.strict;
+
+declare const set: Set<0>;
+assert(set.size === 0);
+set.add(0);
+assert(set.size === 1);

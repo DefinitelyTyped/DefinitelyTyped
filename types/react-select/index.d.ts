@@ -5,6 +5,7 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 //                 Thomas Chia <https://github.com/thchia>
 //                 Daniel Del Core <https://github.com/danieldelcore>
+//                 Joonas Rouhiainen <https://github.com/rjoonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -16,6 +17,7 @@ export * from './src/types';
 export { createFilter } from './src/filters';
 export { mergeStyles, Styles, StylesConfig } from './src/styles';
 
+export { NonceProvider } from './src/NonceProvider';
 export { Props, FormatOptionLabelMeta } from './src/Select';
 
 export { components, SelectComponentsConfig, IndicatorComponentType } from './src/components';

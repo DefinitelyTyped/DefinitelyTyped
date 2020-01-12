@@ -430,7 +430,7 @@ function test_facebook_util() {
     });
 }
 
-function test_cloud_functions() {
+async function test_cloud_functions() {
     Parse.Cloud.run(
         'hello',
         {},
@@ -441,6 +441,39 @@ function test_cloud_functions() {
             error: (error: any) => {},
         },
     );
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction');
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction', { something: 'whatever' });
+
+    // $ExpectType any
+    await Parse.Cloud.run('SomeFunction', null, { useMasterKey: true });
+
+    // ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction');
+
+    // $ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction', null);
+
+    // $ExpectType boolean
+    await Parse.Cloud.run<() => boolean>('SomeFunction', null, { useMasterKey: true });
+
+    // $ExpectType number
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', { paramA: 'hello' });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction');
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string }) => number>('SomeFunction', { paramZ: 'hello' });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: { paramA: string}) => number>('SomeFunction', null, { useMasterKey: true });
+
+    // $ExpectError
+    await Parse.Cloud.run<(params: string) => any>('SomeFunction', 'hello');
 
     Parse.Cloud.afterDelete('MyCustomClass', (request: Parse.Cloud.AfterDeleteRequest) => {
         // result
@@ -528,6 +561,33 @@ function test_cloud_functions() {
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
     });
+
+    Parse.Cloud.define('AFunc', (request) => {
+        // $ExpectType Params
+        request.params;
+
+        // $ExpectType any
+        request.params.anything;
+    });
+
+    Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
+        // $ExpectType { something: string; }
+        request.params;
+
+        // $ExpectError
+        request.params.somethingElse;
+
+        return 123;
+    });
+
+    // $ExpectError
+    Parse.Cloud.define('AFunc');
+
+    // $ExpectError
+    Parse.Cloud.define<() => string>('AFunc', () => 123);
+
+    // $ExpectError
+    Parse.Cloud.define<(params: string) => number>('AFunc', () => 123);
 
     Parse.Cloud.job('AJob', (request: Parse.Cloud.JobRequest) => {
         request.message('Message to associate with this job run');
@@ -755,6 +815,9 @@ function testObject() {
 
         // $ExpectType Object<{ example: string; }>
         new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
+
+        // $ExpectError
+        new Parse.Object<{ example: string }>('TestObject');
 
         // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
@@ -1147,8 +1210,12 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class AnotherSubclass extends Parse.Object<{x: any}> { }
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
+        class AnotherSubClass extends Parse.Object<{x: any}> {
+            constructor() {
+                super('Another', { x: 'example' });
+            }
+        }
+        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubClass}> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1214,11 +1281,15 @@ function testQuery() {
         query.doesNotExist('nonexistentProp');
 
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubClass));
+        // $ExpectType Query<MySubClass>
+        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
@@ -1233,11 +1304,11 @@ function testQuery() {
         // $ExpectType Query<MySubClass>
         query.equalTo('attribute2', 0);
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another'));
+        query.equalTo('attribute3', new AnotherSubClass());
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute3', new AnotherSubClass().toPointer());
         // $ExpectError
-        query.equalTo('attribute1', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute1', new AnotherSubClass().toPointer());
         // $ExpectError
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
@@ -1294,11 +1365,11 @@ function testQuery() {
         query.matches('nonexistentProp', /a regex/);
 
         // $ExpectType Query<MySubClass>
-        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.matchesQuery('attribute1', new Parse.Query('Example'));

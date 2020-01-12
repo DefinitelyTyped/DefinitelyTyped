@@ -342,7 +342,7 @@ export interface SwitchCase extends BaseNode {
 
 export interface CatchClause extends BaseNode {
   type: "CatchClause";
-  param: Pattern;
+  param: Pattern | null;
   body: BlockStatement;
 }
 

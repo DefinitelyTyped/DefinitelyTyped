@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Video from 'react-native-video';
+import Video, { FilterType } from 'react-native-video';
 
 <Video
     source={{ uri: '//:example.com/test.mp4' }}
@@ -11,4 +11,11 @@ import Video from 'react-native-video';
     }}
     onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}
     posterResizeMode={"cover"}
+    onPictureInPictureStatusChanged={data => {
+        console.log(data.isActive);
+    }}
+    filterEnable={true}
+    filter={FilterType.MONO}
+    selectedAudioTrack={{ type: 'index', value: 6 }}
+    selectedVideoTrack={{ type: 'auto' }}
 />;
