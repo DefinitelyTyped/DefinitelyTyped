@@ -103,6 +103,8 @@ declare namespace jsqubits {
         }
 
         interface Complex {
+            real: number;
+            imaginary: number;
             add(other: number | Complex): Complex;
             multiply(other: number | Complex): Complex;
             conjugate(): Complex;
@@ -115,8 +117,6 @@ declare namespace jsqubits {
             subtract(other: number | Complex): Complex;
             eql(other: number | Complex): boolean;
             closeTo(other: Complex): number;
-            real(): number | Complex;
-            imaginary(): number | Complex;
         }
 
         interface Measurement {
