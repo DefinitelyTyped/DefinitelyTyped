@@ -13,7 +13,6 @@
 //                 Dominik Heigl <https://github.com/various89>
 //                 Fazendaaa <https://github.com/Fazendaaa>
 //                 Norman Perrin <https://github.com/NormanPerrin>
-//                 Dan Manastireanu <https://github.com/danmana>
 //                 stablio <https://github.com/stablio>
 //                 Emmanuel Gautier <https://github.com/emmanuelgautier>
 //                 Frontend Monster <https://github.com/frontendmonster>
@@ -2967,8 +2966,8 @@ declare module "mongoose" {
      * If a callback is not passed, the aggregate itself is returned.
      * @param aggregations pipeline operator(s) or operator array
      */
-    aggregate(aggregations?: any[]): Aggregate<any[]>;
-    aggregate(aggregations: any[], cb: Function): Promise<any[]>;
+    aggregate<U = any>(aggregations?: any[]): Aggregate<U[]>;
+    aggregate<U = any>(aggregations: any[], cb: Function): Promise<U[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
@@ -3312,6 +3311,7 @@ declare module "mongoose" {
     /** Removes documents from the collection. */
     remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteOne(conditions: any, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**

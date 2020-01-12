@@ -1,4 +1,17 @@
-import { Feature, FeatureCollection, GeoJSON as GeoJSON_1, Geometry, GeometryCollection, LineString, MultiLineString, MultiPoint, MultiPolygon, Point, Polygon } from 'geojson';
+import {
+    Feature,
+    FeatureCollection,
+    GeoJSON as GeoJSON_1,
+    Geometry,
+    GeometryCollection,
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+} from 'geojson';
+import Feature_1 from '../Feature';
 import Geometry_1 from '../geom/Geometry';
 import GeometryCollection_1 from '../geom/GeometryCollection';
 import LineString_1 from '../geom/LineString';
@@ -8,6 +21,7 @@ import MultiPolygon_1 from '../geom/MultiPolygon';
 import Point_1 from '../geom/Point';
 import Polygon_1 from '../geom/Polygon';
 import { ProjectionLike } from '../proj';
+import Projection from '../proj/Projection';
 import { ReadOptions, WriteOptions } from './Feature';
 import JSONFeature from './JSONFeature';
 
@@ -30,4 +44,11 @@ export interface Options {
 }
 export default class GeoJSON extends JSONFeature {
     constructor(opt_options?: Options);
+    protected readFeatureFromObject(object: any, opt_options?: ReadOptions): Feature_1<Geometry_1>;
+    protected readFeaturesFromObject(object: any, opt_options?: ReadOptions): Feature_1<Geometry_1>[];
+    protected readGeometryFromObject(object: any, opt_options?: ReadOptions): Geometry_1;
+    protected readProjectionFromObject(object: any): Projection;
+    writeFeatureObject(feature: Feature_1<Geometry_1>, opt_options?: WriteOptions): GeoJSONFeature;
+    writeFeaturesObject(features: Feature_1<Geometry_1>[], opt_options?: WriteOptions): GeoJSONFeatureCollection;
+    writeGeometryObject(geometry: Geometry_1, opt_options?: WriteOptions): GeoJSONGeometry | GeoJSONGeometryCollection;
 }

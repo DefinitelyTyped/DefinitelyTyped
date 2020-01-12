@@ -73,16 +73,10 @@ const workingThemeColorModes: Theme = {
     },
 };
 
-const incompleteThemeColorModes: Theme = {
-    initialColorMode: 'light',
-    // $ExpectError
-    colors: {
-        text: '#000',
-        background: '#fff',
-        primary: '#07c',
-        secondary: '#05a',
-        muted: '#f6f6f6f',
-        modes: {
+// $ExpectError
+const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
+                text: '#433',
+            },
             dark: {
                 text: '#fff',
                 background: '#000',
@@ -90,11 +84,14 @@ const incompleteThemeColorModes: Theme = {
                 secondary: '#09c',
                 muted: '#111',
             },
-            papaya: {
-                text: '#433',
-            },
         },
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+        secondary: '#05a',
+        muted: '#f6f6f6f',
     },
+    initialColorMode: 'light',
 };
 
 const themeWithStyles: Theme = {

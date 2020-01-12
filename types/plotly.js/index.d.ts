@@ -373,6 +373,7 @@ export interface LayoutAxis extends Axis {
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
+	autotick: boolean;
 }
 
 export interface SceneAxis extends Axis {

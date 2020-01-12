@@ -384,3 +384,22 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         privateKey
     });
 }
+
+{
+    let byteBuffer: forge.util.ByteBuffer = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+    });
+
+    let hex: forge.Hex = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+        encoding: 'hex'
+    });
+
+    let bytes: forge.Bytes = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
+        type: 'SubjectPublicKeyInfo',
+        md: forge.md.sha256.create(),
+        encoding: 'binary'
+    });
+}

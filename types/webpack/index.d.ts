@@ -1073,9 +1073,13 @@ declare namespace webpack {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+            requireEnsure: SyncWaterfallHook<string, Chunk, string>;
+            localVars: SyncWaterfallHook<string, Chunk, string>;
           };
           outputOptions: Output;
           requireFn: string;
+          renderRequireFunctionForModule(hash: string, chunk: Chunk, varModuleId?: number | string): string;
+          renderAddModule(hash: string, chunk: Chunk, varModuleId: number | string | undefined, varModule: string): string;
         }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}

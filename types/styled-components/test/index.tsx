@@ -590,6 +590,15 @@ const asTest = (
     </>
 );
 
+const ForwardedAsNestedComponent = styled.div``;
+const ForwardedAsComponent = styled(ForwardedAsNestedComponent)``;
+const forwardedAsTest = (
+    <>
+        <ForwardedAsComponent forwardedAs="h2" />
+        <ForwardedAsComponent forwardedAs={WithComponentH2} />
+    </>
+);
+
 interface TestContainerProps {
     size: "big" | "small";
     test?: boolean;
