@@ -114,7 +114,8 @@ let input = { value: "" };
 }
 
 {
-    let eventTarget: EventTarget;
+    const anything: any = {};
+    const eventTarget: EventTarget = anything;
     DOMUtils.addEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
     DOMUtils.removeEventListener(eventTarget, 'onload', function (event) { event.preventDefault(); });
     DOMUtils.getConfirmation('confirm?', (result) => console.log(result));
