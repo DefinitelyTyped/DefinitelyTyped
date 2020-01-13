@@ -18,7 +18,6 @@
 declare module 'react-jsonschema-form' {
     import * as React from 'react';
     import { JSONSchema6, JSONSchema6Type } from 'json-schema';
-    import {FormatValidator, FormatDefinition} from "ajv"
 
     type ErrorSchema = {
         [k: string]: ErrorSchema;
@@ -49,7 +48,7 @@ declare module 'react-jsonschema-form' {
         transformErrors?: (errors: AjvError[]) => AjvError[];
         idPrefix?: string;
         additionalMetaSchemas?: ReadonlyArray<object>;
-        customFormats?: { [k: string]: FormatValidator | FormatDefinition };
+        customFormats?: { [k: string]: string | RegExp | ((data: string) => boolean) };
         // HTML Attributes
         id?: string;
         className?: string;
