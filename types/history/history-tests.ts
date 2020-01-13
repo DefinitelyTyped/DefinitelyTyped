@@ -125,3 +125,23 @@ let input = { value: "" };
     let supportsDOM = ExecutionEnvironment.canUseDOM;
     let isExtraneousPopstateEvent = DOMUtils.isExtraneousPopstateEvent;
 }
+
+//
+// Location state augmentation
+//
+
+declare module 'history' {
+    namespace History {
+        interface LocationState {
+            foo: string;
+        }
+    }
+}
+
+{
+    const anything: any = {};
+    const history: History = anything;
+    history.location.state; // $ExpectType LocationState
+    history.location.state.foo; // $ExpectType string
+    history.location.state.bar; // $ExpectError
+}

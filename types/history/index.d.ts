@@ -49,7 +49,7 @@ export namespace History {
       location: Location<S>,
       action: Action,
     ) => void;
-    export type LocationState = any;
+    export interface LocationState {}
     export type Path = string;
     export type Pathname = string;
     export type Search = string;
