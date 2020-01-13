@@ -60,6 +60,7 @@ declare module "worker_threads" {
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        env?: symbol;
     }
 
     class Worker extends EventEmitter {
