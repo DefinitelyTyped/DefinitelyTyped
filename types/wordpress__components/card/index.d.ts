@@ -28,6 +28,8 @@ declare namespace Card {
          * @defaultValue "medium"
          */
         size?: CardSize;
+
+        as?: ElementType;
     }
     interface DivProps extends Assign<BaseProps, HTMLProps<HTMLDivElement>> {}
 }
