@@ -2,6 +2,7 @@ import * as React from "react";
 import Form, {
   UiSchema,
   ErrorListProps,
+  FieldProps,
   WidgetProps,
   ErrorSchema,
   withTheme,
@@ -11,7 +12,8 @@ import SchemaField, {
 } from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from "json-schema";
 
-import { ADDITIONAL_PROPERTY_FLAG } from 'react-jsonschema-form/lib/utils';
+import { ADDITIONAL_PROPERTY_FLAG, allowAdditionalItems, isFixedItems, stubExistingAdditionalProperties, retrieveSchema  } from 'react-jsonschema-form/lib/utils';
+import  validateFormData  from 'react-jsonschema-form/lib/validate';
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
@@ -113,6 +115,9 @@ export class Example extends React.Component<any, IExampleState> {
                         formData={this.state}
                         ErrorList={ErrorListExample}
                         onChange={formData => this.setState({ formData })}
+                        customFormats={{
+                            'phone-us': /\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$/
+                          }}
                     />
                 }
             </div>
@@ -204,3 +209,36 @@ export const ExternalFormSubmissionExample = () => {
     </Form>
   );
 };
+
+export const allowAdditionalItemsExample = (schema: JSONSchema6) => {
+    return allowAdditionalItems(schema);
+}
+
+export const isFixedItemsExample = (schema: JSONSchema6) => {
+    return isFixedItems(schema);
+}
+
+export const stubExistingAdditionalPropertiesExample = (schema: JSONSchema6, definitions: { [name: string]: any }, formData: any) => {
+    return stubExistingAdditionalProperties(schema, definitions, formData)
+}
+
+export const retrieveSchemaExample = (schema: JSONSchema6) => {
+    return retrieveSchema(schema);
+}
+
+export const getValidationDataExample = (formData: any, schema: JSONSchema6) => {
+    return validateFormData(formData, schema);
+}
+
+export const customFieldExample = (props: FieldProps) => {
+    const customProps: Pick<FieldProps, "onChange" | "onBlur"> = {
+        onBlur: (id, value) => {
+            return props.onBlur(id, value);
+        },
+        onChange: (formData, errorSchema) => {
+            return props.onChange(formData, errorSchema);
+        }
+    }
+    return <SchemaField {...props} {...customProps}/>
+}
+
