@@ -127,8 +127,8 @@ declare class ReactModal extends React.Component<ReactModal.Props> {
      */
     static setAppElement(appElement: string | HTMLElement): void;
 
-    portal: {
-        overlay: Element;
-        content: HTMLDivElement;
+    portal: null | {
+        overlay: null | Element;
+        content: null | HTMLDivElement;
     };
 }
