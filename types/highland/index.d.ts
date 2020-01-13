@@ -127,20 +127,20 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-	<R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
-	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(source: Highland.Stream<R>[]): Highland.Stream<R>;
+	<R>(source: R[]): Highland.Stream<R>;
+	<R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
-	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: NodeJS.ReadableStream, onFinished?: Highland.OnFinished): Highland.Stream<R>;
-	<R>(eventName: string, eventEmitter: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
+	<R>(source: Highland.Stream<R>): Highland.Stream<R>;
+	<R>(source: NodeJS.ReadableStream, onFinished?: Highland.OnFinished): Highland.Stream<R>;
+	<R>(source: string, eventEmitter: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
-	<R>(xs: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: PromiseLike<R>): Highland.Stream<R>;
+	<R>(source: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
+	<R>(source: PromiseLike<R>): Highland.Stream<R>;
 
-	<R>(xs: Iterable<R>): Highland.Stream<R>;
-	<R>(xs: Iterator<R>): Highland.Stream<R>;
+	<R>(source: Iterable<R>): Highland.Stream<R>;
+	<R>(source: Iterator<R>): Highland.Stream<R>;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
@@ -390,7 +390,7 @@ interface HighlandStatic {
 	 * @param args... - the arguments to apply to the function
 	 * @api public
 	 */
-	partial(f: Function, ...args: any[]): Function;
+	partial(fn: Function, ...args: any[]): Function;
 
 	/**
 	 * The reversed version of compose. Where arguments are in the order of
@@ -431,7 +431,7 @@ interface HighlandStatic {
 	 * _.not(true)   // => false
 	 * _.not(false)  // => true
 	 */
-	not<R>(a: any): boolean;
+	not<R>(x: any): boolean;
 }
 
 declare namespace Highland {
@@ -776,7 +776,7 @@ declare namespace Highland {
 		 * @id intersperse
 		 * @section Transforms
 		 * @name Stream.intersperse(sep)
-		 * @param {R} sep - the value to intersperse between the source elements
+		 * @param {R} separator - the value to intersperse between the source elements
 		 * @api public
 		 */
 		intersperse(separator: R): Stream<R>;
@@ -893,8 +893,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		// TODO: convert this to this.scan(z, f).last()
-		reduce<U>(memo: U, f: (memo: U, x: R) => U): Stream<U>;
+		reduce<U>(memo: U, iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * Same as [reduce](#reduce), but uses the first element as the initial
@@ -906,7 +905,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		reduce1<U>(f: (memo: U, x: R) => U): Stream<U>;
+		reduce1<U>(iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * The inverse of [filter](#filter).
@@ -934,7 +933,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		scan<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
+		scan<U>(memo: U, iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * Same as [scan](#scan), but uses the first element as the initial
@@ -948,7 +947,7 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).scan1(add) // => 1, 3, 6, 10
 		 */
-		scan1<U>(x: (memo: U, x: R) => U): Stream<U>;
+		scan1<U>(iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * Creates a new Stream with the values from the source in the range of `start` (inclusive) to `end` (exclusive).
@@ -1593,7 +1592,7 @@ declare namespace Highland {
      *     // parameter result will be [1,2,3,4]
      * });
      */
-    toPromise(promiseConstructor: PromiseConstructor): PromiseLike<R>;
+    toPromise(PromiseCtor: PromiseConstructor): PromiseLike<R>;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}
