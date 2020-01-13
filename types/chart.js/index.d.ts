@@ -563,6 +563,7 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
         stepSize?: number;
