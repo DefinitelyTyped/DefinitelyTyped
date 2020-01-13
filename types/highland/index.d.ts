@@ -831,6 +831,18 @@ declare namespace Highland {
 		 */
 		map<U>(f: (x: R) => U): Stream<U>;
 
+		/**
+		 *
+		 * Retrieves copies of all elements in the collection,
+		 * with only the whitelisted keys. If one of the whitelisted
+		 * keys does not exist, it will be ignored.
+		 *
+		 * @id pick
+		 * @section Transforms
+		 * @name Stream.pick(properties)
+		 * @param {Array} properties - property names to white filter
+		 * @api public
+		 */
 		pick<Prop extends keyof R>(props: Prop[]): Stream<Pick<R, Prop>>;
 		/**
 		 *
