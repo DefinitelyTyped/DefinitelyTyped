@@ -142,7 +142,7 @@ declare module 'history' {
 {
     const anything: any = {};
     const history: History = anything;
-    history.location.state; // $ExpectType LocationState
-    history.location.state.foo; // $ExpectType string
-    history.location.state.bar; // $ExpectError
+    history.location.state; // $ExpectType LocationState | undefined
+    history.location.state!.foo; // $ExpectType string | undefined
+    history.location.state!.bar; // $ExpectError
 }
