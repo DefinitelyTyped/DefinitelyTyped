@@ -7,6 +7,14 @@ import {
   Link
 } from 'react-router-dom';
 
+declare module 'history' {
+    namespace History {
+        interface LocationState {
+            modal?: any;
+        }
+    }
+}
+
 // This example shows how to render two different screens
 // (or the same screen in a different context) at the same url,
 // depending on you got there.

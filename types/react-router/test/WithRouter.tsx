@@ -40,6 +40,15 @@ const WithRouterTestClass = () => <WithRouterComponentClass username="John" wrap
 const OnWrappedRef = React.createRef<ComponentClass>();
 const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wrappedComponentRef={OnWrappedRef} />;
 
+interface State { foo?: number; }
+
+declare module 'history' {
+    namespace History {
+        // tslint:disable-next-line: no-empty-interface
+        interface LocationState extends State {}
+    }
+}
+
 // union props
 {
     interface Book {
@@ -52,13 +61,11 @@ const WithRouterTestClass2 = () => <WithRouterComponentClass username="John" wra
         issue: number;
     }
 
-    interface State { foo: number; }
-
-    type SomethingToRead = (Book | Magazine) & RouteComponentProps<{}, StaticContext, State>;
+    type SomethingToRead = (Book | Magazine) & RouteComponentProps;
 
     const Readable: React.SFC<SomethingToRead> = props => {
-        props.location.state; // $ExpectType State
-        props.history.location.state; // $ExpectType State
+        props.location.state.foo; // $ExpectType number | undefined
+        props.history.location.state.foo; // $ExpectType number | undefined
 
         if (props.kind === 'magazine') {
             return <div>magazine #{props.issue}</div>;

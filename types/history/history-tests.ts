@@ -133,7 +133,7 @@ let input = { value: "" };
 declare module 'history' {
     namespace History {
         interface LocationState {
-            foo: string;
+            foo?: string;
         }
     }
 }
