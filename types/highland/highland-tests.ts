@@ -253,6 +253,12 @@ strFooArrMapStream = fooStream.group(str);
 
 fooStream = fooStream.head();
 
+// $ExpectType Stream<Foo>
+fooStream = fooStream.intersperse(foo);
+
+// $ExpectType Stream<Foo | Bar>
+fooStream.intersperse(bar)
+
 barStream = fooStream.invoke<Bar>(str, anyArr);
 
 fooStream = fooStream.last();
@@ -275,10 +281,12 @@ barStream = fooStream.pluck<Bar>(str);
 
 fooStream = fooStream.ratelimit(3, 1000);
 
-barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
+// $ExpectType Stream<Foo>
+fooStream = fooStream.reduce1((memo: Foo, x: Foo) => {
   return memo;
 });
 
+// $ExpectType Stream<Bar>
 barStream = fooStream.reduce1((memo: Foo | Bar, x: Foo) => {
   return bar;
 });
@@ -291,7 +299,39 @@ barStream = fooStream.scan(bar, (memo: Bar, x: Foo) => {
   return memo;
 });
 
-//missing scan1
+// $ExpectType Stream<Foo>
+fooStream = fooStream.scan1((memo: Foo, x: Foo) => {
+  return memo;
+});
+
+// $ExpectType Stream<Bar>
+barStream = fooStream.scan1((memo: Foo | Bar, x: Foo) => {
+  return bar;
+});
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.slice(10, 100);
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.sort();
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.sortBy((a: Foo, b: Foo) => 1);
+
+// $ExpectError
+fooStream.split();
+
+// $ExpectType Stream<string>
+_(['']).split();
+
+// $ExpectError
+fooStream.splitBy(",")
+
+// $ExpectType Stream<string>
+_(['']).splitBy(',')
+
+// $ExpectType Stream<string>
+_(['']).splitBy(/,/)
 
 fooStream = fooStream.stopOnError((e: Error) => {});
 
@@ -302,6 +342,12 @@ fooStream.tap((x: Foo) => {});
 fooStream = fooStream.throttle(num);
 
 fooStream = fooStream.where(obj);
+
+bazStream = bazStream.where({baz: true});
+
+fooStream = fooStream.uniq();
+
+fooStream = fooStream.uniqBy((a: Foo, b: Foo) => true);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // HIGHER-ORDER STREAMS
@@ -335,6 +381,14 @@ fooStream = fooStream.fork();
 
 fooStream = fooStreamStream.merge();
 
+// $ExpectError
+fooStream.merge();
+
+fooStream = fooStreamStream.mergeWithLimit(1);
+
+// $ExpectError
+fooStream.mergeWithLimit(1);
+
 fooStream = fooStream.observe();
 
 fooStream = fooStream.otherwise(fooStream);
@@ -361,6 +415,12 @@ fooStream.through((x: Highland.Stream<Bar>) => bar);
 fooStream = fooStream.zip(fooStream);
 fooStream = fooStream.zip([foo, foo]);
 
+fooArrStream = fooStream.zipAll([[foo, foo], [foo, foo]]);
+fooArrStream = fooStream.zipAll(_([[foo, foo], [foo, foo]]));
+
+// $ExpectType Stream<Foo[]>
+fooStreamStream.zipAll0();
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CONSUMPTION
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -373,6 +433,9 @@ fooStream.each((x: Foo) => {});
 
 fooStream = fooStream.pipe(fooStream);
 barStream = fooStream.pipe(barStream);
+
+// $ExpectType Stream<Foo>
+fooStream.pipe(_<Foo>());
 // $ExpectType ReadWriteStream
 fooStream.pipe(readwritable);
 // $ExpectType WritableStream
