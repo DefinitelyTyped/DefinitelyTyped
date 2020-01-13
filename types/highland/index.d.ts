@@ -44,9 +44,12 @@ interface HighlandStatic {
 	 * **Generators -** These are functions which provide values for the Stream.
 	 * They are lazy and can be infinite, they can also be asynchronous (for
 	 * example, making a HTTP request). You emit values on the Stream by calling
-	 * `push(err, val)`, much like a standard Node.js callback. You call `next()`
-	 * to signal you've finished processing the current data. If the Stream is
-	 * still being consumed the generator function will then be called again.
+	 * `push(err, val)`, much like a standard Node.js callback. Once it has been
+	 * called, the generator function will not be called again unless you call
+	 * `next()`. This call to `next()` will signal you've finished processing the
+	 * current data and allow for the generator function to be called again. If the
+	 * Stream is still being consumed the generator function will then be called
+	 * again.
 	 *
 	 * You can also redirect a generator Stream by passing a new source Stream
 	 * to read from to next. For example: `next(other_stream)` - then any subsequent
@@ -56,57 +59,88 @@ interface HighlandStatic {
 	 * it with the Highland API. Reading from the resulting Highland Stream will
 	 * begin piping the data from the Node Stream to the Highland Stream.
 	 *
-     * A stream constructed in this way relies on Readable#pipe to end the
-     * Highland Stream once there is no more data. Not all Readable Streams do this.
-     * For example, IncomingMessage will only emit close when the client aborts
-     * communications and will not properly call end. In this case, you can provide
-     * an optional onFinished function with the signature onFinished(readable, callback)
-     * as the second argument.
-     *
-     * This function will be passed the Readable and a callback that should called
-     * when the Readable ends. If the Readable ended from an error, the error should
-     * be passed as the first argument to the callback. onFinished should bind to
-     * whatever listener is necessary to detect the Readable's completion. If the
-     * callback is called multiple times, only the first invocation counts. If the
-     * callback is called after the Readable has already ended (e.g., the pipe method
-     * already called end), it will be ignored.
-     *
+	 * A stream constructed in this way relies on `Readable#pipe` to end the
+	 * Highland Stream once there is no more data. Not all Readable Streams do
+	 * this. For example, `IncomingMessage` will only emit `close` when the client
+	 * aborts communications and will *not* properly call `end`. In this case, you
+	 * can provide an optional `onFinished` function with the signature
+	 * `onFinished(readable, callback)` as the second argument.
+	 *
+	 * This function will be passed the Readable and a callback that should called
+	 * when the Readable ends. If the Readable ended from an error, the error
+	 * should be passed as the first argument to the callback. `onFinished` should
+	 * bind to whatever listener is necessary to detect the Readable's completion.
+	 * If the callback is called multiple times, only the first invocation counts.
+	 * If the callback is called *after* the Readable has already ended (e.g., the
+	 * `pipe` method already called `end`), it will be ignored.
+	 *
+	 * The `onFinished` function may optionally return one of the following:
+	 *
+	 * - A cleanup function that will be called when the stream ends. It should
+	 * unbind any listeners that were added.
+	 * - An object with the following optional properties:
+	 *    - `onDestroy` - the cleanup function.
+	 *    - `continueOnError` - Whether or not to continue the stream when an
+	 *      error is passed to the callback. Set this to `true` if the Readable
+	 *      may continue to emit values after errors. Default: `false`.
+	 *
+	 * See [this issue](https://github.com/caolan/highland/issues/490) for a
+	 * discussion on why Highland cannot reliably detect stream completion for
+	 * all implementations and why the `onFinished` function is required.
+	 *
 	 * **EventEmitter / jQuery Elements -** Pass in both an event name and an
 	 * event emitter as the two arguments to the constructor and the first
 	 * argument emitted to the event handler will be written to the new Stream.
 	 *
 	 * You can pass a mapping hint as the third argument, which specifies how
-	 * event arguments are pushed into the stream. If no mapping hint is
-	 * provided, only the first value emitted with the event to the will be
-	 * pushed onto the Stream.
+	 * event arguments are pushed into the stream. If no mapping hint is provided,
+	 * only the first value emitted with the event to the will be pushed onto the
+	 * Stream.
 	 *
-	 * If mappingHint is a number, an array of that length will be pushed onto
-	 * the stream, containing exactly that many parameters from the event. If
-	 * it's an array, it's used as keys to map the arguments into an object which
-	 * is pushed to the tream. If it is a function, it's called with the event
+	 * If `mappingHint` is a number, an array of that length will be pushed onto
+	 * the stream, containing exactly that many parameters from the event. If it's
+	 * an array, it's used as keys to map the arguments into an object which is
+	 * pushed to the tream. If it is a function, it's called with the event
 	 * arguments, and the returned value is pushed.
 	 *
 	 * **Promise -** Accepts an ES6 / jQuery style promise and returns a
-	 * Highland Stream which will emit a single value (or an error).
+	 * Highland Stream which will emit a single value (or an error). In case you use
+	 * [bluebird cancellation](http://bluebirdjs.com/docs/api/cancellation.html) Highland Stream will be empty for a cancelled promise.
+	 *
+	 * **Iterator -** Accepts an ES6 style iterator that implements the [iterator protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_.22iterator.22_protocol):
+	 * yields all the values from the iterator using its `next()` method and terminates when the
+	 * iterator's done value returns true. If the iterator's `next()` method throws, the exception will be emitted as an error,
+	 * and the stream will be ended with no further calls to `next()`.
+	 *
+	 * **Iterable -** Accepts an object that implements the [iterable protocol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_.22iterable.22_protocol),
+	 * i.e., contains a method that returns an object that conforms to the iterator protocol. The stream will use the
+	 * iterator defined in the `Symbol.iterator` property of the iterable object to generate emitted values.
 	 *
 	 * @id _(source)
-	 * @section Streams
+	 * @section Stream Objects
 	 * @name _(source)
-	 * @param {Array | Function | Readable Stream | Promise} source - (optional) source to take values from from
+	 * @param {Array | Function | Iterator | Iterable | Promise | Readable Stream | String} source - (optional) source to take values from from
+	 * @param {Function} onFinished - (optional) a function that detects when the readable completes. Second argument. Only valid if `source` is a Readable.
+	 * @param {EventEmitter | jQuery Element} eventEmitter - (optional) An event emitter. Second argument. Only valid if `source` is a String.
+	 * @param {Array | Function | Number} mappingHint - (optional) how to pass the
+	 * arguments to the callback. Only valid if `source` is a String.
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-	<R>(xs: Highland.Stream<R>[]): Highland.Stream<R>;
-	<R>(xs: R[]): Highland.Stream<R>;
-	<R>(xs: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
+	<R>(source: Highland.Stream<R>[]): Highland.Stream<R>;
+	<R>(source: R[]): Highland.Stream<R>;
+	<R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
-	<R>(xs: Highland.Stream<R>): Highland.Stream<R>;
-	<R>(xs: NodeJS.ReadableStream, of?: Highland.OnFinished): Highland.Stream<R>;
-	<R>(eventName: string, xs: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
+	<R>(source: Highland.Stream<R>): Highland.Stream<R>;
+	<R>(source: NodeJS.ReadableStream, onFinished?: Highland.OnFinished): Highland.Stream<R>;
+	<R>(source: string, eventEmitter: NodeJS.EventEmitter, mappingHint?: Highland.MappingHint): Highland.Stream<R>;
 
 	// moar (promise for everything?)
-	<R>(xs: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: PromiseLike<R>): Highland.Stream<R>;
+	<R>(source: PromiseLike<Highland.Stream<R>>): Highland.Stream<R>;
+	<R>(source: PromiseLike<R>): Highland.Stream<R>;
+
+	<R>(source: Iterable<R>): Highland.Stream<R>;
+	<R>(source: Iterator<R>): Highland.Stream<R>;
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// UTILS
@@ -132,11 +166,11 @@ interface HighlandStatic {
 	 * @param x - the object to test
 	 * @api public
 	 */
-	isStream(x: any): boolean;
+	isStream(x: any): x is Highland.Stream<any>;
 
-	isStreamError(x: any): boolean;
+	isStreamError(x: any): x is Highland.Stream<any>;
 
-	isStreamRedirect(x: any): boolean;
+	isStreamRedirect(x: any): x is Highland.Stream<any>;
 
 	/**
 	 * Logs values to the console, a simple wrapper around `console.log` that
@@ -356,7 +390,7 @@ interface HighlandStatic {
 	 * @param args... - the arguments to apply to the function
 	 * @api public
 	 */
-	partial(f: Function, ...args: any[]): Function;
+	partial(fn: Function, ...args: any[]): Function;
 
 	/**
 	 * The reversed version of compose. Where arguments are in the order of
@@ -397,7 +431,7 @@ interface HighlandStatic {
 	 * _.not(true)   // => false
 	 * _.not(false)  // => true
 	 */
-	not<R>(a: any): boolean;
+	not<R>(x: any): boolean;
 }
 
 declare namespace Highland {
@@ -706,7 +740,7 @@ declare namespace Highland {
 		 * firstBlogpost(docs)
 		 * // => {type: 'blogpost', title: 'foo'}
 		 */
-		findWhere(props: Object): Stream<R>;
+		findWhere(props: Partial<R>): Stream<R>;
 
 		/**
 		 * A convenient form of reduce, which groups items based on a function or property name
@@ -733,6 +767,19 @@ declare namespace Highland {
 		 * _([1, 2, 3, 4]).head() // => 1
 		 */
 		head(): Stream<R>;
+
+		/**
+		 * Creates a new Stream with the separator interspersed between the elements of the source.
+		 *
+		 * `intersperse` is effectively the inverse of [splitBy](#splitBy).
+		 *
+		 * @id intersperse
+		 * @section Transforms
+		 * @name Stream.intersperse(sep)
+		 * @param {R} separator - the value to intersperse between the source elements
+		 * @api public
+		 */
+		intersperse<U>(separator: U): Stream<R | U>;
 
 		/**
 		 * Calls a named method on each object from the Stream - returning
@@ -785,6 +832,34 @@ declare namespace Highland {
 		map<U>(f: (x: R) => U): Stream<U>;
 
 		/**
+		 *
+		 * Retrieves copies of all elements in the collection,
+		 * with only the whitelisted keys. If one of the whitelisted
+		 * keys does not exist, it will be ignored.
+		 *
+		 * @id pick
+		 * @section Transforms
+		 * @name Stream.pick(properties)
+		 * @param {Array} properties - property names to white filter
+		 * @api public
+		 */
+		pick<Prop extends keyof R>(props: Prop[]): Stream<Pick<R, Prop>>;
+		/**
+		 *
+		 * Retrieves copies of all the elements in the collection
+		 * that satisfy a given predicate. Note: When using ES3,
+		 * only enumerable elements are selected. Both enumerable
+		 * and non-enumerable elements are selected when using ES5.
+		 *
+		 * @id pickBy
+		 * @section Transforms
+		 * @name Stream.pickBy(f)
+		 * @param {Function} f - the predicate function
+		 * @api public
+		 */
+		pickBy<Prop extends keyof R>(f: (key: Prop, value: R[Prop]) => boolean): Stream<Partial<R>>
+
+		/**
 		 * Retrieves values associated with a given property from all elements in
 		 * the collection.
 		 *
@@ -794,6 +869,7 @@ declare namespace Highland {
 		 * @param {String} prop - the property to which values should be associated
 		 * @api public
 		 */
+		pluck<Prop extends keyof R>(prop: Prop): Stream<R[Prop]>;
 		pluck<U>(prop: string): Stream<U>;
 
 		/**
@@ -829,8 +905,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		// TODO: convert this to this.scan(z, f).last()
-		reduce<U>(memo: U, f: (memo: U, x: R) => U): Stream<U>;
+		reduce<U>(memo: U, iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * Same as [reduce](#reduce), but uses the first element as the initial
@@ -842,7 +917,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		reduce1<U>(memo: U, f: (memo: U, x: R) => U): Stream<U>;
+		reduce1<U>(iterator: (memo: R | U, x: R) => U): Stream<U>;
 
 		/**
 		 * The inverse of [filter](#filter).
@@ -870,7 +945,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		scan<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
+		scan<U>(memo: U, iterator: (memo: U, x: R) => U): Stream<U>;
 
 		/**
 		 * Same as [scan](#scan), but uses the first element as the initial
@@ -884,7 +959,82 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).scan1(add) // => 1, 3, 6, 10
 		 */
-		scan1<U>(memo: U, x: (memo: U, x: R) => U): Stream<U>;
+		scan1<U>(iterator: (memo: R | U, x: R) => U): Stream<U>;
+
+		/**
+		 * Creates a new Stream with the values from the source in the range of `start` (inclusive) to `end` (exclusive).
+		 * `start` and `end` must be of type `Number`, if `start` is not a `Number` it will default to `0`
+		 * and, likewise, `end` will default to `Infinity`: this could result in the whole stream being be
+		 * returned.
+		 *
+		 * @id slice
+		 * @section Transforms
+		 * @name Stream.slice(start, end)
+		 * @param {Number} start - integer representing index to start reading from source (inclusive)
+		 * @param {Number} end - integer representing index to stop reading from source (exclusive)
+		 * @api public
+		 */
+		slice(start: number, end: number): Stream<R>;
+
+		/**
+		 * Collects all values together then emits each value individually but in sorted order.
+		 * The method for sorting the elements is ascending lexical.
+		 *
+		 * @id sort
+		 * @section Transforms
+		 * @name Stream.sort()
+		 * @api public
+		 *
+		 * var sorted = _(['b', 'z', 'g', 'r']).sort().toArray(_.log);
+		 * // => ['b', 'g', 'r', 'z']
+		 */
+		sort(): Stream<R>;
+
+		/**
+		 * Collects all values together then emits each value individually in sorted
+		 * order. The method for sorting the elements is defined by the comparator
+		 * function supplied as a parameter.
+		 *
+		 * The comparison function takes two arguments `a` and `b` and should return
+		 *
+		 * - a negative number if `a` should sort before `b`.
+		 * - a positive number if `a` should sort after `b`.
+		 * - zero if `a` and `b` may sort in any order (i.e., they are equal).
+		 *
+		 * This function must also define a [partial
+		 * order](https://en.wikipedia.org/wiki/Partially_ordered_set). If it does not,
+		 * the resulting ordering is undefined.
+		 *
+		 * @id sortBy
+		 * @section Transforms
+		 * @name Stream.sortBy(f)
+		 * @param {Function} f - the comparison function
+		 * @api public
+		 */
+		sortBy(f: (a: R, b: R) => number): Stream<R>;
+
+		/**
+		 * [splitBy](#splitBy) over newlines.
+		 *
+		 * @id split
+		 * @section Transforms
+		 * @name Stream.split()
+		 * @api public
+		 */
+		split(this: Stream<string>): Stream<string>;
+
+		/**
+		 * Splits the source Stream by a separator and emits the pieces in between, much like splitting a string.
+		 *
+		 * `splitBy` is effectively the inverse of [intersperse](#intersperse).
+		 *
+		 * @id splitBy
+		 * @section Transforms
+		 * @name Stream.splitBy(sep)
+		 * @param {String | RegExp} sep - the separator to split on
+		 * @api public
+		 */
+		splitBy(this: Stream<string>, sep: string | RegExp): Stream<string>;
 
 		/**
 		 * Like the [errors](#errors) method, but emits a Stream end marker after
@@ -966,7 +1116,7 @@ declare namespace Highland {
 		 * @param {Object} props - the properties to match against
 		 * @api public
 		 */
-		where(props: Object): Stream<R>;
+		where(props: Partial<R>): Stream<R>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// HIGHER-ORDER STREAMS
@@ -1064,7 +1214,36 @@ declare namespace Highland {
 		 * _([txt, md]).merge();
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
-	  merge<U>(this: Stream<Stream<U>>): Stream<U>;
+		merge<U>(this: Stream<Stream<U>>): Stream<U>;
+		
+		/**
+		 * Takes a Stream of Streams and merges their values and errors into a
+		 * single new Stream, limitting the number of unpaused streams that can
+		 * running at any one time.
+		 *
+		 * Note that no guarantee is made with respect to the order in which
+		 * values for each stream end up in the merged stream. Values in the
+		 * merged stream will, however, respect the order they were emitted from
+		 * their respective streams.
+		 *
+		 * @id mergeWithLimit
+		 * @section Higher-order Streams
+		 * @name Stream.mergeWithLimit(n)
+		 * @param {Number} n - the maximum number of streams to run in parallel
+		 * @api public
+		 *
+		 * var readFile = _.wrapCallback(fs.readFile);
+		 *
+		 * var txt = _(['foo.txt', 'bar.txt']).flatMap(readFile)
+		 * var md = _(['baz.md']).flatMap(readFile)
+		 * var js = _(['bosh.js']).flatMap(readFile)
+		 *
+		 * _([txt, md, js]).mergeWithLimit(2);
+		 * // => contents of foo.txt, bar.txt, baz.txt and bosh.js in the order
+		 * // they were read, but bosh.js is not read until either foo.txt and bar.txt
+		 * // has completely been read or baz.md has been read
+		 */
+		mergeWithLimit<U>(this: Stream<Stream<U>>, n: number): Stream<U>;
 
 		/**
 		 * Observes a stream, allowing you to handle values as they are emitted, without
@@ -1188,7 +1367,7 @@ declare namespace Highland {
 		 *   console.log(err); // => SyntaxError: Unexpected token z
 		 * });
 		 */
-		through<R, U>(f: (x: R) => U): U;
+		through<U>(f: (x: Stream<R>) => U): U;
 		through(thru: NodeJS.ReadWriteStream): Stream<any>;
 
 
@@ -1203,6 +1382,38 @@ declare namespace Highland {
 		 */
 		zip(ys: R[]): Stream<R>;
 		zip(ys: Stream<R>): Stream<R>;
+
+		/**
+		 * Takes a stream and a *finite* stream of `N` streams
+		 * and returns a stream of the corresponding `(N+1)`-tuples.
+		 *
+		 * *Note:* This transform will be renamed `zipEach` in the next major version
+		 * release.
+		 *
+		 * @id zipAll
+		 * @section Higher-order Streams
+		 * @name Stream.zipAll(ys)
+		 * @param {Array | Stream} ys - the array of streams to combine values with
+		 * @api public
+		 */
+		zipAll(ys: R[][]): Stream<R[]>;
+		zipAll(ys: Stream<R[]>): Stream<R[]>;
+
+		/**
+		 * Takes a *finite* stream of streams and returns a stream where the first
+		 * element from each separate stream is combined into a single data event,
+		 * followed by the second elements of each stream and so on until the shortest
+		 * input stream is exhausted.
+		 *
+		 * *Note:* This transform will be renamed `zipAll` in the next major version
+		 * release.
+		 *
+		 * @id zipAll0
+		 * @section Higher-order Streams
+		 * @name Stream.zipAll0()
+		 * @api public
+		 */
+		zipAll0<T>(this: Stream<Stream<T>>): Stream<T[]>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// CONSUMPTION
@@ -1262,23 +1473,40 @@ declare namespace Highland {
 		each(f: (x: R) => void): Pick<Stream<R>, 'done'>;
 
 		/**
-		 * Pipes a Highland Stream to a [Node Writable Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable)
-		 * (Highland Streams are also Node Writable Streams). This will pull all the
-		 * data from the source Highland Stream and write it to the destination,
-		 * automatically managing flow so that the destination is not overwhelmed
-		 * by a fast source.
+		 * Pipes a Highland Stream to a [Node Writable
+		 * Stream](http://nodejs.org/api/stream.html#stream_class_stream_writable).
+		 * This will pull all the data from the source Highland Stream and write it to
+		 * the destination, automatically managing flow so that the destination is not
+		 * overwhelmed by a fast source.
 		 *
-		 * This function returns the destination so you can chain together pipe calls.
+		 * Users may optionally pass an object that may contain any of these fields:
+		 *
+		 * - `end` - Ends the destination when this stream ends. Default: `true`. This
+		 *   option has no effect if the destination is either `process.stdout` or
+		 *   `process.stderr`. Those two streams are never ended.
+		 *
+		 * Like [Readable#pipe](https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options),
+		 * this function will throw errors if there is no `error` handler installed on
+		 * the stream.
+		 *
+		 * This function returns the destination so you can chain together `pipe` calls.
+		 *
+		 * **NOTE**: While Highland streams created via `_()` and [pipeline](#pipeline)
+		 * support being piped to, it is almost never appropriate to `pipe` from a
+		 * Highland stream to another Highland stream. Those two cases are meant for
+		 * use when piping from *Node* streams. You might be tempted to use `pipe` to
+		 * construct reusable transforms. Do not do it. See [through](#through) for a
+		 * better way.
 		 *
 		 * @id pipe
-		 * @section Streams
-		 * @name Stream.pipe(dest)
+		 * @section Consumption
+		 * @name Stream.pipe(dest, options)
 		 * @param {Writable Stream} dest - the destination to write all data to
+		 * @param {Object} options - (optional) pipe options.
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: NodeJS.ReadWriteStream): Stream<U>;
-		pipe(dest: NodeJS.WritableStream): void;
+		pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean }): U
 
 		/**
 		 * Consumes a single item from the Stream. Unlike consume, this function will
@@ -1375,7 +1603,7 @@ declare namespace Highland {
      *     // parameter result will be [1,2,3,4]
      * });
      */
-    toPromise(promiseConstructor: PromiseConstructor): PromiseLike<R>;
+    toPromise(PromiseCtor: PromiseConstructor): PromiseLike<R>;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}
