@@ -2895,6 +2895,8 @@ export interface PickerItemProps {
     value?: any;
 }
 
+class PickerItem extends React.Component<PickerItemProps> {}
+
 export interface PickerPropsIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
@@ -2970,7 +2972,7 @@ export class Picker extends React.Component<PickerProps> {
      */
     static MODE_DROPDOWN: string;
 
-    static Item: React.Component<PickerItemProps>;
+    static Item: typeof PickerItem;
 }
 
 /**
