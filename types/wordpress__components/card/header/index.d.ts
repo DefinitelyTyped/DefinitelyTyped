@@ -1,5 +1,5 @@
+import { ComponentType, ElementType } from '@wordpress/element';
 import Card from '..';
-import { StyledComponent } from '@emotion/styled';
 
 declare namespace CardHeader {
     interface Props {
@@ -19,9 +19,14 @@ declare namespace CardHeader {
         isShady?: boolean;
 
         size?: Card.CardSize;
+
+        /**
+         * Render as a different element type
+         */
+        as?: ElementType;
     }
 }
 
-declare const CardHeader: StyledComponent<JSX.IntrinsicElements['div'], CardHeader.Props, {}>;
+declare const CardHeader: ComponentType<CardHeader.Props>;
 
 export default CardHeader;

@@ -1,4 +1,4 @@
-import { ComponentProps } from '@wordpress/element';
+import { ComponentProps, ComponentType, ElementType } from '@wordpress/element';
 import { HorizontalRule } from '../../primitives';
 import { StyledComponent } from '@emotion/styled';
 
@@ -10,6 +10,11 @@ declare namespace CardDivider {
         className?: string;
 
         children?: never;
+
+        /**
+         * Render as a different element type
+         */
+        as?: ElementType;
     }
 }
 

@@ -1,4 +1,4 @@
-import { StyledComponent } from '@emotion/styled';
+import { ComponentType, ElementType } from '@wordpress/element';
 
 declare namespace CardMedia {
     interface Props {
@@ -6,9 +6,14 @@ declare namespace CardMedia {
          * `className` of the container.
          */
         className?: string;
+
+        /**
+         * Render as a different element type
+         */
+        as?: ElementType;
     }
 }
 
-declare const CardMedia: StyledComponent<JSX.IntrinsicElements['div'], CardMedia.Props, {}>;
+declare const CardMedia: ComponentType<CardMedia.Props>;
 
 export default CardMedia;
