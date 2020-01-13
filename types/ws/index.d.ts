@@ -1,4 +1,4 @@
-// Type definitions for ws 6.0
+// Type definitions for ws 7.2
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -6,10 +6,12 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
+//                 Peter Kooijmans <https://github.com/peterkooijmans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import { Duplex, DuplexOptions } from 'stream';
 import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
@@ -211,6 +213,9 @@ declare namespace WebSocket {
         family: string;
         port: number;
     }
+
+    // Node.JS duplex stream wrapper
+    function createWebSocketStream(socket: WebSocket, options?: DuplexOptions): Duplex;
 
     // WebSocket Server
     class Server extends events.EventEmitter {

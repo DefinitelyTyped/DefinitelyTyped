@@ -135,3 +135,10 @@ import * as url from 'url';
         console.log(event.data, event.target, event.type);
     };
 }
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+    const wsStream = WebSocket.createWebSocketStream(ws, { allowHalfOpen: false });
+    wsStream.on("data", (chunk: any) => console.log("received data:", chunk));
+    wsStream.pause();
+}
