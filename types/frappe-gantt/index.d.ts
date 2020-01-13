@@ -1,6 +1,6 @@
 // Type definitions for frappe-gantt 0.3
 // Project: https://github.com/frappe/gantt
-// Definitions by: Sam Alexander <https://github.com/me>
+// Definitions by: Sam Alexander <https://github.com/samalexander>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Gantt;
