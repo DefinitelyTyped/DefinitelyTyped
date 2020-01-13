@@ -1,8 +1,12 @@
-import { ComponentType, ElementType } from '@wordpress/element';
+import { ComponentType, HTMLProps, ElementType } from '@wordpress/element';
+
+type Assign<T, U> = {
+    [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;
+};
 
 declare namespace Card {
     type CardSize = 'large' | 'medium' | 'small' | 'extraSmall';
-    interface Props {
+    interface BaseProps {
         /**
          * `className` of the container.
          */
@@ -24,14 +28,10 @@ declare namespace Card {
          * @defaultValue "medium"
          */
         size?: CardSize;
-
-        /**
-         * Render as a different element type
-         */
-        as?: ElementType;
     }
+    interface DivProps extends Assign<BaseProps, HTMLProps<HTMLDivElement>> {}
 }
 
-declare const Card: ComponentType<Card.Props>;
+declare const Card: ComponentType<Card.DivProps>;
 
 export default Card;
