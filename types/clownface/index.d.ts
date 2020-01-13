@@ -48,12 +48,27 @@ declare namespace clownface {
         forEach(cb: (quad: Clownface<D, T>) => void): void;
         map<X>(cb: (quad: Clownface<D, T>, index: number) => X): X[];
 
-        // tslint:disable:no-unnecessary-generics
-        node<X extends Term = Term>(values: SingleOrArray<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
-        blankNode(values?: SingleOrArray<string>): SafeClownface<D, BlankNode>;
-        literal(values: SingleOrArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
-        namedNode(values: SingleOrArray<string | NamedNode>): SafeClownface<D, NamedNode>;
+        node(value: SingleOrOneElementArray<boolean | string | number>, options?: NodeOptions): SingleContextClownface<D, Literal>;
+        node(values: Array<boolean | string | number>, options?: NodeOptions): SafeClownface<D, Literal>;
 
+        node<X extends Term>(value: SingleOrOneElementArray<X>, options?: NodeOptions): SingleContextClownface<D, X>;
+        node<X extends Term>(values: X[], options?: NodeOptions): SafeClownface<D, X>;
+
+        node(value: null, options?: NodeOptions): SingleContextClownface<D, BlankNode>;
+        node(values: null[], options?: NodeOptions): SafeClownface<D, BlankNode>;
+
+        node(values: SingleOrArray<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D>;
+
+        blankNode(value?: SingleOrOneElementArray<string>): SingleContextClownface<D, BlankNode>;
+        blankNode(values: string[]): SafeClownface<D, BlankNode>;
+
+        literal(value: SingleOrOneElementArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SingleContextClownface<D, Literal>;
+        literal(values: Array<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
+
+        namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
+        namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
+
+        // tslint:disable:no-unnecessary-generics
         in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
         out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
@@ -74,20 +89,6 @@ declare namespace clownface {
     }
 
     interface SafeClownface<D extends DatasetCore = DatasetCore, T extends Term = Term> extends Clownface<D, T> {
-        // tslint:disable:no-unnecessary-generics
-        node<X extends Term = Term>(value: SingleOrOneElementArray<boolean | string | number | Term | null>, options?: NodeOptions): SingleContextClownface<D, X>;
-        node<X extends Term = Term>(values: Array<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
-        // tslint:enable:no-unnecessary-generics
-
-        blankNode(value?: SingleOrOneElementArray<string>): SingleContextClownface<D, BlankNode>;
-        blankNode(values: string[]): SafeClownface<D, BlankNode>;
-
-        literal(value: SingleOrOneElementArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SingleContextClownface<D, Literal>;
-        literal(values: Array<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
-
-        namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
-        namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
-
         filter(cb: (quad: SingleContextClownface<D, T>) => boolean): SafeClownface<D, T>;
         forEach(cb: (quad: SingleContextClownface<D, T>) => void): void;
         map<X>(cb: (quad: SingleContextClownface<D, T>, index: number) => X): X[];
