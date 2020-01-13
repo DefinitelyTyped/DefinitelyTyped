@@ -779,7 +779,7 @@ declare namespace Highland {
 		 * @param {R} separator - the value to intersperse between the source elements
 		 * @api public
 		 */
-		intersperse(separator: R): Stream<R>;
+		intersperse<U>(separator: U): Stream<R | U>;
 
 		/**
 		 * Calls a named method on each object from the Stream - returning
@@ -857,7 +857,7 @@ declare namespace Highland {
 		 * @param {Function} f - the predicate function
 		 * @api public
 		 */
-		pickBy(f: (key: string, value: any) => boolean): Stream<Partial<R>>
+		pickBy<Prop extends keyof R>(f: (key: Prop, value: R[Prop]) => boolean): Stream<Partial<R>>
 
 		/**
 		 * Retrieves values associated with a given property from all elements in
@@ -917,7 +917,7 @@ declare namespace Highland {
 		 * @param {Function} iterator - the function which reduces the values
 		 * @api public
 		 */
-		reduce1<U>(iterator: (memo: U, x: R) => U): Stream<U>;
+		reduce1<U>(iterator: (memo: R | U, x: R) => U): Stream<U>;
 
 		/**
 		 * The inverse of [filter](#filter).
@@ -959,7 +959,7 @@ declare namespace Highland {
 		 *
 		 * _([1, 2, 3, 4]).scan1(add) // => 1, 3, 6, 10
 		 */
-		scan1<U>(iterator: (memo: U, x: R) => U): Stream<U>;
+		scan1<U>(iterator: (memo: R | U, x: R) => U): Stream<U>;
 
 		/**
 		 * Creates a new Stream with the values from the source in the range of `start` (inclusive) to `end` (exclusive).
@@ -1034,7 +1034,7 @@ declare namespace Highland {
 		 * @param {String | RegExp} sep - the separator to split on
 		 * @api public
 		 */
-		splitBy(this: Stream<string>, sep: string): Stream<string>;
+		splitBy(this: Stream<string>, sep: string | RegExp): Stream<string>;
 
 		/**
 		 * Like the [errors](#errors) method, but emits a Stream end marker after
@@ -1413,7 +1413,7 @@ declare namespace Highland {
 		 * @name Stream.zipAll0()
 		 * @api public
 		 */
-		zipAll0(this: Stream<Stream<R>>): Stream<R[]>;
+		zipAll0<T>(this: Stream<Stream<T>>): Stream<T[]>;
 
 		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		// CONSUMPTION
@@ -1506,8 +1506,7 @@ declare namespace Highland {
 		 * @api public
 		 */
 		pipe<U>(dest: Stream<U>): Stream<U>;
-		pipe<U>(dest: NodeJS.ReadWriteStream, options?: { end?: boolean }): Stream<U>;
-		pipe(dest: NodeJS.WritableStream, options?: { end?: boolean }): Stream<void>;
+		pipe<U extends NodeJS.WritableStream>(dest: U, options?: { end?: boolean }): U
 
 		/**
 		 * Consumes a single item from the Stream. Unlike consume, this function will

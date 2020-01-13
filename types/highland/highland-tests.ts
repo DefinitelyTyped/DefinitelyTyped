@@ -279,8 +279,8 @@ barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
   return memo;
 });
 
-barStream = fooStream.reduce1((memo: Bar, x: Foo) => {
-  return memo;
+barStream = fooStream.reduce1((memo: Foo | Bar, x: Foo) => {
+  return bar;
 });
 
 fooStream = fooStream.reject((x: Foo) => {
@@ -373,8 +373,10 @@ fooStream.each((x: Foo) => {});
 
 fooStream = fooStream.pipe(fooStream);
 barStream = fooStream.pipe(barStream);
-barStream = fooStream.pipe<Bar>(readwritable);
-voidStream = fooStream.pipe(writable, { end: false });
+// $ExpectType ReadWriteStream
+fooStream.pipe(readwritable);
+// $ExpectType WritableStream
+fooStream.pipe(writable, { end: false });
 
 fooStream.pull((err: Error, x: Foo) => {});
 
