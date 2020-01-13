@@ -54,27 +54,27 @@ export class HashRouter extends React.Component<HashRouterProps, any> {}
 
 export interface LinkProps<S = H.LocationState> extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     component?: React.ComponentType<any>;
-    to: H.LocationDescriptor<S> | ((location: H.Location<S>) => H.LocationDescriptor<S>);
+    to: H.LocationDescriptor | ((location: H.Location) => H.LocationDescriptor);
     replace?: boolean;
     innerRef?: React.Ref<HTMLAnchorElement>;
 }
 export class Link<S = H.LocationState> extends React.Component<
-  LinkProps<S>,
+  LinkProps,
   any
 > {}
 
-export interface NavLinkProps<S = H.LocationState> extends LinkProps<S> {
+export interface NavLinkProps<S = H.LocationState> extends LinkProps {
   activeClassName?: string;
   activeStyle?: React.CSSProperties;
   exact?: boolean;
   strict?: boolean;
   isActive?<Params extends { [K in keyof Params]?: string }>(
     match: match<Params>,
-    location: H.Location<S>,
+    location: H.Location,
   ): boolean;
-  location?: H.Location<S>;
+  location?: H.Location;
 }
 export class NavLink<S = H.LocationState> extends React.Component<
-  NavLinkProps<S>,
+  NavLinkProps,
   any
 > {}

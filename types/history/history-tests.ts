@@ -4,6 +4,29 @@ import * as PathUtils from 'history/PathUtils';
 import * as DOMUtils from 'history/DOMUtils';
 import * as ExecutionEnvironment from 'history/ExecutionEnvironment';
 
+//
+// Location state augmentation
+//
+
+declare module 'history' {
+    namespace History {
+        interface LocationState {
+            some?: string;
+            foo?: string;
+            value?: number;
+            the?: string;
+        }
+    }
+}
+
+{
+    const anything: any = {};
+    const history: History = anything;
+    history.location.state; // $ExpectType LocationState | undefined
+    history.location.state!.foo; // $ExpectType string | undefined
+    history.location.state!.bar; // $ExpectError
+}
+
 let input = { value: "" };
 
 {
@@ -43,7 +66,7 @@ let input = { value: "" };
 }
 
 {
-    let history: MemoryHistory<{the: 'state'}> = createMemoryHistory();
+    let history: MemoryHistory = createMemoryHistory();
 
     // Pushing a path string.
     history.push('/the/path');
@@ -65,7 +88,7 @@ let input = { value: "" };
     unblock();
 
     history.entries.forEach(function (location) {
-        let typedLocation: Location<{ the: 'state' }> = location;
+        let typedLocation: Location = location;
     });
 }
 
@@ -96,14 +119,14 @@ let input = { value: "" };
 }
 
 {
-    let location1 = LocationUtils.createLocation('path/1', 1);
-    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
+    let location1 = LocationUtils.createLocation('path/1', { value: 1 });
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: { value: 2 } });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 
 {
-    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, 1);
-    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: 2 });
+    let location1 = LocationUtils.createLocation({ pathname: 'path/1' }, { value: 1 });
+    let location2 = LocationUtils.createLocation({ pathname: 'pathname', state: { value: 2 } });
     LocationUtils.locationsAreEqual(location1, location2);
 }
 
@@ -125,24 +148,4 @@ let input = { value: "" };
 {
     let supportsDOM = ExecutionEnvironment.canUseDOM;
     let isExtraneousPopstateEvent = DOMUtils.isExtraneousPopstateEvent;
-}
-
-//
-// Location state augmentation
-//
-
-declare module 'history' {
-    namespace History {
-        interface LocationState {
-            foo?: string;
-        }
-    }
-}
-
-{
-    const anything: any = {};
-    const history: History = anything;
-    history.location.state; // $ExpectType LocationState | undefined
-    history.location.state!.foo; // $ExpectType string | undefined
-    history.location.state!.bar; // $ExpectError
 }

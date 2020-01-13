@@ -8,12 +8,12 @@ export interface MemoryHistoryBuildOptions {
   keyLength?: number;
 }
 
-export interface MemoryHistory<HistoryLocationState = LocationState> extends History<HistoryLocationState> {
+export interface MemoryHistory extends History {
   index: number;
-  entries: Location<HistoryLocationState>[];
+  entries: Location[];
   canGo(n: number): boolean;
 }
 
-export default function createMemoryHistory<S = LocationState>(
+export default function createMemoryHistory(
   options?: MemoryHistoryBuildOptions,
-): MemoryHistory<S>;
+): MemoryHistory;

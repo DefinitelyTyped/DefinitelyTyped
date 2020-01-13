@@ -11,71 +11,69 @@ export type UnregisterCallback = () => void;
 export interface History<HistoryLocationState = LocationState> {
   length: number;
   action: Action;
-  location: Location<HistoryLocationState>;
+  location: Location;
   push(path: Path, state?: HistoryLocationState): void;
-  push(location: LocationDescriptorObject<HistoryLocationState>): void;
+  push(location: LocationDescriptorObject): void;
   replace(path: Path, state?: HistoryLocationState): void;
-  replace(location: LocationDescriptorObject<HistoryLocationState>): void;
+  replace(location: LocationDescriptorObject): void;
   go(n: number): void;
   goBack(): void;
   goForward(): void;
   block(
-    prompt?: boolean | string | TransitionPromptHook<HistoryLocationState>,
+    prompt?: boolean | string | TransitionPromptHook,
   ): UnregisterCallback;
-  listen(listener: LocationListener<HistoryLocationState>): UnregisterCallback;
-  createHref(location: LocationDescriptorObject<HistoryLocationState>): Href;
+  listen(listener: LocationListener): UnregisterCallback;
+  createHref(location: LocationDescriptorObject): Href;
 }
 
-export interface Location<S = LocationState> {
+export interface Location {
     pathname: Pathname;
     search: Search;
-    state: S | undefined;
+    state: LocationState | undefined;
     hash: Hash;
     key?: LocationKey;
 }
 
-export interface LocationDescriptorObject<S = LocationState> {
+export interface LocationDescriptorObject {
     pathname?: Pathname;
     search?: Search;
-    state?: S;
+    state?: LocationState;
     hash?: Hash;
     key?: LocationKey;
 }
 
 export namespace History {
-    export type LocationDescriptor<S = LocationState> = Path | LocationDescriptorObject<S>;
+    export type LocationDescriptor = Path | LocationDescriptorObject;
     export type LocationKey = string;
-    export type LocationListener<S = LocationState> = (
-      location: Location<S>,
+    export type LocationListener = (
+      location: Location,
       action: Action,
     ) => void;
     export interface LocationState {}
     export type Path = string;
     export type Pathname = string;
     export type Search = string;
-    export type TransitionHook<S = LocationState> = (
-      location: Location<S>,
+    export type TransitionHook = (
+      location: Location,
       callback: (result: any) => void,
     ) => any;
-    export type TransitionPromptHook<S = LocationState> = (
-      location: Location<S>,
+    export type TransitionPromptHook = (
+      location: Location,
       action: Action,
     ) => string | false | void;
     export type Hash = string;
     export type Href = string;
 }
 
-export type LocationDescriptor<S = LocationState> = History.LocationDescriptor<S>;
+export type LocationDescriptor = History.LocationDescriptor;
 export type LocationKey = History.LocationKey;
-export type LocationListener<S = LocationState> = History.LocationListener<S>;
+export type LocationListener = History.LocationListener;
 export type LocationState = History.LocationState;
 export type Path = History.Path;
 export type Pathname = History.Pathname;
 export type Search = History.Search;
-export type TransitionHook<S = LocationState> = History.TransitionHook<S>;
-export type TransitionPromptHook<
-  S = LocationState
-> = History.TransitionPromptHook<S>;
+export type TransitionHook = History.TransitionHook;
+export type TransitionPromptHook = History.TransitionPromptHook;
 export type Hash = History.Hash;
 export type Href = History.Href;
 

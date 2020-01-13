@@ -27,8 +27,8 @@ const HooksTest: React.FC = () => {
     // $ExpectType match<Params>
     const match4 = useRouteMatch<Params>();
 
-    history.location.state.s;
-    location.state.s;
+    history.location.state!.s;
+    location.state!.s;
     id && id.replace;
     params.id.replace;
     match1 && match1.params.id.replace;

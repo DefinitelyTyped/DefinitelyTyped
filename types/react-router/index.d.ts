@@ -71,15 +71,15 @@ export interface RouteComponentProps<
     C extends StaticContext = StaticContext,
     S = H.LocationState
 > {
-    history: H.History<S>;
-    location: H.Location<S>;
+    history: H.History;
+    location: H.Location;
     match: match<Params>;
     staticContext?: C;
 }
 
 export interface RouteChildrenProps<Params extends { [K in keyof Params]?: string } = {}, S = H.LocationState> {
     history: H.History;
-    location: H.Location<S>;
+    location: H.Location;
     match: match<Params> | null;
 }
 
@@ -159,7 +159,7 @@ export const __RouterContext: React.Context<RouteComponentProps>;
 
 export function useHistory<HistoryLocationState = H.LocationState>(): H.History<HistoryLocationState>;
 
-export function useLocation<S = H.LocationState>(): H.Location<S>;
+export function useLocation<S = H.LocationState>(): H.Location;
 
 export function useParams<Params extends { [K in keyof Params]?: string } = {}>(): { [p in keyof Params]: string };
 

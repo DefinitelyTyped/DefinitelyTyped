@@ -64,8 +64,8 @@ declare module 'history' {
     type SomethingToRead = (Book | Magazine) & RouteComponentProps;
 
     const Readable: React.SFC<SomethingToRead> = props => {
-        props.location.state.foo; // $ExpectType number | undefined
-        props.history.location.state.foo; // $ExpectType number | undefined
+        props.location.state!.foo; // $ExpectType number | undefined
+        props.history.location.state!.foo; // $ExpectType number | undefined
 
         if (props.kind === 'magazine') {
             return <div>magazine #{props.issue}</div>;
