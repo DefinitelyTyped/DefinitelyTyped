@@ -1,5 +1,5 @@
 import * as C from '@wordpress/components';
-import { Component } from '@wordpress/element';
+import { Component, MouseEvent as ReactMouseEvent } from '@wordpress/element';
 
 //
 // primitives
@@ -94,14 +94,18 @@ interface MyCompleteOption {
 <C.Card isElevated isBorderless className="card" size="large">
     I'm a card with props!
 </C.Card>;
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 
 // Card is <div /> by default, autoFocus prop is not allowed
 // $ExpectError
 <C.Card autoFocus>`div` can't have autoFocus :(</C.Card>;
 
-// `withComponent` renders a `button`
-const ButtonCard = C.Card.withComponent('button');
-<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
+// These components can be rendered as other components:
+<C.Card as={C.HorizontalRule} />;
+// `as="button"` renders a `button`, autoFocus is allowed
+<C.Card as="button" autoFocus>
+    `button` _can_ have autoFocus :D
+</C.Card>;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
