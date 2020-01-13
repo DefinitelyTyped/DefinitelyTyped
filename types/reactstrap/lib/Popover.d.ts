@@ -6,7 +6,7 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
     [key: string]: any;
     isOpen?: boolean;
     toggle?: React.MouseEventHandler<any> | (() => void);
-    target: string | HTMLElement;
+    target: string | HTMLElement | React.RefObject<HTMLElement>;
     container?: string | HTMLElement;
     boundariesElement?: Popper.Boundary | Element;
     className?: string;
