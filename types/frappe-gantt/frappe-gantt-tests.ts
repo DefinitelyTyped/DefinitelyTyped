@@ -13,6 +13,7 @@ const tasks = [
 const gantt1 = new Gantt('#gantt', tasks);
 
 gantt1.change_view_mode('Week');
+gantt1.refresh(tasks);
 
 new Gantt('#gantt', tasks, {
     on_click: (task) => { },

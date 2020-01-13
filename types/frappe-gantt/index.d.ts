@@ -9,6 +9,7 @@ declare class Gantt {
     constructor(wrapper: string, tasks: Gantt.Task[], options?: Gantt.Options);
 
     change_view_mode(mode: Gantt.viewMode): void;
+    refresh(tasks: Gantt.Task[]): void;
 }
 
 declare namespace Gantt {
