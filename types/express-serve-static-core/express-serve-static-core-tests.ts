@@ -1,9 +1,27 @@
 import * as express from 'express-serve-static-core';
 
 const app: express.Application = {} as any;
+
+declare module 'express-serve-static-core' {
+    interface ApplicationLocals {
+        foo: string;
+    }
+    interface ResponseLocals {
+        foo2: string;
+    }
+}
+
+app.locals.foo; // $ExpectType string
+app.locals.bar; // $ExpectError
+
 app.listen(3000);
 app.listen(3000, (err: any) => {
     // no-op error callback
+});
+
+app.use((_req, res) => {
+    res.locals.foo2; // $ExpectType string
+    res.locals.bar; // $ExpectError
 });
 
 app.get('/:foo', req => {
