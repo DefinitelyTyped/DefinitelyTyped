@@ -68,6 +68,14 @@ const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
 const Public: React.SFC<RouteComponentProps> = () => <h3>Public</h3>;
 const Protected: React.SFC<RouteComponentProps> = () => <h3>Protected</h3>;
 
+declare module 'history' {
+    namespace History {
+        interface LocationState {
+            from: { pathname: string };
+        }
+    }
+}
+
 class Login extends React.Component<RouteComponentProps, {redirectToReferrer: boolean}> {
   state = {
     redirectToReferrer: false
