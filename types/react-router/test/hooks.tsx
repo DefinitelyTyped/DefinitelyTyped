@@ -5,13 +5,17 @@ interface Params {
     id: string;
 }
 
-interface LocationState {
-    s: string;
+declare module 'history' {
+    namespace History {
+        interface LocationState {
+            s?: string;
+        }
+    }
 }
 
 const HooksTest: React.FC = () => {
-    const history = useHistory<LocationState>();
-    const location = useLocation<LocationState>();
+    const history = useHistory();
+    const location = useLocation();
     const { id } = useParams();
     const params = useParams<Params>();
     // $ExpectType match<Params> | null
