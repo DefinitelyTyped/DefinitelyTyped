@@ -3,7 +3,7 @@
 // Definitions by: Alex Atallah <https://github.com/alexanderatallah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component } from 'react'
+import { Component } from 'react';
 
 type func = (...args: any[]) => any
 type renderFunc = (...args: any[]) => JSX.Element
@@ -83,7 +83,7 @@ interface ResultT {
 /**
  * SORTING
  */
-export type SortDirection = "asc" | "desc"
+type SortDirection = "asc" | "desc"
 interface SortOption {
     // A display name, like "Name"
     name?: string,
@@ -251,7 +251,7 @@ export class Sorting extends Component<SortingProps>{}
 /**
  * Context
  */
-export interface Context {
+interface Context {
     // Search State
     current: number,
     filters?: Filter[],
