@@ -1,12 +1,8 @@
-import { ComponentType, HTMLProps, ElementType } from '@wordpress/element';
-
-type Assign<T, U> = {
-    [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;
-};
+import { ComponentType, HTMLProps } from '@wordpress/element';
 
 declare namespace Card {
     type CardSize = 'large' | 'medium' | 'small' | 'extraSmall';
-    interface BaseProps {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -29,11 +25,13 @@ declare namespace Card {
          */
         size?: CardSize;
 
-        as?: ElementType;
-    }
-    interface DivProps extends Assign<BaseProps, HTMLProps<HTMLDivElement>> {}
+        /**
+         * Render as a different element type
+         */
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const Card: ComponentType<Card.DivProps>;
+declare function Card<T extends keyof JSX.IntrinsicElements = 'div'>(props: Card.Props<T>): JSX.Element;
 
 export default Card;

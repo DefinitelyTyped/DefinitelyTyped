@@ -98,8 +98,13 @@ interface MyCompleteOption {
 
 // These components can be rendered as other components:
 <C.Card as={C.HorizontalRule} />;
-// `as="button"` renders a `button`, autoFocus is allowed
-<C.Card as="button" onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
+// Card renders a `div` by default:
+<C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// `div` doesn't support autoFocus:
+// $ExpectError
+<C.Card autoFocus onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+// With `as="button"`, a `button` element is rendered and `button` props are accepted:
+<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
