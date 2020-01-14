@@ -314,8 +314,7 @@ export interface Context {
     facets?: Facet; // Will be populated if facets configured in Advanced Configuration.
     requestId: string; // A unique ID for the current search results.
     results: Result[]; // An array of result items.
-    // As opposed the the searchTerm state, which is tied to the current search parameter, this is tied to the searchTerm for the current results. There will be a period of time in between when a request is started and finishes where the two pieces of state will differ.
-    resultSearchTerm: string;
+    resultSearchTerm: string; // This is tied to the searchTerm for the current results.
     totalResults: number; // Total number of results found for the current query.
 
     // Application State
