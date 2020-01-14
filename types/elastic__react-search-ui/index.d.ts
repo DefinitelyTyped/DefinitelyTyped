@@ -113,11 +113,12 @@ interface ErrorBoundaryProps {
     // State
     error?: string;
 }
+
 export class ErrorBoundary extends Component<ErrorBoundaryProps>{}
 
 interface FacetProps {
-
     // Props
+
     className?: string;
     field: string;
     label: string;
@@ -127,20 +128,23 @@ interface FacetProps {
     isFilterable?: boolean;
 
     // State
+
     filters?: Filter[];
     facets?: { [key: string]: FacetT[] };
 
     // Actions
+
     addFilter?: func;
     removeFilter?: func;
     setFilter?: func;
     a11yNotify?: func;
 }
+
 export class Facet extends Component<FacetProps>{}
 
 interface ResultProps {
-
     // Props
+
     className?: string;
     clickThroughTags?: string[];
     titleField?: string;
@@ -150,12 +154,15 @@ interface ResultProps {
     shouldTrackClickThrough?: boolean;
 
     // Actions
+
     trackClickThrough?: func;
 }
-export class Result extends Component<ResultProps>{}
-interface ResultsContainerProps {
 
+export class Result extends Component<ResultProps>{}
+
+interface ResultsContainerProps {
     // Props
+
     className?: string;
     clickThroughTags?: string[];
     resultView?: renderFunc;
@@ -165,12 +172,15 @@ interface ResultsContainerProps {
     shouldTrackClickThrough?: boolean;
 
     // State
+
     results: ResultT[];
 }
-export class Results extends Component<ResultsContainerProps>{}
-interface SearchBoxProps {
 
+export class Results extends Component<ResultsContainerProps>{}
+
+interface SearchBoxProps {
     // Props
+
     autocompleteMinimumCharacters?: number;
     autocompleteResults?: boolean | {
     clickThroughTags?: string[];
@@ -193,65 +203,90 @@ interface SearchBoxProps {
     view?: renderFunc;
 
     // State
+
     autocompletedResults?: ResultT[];
     autocompletedSuggestions?: { [key: string]: Suggestion[] };
     searchTerm?: string;
 
     // Actions
+
     setSearchTerm?: func;
     trackAutocompleteClickThrough?: func;
 }
+
 export class SearchBox extends Component<SearchBoxProps>{}
 
 interface PagingInfoProps {
     // Props
+
     className?: string;
     view?: renderFunc;
+
     // State
+
     pagingStart?: number;
     pagingEnd?: number;
     resultSearchTerm?: string;
     totalResults?: number;
 }
+
 export class PagingInfo extends Component<PagingInfoProps>{}
 
 interface PagingProps {
     // Props
+
     className?: string;
     view?: renderFunc;
+
     // State
+
     current?: number;
     resultsPerPage?: number;
     totalPages?: number;
+
     // Action
+
     setCurrent?: func;
 }
+
 export class Paging extends Component<PagingProps>{}
 
 interface ResultsPerPageProps {
     // Props
+
     className?: string;
     view?: renderFunc;
     options?: number[];
+
     // State
+
     resultsPerPage?: number;
+
     // Actions
+
     setResultsPerPage?: func;
 }
+
 export class ResultsPerPage extends Component<ResultsPerPageProps>{}
 
 interface SortingProps {
     // Props
+
     className?: string;
     label?: string;
     sortOptions: SortOption[];
     view?: renderFunc;
+
     // State
+
     sortDirection?: "asc" | "desc" | "";
     sortField?: string;
+
     // Actions
+
     setSort?: func;
 }
+
 export class Sorting extends Component<SortingProps>{}
 
 /**
@@ -262,6 +297,7 @@ export class Sorting extends Component<SortingProps>{}
  */
 export interface Context {
     // Search State
+
     current: number;
     filters?: Filter[];
     resultsPerPage?: number;
@@ -270,6 +306,7 @@ export interface Context {
     sortField?: string
 
     // Response State
+
     autocompletedResults: Result[], //	An array of results items fetched for an autocomplete dropdown.
     autocompletedResultsRequestId: string, //	A unique ID for the current autocompleted search results.
     autocompletedSuggestions:	{[key: string]: Suggestion[] }, //	A keyed object of query suggestions. It's keyed by type since multiple types of query suggestions can be set here.
@@ -281,19 +318,22 @@ export interface Context {
     totalResults: number // Total number of results found for the current query.
 
     // Application State
+
     error?: string, // Error message, if an error was thrown.
     isLoading: boolean, // Whether or not a search is currently being performed.
     wasSearched: boolean, // Has any query been performed since this driver was created? Can be useful for displaying initial states in the UI.;
 }
+
 interface WithSearchProps {
     mapContextToProps?: (context: Context) => any;
     children: (props: any) => JSX.Element;
 }
+
 export class WithSearch extends Component<WithSearchProps>{}
 
 interface SearchProviderProps {
-    // Matches the shape of SearchDriver, which needs to be typed
-    config?: object;
+    config?: object;  // Matches the shape of SearchDriver, which needs to be typed
     children: JSX.Element;
 }
+
 export class SearchProvider extends Component<SearchProviderProps>{}
