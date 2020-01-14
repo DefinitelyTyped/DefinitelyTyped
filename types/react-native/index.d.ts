@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.60
+// Type definitions for react-native 0.61
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -708,7 +708,8 @@ export interface TransformsStyle {
         | TranslateXTransform
         | TranslateYTransform
         | SkewXTransform
-        | SkewYTransform)[];
+        | SkewYTransform
+    )[];
     transformMatrix?: Array<number>;
     rotation?: number;
     scaleX?: number;
@@ -5137,7 +5138,10 @@ export namespace StyleSheet {
      * an array, saving allocations and maintaining reference equality for
      * PureComponent checks.
      */
-    export function compose<T>(style1: StyleProp<T> | Array<StyleProp<T>>, style2: StyleProp<T> | Array<StyleProp<T>>): StyleProp<T>;
+    export function compose<T>(
+        style1: StyleProp<T> | Array<StyleProp<T>>,
+        style2: StyleProp<T> | Array<StyleProp<T>>,
+    ): StyleProp<T>;
 
     /**
      * WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will
@@ -5570,7 +5574,9 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>(specifics: ({ [platform in PlatformOSType]?: T } & { default: T }) | ({ [platform in PlatformOSType]: T })): T;
+    select<T>(
+        specifics: ({ [platform in PlatformOSType]?: T } & { default: T }) | { [platform in PlatformOSType]: T },
+    ): T;
     select<T>(specifics: { [platform in PlatformOSType]?: T }): T | undefined;
 }
 
@@ -6798,7 +6804,14 @@ interface AlertOptions {
  */
 export interface AlertStatic {
     alert: (title: string, message?: string, buttons?: AlertButton[], options?: AlertOptions) => void;
-    prompt: (title: string, message?: string, callbackOrButtons?: ((text: string) => void) | AlertButton[], type?: AlertType, defaultValue?: string, keyboardType?: string) => void;
+    prompt: (
+        title: string,
+        message?: string,
+        callbackOrButtons?: ((text: string) => void) | AlertButton[],
+        type?: AlertType,
+        defaultValue?: string,
+        keyboardType?: string,
+    ) => void;
 }
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
