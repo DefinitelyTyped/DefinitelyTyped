@@ -39,34 +39,20 @@ declare namespace scrollReveal {
         useDelay ? : string;
         viewFactor ? : number;
         viewOffset ? : ScrollRevealPositionObject;
-        beforeReveal ? (domEl: HTMLElement): void;
-        afterReveal ? (domEl: HTMLElement): void;
-        beforeReset ? (domEl: HTMLElement): void;
-        afterReset ? (domEl: HTMLElement): void;
-        beforeReveal ? (domEl: NodeListOf<Element>): void;
-        afterReveal ? (domEl: NodeListOf<Element>): void;
-        beforeReset ? (domEl: NodeListOf<Element>): void;
-        afterReset ? (domEl: NodeListOf<Element>): void;
+        beforeReveal ? (domEl: HTMLElement | NodeListOf<Element>): void;
+        afterReveal ? (domEl: HTMLElement | NodeListOf<Element>): void;
+        beforeReset ? (domEl: HTMLElement | NodeListOf<Element>): void;
+        afterReset ? (domEl: HTMLElement | NodeListOf<Element>): void;
     }
 
 
     interface ScrollRevealObject {
         (): ScrollRevealObject;
         (options: ScrollRevealObjectOptions): ScrollRevealObject;
-        reveal(selector: string): ScrollRevealObject;
-        reveal(selector: string, interval: number): ScrollRevealObject;
-        reveal(selector: string, options: ScrollRevealObjectOptions): ScrollRevealObject;
-        reveal(selector: string, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
-        
-        reveal(selector: HTMLElement): ScrollRevealObject;
-        reveal(selector: HTMLElement, interval: number): ScrollRevealObject;
-        reveal(selector: HTMLElement, options: ScrollRevealObjectOptions): ScrollRevealObject;
-        reveal(selector: HTMLElement, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
-
-        reveal(selector: NodeListOf<Element>): ScrollRevealObject;
-        reveal(selector: NodeListOf<Element>, interval: number): ScrollRevealObject;
-        reveal(selector: NodeListOf<Element>, options: ScrollRevealObjectOptions): ScrollRevealObject;
-        reveal(selector: NodeListOf<Element>, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
+        reveal(selector: string | HTMLElement | NodeListOf<Element>): ScrollRevealObject;
+        reveal(selector: string | HTMLElement | NodeListOf<Element>, interval: number): ScrollRevealObject;
+        reveal(selector: string | HTMLElement | NodeListOf<Element>, options: ScrollRevealObjectOptions): ScrollRevealObject;
+        reveal(selector: string | HTMLElement | NodeListOf<Element>, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
 
         sync(): void;
     }

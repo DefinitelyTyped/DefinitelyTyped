@@ -70,3 +70,15 @@ xmlhttp.onreadystatechange = function() {
 
 xmlhttp.open('GET', 'ajax.html', true);
 xmlhttp.send();
+
+sr.reveal('#one-matching-element', {
+    beforeReveal: (element: HTMLElement) => {
+        // ...
+    }
+});
+
+sr.reveal('.many-matching-elements', {
+    beforeReveal: (element: NodeListOf<HTMLElement>) => {
+        // ...
+    }
+});
