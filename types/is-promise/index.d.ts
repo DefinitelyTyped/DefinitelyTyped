@@ -5,4 +5,4 @@
 
 export = isPromise;
 
-declare function isPromise(obj: any): obj is PromiseLike<any>;
+declare function isPromise<T = any>(obj: T): obj is PromiseLike<T>;
