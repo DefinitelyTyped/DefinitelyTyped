@@ -128,3 +128,9 @@ let input = { value: "" };
     let supportsDOM = ExecutionEnvironment.canUseDOM;
     let isExtraneousPopstateEvent = DOMUtils.isExtraneousPopstateEvent;
 }
+
+{
+    const anything: any = {};
+    const history: History = anything;
+    history.location.state; // $ExpectType PoorMansUnknown
+}

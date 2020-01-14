@@ -49,7 +49,10 @@ export namespace History {
       location: Location<S>,
       action: Action,
     ) => void;
-    export type LocationState = any;
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
+    export type LocationState = PoorMansUnknown;
     export type Path = string;
     export type Pathname = string;
     export type Search = string;
