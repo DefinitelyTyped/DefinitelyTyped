@@ -461,7 +461,7 @@ namespace Parse {
         unPinAllWithName(name: string, objects: Object[]): Promise<void>;
     }
     interface ObjectConstructor extends ObjectStatic {
-        new <T extends Attributes>(className: string, attributes?: T, options?: any): Object<T>;
+        new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
         new(className?: string, attributes?: Attributes, options?: any): Object;
     }
     const Object: ObjectConstructor;
@@ -1084,7 +1084,7 @@ namespace Parse {
             param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
         ) => any>(
             name: string,
-            func: (request: FunctionRequest<Parameters<T>[0]>) => ReturnType<T>
+            func: (request: FunctionRequest<Parameters<T>[0]>) => Promise<ReturnType<T>> | ReturnType<T>
         ): void;
         /**
          * Gets data for the current set of cloud jobs.

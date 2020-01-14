@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/components 8.2
+// Type definitions for @wordpress/components 8.5
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/components/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -15,6 +15,12 @@ export { default as Autocomplete } from './autocomplete';
 export { default as BaseControl } from './base-control';
 export { default as Button } from './button';
 export { default as ButtonGroup } from './button-group';
+export { default as Card } from './card';
+export { default as CardBody } from './card/body';
+export { default as CardDivider } from './card/divider';
+export { default as CardFooter } from './card/footer';
+export { default as CardHeader } from './card/header';
+export { default as CardMedia } from './card/media';
 export { default as CheckboxControl } from './checkbox-control';
 export { default as ClipboardButton } from './clipboard-button';
 export { default as ColorIndicator } from './color-indicator';

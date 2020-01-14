@@ -12,7 +12,7 @@
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
@@ -43,10 +43,9 @@ export namespace ReactStripeElements {
         | { apiKey: string; stripe?: never } & StripeProviderOptions
         | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
-    interface StripeProps {
-        createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
+    interface StripeOverrideProps {
         createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
-        paymentRequest: stripe.Stripe['paymentRequest'];
+        createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
         createPaymentMethod(
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
             data?: stripe.CreatePaymentMethodOptions,
@@ -57,12 +56,6 @@ export namespace ReactStripeElements {
             data?: stripe.CreatePaymentMethodOptions,
         ): Promise<stripe.PaymentMethodResponse>;
         createPaymentMethod(data: stripe.PaymentMethodData): Promise<stripe.PaymentMethodResponse>;
-        /**
-         * Use `stripe.handleCardAction` in the Payment Intents API manual confirmation flow
-         * to handle a PaymentIntent with the requires_action status.
-         * It will throw an error if the PaymentIntent has a different status.
-         */
-        handleCardAction(clientSecret: string): Promise<stripe.PaymentIntentResponse>;
         handleCardPayment(
             clientSecret: string,
             options?: stripe.HandleCardPaymentWithoutElementsOptions,
@@ -71,11 +64,9 @@ export namespace ReactStripeElements {
             clientSecret: string,
             data?: stripe.HandleCardSetupOptions,
         ): Promise<stripe.SetupIntentResponse>;
-        confirmCardPayment(
-            clientSecret: string,
-            data?: stripe.ConfirmCardPaymentData,
-        ): Promise<stripe.PaymentIntentResponse>;
-        confirmCardSetup(clientSecret: string, data?: stripe.ConfirmCardSetupData): Promise<stripe.SetupIntentResponse>;
+    }
+
+    interface StripeProps extends Omit<stripe.Stripe, keyof StripeOverrideProps>, StripeOverrideProps {
     }
 
     interface InjectOptions {
