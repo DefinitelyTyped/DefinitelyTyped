@@ -27,7 +27,7 @@ interface FieldValueWrapper {
 /**
  * FACETS
  */
-type FacetType = "range" | "value"
+type FacetType = "range" | "value";
 interface FacetValue {
     // Number of results for this filter
     count: number;
@@ -44,7 +44,6 @@ interface FacetT {
     type: FacetType;
 }
 
-
 /**
  * FILTERS
  */
@@ -53,8 +52,8 @@ interface Filter {
     values: FilterValue[];
     type: FilterType;
 }
-export type FilterType = "all" | "any" | "none"
-type FilterValueValue = FieldValue
+export type FilterType = "all" | "any" | "none";
+type FilterValueValue = FieldValue;
 interface FilterValueRange {
     // Beginning of the range, like 1
     from?: FieldValue;
@@ -63,7 +62,7 @@ interface FilterValueRange {
     // End of the range, like 100
     to?: FieldValue;
 }
-type FilterValue = FilterValueRange | FilterValueValue
+type FilterValue = FilterValueRange | FilterValueValue;
 
 /**
  * RESULTS
@@ -81,11 +80,10 @@ interface ResultT {
     [key: string]: FieldValueWrapper;
 }
 
-
 /**
  * SORTING
  */
-export type SortDirection = "asc" | "desc"
+export type SortDirection = "asc" | "desc";
 interface SortOption {
     // A display name, like "Name"
     name?: string;
@@ -104,7 +102,6 @@ interface AutocompleteSection {
     sectionTitle?: string;
 }
 
-
 /**
  * CONTAINERS
  */
@@ -119,6 +116,7 @@ interface ErrorBoundaryProps {
 export class ErrorBoundary extends Component<ErrorBoundaryProps>{}
 
 interface FacetProps {
+
     // Props
     className?: string;
     field: string;
@@ -127,9 +125,11 @@ interface FacetProps {
     show?: number;
     view?: renderFunc;
     isFilterable?: boolean;
+
     // State
     filters?: Filter[];
     facets?: { [key: string]: FacetT[] };
+
     // Actions
     addFilter?: func;
     removeFilter?: func;
@@ -139,6 +139,7 @@ interface FacetProps {
 export class Facet extends Component<FacetProps>{}
 
 interface ResultProps {
+
     // Props
     className?: string;
     clickThroughTags?: string[];
@@ -147,11 +148,13 @@ interface ResultProps {
     view?: renderFunc;
     result: ResultT;
     shouldTrackClickThrough?: boolean;
+
     // Actions
     trackClickThrough?: func;
 }
 export class Result extends Component<ResultProps>{}
 interface ResultsContainerProps {
+
     // Props
     className?: string;
     clickThroughTags?: string[];
@@ -160,11 +163,13 @@ interface ResultsContainerProps {
     urlField?: string;
     view?: renderFunc;
     shouldTrackClickThrough?: boolean;
+
     // State
     results: ResultT[];
 }
 export class Results extends Component<ResultsContainerProps>{}
 interface SearchBoxProps {
+
     // Props
     autocompleteMinimumCharacters?: number;
     autocompleteResults?: boolean | {
@@ -186,10 +191,12 @@ interface SearchBoxProps {
     onSubmit?: func;
     searchAsYouType?: boolean;
     view?: renderFunc;
+
     // State
     autocompletedResults?: ResultT[];
     autocompletedSuggestions?: { [key: string]: Suggestion[] };
     searchTerm?: string;
+
     // Actions
     setSearchTerm?: func;
     trackAutocompleteClickThrough?: func;
