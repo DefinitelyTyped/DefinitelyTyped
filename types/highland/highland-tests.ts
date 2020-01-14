@@ -412,11 +412,17 @@ barStream = fooStream.through(readwritable);
 // $ExpectError
 fooStream.through((x: Highland.Stream<Bar>) => bar);
 
-fooStream = fooStream.zip(fooStream);
-fooStream = fooStream.zip([foo, foo]);
+// $ExpectType Stream<[Foo, Foo]>
+fooStream.zip(fooStream);
+
+// $ExpectType Stream<[Foo, Bar]>
+fooStream.zip(barStream);
 
 fooArrStream = fooStream.zipAll([[foo, foo], [foo, foo]]);
 fooArrStream = fooStream.zipAll(_([[foo, foo], [foo, foo]]));
+
+// $ExpectType Stream<(Foo | Bar)[]>
+fooStream.zipAll(barStreamStream);
 
 // $ExpectType Stream<Foo[]>
 fooStreamStream.zipAll0();
