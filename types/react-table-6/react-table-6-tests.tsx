@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 // Import React Table
-import ReactTable, { Column, FinalState, Instance } from "react-table";
+import ReactTable, { Column, FinalState, Instance } from "react-table-6";
 
 interface Data {
   firstName: string;

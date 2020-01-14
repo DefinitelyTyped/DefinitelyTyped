@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import ReactTable, { Column } from 'react-table';
+import ReactTable, { Column } from 'react-table-6';
 import selectTableHOC, {
     SelectTableAdditionalProps,
     SelectInputComponentProps,
     SelectAllInputComponentProps
-} from 'react-table/lib/hoc/selectTable';
+} from 'react-table-6/lib/hoc/selectTable';
 
 const SelectTable = selectTableHOC(ReactTable);
 

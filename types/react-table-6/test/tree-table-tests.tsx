@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import ReactTable, { Column } from 'react-table';
-import treeTableHOC from 'react-table/lib/hoc/treeTable';
+import ReactTable, { Column } from 'react-table-6';
+import treeTableHOC from 'react-table-6/lib/hoc/treeTable';
 
 const TreeTable = treeTableHOC(ReactTable);
 

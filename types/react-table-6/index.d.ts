@@ -1,5 +1,5 @@
-// Type definitions for react-table 6.11.0
-// Project: https://github.com/tannerlinsley/react-table/tree/v6
+// Type definitions for react-table-6 6.11.0
+// Project: https://github.com/tannerlinsley/react-table-6/tree/v6
 // Definitions by: Roy Xue <https://github.com/royxue>,
 //                 Pavel Sakalo <https://github.com/psakalo>,
 //                 Krzysztof Porębski <https://github.com/Havret>,
