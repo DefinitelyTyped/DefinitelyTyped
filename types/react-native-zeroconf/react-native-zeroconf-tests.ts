@@ -11,6 +11,8 @@ zeroconf.on('remove', (name: string) => console.log(`[Remove] '${name}'`));
 zeroconf.on('update', () => console.log('[Update]'));
 zeroconf.on('error', (error: Error) => console.log(`[Error] ${error}`));
 
+zeroconf.publishService('http', 'tcp', 'local.', 'test-device', 3000);
+
 zeroconf.scan('http', 'tcp', 'local.');
 const services = zeroconf.getServices();
 for (const serviceName in services) {

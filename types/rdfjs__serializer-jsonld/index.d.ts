@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
-import { Sink, Stream } from 'rdf-js';
+import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
 
 declare namespace Serializer {
     interface SerializerOptions {
@@ -12,10 +12,10 @@ declare namespace Serializer {
     }
 }
 
-declare class Serializer implements Sink {
+declare class Serializer<Q extends BaseQuad = Quad> implements Sink<Q> {
     constructor(options?: Serializer.SerializerOptions);
 
-    import(stream: Stream, options?: Serializer.SerializerOptions): EventEmitter;
+    import(stream: Stream<Q>, options?: Serializer.SerializerOptions): EventEmitter;
 }
 
 export = Serializer;

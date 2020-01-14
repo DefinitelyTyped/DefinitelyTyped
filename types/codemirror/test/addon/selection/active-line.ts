@@ -1,5 +1,6 @@
-/// <reference types="../../../../codemirror/addon/selection/active-line" />
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/selection/active-line";
 
-var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
+const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
     styleActiveLine: true
 });

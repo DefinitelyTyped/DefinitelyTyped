@@ -743,7 +743,7 @@ declare namespace braintree {
         options?: {
             failOnDuplicatePaymentMethod?: boolean;
             makeDefault?: boolean;
-            verificationAcmount?: string;
+            verificationAmount?: string;
             verificationMerchantAccountId?: string;
             verifyCard?: boolean;
         };

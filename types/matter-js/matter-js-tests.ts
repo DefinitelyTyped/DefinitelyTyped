@@ -46,6 +46,17 @@ Body.setCentre(circle1, Matter.Vector.create(10, 10), true);
 World.addBody(engine.world, box1);
 World.add(engine.world, [box2, circle1]);
 
+// Body - collision filter
+var box3 = Bodies.rectangle(400,200,80,80, {
+	collisionFilter: {
+		category: 1 // Allows only one option to be defined
+	}
+});
+
+var box4 = Bodies.rectangle(400,200,80,80, {
+	collisionFilter: {} // Or none
+});
+
 
 //Composites
 var stack = Composites.stack(0, 100, 5, 1, 20, 0, function(x:number, y:number, column:number, row:number) {

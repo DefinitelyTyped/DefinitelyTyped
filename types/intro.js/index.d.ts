@@ -4,20 +4,32 @@
 //                 Leon Montealegre <https://github.com/LeonMontealegre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace IntroJs {
+declare function introJs(): introJs.IntroJs;
+declare function introJs(element: HTMLElement): introJs.IntroJs;
+declare function introJs(querySelector: string): introJs.IntroJs;
+
+declare namespace introJs {
     interface Step {
         intro: string;
-        element?: string|HTMLElement|Element;
-        position?: "top"|"left"|"right"|"bottom"|"bottom-left-aligned"|"bottom-middle-aligned"|"bottom-right-aligned"|"auto";
+        element?: string | HTMLElement | Element;
+        position?:
+            | 'top'
+            | 'left'
+            | 'right'
+            | 'bottom'
+            | 'bottom-left-aligned'
+            | 'bottom-middle-aligned'
+            | 'bottom-right-aligned'
+            | 'auto';
         tooltipClass?: string;
         highlightClass?: string;
-        scrollTo?: "off"|"tooltip"|"element";
+        scrollTo?: 'off' | 'tooltip' | 'element';
         disableInteraction?: boolean;
     }
 
     interface Hint {
         hint: string;
-        element?: string|HTMLElement|Element;
+        element?: string | HTMLElement | Element;
         hintPosition?: string;
     }
 
@@ -49,20 +61,19 @@ declare namespace IntroJs {
         steps?: Step[];
         hints?: Hint[];
     }
-
     interface IntroJs {
         start(): IntroJs;
         exit(): IntroJs;
         clone(): IntroJs;
 
-        goToStepNumber(stepId: number): IntroJs
+        goToStepNumber(stepId: number): IntroJs;
         goToStep(step: number): IntroJs;
         nextStep(): IntroJs;
         previousStep(): IntroJs;
 
         refresh(): IntroJs;
 
-        setOption(option: string, value: string|number|boolean): IntroJs;
+        setOption(option: string, value: string | number | boolean): IntroJs;
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
@@ -83,15 +94,7 @@ declare namespace IntroJs {
         onhintclick(callback: (hintElement: HTMLElement, item: Step, stepId: number) => any): IntroJs;
         onhintclose(callback: (stepId: number) => any): IntroJs;
     }
-
-    interface Factory {
-        (): IntroJs;
-        (element: HTMLElement): IntroJs;
-        (querySelector: string): IntroJs;
-    }
 }
 
-declare var introJs: IntroJs.Factory;
-declare module 'intro.js' {
-    export = introJs;
-}
+export = introJs;
+export as namespace introJs;

@@ -29,5 +29,6 @@ run(
         summary.run; // $ExpectType NewmanRun
         summary.run.executions; // $ExpectType NewmanRunExecution[]
         summary.run.failures; // $ExpectType NewmanRunFailure[]
+        summary.run.failures[0].source; // $ExpectType NewmanRunExecutionItem | undefined
     }
 );

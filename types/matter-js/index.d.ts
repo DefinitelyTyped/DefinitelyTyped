@@ -3096,9 +3096,9 @@ declare namespace Matter {
     }
 
     export interface ICollisionFilter {
-        category: number;
-        mask: number;
-        group: number;
+        category?: number;
+        mask?: number;
+        group?: number;
     }
 
     export interface IMousePoint {

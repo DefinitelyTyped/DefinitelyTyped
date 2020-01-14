@@ -1935,6 +1935,13 @@ declare module "fs" {
 
     interface OpenDirOptions {
         encoding?: BufferEncoding;
+        /**
+         * Number of directory entries that are buffered
+         * internally when reading from the directory. Higher values lead to better
+         * performance but higher memory usage.
+         * @default 32
+         */
+        bufferSize?: number;
     }
 
     function opendirSync(path: string, options?: OpenDirOptions): Dir;

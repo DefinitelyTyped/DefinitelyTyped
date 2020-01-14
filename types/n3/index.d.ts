@@ -18,7 +18,7 @@ export interface Prefixes<I = RDF.NamedNode> {
 }
 
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
-export type PrefixedToIri = (suffix: string) => RDF.NamedNode;
+export type PrefixedToIri = (suffix: string) => NamedNode;
 
 export class NamedNode implements RDF.NamedNode {
     readonly termType: "NamedNode";
@@ -129,7 +129,6 @@ export interface BlankTriple<Q extends RDF.BaseQuad = RDF.Quad> {
 
 export interface ParserConstructor {
     new<Q extends BaseQuad = Quad> (options?: ParserOptions): N3Parser<Q>;
-    <Q extends BaseQuad = Quad>(options?: ParserOptions): N3Parser<Q>;
 }
 export const Parser: ParserConstructor;
 
@@ -149,7 +148,6 @@ export interface N3Parser<Q extends BaseQuad = Quad> {
 
 export interface StreamParserConstructor {
   new<Q extends BaseQuad = Quad> (options?: ParserOptions): N3StreamParser<Q>;
-  <Q extends BaseQuad = Quad>(options?: ParserOptions): N3StreamParser<Q>;
 }
 export const StreamParser: StreamParserConstructor;
 
@@ -178,8 +176,6 @@ export interface WriterOptions {
 export interface WriterConstructor {
     new<Q extends RDF.BaseQuad = RDF.Quad> (options?: WriterOptions): N3Writer<Q>;
     new<Q extends RDF.BaseQuad = RDF.Quad> (fd: any, options?: WriterOptions): N3Writer<Q>;
-    <Q extends RDF.BaseQuad = RDF.Quad>(options?: WriterOptions): N3Writer<Q>;
-    <Q extends RDF.BaseQuad = RDF.Quad>(fd: any, options?: WriterOptions): N3Writer<Q>;
 }
 export const Writer: WriterConstructor;
 
@@ -200,8 +196,6 @@ export interface N3Writer<Q extends RDF.BaseQuad = RDF.Quad> {
 export interface StreamWriterConstructor {
   new<Q extends RDF.BaseQuad = RDF.Quad> (options?: WriterOptions): N3StreamWriter<Q>;
   new<Q extends RDF.BaseQuad = RDF.Quad> (fd: any, options?: WriterOptions): N3StreamWriter<Q>;
-  <Q extends RDF.BaseQuad = RDF.Quad>(options?: WriterOptions): N3StreamWriter<Q>;
-  <Q extends RDF.BaseQuad = RDF.Quad>(fd: any, options?: WriterOptions): N3StreamWriter<Q>;
 }
 export const StreamWriter: StreamWriterConstructor;
 
@@ -232,7 +226,6 @@ export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends Bas
 }
 export interface StoreConstructor {
   new<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> (triples?: Q_RDF[], options?: StoreOptions): N3Store<Q_RDF, Q_N3>;
-  <Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad>(triples?: Q_RDF[], options?: StoreOptions): N3Store<Q_RDF, Q_N3>;
 }
 export const Store: StoreConstructor;
 

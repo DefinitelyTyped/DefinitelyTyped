@@ -37,9 +37,9 @@ export function requiredIf(field: string | ((vm: any, parentVm?: Vue) => any)): 
 export function requiredUnless(field: string | ((vm: any, parentVm?: Vue) => any)): ValidationRule
 export function minLength(length: number): ValidationRule
 export function maxLength(length: number): ValidationRule
-export function minValue(min: number): ValidationRule
-export function maxValue(max: number): ValidationRule
-export function between(min: number, max: number): ValidationRule
+export function minValue(min: number | Date): ValidationRule
+export function maxValue(max: number | Date): ValidationRule
+export function between(min: number | Date, max: number | Date): ValidationRule
 export function alpha(): ValidationRule
 export function alphaNum(): ValidationRule
 export function numeric(): ValidationRule

@@ -4,6 +4,7 @@
 //                 Steve Kellock <https://github.com/skellock>
 //                 Max Brauer <https://github.com/mamachanko>
 //                 Nathan Rajlich <https://github.com/TooTallNate>
+//                 Daniel Berlanga <https://github.com/danikaze>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -946,7 +947,7 @@ export namespace Widgets {
          * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
          * for creating a key that will always exit no matter whether the keys are locked.
          */
-        ignoreLocked?: boolean;
+        ignoreLocked?: string[];
 
         /**
          * Automatically "dock" borders with other elements instead of overlapping, depending on position

@@ -1,4 +1,5 @@
 import { Chance } from 'chance';
+
 // Instantiation
 const chance = new Chance();
 const createYourOwn = new Chance(Math.random);
@@ -18,7 +19,12 @@ const strArr: string[] = chance.n(chance.string, 42);
 const strArr2: string[] = chance.n((a) => a.value, 42, { value: 'test' });
 
 const uniqInts: number[] = chance.unique(chance.integer, 99);
-const uniqInts2: number[] = chance.unique(a => a.value, 99, { value: 1 });
+const uniqInts2: number[] = chance.unique(a => chance.integer({ min: 0, max: 999 }) + a.value, 99, { value: 1000 });
+
+interface currencyType { name: string; code: string; }
+
+const currencyComparator = (arr: currencyType[], value: currencyType): boolean => arr.findIndex(x => x.code === value.code && x.name === value.name) > -1;
+const uniqCurrencies: currencyType[] = chance.unique(chance.currency, 2, { comparator: currencyComparator });
 
 const currencyPair = chance.currency_pair();
 const firstCurrency = currencyPair[0];
@@ -101,7 +107,8 @@ const languages: string[] = chance.locales();
 const regions: string[] = chance.locales({region: true});
 
 let word: string = chance.word();
-word = chance.word({syllables: 10, length: 10, capitalize: true});
+word = chance.word({syllables: 10, capitalize: true});
+word = chance.word({length: 10, capitalize: true});
 word = chance.word({syllables: 10});
 word = chance.word({length: 10});
 word = chance.word({capitalize: true});
@@ -112,14 +119,14 @@ randomString = chance.string({ length: 10 });
 randomString = chance.string({ casing: 'upper' });
 randomString = chance.string({ alpha: true });
 randomString = chance.string({ numeric: true });
-randomString = chance.string({ symbols: '!@#$' });
+randomString = chance.string({ symbols: true });
 randomString = chance.string({
     pool: 'abcdef',
     length: 10,
     casing: 'lower',
     alpha: true,
     numeric: true,
-    symbols: ')(*&',
+    symbols: true,
 });
 
 let char: string = chance.character();
@@ -127,8 +134,8 @@ char = chance.character({ pool: 'abcdef' });
 char = chance.character({ casing: 'upper' });
 char = chance.character({ alpha: true });
 char = chance.character({ numeric: true });
-char = chance.character({ symbols: '!@#$' });
-char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: ')(*&' });
+char = chance.character({ symbols: true });
+char = chance.character({ pool: 'abcdef', casing: 'lower', alpha: true, numeric: true, symbols: true });
 
 let url: string = chance.url();
 url = chance.url({protocol: 'http'});

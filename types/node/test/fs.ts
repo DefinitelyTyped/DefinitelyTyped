@@ -326,5 +326,6 @@ async function testPromisify() {
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
+        bufferSize: 42,
     });
 }

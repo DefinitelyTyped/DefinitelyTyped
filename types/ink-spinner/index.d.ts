@@ -1,12 +1,12 @@
 // Type definitions for ink-spinner 2.0
 // Project: https://github.com/vadimdemedes/ink-spinner#readme
-// Definitions by: Łukasz Ostrowski <https://github.com/lukostry>
+// Definitions by: Łukasz Ostrowski <https://github.com/lukostry>, Justin Anastos <https://github.com/justinanastos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { Chalk } from 'chalk';
 import * as cliSpinners from 'cli-spinners';
-import { Component } from 'ink';
+import { Component } from 'react';
 
 type StringifyPartial<T> = {
     [P in keyof T]?: string;
@@ -34,6 +34,6 @@ type ChalkProps = BooleansPartial<ChalkCommons>
     & StringifyPartial<ChalkKeywordsAndHexes>
     & TupleOfNumbersPartial<ChalkColorModels>;
 
-declare class Spinner extends Component<SpinnerProps & ChalkProps> { }
+declare class Spinner extends Component<SpinnerProps & ChalkProps> {}
 
 export = Spinner;
