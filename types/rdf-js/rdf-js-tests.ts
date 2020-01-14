@@ -109,13 +109,13 @@ function test_stream() {
     const matchStream8: Stream = source.match(term, term, term, term);
     const matchStream9: Stream = source.match(term, term, term, /.*/);
 
-    const sink: Sink = <any> {};
+    const sink: Sink<Stream, EventEmitter> = <any> {};
     const graph: Quad_Graph = <any> {};
     const eventEmitter1: EventEmitter = sink.import(stream);
 
     const store: Store = <any> {};
     const storeSource: Source = store;
-    const storeSink: Sink = store;
+    const storeSink: Sink<Stream, EventEmitter> = store;
     const eventEmitter2: EventEmitter = store.remove(stream);
     const eventEmitter3: EventEmitter = store.removeMatches();
     const eventEmitter4: EventEmitter = store.removeMatches(term);

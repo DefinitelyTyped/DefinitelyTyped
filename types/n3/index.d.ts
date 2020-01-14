@@ -151,7 +151,7 @@ export interface StreamParserConstructor {
 }
 export const StreamParser: StreamParserConstructor;
 
-export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>, NodeJS.WritableStream, RDF.Sink<Q> {
+export interface N3StreamParser<Q extends BaseQuad = Quad> extends RDF.Stream<Q>, NodeJS.WritableStream, RDF.Sink<EventEmitter, RDF.Stream<Q>> {
     // Below are the NodeJS.ReadableStream methods,
     // we can not extend the interface directly,
     // as `read` clashes with RDF.Sink.
@@ -199,7 +199,7 @@ export interface StreamWriterConstructor {
 }
 export const StreamWriter: StreamWriterConstructor;
 
-export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<Q> {}
+export interface N3StreamWriter<Q extends RDF.BaseQuad = Quad> extends NodeJS.ReadWriteStream, RDF.Sink<RDF.Stream<Q>, EventEmitter> {}
 
 export interface N3Store<Q_RDF extends RDF.BaseQuad = RDF.Quad, Q_N3 extends BaseQuad = Quad> extends RDF.Store<Q_RDF> {
     readonly size: number;
