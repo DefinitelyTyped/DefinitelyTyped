@@ -5,6 +5,8 @@
 
 /// <reference types="react" />
 
+export {};
+
 import { Component } from 'react';
 
 type func = (...args: any[]) => any;
@@ -303,25 +305,25 @@ export interface Context {
     resultsPerPage?: number;
     searchTerm?: string;
     sortDirection?: SortDirection;
-    sortField?: string
+    sortField?: string;
 
     // Response State
 
-    autocompletedResults: Result[], //	An array of results items fetched for an autocomplete dropdown.
-    autocompletedResultsRequestId: string, //	A unique ID for the current autocompleted search results.
-    autocompletedSuggestions:	{[key: string]: Suggestion[] }, //	A keyed object of query suggestions. It's keyed by type since multiple types of query suggestions can be set here.
-    autocompletedSuggestionsRequestId: string, //	A unique ID for the current autocompleted suggestion results.
-    facets?: Facet, // Will be populated if facets configured in Advanced Configuration.
-    requestId: string, // A unique ID for the current search results.
-    results: Result[], // An array of result items.
-    resultSearchTerm: string, // As opposed the the searchTerm state, which is tied to the current search parameter, this is tied to the searchTerm for the current results. There will be a period of time in between when a request is started and finishes where the two pieces of state will differ.
-    totalResults: number // Total number of results found for the current query.
+    autocompletedResults: Result[]; // An array of results items fetched for an autocomplete dropdown.
+    autocompletedResultsRequestId: string; // A unique ID for the current autocompleted search results.
+    autocompletedSuggestions: {[key: string]: Suggestion[] }; // A keyed object of query suggestions. It's keyed by type since multiple types of query suggestions can be set here.
+    autocompletedSuggestionsRequestId: string; // A unique ID for the current autocompleted suggestion results.
+    facets?: Facet; // Will be populated if facets configured in Advanced Configuration.
+    requestId: string; // A unique ID for the current search results.
+    results: Result[]; // An array of result items.
+    resultSearchTerm: string; // As opposed the the searchTerm state, which is tied to the current search parameter, this is tied to the searchTerm for the current results. There will be a period of time in between when a request is started and finishes where the two pieces of state will differ.
+    totalResults: number; // Total number of results found for the current query.
 
     // Application State
 
-    error?: string, // Error message, if an error was thrown.
-    isLoading: boolean, // Whether or not a search is currently being performed.
-    wasSearched: boolean, // Has any query been performed since this driver was created? Can be useful for displaying initial states in the UI.;
+    error?: string; // Error message, if an error was thrown.
+    isLoading: boolean; // Whether or not a search is currently being performed.
+    wasSearched: boolean; // Has any query been performed since this driver was created? Can be useful for displaying initial states in the UI.;
 }
 
 interface WithSearchProps {
