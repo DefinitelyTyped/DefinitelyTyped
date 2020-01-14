@@ -29,6 +29,7 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
+//                 Daiki Ihara <https://github.com/sasurau4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -5674,6 +5675,8 @@ export interface Dimensions {
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
     ): void;
 }
+
+export function useWindowDimensions(): ScaledSize;
 
 export type SimpleTask = {
     name: string;
