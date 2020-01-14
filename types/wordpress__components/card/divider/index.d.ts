@@ -1,4 +1,3 @@
-import { ComponentProps, ComponentType, ElementType } from '@wordpress/element';
 import { HorizontalRule } from '../../primitives';
 
 declare namespace CardDivider {

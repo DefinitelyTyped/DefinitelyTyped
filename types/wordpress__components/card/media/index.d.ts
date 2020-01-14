@@ -1,5 +1,3 @@
-import { ComponentType, ElementType } from '@wordpress/element';
-
 declare namespace CardMedia {
     type Props<T extends keyof JSX.IntrinsicElements> = {
         /**

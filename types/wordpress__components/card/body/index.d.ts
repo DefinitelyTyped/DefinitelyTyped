@@ -1,4 +1,3 @@
-import { ComponentProps, ComponentType, ElementType } from '@wordpress/element';
 import Card from '..';
 
 declare namespace CardBody {

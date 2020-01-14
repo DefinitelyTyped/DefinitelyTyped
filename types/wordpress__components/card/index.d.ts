@@ -1,5 +1,3 @@
-import { ComponentType, HTMLProps } from '@wordpress/element';
-
 declare namespace Card {
     type CardSize = 'large' | 'medium' | 'small' | 'extraSmall';
     type Props<T extends keyof JSX.IntrinsicElements> = {
