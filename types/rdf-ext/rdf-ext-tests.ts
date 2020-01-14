@@ -1,5 +1,7 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset } from 'rdf-js';
+import { Literal, Quad, Dataset, NamedNode } from 'rdf-js';
+import QuadExt = require('rdf-ext/lib/Quad');
+import DataFactoryExt = require('rdf-ext/lib/DataFactory');
 
 function NamedNode_toCanonical(): string {
     const iri = 'http://example.org';
@@ -147,6 +149,44 @@ function Quad_withBlankSubject(): Quad {
         rdf.literal('object')
     );
 }
+
+function static_Quad_fromBaseTerms(): Quad {
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+    const graph: NamedNode = <any> {};
+
+    return rdf.quad(subject, predicate, object, graph);
+}
+
+function static_Triple_fromBaseTerms(): Quad {
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+
+    return rdf.triple(subject, predicate, object);
+}
+
+// tslint:disable:use-default-type-parameter
+function instance_Quad_fromBaseTerms(): Quad {
+    const factory: DataFactoryExt = <any> {};
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+    const graph: NamedNode = <any> {};
+
+    return factory.quad<QuadExt>(subject, predicate, object, graph);
+}
+
+function instance_Triple_fromBaseTerms(): Quad {
+    const factory: DataFactoryExt = <any> {};
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+
+    return factory.triple<QuadExt>(subject, predicate, object);
+}
+// tslint:enable:use-default-type-parameter
 
 function Quad_toJSON(): boolean {
     const quad = rdf.quad(
