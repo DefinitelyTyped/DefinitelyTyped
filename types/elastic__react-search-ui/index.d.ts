@@ -3,8 +3,6 @@
 // Definitions by: Alex Atallah <https://github.com/alexanderatallah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-
 export {};
 
 import { Component } from 'react';
@@ -192,7 +190,7 @@ interface SearchBoxProps {
     titleField: string;
     urlField: string
     };
-    autocompleteSuggestions?: boolean | AutocompleteSection | {[key: string]: AutocompleteSection}
+    autocompleteSuggestions?: boolean | AutocompleteSection | {[key: string]: AutocompleteSection};
     autocompleteView?: renderFunc;
     className?: string;
     shouldClearFilters?: boolean;
@@ -316,7 +314,8 @@ export interface Context {
     facets?: Facet; // Will be populated if facets configured in Advanced Configuration.
     requestId: string; // A unique ID for the current search results.
     results: Result[]; // An array of result items.
-    resultSearchTerm: string; // As opposed the the searchTerm state, which is tied to the current search parameter, this is tied to the searchTerm for the current results. There will be a period of time in between when a request is started and finishes where the two pieces of state will differ.
+    // As opposed the the searchTerm state, which is tied to the current search parameter, this is tied to the searchTerm for the current results. There will be a period of time in between when a request is started and finishes where the two pieces of state will differ.
+    resultSearchTerm: string;
     totalResults: number; // Total number of results found for the current query.
 
     // Application State
