@@ -127,7 +127,6 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-	<R>(source: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(source: R[]): Highland.Stream<R>;
 	<R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 

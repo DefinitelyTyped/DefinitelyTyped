@@ -169,6 +169,9 @@ fooArrStream = _(fooArrThen);
 fooStream = _(fooIterable);
 fooStream = _(fooIterator);
 
+// $ExpectType Stream<Stream<Foo>>
+_([fooStream]);
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // STREAM OBJECTS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
