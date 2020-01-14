@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -57,6 +58,7 @@ declare namespace GoogleAppsScript {
       setAllowOverride(allowOverride: boolean): Checkbox;
       setHelpText(helpText: string): Checkbox;
       setId(id: string): Checkbox;
+      setIsDynamic(isDynamic: boolean): Checkbox;
       setName(name: string): Checkbox;
     }
     /**
@@ -85,6 +87,9 @@ declare namespace GoogleAppsScript {
       newAuthTypeResponse(): GetAuthTypeResponse;
       newBigQueryConfig(): BigQueryConfig;
       newDebugError(): DebugError;
+      newGetDataResponse(): GetDataResponse;
+      newGetSchemaResponse(): GetSchemaResponse;
+      newSetCredentialsResponse(): SetCredentialsResponse;
       newUserError(): UserError;
     }
     /**
@@ -109,6 +114,7 @@ declare namespace GoogleAppsScript {
       newTextInput(): TextInput;
       printJson(): string;
       setDateRangeRequired(dateRangeRequired: boolean): Config;
+      setIsSteppedConfig(isSteppedConfig: boolean): Config;
     }
     /**
      * DataStudioApp allows scripts to interact with developer-oriented features for Data Studio.
@@ -215,6 +221,61 @@ declare namespace GoogleAppsScript {
       setHelpUrl(helpUrl: string): GetAuthTypeResponse;
     }
     /**
+     * Builder to create a getData() response for your script project.
+     *
+     *     function getFields() {...}
+     *     function getData() {
+     *       var cc = DataStudioApp.createCommunityConnector();
+     *
+     *       return cc.newGetDataResponse()
+     *         .setFields(getFields())
+     *         .addRow(['3', 'Foobar.com'])
+     *         .addRow(['4', 'Foobaz.com'])
+     *         .addRows([
+     *           ['5', 'Fizzbuz.com'],
+     *           ['6', 'Fizzbaz.com']
+     *          ])
+     *         .build();
+     *     }
+     */
+    interface GetDataResponse {
+      addAllRows(rows: string[][]): GetDataResponse;
+      addRow(row: string[]): GetDataResponse;
+      build(): any;
+      setFields(fields: Fields): GetDataResponse;
+      setFiltersApplied(filtersApplied: boolean): GetDataResponse;
+    }
+    /**
+     * Builder to create a getSchema() response for your script project.
+     *
+     *     function getSchema() {
+     *       var cc = DataStudioApp.createCommunityConnector();
+     *       var fields = cc.getFields();
+     *       var types = cc.FieldType;
+     *
+     *       fields.newDimension()
+     *           .setId('Created')
+     *           .setName('Date Created')
+     *           .setDescription('The date that this was created')
+     *           .setType(types.YEAR_MONTH_DAY);
+     *
+     *       fields.newMetric()
+     *           .setId('Amount')
+     *           .setName('Amount (USD)')
+     *           .setDescription('The cost in US dollars')
+     *           .setType(types.CURRENCY_USD);
+     *
+     *       return cc.newGetSchemaResponse()
+     *           .setFields(fields)
+     *           .build();
+     *     }
+     */
+    interface GetSchemaResponse {
+      build(): any;
+      printJson(): string;
+      setFields(fields: Fields): GetSchemaResponse;
+    }
+    /**
      * Contains info data for the config. Its properties determine how the info is displayed in Data
      * Studio.
      *
@@ -281,6 +342,7 @@ declare namespace GoogleAppsScript {
       setAllowOverride(allowOverride: boolean): SelectMultiple;
       setHelpText(helpText: string): SelectMultiple;
       setId(id: string): SelectMultiple;
+      setIsDynamic(isDynamic: boolean): SelectMultiple;
       setName(name: string): SelectMultiple;
     }
     /**
@@ -308,7 +370,28 @@ declare namespace GoogleAppsScript {
       setAllowOverride(allowOverride: boolean): SelectSingle;
       setHelpText(helpText: string): SelectSingle;
       setId(id: string): SelectSingle;
+      setIsDynamic(isDynamic: boolean): SelectSingle;
       setName(name: string): SelectSingle;
+    }
+    /**
+     * Builder to create a setCredentials() response for your script project.
+     *
+     *     function setCredentials(request) {
+     *       var isValid = checkForValidCreds(request);
+     *
+     *       if (isValid) {
+     *         // store the creds somewhere.
+     *       }
+     *
+     *       return cc.newSetCredentialsResponse()
+     *         .setIsValid(isValid)
+     *         .build();
+     *     }
+     */
+    interface SetCredentialsResponse {
+      build(): any;
+      printJson(): string;
+      setIsValid(isValid: boolean): SetCredentialsResponse;
     }
     /**
      * Contains text area information for the config. Its properties determine how the text input is
@@ -330,6 +413,7 @@ declare namespace GoogleAppsScript {
       setAllowOverride(allowOverride: boolean): TextArea;
       setHelpText(helpText: string): TextArea;
       setId(id: string): TextArea;
+      setIsDynamic(isDynamic: boolean): TextArea;
       setName(name: string): TextArea;
       setPlaceholder(placeholder: string): TextArea;
     }
@@ -351,6 +435,7 @@ declare namespace GoogleAppsScript {
       setAllowOverride(allowOverride: boolean): TextInput;
       setHelpText(helpText: string): TextInput;
       setId(id: string): TextInput;
+      setIsDynamic(isDynamic: boolean): TextInput;
       setName(name: string): TextInput;
       setPlaceholder(placeholder: string): TextInput;
     }
@@ -370,7 +455,6 @@ declare namespace GoogleAppsScript {
       setText(text: string): UserError;
       throwException(): void;
     }
-
     /**
      * function getData(request: GoogleAppsScript.Data_Studio.Request<YourConnectorParams>)
      *
@@ -395,24 +479,20 @@ declare namespace GoogleAppsScript {
        */
       dimensionsFilters: DimensionsFilters[][];
     }
-
     interface DateRange {
       /** The start date for filtering the data. Applies only if dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
       startDate: string;
       /** The end date for filtering the data. Applies only dateRangeRequired is set to true. It will be in YYYY-MM-DD format. */
       endDate: string;
     }
-
     interface ScriptParams {
       /** If true, the getData() request is for automatic semantic type detection. */
       sampleExtraction?: boolean;
       /** A timestamp that marks the most recent request for a refresh of data. */
       lastRefresh: string;
     }
-
     type RegexpOperator = "REGEXP_PARTIAL_MATCH" | "REGEXP_EXACT_MATCH";
     type NumericOperator = "NUMERIC_GREATER_THAN" | "NUMERIC_GREATER_THAN_OR_EQUAL" | "NUMERIC_LESS_THAN" | "NUMERIC_LESS_THAN_OR_EQUAL";
-
     interface DimensionsFilters {
       /** The name of the field to be filtered */
       fieldName: string;

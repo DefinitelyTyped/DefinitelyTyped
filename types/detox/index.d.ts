@@ -11,7 +11,7 @@ declare global {
     const detox: Detox.Detox;
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
-    const expect: Detox.Expect<Detox.Expect<any>>;
+    const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
 
     namespace Detox {
@@ -51,7 +51,7 @@ declare global {
             device: Device;
             element: Element;
             waitFor: WaitFor;
-            expect: Expect<Expect<any>>;
+            expect: Expect<Expect<Promise<void>>>;
             by: Matchers;
         }
 
@@ -288,7 +288,7 @@ declare global {
             and(by: Matchers): Matchers;
         }
         interface Expect<R> {
-            (element: Element): Expect<any>;
+            (element: Element): Expect<Promise<void>>;
             /**
              * Expect the view to be at least 75% visible.
              * @example await expect(element(by.id('UniqueId204'))).toBeVisible();

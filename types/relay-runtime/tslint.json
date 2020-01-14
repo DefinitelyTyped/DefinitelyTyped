@@ -2,6 +2,8 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // We have some internal types that are helpfully tagged with @private
-        "no-redundant-jsdoc-2": false
+        "no-redundant-jsdoc-2": false,
+        "no-unnecessary-generics": false,
+        "strict-export-declare-modifiers": false
     }
 }

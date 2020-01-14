@@ -1,4 +1,4 @@
-// Type definitions for koa-router v7.x
+// Type definitions for koa-router 7.4
 // Project: https://github.com/alexmingoia/koa-router#readme
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 //                 Pavel Ivanov <https://github.com/schfkt>

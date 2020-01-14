@@ -336,6 +336,9 @@ videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
 });
 
 const eventHandler = () => { };
+const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
+const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
+const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
 const domEvent: Event = {} as Event;
 L.DomEvent
 	.on(htmlElement, 'click', eventHandler)
@@ -346,10 +349,16 @@ L.DomEvent
 	.addListener(htmlElement, { click: eventHandler })
 	.off(htmlElement, { click: eventHandler }, eventHandler)
 	.removeListener(htmlElement, { click: eventHandler }, eventHandler)
+	.stopPropagation(leafletMouseEvent)
+	.stopPropagation(leafletKeyboardEvent)
+	.stopPropagation(leafletEvent)
 	.stopPropagation(domEvent)
 	.disableScrollPropagation(htmlElement)
 	.disableClickPropagation(htmlElement)
 	.preventDefault(domEvent)
+	.stop(leafletMouseEvent)
+	.stop(leafletKeyboardEvent)
+	.stop(leafletEvent)
 	.stop(domEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent);
 point = L.DomEvent.getMousePosition(domEvent as MouseEvent, htmlElement);
@@ -592,6 +601,7 @@ const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
+polyline.addLatLng([45.51, -122.68]);
 const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 
 // multi polyline
@@ -602,6 +612,8 @@ const multiPolylineLatLngs: L.LatLngExpression[][] = [
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
 polyline.setLatLngs(multiPolylineLatLngs);
+const segment = polyline.getLatLngs() as L.LatLng[][];
+polyline.addLatLng([40.78, -73.91], segment[1]);
 const multiPolylineLatLngs2: L.LatLng[][] = polyline.getLatLngs() as L.LatLng[][];
 
 const obj1 = {

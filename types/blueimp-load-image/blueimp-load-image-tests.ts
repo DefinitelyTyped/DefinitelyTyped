@@ -22,7 +22,7 @@ const b64DataJPEG =
   '2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A/v4ooooA/9k=';
 const imageUrlJPEG = 'data:image/jpeg;base64,' + b64DataJPEG;
 
-loadImage(imageUrlJPEG, (image: HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
+loadImage(imageUrlJPEG, (image: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData): void => {
   const canvas = image as HTMLCanvasElement;
   console.log(data);
   canvas.toBlob((blob: Blob | null): void => {

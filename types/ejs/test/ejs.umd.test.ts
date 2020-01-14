@@ -1,3 +1,5 @@
+/// <reference types="ejs"/>
+
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
  * except instead of returning `void`, it returns `T`.

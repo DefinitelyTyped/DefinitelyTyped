@@ -16,7 +16,7 @@ const mockContext = {
     functionName: 'testFunction',
     functionVersion: '1',
     invokedFunctionArn: 'arn',
-    memoryLimitInMB: 128,
+    memoryLimitInMB: '128',
     awsRequestId: 'id',
     logGroupName: 'group',
     logStreamName: 'stream',

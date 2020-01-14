@@ -27,7 +27,7 @@ interface Cheerio {
     // Attributes
 
     attr(): { [attr: string]: string };
-    attr(name: string): string;
+    attr(name: string): string | undefined;
     attr(name: string, value: AttrFunction): Cheerio;
     // `value` *can* be `any` here but:
     // 1. That makes type-checking the function-type useless

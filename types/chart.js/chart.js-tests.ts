@@ -68,6 +68,7 @@ const chart: Chart = new Chart(ctx, {
                 {
                     ticks: {
                         callback: Math.floor,
+                        sampleSize: 10,
                     },
                     gridLines: {
                         display: false,
@@ -162,7 +163,8 @@ const scaleOptions: Chart.RadialLinearScale = {
         zeroLineColor: 'rgba(0, 0, 0, 0.25)',
         zeroLineBorderDash: [],
         zeroLineBorderDashOffset: 0.0,
-        offsetGridLines: false
+        offsetGridLines: false,
+        z: 9
     }
 };
 const radarChartOptions: Chart.RadialChartOptions = {
@@ -265,7 +267,8 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 distribution: 'series',
                 ticks: {
                     source: 'data',
-                    autoSkip: true
+                    autoSkip: true,
+                    sampleSize: 1,
                 }
             }],
             yAxes: [{

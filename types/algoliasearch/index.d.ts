@@ -999,7 +999,7 @@ declare namespace algoliasearch {
   }
   /**
    * Describes the options used when generating new api keys
-   * 
+   *
    * @see https://www.algolia.com/doc/api-reference/api-methods/generate-secured-api-key/
    */
   interface SecuredApiOptions extends QueryParameters {
@@ -1309,11 +1309,16 @@ declare namespace algoliasearch {
 
     nbShards?: number;
     userData?: string | object;
+    /**
+     * Associates a certain user token with the current search
+     * https://www.algolia.com/doc/api-reference/api-parameters/userToken/
+     */
+    userToken?: string;
 
     sortFacetValuesBy?: 'count' | 'alpha';
 
     ruleContexts?: string[];
-    
+
     /**
      * allow the usage of an AB-test. This parameter is only allowed for queries, not for settings.
      * default: true
@@ -1411,6 +1416,7 @@ declare namespace algoliasearch {
       | 'logs'
       | 'seeUnretrievableAttributes')[];
     validity: number;
+    indexes?: string[];
     description?: string;
   }
 

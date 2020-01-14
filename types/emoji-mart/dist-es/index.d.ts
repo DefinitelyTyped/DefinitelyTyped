@@ -25,6 +25,8 @@ export {
     default as NimbleEmojiIndex,
 } from './utils/emoji-index/nimble-emoji-index';
 
+export { getEmojiDataFromNative } from './utils/index';
+
 export {
     Picker,
     NimblePicker,

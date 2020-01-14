@@ -281,6 +281,36 @@ declare namespace TelegramBot {
     }
 
     /// TELEGRAM TYPES ///
+    interface PassportFile {
+        file_id: string;
+        file_size: number;
+        file_date: number;
+    }
+
+    interface EncryptedPassportElement {
+        type: string;
+        data?: string;
+        phone_number?: string;
+        email?: string;
+        files?: PassportFile[];
+        front_side?: PassportFile;
+        reverse_side?: PassportFile;
+        selfie?: PassportFile;
+        translation?: PassportFile[];
+        hash: string;
+    }
+
+    interface EncryptedCredentials {
+        data: string;
+        hash: string;
+        secret: string;
+    }
+
+    interface PassportData {
+        data: EncryptedPassportElement[];
+        credentials: EncryptedCredentials;
+    }
+
     interface Update {
         update_id: number;
         message?: Message;
@@ -379,6 +409,7 @@ declare namespace TelegramBot {
         invoice?: Invoice;
         successful_payment?: SuccessfulPayment;
         connected_website?: string;
+        passport_data?: PassportData;
         reply_markup?: InlineKeyboardMarkup;
     }
 
@@ -1109,7 +1140,7 @@ declare class TelegramBot extends EventEmitter {
     deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<boolean>;
 
     sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string,
-                prices: ReadonlyArray<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message>;
+        prices: ReadonlyArray<TelegramBot.LabeledPrice>, options?: TelegramBot.SendInvoiceOptions): Promise<TelegramBot.Message>;
 
     answerShippingQuery(shippingQueryId: string, ok: boolean, options?: TelegramBot.AnswerShippingQueryOptions): Promise<boolean>;
 

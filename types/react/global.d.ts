@@ -146,3 +146,4 @@ interface SVGViewElement extends SVGElement { }
 interface Text { }
 interface TouchList { }
 interface WebGLRenderingContext { }
+interface WebGL2RenderingContext { }

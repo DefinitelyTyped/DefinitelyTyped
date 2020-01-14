@@ -1,6 +1,8 @@
 import * as React from "react";
 
 export interface TimeBaseProps {
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     /* Set to **true** to use the 12-hour clock (hours ranging from 01 to 12) and to display a meridiem control. */
     format12Hours?: boolean;
     /* Enables the input for hours. */
@@ -59,6 +61,8 @@ export type TimeProps = TimeBaseProps & {
     }) => void;
 } & { [x: string]: any };
 
-declare class Time extends React.Component<TimeProps> {}
+declare class Time extends React.Component<TimeProps> {
+    static displayName: "Time";
+}
 
 export default Time;

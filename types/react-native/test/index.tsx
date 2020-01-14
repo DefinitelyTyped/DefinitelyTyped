@@ -21,6 +21,7 @@ import {
     CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
+    DeviceEventEmitter,
     DeviceEventEmitterStatic,
     Dimensions,
     Image,
@@ -88,6 +89,7 @@ import {
     ProgressBarAndroid,
     PushNotificationIOS,
     AccessibilityInfo,
+    YellowBox,
 } from "react-native";
 
 declare module "react-native" {
@@ -186,6 +188,11 @@ const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
+// correct use of the StyleSheet.flatten
+const styleArray: StyleProp<ViewStyle>[] = [];
+const flattenStyle = StyleSheet.flatten(styleArray);
+const { top } = flattenStyle;
+
 const s = StyleSheet.create({
     shouldWork: {
         fontWeight: "900", // if we comment this line, errors gone
@@ -193,6 +200,62 @@ const s = StyleSheet.create({
     },
 });
 const f1: TextStyle = s.shouldWork;
+
+// StyleSheet.compose
+// It creates a new style object by composing two existing styles
+const composeTextStyle: StyleProp<TextStyle> = {
+    color: '#000000',
+    fontSize: 20,
+};
+
+const composeImageStyle: StyleProp<ImageStyle> = {
+    resizeMode: 'contain',
+};
+
+// The following use of the compose method is valid
+const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    composeTextStyle,
+);
+
+const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(
+    composeImageStyle,
+    composeImageStyle,
+);
+
+const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
+
+const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    null,
+);
+
+const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
+
+const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    Math.random() < 0.5 ? composeTextStyle : null,
+);
+
+const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(
+    null,
+    null,
+);
+
+// The following use of the compose method is invalid:
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -368,10 +431,15 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 }
 
 export class SectionListTest extends React.Component<SectionListProps<string>, {}> {
-    myList: SectionList<any>;
+    myList: React.RefObject<SectionList<string>>;
+
+    constructor(props: SectionListProps<string>) {
+        super(props);
+        this.myList = React.createRef();
+    }
 
     scrollMe = () => {
-        this.myList.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
     };
 
     render() {
@@ -396,7 +464,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
                 <Button title="Press" onPress={this.scrollMe} />
 
                 <SectionList
-                    ref={(ref: any) => (this.myList = ref)}
+                    ref={this.myList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
                         <View>
@@ -594,7 +662,7 @@ const dataSourceAssetCallback1: DataSourceAssetCallback = {
 const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 
 // DeviceEventEmitterStatic
-const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
+const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
@@ -659,7 +727,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
     render() {
         return (
             <View>
-                <Text onPress={() => this.username.focus()}>Username</Text>
+                <Text onPress={() => this.username && this.username.focus()}>Username</Text>
 
                 <TextInput
                     ref={input => (this.username = input)}
@@ -709,7 +777,7 @@ export class ImageTest extends React.Component {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
-        Image.queryCache([uri]).then(({ [uri]: status }) => {
+        Image.queryCache && Image.queryCache([uri]).then(({ [uri]: status }) => {
             if (status === undefined) {
                 console.log("Image is not in cache");
             } else {
@@ -918,6 +986,11 @@ const PlatformTest = () => {
     }
 };
 
+Platform.select({ android: 1 }); // $ExpectType number | undefined
+Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
+
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {
     <ProgressBarAndroid
@@ -951,3 +1024,6 @@ const PushNotificationTest = () => {
         },
     });
 }
+
+// YellowBox
+const YellowBoxTest = () => <YellowBox />;

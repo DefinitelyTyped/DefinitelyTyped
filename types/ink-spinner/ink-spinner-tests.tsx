@@ -1,5 +1,4 @@
-/** @jsx h */
-import { h } from 'ink';
+import React from 'react';
 import Spinner from 'ink-spinner';
 // NOTE: `import Spinner = require('ink-spinner');` will work as well.
 // If importing using ES6 default import as above,

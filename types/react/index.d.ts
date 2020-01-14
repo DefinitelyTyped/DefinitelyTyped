@@ -21,6 +21,7 @@
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Cong Zhang <https://github.com/dancerphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -822,13 +823,19 @@ declare namespace React {
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
     type Dispatch<A> = (value: A) => void;
+    // Since action _can_ be undefined, dispatch may be called without any parameters.
+    type DispatchWithoutAction = () => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
+    // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
+    type ReducerWithoutAction<S> = (prevState: S) => S;
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
+        R extends ReducerWithoutAction<infer S> ? S : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
     type DependencyList = ReadonlyArray<any>;
 
@@ -864,6 +871,38 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
     function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>, I>(
+        reducer: R,
+        initializerArg: I,
+        initializer: (arg: I) => ReducerStateWithoutAction<R>
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    // overload where dispatch could accept 0 arguments.
+    function useReducer<R extends ReducerWithoutAction<any>>(
+        reducer: R,
+        initializerArg: ReducerStateWithoutAction<R>,
+        initializer?: undefined
+    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
     /**
      * An alternative to `useState`.
      *
@@ -2259,6 +2298,7 @@ declare namespace React {
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
+        crossOrigin?: "anonymous" | "use-credentials" | "";
 
         // SVG Specific attributes
         accentHeight?: number | string;

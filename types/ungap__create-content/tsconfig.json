@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": [
+			"es5",
+			"dom"
+		],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"test/create-content.cjs.test.ts",
+		"test/create-content.umd.test.ts",
+		"index.d.ts"
+	]
+}

@@ -164,10 +164,10 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 });
 
 dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile, response: object) => console.log(file, response),
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
 });
 dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile, response: string) => console.log(file, response),
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
 });
 
 const dropzone = new Dropzone('.test');

@@ -58,6 +58,7 @@ import {
     SystemProps,
     TypographyProps,
     XGridProps,
+    rpxTransformers,
 } from '@xstyled/system';
 
 // Getters
@@ -662,3 +663,10 @@ up('md', 'color: red')({});
 down('md', 'color: red')({});
 
 between('md', 'lg', 'color: red')({});
+
+// RPX Transformers
+
+rpxTransformers.px(16).toString();
+rpxTransformers.px('16rpx').toString();
+rpxTransformers.border(10).toString();
+rpxTransformers.border('10px solid').toString();

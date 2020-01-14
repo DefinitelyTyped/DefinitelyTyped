@@ -14,7 +14,7 @@ class ExampleOfUsingReactModal extends React.Component {
     const onAfterOpenFn = () => { };
     const onAfterCloseFn = () => { };
     const onRequestCloseFn = (event: React.MouseEvent | React.KeyboardEvent) => { };
-    const customStyle = {
+    const customStyle: ReactModal.Styles = {
       overlay: {
         position: 'fixed',
         top: 0,
@@ -82,3 +82,14 @@ class ExampleOfUsingReactModal extends React.Component {
     );
   }
 }
+
+const MyWrapperComponent: React.FC = () => {
+    const reactModaRef = React.useRef<ReactModal>();
+
+    React.useLayoutEffect(() => {
+        reactModaRef.current.portal.overlay.getAttribute('foo');
+        reactModaRef.current.portal.content.focus();
+    });
+
+    return <ReactModal isOpen ref={reactModaRef}>Hello, World!</ReactModal>;
+};

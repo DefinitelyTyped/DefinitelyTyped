@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 2.6
+// Type definitions for @pollyjs/core 3.0
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 //                 Borui Gu <https://github.com/BoruiGu>
@@ -136,10 +136,10 @@ export class RouteHandler {
     on(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     on(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
     on(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
-    off(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
-    off(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
-    off(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
-    off(event: ErrorRouteEvent, listener: ErrorEventListener): RouteHandler;
+    off(event: RequestRouteEvent, listener?: RequestEventListener): RouteHandler;
+    off(event: RecordingRouteEvent, listener?: RecordingEventListener): RouteHandler;
+    off(event: ResponseRouteEvent, listener?: ResponseEventListener): RouteHandler;
+    off(event: ErrorRouteEvent, listener?: ErrorEventListener): RouteHandler;
     once(event: RequestRouteEvent, listener: RequestEventListener): RouteHandler;
     once(event: RecordingRouteEvent, listener: RecordingEventListener): RouteHandler;
     once(event: ResponseRouteEvent, listener: ResponseEventListener): RouteHandler;
@@ -182,7 +182,7 @@ export class Polly {
     mode: MODE;
     server: PollyServer;
     persister: Persister | null;
-    adapters: Map<string, typeof Adapter>;
+    adapters: Map<string, Adapter>;
     config: PollyConfig;
 
     pause: () => void;

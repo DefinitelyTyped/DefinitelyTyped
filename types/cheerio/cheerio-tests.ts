@@ -46,6 +46,7 @@ $ = cheerio.load(html, {
  */
 var $el = $('.class');
 var $multiEl = $('selector', 'selector', 'selector');
+var $emptyEl = $('.not-existing-class');
 
 $el.cheerio;
 
@@ -60,6 +61,8 @@ $el.attr('id', 'favorite').html();
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
+
+$emptyEl.attr('id') === undefined;
 
 // props
 $el.prop('style');

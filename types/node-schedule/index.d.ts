@@ -1,6 +1,8 @@
-// Type definitions for node-schedule 1.2
+// Type definitions for node-schedule 1.3
 // Project: https://github.com/node-schedule/node-schedule
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+//                 Florian Plattner <https://github.com/flowpl>
+//                 Tieu Philippe Khim <https://github.com/spike008t>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -96,6 +98,7 @@ export class Range {
 
 export type Recurrence = number | Range | string;
 export type RecurrenceSegment = Recurrence | Recurrence[];
+export type Timezone = string;
 
 export class RecurrenceRule {
     /**
@@ -108,6 +111,7 @@ export class RecurrenceRule {
     month: RecurrenceSegment;
     second: RecurrenceSegment;
     year: RecurrenceSegment;
+    tz: Timezone;
 
     constructor(
         year?: RecurrenceSegment,
@@ -116,7 +120,8 @@ export class RecurrenceRule {
         dayOfWeek?: RecurrenceSegment,
         hour?: RecurrenceSegment,
         minute?: RecurrenceSegment,
-        second?: RecurrenceSegment
+        second?: RecurrenceSegment,
+        tz?: Timezone,
     );
 
     nextInvocationDate(base: Date): Date;
@@ -138,6 +143,10 @@ export interface RecurrenceSpecDateRange {
      * Cron expression string.
      */
     rule: string;
+    /**
+     * Timezone
+     */
+    tz?: Timezone;
 }
 
 /**
@@ -154,6 +163,10 @@ export interface RecurrenceSpecObjLit {
     month?: RecurrenceSegment;
     second?: RecurrenceSegment;
     year?: RecurrenceSegment;
+    /**
+     * Timezone
+     */
+    tz?: Timezone;
 }
 
 export class Invocation {

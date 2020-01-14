@@ -618,23 +618,40 @@ export interface ChangePasswordOptions {
     email: string;
 }
 
+export interface BaseAuthOptions {
+    clientID?: string;
+    responseType?: string;
+    redirectUri?: string;
+    scope?: string;
+    audience?: string;
+    state?: string;
+    nonce?: string;
+    _csrf?: string;
+    __instate?: string;
+}
+
+export interface PasswordlessStartAuthParams extends BaseAuthOptions {
+    responseMode?: string;
+}
+
 export interface PasswordlessStartOptions {
     connection: string;
     send: string;
     phoneNumber?: string;
     email?: string;
-    authParams?: any;
+    authParams?: PasswordlessStartAuthParams;
 }
 
-export interface PasswordlessVerifyOptions {
+export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
     email?: string;
     send?: string;
+    responseMode?: string;
 }
 
-export interface PasswordlessLoginOptions {
+export interface PasswordlessLoginOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;

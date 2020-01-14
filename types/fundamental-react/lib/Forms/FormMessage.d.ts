@@ -4,6 +4,8 @@ export type FormMessageType = "error" | "warning" | "help";
 
 export type FormMessageProps = {
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     type?: FormMessageType;
 } & { [x: string]: any };
 

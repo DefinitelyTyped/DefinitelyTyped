@@ -16,6 +16,8 @@ declare module "assert" {
             });
         }
 
+        type AssertPredicate = RegExp | (new() => object) | ((thrown: any) => boolean) | object | Error;
+
         function fail(message?: string | Error): never;
         /** @deprecated since v10.0.0 - use fail([message]) or other assert functions instead. */
         function fail(actual: any, expected: any, message?: string | Error, operator?: string, stackStartFn?: Function): never;
@@ -30,14 +32,14 @@ declare module "assert" {
         function notDeepStrictEqual(actual: any, expected: any, message?: string | Error): void;
 
         function throws(block: () => any, message?: string | Error): void;
-        function throws(block: () => any, error: RegExp | Function | Object | Error, message?: string | Error): void;
+        function throws(block: () => any, error: AssertPredicate, message?: string | Error): void;
         function doesNotThrow(block: () => any, message?: string | Error): void;
         function doesNotThrow(block: () => any, error: RegExp | Function, message?: string | Error): void;
 
         function ifError(value: any): void;
 
         function rejects(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
-        function rejects(block: (() => Promise<any>) | Promise<any>, error: RegExp | Function | Object | Error, message?: string | Error): Promise<void>;
+        function rejects(block: (() => Promise<any>) | Promise<any>, error: AssertPredicate, message?: string | Error): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 

@@ -21,6 +21,8 @@
 //                 Takuya Uehara <https://github.com/indigolain>
 //                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Ray Nicholus <https://github.com/rnicholus>
+//                 Oscar Cabrera <https://github.com/mrjack88>
+//                 Carlos Anoceto <https://github.com/canoceto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -35,9 +37,9 @@ declare class Chart {
     destroy: () => {};
     update: ({duration, lazy, easing}?: Chart.ChartUpdateProps) => {};
     render: ({duration, lazy, easing}?: Chart.ChartRenderProps) => {};
-    stop: () => {};
-    resize: () => {};
-    clear: () => {};
+    stop: () => Chart;
+    resize: () => Chart;
+    clear: () => Chart;
     toBase64Image: () => string;
     generateLegend: () => {};
     getElementAtEvent: (e: any) => [{}];
@@ -302,6 +304,7 @@ declare namespace Chart {
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         onHover?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
+        onLeave?(event: MouseEvent, legendItem: ChartLegendLabelItem): void;
         labels?: ChartLegendLabelOptions;
         reverse?: boolean;
     }
@@ -361,6 +364,7 @@ declare namespace Chart {
 
     interface ChartTooltipModel {
         backgroundColor: string;
+        body: ChartTooltipModelBody[];
         bodyFontColor: string;
         bodyFontSize: number;
         bodySpacing: number;
@@ -370,6 +374,7 @@ declare namespace Chart {
         caretX: number;
         caretY: number;
         cornerRadius: number;
+        dataPoints: ChartTooltipItem[];
         displayColors: boolean;
         footerFontColor: string;
         footerFontSize: number;
@@ -398,6 +403,12 @@ declare namespace Chart {
         _titleAlign: string;
         _titleFontFamily: string;
         _titleFontStyle: string;
+    }
+
+    interface ChartTooltipModelBody {
+        before: string[];
+        lines: string[];
+        after: string[];
     }
 
     // NOTE: declare plugin options as interface instead of inline '{ [plugin: string]: any }'
@@ -510,6 +521,7 @@ declare namespace Chart {
         zeroLineBorderDash?: number[];
         zeroLineBorderDashOffset?: number;
         offsetGridLines?: boolean;
+        z?: number;
     }
 
     interface ScaleTitleOptions {
@@ -551,6 +563,13 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        /**
+         * The number of ticks to examine when deciding how many labels will fit.
+         * Setting a smaller value will be faster, but may be less accurate
+         * when there is large variability in label length.
+         * Deault: `ticks.length`
+         */
+        sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
         stepSize?: number;
@@ -620,6 +639,7 @@ declare namespace Chart {
         hoverBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         hoverBorderWidth?: number | number[] | Scriptable<number>;
+        hoverRadius?: number;
         label?: string;
         lineTension?: number;
         maxBarThickness?: number;
