@@ -460,7 +460,7 @@ namespace Parse {
         pinAll(objects: Object[]): Promise<void>;
         pinAllWithName(name: string, objects: Object[]): Promise<void>;
         registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        saveAll<T extends readonly Object[]>(list: T, options?: Object.SaveAllOptions): Promise<T>;
         unPinAll(objects: Object[]): Promise<void>;
         unPinAllObjects(): Promise<void>;
         unPinAllObjectsWithName(name: string): Promise<void>;

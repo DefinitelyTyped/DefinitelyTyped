@@ -823,6 +823,22 @@ function testObject() {
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
     }
 
+    function testStaticMethods() {
+        async function testSaveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
+            // $ExpectType Object<Attributes>[]
+            await Parse.Object.saveAll([ objUntyped ]);
+
+            // $ExpectType Object<{ example: string; }>[]
+            await Parse.Object.saveAll([ objTyped ]);
+
+            // $ExpectType [Object<Attributes>, Object<{ example: string; }>]
+            await Parse.Object.saveAll<[ typeof objUntyped, typeof objTyped ]>([ objUntyped, objTyped ]);
+
+            // $ExpectError
+            await Parse.Object.saveAll([ 123 ]);
+        }
+    }
+
     function testAttributes(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
         // $ExpectType any
         objUntyped.attributes.whatever;
