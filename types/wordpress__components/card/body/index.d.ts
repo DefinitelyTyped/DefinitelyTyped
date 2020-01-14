@@ -1,8 +1,8 @@
 import { ComponentProps, ComponentType, ElementType } from '@wordpress/element';
 import Card from '..';
 
-declare namespace CardFooter {
-    interface Props {
+declare namespace CardBody {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -18,10 +18,11 @@ declare namespace CardFooter {
         /**
          * Render as a different element type
          */
-        as?: ElementType;
-    }
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const CardFooter: ComponentType<CardFooter.Props>;
+// tslint:disable-next-line no-unnecessary-generics
+declare function CardBody<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardBody.Props<T>): JSX.Element;
 
-export default CardFooter;
+export default CardBody;

@@ -1,9 +1,8 @@
 import { ComponentProps, ComponentType, ElementType } from '@wordpress/element';
 import { HorizontalRule } from '../../primitives';
-import { StyledComponent } from '@emotion/styled';
 
 declare namespace CardDivider {
-    interface Props {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -14,10 +13,13 @@ declare namespace CardDivider {
         /**
          * Render as a different element type
          */
-        as?: ElementType;
-    }
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const CardDivider: StyledComponent<ComponentProps<typeof HorizontalRule>, CardDivider.Props, {}>;
+// tslint:disable-next-line no-unnecessary-generics
+declare function CardDivider<T extends keyof JSX.IntrinsicElements = typeof HorizontalRule>(
+    props: CardDivider.Props<T>,
+): JSX.Element;
 
 export default CardDivider;

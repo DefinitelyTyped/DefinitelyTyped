@@ -1,7 +1,7 @@
 import { ComponentType, ElementType } from '@wordpress/element';
 
 declare namespace CardMedia {
-    interface Props {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -10,10 +10,11 @@ declare namespace CardMedia {
         /**
          * Render as a different element type
          */
-        as?: ElementType;
-    }
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const CardMedia: ComponentType<CardMedia.Props>;
+// tslint:disable-next-line no-unnecessary-generics
+declare function CardMedia<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardMedia.Props<T>): JSX.Element;
 
 export default CardMedia;
