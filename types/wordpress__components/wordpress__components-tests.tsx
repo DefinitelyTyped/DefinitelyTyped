@@ -102,7 +102,7 @@ interface MyCompleteOption {
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
 // $ExpectError
-<C.Card autoFocus onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
+<C.Card autoFocus />;
 // With `as="button"`, a `button` element is rendered and `button` props are accepted:
 <C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
