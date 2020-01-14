@@ -9,6 +9,8 @@ let input = { value: "" };
 {
     let history = createBrowserHistory<{ some: 'state' }>();
 
+    history.location.state; // $ExpectType { some: "state"; }
+
     // Listen for changes to the current location. The
     // listener is called once immediately.
     let unlisten = history.listen(function (location) {
