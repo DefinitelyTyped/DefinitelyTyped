@@ -4657,6 +4657,12 @@
             "asOfVersion": "5.3.0"
         },
         {
+            "libraryName": "@storybook/addon-storyshots-puppeteer",
+            "typingsPackageName": "storybook__addon-storyshots-puppeteer",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.3.0"
+        },
+        {
             "libraryName": "@storybook/addon-viewport",
             "typingsPackageName": "storybook__addon-viewport",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
