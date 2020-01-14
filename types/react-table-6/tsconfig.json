@@ -9,10 +9,10 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../",
         "jsx": "react",
         "typeRoots": [
-            "../../"
+            "../"
         ],
         "types": [],
         "noEmit": true,
