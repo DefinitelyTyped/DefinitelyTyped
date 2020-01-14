@@ -73,11 +73,8 @@ const workingThemeColorModes: Theme = {
     },
 };
 
-// $ExpectError
-const incompleteThemeColorModes: Theme = {
-    colors: {
-        modes: {
-            papaya: {
+// prettier-ignore
+const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
                 text: '#433',
             },
             dark: {
