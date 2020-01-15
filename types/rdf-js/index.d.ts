@@ -9,7 +9,6 @@
 
 import * as stream from "stream";
 import { EventEmitter } from "events";
-import { Readable } from "stream";
 
 /* Data Model Interfaces */
 /* https://rdf.js.org/data-model-spec/ */
@@ -329,7 +328,7 @@ export interface DataFactory {
  * Optional events:
  * * prefix(prefix: string, iri: RDF.NamedNode): This event is emitted every time a prefix is mapped to some IRI.
  */
-export interface Stream<Q extends BaseQuad = Quad> extends Readable {
+export interface Stream<Q extends BaseQuad = Quad> extends EventEmitter {
     /**
      * This method pulls a quad out of the internal buffer and returns it.
      * If there is no quad available, then it will return null.
