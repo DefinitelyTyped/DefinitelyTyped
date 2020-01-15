@@ -20,6 +20,7 @@
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
 //                 Miro Yovchev <https://github.com/myovchev>
 //                 David Recuenco <https://github.com/RecuencoJones>
+//                 Frederic Reisenhauer <https://github.com/freisenhauer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
