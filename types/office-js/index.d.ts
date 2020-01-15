@@ -11253,7 +11253,7 @@ declare namespace Office {
      * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
      * For example, there might be a need for a mail add-in to save some data that is specific to the current email message that activated the add-in. 
      * If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had 
-     * been saved as custom properties.
+     * been saved as custom properties. **Important**: The maximum length of a CustomProperties JSON object is 2500 characters.
      *
      * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
      *
