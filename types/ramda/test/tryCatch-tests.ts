@@ -1,10 +1,10 @@
 import * as R from 'ramda';
 
 () => {
-  const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({ x: true }); // => true
-  const a1: boolean = R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // => true
-  const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null); // => false
-  const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true); // => true
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({ x: true }); // => true
+    const a1: boolean = R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // => true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null); // => false
+    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true); // => true
 
     /* test that type safety is increased when a second type argument is supplied */
 
@@ -46,4 +46,14 @@ import * as R from 'ramda';
 
     const k: number = R.tryCatch<number, number>(x => x + 1)(x => x)(2);
     const l: boolean = R.tryCatch<boolean>(R.T)(R.F)(true);
+
+    const f1 = R.tryCatch((x: number) => x, R.F); // $ExpectType ((x: number) => number) | (() => boolean)
+    const f2 = R.tryCatch(<T>(x: T) => x, R.F); // $ExpectType (() => boolean) | (<T>(x: T) => T)
+    const s1 = R.tryCatch((x: number) => x, R.F)(5); // $ExpectType number | boolean
+    const a11 = R.tryCatch(R.prop('x'), R.F)({ x: true }); // $ExpectType boolean
+    const a2 = R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // $ExpectType boolean
+    const a3 = R.tryCatch(R.prop('x'), R.F)({ x: 13 }); // $ExpectType number | boolean
+    const b1 = R.tryCatch(R.prop('x'), R.F)(null); // $ExpectError
+    // Curried function call
+    const c1 = R.tryCatch(R.and, R.always(undefined))(true); // $ExpectType ((val2: any) => boolean) | undefined
 };
