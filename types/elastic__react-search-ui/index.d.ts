@@ -5,15 +5,15 @@
 
 import { Component } from 'react';
 
-type func = (...args: any[]) => any;
-type renderFunc = (...args: any[]) => JSX.Element;
+export type func = (...args: any[]) => any;
+export type renderFunc = (...args: any[]) => JSX.Element;
 
 /**
  * FIELDS
  */
 export type FieldValue = string | number | boolean | Array<string | number | boolean>;
 
-interface FieldValueWrapper {
+export interface FieldValueWrapper {
     // A raw field value, like 'I am a raw result', or 2, or true. Raw values may
     // or may not be html escaped, so *always* sanitize a raw value before rendering
     // it on a page as html.
@@ -28,7 +28,7 @@ interface FieldValueWrapper {
  */
 export type FacetType = "range" | "value";
 
-interface FacetValue {
+export interface FacetValue {
     // Number of results for this filter
     count: number;
     // Filter to apply if selected
@@ -37,7 +37,7 @@ interface FacetValue {
     selected?: boolean;
 }
 
-interface FacetT {
+export interface FacetT {
     data: FacetValue[];
     // Name of the field this facet is associated with
     field: string;
@@ -47,7 +47,7 @@ interface FacetT {
 /**
  * FILTERS
  */
-interface Filter {
+export interface Filter {
     field: string;
     values: FilterValue[];
     type: FilterType;
@@ -55,9 +55,9 @@ interface Filter {
 
 export type FilterType = "all" | "any" | "none";
 
-type FilterValueValue = FieldValue;
+export type FilterValueValue = FieldValue;
 
-interface FilterValueRange {
+export interface FilterValueRange {
     // Beginning of the range, like 1
     from?: FieldValue;
     // A unique name for this range, used for display
@@ -65,7 +65,8 @@ interface FilterValueRange {
     // End of the range, like 100
     to?: FieldValue;
 }
-type FilterValue = FilterValueRange | FilterValueValue;
+
+export type FilterValue = FilterValueRange | FilterValueValue;
 
 /**
  * RESULTS
@@ -79,7 +80,7 @@ type FilterValue = FilterValueRange | FilterValueValue;
 // An example would be if a user requests "grouping" in an App Search API request. That will come back
 // as "_group: {..}". It *should* be there in the Result so that a developer has it available to work
 // with.
-interface ResultT {
+export interface ResultT {
     [key: string]: FieldValueWrapper;
 }
 
@@ -89,7 +90,7 @@ interface ResultT {
 
 export type SortDirection = "asc" | "desc";
 
-interface SortOption {
+export interface SortOption {
     // A display name, like "Name"
     name?: string;
     // A field name, like "name".
@@ -98,20 +99,20 @@ interface SortOption {
     direction?: SortDirection | "";
 }
 
-interface Suggestion {
+export interface Suggestion {
     suggestion?: string;
     highlight?: string;
     data?: object;
 }
 
-interface AutocompleteSection {
+export interface AutocompleteSection {
     sectionTitle?: string;
 }
 
 /**
  * CONTAINERS
  */
-interface ErrorBoundaryProps {
+export interface ErrorBoundaryProps {
     // Props
     children: JSX.Element;
     className?: string;
@@ -122,7 +123,7 @@ interface ErrorBoundaryProps {
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps> {}
 
-interface FacetProps {
+export interface FacetProps {
     // Props
 
     className?: string;
@@ -148,7 +149,7 @@ interface FacetProps {
 
 export class Facet extends Component<FacetProps> {}
 
-interface ResultProps {
+export interface ResultProps {
     // Props
 
     className?: string;
@@ -166,7 +167,7 @@ interface ResultProps {
 
 export class Result extends Component<ResultProps> {}
 
-interface ResultsContainerProps {
+export interface ResultsContainerProps {
     // Props
 
     className?: string;
@@ -184,7 +185,7 @@ interface ResultsContainerProps {
 
 export class Results extends Component<ResultsContainerProps> {}
 
-interface SearchBoxProps {
+export interface SearchBoxProps {
     // Props
 
     autocompleteMinimumCharacters?: number;
@@ -222,7 +223,7 @@ interface SearchBoxProps {
 
 export class SearchBox extends Component<SearchBoxProps> {}
 
-interface PagingInfoProps {
+export interface PagingInfoProps {
     // Props
 
     className?: string;
@@ -238,7 +239,7 @@ interface PagingInfoProps {
 
 export class PagingInfo extends Component<PagingInfoProps> {}
 
-interface PagingProps {
+export interface PagingProps {
     // Props
 
     className?: string;
@@ -257,7 +258,7 @@ interface PagingProps {
 
 export class Paging extends Component<PagingProps> {}
 
-interface ResultsPerPageProps {
+export interface ResultsPerPageProps {
     // Props
 
     className?: string;
@@ -275,7 +276,7 @@ interface ResultsPerPageProps {
 
 export class ResultsPerPage extends Component<ResultsPerPageProps> {}
 
-interface SortingProps {
+export interface SortingProps {
     // Props
 
     className?: string;
@@ -330,14 +331,14 @@ export interface Context {
     wasSearched: boolean; // Has any query been performed since this driver was created? Can be useful for displaying initial states in the UI.;
 }
 
-interface WithSearchProps {
+export interface WithSearchProps {
     mapContextToProps?: (context: Context) => any;
     children: (props: any) => JSX.Element;
 }
 
 export class WithSearch extends Component<WithSearchProps> {}
 
-interface SearchProviderProps {
+export interface SearchProviderProps {
     config?: object;  // Matches the shape of SearchDriver, which needs to be typed
     children: JSX.Element;
 }
