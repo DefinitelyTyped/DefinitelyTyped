@@ -45,8 +45,8 @@ import hoistNonReactStatics = require('hoist-non-react-statics');
 // tslint:disable-next-line:no-empty-interface
 export interface DefaultRootState {}
 
-export type ObjectIfEmpty<T extends object> = keyof T extends never ? {} : T;
-export type SafeRootState = ObjectIfEmpty<DefaultRootState>;
+export type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
+export type RootStateOrAny = AnyIfEmpty<DefaultRootState>;
 
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -188,7 +188,7 @@ export interface Connect {
     // tslint:disable:no-unnecessary-generics
     (): InferableComponentEnhancer<DispatchProp>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>
     ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp, TOwnProps>;
 
@@ -205,12 +205,12 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<
@@ -224,7 +224,7 @@ export interface Connect {
         mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = SafeRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
         mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
@@ -236,7 +236,7 @@ export interface Connect {
         mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
         mergeProps: null | undefined,
@@ -260,14 +260,14 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = SafeRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
@@ -277,7 +277,7 @@ export interface Connect {
         TOwnProps
     >;
 
-    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = SafeRootState>(
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultRootState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
@@ -299,13 +299,13 @@ export type ConnectedProps<TConnector> =
  */
 export const connect: Connect;
 
-export type MapStateToProps<TStateProps, TOwnProps, State = SafeRootState> =
+export type MapStateToProps<TStateProps, TOwnProps, State = DefaultRootState> =
     (state: State, ownProps: TOwnProps) => TStateProps;
 
-export type MapStateToPropsFactory<TStateProps, TOwnProps, State = SafeRootState> =
+export type MapStateToPropsFactory<TStateProps, TOwnProps, State = DefaultRootState> =
     (initialState: State, ownProps: TOwnProps) => MapStateToProps<TStateProps, TOwnProps, State>;
 
-export type MapStateToPropsParam<TStateProps, TOwnProps, State = SafeRootState> =
+export type MapStateToPropsParam<TStateProps, TOwnProps, State = DefaultRootState> =
     MapStateToPropsFactory<TStateProps, TOwnProps, State> | MapStateToProps<TStateProps, TOwnProps, State> | null | undefined;
 
 export type MapDispatchToPropsFunction<TDispatchProps, TOwnProps> =
@@ -324,7 +324,7 @@ export type MapDispatchToPropsNonObject<TDispatchProps, TOwnProps> = MapDispatch
 export type MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> =
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps) => TMergedProps;
 
-export interface Options<State = SafeRootState, TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends ConnectOptions {
+export interface Options<State = DefaultRootState, TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends ConnectOptions {
     /**
      * If true, implements shouldComponentUpdate and shallowly compares the result of mergeProps,
      * preventing unnecessary updates, assuming that the component is a “pure” component
@@ -551,7 +551,7 @@ export function useDispatch<A extends Action = AnyAction>(): Dispatch<A>;
  *   return <div>{counter}</div>
  * }
  */
-export function useSelector<TState = SafeRootState, TSelected = unknown>(
+export function useSelector<TState = DefaultRootState, TSelected = unknown>(
     selector: (state: TState) => TSelected,
     equalityFn?: (left: TSelected, right: TSelected) => boolean
 ): TSelected;
@@ -591,7 +591,7 @@ export interface TypedUseSelectorHook<TState> {
  *   return <div>{store.getState()}</div>
  * }
  */
-export function useStore<S = SafeRootState, A extends Action = AnyAction>(): Store<S, A>;
+export function useStore<S = RootStateOrAny, A extends Action = AnyAction>(): Store<S, A>;
 
 /**
  * Hook factory, which creates a `useSelector` hook bound to a given context.

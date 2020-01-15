@@ -1388,8 +1388,7 @@ function testUseStore() {
 
     const untypedStore = useStore();
     const state = untypedStore.getState();
-    // untyped store has {} as the state by default
-    state.things; // $ExpectError
+    state.things.stuff.anything; // any by default
 
     const typedStore = useStore<TypedState, TypedAction>();
     const typedState = typedStore.getState();
