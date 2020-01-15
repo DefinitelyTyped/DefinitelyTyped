@@ -242,10 +242,15 @@ declare function getValue(ptr: number, type: string, noSafe?: boolean): number;
 
 declare function allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
 
+declare function stackAlloc(size: number): number;
+declare function stackSave(): number;
+declare function stackRestore(ptr: number): void;
+
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;
 declare function allocateUTF8(str: string): number;
+declare function allocateUTF8OnStack(str: string): number;
 declare function UTF16ToString(ptr: number): string;
 declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF16(str: string): number;
@@ -261,6 +266,9 @@ declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: bo
 
 declare function addRunDependency(id: any): void;
 declare function removeRunDependency(id: any): void;
+
+declare function addFunction(func: () => any, signature?: string): number;
+declare function removeFunction(funcPtr: number): void;
 
 declare var ALLOC_NORMAL: number;
 declare var ALLOC_STACK: number;
