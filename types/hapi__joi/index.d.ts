@@ -615,9 +615,9 @@ declare namespace Joi {
     type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult {
-        error: ValidationError;
-        errors: ValidationError;
-        warning: ValidationError;
+        error?: ValidationError;
+        errors?: ValidationError;
+        warning?: ValidationError;
         value: any;
     }
 
