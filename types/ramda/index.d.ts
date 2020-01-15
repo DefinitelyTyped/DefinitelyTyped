@@ -1937,7 +1937,7 @@ export function trim(str: string): string;
  * function and returns its result. Note that for effective composition with this function, both the tryer and
  * catcher functions must return the same type of results.
  */
-export function tryCatch<T>(tryer: (...args: readonly any[]) => T, catcher: (...args: readonly any[]) => T): (...args: readonly any[]) => T;
+export function tryCatch<F extends (...args: readonly any[]) => any, E = ReturnType<F>>(tryer: F, catcher: (error: any, ...args: _.F.Parameters<F>) => E): (F | (() => E));
 
 /**
  * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
