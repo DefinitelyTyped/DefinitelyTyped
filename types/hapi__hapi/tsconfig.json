@@ -16,9 +16,6 @@
             "@hapi/hapi": [
                 "hapi__hapi"
             ],
-            "@hapi/boom": [
-                "hapi__boom"
-            ],
             "@hapi/shot": [
                 "hapi__shot"
             ],

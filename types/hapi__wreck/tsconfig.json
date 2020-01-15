@@ -15,9 +15,6 @@
         "paths": {
             "@hapi/wreck": [
                 "hapi__wreck"
-            ],
-            "@hapi/boom": [
-                "hapi__boom"
             ]
         },
         "types": [],
