@@ -3536,6 +3536,7 @@ declare namespace google.maps {
 
         interface AutocompletePrediction {
             description: string;
+            id: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
             reference: string;
@@ -3768,6 +3769,7 @@ declare namespace google.maps {
 
         interface QueryAutocompletePrediction {
             description: string;
+            id?: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
             terms: PredictionTerm[];
