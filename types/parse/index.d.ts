@@ -412,7 +412,7 @@ namespace Parse {
         revert(...keys: Array<Extract<keyof T, string>>): void;
         save<K extends Extract<keyof T, string>>(
             attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
-                [key in K]: T[K];
+                [key in K]: T[key];
             }) | null,
             options?: Object.SaveOptions
         ): Promise<this>;
