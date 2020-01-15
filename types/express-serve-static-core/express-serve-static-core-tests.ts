@@ -9,6 +9,8 @@ app.listen(3000, (err: any) => {
 app.get('/:foo', req => {
     req.params.foo; // $ExpectType string
     req.params[0]; // $ExpectType string
+    // $ExpectType string | false | null
+    req.is(['application/json', 'application/xml']);
 });
 
 // Params can used as an array
