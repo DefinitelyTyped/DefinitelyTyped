@@ -18,7 +18,7 @@ declare function createServer(): createServer.Server;
 declare namespace createServer {
     export type ServerHandle = HandleFunction | http.Server;
 
-    export class IncomingMessage extends http.IncomingMessage {
+    export interface IncomingMessage extends http.IncomingMessage {
         originalUrl?: http.IncomingMessage["url"];
     }
 
