@@ -1,14 +1,11 @@
 // Type definitions for non-npm package Hast 2.3
 // Project: https://github.com/syntax-tree/hast
 // Definitions by: lukeggchapman <https://github.com/lukeggchapman>
+//                 Junyoung Choi <https://github.com/rokt33r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import {
-    Parent as UnistParent,
-    Literal as UnistLiteral,
-    Node as UnistNode
-} from "unist";
+import { Parent as UnistParent, Literal as UnistLiteral, Node as UnistNode } from 'unist';
 
 export { UnistNode as Node };
 
@@ -38,7 +35,7 @@ export interface Root extends Parent {
     /**
      * Represents this variant of a Node.
      */
-    type: "root";
+    type: 'root';
 }
 
 /**
@@ -48,7 +45,7 @@ export interface Element extends Parent {
     /**
      * Represents this variant of a Node.
      */
-    type: "element";
+    type: 'element';
 
     /**
      * Represents the element’s local name.
@@ -85,7 +82,7 @@ export interface DocType extends UnistNode {
     /**
      * Represents this variant of a Node.
      */
-    type: "doctype";
+    type: 'doctype';
 
     name: string;
 
@@ -107,7 +104,7 @@ export interface Comment extends Literal {
     /**
      * Represents this variant of a Literal.
      */
-    type: "comment";
+    type: 'comment';
 }
 
 /**
@@ -117,5 +114,5 @@ export interface Text extends Literal {
     /**
      * Represents this variant of a Literal.
      */
-    type: "text";
+    type: 'text';
 }
