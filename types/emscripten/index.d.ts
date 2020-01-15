@@ -34,6 +34,26 @@ declare namespace Emscripten {
 }
 
 interface EmscriptenModule {
+    /**
+     * Initializes an EmscriptenModule object and returns it. The initialized
+     * obejct will be passed to then(). Works only when -s MODULARIZE=1 is
+     * enabled. This is default exported function when -s EXPORT_ES6=1 is
+     * enabled.
+     * https://emscripten.org/docs/getting_started/FAQ.html#how-can-i-tell-when-the-page-is-fully-loaded-and-it-is-safe-to-call-compiled-functions
+     * @param moduleOverrides Properties of an initialized module to override.
+     */
+    (moduleOverrides?: Partial<this>): this;
+    /**
+     * Promise-like then() inteface.
+     * WRANGING: Emscripten's then() is not really promise-based 'thenable'.
+     * Don't try to use it with Promise.resolve() or in an async function
+     * without deleting delete Module["then"] in the callback.
+     * https://github.com/kripken/emscripten/issues/5820
+     * Works only when -s MODULARIZE=1 is enabled.
+     * @param callback A callback chained from Module() with an Module instance.
+     */
+    then(callback: (module: this) => void): this;
+
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
