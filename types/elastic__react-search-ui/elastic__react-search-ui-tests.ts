@@ -4,7 +4,7 @@ import {
   FilterValueValue,
   Context,
   SortDirection
-} from "@elastic/react-search-ui";
+} from "elastic__react-search-ui";
 
 function buildFrom(current?: number, resultsPerPage?: number) {
   return !current || !resultsPerPage
