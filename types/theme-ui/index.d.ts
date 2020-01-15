@@ -124,8 +124,12 @@ export interface Theme extends StyledSystemTheme {
 export const jsx: typeof React.createElement;
 
 /**
- * A utility from @styled-style/css for theming styles to be passed to Emotion's
+ * A utility from @styled-system/css for theming styles to be passed to Emotion's
  * css prop.
+ *
+ * Refer:
+ * 1. https://styled-system.com/css/
+ * 2. https://emotion.sh/docs/object-styles#with-css
  */
 export function css(styleObject: Interpolation): (theme: Theme) => SerializedStyles;
 
