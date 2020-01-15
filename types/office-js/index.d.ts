@@ -11068,6 +11068,8 @@ declare namespace Office {
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
+     * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
+     *
      * [Api set: Mailbox 1.8]
      *
      * @remarks
@@ -13863,6 +13865,8 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
          *
          * [Api set: Mailbox 1.8]
          *
