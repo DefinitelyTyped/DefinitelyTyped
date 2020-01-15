@@ -81,20 +81,6 @@ interface EmscriptenModule {
 
     Runtime: any;
 
-    ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
-
-    setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
-    getValue(ptr: number, type: string, noSafe?: boolean): number;
-
-    ALLOC_NORMAL: number;
-    ALLOC_STACK: number;
-    ALLOC_STATIC: number;
-    ALLOC_DYNAMIC: number;
-    ALLOC_NONE: number;
-
-    allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
-
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
     IHEAP: Int32Array;
@@ -119,16 +105,6 @@ interface EmscriptenModule {
     addOnPreMain(cb: () => any): void;
     addOnExit(cb: () => any): void;
     addOnPostRun(cb: () => any): void;
-
-    // Tools
-    intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
-    intArrayToString(array: number[]): string;
-    writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-    writeArrayToMemory(array: number[], buffer: number): void;
-    writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-
-    addRunDependency(id: any): void;
-    removeRunDependency(id: any): void;
 
     preloadedImages: any;
     preloadedAudios: any;
@@ -236,9 +212,35 @@ declare namespace FS {
         canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
 }
 
+interface Math {
+    imul(a: number, b: number): number;
+}
+
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
+
+// Below runtime function/variable declarations are exportable by
+// -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
+// EmscriptenModule interface to add runtime functions.
+//
+// For example, by using -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']"
+// You can access ccall() via Module["ccall"]. In this case, you should
+// extend EmscriptenModule to pass the compiler check like the following:
+//
+// interface YourOwnEmscriptenModule extends EmscriptenModule {
+//     ccall: typeof ccall;
+// }
+//
+// See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
+
+declare function ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
+declare function cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
+
+declare function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
+declare function getValue(ptr: number, type: string, noSafe?: boolean): number;
+
+declare function allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
 
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
@@ -251,6 +253,17 @@ declare function UTF32ToString(ptr: number): string;
 declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF32(str: string): number;
 
-interface Math {
-    imul(a: number, b: number): number;
-}
+declare function intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
+declare function intArrayToString(array: number[]): string;
+declare function writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+declare function writeArrayToMemory(array: number[], buffer: number): void;
+declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+
+declare function addRunDependency(id: any): void;
+declare function removeRunDependency(id: any): void;
+
+declare var ALLOC_NORMAL: number;
+declare var ALLOC_STACK: number;
+declare var ALLOC_STATIC: number;
+declare var ALLOC_DYNAMIC: number;
+declare var ALLOC_NONE: number;
