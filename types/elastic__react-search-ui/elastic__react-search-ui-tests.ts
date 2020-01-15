@@ -4,7 +4,7 @@ import {
   FilterValueValue,
   Context,
   SortDirection
-} from "./index";
+} from "@elastic/react-search-ui";
 
 function buildFrom(current?: number, resultsPerPage?: number) {
   return !current || !resultsPerPage
@@ -128,6 +128,9 @@ interface ExpectedShape {
       }>
     }
   };
+  sort?: Array<{ [sortField: string]: "asc" | "desc" }>;
+  size?: number;
+  from?: number;
 }
 
 export function buildRequest(state: Partial<Context>, fields: string[] = []): ExpectedShape {
