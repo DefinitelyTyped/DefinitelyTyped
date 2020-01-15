@@ -11,12 +11,16 @@ declare namespace assert {
 
     function ok(value: any, message?: string): void;
 
+    /** @deprecated Use `strictEqual` instead */
     function equal(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `notStrictEqual` instead */
     function notEqual(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `deepStrictEqual` instead */
     function deepEqual(actual: any, expected: any, message?: string): void;
 
+    /** @deprecated Use `notDeepStrictEqual` instead */
     function notDeepEqual(actual: any, expected: any, message?: string): void;
 
     function deepStrictEqual(actual: any, expected: any, message?: string): void;
