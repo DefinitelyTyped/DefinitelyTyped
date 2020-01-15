@@ -78,3 +78,12 @@ const any: any = 1;
         }
     }, 'name');
 }
+
+{
+    const opts: events.EventEmitterOptions = {
+        captureRejections: true
+    };
+    const ee = new events.EventEmitter(opts);
+    ee[events.EventEmitter.captureRejectionSymbol] = (err: Error, name: symbol | string, ...args: unknown[]) => {};
+    events.EventEmitter.captureRejections = true;
+}

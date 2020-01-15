@@ -11,9 +11,17 @@ declare module "events" {
     }
 
     namespace internal {
+        interface EventEmitterOptions {
+            /** It enables automatic capturing of promise rejection. Default: false. */
+            captureRejections?: boolean;
+        }
+        const captureRejectionSymbol: unique symbol;
+        let captureRejections: boolean;
+
         function once(emitter: NodeEventTarget, event: string | symbol): Promise<any[]>;
         function once(emitter: DOMEventTarget, event: string): Promise<any[]>;
-         class EventEmitter extends internal {
+        class EventEmitter extends internal {
+            constructor(options?: EventEmitterOptions);
             /** @deprecated since v4.0.0 */
             static listenerCount(emitter: EventEmitter, event: string | symbol): number;
             static defaultMaxListeners: number;
@@ -33,6 +41,7 @@ declare module "events" {
             emit(event: string | symbol, ...args: any[]): boolean;
             eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
+            [captureRejectionSymbol]: (error: Error, event: string | symbol, ...args: unknown[]) => void;
         }
     }
 
