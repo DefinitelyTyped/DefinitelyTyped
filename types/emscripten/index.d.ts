@@ -85,8 +85,6 @@ interface EmscriptenModule {
     locateFile(url: string): string;
     onCustomMessage(event: MessageEvent): void;
 
-    Runtime: any;
-
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
     IHEAP: Int32Array;
