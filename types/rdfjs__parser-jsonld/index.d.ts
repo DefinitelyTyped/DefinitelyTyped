@@ -5,6 +5,7 @@
 
 import { Context } from 'jsonld/jsonld-spec';
 import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
+import { EventEmitter } from 'events';
 
 declare namespace Parser {
     interface ParserOptions {
@@ -14,10 +15,10 @@ declare namespace Parser {
     }
 }
 
-declare class Parser<Q extends BaseQuad = Quad> implements Sink<Q> {
+declare class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {
     constructor(options?: Parser.ParserOptions);
 
-    import(stream: Stream<Q>, options?: Parser.ParserOptions): Stream<Q>;
+    import(stream: EventEmitter, options?: Parser.ParserOptions): Stream<Q>;
 }
 
 export = Parser;

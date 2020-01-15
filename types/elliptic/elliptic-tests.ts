@@ -97,3 +97,14 @@ const sc = new elliptic.curve.short({
 const p2 = sc.pointFromX(123456789);
 sc.validate(p2.add(p2).mul(new BN(5)).dbl());
 sc.pointFromJSON(p2.toJSON(), false).toJSON();
+
+// ECDH Tests
+
+const key1 = ec.genKeyPair();
+const key2 = ec.genKeyPair();
+
+const shared1 = key1.derive(key2.getPublic());
+const shared2 = key2.derive(key1.getPublic());
+
+console.log(BN.isBN(shared1) && BN.isBN(shared2));
+console.log(shared1.toString('hex') === shared2.toString('hex'));

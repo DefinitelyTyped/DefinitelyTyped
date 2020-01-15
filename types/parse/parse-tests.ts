@@ -614,7 +614,7 @@ function test_geo_points() {
     point = new Parse.GeoPoint(40.0, -30.0);
     point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
+    const userObject = Parse.User.current<Parse.User<{ location: Parse.GeoPoint }>>()!;
 
     // User's location
     const userGeoPoint = userObject.get('location');
@@ -817,7 +817,26 @@ function testObject() {
         new Parse.Object('TestObject', { example: 'hello' }, { ignoreValidation: true });
 
         // $ExpectError
+        new Parse.Object<{ example: string }>('TestObject');
+
+        // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
+    }
+
+    function testStaticMethods() {
+        async function testSaveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
+            // $ExpectType Object<Attributes>[]
+            await Parse.Object.saveAll([ objUntyped ]);
+
+            // $ExpectType Object<{ example: string; }>[]
+            await Parse.Object.saveAll([ objTyped ]);
+
+            // $ExpectType [Object<Attributes>, Object<{ example: string; }>]
+            await Parse.Object.saveAll<[ typeof objUntyped, typeof objTyped ]>([ objUntyped, objTyped ]);
+
+            // $ExpectError
+            await Parse.Object.saveAll([ 123 ]);
+        }
     }
 
     function testAttributes(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1142,12 +1161,77 @@ function testObject() {
         objTyped.set('other', 100);
     }
 
-    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
-        // $ExpectType any
-        objUntyped.toJSON();
+    interface AttributesAllTypes {
+        someString: string;
+        someNumber: number;
+        someBoolean: boolean;
+        someDate: Date;
+        someJSONObject: AttributesAllTypes;
+        someJSONArray: AttributesAllTypes[];
+        someRegExp: RegExp;
+        someUndefined: undefined;
+        someNull: null;
+        someParseObjectUntyped: Parse.Object;
+        someParseObjectTyped: Parse.Object<AttributesAllTypes>;
+        someParseACL: Parse.ACL;
+        someParseGeoPoint: Parse.GeoPoint;
+        someParsePolygon: Parse.Polygon;
+        someParseRelation: Parse.Relation;
+        someParseFile: Parse.File;
+    }
 
+    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<AttributesAllTypes>) {
+        // $ExpectType ToJSON<Attributes> & JSONBaseAttributes
+        const JSONUntyped = objUntyped.toJSON();
+        // $ExpectType string
+        JSONUntyped.objectId;
+        // $ExpectType string
+        JSONUntyped.createdAt;
+        // $ExpectType string
+        JSONUntyped.updatedAt;
         // $ExpectType any
-        objTyped.toJSON();
+        JSONUntyped.anything;
+
+        // $ExpectType ToJSON<AttributesAllTypes> & JSONBaseAttributes
+        const JSONTyped = objTyped.toJSON();
+        // $ExpectType string
+        JSONTyped.objectId;
+        // $ExpectType string
+        JSONTyped.createdAt;
+        // $ExpectType string
+        JSONTyped.updatedAt;
+        // $ExpectType string
+        JSONTyped.someString;
+        // $ExpectType number
+        JSONTyped.someNumber;
+        // $ExpectType boolean
+        JSONTyped.someBoolean;
+        // $ExpectType { __type: "Date"; iso: string; }
+        JSONTyped.someDate;
+        // $ExpectType ToJSON<AttributesAllTypes>
+        JSONTyped.someJSONObject;
+        // $ExpectType ToJSON<AttributesAllTypes>[]
+        JSONTyped.someJSONArray;
+        // $ExpectType string
+        JSONTyped.someRegExp;
+        // $ExpectType undefined
+        JSONTyped.someUndefined;
+        // $ExpectType null
+        JSONTyped.someNull;
+        // $ExpectType Pointer | (ToJSON<Attributes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectUntyped;
+        // $ExpectType Pointer | (ToJSON<AttributesAllTypes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectTyped;
+        // $ExpectType any
+        JSONTyped.someParseACL;
+        // $ExpectType any
+        JSONTyped.someParseGeoPoint;
+        // $ExpectType any
+        JSONTyped.someParsePolygon;
+        // $ExpectType any
+        JSONTyped.someParseRelation;
+        // $ExpectType { __type: string; name: string; url: string; }
+        JSONTyped.someParseFile;
     }
 
     function testUnset(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1207,8 +1291,12 @@ function testQuery() {
     }
 
     async function testQueryMethodTypes() {
-        class AnotherSubclass extends Parse.Object<{x: any}> { }
-        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubclass}> { }
+        class AnotherSubClass extends Parse.Object<{x: any}> {
+            constructor() {
+                super('Another', { x: 'example' });
+            }
+        }
+        class MySubClass extends Parse.Object<{attribute1: string, attribute2: number, attribute3: AnotherSubClass}> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -1274,15 +1362,15 @@ function testQuery() {
         query.doesNotExist('nonexistentProp');
 
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('unexistenProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('objectId', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectType Query<MySubClass>
-        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubclass));
+        query.doesNotMatchKeyInQuery('updatedAt', 'x', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.doesNotMatchQuery('attribute1', new Parse.Query('Example'));
@@ -1297,11 +1385,11 @@ function testQuery() {
         // $ExpectType Query<MySubClass>
         query.equalTo('attribute2', 0);
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another'));
+        query.equalTo('attribute3', new AnotherSubClass());
         // $ExpectType Query<MySubClass>
-        query.equalTo('attribute3', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute3', new AnotherSubClass().toPointer());
         // $ExpectError
-        query.equalTo('attribute1', new AnotherSubclass('Another').toPointer());
+        query.equalTo('attribute1', new AnotherSubClass().toPointer());
         // $ExpectError
         query.equalTo('attribute2', 'a string value');
         // $ExpectError
@@ -1358,11 +1446,11 @@ function testQuery() {
         query.matches('nonexistentProp', /a regex/);
 
         // $ExpectType Query<MySubClass>
-        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('nonexistentProp', 'x', new Parse.Query(AnotherSubClass));
         // $ExpectError
-        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubclass));
+        query.matchesKeyInQuery('attribute1', 'unknownKey', new Parse.Query(AnotherSubClass));
 
         // $ExpectType Query<MySubClass>
         query.matchesQuery('attribute1', new Parse.Query('Example'));

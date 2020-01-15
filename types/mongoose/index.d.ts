@@ -2966,8 +2966,8 @@ declare module "mongoose" {
      * If a callback is not passed, the aggregate itself is returned.
      * @param aggregations pipeline operator(s) or operator array
      */
-    aggregate(aggregations?: any[]): Aggregate<any[]>;
-    aggregate(aggregations: any[], cb: Function): Promise<any[]>;
+    aggregate<U = any>(aggregations?: any[]): Aggregate<U[]>;
+    aggregate<U = any>(aggregations: any[], cb: Function): Promise<U[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;

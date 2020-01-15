@@ -14,7 +14,7 @@ class ExampleOfUsingReactModal extends React.Component {
     const onAfterOpenFn = () => { };
     const onAfterCloseFn = () => { };
     const onRequestCloseFn = (event: React.MouseEvent | React.KeyboardEvent) => { };
-    const customStyle = {
+    const customStyle: ReactModal.Styles = {
       overlay: {
         position: 'fixed',
         top: 0,

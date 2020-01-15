@@ -28,6 +28,8 @@ declare var $: (arg?: any) => JQuery;
         fragment: 'frag',
     });
 
+    URI.preventInvalidHostname = false;
+
     URI('').setQuery('foo', 'bar');
     URI('').setQuery({ foo: 'bar' });
     URI('').setSearch('foo', 'bar');

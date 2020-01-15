@@ -10,6 +10,7 @@
 //                 Raoul Jaeckel <https://github.com/raoulus>
 //                 Cory Donkin <https://github.com/Cooryd>
 //                 Adam Vigneaux <https://github.com/AdamVig>
+//                 Austin Beer <https://github.com/austin-beer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -177,6 +178,7 @@ declare namespace P {
         labels: { [level: number]: string };
     }
     type TimeFn = () => string;
+    type MixinFn = () => object;
 
     interface DestinationStream {
         write(msg: string): void;
@@ -228,6 +230,13 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * If provided, the `mixin` function is called each time one of the active logging methods
+         * is called. The function must synchronously return an object. The properties of the
+         * returned object will be added to the logged JSON.
+         */
+        mixin?: MixinFn;
 
         /**
          * As an array, the redact option specifies paths that should have their values redacted from any log output.
