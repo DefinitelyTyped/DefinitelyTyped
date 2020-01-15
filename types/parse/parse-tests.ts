@@ -1155,6 +1155,12 @@ function testObject() {
         objTyped.set({ example: false });
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: true, another: 123 });
+
+        // $ExpectError
+        objTyped.set({ example: 123, another: true });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set('example', true);
 
         // $ExpectError
