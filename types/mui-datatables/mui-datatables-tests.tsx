@@ -30,6 +30,10 @@ const MuiCustomTable: React.FC<Props> = (props) => {
     ];
 
     const TableOptions: MUIDataTableOptions = {
+        fixedHeaderOptions: {
+            xAxis: false,
+            yAxis: true
+        },
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
         selectableRows: 'none',

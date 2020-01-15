@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["es5", "dom"],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": ["../"],
+		"types": [],
+		"noEmit": true,
+		"forceConsistentCasingInFileNames": true,
+		"target": "ES5"
+	},
+	"files": [
+		"test/domexception.index.test.ts",
+		"test/domexception.webidl2js.test.ts",
+		"index.d.ts"
+	]
+}

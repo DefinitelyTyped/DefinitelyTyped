@@ -88,6 +88,41 @@ interface MyCompleteOption {
 </C.ButtonGroup>;
 
 //
+// card
+//
+<C.Card>I'm a card!</C.Card>;
+<C.Card isElevated isBorderless className="card" size="large">
+    I'm a card with props!
+</C.Card>;
+
+// Card is <div /> by default, autoFocus prop is not allowed
+// $ExpectError
+<C.Card autoFocus>`div` can't have autoFocus :(</C.Card>;
+
+// `withComponent` renders a `button`
+const ButtonCard = C.Card.withComponent('button');
+<ButtonCard autoFocus>`button` _can_ have autoFocus :D</ButtonCard>;
+
+<C.CardBody isShady size="extraSmall">
+    Hello world!
+</C.CardBody>;
+
+<C.CardHeader isShady size="extraSmall">
+    Hello world!
+</C.CardHeader>;
+
+<C.CardFooter isBorderless isShady size="extraSmall">
+    Hello world!
+</C.CardFooter>;
+
+// Divider has no children or props except className
+// $ExpectError
+<C.CardDivider>Hello world!</C.CardDivider>;
+// $ExpectError
+<C.CardDivider isShady />;
+<C.CardDivider />;
+
+//
 // checkbox-control
 //
 <C.CheckboxControl checked onChange={isChecked => console.log(isChecked)} />;

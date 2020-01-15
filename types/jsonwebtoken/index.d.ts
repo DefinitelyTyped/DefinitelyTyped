@@ -6,7 +6,8 @@
 //                 Veli-Pekka Kestilä <https://github.com/vpk>,
 //                 Daniel Parker <https://github.com/rlgod>,
 //                 Kjell Dießel <https://github.com/kettil>,
-//                 Robert Gajda <https://github.com/RunAge>
+//                 Robert Gajda <https://github.com/RunAge>,
+//                 Nico Flaig <https://github.com/nflaig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -44,7 +45,7 @@ export interface SignOptions {
      * - ES512:    ECDSA using P-521 curve and SHA-512 hash algorithm
      * - none:     No digital signature or MAC value included
      */
-    algorithm?: string;
+    algorithm?: Algorithm;
     keyid?: string;
     /** expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number;
@@ -61,7 +62,7 @@ export interface SignOptions {
 }
 
 export interface VerifyOptions {
-    algorithms?: string[];
+    algorithms?: Algorithm[];
     audience?: string | RegExp | Array<string | RegExp>;
     clockTimestamp?: number;
     clockTolerance?: number;
@@ -104,6 +105,13 @@ export interface JwtHeader {
     x5u?: string;
     x5t?: string;
 }
+
+export type Algorithm =
+    "HS256" | "HS384" | "HS512" |
+    "RS256" | "RS384" | "RS512" |
+    "ES256" | "ES384" | "ES512" |
+    "PS256" | "PS384" | "PS512" |
+    "none";
 
 export type SigningKeyCallback = (
     err: any,

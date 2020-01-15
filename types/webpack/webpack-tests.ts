@@ -307,6 +307,14 @@ configuration = {
         mainTemplate.hooks.requireExtensions.tap('SomePlugin', resource => {
           return resource.trimLeft();
         });
+        mainTemplate.hooks.requireEnsure.tap('SomePlugin', (resource, chunk, hash, chunkIdExpression: string) => {
+          mainTemplate.renderRequireFunctionForModule(hash, chunk, 'moduleId');
+          mainTemplate.renderAddModule(hash, chunk, 'moduleId', JSON.stringify({ ok: true }));
+          return `${resource};/* additional requests for ${chunkIdExpression} */`;
+        });
+        mainTemplate.hooks.localVars.tap('SomePlugin', resource => {
+          return resource.trimLeft();
+        });
         if (mainTemplate.hooks.jsonpScript == null) {
           return;
         }
