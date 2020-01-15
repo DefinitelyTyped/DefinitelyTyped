@@ -15,7 +15,7 @@ import {
 } from '..';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceInit & Partial<WithTerm> & Partial<WithValue>);
+    constructor(options: ClownfaceInit & Partial<WithTerm<T>> & Partial<WithValue>);
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;
