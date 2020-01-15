@@ -14,7 +14,6 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 
     await expect(instance).toMatch("selector");
     await expect(instance).toMatch("selector", { timeout: 777 });
-    await expect(instance).toMatch("selector", { delay: 100 });
 
     await expect(instance).toMatchElement("selector");
     await expect(instance).toMatchElement("selector", { polling: "raf", timeout: 777 });
@@ -22,11 +21,9 @@ const testGlobal = async (instance: ElementHandle | Page) => {
 
     await expect(instance).toSelect("selector", "valueOrText");
     await expect(instance).toSelect("selector", "valueOrText", { polling: "raf" });
-    await expect(instance).toSelect("selector", "valueOrText", { delay: 100 });
 
     await expect(instance).toUploadFile("selector", "filePath");
     await expect(instance).toUploadFile("selector", "filePath", { timeout: 777 });
-    await expect(instance).toUploadFile("selector", "filePath", { delay: 100 });
 
     await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 });
     await expect(instance).toFillForm("selector", { foo: 'bar', baz: 123 }, { timeout: 777 });
