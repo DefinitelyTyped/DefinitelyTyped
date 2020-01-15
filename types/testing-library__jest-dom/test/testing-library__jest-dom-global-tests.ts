@@ -1,5 +1,3 @@
-// Global usage
-
 const element: HTMLElement = document.body;
 
 expect(element).toBeInTheDOM();
@@ -32,6 +30,7 @@ expect(element).toHaveValue();
 expect(element).toHaveValue('str');
 expect(element).toHaveValue(['str1', 'str2']);
 expect(element).toHaveValue(1);
+expect(element).toBeChecked();
 
 expect(element).not.toBeInTheDOM();
 expect(element).not.toBeInTheDOM(document.body);
@@ -63,3 +62,4 @@ expect(element).not.toHaveValue();
 expect(element).not.toHaveValue('str');
 expect(element).not.toHaveValue(['str1', 'str2']);
 expect(element).not.toHaveValue(1);
+expect(element).not.toBeChecked();
