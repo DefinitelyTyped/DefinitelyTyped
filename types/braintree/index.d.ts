@@ -174,7 +174,7 @@ declare namespace braintree {
 
     interface SubscriptionGateway {
         cancel(subscriptionId: string): Promise<void>;
-        create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
+        create(request: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
@@ -182,7 +182,7 @@ declare namespace braintree {
             submitForSettlement?: boolean,
         ): Promise<ValidatedResponse<Subscription>>;
         search(searchFn: any): stream.Readable;
-        update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
+        update(subscriptionId: string, updates: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
     }
 
     interface TestingGateway {
@@ -974,14 +974,6 @@ declare namespace braintree {
         trialDuration?: number;
         trialDurationUnit?: string;
         trialPeriod?: boolean;
-    }
-
-    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
-        id: string;
-        merchantAccountId: string;
-    }
-
-    export interface SubscriptionCreateRequest extends SubscriptionRequest {
         id?: string;
         merchantAccountId?: string;
     }
