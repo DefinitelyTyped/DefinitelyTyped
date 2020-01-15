@@ -1,4 +1,4 @@
-// Type definitions for color 3.0
+// Type definitions for redux-enhancer-react-native-appstate 0.3
 // Project: https://github.com/bamlab/redux-enhancer-react-native-appstate
 // Definitions by: Thibault Maekelbergh <https://github.com/thibmaek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,4 @@ export type INACTIVE = 'APP_STATE.INACTIVE';
 
 type StateListener = () => (createStore: typeof createStoreFn) => (...args: any[]) => Store;
 
-declare const StateListener: StateListener;
-
-export = StateListener;
+export declare const StateListener: StateListener;
