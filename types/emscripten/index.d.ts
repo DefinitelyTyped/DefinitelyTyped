@@ -14,8 +14,14 @@ declare namespace Emscripten {
     interface FileSystemType {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
-    type ValueType = "number" | "string" | "array" | "boolean";
+
+    type JSType = "number" | "string" | "array" | "boolean";
     type TypeCompatibleWithC = number | string | any[] | boolean;
+
+    type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
+    type CFloatType = 'float' | 'double';
+    type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
+    type CType =  CIntType | CFloatType | CPointerType;
 
     type WebAssemblyImports =  Array<{
         name: string;
@@ -237,13 +243,13 @@ declare var IDBFS: Emscripten.FileSystemType;
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-declare function cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
+declare function ccall(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
+declare function cwrap(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
 
-declare function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
-declare function getValue(ptr: number, type: string, noSafe?: boolean): number;
+declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
+declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
 
-declare function allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
+declare function allocate(slab: number[] | ArrayBufferView | number, types: Emscripten.CType | Emscripten.CType[], allocator: number, ptr?: number): number;
 
 declare function stackAlloc(size: number): number;
 declare function stackSave(): number;
