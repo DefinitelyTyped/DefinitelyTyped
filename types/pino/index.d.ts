@@ -126,10 +126,18 @@ declare namespace P {
          * The default time function for Pino. Returns a string like `,"time":1493426328206`.
          */
         epochTime: TimeFn;
+        /*
+         * Returns the seconds since Unix epoch
+         */
+        unixTime: TimeFn;
         /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
+        /*
+         * Returns ISO 8601-formatted time in UTC
+         */
+        isoTime: TimeFn;
     };
 
     /**
@@ -319,13 +327,13 @@ declare namespace P {
             write?:
                 | WriteFn
                 | ({
-                    fatal?: WriteFn;
-                    error?: WriteFn;
-                    warn?: WriteFn;
-                    info?: WriteFn;
-                    debug?: WriteFn;
-                    trace?: WriteFn;
-                } & { [logLevel: string]: WriteFn });
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
 
             /**
              * The serializers provided to `pino` are ignored by default in the browser, including the standard
@@ -414,14 +422,14 @@ declare namespace P {
                  * the `send` function will be called based on the main logging `level` (set via `options.level`,
                  * defaulting to `info`).
                  */
-                level?: Level|string;
+                level?: Level | string;
                 /**
                  * Remotely record log messages.
                  *
                  * @description Called after writing the log message.
                  */
                 send: (level: Level, logEvent: LogEvent) => void;
-            }
+            };
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
