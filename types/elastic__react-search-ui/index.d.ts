@@ -3,8 +3,6 @@
 // Definitions by: Alex Atallah <https://github.com/alexanderatallah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {};
-
 import { Component } from 'react';
 
 type func = (...args: any[]) => any;
@@ -13,7 +11,8 @@ type renderFunc = (...args: any[]) => JSX.Element;
 /**
  * FIELDS
  */
-type FieldValue = string | number | boolean | Array<string | number | boolean>;
+export type FieldValue = string | number | boolean | Array<string | number | boolean>;
+
 interface FieldValueWrapper {
     // A raw field value, like 'I am a raw result', or 2, or true. Raw values may
     // or may not be html escaped, so *always* sanitize a raw value before rendering
@@ -27,7 +26,8 @@ interface FieldValueWrapper {
 /**
  * FACETS
  */
-type FacetType = "range" | "value";
+export type FacetType = "range" | "value";
+
 interface FacetValue {
     // Number of results for this filter
     count: number;
@@ -52,8 +52,11 @@ interface Filter {
     values: FilterValue[];
     type: FilterType;
 }
+
 export type FilterType = "all" | "any" | "none";
+
 type FilterValueValue = FieldValue;
+
 interface FilterValueRange {
     // Beginning of the range, like 1
     from?: FieldValue;
@@ -83,7 +86,9 @@ interface ResultT {
 /**
  * SORTING
  */
+
 export type SortDirection = "asc" | "desc";
+
 interface SortOption {
     // A display name, like "Name"
     name?: string;
@@ -98,6 +103,7 @@ interface Suggestion {
     highlight?: string;
     data?: object;
 }
+
 interface AutocompleteSection {
     sectionTitle?: string;
 }
