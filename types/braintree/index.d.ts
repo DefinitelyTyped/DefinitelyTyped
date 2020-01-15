@@ -958,6 +958,8 @@ declare namespace braintree {
             update?: DiscountUpdateRequest[];
         };
         firstBillingDate?: Date;
+        id?: string;
+        merchantAccountId?: string;
         neverExpires?: boolean;
         numberOfBillingCycles?: number;
         options?: {
@@ -974,8 +976,6 @@ declare namespace braintree {
         trialDuration?: number;
         trialDurationUnit?: string;
         trialPeriod?: boolean;
-        id?: string;
-        merchantAccountId?: string;
     }
 
     export interface SubscriptionHistory {
