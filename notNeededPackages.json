@@ -1708,7 +1708,7 @@
             "libraryName": "@hapi/boom",
             "typingsPackageName": "hapi__boom",
             "sourceRepoURL": "https://github.com/hapijs/boom",
-            "asOfVersion": "8.0.0"
+            "asOfVersion": "8.0.1"
         },
         {
             "libraryName": "hard-rejection",
