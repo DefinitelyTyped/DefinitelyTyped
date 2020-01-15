@@ -16,7 +16,7 @@ const mockContext = {
     functionName: 'testFunction',
     functionVersion: '1',
     invokedFunctionArn: 'arn',
-    memoryLimitInMB: 128,
+    memoryLimitInMB: '128',
     awsRequestId: 'id',
     logGroupName: 'group',
     logStreamName: 'stream',
@@ -27,3 +27,6 @@ const mockContext = {
 };
 
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CONTEXT_SUCCEED');
+awsServerlessExpress.proxy(server, mockEvent, mockContext, 'PROMISE').promise.then((response: awsServerlessExpress.Response) => {}).catch(err => {});

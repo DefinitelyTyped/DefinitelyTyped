@@ -2,7 +2,7 @@
 // Project: https://github.com/react-native-community/react-native-navbar
 // Definitions by: Ryo Kikuchi <https://github.com/ryokik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ViewStyle, TextProps } from 'react-native';
@@ -33,9 +33,9 @@ export interface NavigationBarProps {
     style?: ViewStyle;
     tintColor?: string;
     statusBar?: StatusBar;
-    leftButton?: NavigationBarButton | React.ReactElement<any> | null;
-    rightButton?: NavigationBarButton | React.ReactElement<any> | null;
-    title?: NavigationBarTitle | React.ReactElement<any> | null;
+    leftButton?: NavigationBarButton | React.ReactElement | null;
+    rightButton?: NavigationBarButton | React.ReactElement | null;
+    title?: NavigationBarTitle | React.ReactElement | null;
 }
 
 export default class NavigationBar extends React.Component<NavigationBarProps> {}

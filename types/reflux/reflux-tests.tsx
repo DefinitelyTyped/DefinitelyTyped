@@ -48,7 +48,7 @@ Reflux.createAction({
 let action = Reflux.createAction();
 action = Reflux.createAction({ children: ['delayComplete'] });
 action = Reflux.createAction({ actionName: 'load' });
-action = Reflux.createAction({ preEmit: (id: number) => { console.log(id); }, shouldEmit: (id: number) => { console.log(id); return id > 0; } });
+action = Reflux.createAction({ preEmit: (id: number) => { console.log(id); return undefined; }, shouldEmit: (id: number) => { console.log(id); return id > 0; } });
 
 let actions = Reflux.createActions([{ actionName: 'fireBall' }, { actionName: 'magicMissile', sync: false }]);
 actions = Reflux.createActions({ fireBall: { sync: false } });

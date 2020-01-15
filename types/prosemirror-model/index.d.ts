@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.5
+// Type definitions for prosemirror-model 1.7
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -1035,7 +1035,7 @@ export class NodeType<S extends Schema = any> {
    * set of marks.
    */
   create(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1045,7 +1045,7 @@ export class NodeType<S extends Schema = any> {
    * if it doesn't match.
    */
   createChecked(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S>;
@@ -1058,7 +1058,7 @@ export class NodeType<S extends Schema = any> {
    * `Fragment.empty` as content.
    */
   createAndFill(
-    attrs?: { [key: string]: any },
+    attrs?: { [key: string]: any } | null,
     content?: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>,
     marks?: Array<Mark<S>>
   ): ProsemirrorNode<S> | null | undefined;
@@ -1240,6 +1240,15 @@ export interface NodeSpec {
    * parsing rules in your schema.
    */
   parseDOM?: ParseRule[] | null;
+  /**
+   * Defines the default way a node of this type should be serialized
+   * to a string representation for debugging (e.g. in error messages).
+   */
+  toDebugString?: ((node: ProsemirrorNode) => string) | null;
+  /**
+   * Allow specifying arbitrary fields on a NodeSpec.
+   */
+  [key: string]: any;
 }
 export interface MarkSpec {
   /**
@@ -1273,6 +1282,11 @@ export interface MarkSpec {
    */
   group?: string | null;
   /**
+   * Determines whether marks of this type can span multiple adjacent
+   * nodes when serialized to DOM/HTML. Defaults to true.
+   */
+  spanning?: boolean | null;
+  /**
    * Defines the default way marks of this type should be serialized
    * to DOM/HTML.
    */
@@ -1283,6 +1297,10 @@ export interface MarkSpec {
    * `mark` field in the rules is implied.
    */
   parseDOM?: ParseRule[] | null;
+  /**
+   * Allow specifying arbitrary fields on a MarkSpec.
+   */
+  [key: string]: any;
 }
 /**
  * Used to [define](#model.NodeSpec.attrs) attributes on nodes or
@@ -1323,7 +1341,7 @@ export class Schema<N extends string = any, M extends string = any> {
   /**
    * A map from mark names to mark type objects.
    */
-  marks: { [name in M]: MarkType<Schema<N, M>> } & { [key: string]: NodeType<Schema<N, M>> };
+  marks: { [name in M]: MarkType<Schema<N, M>> } & { [key: string]: MarkType<Schema<N, M>> };
   /**
    * The type of the [default top node](#model.SchemaSpec.topNode)
    * for this schema.

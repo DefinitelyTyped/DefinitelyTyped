@@ -1,9 +1,11 @@
-// Type definitions for generate-changelog 1.7
+// Type definitions for generate-changelog 1.8
 // Project: https://github.com/lob/generate-changelog#readme
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Options {
+    /** allow unkown commit types */
+    allowUnknown?: boolean;
     /** exclude listed commit types (e.g. `['chore', 'style', 'refactor']`) */
     exclude?: string[];
     /** whether it should be a patch changelog */

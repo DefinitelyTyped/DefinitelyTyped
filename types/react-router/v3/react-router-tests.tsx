@@ -23,6 +23,7 @@ import {
 	RouteComponentProps,
 	WithRouterProps
 } from "react-router";
+import { matchPattern } from 'react-router/lib/PatternUtils';
 import { createHistory, History } from "history";
 
 const routerHistory = useRouterHistory(createHistory)({ basename: "/test" });
@@ -51,7 +52,8 @@ class Master extends Component {
 		router: routerShape
 	};
 
-	context: MasterContext;
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        context = {} as MasterContext;
 
 	navigate() {
 		const router = this.context.router;
@@ -181,3 +183,24 @@ ReactDOM.render((
 	>
 	</Router>
 ), document.body);
+
+const matchedPattern = matchPattern("/foo", "/foo/bar");
+
+if (matchedPattern) {
+    matchedPattern.remainingPathname === "/bar";
+    matchedPattern.paramNames.forEach(name => {});
+    matchedPattern.paramValues.forEach(value => {});
+}
+
+matchPattern("/foo", "/baz") === null;
+
+const CreateHref: React.SFC<WithRouterProps> = ({ router }) => (
+	<div>
+		{router.createHref({ pathname: "/foo", query: { bar: "baz" } })}
+		{router.createHref("/foo?bar=baz")}
+	</div>
+);
+
+const CreateHrefWithRouter = withRouter<{}>(CreateHref);
+
+ReactDOM.render(<CreateHrefWithRouter />, document.body);

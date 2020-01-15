@@ -338,7 +338,7 @@ declare namespace SFS2X {
              */
             constructor(id: number, name: string, groupId?: string);
             /**
-             * Retrieves an MMOItem object from its id property. The item is available to the current user if it falls within his Area of Interest only.
+             * Retrieves an MMOItem object from its id property. The item is available to the current user if it falls within their Area of Interest only.
              * @param  {number}  id The id of the item to be retrieved.
              * @return {MMOItem}    Returns: An MMOItem object, or null if the item with the passed id is not in proximity of the current user.
 
@@ -1174,7 +1174,7 @@ declare namespace SFS2X {
 
                 /**
                  * Creates a new GoOnlineRequest instance.
-                 * @param {boolean} online true to make the current user available (online) in the Buddy List system; false to make him not available (offline).
+                 * @param {boolean} online true to make the current user available (online) in the Buddy List system; false to make them not available (offline).
                  */
                 constructor(online: boolean);
 
@@ -1430,7 +1430,7 @@ declare namespace SFS2X {
             allowUserEnter: boolean;
             /** @type {boolean} Sets whether the userExitRoom event should be dispatched whenever a user leaves the Room or not. */
             allowUserExit: boolean;
-            /** @type {boolean} Sets whether or not the userVariablesUpdate event should be dispatched whenever a user in the Room updates his User Variables */
+            /** @type {boolean} Sets whether or not the userVariablesUpdate event should be dispatched whenever a user in the Room updates their User Variables */
             allowUserVariablesUpdate: boolean;
 
             /**
@@ -1546,7 +1546,7 @@ declare namespace SFS2X {
                 /**
                  * Creates a new BanUserRequest instance.
                  * @param {number}  userId        The id of the user to be banned.
-                 * @param {string}  [message=null]       A custom message to be delivered to the user before banning him; if null, the default message configured in the SmartFoxServer 2X Administration Tool is used.
+                 * @param {string}  [message=null]       A custom message to be delivered to the user before banning them; if null, the default message configured in the SmartFoxServer 2X Administration Tool is used.
                  * @param {BanMode} [banMode=BY_NAME]       One of the ban modes defined in the BanMode class.
                  * @param {number}  [delaySeconds=5]  The number of seconds after which the user is banned after receiving the ban message.
                  * @param {number}  [durationHours=24] The duration of the banishment, expressed in hours.
@@ -1682,7 +1682,7 @@ declare namespace SFS2X {
                 /**
                  * Creates a new KickUserRequest instance.
                  * @param {number} userId       The id of the user to be kicked.
-                 * @param {string} [message=null]      A custom message to be delivered to the user before kicking him; if null, the default message configured in the SmartFoxServer 2X Administration Tool is used.
+                 * @param {string} [message=null]      A custom message to be delivered to the user before kicking them; if null, the default message configured in the SmartFoxServer 2X Administration Tool is used.
                  * @param {number} [delaySeconds=5] The number of seconds after which the user is kicked after receiving the kick message.
                  */
                 constructor(userId: number, message?: string, delaySeconds?: number);
@@ -1754,7 +1754,7 @@ declare namespace SFS2X {
                  * Creates a new ObjectMessageRequest instance.
                  * @param {Object}             obj        An object containing custom parameters to be sent to the message recipients.
                  * @param {Entities.SFSRoom}   [targetRoom=null] The SFSRoom object corresponding to the Room where the message should be dispatched; if null, the last Room joined by the user is used.
-                 * @param {Entities.SFSUser[]} [recipients=null] A list of SFSUser objects corresponding to the message recipients; if null, the message is sent to all users in the target Room (except the sender himself).
+                 * @param {Entities.SFSUser[]} [recipients=null] A list of SFSUser objects corresponding to the message recipients; if null, the message is sent to all users in the target Room (except the sender themselves).
                  */
                 constructor(obj: Object, targetRoom?: Entities.SFSRoom, recipients?: Entities.SFSUser[]);
 
@@ -1890,7 +1890,7 @@ declare namespace SFS2X {
         static BUDDY_LIST_INIT: string;
         /** @type {string} The buddyMessage event type, dispatched when a message from a buddy is received by the current user. */
         static BUDDY_MESSAGE: string;
-        /** @type {string} The buddyOnlineStateChange event type, dispatched when a buddy in the current user's buddy list changes his online state in the Buddy List system. */
+        /** @type {string} The buddyOnlineStateChange event type, dispatched when a buddy in the current user's buddy list changes their online state in the Buddy List system. */
         static BUDDY_ONLINE_STATE_CHANGE: string;
         /** @type {string} The buddyRemove event type, dispatched when a buddy is removed successfully from the current user's buddy list. */
         static BUDDY_REMOVE: string;
@@ -1955,9 +1955,9 @@ declare namespace SFS2X {
         static EXTENSION_RESPONSE: string;
         /** @type {string} The invitation event type, dispatched when the current user receives an invitation from another user. */
         static INVITATION: string;
-        /** @type {string} The invitationReply event type, dispatched when the current user receives a reply to an invitation he sent previously. */
+        /** @type {string} The invitationReply event type, dispatched when the current user receives a reply to an invitation they sent previously. */
         static INVITATION_REPLY: string;
-        /** @type {string} The invitationReplyError event type, dispatched when an error occurs while the current user is sending a reply to an invitation he received. */
+        /** @type {string} The invitationReplyError event type, dispatched when an error occurs while the current user is sending a reply to an invitation they received. */
         static INVITATION_REPLY_ERROR: string;
         /** @type {string} The login event type, dispatched when the current user performs a successful login in a server Zone. */
         static LOGIN: string;
@@ -2027,7 +2027,7 @@ declare namespace SFS2X {
         static USER_COUNT_CHANGE: string;
         /** @type {string} The userEnterRoom event type, dispatched when one of the Rooms joined by the current user is entered by another user. */
         static USER_ENTER_ROOM: string;
-        /** @type {string} The userExitRoom event type, dispatched when one of the Rooms joined by the current user is left by another user, or by the current user himself. */
+        /** @type {string} The userExitRoom event type, dispatched when one of the Rooms joined by the current user is left by another user, or by the current user themselves. */
         static USER_EXIT_ROOM: string;
         /** @type {string} The userFindResult event type, dispatched when a users search is completed. */
         static USER_FIND_RESULT: string;

@@ -49,6 +49,14 @@ declare namespace ClipboardJS {
          * @returns Text to be copied.
          */
         text?(elem: Element): string;
+
+        /**
+         * For use in Bootstrap Modals or with any
+         * other library that changes the focus
+         * you'll want to set the focused element
+         * as the container value.
+         */
+        container?: Element;
     }
 
     interface Event {

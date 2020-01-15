@@ -1,8 +1,10 @@
-// Type definitions for react-burger-menu 2.2
+// Type definitions for react-burger-menu 2.6
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
+//                 David Acevedo <https://github.com/dacevedo12>
+//                 German Pineda <https://github.com/germanp173>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -16,6 +18,7 @@ export interface Styles {
     bmCross: Partial<CSSStyleDeclaration>;
     bmCrossButton: Partial<CSSStyleDeclaration>;
     bmItemList: Partial<CSSStyleDeclaration>;
+    bmMenuWrap: Partial<CSSStyleDeclaration>;
     bmMenu: Partial<CSSStyleDeclaration>;
     bmMorphShape: Partial<CSSStyleDeclaration>;
     bmOverlay: Partial<CSSStyleDeclaration>;
@@ -25,17 +28,24 @@ export interface Props {
     bodyClassName?: string;
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
+    className?: string;
     crossButtonClassName?: string;
     crossClassName?: string;
     customBurgerIcon?: JSX.Element | false;
     customCrossIcon?: JSX.Element | false;
-    disableOverlayClick?: boolean;
+    customOnKeyDown?(event: React.KeyboardEvent): void;
+    disableAutoFocus?: boolean;
+    disableCloseOnEsc?: boolean;
+    disableOverlayClick?: boolean | (() => boolean);
+    htmlClassName?: string;
     id?: string;
     isOpen?: boolean;
+    itemClassName?: string;
     itemListClassName?: string;
     menuClassName?: string;
     morphShapeClassName?: string;
     noOverlay?: boolean;
+    noTransition?: boolean;
     onStateChange?(state: State): void;
     // TODO (Rajab) This can be improved, though I do not know how. From PropTypes:
     // styles && styles.outerContainer ? PropTypes.string.isRequired : PropTypes.string

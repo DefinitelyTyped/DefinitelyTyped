@@ -3,9 +3,7 @@
 // Definitions by: Piotr Roszatycki <https://github.com/dex4er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-import { Writable } from "stream";
+import Pumpify = require("pumpify");
 
 declare namespace csv2json {
   interface Options {
@@ -14,6 +12,6 @@ declare namespace csv2json {
   }
 }
 
-declare function csv2json(options?: csv2json.Options): Writable;
+declare function csv2json(options?: csv2json.Options): Pumpify;
 
 export = csv2json;

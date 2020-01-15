@@ -1,12 +1,6 @@
 {
     "files": [
-        "fixed/foundation.d.ts",
-        "short/foundation.d.ts",
-        "standard/foundation.d.ts",
-        "constants.d.ts",
-        "adapter.d.ts",
-        "index.d.ts",
-        "foundation.d.ts"
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

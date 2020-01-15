@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "jsx": "preserve",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@wordpress/data": [
+                "wordpress__data"
+            ],
+            "@wordpress/components": [
+                "wordpress__components"
+            ],
+            "@wordpress/edit-post": [
+                "wordpress__edit-post"
+            ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
+            "@wordpress/notices": [
+                "wordpress__notices"
+            ],
+            "@wordpress/rich-text": [
+                "wordpress__rich-text"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "wordpress__edit-post-tests.tsx"
+    ]
+}

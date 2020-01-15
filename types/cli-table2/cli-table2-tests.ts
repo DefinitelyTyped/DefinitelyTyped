@@ -230,3 +230,24 @@ table26.push(
 // feel free to use colors in your content strings, column widths will be calculated correctly
 const table27 = new Table({ colWidths: [5], style: { head: [], border: [] } }) as Table.HorizontalTable;
 table27.push([/*colors.red(*/'hello'/*)*/]);
+
+// Header as text
+const table28 = new Table({ head: ["Top Header 1", "Top Header 2"] }) as Table.HorizontalTable;
+table28.push(
+    ['Value Row 1 Col 1', 'Value Row 1 Col 2'],
+    ['Value Row 2 Col 1', 'Value Row 2 Col 2']
+);
+
+// Header as Cells
+const table29 = new Table({ head: [{content: "Top Header 1"}, {content: "Top Header 2"}] }) as Table.HorizontalTable;
+table29.push(
+    ['Value Row 1 Col 1', 'Value Row 1 Col 2'],
+    ['Value Row 2 Col 1', 'Value Row 2 Col 2']
+);
+
+// ColSpan in header
+const table30 = new Table({ head: [{content: "Top Header 1", colSpan: 2}, {content: "Top Header 3"}] }) as Table.HorizontalTable;
+table30.push(
+    ['Value Row 1 Col 1', 'Value Row 1 Col 2', 'Value Row 1 Col 3'],
+    ['Value Row 2 Col 1', 'Value Row 2 Col 2', 'Value Row 2 Col 3']
+);

@@ -1,6 +1,7 @@
 import meow = require('meow');
 
 const cli = meow('Help text', {
+    booleanDefault: undefined,
     flags: {
         unicorn: {
             type: 'boolean',
@@ -29,6 +30,7 @@ const cli3 = meow({
     inferType: true,
     autoHelp: true,
     autoVersion: true,
+    booleanDefault: false,
     flags: {
         unicorn: {
             type: 'boolean',

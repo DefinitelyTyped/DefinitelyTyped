@@ -1,6 +1,6 @@
-import { Server, Client, Packet } from 'mosca';
+import { Server, Client, Packet, ServerOptions } from 'mosca';
 
-const settings = {
+const settings: ServerOptions = {
     port: 1883,
     host: '0.0.0.0'
 };
@@ -14,3 +14,5 @@ server.on('clientConnected', (client: Client) => {});
 server.on('clientDisconnected', (client: Client) => {});
 
 server.on('published', (packet: Packet, client: Client) => {});
+
+server.on('subscribed', (topic: string, client: Client) => {});

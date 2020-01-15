@@ -1,8 +1,9 @@
-// Type definitions for jasmine-enzyme 3.6
-// Project: https://github.com/blainekasten/enzyme-matchers/blob/master/packages/jasmine-enzyme/README.md
+// Type definitions for jasmine-enzyme 7.0
+// Project: https://github.com/formidablelabs/enzyme-matchers/packages/jasmine-enzyme
 // Definitions by: Umar Bolatov <https://github.com/bolatovumar>
+//                 Steve Gravrock <https://github.com/sgravrock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 3.1
 
 /// <reference types="jasmine" />
 /// <reference types="react" />
@@ -13,23 +14,27 @@ export default jasmineEnzyme;
 declare global {
 	namespace jasmine {
 		interface Matchers<T> {
-			toBeChecked(): boolean;
-			toBeDisabled(): boolean;
-			toBeEmpty(): boolean;
-			toBePresent(): boolean;
-			toContainReact(reactInstance: JSX.Element): boolean;
-			toHaveClassName(className: string): boolean;
-			toHaveHTML(html: string): boolean;
-			toHaveProp(propKey: string, propValue?: any): boolean;
+			toBeChecked(): void;
+			toBeDisabled(): void;
+			toBeEmptyRender(): void;
+			toContainMatchingElement(selector: string): void;
+			toContainMatchingElements(num: number, selector: string): void;
+			toContainExactlyOneMatchingElement(selector: string): void;
+			toContainReact(reactInstance: JSX.Element): void;
+			toExist(): void;
+			toHaveClassName(className: string): void;
+			toHaveDisplayName(tagName: string): void;
+			toHaveHTML(html: string): void;
+			toHaveProp(propKey: string, propValue?: any): void;
 			toHaveRef(refName: string): string;
-			toHaveState(stateKey: string, stateValue?: any): boolean;
-			toHaveStyle(styleKey: string, styleValue?: any): boolean;
-			toHaveTagName(tagName: string): boolean;
-			toHaveText(text?: string): boolean;
-			toIncludeText(text: string): boolean;
-			toHaveValue(value: any): boolean;
-			toMatchElement(reactInstance: JSX.Element): boolean;
-			toMatchSelector(selector: string): boolean;
+			toHaveState(stateKey: string, stateValue?: any): void;
+			toHaveStyle(styleKey: string, styleValue?: any): void;
+			toHaveTagName(tagName: string): void;
+			toHaveText(text?: string): void;
+			toIncludeText(text: string): void;
+			toHaveValue(value: any): void;
+			toMatchElement(reactInstance: JSX.Element): void;
+			toMatchSelector(selector: string): void;
 		}
 	}
 }

@@ -3,7 +3,7 @@ export interface Settings {
     readonly application: {
         readonly name: string;
         readonly password: string;
-    }
+    };
     readonly nesting?: boolean;
     readonly sessionTimeout?: number;
     readonly debug?: boolean;

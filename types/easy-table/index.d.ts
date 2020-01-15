@@ -53,7 +53,7 @@ declare class EasyTable {
      *
      * @returns {Table} `this`
      */
-    public newRow(): EasyTable;
+    public newRow(): this;
 
     /**
      * Write cell in the current row
@@ -63,7 +63,7 @@ declare class EasyTable {
      * @param {Function} [printer]  - Printer function to format the value
      * @returns {Table} `this`
      */
-    public cell<T>(col: string, val: T, printer?: CellPrinter<T>): EasyTable;
+    public cell<T>(col: string, val: T, printer?: CellPrinter<T>): this;
 
     /**
      * Get list of columns in printing order
@@ -92,7 +92,7 @@ declare class EasyTable {
      * @param {String[]} [cols]
      * @returns {Table} `this`
      */
-    public pushDelimeter(cols?: string[]): EasyTable;
+    public pushDelimeter(cols?: ReadonlyArray<string>): this;
 
     /**
      * Compute all totals and yield the results to `cb`
@@ -115,14 +115,14 @@ declare class EasyTable {
      * @param {Function|string[]} [cmp] - Either compare function or a list of columns to sort on
      * @returns {Table} `this`
      */
-    public sort(cmp?: string[]): EasyTable;
+    public sort(cmp?: ReadonlyArray<string>): this;
     /**
      * Sort the table
      *
      * @param {Function|string[]} [cmp] - Either compare function or a list of columns to sort on
      * @returns {Table} `this`
      */
-    public sort<T>(cmp?: CompareFunction<T>): EasyTable;
+    public sort<T>(cmp?: CompareFunction<T>): this;
 
     /**
      * Add a total for the column
@@ -131,7 +131,7 @@ declare class EasyTable {
      * @param {Object} [opts]
      * @returns {Table} `this`
      */
-    public total<T>(col: string, opts?: TotalOptions<T>): EasyTable;
+    public total<T>(col: string, opts?: TotalOptions<T>): this;
     /**
      * Predefined helpers for totals
      */

@@ -2,13 +2,13 @@
 // Project: https://github.com/reactjs/react-transition-group
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { HTMLAttributes, ReactElement, ReactType } from "react";
 
 export interface HTMLTransitionGroupProps<T> extends HTMLAttributes<T> {
     component?: ReactType;
-    childFactory?(child: ReactElement<any>): ReactElement<any>;
+    childFactory?(child: ReactElement): ReactElement;
 }
 
 import TransitionGroup = require("./TransitionGroup");

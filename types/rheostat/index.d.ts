@@ -1,8 +1,8 @@
-// Type definitions for rheostat 2.1
+// Type definitions for rheostat 3.0
 // Project: https://github.com/airbnb/rheostat
-// Definitions by: Sasha Bayan <https://github.com/SashaBayan>, Wil Lee <https://github.com/kourge>
+// Definitions by: Sasha Bayan <https://github.com/SashaBayan>, Wil Lee <https://github.com/kourge>, Stefan Wer <https://github.com/StefanWerW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
@@ -20,6 +20,7 @@ export interface PublicState {
 }
 
 export interface Events {
+  getNextHandlePosition?(handleIdx: number, percentPosition: number): number;
   onClick?(): any;
   onChange?(publicState: PublicState): any;
   onKeyPress?(): any;
@@ -31,6 +32,8 @@ export interface Events {
 
 export interface Props extends Events {
   algorithm?: Algorithm;
+  autoAdjustVerticalPosition?: boolean;
+  background?: React.ReactType;
   className?: string;
   disabled?: boolean;
   handle?: React.ReactType;

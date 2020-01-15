@@ -1,8 +1,8 @@
 
 // From https://hapijs.com/api/16.1.1#error-response
 
-import * as Hapi from '../../';
-const Boom = require('../../../../boom');
+import * as Hapi from 'hapi';
+const Boom = require('hapi../../boom');
 
 const server = new Hapi.Server();
 

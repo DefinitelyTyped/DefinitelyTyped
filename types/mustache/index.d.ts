@@ -1,6 +1,8 @@
-// Type definitions for Mustache 0.8.3
+// Type definitions for Mustache 3.2.1
 // Project: https://github.com/janl/mustache.js
-// Definitions by: Mark Ashley Bell <https://github.com/markashleybell>, Manuel Thalmann <https://github.com/manuth>
+// Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
+//                 Manuel Thalmann <https://github.com/manuth>,
+//                 Phillip Johnsen <https://github.com/phillipj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -10,22 +12,27 @@ interface MustacheStatic {
     /**
      * The name of the module.
      */
-    name: string;
+    readonly name: string;
 
     /**
      * The version of the module.
      */
-    version: string;
+    readonly version: string;
 
     /**
-     * The opening and closing tags to parse.
+     * The default opening and closing tags used while parsing the templates.
+     *
+     * Different default tags can be overridden by setting this field. They will have effect on all subsequent
+     * calls to `.render()` or `.parse()`, unless custom tags are given as arguments to those functions.
+     *
+     * Default value is `[ "{{", "}}" ]`.
      */
-    tags: string;
+    tags: OpeningAndClosingTags;
 
     /**
      * A simple string scanner that is used by the template parser to find tokens in template strings.
      */
-    Scanner: typeof MustacheScanner
+    Scanner: typeof MustacheScanner;
 
     /**
      * Represents a rendering context by wrapping a view object and maintaining a reference to the parent context.
@@ -63,7 +70,28 @@ interface MustacheStatic {
      * @param tags
      * The tags to use.
      */
-    parse(template: string, tags?: string[]): any;
+    parse(template: string, tags?: OpeningAndClosingTags): any;
+
+    /**
+     * Renders the `template` with the given `view` and `partials` using the default writer.
+     *
+     * @param template
+     * The template to render.
+     *
+     * @param view
+     * The view to render the template with.
+     *
+     * @param partials
+     * Either an object that contains the names and templates of partials that are used in a template
+     *
+     * -- or --
+     *
+     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
+     */
+    render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
@@ -81,25 +109,8 @@ interface MustacheStatic {
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
      */
-    render(template: string, view: any | MustacheContext, partials?: any): string;
-
-    /**
-     * Renders the `template` with the given `view` and `partials` using the default writer.
-     *
-     * @param template
-     * The template to render.
-     *
-     * @param view
-     * The view to render the template with.
-     *
-     * @param partials
-     * Either an object that contains the names and templates of partials that are used in a template
-     *
-     * -- or --
-     *
-     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
-     */
-    to_html(template: string, view: any | MustacheContext, partials?: any, send?: any): any;
+    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn): string;
+    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, send?: (result: string) => void): void;
 }
 
 /**
@@ -148,17 +159,12 @@ declare class MustacheScanner {
  */
 declare class MustacheContext {
     view: any;
-    parentContext: MustacheContext;
+    parentContext: MustacheContext | undefined;
 
     /**
-     * Initializes a new instance of the `MustacheContenxt` class.
+     * Initializes a new instance of the `MustacheContext` class.
      */
-    constructor(view: any, parentContext: MustacheContext);
-
-    /**
-     * Initializes a new instance of the `MustacheContenxt` class.
-     */
-    constructor(view: any);
+    constructor(view: any, parentContext?: MustacheContext);
 
     /**
      * Creates a new context using the given view with this context as the parent.
@@ -198,8 +204,11 @@ declare class MustacheWriter {
      *
      * @param template
      * The template to parse.
+     *
+     * @param tags
+     * The tags to use.
      */
-    parse(template: string, tags?: any): any;
+    parse(template: string, tags?: OpeningAndClosingTags): any;
 
     /**
      * High-level method that is used to render the given `template` with the given `view`.
@@ -216,8 +225,11 @@ declare class MustacheWriter {
      * -- or --
      *
      * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+     *
+     * @param tags
+     * The tags to use.
      */
-    render(template: string, view: any | MustacheContext, partials: any): string;
+    render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
 
     /**
      * Low-level method that renders the given array of `tokens` using the given `context` and `partials`.
@@ -236,8 +248,23 @@ declare class MustacheWriter {
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
-    renderTokens(tokens: string[], context: MustacheContext, partials: any, originalTemplate: any): string;
+    renderTokens(tokens: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
 }
+
+/**
+ * An array of two strings, representing the opening and closing tags respectively, to be used in the templates being rendered.
+ */
+type OpeningAndClosingTags = [string, string];
+
+/**
+ * Whenever partials are provided, it can either be an object that contains the names and templates of partials that are used in tempaltes
+ *
+ * -- or --
+ *
+ * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
+ */
+type PartialsOrLookupFn = Record<string, string> | PartialLookupFn
+type PartialLookupFn = (partialName: string) => string | undefined
 
 /**
  * Provides the functionality to render templates with `{{mustaches}}`.

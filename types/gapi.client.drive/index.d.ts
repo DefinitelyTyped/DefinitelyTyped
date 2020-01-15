@@ -1,4 +1,4 @@
-// Type definitions for Google Drive API v3 3.0
+// Type definitions for non-npm package Google Drive API v3 3.0
 // Project: https://developers.google.com/drive/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1042,6 +1042,8 @@ declare namespace gapi.client {
             }): Request<File>;
             /** Creates a new file. */
             create(request: {
+                /** Resource Parameter for folder creation */
+                resource?: any;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1257,6 +1259,12 @@ declare namespace gapi.client {
                 keepRevisionForever?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * The name of the file. This is not necessarily unique within a folder.
+                 * Note that for immutable items such as the top level folders of shared drives,
+                 * My Drive root folder, and Application Data folder the name is constant.
+                 */
+                name?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */

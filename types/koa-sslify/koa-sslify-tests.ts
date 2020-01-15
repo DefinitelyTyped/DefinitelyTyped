@@ -1,40 +1,50 @@
 import Koa = require('koa');
-import sslify = require('koa-sslify');
+import sslify, { xForwardedProtoResolver, azureResolver, customProtoHeaderResolver, forwardedResolver } from 'koa-sslify';
+
+new Koa().use(sslify());
 
 new Koa().use(sslify({}));
 
 new Koa().use(sslify({
-  trustAzureHeader: true,
+    resolver: xForwardedProtoResolver,
 }));
 
 new Koa().use(sslify({
-  trustProtoHeader: true,
+    resolver: azureResolver,
 }));
 
 new Koa().use(sslify({
-  specCompliantDisallow: true,
+    resolver: customProtoHeaderResolver('x-protocol'),
 }));
 
 new Koa().use(sslify({
-  port: 1234,
+    resolver: forwardedResolver,
 }));
 
 new Koa().use(sslify({
-  hostname: 'my-host',
+    disallowStatus: 405,
 }));
 
 new Koa().use(sslify({
-  temporary: false,
+    port: 1234,
 }));
 
 new Koa().use(sslify({
-  internalRedirectMethods: ['GET'],
+    hostname: 'my-host',
 }));
 
 new Koa().use(sslify({
-  redirectMethods: ['GET'],
+    temporary: false,
 }));
 
 new Koa().use(sslify({
-  ignoreUrl: true,
+    redirectMethods: ['GET'],
+}));
+
+new Koa().use(sslify({
+    skipDefaultPort: false,
+}));
+
+new Koa().use(sslify({
+    ignoreUrl: true,
 }));

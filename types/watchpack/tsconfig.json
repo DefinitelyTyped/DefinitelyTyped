@@ -18,8 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "DirectoryWatcher.d.ts",
-        "Watcher.d.ts",
         "watchpack-tests.ts"
     ]
 }

@@ -1,12 +1,13 @@
 // Type definitions for amqp-connection-manager 2.0
 // Project: https://github.com/benbria/node-amqp-connection-manager
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
+//                 tstelzer <https://github.com/tstelzer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 import { ConfirmChannel, Connection, Message, Options, Replies } from "amqplib";
 import { EventEmitter } from "events";
-import { SecureContextOptions } from "tls";
+import { ConnectionOptions } from "tls";
 
 /**
  * connect() options
@@ -31,8 +32,11 @@ export interface AmqpConnectionManagerOptions {
 
 	/**
 	 * TLS options
+	 *
+	 * These are passed through directly to amqplib (http://www.squaremobius.net/amqp.node/channel_api.html#connect),
+	 * which in turn passes them through to tls.connect (https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
 	 */
-	connectionOptions?: SecureContextOptions;
+	connectionOptions?: ConnectionOptions;
 }
 
 /**
@@ -136,7 +140,16 @@ export interface ChannelWrapper extends EventEmitter {
 	 * Setup functions should, ideally, not throw errors, but if they do then the ChannelWrapper will emit an 'error' event.
 	 * @param func
 	 */
-	addSetup(func: SetupFunc): Promise<void>;
+    addSetup(func: SetupFunc): Promise<void>;
+
+    /**
+     * Remove a setup function added with `addSetup`.  If there is currently a
+     * connection, `teardown(channel, [cb])` will be run immediately, and the
+     * returned Promise will not resolve until it completes.
+     * @param func
+     * @param [tearDown]
+     */
+    removeSetup(func: SetupFunc, tearDown?: SetupFunc): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -146,7 +159,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    publish(exchange: string, routingKey: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
+    publish(exchange: string, routingKey: string, content: Buffer | object, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib
@@ -155,7 +168,7 @@ export interface ChannelWrapper extends EventEmitter {
 	 * @param options
 	 * @param callback
 	 */
-    sendToQueue(queue: string, content: Buffer, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
+    sendToQueue(queue: string, content: Buffer | object, options?: Options.Publish, callback?: (err: any, ok: Replies.Empty) => void): Promise<void>;
 
 	/**
 	 * @see amqplib

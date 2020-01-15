@@ -20,20 +20,21 @@ lexer = moo.compile({
 
 lexer = moo.compile({
     IDEN: {
-        match: /[a-zA-Z]+/, keywords: {
+        match: /[a-zA-Z]+/,
+        type: moo.keywords({
             KW: ['while', 'if', 'else', 'moo', 'reloacows']
-        }
+        })
     },
     SPACE: { match: /\s+/, lineBreaks: true }
 });
 
 lexer = moo.compile({
     name: {
-        match: /[a-zA-Z]+/, keywords: {
+        match: /[a-zA-Z]+/, type: moo.keywords({
             'kw-class': 'class',
             'kw-def': 'def',
             'kw-if': 'if',
-        }
+        })
     }
 });
 
@@ -75,3 +76,13 @@ lexer.next();
 lexer.next();
 lexer.reset('a different line\n', info);
 lexer.next();
+
+// Transform: https://github.com/no-context/moo#transform
+moo.compile({
+    STRING: [
+        { match: /"""[^]*?"""/, lineBreaks: true, value: x => x.slice(3, -3) },
+        { match: /"(?:\\["\\rn]|[^"\\])*?"/, lineBreaks: true, value: x => x.slice(1, -1) },
+        { match: /'(?:\\['\\rn]|[^'\\])*?'/, lineBreaks: true, value: x => x.slice(1, -1) },
+    ],
+    // ...
+});

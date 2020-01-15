@@ -1,166 +1,181 @@
-// Type definitions for Hedron 0.7
-// Project: https://github.com/JSBros/hedron
-// Definitions by: Dmytro Borysov <https://github.com/dborysov>
+// Type definitions for Hedron 1.0
+// Project: https://github.com/garetmckinley/hedron
+// Definitions by: James Best <https://github.com/jim-at-jibba>
+//                 Dmytro Borysov <https://github.com/dborysov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 
-export interface ColumnProps {
-    /**
-     * You can specify component to use specific tag
-     * @default 'div'
-     */
-    tagName?: keyof ElementTagNameMap;
-    /**
-     * Draws all child columns with "bounding boxes" for easy
-     * visualization of the grid. This enables debug mode for all the
-     * children of this component
-     * @default false
-     */
-    debug?: boolean;
-    /**
-     * The amount of horizontal columns this row creates.
-     * @default 12
-     */
-    divisions?: number;
-    /**
-     * If true, disable padding.
-     */
-    fluid?: boolean;
-    /**
-     * Width during xs breakpoint.
-     */
-    xs?: number;
-    /**
-     * Width during sm breakpoint.
-     */
-    sm?: number;
-    /**
-     * Width during md breakpoint.
-     */
-    md?: number;
-    /**
-     * Width during lg breakpoint.
-     */
-    lg?: number;
-    /**
-     * Width of left margin during xs breakpoint.
-     */
-    xsShift?: number;
-    /**
-     * Width of left margin during sm breakpoint.
-     */
-    smShift?: number;
-    /**
-     * Width of left margin during md breakpoint.
-     */
-    mdShift?: number;
-    /**
-     * Width of left margin during lg breakpoint.
-     */
-    lgShift?: number;
+export interface Styleable {
+  /**
+   * The amount of padding added
+   */
+  padding?: string;
+  /**
+   * The amount of padding added
+   */
+  margin?: string;
+  /**
+   * Width Property
+   */
+  width?: string;
+  /**
+   * Height Property
+   */
+  height?: string;
+  /**
+   * Visibilty Property
+   */
+  visibility?: 'visible' | 'hidden' | 'collapse' | 'initial' | 'inherit';
+  /**
+   * Display Property
+   */
+  display?:
+    | 'inline'
+    | 'block'
+    | 'contents'
+    | 'flex'
+    | 'grid'
+    | 'inline-block'
+    | 'none'
+    | 'initial'
+    | 'inherit'
+    | 'inline-flex'
+    | 'inline-grid'
+    | 'inline-table'
+    | 'list-item'
+    | 'run-in'
+    | 'table'
+    | 'table-caption'
+    | 'table-column-group'
+    | 'table-header-group'
+    | 'table-footer-group'
+    | 'table-row-group'
+    | 'table-cell'
+    | 'table-column'
+    | 'table-row';
+  /**
+   * Opacity Property
+   */
+  opacity?: number;
+  /**
+   * Background Property
+   */
+  background?: string;
+  /**
+   * Border property
+   */
+  border?: string;
+  /**
+   * Controls hidden
+   */
+  hidden?: boolean;
 }
 
-export interface PageProps {
-    /**
-     * You can specify component to use specific tag
-     * @default 'div'
-     */
-    tagName?: keyof ElementTagNameMap;
-    /**
-     * Draws all child columns with "bounding boxes" for easy
-     * visualization of the grid. This enables debug mode for all the
-     * children of this component
-     * @default false
-     */
-    debug?: boolean;
-    /**
-     * Enabling fluid mode disables the fixed width of the Page
-     */
-    fluid?: boolean;
-    /**
-     * If not using fluid, set a custom width for the page.
-     */
-    width?: string;
+export interface ProviderProps {
+  /**
+   * Draws all child columns with 'bounding boxes' for easy
+   * visualization of the grid. This enables debug mode for all the
+   * children of this component
+   * @default false
+   */
+  debug?: boolean;
+  /**
+   * The amount of padding added
+   */
+  padding?: string;
+  /**
+   * Object specifying the breakpoints
+   */
+  breakpoints?: { [key: string]: string };
 }
 
-export interface RowProps {
-    /**
-     * Draws all child columns with "bounding boxes" for easy
-     * visualization of the grid.
-     * @default false
-     */
-    debug?: boolean;
-    /**
-     * You can specify component to use specific tag
-     * @default 'section'
-     */
-    tagName?: keyof ElementTagNameMap;
-    /**
-     * The amount of horizontal columns this row creates.
-     * @default 12
-     */
-    divisions?: number;
-    /**
-     * Sets the value of the CSS align-content property
-     */
-    alignContent?: string;
-    /**
-     * Sets the value of the CSS align-items property
-     */
-    alignItems?: string;
-    /**
-     * Sets the value of the CSS align-self property
-     */
-    alignSelf?: string;
-    /**
-     * Sets the value of the CSS justify-content property
-     */
-    justifyContent?: string;
-    /**
-     * Sets the value of the CSS order property
-     */
-    order?: string;
+export interface BoundsProps extends Styleable {
+  /**
+   * Draws all child columns with 'bounding boxes' for easy
+   * visualization of the grid. This enables debug mode for all the
+   * children of this component
+   * @default false
+   */
+  debug?: boolean;
+  /**
+   * Controls the CSS flex property
+   */
+  flex?: string;
+  /**
+   * Direction of content
+   */
+  direction?: 'horizontal' | 'vertical';
+  /**
+   * Sets whether the children should wrap when there's no more room on the primary axis
+   */
+  wrap?: boolean;
+  /**
+   * Alignment of children along the vertical axis
+   */
+  valign?: 'top' | 'center' | 'bottom';
+  /**
+   * Alignment of children along the horizontal axis
+   */
+  halign?: 'left' | 'center' | 'right';
+  /**
+   * Allow for customer props due to ability to add
+   * custom breakpoints
+   */
+  [x: string]: any;
 }
 
-export interface HiddenProps {
-    /**
-     * Draws all child columns with "bounding boxes" for easy
-     * visualization of the grid. This enables debug mode for all the
-     * children of this component
-     * @default false
-     */
-    debug?: boolean;
-    /**
-     * Width during xs breakpoint.
-     */
-    xs?: boolean;
-    /**
-     * Width during sm breakpoint.
-     */
-    sm?: boolean;
-    /**
-     * Width during md breakpoint.
-     */
-    md?: boolean;
-    /**
-     * Width during lg breakpoint.
-     */
-    lg?: boolean;
+export interface BoxProps extends Styleable {
+  /**
+   * Draws all child columns with 'bounding boxes' for easy
+   * visualization of the grid. This enables debug mode for all the
+   * children of this component
+   * @default false
+   */
+  debug?: boolean;
+  /**
+   * Controls the CSS flex property
+   */
+  flex?: string;
+  /**
+   * Sets whether the Box should fill up all available space
+   */
+  fill?: boolean;
+  /**
+   * Convenience property for disabling padding
+   */
+  fluid?: boolean;
+  /**
+   * Shifts the box to the right of the parent Bounds
+   */
+  shiftRight?: boolean;
+  /**
+   * Shifts the box to the left of the parent Bounds
+   */
+  shiftLeft?: boolean;
+  /**
+   * Shifts the box to the top of the parent Bounds
+   */
+  shiftUp?: boolean;
+  /**
+   * Shifts the box to the bottom of the parent Bounds
+   */
+  shiftDown?: boolean;
+  /**
+   *  Allow for customer props due to ability to add
+   * custom breakpoints
+   */
+  [x: string]: any;
 }
 
-export interface BreakpointProviderProps {
-    breakpoints: { sm?: number; md?: number; lg?: number };
-}
-
-export class Column extends React.Component<ColumnProps & React.HTMLProps<HTMLElement>> {}
-export class Page extends React.Component<PageProps & React.HTMLProps<HTMLElement>> {}
-export class Row extends React.Component<RowProps & React.HTMLProps<HTMLElement>> {}
-export class Hidden extends React.Component<HiddenProps & React.HTMLProps<HTMLElement>> {}
-export class BreakpointProvider extends React.Component<
-    BreakpointProviderProps & React.HTMLProps<HTMLElement>
+export class Provider extends React.Component<
+  ProviderProps & React.HTMLProps<HTMLElement>
 > {}
-export function withBreakpoints<T>(
-    wrappedComponent: React.ComponentClass<T>
-): React.ComponentClass<T>;
+
+export class Bounds extends React.Component<
+  BoundsProps & React.HTMLProps<HTMLElement>
+> {}
+export class Box extends React.Component<
+  BoxProps & React.HTMLProps<HTMLElement>
+> {}

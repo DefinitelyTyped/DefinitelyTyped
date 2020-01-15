@@ -1,5 +1,6 @@
 import OAuth2Strategy = require('passport-oauth2');
-import { Strategy, StrategyOptions, StrategyOptionsWithRequest, VerifyCallback, AuthorizationError, TokenError, InternalOAuthError } from 'passport-oauth2';
+import { Strategy, StrategyOptions, StrategyOptionsWithRequest, VerifyCallback, AuthorizationError, TokenError,
+    InternalOAuthError, Metadata, StateStore, StateStoreStoreCallback, StateStoreVerifyCallback } from 'passport-oauth2';
 import { Strategy as PassportStrategy } from 'passport';
 import { Request } from 'express';
 
@@ -33,7 +34,6 @@ function verifyFunction4(_req: Request, _accessToken: string, _refreshToken: str
 
 const strategyOptions2: StrategyOptionsWithRequest = {
     authorizationURL: 'http://www.example.com/auth',
-    callbackURL: 'http://www.example.com/callback',
     clientID: 'dummy',
     clientSecret: 'secret',
     tokenURL: 'http://www.example.com/token',
@@ -52,6 +52,39 @@ const err3 = new InternalOAuthError('Hello', {});
 
 class MyStrategy extends OAuth2Strategy {
     useProtectedProperty() {
-        this._oauth2.get('http://www.example.com/profile', 'token', 'http://www.example.com/callback');
+        this._oauth2.get('http://www.example.com/profile', 'token', err => err.statusCode);
+        this._oauth2.get('http://www.example.com/profile', 'token', (err, result) => result);
+        this._oauth2.get('http://www.example.com/profile', 'token', (err, result, response) => response);
     }
 }
+
+const metadata: Metadata = {
+    authorizationURL: 'http://www.example.com/auth',
+    clientID: 'dummy',
+    tokenURL: 'http://www.example.com/token'
+};
+
+class MyStore implements StateStore {
+    store(req: Request, meta: StateStoreStoreCallback | Metadata, callback?: StateStoreStoreCallback): void {}
+    verify(req: Request, state: string, meta: StateStoreVerifyCallback | Metadata, callback?: StateStoreVerifyCallback): void {}
+}
+
+const myStore = new MyStore();
+
+const strategyOptions3: StrategyOptions = {
+    authorizationURL: 'http://www.example.com/auth',
+    clientID: 'dummy',
+    clientSecret: 'secret',
+    tokenURL: 'http://www.example.com/token',
+    callbackURL: 'http://www.example.com/callback',
+    customHeaders: {
+        'content-type': 'text/html'
+    },
+    scope: ['scope1', 'scope2'],
+    scopeSeparator: ' ',
+    sessionKey: 'oauth',
+    state: {id: 1},
+    store: myStore
+};
+
+const strategy5: Strategy = new Strategy(strategyOptions3, verifyFunction2);

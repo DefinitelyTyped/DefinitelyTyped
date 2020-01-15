@@ -1,8 +1,8 @@
 import * as fs from "fs";
-import temp, { AffixOptions, OpenFile, Stats } from "promised-temp";
+import temp = require("promised-temp");
 
 function testCleanup() {
-    temp.cleanup().then((result: boolean | Stats) => {
+    temp.cleanup().then((result: boolean | temp.Stats) => {
         if (typeof result === "boolean") {
             const x = result;
         } else {
@@ -13,13 +13,13 @@ function testCleanup() {
 }
 
 function testOpen() {
-    temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }).then((result: OpenFile) => {
+    temp.open({ dir: "tempDir", prefix: "pref", suffix: "suff" }).then((result: temp.OpenFile) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);
     });
 
-    temp.open("strPrefix").then((result: OpenFile) => {
+    temp.open("strPrefix").then((result: temp.OpenFile) => {
         const { path, fd } = result;
         path.length;
         fd.toPrecision(5);

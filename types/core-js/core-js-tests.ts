@@ -115,7 +115,7 @@ b = Number.isSafeInteger(i);
 i = Number.MAX_SAFE_INTEGER;
 i = Number.MIN_SAFE_INTEGER;
 i = Number.parseFloat(s);
-i = Number.parseInt(s);
+i = Number.parseInt(s); // tslint:disable-line radix
 i = Number.parseInt(s, i);
 i = Math.clz32(i);
 i = Math.imul(i, i);
@@ -398,17 +398,6 @@ b = Object.isObject(a);
 s = Object.classof(a);
 point = Object.define(point, a);
 point = Object.make(point, a);
-
-// #############################################################################################
-// Console - https://github.com/zloirock/core-js/#console
-// Modules: core.log
-// #############################################################################################
-
-// Non-standard
-log(a, a, a);
-log.log(a, a, a);
-log.enable();
-log.disable();
 
 // #############################################################################################
 // Dict - https://github.com/zloirock/core-js/#dict
