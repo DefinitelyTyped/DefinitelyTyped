@@ -8,9 +8,8 @@
  * explicitly [[join]] another channel.
  *
  * There are three types of channels: [[DefaultChannel]], [[SystemChannel]] and [[AppChannel]].
- *
- * @module ContextChannels
  */
+
 import { Identity } from 'openfin/_v2/main';
 import { ChannelTransport, SystemChannelTransport, AppChannelTransport } from './internal';
 import { Context } from './context';

@@ -1,7 +1,4 @@
 /**
- * @hidden
- */
-/**
  * File contains types and helpers used to communicate between client and provider.
  *
  * These exports are a part of the client, but are not required by applications wishing to interact with the service.

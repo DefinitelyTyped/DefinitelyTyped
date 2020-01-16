@@ -1,7 +1,4 @@
 /**
- * @module Errors
- */
-/**
  * Errors related to launching or interacting with a particular application.
  */
 export declare enum ApplicationError {

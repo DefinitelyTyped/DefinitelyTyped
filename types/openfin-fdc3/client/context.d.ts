@@ -3,9 +3,8 @@
  *
  * These structures are defined by the Contexts FDC3 working group. This contains the Context interface for you to create your own
  * contexts, as well as a set of standard contexts agreed by the FDC3 working group.
- *
- * @module Contexts
  */
+
 /**
  * General-purpose context type, as defined by [FDC3](https://fdc3.finos.org/docs/1.0/context-intro).
  * A context object is a well-understood datum that is streamable between FDC3 participants. As a result

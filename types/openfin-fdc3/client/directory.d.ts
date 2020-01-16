@@ -3,9 +3,8 @@
  *
  * These structures are defined by the App-Directory FDC3 working group. The definitions here are based on the 1.0.0
  * specification which can be found [here](https://fdc3.finos.org/appd-spec).
- *
- * @module Directory
  */
+
 /**
  * Type alias to indicate when an Application Identifier should be passed. Application Identifiers
  * are described [here](https://fdc3.finos.org/docs/1.0/appd-discovery#application-identifier).

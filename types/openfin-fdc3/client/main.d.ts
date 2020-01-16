@@ -1,6 +1,3 @@
-/**
- * @module Index
- */
 import { Context } from './context';
 import { Application, AppName } from './directory';
 import { ChannelChangedEvent, ChannelContextListener } from './contextChannels';
