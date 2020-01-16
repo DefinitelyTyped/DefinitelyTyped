@@ -1,0 +1,27 @@
+{
+    "files": [
+        "index.d.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "chai": [
+                "chai/pure"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
