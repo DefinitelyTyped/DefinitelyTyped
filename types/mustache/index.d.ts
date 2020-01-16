@@ -248,7 +248,7 @@ declare class MustacheWriter {
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
-    renderTokens(tokens: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderTokens(tokens: string[][], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
 
     /**
      * Renders a section block.
@@ -265,7 +265,7 @@ declare class MustacheWriter {
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
      */
-    renderSection(token: string, context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderSection(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
 
     /**
      * Renders an inverted section block.
@@ -282,7 +282,7 @@ declare class MustacheWriter {
      * @param originalTemplate
      * An object used to extract the portion of the original template that was contained in a higher-order section.
      */
-    renderInverted(token: string, context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderInverted(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
 
     /**
      * Adds indentation to each line of the given partial.
@@ -313,7 +313,7 @@ declare class MustacheWriter {
      * @param tags
      * The tags to use.
      */
-    renderPartial(token: string, context: MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+    renderPartial(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
 
     /**
      * Renders an unescaped value.
@@ -324,7 +324,7 @@ declare class MustacheWriter {
      * @param context
      * The context to use for rendering the token.
      */
-    unescapedValue(token: string, context: MustacheContext): string;
+    unescapedValue(token: string[], context: MustacheContext): string;
 
     /**
      * Renders an escaped value.
@@ -335,7 +335,7 @@ declare class MustacheWriter {
      * @param context
      * The context to use for rendering the token.
      */
-    escapedValue(token: string, context: MustacheContext): string;
+    escapedValue(token: string[], context: MustacheContext): string;
 
     /**
      * Renders a raw token.
@@ -343,7 +343,7 @@ declare class MustacheWriter {
      * @param token
      * The token to render.
      */
-    rawValue(token: string): string;
+    rawValue(token: string[]): string;
 }
 
 /**
