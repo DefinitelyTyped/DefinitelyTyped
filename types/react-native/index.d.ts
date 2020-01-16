@@ -29,6 +29,7 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
+//                 Kelvin Chu <https://github.com/RageBill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -3859,7 +3860,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ReadonlyArray<ItemT> | null;
+    data: ReadonlyArray<ItemT> | null | undefined;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
