@@ -1,6 +1,6 @@
 // Type definitions for Forge-apis 0.7
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
-// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
+// Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>, Bryan Huang <https://github.com/dukedhx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
