@@ -8773,6 +8773,94 @@ declare namespace Office {
      * - {@link Office.AppointmentRead | AppointmentRead}
      */
     interface Appointment extends Item {
+        /**
+         * Gets or sets the date and time that the appointment is to end.
+         *
+         * **Read mode**
+         *
+         * The end property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
+         *
+         * **Compose mode**
+         *
+         * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
+         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
+         *
+         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
+         * the client to UTC for the server.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        end: Time | Date;
+        /**
+         * Gets or sets the locations of the appointment.
+         *
+         * **Read mode**
+         *
+         * The enhancedLocation property returns an {@link Office.EnhancedLocation | EnhancedLocation} object that allows you to get the set of locations
+         * (each represented by a {@link Office.LocationDetails | LocationDetails} object) associated with the appointment.
+         *
+         * **Compose mode**
+         *
+         * The `enhancedLocation` property returns an {@link Office.EnhancedLocation | EnhancedLocation}
+         * object that provides methods to get, remove, or add locations on an item.
+         * 
+         * [Api set: Mailbox 1.8]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        enhancedLocation: EnhancedLocation;
+        /**
+         * Gets or sets the location of an appointment.
+         *
+         * **Read mode**
+         *
+         * The location property returns a string that contains the location of the appointment.
+         *
+         * **Compose mode**
+         *
+         * The location property returns a {@link Office.Location | Location} object that provides methods that are 
+         * used to get and set the location of the appointment.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        location: Location | string;
+        /**
+         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
+         *
+         * **Read mode**
+         *
+         * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
+         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         *
+         * **Compose mode**
+         *
+         * The optionalAttendees property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the optional attendees 
+         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         *
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        optionalAttendees: Recipients | EmailAddressDetails[];
     }
     /**
      * The appointment organizer mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -8788,111 +8876,6 @@ declare namespace Office {
      * - {@link Office.Appointment | Appointment}
      */
     interface AppointmentCompose extends Appointment, ItemCompose {
-         /**
-         * Gets an object that provides methods for manipulating the body of an item.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        body: Body;
-        /**
-         * Gets an object that provides methods for managing the item's categories.
-         *
-         * [Api set: Mailbox 1.8]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        categories: Categories;
-        /**
-         * Gets or sets the date and time that the appointment is to end.
-         *
-         * The end property is a {@link Office.Time | Time} object expressed as a Coordinated Universal Time (UTC) date and time value. 
-         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
-         *
-         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
-         * the client to UTC for the server.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        end: Time;
-        /**
-         * Gets or sets the locations of the appointment. The `enhancedLocation` property returns an {@link Office.EnhancedLocation | EnhancedLocation}
-         * object that provides methods to get, remove, or add locations on an item.
-         * 
-         * [Api set: Mailbox 1.8]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        enhancedLocation: EnhancedLocation;
-        /**
-         * Gets the type of item that an instance represents.
-         *
-         * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or an appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        itemType: MailboxEnums.ItemType | string;
-        /**
-         * Gets or sets the location of an appointment. The location property returns a {@link Office.Location | Location} object that provides methods that are 
-         * used to get and set the location of the appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        location: Location;
-        /**
-         * Gets the notification messages for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        notificationMessages: NotificationMessages;
-        /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         * 
-         * The optionalAttendees property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the optional attendees 
-         * for a meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
-         */
-        optionalAttendees: Recipients;
         /**
          * Gets the organizer for the specified meeting. 
          * 
@@ -9764,7 +9747,7 @@ declare namespace Office {
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
          */
-        body: Body | string;
+        body: Body;
         /**
          * Gets or sets the date and time that the appointment is to end.
          *
@@ -9924,214 +9907,6 @@ declare namespace Office {
      * - {@link Office.Appointment | Appointment}
      */
     interface AppointmentRead extends Appointment, ItemRead {
-        /**
-         * Gets the item's attachments as an array.
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         *
-         * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see 
-         * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
-         *
-         */
-        attachments: AttachmentDetails[];
-        /**
-         * Gets an object that provides methods for manipulating the body of an item.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        body: Body;
-        /**
-         * Gets an object that provides methods for managing the item's categories.
-         *
-         * [Api set: Mailbox 1.8]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        categories: Categories;
-        /**
-         * Gets the date and time that an item was created.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        dateTimeCreated: Date;
-        /**
-         * Gets the date and time that an item was last modified.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
-         */
-        dateTimeModified: Date;
-        /**
-         * Gets the date and time that the appointment is to end.
-         *
-         * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
-         * You can use the convertToLocalClientTime method to convert the end property value to the client's local date and time.
-         *
-         * When you use the Time.setAsync method to set the end time, you should use the convertToUtcClientTime method to convert the local time on 
-         * the client to UTC for the server.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        end: Date;
-        /**
-         * Gets the locations of an appointment.
-         *
-         * The enhancedLocation property returns an {@link Office.EnhancedLocation | EnhancedLocation} object that allows you to get the set of locations
-         * (each represented by a {@link Office.LocationDetails | LocationDetails} object) associated with the appointment.
-         * 
-         * [Api set: Mailbox 1.8]
-         * 
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        enhancedLocation: EnhancedLocation;
-        /**
-         * Gets the Exchange Web Services item class of the selected item.
-         *
-         *
-         * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         * 
-         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
-         * 
-         * <table>
-         *   <tr>
-         *     <th>Type</th>
-         *     <th>Description</th>
-         *     <th>Item Class</th>
-         *   </tr>
-         *   <tr>
-         *     <td>Appointment items</td>
-         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurrence.</td>
-         *     <td>IPM.Appointment,IPM.Appointment.Occurrence</td>
-         *   </tr>
-         *   <tr>
-         *     <td>Message items</td>
-         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
-         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
-         *   </tr>
-         * </table>
-         * 
-         */
-        itemClass: string;
-        /**
-         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
-         * for the current item.
-         *
-         * The itemId property is not available in compose mode. 
-         * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
-         * in the asyncResult.value parameter in the callback function.
-         *
-         * **Note**: The identifier returned by the itemId property is the same as the
-         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
-         * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
-         * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
-         * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        itemId: string;
-        /**
-         * Gets the type of item that an instance represents.
-         *
-         * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or an appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        itemType: MailboxEnums.ItemType | string;
-        /**
-         * Gets the location of an appointment.
-         *
-         * The location property returns a string that contains the location of the appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        location: string;
-        /**
-         * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
-         *
-         * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by email programs. 
-         * To get the subject of the item with the prefixes intact, use the subject property.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        normalizedSubject: string;
-        /**
-         * Gets the notification messages for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        notificationMessages: NotificationMessages;
-        /**
-         * Provides access to the optional attendees of an event. The type of object and level of access depends on the mode of the current item.
-         *
-         * The optionalAttendees property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for each optional attendee to 
-         * the meeting. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         */
-        optionalAttendees: EmailAddressDetails[];
         /**
          * Gets the email address of the meeting organizer for a specified meeting.
          *
@@ -11843,7 +11618,7 @@ declare namespace Office {
         setAsync(headers: Object, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
     }
     /**
-     * The item namespace is used to access the currently selected message, meeting request, or appointment. 
+     * The item object is used to access the currently selected message, meeting request, or appointment. 
      * You can determine the type of the item by using the `itemType` property.
      *
      * If you want to see IntelliSense for only a specific type or mode, cast this item to one of the following:
@@ -11871,6 +11646,54 @@ declare namespace Office {
      * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
      */
     interface Item {
+         /**
+         * Gets an object that provides methods for manipulating the body of an item.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        body: Body;
+        /**
+         * Gets an object that provides methods for managing the item's categories.
+         *
+         * [Api set: Mailbox 1.8]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        categories: Categories;
+        /**
+         * Gets the type of item that an instance represents.
+         *
+         * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or an appointment.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        itemType: MailboxEnums.ItemType | string;
+        /**
+         * Gets the notification messages for an item.
+         *
+         * [Api set: Mailbox 1.3]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        notificationMessages: NotificationMessages;
     }
     /**
      * The compose mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -11901,6 +11724,110 @@ declare namespace Office {
      * - {@link Office.MessageRead | MessageRead}
      */
     interface ItemRead extends Item {
+        /**
+         * Gets the item's attachments as an array.
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         *
+         * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. For more information, see 
+         * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
+         *
+         */
+        attachments: AttachmentDetails[];
+        /**
+         * Gets the date and time that an item was created.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         */
+        dateTimeCreated: Date;
+        /**
+         * Gets the date and time that an item was last modified.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         *
+         * **Note**: This member is not supported in Outlook on iOS or Android.
+         */
+        dateTimeModified: Date;
+        /**
+         * Gets the Exchange Web Services item class of the selected item.
+         *
+         *
+         * You can create custom message classes that extends a default message class, for example, a custom appointment message class IPM.Appointment.Contoso.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         * 
+         * The itemClass property specifies the message class of the selected item. The following are the default message classes for the message or appointment item.
+         * 
+         * <table>
+         *   <tr>
+         *     <th>Type</th>
+         *     <th>Description</th>
+         *     <th>Item Class</th>
+         *   </tr>
+         *   <tr>
+         *     <td>Appointment items</td>
+         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurrence.</td>
+         *     <td>IPM.Appointment,IPM.Appointment.Occurrence</td>
+         *   </tr>
+         *   <tr>
+         *     <td>Message items</td>
+         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
+         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
+         *   </tr>
+         * </table>
+         * 
+         */
+        itemClass: string;
+        /**
+         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
+         * for the current item.
+         *
+         * The itemId property is not available in compose mode. 
+         * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
+         * in the asyncResult.value parameter in the callback function.
+         *
+         * **Note**: The identifier returned by the itemId property is the same as the
+         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
+         * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
+         * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
+         * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         */
+        itemId: string;
+        /**
+         * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
+         *
+         * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by email programs. 
+         * To get the subject of the item with the prefixes intact, use the subject property.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Read
+         */
+        normalizedSubject: string;
     }
     /**
      * Represents a date and time in the local client's time zone. Read mode only.
@@ -12865,6 +12792,75 @@ declare namespace Office {
      * - {@link Office.MessageRead | MessageRead}
      */
     interface Message extends Item {
+        /**
+         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
+         * current item.
+         *
+         * *Read mode*
+         *
+         * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. 
+         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
+         *
+         * *Compose mode*
+         *
+         * The cc property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the Cc line of 
+         * the message. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
+         * 
+         * - Get 500 members maximum.
+         *
+         * - Set a maximum of 100 members per call, up to 500 members total.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        cc: Recipients | EmailAddressDetails[];
+        /**
+         * Gets an identifier for the email conversation that contains a particular message.
+         *
+         * You can get an integer for this property if your mail app is activated in read forms or responses in compose forms. 
+         * If subsequently the user changes the subject of the reply message, upon sending the reply, the conversation ID for that message will change 
+         * and that value you obtained earlier will no longer apply.
+         *
+         * You get null for this property for a new item in a compose form. 
+         * If the user sets a subject and saves the item, the conversationId property will return a value.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        conversationId: string;
+        /**
+         * Gets the email address of the sender of a message.
+         *
+         * The from and sender properties represent the same person unless the message is sent by a delegate. 
+         * In that case, the from property represents the owner or delegator, and the sender property represents the delegate.
+         *
+         * **Read mode**
+         *
+         * The from property returns an EmailAddressDetails object.
+         *
+         * **Note**: The recipientType property of the EmailAddressDetails object in the from property is undefined.
+         *
+         * [Api set: Mailbox 1.1]
+         *
+         * **Compose mode**
+         *
+         * The from property returns a From object that provides a method to get the from value.
+         *
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+         */
+        from: From | EmailAddressDetails;
     }
      /**
      * The message compose mode of {@link Office.Item | Office.context.mailbox.item}.
@@ -12899,82 +12895,6 @@ declare namespace Office {
          */
         bcc: Recipients;
         /**
-         * Gets an object that provides methods for manipulating the body of an item.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        body: Body;
-        /**
-         * Gets an object that provides methods for managing the item's categories.
-         *
-         * [Api set: Mailbox 1.8]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        categories: Categories;
-        /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
-         * current item.
-         *
-         * The cc property returns a {@link Office.Recipients | Recipients} object that provides methods to get or update the recipients on the Cc line of 
-         * the message. By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, the following limits apply.
-         * 
-         * - Get 500 members maximum.
-         *
-         * - Set a maximum of 100 members per call, up to 500 members total.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        cc: Recipients;
-        /**
-         * Gets an identifier for the email conversation that contains a particular message.
-         *
-         * You can get an integer for this property if your mail app is activated in read forms or responses in compose forms. 
-         * If subsequently the user changes the subject of the reply message, upon sending the reply, the conversation ID for that message will change 
-         * and that value you obtained earlier will no longer apply.
-         *
-         * You get null for this property for a new item in a compose form. 
-         * If the user sets a subject and saves the item, the conversationId property will return a value.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        conversationId: string;
-        /**
-         * Gets the email address of the sender of a message.
-         *
-         * The from and sender properties represent the same person unless the message is sent by a delegate. 
-         * In that case, the from property represents the owner, and the sender property represents the delegate.
-         *
-         * The from property returns a From object that provides a method to get the from value.
-         * 
-         * [Api set: Mailbox 1.7]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        from: From;
-        /**
          * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
@@ -12988,31 +12908,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
          */
         internetHeaders: InternetHeaders;
-        /**
-         * Gets the type of item that an instance represents.
-         *
-         * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
-         * an appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        itemType: MailboxEnums.ItemType | string;
-        /**
-         * Gets the notification messages for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
-         */
-        notificationMessages: NotificationMessages;
         /**
          * Gets the id of the series that an instance belongs to.
          * 
@@ -13837,100 +13732,6 @@ declare namespace Office {
      */
     interface MessageRead extends Message, ItemRead {
         /**
-         * Gets the item's attachments as an array.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         * 
-         * **Note**: Certain types of files are blocked by Outlook due to potential security issues and are therefore not returned. 
-         * For more information, see 
-         * {@link https://support.office.com/article/Blocked-attachments-in-Outlook-434752E1-02D3-4E90-9124-8B81E49A8519 | Blocked attachments in Outlook}.
-         *
-         */
-        attachments: AttachmentDetails[];
-        /**
-         * Gets an object that provides methods for manipulating the body of an item.
-         *
-         * [Api set: Mailbox 1.1]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        body: Body;
-        /**
-         * Gets an object that provides methods for managing the item's categories.
-         *
-         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
-         *
-         * [Api set: Mailbox 1.8]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        categories: Categories;
-        /**
-         * Provides access to the Cc (carbon copy) recipients of a message. The type of object and level of access depends on the mode of the 
-         * current item.
-         *
-         * The cc property returns an array that contains an EmailAddressDetails object for each recipient listed on the Cc line of the message. 
-         * By default, the collection is limited to a maximum of 100 members. However, on Windows and Mac, you can get 500 members maximum.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        cc: EmailAddressDetails[];
-        /**
-         * Gets an identifier for the email conversation that contains a particular message.
-         *
-         * You can get an integer for this property if your mail app is activated in read forms or responses in compose forms. 
-         * If subsequently the user changes the subject of the reply message, upon sending the reply, the conversation ID for that message will change 
-         * and that value you obtained earlier will no longer apply.
-         *
-         * You get null for this property for a new item in a compose form. 
-         * If the user sets a subject and saves the item, the conversationId property will return a value.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        conversationId: string;
-        /**
-         * Gets the date and time that an item was created.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        dateTimeCreated: Date;
-        /**
-         * Gets the date and time that an item was last modified.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
-         */
-        dateTimeModified: Date;
-        /**
          * Gets the date and time that the appointment is to end.
          *
          * The end property is a Date object expressed as a Coordinated Universal Time (UTC) date and time value. 
@@ -13947,23 +13748,6 @@ declare namespace Office {
          */
         end: Date;
         /**
-         * Gets the email address of the sender of a message.
-         *
-         * The from and sender properties represent the same person unless the message is sent by a delegate. 
-         * In that case, the from property represents the delegator, and the sender property represents the delegate.
-         *
-         * **Note**: The recipientType property of the EmailAddressDetails object in the from property is undefined.
-         * 
-         * The from property returns an EmailAddressDetails object.
-         * 
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        from: EmailAddressDetails;
-        /**
          * Gets the Internet message identifier for an email message.
          *
          * @remarks
@@ -13973,75 +13757,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          */
         internetMessageId: string;
-        /**
-         * Gets the Exchange Web Services item class of the selected item.
-         * 
-         * You can create custom message classes that extends a default message class, for example, a custom appointment message class 
-         * IPM.Appointment.Contoso.
-         *
-         * @remarks
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-		 
-         * The itemClass property specifies the message class of the selected item. 
-         * The following are the default message classes for the message or appointment item.
-         * 
-         * <table>
-         *   <tr>
-         *     <th>Type</th>
-         *     <th>Description</th>
-         *     <th>Item Class</th>
-         *   </tr>
-         *   <tr>
-         *     <td>Appointment items</td>
-         *     <td>These are calendar items of the item class IPM.Appointment or IPM.Appointment.Occurrence.</td>
-         *     <td>IPM.Appointment,IPM.Appointment.Occurrence</td>
-         *   </tr>
-         *   <tr>
-         *     <td>Message items</td>
-         *     <td>These include email messages that have the default message class IPM.Note, and meeting requests, responses, and cancellations, that use IPM.Schedule.Meeting as the base message class.</td>
-         *     <td>IPM.Note,IPM.Schedule.Meeting.Request,IPM.Schedule.Meeting.Neg,IPM.Schedule.Meeting.Pos,IPM.Schedule.Meeting.Tent,IPM.Schedule.Meeting.Canceled</td>
-         *   </tr>
-         * </table>
-         * 
-         */
-        itemClass: string;
-        /**
-         * Gets the {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}
-         * for the current item.
-         *
-         * The itemId property is not available in compose mode. 
-         * If an item identifier is required, the saveAsync method can be used to save the item to the store, which will return the item identifier 
-         * in the asyncResult.value parameter in the callback function.
-         *
-         * **Note**: The identifier returned by the itemId property is the same as the
-         * {@link https://docs.microsoft.com/exchange/client-developer/exchange-web-services/ews-identifiers-in-exchange | Exchange Web Services item identifier}. 
-         * The itemId property is not identical to the Outlook Entry ID or the ID used by the Outlook REST API. 
-         * Before making REST API calls using this value, it should be converted using Office.context.mailbox.convertToRestId. 
-         * For more details, see {@link https://docs.microsoft.com/outlook/add-ins/use-rest-api#get-the-item-id | Use the Outlook REST APIs from an Outlook add-in}.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        itemId: string;
-        /**
-         * Gets the type of item that an instance represents.
-         *
-         * The itemType property returns one of the ItemType enumeration values, indicating whether the item object instance is a message or 
-         * an appointment.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        itemType: MailboxEnums.ItemType | string;
         /**
          * Gets the location of a meeting request.
          *
@@ -14054,32 +13769,6 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
          */
         location: string;
-        /**
-         * Gets the subject of an item, with all prefixes removed (including RE: and FWD:).
-         *
-         * The normalizedSubject property gets the subject of the item, with any standard prefixes (such as RE: and FW:) that are added by 
-         * email programs. 
-         * To get the subject of the item with the prefixes intact, use the subject property.
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        normalizedSubject: string;
-        /**
-         * Gets the notification messages for an item.
-         *
-         * [Api set: Mailbox 1.3]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         */
-        notificationMessages: NotificationMessages;
         /**
          * Gets the recurrence pattern of an appointment. Gets the recurrence pattern of a meeting request. 
          * Read and compose modes for appointment items. Read mode for meeting request items.
