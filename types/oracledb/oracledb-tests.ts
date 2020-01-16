@@ -1,13 +1,10 @@
 import * as oracledb from 'oracledb';
 
-
 import defaultOracledb from 'oracledb';
-import dotenv from 'dotenv';
-import assert from 'assert';
 
-
-
-dotenv.config();
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean, message?: string): void;
+declare function assertEqual<T>(actual: T, expected: T, message?: string): void;
 
 /*
 
@@ -68,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
 
     const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
 
-    assert.deepStrictEqual(
+    assertEqual(
         info.metaData[0],
         {
             name: '1',
@@ -110,7 +107,7 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
         });
 
         stream.on('metadata', metadata => {
-            assert.deepStrictEqual(metadata[0], {
+            assertEqual(metadata[0], {
                 name: '1',
             });
         });
@@ -156,7 +153,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assert.deepStrictEqual(result.metaData[0], { name: '1' });
+    assertEqual(result.metaData[0], { name: '1' });
 
     const { resultSet } = result;
 
@@ -164,13 +161,13 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     const row = await resultSet.getRow();
 
-    assert.deepStrictEqual(row, [1]);
+    assertEqual(row, [1]);
 
     console.log('Testing resultSet.getRows()...');
 
     const rows = await resultSet.getRows(1);
 
-    assert.deepStrictEqual(rows, [[2]]);
+    assertEqual(rows, [[2]]);
 
     console.log('Testing resultSet.close()...');
 
@@ -333,7 +330,7 @@ const version4Tests = async () => {
     console.log(results.one);
 
     const GeomType = await connection.getDbObjectClass("MDSYS.SDO_GEOMETRY");
-    
+
     const geom = new GeomType(
         {
           SDO_GTYPE: 2003,
@@ -356,7 +353,7 @@ const version4Tests = async () => {
     new geom.attributes.test.typeClass({});
 
     geom.S_GTYPE = 2003;
-    
+
     await connection.execute(
         `INSERT INTO testgeometry (id, geometry) VALUES (:id, :g)`,
         {id: 1, g: geom}
@@ -370,7 +367,7 @@ const version4Tests = async () => {
     });
 
     console.log(sub.regId);
-    
+
     const queue = await connection.getQueue('test', {
         payloadType: 'test'
     })
@@ -401,7 +398,7 @@ const version4Tests = async () => {
     const lob = await connection.createLob(2);
 
     await lob.getData();
-    
+
         const plsql = `
     DECLARE
         c1 SYS_REFCURSOR;

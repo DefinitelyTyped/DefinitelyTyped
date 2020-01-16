@@ -1,8 +1,8 @@
 import * as oracledb from 'oracledb';
-import * as dotenv from 'dotenv';
-import * as assert from 'assert';
 
-dotenv.config();
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean, message?: string): void;
+declare function assertEqual(actual: any, expected: any, message?: string): void;
 
 /*
 
@@ -63,7 +63,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
 
     const info = await connection.getStatementInfo('SELECT 1 FROM CONNOR_TEST_TABLE WHERE SYSDATE > :myDate');
 
-    assert.deepStrictEqual(
+    assertEqual(
         info.metaData[0],
         {
             name: '1',
@@ -105,7 +105,7 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
         });
 
         stream.on('metadata', metadata => {
-            assert.deepStrictEqual(metadata[0], {
+            assertEqual(metadata[0], {
                 name: '1',
             });
         });
@@ -149,7 +149,7 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
         },
     );
 
-    assert.deepStrictEqual(result.metaData[0], { name: '1' });
+    assertEqual(result.metaData[0], { name: '1' });
 
     const { resultSet } = result;
 
@@ -157,13 +157,13 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     const row = await resultSet.getRow();
 
-    assert.deepStrictEqual(row, [1]);
+    assertEqual(row, [1]);
 
     console.log('Testing resultSet.getRows()...');
 
     const rows = await resultSet.getRows(1);
 
-    assert.deepStrictEqual(rows, [[2]]);
+    assertEqual(rows, [[2]]);
 
     console.log('Testing resultSet.close()...');
 
