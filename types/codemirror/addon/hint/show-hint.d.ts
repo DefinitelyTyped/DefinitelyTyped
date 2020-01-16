@@ -41,7 +41,7 @@ declare module "codemirror" {
         /** An extension of the existing CodeMirror typings for the Editor.on("keyup", func) syntax */
         on(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
-        showHint: (options: ShowHintOptions) => void;
+        showHint: (options?: ShowHintOptions) => void;
     }
 
     interface HintFunction {
@@ -54,8 +54,19 @@ declare module "codemirror" {
     }
 
     interface ShowHintOptions {
-        completeSingle: boolean;
-        hint: HintFunction | AsyncHintFunction;
+        completeSingle?: boolean;
+        // options.hint is optional and handled as such 
+        // https://github.com/codemirror/CodeMirror/blob/master/addon/hint/show-hint.js#L43
+        hint?: HintFunction | AsyncHintFunction;
+        // should container close on unfocus? true by default
+        closeOnUnfocus?: boolean;
+        closeCharacters?: RegExp;
+        alignWithWord?: boolean;
+        // complete with a single item. true by default
+        completeSingle?: boolean;
+        container?: HTMLElement | null;
+        extraKeys?: Codemirror.EditorConfiguration['extraKeys'] | null,
+        customKeys?: CodeMirror.EditorConfiguration['extraKeys'] | null,
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/
