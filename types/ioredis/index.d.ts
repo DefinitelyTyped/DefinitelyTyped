@@ -34,7 +34,7 @@ interface RedisStatic {
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
     Cluster: IORedis.ClusterStatic;
-    Command: IORedis.CommandStatic;
+    Command: typeof Command;
 }
 
 declare var IORedis: RedisStatic;
@@ -50,39 +50,32 @@ declare class Commander {
     sendCommand(): void;
 }
 
+interface CommandOptions {
+    replyEncoding?: string | null;
+    errorStack?: string;
+    keyPrefix?: string;
+}
+declare class Command {
+    isCustomCommand: boolean;
+    args: IORedis.ValueType[];
+    getSlot(): number | null;
+    getKeys(): Array<string | Buffer>;
+    constructor(
+        name: string,
+        args: IORedis.ValueType[],
+        opts?: CommandOptions,
+        callback?: (err: null, result: any) => void,
+    );
+    static setArgumentTransformer(name: string, fn: (args: IORedis.ValueType[]) => IORedis.ValueType[]): void;
+    static setReplyTransformer(name: string, fn: (result: any) => any): void;
+}
+
 declare namespace IORedis {
     type KeyType = string | Buffer;
 
     type BooleanResponse = 1 | 0;
 
     type ValueType = string | Buffer | number | any[];
-
-    interface CommandOptions {
-        /**
-         * Set the encoding of the reply, by default buffer will be returned.
-         */
-        replyEncoding?: string | null;
-        errorStack?: string;
-        keyPrefix?: string;
-    }
-
-    interface CommandStatic {
-        new(
-            name: string,
-            args: ValueType[],
-            opts?: CommandOptions,
-            callback?: (err: null, result: any) => void,
-        ): Command;
-        setArgumentTransformer(name: string, fn: (args: ValueType[]) => ValueType[]): void;
-        setReplyTransformer(name: string, fn: (result: any) => any): void;
-    }
-
-    interface Command {
-        isCustomCommand: boolean;
-        args: ValueType[];
-        getSlot(): number | null;
-        getKeys(): Array<string | Buffer>;
-    }
 
     interface Redis extends EventEmitter, Commander {
         Promise: typeof Promise;
