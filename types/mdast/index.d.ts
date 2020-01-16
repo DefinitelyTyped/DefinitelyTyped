@@ -183,8 +183,8 @@ export interface Parent extends UnistParent {
  * Its `value` field is a `string`.
  * @see https://github.com/syntax-tree/mdast/blob/e0902c8acfecb9680ee9fa066da725c3a1201774/readme.md#literal
  */
-export interface Literal<value extends string = string> extends UnistLiteral {
-    value: value;
+export interface Literal extends UnistLiteral {
+    value: string;
 }
 
 /**
@@ -351,7 +351,7 @@ export interface Blockquote extends Parent {
  * })
  * @see https://github.com/syntax-tree/mdast/blob/e0902c8acfecb9680ee9fa066da725c3a1201774/readme.md#list
  */
-export type List<T extends BasicList = OrderedList | UnorderedList> = T;
+export type List = OrderedList | UnorderedList;
 
 /**
  * *List* represents a list of items.
@@ -618,7 +618,7 @@ interface CodeWithoutLang extends CodeBase {
  *  'foo()'})
  * @see https://github.com/syntax-tree/mdast/blob/e0902c8acfecb9680ee9fa066da725c3a1201774/readme.md#code
  */
-export type Code<T extends CodeBase = CodeWithLang | CodeWithoutLang> = T;
+export type Code =  CodeWithLang | CodeWithoutLang;
 
 /**
  * *YAML* represents a collection of metadata for the document in the
