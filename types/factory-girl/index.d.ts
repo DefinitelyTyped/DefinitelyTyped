@@ -4,6 +4,7 @@
 //                 Sebastián Estrella <https://github.com/sestrella>
 //                 Luis Fernando Alvarez <https://github.com/elcuy>
 //                 Olivier Kamers <https://github.com/OlivierKamers>
+//                 Steve DeWald <https://github.com/SteveDeWald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -54,6 +55,11 @@ declare namespace factory {
          */
         buildMany<T>(name: string, num: number, attrs?: Attributes<Partial<T>>): Promise<T[]>;
         buildMany<T>(name: string, attrs?: ReadonlyArray<Attributes<Partial<T>>>): Promise<T[]>;
+
+        /**
+         * Generate pseudo-random values using the `chance` library
+         */
+        chance(chanceMethod: string): any;
 
         /**
          * Destroys all of the created models
