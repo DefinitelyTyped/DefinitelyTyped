@@ -109,6 +109,6 @@ const MeasuredClassComponent = withContentRect('bounds')<Props>(TestClassCompone
 const classEl = <MeasuredClassComponent a="test" />;
 
 function testInnerRefHook() {
-    const ref = React.useRef<HTMLDivElement>()
-    return <Measure innerRef={ref} />
+    const ref = React.useRef<HTMLDivElement>();
+    return <Measure innerRef={ref} />;
 }
