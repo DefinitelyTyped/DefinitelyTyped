@@ -101,7 +101,7 @@ export function addEvent(
     useCapture?: boolean
 ): void;
 
-export function cancelEvent(event?: OSDEvent): void;
+export function cancelEvent(event?: OSDEvent<any>): void;
 
 export function capitalizeFirstLetter(value: string): string;
 
@@ -130,7 +130,7 @@ export function getElementSize(element: Element | string): Point;
 
 export function getElementStyle(element: Element | string): any; // CSSStyle?
 
-export function getMousePosition(event?: OSDEvent): Point;
+export function getMousePosition(event?: OSDEvent<any>): Point;
 
 export function getPageScroll(): Point;
 
@@ -183,7 +183,7 @@ export function removeClass(element: Element | string, className: string): void;
 export function removeEvent(
     element: Element | string,
     eventName: string,
-    handler: EventHandler,
+    handler: EventHandler<any>,
     useCapture?: boolean
 ): void;
 
@@ -199,7 +199,7 @@ export function setPageScroll(point: Point): void;
 
 export function setString(property: string, value: any): void;
 
-export function stopEvent(event?: OSDEvent): void;
+export function stopEvent(event?: OSDEvent<any>): void;
 
 export interface GestureSettings {
     scrollToZoom?: boolean;
@@ -413,23 +413,23 @@ export class Button extends EventSource {
         srcDown?: string;
         fadeDelay?: number;
         fadeLength?: number;
-        onPress?: EventHandler;
-        onRelease?: EventHandler;
-        onClick?: EventHandler;
-        onEnter?: EventHandler;
-        onExit?: EventHandler;
-        onFocus?: EventHandler;
-        onBlur?: EventHandler;
+        onPress?: EventHandler<ButtonEvent>;
+        onRelease?: EventHandler<ButtonEvent>;
+        onClick?: EventHandler<ButtonEvent>;
+        onEnter?: EventHandler<ButtonEvent>;
+        onExit?: EventHandler<ButtonEvent>;
+        onFocus?: EventHandler<ButtonEvent>;
+        onBlur?: EventHandler<ButtonEvent>;
     });
 
     addHandler(
         eventName: ButtonEventName,
-        handler: EventHandler,
+        handler: EventHandler<ButtonEvent>,
         userData?: object
     ): void;
     addOnceHandler(
         eventName: ButtonEventName,
-        handler: EventHandler,
+        handler: EventHandler<ButtonEvent>,
         userData?: object,
         times?: number
     ): void;
@@ -440,7 +440,7 @@ export class Button extends EventSource {
     ): (source: ButtonEventName, ...args: any[]) => void;
     raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
     removeAllHandlers(eventName: ButtonEventName): void;
-    removeHandler(eventName: ButtonEventName, handler: EventHandler): void;
+    removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
 }
 
 export class ButtonGroup {
@@ -595,24 +595,24 @@ export interface MouseTrackerOptions {
     dblClickTimeThreshold?: number;
     dblClickDistThreshold?: number;
     stopDelay?: number;
-    enterHandler?: EventHandler;
-    exitHandler?: EventHandler;
-    pressHandler?: EventHandler;
-    nonPrimaryPressHandler?: EventHandler;
-    releaseHandler?: EventHandler;
-    nonPrimaryReleaseHandler?: EventHandler;
-    moveHandler?: EventHandler;
-    scrollHandler?: EventHandler;
-    clickHandler?: EventHandler;
-    dblClickHandler?: EventHandler;
-    dragHandler?: EventHandler;
-    dragEndHandler?: EventHandler;
-    pinchHandler?: EventHandler;
-    keyDownHandler?: EventHandler;
-    keyUpHandler?: EventHandler;
-    keyHandler?: EventHandler;
-    focusHandler?: EventHandler;
-    blurHandler?: EventHandler;
+    enterHandler?: EventHandler<OSDEvent<any>>;
+    exitHandler?: EventHandler<OSDEvent<any>>;
+    pressHandler?: EventHandler<OSDEvent<any>>;
+    nonPrimaryPressHandler?: EventHandler<OSDEvent<any>>;
+    releaseHandler?: EventHandler<OSDEvent<any>>;
+    nonPrimaryReleaseHandler?: EventHandler<OSDEvent<any>>;
+    moveHandler?: EventHandler<OSDEvent<any>>;
+    scrollHandler?: EventHandler<OSDEvent<any>>;
+    clickHandler?: EventHandler<OSDEvent<any>>;
+    dblClickHandler?: EventHandler<OSDEvent<any>>;
+    dragHandler?: EventHandler<OSDEvent<any>>;
+    dragEndHandler?: EventHandler<OSDEvent<any>>;
+    pinchHandler?: EventHandler<OSDEvent<any>>;
+    keyDownHandler?: EventHandler<OSDEvent<any>>;
+    keyUpHandler?: EventHandler<OSDEvent<any>>;
+    keyHandler?: EventHandler<OSDEvent<any>>;
+    focusHandler?: EventHandler<OSDEvent<any>>;
+    blurHandler?: EventHandler<OSDEvent<any>>;
     userData?: object;
 }
 export class MouseTracker {
@@ -624,30 +624,30 @@ export class MouseTracker {
 
     constructor(options: MouseTrackerOptions);
 
-    blurHandler: (event: OSDEvent) => void;
-    clickHandler: (event: OSDEvent) => void;
-    dblClickHandler: (event: OSDEvent) => void;
+    blurHandler: (event: OSDEvent<any>) => void;
+    clickHandler: (event: OSDEvent<any>) => void;
+    dblClickHandler: (event: OSDEvent<any>) => void;
     destroy(): void;
-    dragEndHandler: (event: OSDEvent) => void;
-    dragHandler: (event: OSDEvent) => void;
-    enterHandler: (event: OSDEvent) => void;
-    exitHandler: (event: OSDEvent) => void;
-    focusHandler: (event: OSDEvent) => void;
+    dragEndHandler: (event: OSDEvent<any>) => void;
+    dragHandler: (event: OSDEvent<any>) => void;
+    enterHandler: (event: OSDEvent<any>) => void;
+    exitHandler: (event: OSDEvent<any>) => void;
+    focusHandler: (event: OSDEvent<any>) => void;
     getActivePointerCount(): number;
     getActivePointersListByType(type: string): GesturePointList;
     getActivePointersListsExceptType(type: string): GesturePointList[];
-    keyDownHandler: (event: OSDEvent) => void;
-    keyHandler: (event: OSDEvent) => void;
-    keyUpHandler: (event: OSDEvent) => void;
-    moveHandler: (event: OSDEvent) => void;
-    nonPrimaryPressHandler: (event: OSDEvent) => void;
-    nonPrimaryReleaseHandler: (event: OSDEvent) => void;
-    pinchHandler: (event: OSDEvent) => void;
-    pressHandler: (event: OSDEvent) => void;
-    releaseHandler: (event: OSDEvent) => void;
-    scrollHandler: (event: OSDEvent) => void;
-    setTracking(track: boolean): MouseTracker;
-    stopHandler: (event: OSDEvent) => void;
+    keyDownHandler: (event: OSDEvent<any>) => void;
+    keyHandler: (event: OSDEvent<any>) => void;
+    keyUpHandler: (event: OSDEvent<any>) => void;
+    moveHandler: (event: OSDEvent<any>) => void;
+    nonPrimaryPressHandler: (event: OSDEvent<any>) => void;
+    nonPrimaryReleaseHandler: (event: OSDEvent<any>) => void;
+    pinchHandler: (event: OSDEvent<any>) => void;
+    pressHandler: (event: OSDEvent<any>) => void;
+    releaseHandler: (event: OSDEvent<any>) => void;
+    scrollHandler: (event: OSDEvent<any>) => void;
+    setTracking(track: boolean): any;
+    stopHandler: (event: OSDEvent<any>) => void;
 }
 
 export interface GesturePoint {
@@ -918,12 +918,12 @@ export class TiledImage {
 
     addHandler(
         eventName: string,
-        handler: EventHandler,
+        handler: EventHandler<TiledImageEvent>,
         userData?: object
     ): void;
     addOnceHandler(
         eventName: string,
-        handler: EventHandler,
+        handler: EventHandler<TiledImageEvent>,
         userData?: object
     ): void;
     destroy(): void;
@@ -966,7 +966,7 @@ export class TiledImage {
     needsDraw(): boolean;
     raiseEvent(eventName: string, eventArgs: object): void;
     removeAllHandlers(eventName: string): void;
-    removeHandler(eventName: string, handler: EventHandler): void;
+    removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
     reset(): void;
     setClip(newClip: Rect | null): void;
     setCompositeOperation(compositeOperation: string): void;
@@ -1006,12 +1006,12 @@ export class TileSource extends EventSource {
     constructor(options: TileSourceOptions);
     addHandler(
         eventName: string,
-        handler: EventHandler,
+        handler: EventHandler<TileSourceEvent>,
         userData?: object
     ): void;
     addOnceHandler(
         eventName: string,
-        handler: EventHandler,
+        handler: EventHandler<TileSourceEvent>,
         userData?: object,
         times?: number
     ): void;
@@ -1090,12 +1090,12 @@ export class Viewer extends ControlDock {
     _cancelPendingImages(): void;
     addHandler(
         eventName: ViewerEventName,
-        callback: (event: Event) => any,
+        callback: EventHandler<ViewerEvent>,
         userData?: object
     ): void;
     addOnceHandler(
         eventName: ViewerEventName,
-        callback: (event: Event) => any,
+        callback: EventHandler<ViewerEvent>,
         userData?: object,
         times?: number
     ): void;
@@ -1245,13 +1245,13 @@ export class World extends EventSource {
 
     addHandler(
         eventName: WorldEventName,
-        callback: (event: Event) => void,
+        callback: EventHandler<WorldEvent>,
         userData?: object
     ): void;
     addItem(item: TiledImage, options?: { index?: number }): void;
     addOnceHandler(
         eventName: string,
-        handler: EventHandler,
+        handler: EventHandler<WorldEvent>,
         userData?: object,
         times?: number
     ): void;
@@ -1293,7 +1293,7 @@ export class ZoomifyTileSource extends TileSource {
 
 // TODO: use proper eventName type aliases, and OSDEvent where appropiate
 
-type EventHandler = (event: OSDEvent) => void;
+type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
 
 export type ButtonEventName =
     | "blur"
@@ -1371,11 +1371,85 @@ export type WorldEventName =
     | "metrics-change"
     | "remove-item";
 
-interface OSDEvent extends Event {
+interface OSDEvent<T> extends Event {
+    eventSource?: T;
+    userData: any;
+}
+
+interface ButtonEvent extends OSDEvent<Button> {
     originalEvent: Event;
+}
+
+interface TiledImageEvent extends OSDEvent<TiledImage> {
+    compositeOperationChange?: string;
+    fullyLoaded?: boolean;
+    opacity?: boolean;
+}
+
+interface TileSourceEvent extends OSDEvent<TileSource> {
+    message?: string;
+    source?: string;
+    tileSource?: object;
+}
+
+interface ViewerEvent extends OSDEvent<Viewer> {
+    message?: string;
+    source?: string;
+    options?: object;
+    element?: Element;
+    location?: Point | Rect;
+    placement?: Placement;
+    tracker?: MouseTracker;
     position?: Point;
-    clientX?: number;
-    clientY?: number;
+    quick?: boolean;
+    shift?: boolean;
+    preventDefaultAction?: true;
+    delta?: Point;
+    speed?: number;
+    direction?: number;
+    pointerType?: string;
+    button?: number;
+    buttons?: number;
+    pointers?: number;
+    insideElementPressed?: boolean;
+    buttonDownAny?: boolean;
+    preventVerticalPan?: boolean;
+    preventHorizontalPan?: boolean;
+    gesturePoints?: GesturePoint[];
+    lastCenter?: Point;
+    center?: Point;
+    lastDistance?: number;
+    insideElementReleased?: boolean;
+    scroll?: number;
+    inmediately?: number;
+    enabled?: boolean;
+    flipped?: number;
+    fullPage?: boolean;
+    fullScreen?: boolean;
+    page?: number;
+    contentSize?: Point;
+    contentBounds?: Rect;
+    homeBounds?: Rect;
+    contentFactor?: number;
+    newContainerSize?: Point;
+    mantain?: boolean;
+    degrees?: number;
+    tile?: Tile;
+    tiledImage?: TiledImage | XMLHttpRequest;
+    context?: Tile;
+    rendered?: Tile;
+    time?: number;
+    tileRequest?: XMLHttpRequest;
+    getCompletionCallback?: (...args: any) => void;
+    visible?: boolean;
+    refPoint?: Point;
+    zoom?: number;
+}
+
+interface WorldEvent extends OSDEvent<World> {
+    item?: TiledImage;
+    previousIndex?: number;
+    newIndex?: number;
 }
 
 export default Viewer;
