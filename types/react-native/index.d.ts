@@ -5035,6 +5035,11 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     static canUseNativeForeground(): boolean;
 }
 
+export class TVEventHandler {
+  enable(context: any, callback: Function): Function;
+  disable: Function;
+}
+
 export interface Route {
     component?: React.ComponentType<any>;
     id?: string;
