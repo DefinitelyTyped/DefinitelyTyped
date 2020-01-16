@@ -1,7 +1,6 @@
 import { computed } from '@ember/object';
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
-import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
 
 declare module 'ember-data/types/registries/model' {
@@ -47,10 +46,10 @@ class Human extends Model {
 }
 
 const user = User.create({ username: 'dwickern' });
-assertType<string>(user.get('id'));
-assertType<string>(user.get('username'));
-assertType<boolean>(user.get('verified'));
-assertType<Date>(user.get('createdAt'));
+user.get('id'); // $ExpectType string
+user.get('username'); // $ExpectType string
+user.get('verified'); // $ExpectType boolean
+user.get('createdAt'); // $ExpectType Date
 
 user.serialize();
 user.serialize({ includeId: true });
