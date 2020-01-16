@@ -11,6 +11,8 @@
             "../"
         ],
         "paths": {
+            "@ember-data/model": ["ember-data__model"],
+            "@ember-data/model/*": ["ember-data__model/*"],
             "@ember-data/store": ["ember-data__store"],
             "@ember-data/store/*": ["ember-data__store/*"],
             "@ember/application": ["ember__application"],
@@ -35,6 +37,8 @@
             "@ember/service": ["ember__service"],
             "@ember/string": ["ember__string"],
             "@ember/string/*": ["ember__string/*"],
+            "@ember/template": ["ember__template"],
+            "@ember/template/*": ["ember__template/*"],
             "@ember/test": ["ember__test"],
             "@ember/test/*": ["ember__test/*"],
             "@ember/utils": ["ember__utils"],
@@ -49,6 +53,6 @@
     "files": [
         "index.d.ts",
         "test/lib/assert.ts",
-        "test/model.ts"
+        "ember-data__store-tests.ts"
     ]
 }
