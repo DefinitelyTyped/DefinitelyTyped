@@ -1,8 +1,7 @@
 import Card from '..';
-import { StyledComponent } from '@emotion/styled';
 
 declare namespace CardFooter {
-    interface Props {
+    type Props<T extends keyof JSX.IntrinsicElements> = {
         /**
          * `className` of the container.
          */
@@ -19,9 +18,15 @@ declare namespace CardFooter {
         isShady?: boolean;
 
         size?: Card.CardSize;
-    }
+
+        /**
+         * Render as a different element type
+         */
+        as?: T;
+    } & JSX.IntrinsicElements[T];
 }
 
-declare const CardFooter: StyledComponent<JSX.IntrinsicElements['div'], CardFooter.Props, {}>;
+// tslint:disable-next-line no-unnecessary-generics
+declare function CardFooter<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardFooter.Props<T>): JSX.Element;
 
 export default CardFooter;

@@ -1402,7 +1402,7 @@ function testUseStore() {
 function testCreateHookFunctions() {
     // $ExpectType { <TDispatch = Dispatch<any>>(): TDispatch; <A extends Action<any> = AnyAction>(): Dispatch<A>; }
     createDispatchHook();
-    // $ExpectType <TState, TSelected>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
+    // $ExpectType <TState = DefaultRootState, TSelected = unknown>(selector: (state: TState) => TSelected, equalityFn?: ((left: TSelected, right: TSelected) => boolean) | undefined) => TSelected
     createSelectorHook();
     interface RootState {
         property: string;
