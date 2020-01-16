@@ -24,6 +24,10 @@ type Flattened<R> = {
 	array: R extends Array<infer U> ? Flattened<U> : never;
 }[R extends Array<any> ? 'array' : R extends Highland.Stream<any> ? 'stream' : 'value'];
 
+// Describes a constructor for a particular promise library
+interface PConstructor<T, P extends PromiseLike<T>> {
+	new(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
+}
 /**
  * Highland: the high-level streams library
  *
@@ -1603,7 +1607,7 @@ declare namespace Highland {
      *     // parameter result will be [1,2,3,4]
      * });
      */
-    toPromise(PromiseCtor: PromiseConstructor): PromiseLike<R>;
+    toPromise<P extends PromiseLike<R>>(PromiseCtor: PConstructor<R, P>): P;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}

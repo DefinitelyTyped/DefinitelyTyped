@@ -463,8 +463,18 @@ fooStream.toNodeStream();
 fooStream.toNodeStream({objectMode: false});
 fooStream.toNodeStream({objectMode: true});
 
-fooStream.toPromise(Promise);
+fooStream.toPromise(Promise)
+  .then((foo: Foo) => foo)
+  .catch((err: any) => { throw err; });
 
+declare class MyPromise<T> implements PromiseLike<T> {
+  constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (err: any) => void) => void);
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): PromiseLike<TResult1 | TResult2>;
+}
+
+// $ExpectType MyPromise<Foo>
+fooStream.toPromise(MyPromise);  
+  
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
