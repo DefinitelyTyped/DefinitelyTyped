@@ -8,14 +8,16 @@ import {
     SingleOrArray,
     SingleOrArrayOfTerms,
     SingleOrArrayOfTermsOrLiterals,
-    WithValue,
-    WithTerm,
+    WithValues,
+    WithSingleValue,
+    WithTerms,
+    WithSingleTerm,
     SingleContextClownface,
     SingleOrOneElementArray
 } from '..';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceInit & Partial<WithTerm<T>> & Partial<WithValue>);
+    constructor(options: ClownfaceInit & Partial<WithSingleTerm<T> | WithTerms<T>> & Partial<WithSingleValue | WithValues>);
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;

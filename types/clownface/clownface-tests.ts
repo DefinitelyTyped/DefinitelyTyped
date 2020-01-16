@@ -71,28 +71,37 @@ cf = cf.deleteOut([node, node]);
 
 // factory
 cf = clownface({ dataset });
-cf = clownface({ dataset, term });
-cf = clownface({ dataset, graph });
-cf = clownface({ dataset, value: 'foo' });
+const namedGraph: clownface.Clownface<Dataset, NamedNode> = clownface({ dataset, graph });
+const singleFromValue: clownface.SingleContextClownface = clownface({ dataset, value: 'foo' });
 
-const termContext: Clownface = clownface({
+const termContext: clownface.SingleContextClownface = clownface({
     dataset,
     term
 });
 
-const namedContext: Clownface<DatasetCore, NamedNode> = clownface({
+const namedContext: clownface.SingleContextClownface<DatasetCore, NamedNode> = clownface({
     dataset,
     term: node,
 });
 
+const namedMutlipleTerms: clownface.SafeClownface<DatasetCore, NamedNode> = clownface({
+    dataset,
+    term: [node, node],
+});
+
+const mutlipleValues: clownface.SafeClownface = clownface({
+    dataset,
+    value: ['foo', 'bar'],
+});
+
 const maybeNamed: BlankNode | NamedNode = <any> {};
-const altContext: Clownface<DatasetCore, BlankNode | NamedNode> = clownface({
+const altContext: clownface.SingleContextClownface<DatasetCore, BlankNode | NamedNode> = clownface({
     dataset,
     term: maybeNamed,
 });
 
 const literalContext: clownface.SingleContextClownface<Dataset, Literal> = <any> {};
-const deriveContextFromOtherGraph: Clownface<Dataset, Literal>  = clownface(literalContext);
+const deriveContextFromOtherGraph: clownface.SingleContextClownface<Dataset, Literal> = clownface(literalContext);
 
 // .filter
 cf = cf.filter(() => true);
