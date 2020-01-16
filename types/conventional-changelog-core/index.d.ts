@@ -247,16 +247,16 @@ declare namespace conventionalChangelogCore {
 
     namespace Options {
         // tslint:disable-next-line max-line-length
-        type Config<TCommit extends Commit, TContext extends BaseContext = BaseContext> = Promise<Config.Object<TCommit, TContext>> | Config.Function<TCommit, TContext> | Config.Object<TCommit, TContext>;
+        type Config<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = Promise<Config.Object<TCommit, TContext>> | Config.Function<TCommit, TContext> | Config.Object<TCommit, TContext>;
 
         namespace Config {
-            type FunctionType<TCommit extends Commit, TContext extends BaseContext = BaseContext> = (callback: FunctionType.Callback<TCommit, TContext>) => void;
+            type FunctionType<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (callback: FunctionType.Callback<TCommit, TContext>) => void;
 
             namespace FunctionType {
-                type Callback<TCommit extends Commit, TContext extends BaseContext = BaseContext> = (error: any, config: ObjectType<TCommit, TContext>) => void;
+                type Callback<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = (error: any, config: ObjectType<TCommit, TContext>) => void;
             }
 
-            interface ObjectType<TCommit extends Commit, TContext extends BaseContext = BaseContext> {
+            interface ObjectType<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> {
                 context?: Partial<TContext>;
                 gitRawCommitsOpts?: GitRawCommitsOptions;
                 parserOpts?: ParserOptions;
@@ -363,7 +363,7 @@ declare namespace conventionalChangelogCore {
 
 type Context = conventionalChangelogCore.Context;
 type GitRawCommitsOptions = conventionalChangelogCore.GitRawCommitsOptions;
-type Options<TCommit extends Commit, TContext extends BaseContext = BaseContext> = conventionalChangelogCore.Options<TCommit, TContext>;
+type Options<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = conventionalChangelogCore.Options<TCommit, TContext>;
 type ParserOptions = conventionalChangelogCore.ParserOptions;
 type WriterOptions<TCommit extends Commit = Commit, TContext extends BaseContext = BaseContext> = conventionalChangelogCore.WriterOptions<TCommit, TContext>;
 
