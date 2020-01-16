@@ -1,5 +1,7 @@
-import assert = require('assert');
 import rangeCheck = require('range_check');
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean): void;
 
 // isIP (same function as validIp and valid_ip)
 assert(rangeCheck.isIP('10.0.1.5')); // True
