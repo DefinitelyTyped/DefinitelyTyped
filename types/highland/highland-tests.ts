@@ -66,6 +66,11 @@ interface StrBarArrMap {
   [key: string]: Bar[];
 }
 
+declare class MyPromise<T> implements PromiseLike<T> {
+  constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (err: any) => void) => void);
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): PromiseLike<TResult1 | TResult2>;
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 var foo: Foo;
@@ -468,18 +473,21 @@ fooStream.toNodeStream();
 fooStream.toNodeStream({objectMode: false});
 fooStream.toNodeStream({objectMode: true});
 
-fooStream.toPromise(Promise)
-  .then((foo: Foo) => foo)
-  .catch((err: any) => { throw err; });
+fooStream.toPromise(Promise).then((foo: Foo) => {})
 
-declare class MyPromise<T> implements PromiseLike<T> {
-  constructor(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (err: any) => void) => void);
-  then<TResult1 = T, TResult2 = never>(onfulfilled?: (value: T) => TResult1 | PromiseLike<TResult1>, onrejected?: (reason: any) => TResult2 | PromiseLike<TResult2>): PromiseLike<TResult1 | TResult2>;
-}
+// Type inference for the generic parameter only seems to work with TS 3.5 or above.
+// Rather than bump the required version, I'm not testing type inference here.
 
+// Test that the generic parameter is optional:
+fooStream.toPromise(MyPromise);
+
+// $ExpectType Promise<Foo>
+fooStream.toPromise<Promise<Foo>>(Promise);
 // $ExpectType MyPromise<Foo>
-fooStream.toPromise(MyPromise);  
-  
+fooStream.toPromise<MyPromise<Foo>>(MyPromise);
+// $ExpectError
+fooStream.toPromise<Promise<Foo>>(MyPromise);
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // UTILS
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
