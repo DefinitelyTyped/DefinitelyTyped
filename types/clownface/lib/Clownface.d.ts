@@ -25,7 +25,7 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     readonly dataset: D;
     readonly datasets: D[];
     readonly _context: any;
-    list(): Iterator<Term>;
+    list(): Iterable<SingleContextClownface<D>>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
     forEach(cb: (quad: Clownface<D, T>) => void): void;
