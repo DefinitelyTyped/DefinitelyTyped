@@ -52,6 +52,11 @@ interface Foo {
 interface Bar {
   bar(): string;
 }
+interface Baz {
+  foo: string;
+  bar: number;
+  baz: boolean;
+}
 
 interface StrFooArrMap {
   [key: string]: Foo[];
@@ -71,9 +76,12 @@ var barArr: Bar[];
 
 var fooStream: Highland.Stream<Foo>;
 var barStream: Highland.Stream<Bar>;
+var bazStream: Highland.Stream<Baz>;
+var voidStream: Highland.Stream<void>;
 
 var fooStreamStream: Highland.Stream<Highland.Stream<Foo>>;
 var barStreamStream: Highland.Stream<Highland.Stream<Bar>>;
+var barStreamArrStream: Highland.Stream<Highland.Stream<Bar>[]>;
 
 var fooArrStream: Highland.Stream<Foo[]>;
 var barArrStream: Highland.Stream<Bar[]>;
@@ -95,6 +103,9 @@ var barThenArr: PromiseLike<Bar>[];
 
 var fooStreamThen: PromiseLike<Highland.Stream<Foo>>;
 var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
+
+var fooIterable: Iterable<Foo>;
+var fooIterator: Iterator<Foo>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -154,6 +165,12 @@ fooStream = _(fooStreamThen);
 fooStream = _(fooThen);
 
 fooArrStream = _(fooArrThen);
+
+fooStream = _(fooIterable);
+fooStream = _(fooIterator);
+
+// $ExpectType Stream<Stream<Foo>>
+_([fooStream]);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // STREAM OBJECTS
@@ -239,6 +256,12 @@ strFooArrMapStream = fooStream.group(str);
 
 fooStream = fooStream.head();
 
+// $ExpectType Stream<Foo>
+fooStream = fooStream.intersperse(foo);
+
+// $ExpectType Stream<Foo | Bar>
+fooStream.intersperse(bar)
+
 barStream = fooStream.invoke<Bar>(str, anyArr);
 
 fooStream = fooStream.last();
@@ -249,16 +272,26 @@ barStream = fooStream.map((x: Foo) => {
   return bar;
 });
 
+// $ExpectType Stream<Pick<Baz, "foo" | "bar">>
+bazStream.pick(['foo', 'bar']);
+
+// $ExpectType Stream<Partial<Foo>>
+fooStream.pickBy((key, value) => key === 'foo');
+
+// $ExpectType Stream<() => string>
+fooStream.pluck('foo');
 barStream = fooStream.pluck<Bar>(str);
 
 fooStream = fooStream.ratelimit(3, 1000);
 
-barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
+// $ExpectType Stream<Foo>
+fooStream = fooStream.reduce1((memo: Foo, x: Foo) => {
   return memo;
 });
 
-barStream = fooStream.reduce1(bar, (memo: Bar, x: Foo) => {
-  return memo;
+// $ExpectType Stream<Bar>
+barStream = fooStream.reduce1((memo: Foo | Bar, x: Foo) => {
+  return bar;
 });
 
 fooStream = fooStream.reject((x: Foo) => {
@@ -269,7 +302,39 @@ barStream = fooStream.scan(bar, (memo: Bar, x: Foo) => {
   return memo;
 });
 
-//missing scan1
+// $ExpectType Stream<Foo>
+fooStream = fooStream.scan1((memo: Foo, x: Foo) => {
+  return memo;
+});
+
+// $ExpectType Stream<Bar>
+barStream = fooStream.scan1((memo: Foo | Bar, x: Foo) => {
+  return bar;
+});
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.slice(10, 100);
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.sort();
+
+// $ExpectType Stream<Foo>
+fooStream = fooStream.sortBy((a: Foo, b: Foo) => 1);
+
+// $ExpectError
+fooStream.split();
+
+// $ExpectType Stream<string>
+_(['']).split();
+
+// $ExpectError
+fooStream.splitBy(",")
+
+// $ExpectType Stream<string>
+_(['']).splitBy(',')
+
+// $ExpectType Stream<string>
+_(['']).splitBy(/,/)
 
 fooStream = fooStream.stopOnError((e: Error) => {});
 
@@ -280,6 +345,12 @@ fooStream.tap((x: Foo) => {});
 fooStream = fooStream.throttle(num);
 
 fooStream = fooStream.where(obj);
+
+bazStream = bazStream.where({baz: true});
+
+fooStream = fooStream.uniq();
+
+fooStream = fooStream.uniqBy((a: Foo, b: Foo) => true);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // HIGHER-ORDER STREAMS
@@ -301,11 +372,25 @@ barStream = fooStream.flatMap((x: Foo) => {
   return bar;
 });
 
-barStream = fooStream.flatten<Bar>();
+barStream = barArrStream.flatten<Bar>();
+barStream = barArrStream.flatten();
+barStream = barStreamStream.flatten();
+barStream = barStreamArrStream.flatten();
+
+// $ExpectError
+barArrStream.flatten<Foo>();
 
 fooStream = fooStream.fork();
 
 fooStream = fooStreamStream.merge();
+
+// $ExpectError
+fooStream.merge();
+
+fooStream = fooStreamStream.mergeWithLimit(1);
+
+// $ExpectError
+fooStream.mergeWithLimit(1);
 
 fooStream = fooStream.observe();
 
@@ -315,13 +400,35 @@ fooStream = fooStreamStream.parallel(num);
 
 barStream = barStreamStream.sequence();
 
-barStream = fooStream.series<Bar>();
+barStream = barStreamStream.series<Bar>();
 
-bar = fooStream.through(x => bar);
+// $ExpectError
+fooStream.sequence();
+// $ExpectError
+barStream.series();
+// $ExpectError
+fooStreamStream.sequence<Bar>();
+
+bar = fooStream.through((x: Highland.Stream<Foo>) => bar);
 barStream = fooStream.through(readwritable);
 
-fooStream = fooStream.zip(fooStream);
-fooStream = fooStream.zip([foo, foo]);
+// $ExpectError
+fooStream.through((x: Highland.Stream<Bar>) => bar);
+
+// $ExpectType Stream<[Foo, Foo]>
+fooStream.zip(fooStream);
+
+// $ExpectType Stream<[Foo, Bar]>
+fooStream.zip(barStream);
+
+fooArrStream = fooStream.zipAll([[foo, foo], [foo, foo]]);
+fooArrStream = fooStream.zipAll(_([[foo, foo], [foo, foo]]));
+
+// $ExpectType Stream<(Foo | Bar)[]>
+fooStream.zipAll(barStreamStream);
+
+// $ExpectType Stream<Foo[]>
+fooStreamStream.zipAll0();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // CONSUMPTION
@@ -335,6 +442,13 @@ fooStream.each((x: Foo) => {});
 
 fooStream = fooStream.pipe(fooStream);
 barStream = fooStream.pipe(barStream);
+
+// $ExpectType Stream<Foo>
+fooStream.pipe(_<Foo>());
+// $ExpectType ReadWriteStream
+fooStream.pipe(readwritable);
+// $ExpectType WritableStream
+fooStream.pipe(writable, { end: false });
 
 fooStream.pull((err: Error, x: Foo) => {});
 

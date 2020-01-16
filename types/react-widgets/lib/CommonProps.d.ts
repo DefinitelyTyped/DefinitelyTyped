@@ -1,6 +1,4 @@
-import * as React from 'react';
-
-export interface ReactWidgetsCommonProps<C> extends React.Props<C> {
+export interface ReactWidgetsCommonProps {
     /**
      * Disable the widget, if an Array of values is passed in only those values will be disabled.
      * @default false
@@ -32,7 +30,7 @@ export interface AutoFocus {
     autoFocus?: boolean;
 }
 
-export interface ReactWidgetsCommonDropdownProps<C> extends ReactWidgetsCommonProps<C> {
+export interface ReactWidgetsCommonDropdownProps extends ReactWidgetsCommonProps {
     /**
      * Show "drop up" not "drop down"
      * @default false

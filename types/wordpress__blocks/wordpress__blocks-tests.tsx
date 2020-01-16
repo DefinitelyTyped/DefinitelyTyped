@@ -66,7 +66,7 @@ blocks.updateCategory('foo', { title: 'Foobar' });
 // $ExpectType ReactChild[]
 blocks.children.fromDOM(document.querySelectorAll('div'));
 
-// $ExpectType (domNode: ParentNode) => ReactChild[]
+// $ExpectType (domNode: Node & ParentNode) => ReactChild[]
 blocks.children.matcher('.foo');
 
 //
@@ -79,7 +79,6 @@ blocks.cloneBlock(BLOCK_INSTANCE);
 // $ExpectType BlockInstance<{ foo: string; }>
 blocks.createBlock('my/foo', { foo: 'bar' });
 
-// $ExpectType Transform<Record<string, any>>
 blocks.findTransform(
     [
         {
@@ -94,11 +93,14 @@ blocks.findTransform(
     transform => transform.type === 'block'
 );
 
-// $ExpectType Transform<Record<string, any>>[]
-blocks.getBlockTransforms('to', 'my/foo');
+declare const RAW_TRANSFORM_ARRAY: Array<blocks.TransformRaw<any>>;
+blocks.findTransform(RAW_TRANSFORM_ARRAY, ({ isMatch }) => true);
 
-// $ExpectType Transform<{ foo: string; }>[]
-blocks.getBlockTransforms<{ foo: string }>('to', 'my/foo');
+// $ExpectType string
+blocks.getBlockTransforms('to', 'my/foo')[0].blockName;
+
+// $ExpectType string
+blocks.getBlockTransforms<{ foo: string }>('to', 'my/foo')[0].blockName;
 
 // $ExpectType Block<Record<string, any>>[]
 blocks.getPossibleBlockTransformations([BLOCK_INSTANCE]);
@@ -262,7 +264,7 @@ blocks.getBlockSupport('core/paragraph', 'inserter', { foo: 'bar' });
 // $ExpectType Block<any> | undefined
 blocks.getBlockType('core/paragraph');
 
-// $ExpectType ReadonlyArray<Block<any>>
+// $ExpectType Block<any>[]
 blocks.getBlockTypes();
 
 // $ExpectType string[]

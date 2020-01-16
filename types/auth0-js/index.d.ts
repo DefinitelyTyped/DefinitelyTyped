@@ -518,6 +518,11 @@ export interface AuthOptions {
     redirectUri?: string;
     scope?: string;
     audience?: string;
+    /**
+     * maximum elapsed time in seconds since the last time the user
+     * was actively authenticatedby the authorization server.
+     */
+    maxAge?: number;
     leeway?: number;
     plugins?: any[];
     _disableDeprecationWarnings?: boolean;
@@ -618,23 +623,40 @@ export interface ChangePasswordOptions {
     email: string;
 }
 
+export interface BaseAuthOptions {
+    clientID?: string;
+    responseType?: string;
+    redirectUri?: string;
+    scope?: string;
+    audience?: string;
+    state?: string;
+    nonce?: string;
+    _csrf?: string;
+    __instate?: string;
+}
+
+export interface PasswordlessStartAuthParams extends BaseAuthOptions {
+    responseMode?: string;
+}
+
 export interface PasswordlessStartOptions {
     connection: string;
     send: string;
     phoneNumber?: string;
     email?: string;
-    authParams?: any;
+    authParams?: PasswordlessStartAuthParams;
 }
 
-export interface PasswordlessVerifyOptions {
+export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
     email?: string;
     send?: string;
+    responseMode?: string;
 }
 
-export interface PasswordlessLoginOptions {
+export interface PasswordlessLoginOptions extends BaseAuthOptions {
     connection: string;
     verificationCode: string;
     phoneNumber?: string;
@@ -738,6 +760,8 @@ export interface DbSignUpOptions {
     email: string;
     password: string;
     connection: string;
+    /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
+    username?: string;
     scope?: string;
     user_metadata?: any;
 }
@@ -747,6 +771,8 @@ export interface ParseHashOptions {
     state?: string;
     nonce?: string;
     _idTokenVerification?: boolean;
+    /** indicates that you want to allow IdP-Initiated flows. See {@link https://auth0.com/docs/protocols/saml/idp-initiated-sso#lock-auth0-js} */
+    __enableIdPInitiatedLogin?: boolean;
 }
 
 export interface RenewAuthOptions {
@@ -835,6 +861,7 @@ export interface AuthorizeOptions {
     mode?: "login" | "signUp";
     accessType?: string;
     approvalPrompt?: string;
+    appState?: any;
 }
 
 export interface CheckSessionOptions extends AuthorizeOptions {

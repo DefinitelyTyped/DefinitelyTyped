@@ -5,6 +5,8 @@ export type ComboboxInputProps = {
     /* An object containing a `Menu` component. */
     menu: React.ReactElement<MenuProps>;
     buttonProps?: object;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     className?: string;
     compact?: boolean;
     inputProps?: object;

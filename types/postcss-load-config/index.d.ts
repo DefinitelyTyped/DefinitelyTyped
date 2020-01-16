@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import { Parser, Plugin, ProcessOptions, Processor, Stringifier, Syntax, Transformer } from "postcss";
-import cosmiconfig = require("cosmiconfig");
+import { Options as CosmiconfigOptions } from 'cosmiconfig';
 
 // In the ConfigContext, these three options can be instances of the
 // appropriate class, or strings. If they are strings, postcss-load-config will
@@ -38,10 +38,10 @@ interface Result {
     plugins: ResultPlugin[];
 }
 
-declare function postcssrc(ctx?: ConfigContext, path?: string, options?: cosmiconfig.ExplorerOptions): Promise<Result>;
+declare function postcssrc(ctx?: ConfigContext, path?: string, options?: CosmiconfigOptions): Promise<Result>;
 
 declare namespace postcssrc {
-    function sync(ctx?: ConfigContext, path?: string, options?: cosmiconfig.ExplorerOptions): Result;
+    function sync(ctx?: ConfigContext, path?: string, options?: CosmiconfigOptions): Result;
 }
 
 export = postcssrc;

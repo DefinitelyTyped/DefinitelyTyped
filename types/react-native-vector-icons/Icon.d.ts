@@ -6,7 +6,7 @@ import {
   TouchableHighlightProps,
   TouchableNativeFeedbackProps,
   TabBarIOSItemProps,
-  ToolbarAndroidProps
+  ToolbarAndroidProps as ReactNativeToolbarAndroidProps
 } from 'react-native';
 
 export interface IconProps extends TextProps {
@@ -55,7 +55,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
    *
    * @default {marginRight: 10}
    */
-  iconStyle?: ViewStyle;
+  iconStyle?: TextStyle;
 
   /**
    * Style prop inherited from TextProps and TouchableWithoutFeedbackProperties
@@ -74,7 +74,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProps, Tou
 
 export type ImageSource = any;
 
-export interface ToolbarAndroidProps extends ToolbarAndroidProps {
+export interface ToolbarAndroidProps extends ReactNativeToolbarAndroidProps {
   /**
    * Name of the navigation logo icon
    * (similar to ToolbarAndroid logo)

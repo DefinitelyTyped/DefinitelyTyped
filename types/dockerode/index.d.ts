@@ -351,6 +351,16 @@ declare namespace Dockerode {
     NetworkSettings: {
       Networks: { [networkType: string]: NetworkInfo }
     };
+    Mounts: Array<{
+      Name?: string;
+      Type: string;
+      Source: string;
+      Destination: string;
+      Driver?: string;
+      Mode: string;
+      RW: boolean;
+      Propagation: string;
+    }>;
   }
 
   interface Port {
@@ -464,6 +474,7 @@ declare namespace Dockerode {
       }
     };
     Mounts: Array<{
+      Name?: string;
       Source: string;
       Destination: string;
       Mode: string;
@@ -752,6 +763,11 @@ declare namespace Dockerode {
         DeviceName: string;
         DeviceSize: string;
       }
+    };
+    RootFS: {
+      Type: string;
+      Layers?: string[];
+      BaseLayer?: string;
     };
   }
 

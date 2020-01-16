@@ -3,11 +3,12 @@ import { Identity } from '../../identity';
 import { Application } from '../application/application';
 import Transport from '../../transport/transport';
 import { WindowEvents } from '../events/window';
-import { AnchorType, Transition, TransitionOptions, Bounds } from '../../shapes';
+import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
 import { WindowOption } from './windowOption';
 import { EntityType } from '../frame/frame';
 import { ExternalWindow } from '../external-window/external-window';
 import { WebContents } from '../webcontents/webcontents';
+import { BrowserView } from '../browserview/browserview';
 /**
  * @lends Window
  */
@@ -161,10 +162,12 @@ interface WindowMovementOptions {
  * Default is white.
  *
  * @property {object} [contentNavigation]
- * Restrict navigation to URLs that match a whitelisted pattern. See [here](https://developer.chrome.com/extensions/match_patterns)
- * for more details.
+ * Restrict navigation to URLs that match a whitelisted pattern.
+ * In the lack of a whitelist, navigation to URLs that match a blacklisted pattern would be prohibited.
+ * See [here](https://developer.chrome.com/extensions/match_patterns) for more details.
  * @property {string[]} [contentNavigation.whitelist=[]] List of whitelisted URLs.
- *
+ * @property {string[]} [contentNavigation.blacklist=[]] List of blacklisted URLs.
+
  * @property {boolean} [contextMenu=true] - _Updatable._
  * A flag to show the context menu when right-clicking on a window.
  * Gives access to the devtools for the window.
@@ -181,7 +184,7 @@ interface WindowMovementOptions {
  * @property {number} [cornerRounding.height=0] The height in pixels.
  * @property {number} [cornerRounding.width=0] The width in pixels.
  *
- * @property {string} [customData=""] - _Updatable._
+ * @property {any} [customData=""] - _Updatable._
  * A field that the user can attach serializable data to to be ferried around with the window options.
  * _When omitted, the default value of this property is the empty string (`""`)._
  *
@@ -495,6 +498,14 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.stopNavigation
      */
+    /**
+    * Reloads the window current page
+    * @function reload
+    * @memberOf Window
+    * @instance
+    * @return {Promise.<void>}
+    * @tutorial Window.reload
+    */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -517,6 +528,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.focus
      */
     focus(): Promise<void>;
+    /**
+     * Centers the window on its current screen.
+     * @return {Promise.<void>}
+     * @tutorial Window.center
+     */
+    center(): Promise<void>;
     /**
      * Removes focus from the window.
      * @return {Promise.<void>}
@@ -558,6 +575,13 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.getNativeId
      */
     getNativeId(): Promise<string>;
+    /**
+    * Retrieves window's attached views.
+    * @experimental
+    * @return {Promise.Array.<BrowserView>}
+    * @tutorial Window.getCurrentViews
+    */
+    getCurrentViews(): Promise<Array<BrowserView>>;
     disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.
@@ -660,17 +684,12 @@ export declare class _Window extends WebContents<WindowEvents> {
     isShowing(): Promise<boolean>;
     /**
      * Joins the same window group as the specified window.
+     * Joining a group with native windows is currently not supported(method will nack).
      * @param { _Window | ExternalWindow } target The window whose group is to be joined
      * @return {Promise.<void>}
      * @tutorial Window.joinGroup
      */
     joinGroup(target: _Window | ExternalWindow): Promise<void>;
-    /**
-     * Reloads the window current page
-     * @return {Promise.<void>}
-     * @tutorial Window.reload
-     */
-    reload(ignoreCache?: boolean): Promise<void>;
     /**
      * Leaves the current window group so that the window can be move independently of those in the group.
      * @return {Promise.<void>}
@@ -795,8 +814,8 @@ export declare class _Window extends WebContents<WindowEvents> {
     updateOptions(options: any): Promise<void>;
     /**
      * Provides credentials to authentication requests
-     * @param { string } userName userName to provide to the authentication challange
-     * @param { string } password password to provide to the authentication challange
+     * @param { string } userName userName to provide to the authentication challenge
+     * @param { string } password password to provide to the authentication challenge
      * @return {Promise.<void>}
      * @tutorial Window.authenticate
      */

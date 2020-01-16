@@ -273,7 +273,7 @@ class LegacyContext extends React.Component {
 
 class LegacyContextAnnotated extends React.Component {
     static contextTypes = { foo: PropTypes.node.isRequired };
-    context!: { foo: React.ReactNode };
+    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
 
     render() {
         // $ExpectType ReactNode
@@ -284,7 +284,7 @@ class LegacyContextAnnotated extends React.Component {
 
 class NewContext extends React.Component {
     static contextType = ContextWithRenderProps;
-    context!: React.ContextType<typeof ContextWithRenderProps>;
+    context: React.ContextType<typeof ContextWithRenderProps> = "";
 
     render() {
         // $ExpectType string
@@ -321,7 +321,7 @@ const ForwardRef3 = React.forwardRef(
 <ForwardRef3 ref={divFnRef}/>;
 <ForwardRef3 ref={divRef}/>;
 
-const Profiler = React.unstable_Profiler;
+const { Profiler } = React;
 
 // 'id' is missing
 <Profiler />; // $ExpectError
@@ -357,8 +357,14 @@ const Profiler = React.unstable_Profiler;
 </Profiler>;
 
 type ImgProps = React.ComponentProps<'img'>;
-// $ExpectType "async" | "auto" | "sync" | undefined
-type ImgPropsDecoding = ImgProps['decoding'];
+const imgProps: ImgProps = {};
+// the order of the strings in the union seems to vary
+// with the typescript version, so test assignment instead
+imgProps.decoding = 'async';
+imgProps.decoding = 'auto';
+imgProps.decoding = 'sync';
+// $ExpectError
+imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];

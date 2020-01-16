@@ -13,7 +13,7 @@ declare namespace memoizee {
     dispose?(value: any): void;
     async?: boolean;
     primitive?: boolean;
-    normalizer?(value: any): void;
+    normalizer?(args: any[]): string;
     resolvers?: Array<(arg: any) => any>;
   }
 

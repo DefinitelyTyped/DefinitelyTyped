@@ -239,8 +239,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<WriteResult>;
-export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
+export function write(fd: number, buffer: Buffer, offset?: number, length?: number, position?: number | null): Promise<WriteResult>;
+export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;

@@ -468,16 +468,16 @@ declare namespace _ {
     interface LodashDefaults {
         <TSource>(source: TSource): LodashDefaults1x1<TSource>;
         <TObject>(source: lodash.__, object: TObject): LodashDefaults1x2<TObject>;
-        <TObject, TSource>(source: TSource, object: TObject): TSource & TObject;
+        <TObject, TSource>(source: TSource, object: TObject): NonNullable<TSource & TObject>;
     }
-    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => TSource & TObject;
-    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => TSource & TObject;
+    type LodashDefaults1x1<TSource> = <TObject>(object: TObject) => NonNullable<TSource & TObject>;
+    type LodashDefaults1x2<TObject> = <TSource>(source: TSource) => NonNullable<TSource & TObject>;
     interface LodashDefaultsAll {
-        <TObject, TSource>(object: [TObject, TSource]): TSource & TObject;
-        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): TSource3 & TSource2 & TSource1 & TObject;
-        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
-        <TObject>(object: [TObject]): TObject;
+        <TObject, TSource>(object: [TObject, TSource]): NonNullable<TSource & TObject>;
+        <TObject, TSource1, TSource2>(object: [TObject, TSource1, TSource2]): NonNullable<TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3>(object: [TObject, TSource1, TSource2, TSource3]): NonNullable<TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject, TSource1, TSource2, TSource3, TSource4>(object: [TObject, TSource1, TSource2, TSource3, TSource4]): NonNullable<TSource4 & TSource3 & TSource2 & TSource1 & TObject>;
+        <TObject>(object: [TObject]): NonNullable<TObject>;
         (object: ReadonlyArray<any>): any;
     }
     interface LodashDefaultsDeep {

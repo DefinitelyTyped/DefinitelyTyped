@@ -3,11 +3,12 @@ import Projection from './proj/Projection';
 import { TileCoord } from './tilecoord';
 import TileState from './TileState';
 
-export type LoadFunction = ((p0: Tile, p1: string) => void);
+export type LoadFunction = (p0: Tile, p1: string) => void;
 export interface Options {
     transition?: number;
 }
-export default class Tile extends Target {
+export type UrlFunction = (p0: TileCoord, p1: number, p2: Projection) => string;
+export default abstract class Tile extends Target {
     constructor(tileCoord: TileCoord, state: TileState, opt_options?: Options);
     protected state: TileState;
     protected changed(): void;
@@ -18,8 +19,7 @@ export default class Tile extends Target {
     getState(): TileState;
     getTileCoord(): TileCoord;
     inTransition(id: string): boolean;
-    load(): void;
+    abstract load(): void;
     refreshInterimChain(): void;
     setState(state: TileState): void;
 }
-export type UrlFunction = ((p0: TileCoord, p1: number, p2: Projection) => string);

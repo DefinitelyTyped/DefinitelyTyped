@@ -982,7 +982,7 @@ export interface Association {
  * **Reference** represents a marker that is associated to another node (`mdast.Association`).
  * @see https://github.com/syntax-tree/mdast/blob/e0902c8acfecb9680ee9fa066da725c3a1201774/readme.md#reference
  */
-export interface Reference {
+export interface Reference extends Association {
     /** explicitness of the reference */
     referenceType: ReferenceType;
 }

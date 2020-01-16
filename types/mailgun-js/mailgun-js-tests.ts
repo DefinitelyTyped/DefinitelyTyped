@@ -1,6 +1,8 @@
 import * as mailgunFactory from "mailgun-js";
 import mailgunFactory2 = require('mailgun-js');
 
+import * as FormData from 'form-data';
+
 const mailgun = new mailgunFactory({
     apiKey: "auth.api_key",
     domain: "auth.domain"
@@ -9,6 +11,17 @@ const mailgun = new mailgunFactory({
 const mailgun2 = new mailgunFactory2({
     apiKey: "auth.api_key",
     domain: "auth.domain"
+});
+
+const logger = (httpOptions: mailgunFactory.LoggerHttpOptions, payload: string, form: FormData) => {};
+
+const mailgun3 = new mailgunFactory2({
+    apiKey: 'auth.api_key',
+    domain: 'auth.domain',
+
+    testMode: true,
+
+    testModeLogger: logger,
 });
 
 mailgun.messages().send(
@@ -53,6 +66,14 @@ const arraySendData: mailgunFactory.messages.SendData = {
 
 mailgun.messages().send(arraySendData, (err, body) => {});
 
+const exampleSendDataWithTemplate: mailgunFactory.messages.SendTemplateData = {
+    to: "someone@email.com",
+    template: "my-template",
+    "v:template-variable": "foo",
+  };
+
+const exampleSendDataTemplateResponse: Promise<mailgunFactory.messages.SendResponse> = mailgun.messages().send(exampleSendDataWithTemplate);
+
 let validationResultPromise: Promise<mailgunFactory.validation.ValidateResponse>;
 validationResultPromise = mailgun.validate("foo@mailgun.net");
 validationResultPromise = mailgun.validate("foo@mailgun.net", true);
@@ -76,3 +97,7 @@ const validationResult6: mailgunFactory.validation.ValidateResponse = {
         local_part: "foo"
     }
 };
+
+// Generic requests
+mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] }, (error: any, body: any) => { });
+const response: Promise<any> = mailgun.get('/samples.mailgun.org/stats', { event: ['sent', 'delivered'] });

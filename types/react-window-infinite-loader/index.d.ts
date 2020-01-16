@@ -11,9 +11,11 @@ type OnItemsRendered = (props: ListOnItemsRenderedProps) => any;
 
 interface InfiniteLoaderProps {
     isItemLoaded: (index: number) => boolean;
-    loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any>;
+    loadMoreItems: (startIndex: number, stopIndex: number) => Promise<any> | null;
     itemCount: number;
     children: (props: {onItemsRendered: OnItemsRendered, ref: Ref<any>}) => ReactNode;
+    threshold?: number;
+    minimumBatchSize?: number;
 }
 
 declare class InfiniteLoader extends Component<InfiniteLoaderProps> {

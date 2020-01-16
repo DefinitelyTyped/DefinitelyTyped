@@ -624,6 +624,11 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType AbcObject
         return 1;
     });
+    // $ExpectType AbcObject[]
+    _.intersectionBy(...[list], (value) => {
+        value; // $ExpectType AbcObject
+        return 0;
+    });
 
     _.chain(list).intersectionBy(list); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
     _.chain(list).intersectionBy(list, "a"); // $ExpectType LoDashExplicitWrapper<AbcObject[]>
@@ -661,8 +666,18 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
         value; // $ExpectType T1 | T2
         return {};
     });
+    // $ExpectType LoDashImplicitWrapper<T1[]>
+    _([t1]).intersectionBy(...[[t2]], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
     // $ExpectType LoDashExplicitWrapper<T1[]>
     _.chain([t1]).intersectionBy([t2], (value) => {
+        value; // $ExpectType T1 | T2
+        return {};
+    });
+    // $ExpectType LoDashExplicitWrapper<T1[]>
+    _.chain([t1]).intersectionBy(...[[t2]], (value) => {
         value; // $ExpectType T1 | T2
         return {};
     });
@@ -6826,6 +6841,11 @@ fp.now(); // $ExpectType number
 // _.overEvery
 // _.overSome
 {
+    const userDefinedTypeGuard1: (item: object) => item is { a: 1 } = anything;
+    const userDefinedTypeGuard2: (item: object) => item is { b: 1 } = anything;
+
+    _.overEvery(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => arg is { a: 1; } & { b: 1; }
+
     _.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overEvery([(number: number) => true]); // $ExpectType (...args: number[]) => boolean
@@ -6841,6 +6861,8 @@ fp.now(); // $ExpectType number
 
     fp.overEvery((number: number) => true); // $ExpectType (...args: number[]) => boolean
     fp.overEvery([(number: number) => true, (number: number) => true]); // $ExpectType (...args: number[]) => boolean
+
+    _.overSome(userDefinedTypeGuard1, userDefinedTypeGuard2); // $ExpectType (arg: object) => arg is { a: 1; } | { b: 1; }
 
     _.overSome((number: number) => true); // $ExpectType (...args: number[]) => boolean
     _.overSome((number: number) => true, (number: number) => true); // $ExpectType (...args: number[]) => boolean
@@ -7061,4 +7083,20 @@ _.templateSettings; // $ExpectType TemplateSettings
     fp.partialRight(func1, [42]); // $ExpectType Function0<number>
     fp.partialRight(func1)([42]); // $ExpectType Function0<number>
     fp.partialRight(func2)([42, fp.partialRight.placeholder]); // $ExpectType Function1<string, number>
+}
+
+// _.stubTrue
+{
+    _.stubTrue(); // $ExpectType true
+    _("").stubTrue(); // $ExpectType true
+    _.chain("").stubTrue(); // $ExpectType LoDashExplicitWrapper<true>
+    fp.stubTrue(); // $ExpectType true
+}
+
+// _.stubFalse
+{
+    _.stubFalse(); // $ExpectType false
+    _("").stubFalse(); // $ExpectType false
+    _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
+    fp.stubFalse(); // $ExpectType false
 }

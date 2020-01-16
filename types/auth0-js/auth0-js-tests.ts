@@ -2,7 +2,8 @@ import * as auth0 from 'auth0-js';
 
 const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
-    clientID: 'dsa7d77dsa7d7'
+    clientID: 'dsa7d77dsa7d7',
+    maxAge: 40,
 });
 
 webAuth.authorize({
@@ -57,7 +58,8 @@ webAuth.parseHash(
             PPoh-pITcZ8qbF5l5rMZwXiwk5efbESuqZ0IfMUcamB6jdgLwTxq-HpOT_x5q6-sO1PBHchpSo1WHeDYMlRrOFd9bh741sUuBuXdPQZ3Zb0i2sNOAC2RFB \
             1E11mZn7uNvVPGdPTg-Y5xppz30GSXoOJLbeBszfrVDCmPhpHKGGMPL1N6HV-3EEF77L34YNAi2JQ-b70nFK_dnYmmv0cYTGUxtGTHkl64UEDLi3u7bV- \
             kbGky3iOOCzXKzDDY6BBKpCRTc2KlbrkO2A2PuDn27WVv1QCNEFHvJN7HxiDDzXOsaUmjrQ3sfrHhzD7S9BcCRkekRfD9g95SKD5J0Fj8NA& \
-            token_type=Bearer&state=theState&refresh_token=kajshdgfkasdjhgfas&scope=foo"
+            token_type=Bearer&state=theState&refresh_token=kajshdgfkasdjhgfas&scope=foo",
+        __enableIdPInitiatedLogin: true,
     },
     (err, authResult) => {
     if (err) {
@@ -138,7 +140,8 @@ webAuth.passwordlessStart({
 webAuth.passwordlessLogin({
     connection: 'the_connection',
     phoneNumber: '123',
-    verificationCode: '456'
+    verificationCode: '456',
+    state: '12313eqwasdadaasd'
 }, (err, data) => {});
 
 webAuth.signupAndAuthorize({
@@ -146,6 +149,7 @@ webAuth.signupAndAuthorize({
     email: 'me@example.com',
     password: '123456',
     scope: 'openid',
+    username: "blabla",
     user_metadata: {
         foo: 'bar'
     }
@@ -248,7 +252,10 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
-authentication.dbConnection.signup({connection: 'bla', email: 'blabla', password: '123456'}, () => {});
+authentication.dbConnection.signup(
+    { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
+    () => {}
+);
 authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 
 authentication.passwordless.start({ connection: 'bla', send: 'blabla' }, () => {});

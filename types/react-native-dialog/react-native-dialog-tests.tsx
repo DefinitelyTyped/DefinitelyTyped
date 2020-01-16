@@ -17,30 +17,19 @@ class Example extends Component {
     }
 
     singleButton() {
-        return (<Dialog.Button label="Click" onPress={() => null} />);
+        return <Dialog.Button label="Click" onPress={() => null} />;
     }
 
     render() {
         const ref = createRef();
 
         return (
-            <Dialog.Container
-                visible={true}
-                style={{ marginLeft: 20, marginRight: 20 }}
-            >
-                <Dialog.Title style={{ marginLeft: 20, marginRight: 20 }}>
-                    A nice title
-                </Dialog.Title>
+            <Dialog.Container visible={true} style={{ marginLeft: 20, marginRight: 20 }} avoidKeyboard={true}>
+                <Dialog.Title style={{ marginLeft: 20, marginRight: 20 }}>A nice title</Dialog.Title>
                 <Dialog.Description>A good descr</Dialog.Description>
                 <Dialog.Input textInputRef={ref} label="Cancel" />
-                <Dialog.Button
-                    label="Cancel"
-                    onPress={() => console.log("test")}
-                />
-                <Dialog.Button
-                    label="Validate"
-                    onPress={() => console.log("test")}
-                />
+                <Dialog.Button label="Cancel" onPress={() => console.log('test')} />
+                <Dialog.Button label="Validate" onPress={() => console.log('test')} />
                 {this.dynamicButtons()}
                 {this.singleButton()}
             </Dialog.Container>

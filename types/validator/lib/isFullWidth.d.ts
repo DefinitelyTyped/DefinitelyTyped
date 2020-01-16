@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isFullWidth: typeof validator.isFullWidth;
-export = isFullWidth;
+import validator from '../';
+export default validator.isFullWidth;

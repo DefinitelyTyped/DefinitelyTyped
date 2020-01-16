@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-import { ServerConfig } from 'next';
-
 declare function withSourceMaps(
-    nextConfig?: ServerConfig
-): ServerConfig;
+    nextConfig?: { [key: string]: any }
+): { [key: string]: any };
 
 export = withSourceMaps;

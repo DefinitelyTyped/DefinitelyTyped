@@ -1,17 +1,11 @@
 import { Color } from '../color';
+import BaseEvent from '../events/Event';
+import ImageState from '../ImageState';
 import { Size } from '../size';
 import IconAnchorUnits from './IconAnchorUnits';
 import IconOrigin from './IconOrigin';
 import ImageStyle from './Image';
 
-export default class Icon extends ImageStyle {
-    constructor(opt_options?: Options);
-    clone(): Icon;
-    clone(): ImageStyle;
-    getColor(): Color;
-    getSrc(): string;
-    setAnchor(anchor: number[]): void;
-}
 export interface Options {
     anchor?: number[];
     anchorOrigin?: IconOrigin;
@@ -29,4 +23,22 @@ export interface Options {
     size?: Size;
     imgSize?: Size;
     src?: string;
+}
+export default class Icon extends ImageStyle {
+    constructor(opt_options?: Options);
+    clone(): Icon;
+    getAnchor(): number[];
+    getColor(): Color;
+    getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    getHitDetectionImageSize(): Size;
+    getImage(pixelRatio: number): HTMLImageElement | HTMLCanvasElement;
+    getImageSize(): Size;
+    getImageState(): ImageState;
+    getOrigin(): number[];
+    getSize(): Size;
+    getSrc(): string;
+    listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    load(): void;
+    setAnchor(anchor: number[]): void;
+    unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
 }

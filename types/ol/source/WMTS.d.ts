@@ -1,16 +1,15 @@
 import { EventsKey } from '../events';
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
 import ImageTile from '../ImageTile';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
-import { UrlFunction, LoadFunction } from '../Tile';
+import { LoadFunction, UrlFunction } from '../Tile';
 import WMTSTileGrid from '../tilegrid/WMTS';
 import { AttributionLike } from './Source';
 import { TileSourceEvent } from './Tile';
 import TileImage from './TileImage';
 import WMTSRequestEncoding from './WMTSRequestEncoding';
 
-export function optionsFromCapabilities(wmtsCap: any, config: any): Options;
 export interface Options {
     attributions?: AttributionLike;
     cacheSize?: number;
@@ -43,12 +42,15 @@ export default class WMTS extends TileImage {
     getStyle(): string;
     getVersion(): string;
     updateDimensions(dimensions: any): void;
-    on(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    once(type: string | string[], listener: ((p0: any) => void)): EventsKey | EventsKey[];
-    un(type: string | string[], listener: ((p0: any) => void)): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
+    un(type: string | string[], listener: (p0: any) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
@@ -62,3 +64,4 @@ export default class WMTS extends TileImage {
     once(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): EventsKey;
     un(type: 'tileloadstart', listener: (evt: TileSourceEvent) => void): void;
 }
+export function optionsFromCapabilities(wmtsCap: any, config: any): Options;

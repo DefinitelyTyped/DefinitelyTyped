@@ -127,6 +127,7 @@ defaultElement.namespaceURI; // $ExpectType string
 defaultElement.nodeName; // $ExpectType string
 defaultElement.tagName; // $ExpectType string
 defaultElement.parentNode; // $ExpectType DefaultTreeParentNode
+defaultElement.parentNode.nodeName; // $ExpectType string
 
 const defaultAttr = defaultElement.attrs[0];
 
@@ -142,6 +143,7 @@ defaultTextNode.sourceCodeLocation!; // $ExpectType Location
 defaultTextNode.nodeName; // $ExpectType "#text"
 defaultTextNode.value; // $ExpectType string
 defaultTextNode.parentNode; // $ExpectType DefaultTreeParentNode
+defaultTextNode.parentNode.nodeName; // $ExpectType string
 
 const defaultCommentNode = defaultDocumentFragment
     .childNodes[0] as parse5.DefaultTreeCommentNode;
@@ -150,6 +152,7 @@ defaultCommentNode.sourceCodeLocation!; // $ExpectType Location
 defaultCommentNode.nodeName; // $ExpectType "#comment"
 defaultCommentNode.data; // $ExpectType string
 defaultCommentNode.parentNode; // $ExpectType DefaultTreeParentNode
+defaultCommentNode.parentNode.nodeName; // $ExpectType string
 
 const adapter = defaultAdapter;
 

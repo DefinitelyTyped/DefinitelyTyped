@@ -13,7 +13,6 @@ declare class Transport extends EventEmitter {
     }>;
     protected uncorrelatedListener: Function;
     me: Identity;
-    protected wire: Wire;
     environment: Environment;
     topicRefMap: Map<string, number>;
     sendRaw: Wire['send'];
@@ -21,6 +20,8 @@ declare class Transport extends EventEmitter {
     protected messageHandlers: MessageHandler[];
     constructor(wireType: WireConstructor, environment: Environment);
     connectSync: (config: ConnectConfig) => any;
+    getPort: () => string;
+    shutdown(): Promise<void>;
     connect(config: InternalConnectConfig): Promise<string>;
     connectByPort(config: ExistingConnectConfig): Promise<string>;
     READY_STATE: typeof READY_STATE;

@@ -2,6 +2,8 @@
 // Project: https://github.com/jaredhanson/passport-google-oauth2
 // Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
 //                 Eduard Zintz <https://github.com/ezintz>
+//                 Tan Nguyen <https://github.com/ngtan>
+//                 Gleb Varenov <https://github.com/acerbic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -16,7 +18,6 @@ export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
-    accessType?: 'offline' | 'online';
     authorizationURL?: string;
     callbackURL?: string;
     clientID: string;
@@ -36,7 +37,12 @@ export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
+
+    _raw: string;
+    _json: any;
 }
+
+export type VerifyCallback = (err?: string | Error, user?: any, info?: any) => void;
 
 export class Strategy extends oauth2.Strategy {
     constructor(
@@ -45,7 +51,7 @@ export class Strategy extends oauth2.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: oauth2.VerifyCallback
+            done: VerifyCallback
         ) => void
     );
     constructor(
@@ -55,7 +61,28 @@ export class Strategy extends oauth2.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: oauth2.VerifyCallback
+            done: VerifyCallback
         ) => void
     );
+}
+
+// additional Google-specific options
+export interface AuthenticateOptionsGoogle extends passport.AuthenticateOptions {
+    accessType?: 'offline' | 'online';
+    prompt?: string;
+    loginHint?: string;
+    includeGrantedScopes?: boolean;
+    display?: string;
+    hostedDomain?: string;
+    hd?: string;
+    requestVisibleActions?: any;
+    openIDRealm?: any;
+}
+
+// allow Google-specific options when using "google" strategy
+declare module 'passport' {
+    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
+        authenticate(strategy: 'google', options: AuthenticateOptionsGoogle, callback?: (...args: any[]) => any): AuthenticateRet;
+        authorize(strategy: 'google', options: AuthenticateOptionsGoogle, callback?: (...args: any[]) => any): AuthorizeRet;
+    }
 }

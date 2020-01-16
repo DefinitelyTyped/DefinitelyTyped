@@ -2,7 +2,7 @@
 // Project: https://github.com/RGBboy/express-flash
 // Definitions by: Ian Mobley <https://github.com/iMobs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="connect-flash" />
 

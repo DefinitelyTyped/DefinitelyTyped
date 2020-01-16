@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+      "vfile": "^4.0.0"
+    }
+}

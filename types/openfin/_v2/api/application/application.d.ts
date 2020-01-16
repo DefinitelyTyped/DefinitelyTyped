@@ -7,6 +7,7 @@ import Transport from '../../transport/transport';
 import { Bounds } from '../../shapes';
 import { ApplicationEvents } from '../events/application';
 import { ApplicationOption } from './applicationOption';
+import { BrowserView } from '../browserview/browserview';
 export interface TrayIconClickReply extends Point, Reply<'application', 'tray-icon-clicked'> {
     button: number;
     monitorInfo: MonitorInfo;
@@ -36,6 +37,14 @@ export interface TrayInfo {
     monitorInfo: MonitorInfo;
     x: number;
     y: number;
+}
+export interface ManifestInfo {
+    uuid: string;
+    manifestUrl: string;
+}
+export interface RvmLaunchOptions {
+    noUi?: boolean;
+    userAppConfigArgs?: object;
 }
 /**
  * @typedef {object} ApplicationOption
@@ -133,6 +142,16 @@ export default class ApplicationModule extends Base {
     */
     start(appOptions: ApplicationOption): Promise<Application>;
     /**
+     * Asynchronously starts a batch of applications given an array of application identifiers and manifestUrls.
+     * Returns once the RVM is finished attempting to launch the applications.
+     * @param { Array.<ManifestInfo> } applications
+     * @return {Promise.<void>}
+     * @static
+     * @tutorial Application.startManyManifests
+     * @experimental
+     */
+    startManyManifests(applications: Array<ManifestInfo>): Promise<void>;
+    /**
      * Asynchronously returns an Application object that represents the current application
      * @return {Promise.<Application>}
      * @tutorial Application.getCurrent
@@ -149,11 +168,12 @@ export default class ApplicationModule extends Base {
     /**
      * Retrieves application's manifest and returns a running instance of the application.
      * @param {string} manifestUrl - The URL of app's manifest.
+     * @param { rvmLaunchOpts} [opts] - Parameters that the RVM will use.
      * @return {Promise.<Application>}
      * @tutorial Application.startFromManifest
      * @static
      */
-    startFromManifest(manifestUrl: string): Promise<Application>;
+    startFromManifest(manifestUrl: string, opts?: RvmLaunchOptions): Promise<Application>;
     createFromManifest(manifestUrl: string): Promise<Application>;
     private _createFromManifest;
 }
@@ -296,6 +316,13 @@ export declare class Application extends EmitterBase<ApplicationEvents> {
      * @tutorial Application.getShortcuts
      */
     getShortcuts(): Promise<ShortCutConfig>;
+    /**
+    * Retrieves current application's views.
+    * @experimental
+    * @return {Promise.Array.<BrowserView>}
+    * @tutorial Application.getViews
+    */
+    getViews(): Promise<Array<BrowserView>>;
     /**
      * Returns the current zoom level of the application.
      * @return {Promise.<number>}

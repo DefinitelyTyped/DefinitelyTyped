@@ -54,7 +54,7 @@ export default class InterApplicationBus extends Base {
      * composite data type (object, array) that is composed of other primitive or composite
      * data types
      * @return {Promise.<void>}
-     * @tutorial InterApplicationBus.subcribe
+     * @tutorial InterApplicationBus.subscribe
      */
     subscribe(source: Identity, topic: string, listener: any): Promise<void>;
     /**

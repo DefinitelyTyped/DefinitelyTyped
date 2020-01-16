@@ -1,7 +1,9 @@
 // Returns a hex code for an attractive color
+// $ExpectType string
 randomColor();
 
 // Returns an array of ten green colors
+// $ExpectType string[]
 randomColor({
     count: 10,
     hue: 'green'

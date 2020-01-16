@@ -2,7 +2,32 @@
 // Project: https://github.com/mcollina/mosca
 // Definitions by: Joao Gabriel Gouveia <https://github.com/GabrielGouv>
 //                 Jerray Fu <https://github.com/jerray>
+//                 Ran <https://github.com/ranto2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// TODO add detailed definition.
+// http://www.mosca.io/docs/lib/server.js.html#Server currently has no more description about this.
+export interface ServerOptions {
+    port?: number;
+    host?: string;
+    backend?: any;
+    ascoltatore?: any;
+    maxInflightMessages?: number;
+    logger?: any;
+    persistence?: any;
+    secure?: {
+        port: number;
+        keyPath: string;
+        certPath: string;
+    };
+    allowNonSecure?: boolean;
+    http?: {
+        port: number;
+    };
+    bundle?: any;
+    static?: any;
+    stats?: any;
+}
 
 export class Server {
     id: string;
@@ -11,9 +36,12 @@ export class Server {
     clients: any;
     closed: boolean;
 
-    constructor(opts: any, callback?: () => void);
+    constructor(opts: ServerOptions, callback?: () => void);
 
     on(when: string, callback: (() => void) | ((client: Client) => void) | ((packet: Packet, client: Client) => void)): void;
+    on(when: 'clientConnected' | 'clientDisconnecting' | 'clientDisconnected', callback: (client: Client) => void): void;
+    on(when: 'subscribed' | 'unsubscribed', callback: (topic: string, client: Client) => void): void;
+    on(when: 'published', callback: (packet: Packet, client: Client) => void): void;
     once(when: string, callback: () => void): void;
     toString(): string;
     subscribe(topic: string, callback: () => void, done: () => void): void;

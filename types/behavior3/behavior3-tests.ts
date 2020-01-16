@@ -1,4 +1,4 @@
-import '../behavior3';
+import 'behavior3';
 
 // Test decode
 const blackboard = new b3.Blackboard();

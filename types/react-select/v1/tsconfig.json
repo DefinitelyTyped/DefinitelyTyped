@@ -1,8 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "lib/Option/index.d.ts",
-        "lib/utils/defaultMenuRenderer/index.d.ts",
         "react-select-tests.tsx"
     ],
     "compilerOptions": {

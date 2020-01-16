@@ -1,41 +1,38 @@
 import { ColorLike } from '../colorlike';
-import LRUCache from '../structs/LRUCache';
 import Fill from '../style/Fill';
 import Stroke from '../style/Stroke';
 import { Transform } from '../transform';
+import LabelCache from './canvas/LabelCache';
 
-export function drawImage(context: CanvasRenderingContext2D, transform: Transform, opacity: number, image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, originX: number, originY: number, w: number, h: number, x: number, y: number, scale: number): void;
-export function measureTextWidth(font: string, text: string): number;
-export function rotateAtOffset(context: CanvasRenderingContext2D, rotation: number, offsetX: number, offsetY: number): void;
 export type DeclutterGroup = any[];
+export type DeclutterGroups = DeclutterGroup[];
 export interface FillState {
     fillStyle: ColorLike;
 }
 export interface FillStrokeState {
     currentFillStyle?: ColorLike;
     currentStrokeStyle?: ColorLike;
-    currentLineCap?: string;
+    currentLineCap?: CanvasLineCap;
     currentLineDash: number[];
     currentLineDashOffset?: number;
-    currentLineJoin?: string;
+    currentLineJoin?: CanvasLineJoin;
     currentLineWidth?: number;
     currentMiterLimit?: number;
     lastStroke?: number;
     fillStyle?: ColorLike;
     strokeStyle?: ColorLike;
-    lineCap?: string;
+    lineCap?: CanvasLineCap;
     lineDash: number[];
     lineDashOffset?: number;
-    lineJoin?: string;
+    lineJoin?: CanvasLineJoin;
     lineWidth?: number;
     miterLimit?: number;
 }
-export const labelCache: LRUCache<HTMLCanvasElement>;
 export interface StrokeState {
-    lineCap: string;
+    lineCap: CanvasLineCap;
     lineDash: number[];
     lineDashOffset: number;
-    lineJoin: string;
+    lineJoin: CanvasLineJoin;
     lineWidth: number;
     miterLimit: number;
     strokeStyle: ColorLike;
@@ -52,3 +49,26 @@ export interface TextState {
     scale?: number;
     padding?: number[];
 }
+export const labelCache: LabelCache;
+export function drawImage(
+    context: CanvasRenderingContext2D,
+    transform: Transform | null,
+    opacity: number,
+    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+    originX: number,
+    originY: number,
+    w: number,
+    h: number,
+    x: number,
+    y: number,
+    scale: number,
+): void;
+export function measureAndCacheTextWidth(font: string, text: string, cache: { [key: string]: number }): number;
+export function measureTextWidth(font: string, text: string): number;
+export function measureTextWidths(font: string, lines: string[], widths: number[]): number;
+export function rotateAtOffset(
+    context: CanvasRenderingContext2D,
+    rotation: number,
+    offsetX: number,
+    offsetY: number,
+): void;

@@ -6,6 +6,7 @@
 //                 Carlos Villavicencio <https://github.com/po5i>
 //                 Eric Camellini <https://github.com/ecamellini>
 //                 SardineFish <https://github.com/SardineFish>
+//                 Ryo Ota <https://github.com/nwtgck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 import BN = require("bn.js");
@@ -99,7 +100,7 @@ export namespace cleartext {
      * Creates a new CleartextMessage object from text
      * @param text
      */
-    function fromText(text: string): void;
+    function fromText(text: string): CleartextMessage;
 }
 
 /**
@@ -2898,7 +2899,7 @@ export namespace packet {
          * class instance.
          * @returns A Uint8Array containing valid openpgp packets.
          */
-        write(): Uint8Array;
+        write(): Uint8Array | ReadableStream<Uint8Array>;
 
         /**
          * Adds a packet to the list. This is the only supported method of doing so;
@@ -4773,7 +4774,7 @@ export interface KeyOptions {
      * (optional) options for each subkey, default to main key options. e.g. [ {sign: true, passphrase: '123'}]
      *            sign parameter defaults to false, and indicates whether the subkey should sign rather than encrypt
      */
-    subkeys?: { sign: true, passphrase: "string" }[];
+    subkeys?: { sign: true, passphrase: string }[];
 }
 
 /**
@@ -4991,8 +4992,8 @@ export interface DecryptResult {
  *          ]
  *          }
  */
-export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptOptions & { data: string | ReadableStream<String> | NodeStream }>
-export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptOptions & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "utf8" }): Promise<DecryptResult & { data: string | ReadableStream<String> | NodeStream }>
+export function decrypt(options: DecryptOptions & { format: "binary" }): Promise<DecryptResult & { data: Uint8Array | ReadableStream<Uint8Array> | NodeStream }>
 export function decrypt(options: DecryptOptions): Promise<DecryptResult>;
 
 export interface SignOptions {

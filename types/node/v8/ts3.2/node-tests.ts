@@ -843,8 +843,10 @@ namespace util_tests {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.TextDecoder()
         var td = new util.TextDecoder();

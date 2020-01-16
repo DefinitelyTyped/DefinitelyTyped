@@ -421,6 +421,8 @@ function test_system() {
     }, error => {
         console.log('There was an error:', error);
     });
+    // getInstalledRuntimes
+    fin.desktop.System.getInstalledRuntimes().then(runtimes => console.log(runtimes)).catch(err => console.log(err));
     // getLog
     fin.desktop.System.getLog('debug-2015-01-08-22-27-53.log', log => {
         console.log(log);
@@ -893,9 +895,9 @@ function test_window() {
     });
 }
 
-function test_external_window() {
-    // wrapSync
-    const externalWin = fin.ExternalWindow.wrapSync({uuid: 'uuid', name: 'name'});
+async function test_external_window() {
+    // wrap
+    const externalWin = await fin.ExternalWindow.wrap({uuid: 'uuid', name: 'name'});
 
     // getCurrent
     fin.System.getFocusedExternalWindow();

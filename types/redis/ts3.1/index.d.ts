@@ -376,13 +376,17 @@ export interface Commands<R> {
      * Remove all keys from all databases.
      */
     flushall(cb?: Callback<string>): R;
+    flushall(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHALL(cb?: Callback<string>): R;
+    FLUSHALL(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Remove all keys from the current database.
      */
     flushdb(cb?: Callback<'OK'>): R;
+    flushdb(async: "ASYNC", cb?: Callback<string>): R;
     FLUSHDB(cb?: Callback<'OK'>): R;
+    FLUSHDB(async: 'ASYNC', cb?: Callback<string>): R;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set.

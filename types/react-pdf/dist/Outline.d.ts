@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { PDFTreeNode } from 'pdfjs-dist';
 
 export interface Props {
     /**
@@ -21,7 +22,7 @@ export interface Props {
     /**
      * Function called when the outline is successfully retrieved.
      */
-    onLoadSuccess?: (pdf: any) => void;
+    onLoadSuccess?: (outline: PDFTreeNode[]) => void;
 }
 
 export default class Outline extends React.Component<Props> { }

@@ -18,7 +18,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "RSocketWebSocketClient.d.ts"
+        "index.d.ts"
     ]
 }

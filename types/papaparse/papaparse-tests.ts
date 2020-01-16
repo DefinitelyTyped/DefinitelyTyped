@@ -41,11 +41,26 @@ Papa.parse('3,3,3', {
     dynamicTyping: { 5: true },
 });
 
+Papa.parse('4,4,4', {
+    delimitersToGuess: [';', ','],
+});
+
+Papa.parse('4,4,4', {
+    delimitersToGuess: [Papa.RECORD_SEP, '|', ',', ';'],
+});
+
+Papa.parse('4;4;4', {
+    delimitersToGuess: ['\t', Papa.UNIT_SEP],
+});
+
 var file = new File(null, null, null);
 
 Papa.parse(file, {
     transform: function(value, field) {},
-    complete: function(a, b) {
+    transformHeader: function(header) {
+        return header;
+    },
+    complete: function (a, b) {
         a.meta.fields;
         b.name;
     },

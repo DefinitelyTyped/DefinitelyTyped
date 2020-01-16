@@ -1,4 +1,4 @@
-/// <reference types="qunit/v1" />
+/// <reference types="qunit" />
 import * as ShareDB from 'sharedb';
 import * as http from 'http';
 import * as WebSocket from 'ws';
@@ -29,15 +29,37 @@ class WebSocketJSONStream extends Duplex {
     }
 }
 
-const backend = new ShareDB();
+class CustomExtraDb {
+    query(collection: string, query: any, fields: unknown, options: {customDbOption: boolean}, callback: ShareDB.DBQueryCallback) {
+        callback(null, [], {});
+    }
+    close() {}
+}
+
+const backend = new ShareDB({
+    extraDbs: {myDb: new CustomExtraDb()}
+});
+console.log(backend.db);
+console.log(backend.pubsub);
+console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
 
+// Test module augmentation to attach custom typed properties to `agent.custom`.
+import _ShareDbAgent = require('sharedb/lib/agent');
+declare module 'sharedb/lib/agent' {
+    interface Custom {
+        user?: {id: string};
+    }
+}
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterSubmit' | 'apply' | 'commit' | 'submit';
 const submitRelatedActions: SubmitRelatedActions[] = ['afterSubmit', 'apply', 'commit', 'submit'];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
+        if (request.agent.custom.user) {
+            console.log(request.agent.custom.user.id);
+        }
         console.log(
             request.action,
             request.agent,
@@ -56,9 +78,16 @@ for (const action of submitRelatedActions) {
     });
 }
 backend.use('connect', (context, callback) => {
+    // `context.req` is the HTTP / websocket request.
+    // This assumes that some request middleware has handled auth and popuplated `req.userId`.
+    if (context.req.userId) {
+        context.agent.custom.user = {id: context.req.userId};
+    }
     console.log(
         context.action,
         context.agent,
+        context.agent.backend === context.backend,
+        context.agent.stream.isServer,
         context.backend,
         context.stream,
         context.req,
@@ -109,6 +138,13 @@ backend.use('reply', (context, callback) => {
         context.request,
         context.reply,
     );
+    // Usage note: It's only necessary to write `context.reply['data']` in
+    // TypeScript <= 2.1.
+    //
+    // In TypeScript 2.2+, `context.reply.data` is OK, as 2.2 added support for
+    // dotted property access for types with string index signatures.
+    console.log(context.reply && context.reply['data'] &&
+        context.reply['data'].someProperty);
     callback();
 });
 backend.use('readSnapshots', (context, callback) => {
@@ -164,5 +200,13 @@ function startClient(callback) {
     doc.subscribe(() => {
         doc.submitOp([{p: ['numClicks'], na: 1}]);
         callback();
+    });
+    // sharedb-mongo query object
+    connection.createSubscribeQuery('examples', {numClicks: {$gte: 5}}, null, (err, results) => {
+        console.log(err, results);
+    });
+    // SQL-ish query adapter that takes a string query condition
+    connection.createSubscribeQuery('examples', 'numClicks >= 5', null, (err, results) => {
+        console.log(err, results);
     });
 }

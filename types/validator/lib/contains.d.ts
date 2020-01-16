@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const contains: typeof validator.contains;
-export = contains;
+import validator from '../';
+export default validator.contains;

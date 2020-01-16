@@ -4,6 +4,7 @@
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
 //                 Mikael Lirbank <https://github.com/lirbank>
+//                 Yuji Tabata <https://github.com/uztbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -438,6 +439,8 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    expandable?: boolean,
+    expanded?: boolean,
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 

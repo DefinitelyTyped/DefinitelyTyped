@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 16.8
+// Type definitions for React (react-dom) 16.9
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -8,6 +8,10 @@
 //                 Jessica Franco <https://github.com/Jessidhia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// NOTE: Users of the `experimental` builds of React should add a reference
+// to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
+// for reference and documentation on how exactly to do it.
 
 export as namespace ReactDOM;
 

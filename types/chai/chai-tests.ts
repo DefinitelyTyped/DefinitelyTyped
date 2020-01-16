@@ -476,6 +476,12 @@ function deepEqual3() {
 function deepInclude() {
     expect(['foo', 'bar']).to.deep.include(['bar', 'foo']);
     ['foo', 'bar'].should.deep.include(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.includes(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.includes(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contain(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contain(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contains(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contains(['bar', 'foo']);
     expect(['foo', 'bar']).not.to.deep.equal(['foo', 'baz']);
     ['foo', 'bar'].should.not.deep.equal(['foo', 'baz']);
 }
@@ -608,6 +614,13 @@ function nestedProperty2() {
         .not.have.nested.property('foo.bar', 'baz', 'blah');
 }
 
+function own() {
+  expect('test').to.have.own.property('length');
+  expect('test').to.own.property('length');
+  expect({ length: 12 }).to.have.own.property('length');
+  expect({ length: 12 }).to.not.have.own.property('length', 'blah');
+}
+
 function ownProperty() {
     expect('test').to.have.ownProperty('length');
     'test'.should.have.ownProperty('length');
@@ -615,6 +628,10 @@ function ownProperty() {
     'test'.should.haveOwnProperty('length');
     expect({length: 12}).to.have.ownProperty('length');
     ({length: 12}).should.have.ownProperty('length');
+    expect({length: 12}).to.have.ownProperty('length', 12);
+    ({length: 12}).should.have.ownProperty('length', 12);
+    expect({length: 12}).to.have.ownProperty('length', 12, 'blah');
+    ({length: 12}).should.have.ownProperty('length', 12, 'blah');
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
@@ -999,17 +1016,91 @@ function _throw() {
 }
 
 function use() {
-    chai.use((_chai) => {
-        _chai.can.use.any();
-    });
+                   // Modified from:
+                   //   https://www.npmjs.com/package/chai-subset
+                   // But with added type annotations and some modifications to make the
+                   // linter whine less, and also a method (chai.assert.containSubset) removed
+                   // because we can't take advantage of namespace-declaration-merging here.
+                   function chaiSubset(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
+                       const Assertion = chai.Assertion;
+                       const assertionPrototype = Assertion.prototype;
 
-    const expect = chai
-        .use((_chai, util) => {
-        })
-        .use((_chai, util) => {
-        })
-        .expect;
-}
+                       Assertion.addMethod('containSubset', function(expected: Object) {
+                           const actual = utils.flag(this, 'object');
+                           const showDiff = chai.config.showDiff;
+
+                           assertionPrototype.assert.call(
+                               this,
+                               compare(expected, actual),
+                               'expected #{act} to contain subset #{exp}',
+                               'expected #{act} to not contain subset #{exp}',
+                               expected,
+                               actual,
+                               showDiff
+                           );
+                       });
+
+                       Assertion.addMethod('containSubset', function(expected: Object) {
+                           const actual = utils.flag(this, 'object');
+                           const showDiff = chai.config.showDiff;
+
+                           assertionPrototype.assert.call(
+                               this,
+                               compare(expected, actual),
+                               'expected #{act} to contain subset #{exp}',
+                               'expected #{act} to not contain subset #{exp}',
+                               expected,
+                               actual,
+                               showDiff
+                           );
+                       });
+
+                       function compare(expected: Object, actual: Object): boolean {
+                           if (expected === actual) {
+                               return true;
+                           }
+                           if (typeof actual !== typeof expected) {
+                               return false;
+                           }
+                           if (typeof expected !== 'object' || expected === null) {
+                               return expected === actual;
+                           }
+                           if (!!expected && !actual) {
+                               return false;
+                           }
+
+                           if (Array.isArray(expected) && Array.isArray(actual)) {
+                               if (typeof actual.length !== 'number') {
+                                   return false;
+                               }
+                               const aa = Array.prototype.slice.call(actual);
+                               return expected.every((exp: Object) => aa.some((act: Object) => compare(exp, act)));
+                           }
+
+                           if (expected instanceof Date) {
+                               if (actual instanceof Date) {
+                                   return expected.getTime() === actual.getTime();
+                               } else {
+                                   return false;
+                               }
+                           }
+
+                           return Object.keys(expected).every((key: string): boolean => {
+                               const eo = (expected as { [key: string]: Object })[key];
+                               const ao = (actual as { [key: string]: Object })[key];
+                               if (typeof eo === 'object' && eo !== null && ao !== null) {
+                                   return compare(eo, ao);
+                               }
+                               if (typeof eo === 'function') {
+                                   return eo(ao);
+                               }
+                               return ao === eo;
+                           });
+                       }
+                   }
+
+                   chai.use(chaiSubset);
+               }
 
 class Klass {
     val: number;
@@ -1508,30 +1599,42 @@ suite('assert', () => {
 
     test('include', () => {
         assert.include('foobar', 'bar');
-        assert.include([1, 2, 3], 3);
-        assert.include('foobar', 'baz');
-        assert.include(undefined, 'bar');
+        assert.include([ 1, 2, 3 ], 3);
+        assert.include({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
+        assert.include(new Set([ 1, 2 ]), 2);
+        assert.include(new Map([ [ 'a', 1 ], [ 'b', 2 ] ]), 2);
+
+        const a = {};
+        assert.include(new WeakSet([ {}, a ]), a);
     });
 
     test('notInclude', () => {
         assert.notInclude('foobar', 'baz');
-        assert.notInclude([1, 2, 3], 4);
-        assert.notInclude('foobar', 'bar');
-        assert.notInclude(undefined, 'bar');
+        assert.notInclude([ 1, 2, 3 ], 4);
+        assert.notInclude({ a: 1, b: 2, c: 3 }, { a: 6, b: 2 });
+        assert.notInclude(new Set([ 1, 2 ]), 8);
+        assert.notInclude(new WeakSet([ {}, {} ]), {});
+        assert.notInclude(new Map([ [ 'a', 1 ], [ 'b', 2 ] ]), 8);
     });
 
     test('deepInclude', () => {
         assert.deepInclude('foobar', 'bar');
-        assert.deepInclude([1, 2, 3], 3);
-        assert.deepInclude('foobar', 'baz');
-        assert.deepInclude(undefined, 'bar');
+        assert.deepInclude([ 1, { a: 1 }, 3 ], { a: 1 });
+        assert.deepInclude({ a: 1, b: { d: 4 }, c: 3 }, { a: 1, b: { d: 4 } });
+        assert.deepInclude(new Set([ { a: 1 }, { a: 2 } ]), { a: 2 });
+        // deep include does not support ('cause)[https://github.com/chaijs/chai/blob/7ff12731428ab5d12f1e77e32d6a8d3eb967d082/lib/chai/core/assertions.js#L492]
+        // assert.deepInclude(new WeakSet([ {}, {} ]), {});
+        assert.deepInclude(new Map([ [ 'a', { a: 1 } ], [ 'b', { a: 2 } ] ]), { a: 1 });
     });
 
     test('notDeepInclude', () => {
         assert.notDeepInclude('foobar', 'baz');
-        assert.notDeepInclude([1, 2, 3], 4);
-        assert.notDeepInclude('foobar', 'bar');
-        assert.notDeepInclude(undefined, 'bar');
+        assert.notDeepInclude([ 1, { a: 1 }, 3 ], { a: 3 });
+        assert.notDeepInclude({ a: 1, b: { d: 4 }, c: 3 }, { a: 1, b: { d: 6 } });
+        assert.notDeepInclude(new Set([ { a: 1 }, { a: 2 } ]), { a: 3 });
+        // deep include does not support ('cause)[https://github.com/chaijs/chai/blob/7ff12731428ab5d12f1e77e32d6a8d3eb967d082/lib/chai/core/assertions.js#L492]
+        // assert.notDeepInclude(new WeakSet([ {}, {} ]), {});
+        assert.notDeepInclude(new Map([ [ 'a', { a: 1 } ], [ 'b', { a: 2 } ] ]), { a: 8 });
     });
 
     test('nestedInclude', () => {

@@ -3,6 +3,10 @@ import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import { createStore, Reducer, Store, AnyAction } from 'redux';
 
+// `next-redux-saga` depends on `next-redux-wrapper`, which depends on `react-redux`, CI cannot detect the `react-redux` and install it.
+// Adding an explicit `react-redux` fix the issue.
+import * as ReactRedux from 'react-redux';
+
 interface InitialState {
     foo: string;
 }
