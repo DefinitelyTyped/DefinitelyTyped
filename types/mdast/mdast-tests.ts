@@ -1,66 +1,223 @@
-import * as Mdast from 'mdast';
+import * as mdast from 'mdast';
 
-const text: Mdast.Text = {
-    type: 'text',
-    value: 'text'
+const paragraph: mdast.Paragraph = {
+    type: 'paragraph',
+    children: [{ type: 'text', value: 'Alpha bravo charlie.' }],
 };
 
-const cell: Mdast.TableCell = {
-    type: 'tableCell',
-    children: [text]
-};
-
-const row: Mdast.TableRow = {
-    type: 'tableRow',
-    children: [cell]
-};
-
-const table: Mdast.Table = {
-    type: 'table',
-    align: ['left', 'center', 'right'],
-    children: [row]
-};
-
-const header: Mdast.Heading = {
+const heading: mdast.Heading = {
     type: 'heading',
     depth: 1,
-    children: [text]
+    children: [{ type: 'text', value: 'Alpha' }],
 };
 
-const code: Mdast.Code = {
+const thematicBreak: mdast.ThematicBreak = { type: 'thematicBreak' };
+
+const blockquote: mdast.Blockquote = {
+    type: 'blockquote',
+    children: [
+        {
+            type: 'paragraph',
+            children: [{ type: 'text', value: 'Alpha bravo charlie.' }],
+        },
+    ],
+};
+
+const list: mdast.List = {
+    type: 'list',
+    ordered: true,
+    start: 1,
+    spread: false,
+    children: [
+        {
+            type: 'listItem',
+            checked: true,
+            spread: false,
+            children: [
+                {
+                    type: 'paragraph',
+                    children: [{ type: 'text', value: 'foo' }],
+                },
+            ],
+        },
+    ],
+};
+
+const ListItem: mdast.ListItem = {
+    type: 'listItem',
+    checked: true,
+    spread: false,
+    children: [
+        {
+            type: 'paragraph',
+            children: [{ type: 'text', value: 'bar' }],
+        },
+    ],
+};
+
+const r: mdast.Root = {
+    type: 'root',
+    children: [{ type: 'paragraph', children: [{ type: 'text', value: 'ok' }] }],
+};
+
+const Table: mdast.Table = {
+    type: 'table',
+    align: ['left', 'center'],
+    children: [
+        {
+            type: 'tableRow',
+            children: [
+                {
+                    type: 'tableCell',
+                    children: [{ type: 'text', value: 'foo' }],
+                },
+                {
+                    type: 'tableCell',
+                    children: [{ type: 'text', value: 'bar' }],
+                },
+            ],
+        },
+        {
+            type: 'tableRow',
+            children: [
+                {
+                    type: 'tableCell',
+                    children: [{ type: 'text', value: 'baz' }],
+                },
+                {
+                    type: 'tableCell',
+                    children: [{ type: 'text', value: 'qux' }],
+                },
+            ],
+        },
+    ],
+};
+
+const HTML: mdast.HTML = { type: 'html', value: '<div>' };
+
+const code: mdast.Code = {
+    type: 'code',
+    lang: null,
+    meta: null,
+    value: 'foo()',
+};
+
+const code2: mdast.Code = {
     type: 'code',
     lang: 'javascript',
-    value: 'let n = 42;'
+    meta: 'highlight-line="2"',
+    value: 'foo()\nbar()\nbaz()',
 };
 
-const paragraph: Mdast.Paragraph = {
+const yaml: mdast.YAML = { type: 'yaml', value: 'foo: bar' };
+
+const definition: mdast.Definition = {
+    type: 'definition',
+    identifier: 'alpha',
+    label: 'Alpha',
+    url: 'https://example.com',
+    title: null,
+};
+
+const footnoteDefinition: mdast.FootnoteDefinition = {
+    type: 'footnoteDefinition',
+    identifier: 'alpha',
+    label: 'alpha',
+    children: [
+        {
+            type: 'paragraph',
+            children: [{ type: 'text', value: 'bravo and charlie.' }],
+        },
+    ],
+};
+
+const text: mdast.Text = { type: 'text', value: 'Alpha bravo charlie.' };
+
+const emphasis_paragraph: mdast.Paragraph = {
     type: 'paragraph',
-    children: [text]
+    children: [
+        {
+            type: 'emphasis',
+            children: [
+                {
+                    type: 'text',
+                    value: 'alpha',
+                },
+            ],
+        },
+        { type: 'text', value: ' ' },
+        {
+            type: 'emphasis',
+            children: [{ type: 'text', value: 'bravo' }],
+        },
+    ],
 };
 
-const item: Mdast.ListItem = {
-    type: 'listItem',
-    children: [paragraph]
+const strong_paragraph: mdast.Paragraph = {
+    type: 'paragraph',
+    children: [
+        {
+            type: 'strong',
+            children: [{ type: 'text', value: 'alpha' }],
+        },
+
+        { type: 'text', value: ' ' },
+        {
+            type: 'strong',
+            children: [{ type: 'text', value: 'bravo' }],
+        },
+    ],
 };
 
-const list: Mdast.List = {
-    type: 'list',
-    children: [item]
+const Delete: mdast.Delete = {
+    type: 'delete',
+    children: [{ type: 'text', value: 'alpha' }],
 };
 
-const footNote: Mdast.FootnoteReference = {
-    type: 'footnoteReference',
-    identifier: 'ref1',
-    label: 'Referfence 1'
+const inlineCode: mdast.InlineCode = { type: 'inlineCode', value: 'foo()' };
+
+const break_paragraph: mdast.Paragraph = {
+    type: 'paragraph',
+    children: [{ type: 'text', value: 'foo' }, { type: 'break' }, { type: 'text', value: 'bar' }],
 };
 
-const image: Mdast.Image = {
+const link: mdast.Link = {
+    type: 'link',
+    url: 'https://example.com',
+    title: 'bravo',
+    children: [{ type: 'text', value: 'alpha' }],
+};
+
+const image: mdast.Image = {
     type: 'image',
-    url: 'https://github.com/syntax-tree/mdast',
-    alt: 'image alternative'
+    url: 'https://example.com/favicon.ico',
+    title: 'bravo',
+    alt: 'alpha',
 };
 
-const root: Mdast.Root = {
-    type: 'root',
-    children: [header, table, code, image]
+const reference: mdast.LinkReference = {
+    type: 'linkReference',
+    identifier: 'bravo',
+    label: 'Bravo',
+    referenceType: 'full',
+    children: [{ type: 'text', value: 'alpha' }],
+};
+
+const imageReference: mdast.ImageReference = {
+    type: 'imageReference',
+    identifier: 'bravo',
+    label: 'bravo',
+    referenceType: 'full',
+    alt: 'alpha',
+};
+
+const footnote: mdast.Footnote = {
+    type: 'footnote',
+    children: [{ type: 'text', value: 'alpha bravo' }],
+};
+
+const footnoteReference: mdast.FootnoteReference = {
+    type: 'footnoteReference',
+    identifier: 'alpha',
+    label: 'alpha',
 };
