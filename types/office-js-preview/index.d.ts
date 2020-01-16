@@ -8963,14 +8963,12 @@ declare namespace Office {
          *
          * The organizer property returns an {@link Office.EmailAddressDetails | EmailAddressDetails} object.
          *
-         * [Api set: Mailbox 1.1]
-         *
          * **Compose mode**
          * 
          * The organizer property returns an {@link Office.Organizer | Organizer} object that provides a method to get the organizer value.
          * Minimum permission level is ReadWriteItem.
          *
-         * [Api set: Mailbox 1.7]
+         * [Api set: All support Read mode; Mailbox 1.7 introduced Compose mode support]
          *
          * @remarks
          *
@@ -12738,13 +12736,11 @@ declare namespace Office {
          *
          * **Note**: The recipientType property of the EmailAddressDetails object in the from property is undefined.
          *
-         * [Api set: Mailbox 1.1]
-         *
          * **Compose mode**
          *
          * The from property returns a From object that provides a method to get the from value. Minimum permission level is ReadWriteItem.
          *
-         * [Api set: Mailbox 1.7]
+         * [Api set: All support Read mode; Mailbox 1.7 introduced Compose mode support]
          *
          * @remarks
          *
