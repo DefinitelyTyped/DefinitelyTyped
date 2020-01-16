@@ -11,9 +11,8 @@
  */
 
 import { Identity } from 'openfin/_v2/main';
-import { ChannelTransport, SystemChannelTransport, AppChannelTransport } from './internal';
 import { Context } from './context';
-import { ContextListener } from './main';
+import { ContextListener } from './index';
 /**
  * Type used to identify specific Channels. Though simply an alias of `string`, use of this type indicates use of the string
  * as a channel identifier, and that the user should avoid assuming any internal structure and instead treat as a fully opaque object
@@ -270,12 +269,6 @@ export declare class SystemChannel extends ChannelBase {
      * How a client application should present this channel in any UI.
      */
     readonly visualIdentity: DisplayMetadata;
-    /**
-     * @hidden
-     *
-     * Channel objects should not be created directly by an application, channel objects should be obtained by calling the relevant APIs.
-     */
-    constructor(transport: SystemChannelTransport);
 }
 /**
  * Custom application-created channels.
@@ -293,12 +286,6 @@ export declare class AppChannel extends ChannelBase {
      * The name of this channel. This is the same string as is passed to [[getOrCreateAppChannel]].
      */
     readonly name: string;
-    /**
-     * @hidden
-     *
-     * Channel objects should not be created directly by an application, channel objects should be obtained by calling the relevant APIs.
-     */
-    constructor(transport: AppChannelTransport);
 }
 /**
  * The channel in which all windows will initially be placed.
