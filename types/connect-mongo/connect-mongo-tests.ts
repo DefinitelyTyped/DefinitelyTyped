@@ -14,27 +14,42 @@ var MongoStore = connectMongo(session);
 var url = 'mongodb://localhost/test';
 
 // MongoUrlOptions
-app.use(session({
-    secret: 'secret',
-    store: new MongoStore({url})
-}));
+app.use(
+    session({
+        secret: 'secret',
+        store: new MongoStore({ url }),
+    }),
+);
 
+app.use(
+    session({
+        secret: 'secret',
+        store: new MongoStore({
+            url,
+            dbName: 'test-db',
+        }),
+    }),
+);
 
-app.use(session({
-    secret: 'secret',
-    store: new MongoStore({
-        url,
-        collection: "test-sessions",
-        ttl: 30 * 24 * 60 * 60 // = 30 days
-    })
-}));
+app.use(
+    session({
+        secret: 'secret',
+        store: new MongoStore({
+            url,
+            collection: 'test-sessions',
+            ttl: 30 * 24 * 60 * 60, // = 30 days
+        }),
+    }),
+);
 
 // MongooseConnectionOptions
-mongoose.connect(url)
-app.use(session({
-    secret: 'secret',
-    store: new MongoStore({mongooseConnection: mongoose.connection})
-}));
+mongoose.connect(url);
+app.use(
+    session({
+        secret: 'secret',
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    }),
+);
 
 // NativeMongoOptions
 var MongoClient = mongodb.MongoClient;
@@ -42,16 +57,20 @@ MongoClient.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(client => {
-    app.use(session({
-        secret: 'secret',
-        store: new MongoStore({ client })
-    }));
+    app.use(
+        session({
+            secret: 'secret',
+            store: new MongoStore({ client }),
+        }),
+    );
 });
 
 // NativeMongoPromiseOptions
 var Client = mongodb.MongoClient;
 var clientPromise = Client.connect(url);
-app.use(session({
-    secret: 'secret',
-    store: new MongoStore({ clientPromise })
-}));
+app.use(
+    session({
+        secret: 'secret',
+        store: new MongoStore({ clientPromise }),
+    }),
+);

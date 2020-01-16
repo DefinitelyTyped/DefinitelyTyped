@@ -1,4 +1,4 @@
-// Type definitions for connect-mongo 3.0
+// Type definitions for connect-mongo 3.2.0
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 //                 Guy Ellis <https://github.com/guyellis>
@@ -12,10 +12,11 @@ import * as mongoose from 'mongoose';
 import * as mongodb from 'mongodb';
 import * as session from 'express-session';
 
-declare function connectMongo(connect: (options?: session.SessionOptions) => express.RequestHandler): connectMongo.MongoStoreFactory;
+declare function connectMongo(
+    connect: (options?: session.SessionOptions) => express.RequestHandler,
+): connectMongo.MongoStoreFactory;
 
 declare namespace connectMongo {
-
     export interface DefaultOptions {
         /**
          * The hostname of the database you are connecting to.
@@ -81,6 +82,11 @@ declare namespace connectMongo {
          * don't save session if unmodified
          */
         touchAfter?: number;
+
+        /**
+         * A name of database used for storing sessions. Can be used with url, client or clientPromise options. Takes precedence over database name present in the connection string.
+         */
+        dbName?: string;
     }
 
     export interface MongoUrlOptions extends DefaultOptions {
@@ -101,7 +107,9 @@ declare namespace connectMongo {
     }
 
     export interface MongoStoreFactory {
-        new(options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions): MongoStore;
+        new (
+            options: MongoUrlOptions | MongooseConnectionOptions | NativeMongoOptions | NativeMongoPromiseOptions,
+        ): MongoStore;
     }
 
     export class MongoStore extends session.Store {
