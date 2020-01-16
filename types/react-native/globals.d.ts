@@ -24,6 +24,7 @@ declare function fetchBundle(bundleId: number, callback: (error?: Error | null) 
 //
 // Fetch API
 //
+
 declare interface GlobalFetch {
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
@@ -300,7 +301,7 @@ declare var WebSocket: {
         uri: string,
         protocols?: string | string[] | null,
         options?: {
-            headers: { [headerName: string]: string };
+            headers: {[headerName: string]: string};
             [optionName: string]: any;
         } | null,
     ): WebSocket;
