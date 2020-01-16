@@ -24,7 +24,6 @@ declare function fetchBundle(bundleId: number, callback: (error?: Error | null) 
 //
 // Fetch API
 //
-
 declare interface GlobalFetch {
     fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }
@@ -91,6 +90,7 @@ declare interface RequestInit {
     mode?: RequestMode_;
     referrer?: string;
     window?: any;
+    signal?: AbortSignal;
 }
 
 declare interface Request extends Object, Body {
@@ -273,71 +273,38 @@ declare class URLSearchParams {
     values(): IterableIterator<string>;
 }
 
-interface WebSocketMessageEvent extends Event {
-    data?: any;
-}
-interface WebSocketErrorEvent extends Event {
-    message: string;
-}
-interface WebSocketCloseEvent extends Event {
-    code?: number;
-    reason?: string;
-}
-
-interface WebSocket extends EventTarget {
-    readonly readyState: number;
-    send(data: string | ArrayBuffer | ArrayBufferView | Blob): void;
-    close(code?: number, reason?: string): void;
-    onopen: (() => void) | null;
-    onmessage: ((event: WebSocketMessageEvent) => void) | null;
-    onerror: ((event: WebSocketErrorEvent) => void) | null;
-    onclose: ((event: WebSocketCloseEvent) => void) | null;
-}
-
-declare var WebSocket: {
-    prototype: WebSocket;
-    new (
-        uri: string,
-        protocols?: string | string[] | null,
-        options?: {
-            headers: {[headerName: string]: string};
-            [optionName: string]: any;
-        } | null,
-    ): WebSocket;
-};
-
 //
 // Abort Controller
 //
 
 interface AbortEvent extends Event {
-    type: 'abort'
+    type: 'abort';
 }
 
 declare class AbortSignal {
     /**
      * AbortSignal cannot be constructed directly.
      */
-    constructor()
+    constructor();
     /**
      * Returns `true` if this `AbortSignal`'s `AbortController` has signaled to abort, and `false` otherwise.
      */
-    readonly aborted: boolean
+    readonly aborted: boolean;
 
-    onabort: (event: AbortEvent) => void
+    onabort: (event: AbortEvent) => void;
 }
 
 declare class AbortController {
     /**
      * Initialize this controller.
      */
-    constructor()
+    constructor();
     /**
      * Returns the `AbortSignal` object associated with this object.
      */
-    readonly signal: AbortSignal
+    readonly signal: AbortSignal;
     /**
      * Abort and signal to any observers that the associated activity is to be aborted.
      */
-    abort(): void
+    abort(): void;
 }
