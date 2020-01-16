@@ -1,4 +1,5 @@
 import Redis = require("ioredis");
+import { Command } from "ioredis";
 
 const redis = new Redis();
 
@@ -334,3 +335,6 @@ cluster.sendCommand();
 redis.zaddBuffer('foo', 1, Buffer.from('bar')).then(() => {
     // sorted set 'foo' now has score 'foo1' containing barBuffer
 });
+
+new Command('mget', ['key1', 'key2']);
+new Command('get', ['key2'], { replyEncoding: 'utf8' });

@@ -34,7 +34,7 @@ interface RedisStatic {
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
     Cluster: IORedis.ClusterStatic;
-    Command: IORedis.Command;
+    Command: IORedis.CommandStatic;
 }
 
 declare var IORedis: RedisStatic;
@@ -57,9 +57,31 @@ declare namespace IORedis {
 
     type ValueType = string | Buffer | number | any[];
 
-    interface Command {
+    interface CommandOptions {
+        /**
+         * Set the encoding of the reply, by default buffer will be returned.
+         */
+        replyEncoding?: string | null;
+        errorStack?: string;
+        keyPrefix?: string;
+    }
+
+    interface CommandStatic {
+        new(
+            name: string,
+            args: ValueType[],
+            opts?: CommandOptions,
+            callback?: (err: null, result: any) => void,
+        ): Command;
         setArgumentTransformer(name: string, fn: (args: ValueType[]) => ValueType[]): void;
         setReplyTransformer(name: string, fn: (result: any) => any): void;
+    }
+
+    interface Command {
+        isCustomCommand: boolean;
+        args: ValueType[];
+        getSlot(): number | null;
+        getKeys(): Array<string | Buffer>;
     }
 
     interface Redis extends EventEmitter, Commander {
