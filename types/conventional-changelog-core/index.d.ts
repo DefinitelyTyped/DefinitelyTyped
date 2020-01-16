@@ -8,10 +8,17 @@
 
 import * as Stream from "stream";
 
-import { Commit, Options as BaseParserOptions } from "conventional-commits-parser";
-import { Context as BaseContext, Options as BaseWriterOptions } from "conventional-changelog-writer";
+import {
+    Context as BaseContext,
+    Options as BaseWriterOptions,
+} from "conventional-changelog-writer";
+import {
+    Commit,
+    Options as BaseParserOptions,
+} from "conventional-commits-parser";
 import { Options as RecommendedBumpOptions } from "conventional-recommended-bump";
 import { GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
+
 import { Package } from "normalize-package-data";
 
 /**
