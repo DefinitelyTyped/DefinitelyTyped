@@ -33,6 +33,8 @@ declare namespace conventionalChangelogPresetLoader {
         type RequireMethod = (id: string) => any;
     }
 
+    type Builder = (config: CoreOptions.Config.Object<Commit> & Config) => CoreOptions.Config<Commit>;
+
     interface Config {
         /**
          * The string that is passed to the preset loader is manipulated by prepending
