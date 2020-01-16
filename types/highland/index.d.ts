@@ -704,6 +704,7 @@ declare namespace Highland {
 		 * @param f - the truth test function
 		 * @api public
 		 */
+		filter<S extends R>(f: (x: R) => x is S): Stream<S>;
 		filter(f: (x: R) => boolean): Stream<R>;
 
 		/**

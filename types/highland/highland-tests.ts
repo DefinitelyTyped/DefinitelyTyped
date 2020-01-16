@@ -53,7 +53,7 @@ interface Bar {
   bar(): string;
 }
 interface Baz {
-  foo: string;
+  foo(): string;
   bar: number;
   baz: boolean;
 }
@@ -106,6 +106,8 @@ var barStreamThen: PromiseLike<Highland.Stream<Bar>>;
 
 var fooIterable: Iterable<Foo>;
 var fooIterator: Iterator<Foo>;
+
+var isBaz: (obj: Foo) => obj is Baz;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -242,6 +244,9 @@ fooStream = fooStream.errors((err, push) => {
 fooStream = fooStream.filter((x: Foo) => {
   return bool;
 });
+
+// $ExpectType Stream<Baz>
+fooStream.filter(isBaz);
 
 fooStream = fooStream.find((x: Foo) => {
   return bool;
