@@ -2,11 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -15,10 +15,14 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true
+        "paths": {
+            "@rdfjs/sink-map": [
+                "rdfjs__sink-map"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "gapi.client.tasks-tests.ts"
+        "rdfjs__sink-map-tests.ts"
     ]
 }

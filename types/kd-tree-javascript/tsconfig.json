@@ -2,11 +2,11 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
@@ -14,11 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "gapi.client.tasks-tests.ts"
+        "kd-tree-javascript-tests.ts"
     ]
 }

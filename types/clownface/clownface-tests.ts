@@ -12,7 +12,7 @@ let term: Term = <any> {};
 const dataset: Dataset = <any> {};
 const graph: NamedNode = <any> {};
 
-let cf = new Clownface({ dataset });
+let cf: Clownface<Dataset> = new Clownface({ dataset });
 cf = new Clownface({ dataset, graph });
 const typedByTerm: Clownface<DatasetCore, NamedNode> = new Clownface({ dataset, term: node });
 const typedByTerms: Clownface<DatasetCore, NamedNode | BlankNode> = new Clownface({ dataset, term: [node, blankNode] });
@@ -122,7 +122,7 @@ cf = cf.in([node, node]);
 cf = cf.in(cf.node(node));
 
 // .list
-const iterator: Iterator<Term> = cf.list();
+const listNodes: Iterable<clownface.SingleContextClownface<Dataset>> = cf.list();
 
 // .literal
 cf = cf.literal('foo');
