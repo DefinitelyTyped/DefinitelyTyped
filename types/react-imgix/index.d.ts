@@ -212,7 +212,7 @@ interface CommonProps {
   htmlAttributes?: ImgixHTMLAttributes;
 }
 
-interface SharedImigixAndSourceProps extends CommonProps {
+export interface SharedImigixAndSourceProps extends CommonProps {
   src: string;
   disableQualityByDPR?: boolean;
   disableSrcSet?: boolean;

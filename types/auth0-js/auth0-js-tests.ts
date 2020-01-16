@@ -2,7 +2,8 @@ import * as auth0 from 'auth0-js';
 
 const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
-    clientID: 'dsa7d77dsa7d7'
+    clientID: 'dsa7d77dsa7d7',
+    maxAge: 40,
 });
 
 webAuth.authorize({
