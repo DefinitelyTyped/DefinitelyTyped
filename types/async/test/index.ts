@@ -256,6 +256,8 @@ const cargo = async.cargo((tasks, callback) => {
     }
     callback();
 }, 2);
+cargo.drain(); // $ExpectType Promise<void>
+cargo.drain(() => { console.log('done processing queue'); }); // $ExpectType void
 
 // add some items
 cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing foo'); });
