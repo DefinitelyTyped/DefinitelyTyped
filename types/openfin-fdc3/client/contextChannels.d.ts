@@ -302,10 +302,6 @@ export declare class AppChannel extends ChannelBase {
     constructor(transport: AppChannelTransport);
 }
 /**
- * @hidden
- */
-export declare const DEFAULT_CHANNEL_ID: ChannelId;
-/**
  * The channel in which all windows will initially be placed.
  *
  * All windows will belong to exactly one channel at all times. If they have not explicitly been placed into a channel
@@ -351,7 +347,3 @@ export declare function getCurrentChannel(identity?: Identity): Promise<Channel>
  * @throws `TypeError` if `name` is not a valid app channel name, i.e., a non-empty string.
  */
 export declare function getOrCreateAppChannel(name: string): Promise<AppChannel>;
-/**
- * @hidden
- */
-export declare function getChannelObject<T extends Channel = Channel>(channelTransport: ChannelTransport): T;

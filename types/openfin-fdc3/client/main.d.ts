@@ -199,7 +199,7 @@ export declare function findIntent(intent: string, context?: Context): Promise<A
  * ```
  *
  * We could now use this by taking one of the intents, and raising it.
- *```javascript
+ * ```javascript
  * // Select a particular intent to raise
  * const selectedIntent = appIntents[1];
  *
@@ -259,7 +259,7 @@ export declare function broadcast(context: Context): Promise<void>;
  * @throws [[FDC3Error]] with an [[ApplicationError]] code.
  * @throws [[FDC3Error]] with a [[SendContextError]] code.
  * @throws `TypeError` if `context` is not a valid [[Context]].
- **/
+ */
 export declare function raiseIntent(intent: string, context: Context, target?: AppName): Promise<IntentResolution>;
 /**
  * Adds a listener for incoming intents from the Agent.
