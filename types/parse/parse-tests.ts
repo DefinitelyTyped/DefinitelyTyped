@@ -1109,17 +1109,26 @@ function testObject() {
         objTyped.revert('other');
     }
 
-    async function testSave(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean }>) {
+    async function testSave(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<{ example: boolean; someString: string }>
+    ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
 
         // $ExpectType Object<Attributes>
         await objUntyped.save('whatever', 100);
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
+        await objTyped.save({ example: true, someString: 'hello' });
+
+        // $ExpectError
+        await objTyped.save({ example: 'hello', someString: true });
+
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save('example', true);
 
         // $ExpectError
@@ -1144,6 +1153,12 @@ function testObject() {
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set({ example: false });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: true, another: 123 });
+
+        // $ExpectError
+        objTyped.set({ example: 123, another: true });
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set('example', true);
