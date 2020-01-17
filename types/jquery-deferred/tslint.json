@@ -1,7 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "indent": [true, "spaces", 4],
-        "eofline": true
-    }
-}
+{ "extends": "dtslint/dt.json" }
