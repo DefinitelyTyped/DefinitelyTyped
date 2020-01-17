@@ -1107,6 +1107,10 @@ namespace Parse {
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
         function beforeLogin(func?: (request: TriggerRequest) => any): void;
         function define(name: string, func: (request: FunctionRequest) => any): void;
+        function define<T extends () => any>(
+            name: string,
+            func: (request: FunctionRequest<{}>) => Promise<ReturnType<T>> | ReturnType<T>
+        ): void;
         function define<T extends (
             param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
         ) => any>(
