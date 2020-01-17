@@ -284,3 +284,29 @@ function test_dataset() {
     const dataset4Iterable: Iterable<QuadBnode> = dataset4;
     const dataset4Core: DatasetCore<QuadBnode> = dataset4;
 }
+
+async function test_covariance(): Promise<Dataset> {
+    const quad: Quad = <any> {};
+    const dataset: Dataset = <any> {};
+
+    // rdf-ext-like quad
+    interface QuadExt extends Quad {
+        toCanonical(): string;
+    }
+    let datasetExt: Dataset<QuadExt> = <any> {};
+
+    // stream coming from a generic parser
+    const stream: Stream<BaseQuad> = <any> {};
+
+    datasetExt = datasetExt.add(quad);
+    datasetExt = datasetExt.delete(quad);
+    datasetExt = datasetExt.addAll([quad, quad]);
+    datasetExt = datasetExt.addAll(dataset);
+    datasetExt.contains(dataset);
+    datasetExt = datasetExt.difference(dataset);
+    datasetExt.equals(dataset);
+    datasetExt.has(quad);
+    datasetExt.intersection(dataset);
+    datasetExt.union(dataset);
+    return datasetExt.import(stream);
+}

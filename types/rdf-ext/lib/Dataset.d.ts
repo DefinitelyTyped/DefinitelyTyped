@@ -3,7 +3,7 @@ import { PropType } from './_PropType';
 import QuadExt = require('./Quad');
 import { Readable } from 'stream';
 
-interface DatasetExt extends Dataset {
+interface DatasetExt extends Dataset<QuadExt> {
   readonly length: number;
   toJSON(): Array<ReturnType<PropType<QuadExt, 'toJSON'>>>;
   clone(): this;

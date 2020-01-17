@@ -440,17 +440,17 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      *
      * Existing quads, as defined in `Quad.equals`, will be ignored.
      */
-    add(quad: Q): this;
+    add(quad: BaseQuad): this;
 
     /**
      * Removes the specified quad from the dataset.
      */
-    delete(quad: Q): this;
+    delete(quad: BaseQuad): this;
 
     /**
      * Determines whether a dataset includes a certain quad.
      */
-    has(quad: Q): boolean;
+    has(quad: BaseQuad): boolean;
 
     /**
      * Returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
@@ -486,7 +486,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      * This method differs from `Dataset.union` in that it adds all `quads` to the current instance, rather than
      * combining `quads` and the current instance to create a new instance.
      */
-    addAll(quads: Dataset<Q>|Q[]): this;
+    addAll(quads: Dataset<BaseQuad>|BaseQuad[]): this;
 
     /**
      * Returns `true` if the current instance is a superset of the given dataset; differently put: if the given dataset
@@ -494,7 +494,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * Blank Nodes will be normalized.
      */
-    contains(other: Dataset<Q>): boolean;
+    contains(other: Dataset<BaseQuad>): boolean;
 
     /**
      * This method removes the quads in the current instance that match the given arguments.
@@ -512,14 +512,14 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<Q>): this;
+    difference(other: Dataset<BaseQuad>): this;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
      *
      * Blank Nodes will be normalized.
      */
-    equals(other: Dataset<Q>): boolean;
+    equals(other: Dataset<BaseQuad>): boolean;
 
     /**
      * Universal quantification method, tests whether every quad in the dataset passes the test implemented by the
@@ -552,12 +552,12 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * The stream events `end` and `error` are wrapped in a Promise.
      */
-    import(stream: Stream<Q>): Promise<this>;
+    import(stream: Stream<BaseQuad>): Promise<this>;
 
     /**
      * Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.
      */
-    intersection(other: Dataset<Q>): this;
+    intersection(other: Dataset<BaseQuad>): this;
 
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
@@ -615,7 +615,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<Q>): this;
+    union(quads: Dataset<BaseQuad>): this;
 }
 
 export interface DatasetFactory<Q extends BaseQuad = Quad> extends DatasetCoreFactory<Q> {
