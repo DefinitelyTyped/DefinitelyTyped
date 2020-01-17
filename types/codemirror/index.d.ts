@@ -820,6 +820,15 @@ declare namespace CodeMirror {
         above?: boolean;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
         showIfHidden?: boolean;
+        /** Determines whether the editor will capture mouse and drag events occurring in this widget. 
+        Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture. */
+        handleMouseEvents?: boolean;
+        /** By default, the widget is added below other widgets for the line. 
+        This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget). 
+        Note that this only has effect once, when the widget is created. */
+        insertAt?: number;
+        /** Add an extra CSS class name to the wrapper element created for the widget. */
+        className?: string;
     }
 
     interface EditorChange {
