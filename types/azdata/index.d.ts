@@ -1,6 +1,9 @@
 // Type definitions for Azure Data Studio 1.15
 // Project: https://github.com/microsoft/azuredatastudio
-// Definitions by: Azure Data Studio Team, Microsoft <https://github.com/microsoft/azuredatastudio>
+// Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
+//                 Anthony Dresser: <https://github.com/anthonydresser>
+//                 Karl Burtram: <https://github.com/kburtram>
+//                 Ken Van Hyning: <https://github.com/kenvanhyning>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*---------------------------------------------------------------------------------------------
@@ -177,7 +180,10 @@ declare module 'azdata' {
 		 * Opens the connection dialog, calls the callback with the result. If connection was successful
 		 * returns the connection otherwise returns undefined
 		 */
-		export function openConnectionDialog(providers?: string[], initialConnectionProfile?: IConnectionProfile, connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<connection.Connection>;
+		export function openConnectionDialog(
+			providers?: string[],
+			initialConnectionProfile?: IConnectionProfile,
+			connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<connection.Connection>;
 
 		/**
 		 * Opens the connection and add it to object explorer and opens the dashboard and returns the ConnectionResult
@@ -2783,7 +2789,23 @@ declare module 'azdata' {
 	/**
 	 * Valid values for the align-items CSS property
 	 */
-	export type AlignItemsType = 'normal' | 'stretch' | 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'baseline' | 'first baseline' | 'last baseline' | 'safe center' | 'unsafe center' | 'inherit' | 'initial' | 'unset';
+	export type AlignItemsType =
+		'normal' |
+		'stretch' |
+		'center' |
+		'start' |
+		'end' |
+		'flex-start' |
+		'flex-end' |
+		'baseline' |
+		'first baseline' |
+		'last baseline' |
+		'safe center' |
+		'unsafe center' |
+		'inherit' |
+		'initial' |
+		'unset';
+
 	/**
 	 * Valid values for the justify-content CSS property
 	 */
@@ -2807,7 +2829,31 @@ declare module 'azdata' {
 	/**
 	 * Valid values for the display CSS property
 	 */
-	export type DisplayType = 'inline' | 'block' | 'contents' | 'flex' | 'grid' | 'inline-block' | 'inline-flex' | 'inline-grid' | 'inline-table' | 'list-item' | 'run-in' | 'table' | 'table-caption' | ' table-column-group' | 'table-header-group' | 'table-footer-group' | 'table-row-group' | 'table-cell' | 'table-column' | 'table-row' | 'none' | 'initial' | 'inherit' | '';
+	export type DisplayType =
+		'inline' |
+		'block' |
+		'contents' |
+		'flex' |
+		'grid' |
+		'inline-block' |
+		'inline-flex' |
+		'inline-grid' |
+		'inline-table' |
+		'list-item' |
+		'run-in' |
+		'table' |
+		'table-caption' |
+		' table-column-group' |
+		'table-header-group' |
+		'table-footer-group' |
+		'table-row-group' |
+		'table-cell' |
+		'table-column' |
+		'table-row' |
+		'none' |
+		'initial' |
+		'inherit' |
+		'';
 
 	/**
 	 * The config for a FlexBox-based container. This supports easy
