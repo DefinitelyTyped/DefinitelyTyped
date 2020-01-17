@@ -472,11 +472,11 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
     [Symbol.iterator](): Iterator<Q>;
 }
 
-export interface DatasetCoreFactory<Q extends BaseQuad = Quad> {
+export interface DatasetCoreFactory<Q extends BaseQuad = Quad, D extends DatasetCore<Q> = DatasetCore<Q>> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: Q[]): DatasetCore<Q>;
+    dataset(quads?: BaseQuad[]): D;
 }
 
 export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
@@ -618,11 +618,11 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     union(quads: Dataset<BaseQuad>): this;
 }
 
-export interface DatasetFactory<Q extends BaseQuad = Quad> extends DatasetCoreFactory<Q> {
+export interface DatasetFactory<Q extends BaseQuad = Quad, D extends Dataset<Q> = Dataset<Q>> extends DatasetCoreFactory<Q, D> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: Dataset<Q>|Q[]): Dataset<Q>;
+    dataset(quads?: DatasetCore<BaseQuad>|BaseQuad[]): D;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {

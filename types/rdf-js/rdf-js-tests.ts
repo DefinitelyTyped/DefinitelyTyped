@@ -285,7 +285,23 @@ function test_dataset() {
     const dataset4Core: DatasetCore<QuadBnode> = dataset4;
 }
 
-async function test_covariance(): Promise<Dataset> {
+function test_datasetCoreFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const factory: DatasetCoreFactory = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+}
+
+function test_datasetFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const dataset: DatasetCore = <any> {};
+    const factory: DatasetFactory = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+    const fromDataset = factory.dataset(dataset);
+}
+
+async function test_dataset_covariance(): Promise<Dataset> {
     const quad: Quad = <any> {};
     const dataset: Dataset = <any> {};
 
