@@ -5,8 +5,8 @@ const [value, setValue] = React.useState();
 
 const test1 = (
     <PhoneInput
-        value={value}
-        onChange={setValue}
+        value={'+64271231234'}
+        onChange={(value: string) => { console.log(value); }}
         displayInitialValueAsLocalNumber={false}
         disabled={false}
         autoComplete="tel"

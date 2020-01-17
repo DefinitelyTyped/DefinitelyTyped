@@ -7,15 +7,13 @@
 
 import * as React from "react";
 
-/// <reference types="react">
 export type NumberFormat = "NATIONAL" | "National" | "INTERNATIONAL" | "International";
 
-export function formatPhoneNumber(value?: string): string;
 export function formatPhoneNumber(value: string, format?: NumberFormat): string;
 export function formatPhoneNumberIntl(value?: string): string;
 export function isValidPhoneNumber(value?: string): boolean;
 
-export type FlagsMap = { [countryCode: string]: React.Component<object, object> };
+export interface FlagsMap { [countryCode: string]: React.Component<object, object>; }
 
 export interface CountrySelectComponentProps {
     className?: string;
@@ -33,7 +31,6 @@ export interface InputComponentProps {
     // Required props
     onChange: (value: string) => void;
     value: string;
-    
     // Optional props
     onFocus?: () => void;
     onBlur?: () => void;
@@ -45,7 +42,6 @@ export interface PhoneInputProps {
     // Required props
     onChange: (value: string) => void;
     value: string;
-    
     // Optional props
     autoComplete?: string;
     className?: string;
@@ -58,8 +54,8 @@ export interface PhoneInputProps {
     disabled?: boolean;
     displayInitialValueAsLocalNumber?: boolean;
     error?: string;
-    ext?: React.ReactElement,
-    flagComponent?: React.Component<{ country: string, flagsPath: string, flags: FlagsMap }, object>;
+    ext?: React.ReactElement;
+    flagComponent?: React.Component<{ country: string, flagsPath: string, flags: FlagsMap, }, object>;
     flags?: FlagsMap;
     flagsPath?: string;
     getInputClassName?: (params: { disable?: boolean, invalid?: boolean }) => string;
