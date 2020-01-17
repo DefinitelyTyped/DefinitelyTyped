@@ -2,14 +2,7 @@ import * as awsServerlessExpress from 'aws-serverless-express';
 import express = require('express');
 import { eventContext } from 'aws-serverless-express/middleware';
 
-const app = express();
-app.use(eventContext());
-
-const server = awsServerlessExpress.createServer(app, () => {}, []);
-
-const mockEvent = {
-    key: 'value'
-};
+declare let mockEvent: AWSLambda.APIGatewayEvent;
 
 const mockContext = {
     callbackWaitsForEmptyEventLoop: true,
@@ -25,6 +18,17 @@ const mockContext = {
     fail: (error: any) => false,
     succeed: (message: string) => false
 };
+
+const app = express();
+app.use(eventContext());
+app.get('/', (req, res) => {
+  if (req.apiGateway) {
+    req.apiGateway.event;
+    req.apiGateway.context;
+  }
+});
+
+const server = awsServerlessExpress.createServer(app, () => {}, []);
 
 awsServerlessExpress.proxy(server, mockEvent, mockContext);
 awsServerlessExpress.proxy(server, mockEvent, mockContext, 'CALLBACK', () => {});
