@@ -14,8 +14,7 @@
             "../"
         ],
         "paths": {
-            "@styled-system/css": ["styled-system__css"],
-            "@emotion/serialize": ["emotion__serialize"]
+            "@styled-system/css": ["styled-system__css"]
         },
         "types": [],
         "noEmit": true,
