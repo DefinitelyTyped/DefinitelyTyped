@@ -305,10 +305,10 @@ QCModel.watch().once('change', (change: any) => {
   console.log(change);
 });
 
-QCModel.watch({
-  maxAwaitTimeMS: 10
+QCModel.watch([{ $match: { author: 'dave' } }], {
+    maxAwaitTimeMS: 10,
 }).once('change', (change: any) => {
-  console.log(change);
+    console.log(change);
 });
 
 /*
