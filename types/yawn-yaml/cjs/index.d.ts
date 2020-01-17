@@ -2,6 +2,6 @@ export default class YAWN {
     constructor(content: string);
     json: any;
     yaml: string;
-    getRemark(path: string): any;
+    getRemark(path: string): string;
     setRemark(path: string, remark: string): boolean;
 }
