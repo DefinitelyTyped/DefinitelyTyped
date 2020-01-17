@@ -223,7 +223,7 @@ mapPixelBounds = map.getPixelBounds();
 mapPixelBounds = map.getPixelWorldBounds();
 mapPixelBounds = map.getPixelWorldBounds(12);
 
-let attributionContro: L.Control.Attribution;
+let attributionControl: L.Control.Attribution;
 attributionControl = map.attributionControl;
 
 let tileLayerOptions: L.TileLayerOptions = {};
