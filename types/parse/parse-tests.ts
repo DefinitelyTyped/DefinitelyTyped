@@ -570,6 +570,11 @@ async function test_cloud_functions() {
         request.params.anything;
     });
 
+    Parse.Cloud.define<() => void>('AFunc', request => {
+        // $ExpectType {}
+        request.params;
+    });
+
     Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
         // $ExpectType { something: string; }
         request.params;
