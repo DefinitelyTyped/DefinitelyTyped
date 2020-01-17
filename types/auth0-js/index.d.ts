@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.10
+// Type definitions for Auth0.js 9.12
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -6,7 +6,6 @@
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export as namespace auth0;
 
@@ -19,9 +18,11 @@ export class Authentication {
     /**
      * Builds and returns the `/authorize` url in order to initialize a new authN/authZ transaction
      *
-     * @param options: https://auth0.com/docs/api/authentication#!#get--authorize_db
+     * @param options: https://auth0.github.io/auth0.js/global.html#buildAuthorizeUrl
+     * @see {@link https://auth0.com/docs/api/authentication#authorize-client}
+     * @see {@link https://auth0.com/docs/api/authentication#social}
      */
-    buildAuthorizeUrl(options: any): string;
+    buildAuthorizeUrl(options: AuthorizeUrlOptions): string;
 
     /**
      * Builds and returns the Logout url in order to initialize a new authN/authZ transaction
@@ -695,6 +696,47 @@ export interface Office365UserProfile extends Auth0UserProfile {
 
 export interface AdfsUserProfile extends Auth0UserProfile {
     issuer?: string;
+}
+
+export interface AuthorizeUrlOptions {
+    /**
+     * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     */
+    clientID?: string;
+    /**
+     * url that the Auth0 will redirect after Auth with the Authorization Response
+     */
+    redirectUri: string;
+    /**
+     * type of the response used by OAuth 2.0 flow. It can be any space separated
+     * list of the values `code`, `token`, `id_token`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     */
+    responseType: string;
+    /**
+     * how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     */
+    responseMode?: 'query' | 'fragment' | 'form_post';
+    /**
+     * value used to mitigate XSRF attacks.
+     * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     */
+    state?: string;
+    /**
+     * value used to mitigate replay attacks when using Implicit Grant.
+     * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     */
+    nonce?: string;
+    /**
+     * scopes to be requested during Auth. e.g. `openid email`
+     */
+    scope?: string;
+    /**
+     * identifier of the resource server who will consume the access token issued after Auth
+     */
+    audience?: string;
 }
 
 export interface Auth0Identity {
