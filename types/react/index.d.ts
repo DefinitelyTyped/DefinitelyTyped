@@ -22,6 +22,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
+//                 Dhruv Jain <https://github.com/maddhruv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -320,7 +321,7 @@ declare namespace React {
         /**
          * **NOTE**: Exotic components are not callable.
          */
-        (props: P): (ReactElement|null);
+        (props: PropsWithChildren<P>): (ReactElement|null);
         readonly $$typeof: symbol;
     }
 
