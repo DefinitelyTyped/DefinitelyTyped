@@ -9,4 +9,4 @@ const test1: DatasetCore = datasetFactory();
 const test2: DatasetCore = datasetFactory(quads1);
 const test3: DatasetCore = datasetFactory(quads1, dataFactory);
 const test4: DatasetCore<BaseQuad> = datasetFactory(quads2);
-const test5: DatasetCore<BaseQuad> = datasetFactory<BaseQuad>(quads2);
+const test5: DatasetCore = datasetFactory(quads2);
