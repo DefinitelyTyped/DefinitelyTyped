@@ -248,7 +248,102 @@ declare class MustacheWriter {
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
-    renderTokens(tokens: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderTokens(tokens: string[][], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Renders a section block.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param originalTemplate
+     * An object used to extract the portion of the original template that was contained in a higher-order section.
+     */
+    renderSection(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Renders an inverted section block.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param originalTemplate
+     * An object used to extract the portion of the original template that was contained in a higher-order section.
+     */
+    renderInverted(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Adds indentation to each line of the given partial.
+     *
+     * @param partial
+     * The partial to indent.
+     *
+     * @param indentation
+     * String containing a combination of spaces and tabs to use as indentation.
+     *
+     * @param lineHasNonSpace
+     * Whether to indent lines that are empty.
+     */
+    indentPartial(partial: string, indentation: string, lineHasNonSpace: boolean): string;
+
+    /**
+     * Renders a partial.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param tags
+     * The tags to use.
+     */
+    renderPartial(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+
+    /**
+     * Renders an unescaped value.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     */
+    unescapedValue(token: string[], context: MustacheContext): string;
+
+    /**
+     * Renders an escaped value.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     */
+    escapedValue(token: string[], context: MustacheContext): string;
+
+    /**
+     * Renders a raw token.
+     *
+     * @param token
+     * The token to render.
+     */
+    rawValue(token: string[]): string;
 }
 
 /**
