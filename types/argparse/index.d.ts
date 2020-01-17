@@ -109,7 +109,7 @@ export interface ArgumentOptions {
     choices?: string | string[];
     required?: boolean;
     help?: string;
-    metavar?: string;
+    metavar?: string | string[];
 }
 
 export namespace Const {

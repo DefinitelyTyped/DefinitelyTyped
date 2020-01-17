@@ -332,7 +332,7 @@ declare global {
         /** Parameters for @link{Objects.getObjectList} */
         interface GetObjectListParams extends GetObjectViewParams {
             /** Whether docs should be included in the return list */ // TODO: What are docs?
-            include_docs: boolean;
+            include_docs?: boolean;
         }
 
         type LogLevel = 'silly' | 'debug' | 'info' | 'warn' | 'error';
@@ -838,6 +838,30 @@ declare global {
                 params: GetObjectViewParams | null | undefined,
                 options?: unknown,
             ): Promise<NonNullCallbackReturnTypeOf<GetObjectViewCallback>>;
+
+            /**
+             * Returns a list of objects with id between params.startkey and params.endkey
+             * @param params Parameters determining the objects included in the return list. Null to include all objects
+             * @param options If the returned list should be sorted. And some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            // TODO: options should be optional: https://github.com/ioBroker/ioBroker.js-controller/issues/574
+            // getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
+            getObjectList(
+                params: GetObjectListParams | null,
+                options: { sorted?: boolean } | Record<string, any>,
+                callback: GetObjectListCallback,
+            ): void;
+            /**
+             * Returns a list of objects with id between params.startkey and params.endkey
+             * @param params Parameters determining the objects included in the return list. Null to include all objects
+             * @param options If the returned list should be sorted. And some internal options.
+             * @param callback Is called when the operation has finished (successfully or not)
+             */
+            getObjectListAsync(
+                params: GetObjectListParams | null,
+                options: { sorted?: boolean } | Record<string, any>,
+            ): Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
             // ==============================
             // states

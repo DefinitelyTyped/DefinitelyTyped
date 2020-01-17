@@ -85,13 +85,23 @@ declare module 'victory' {
 
     type PaddingProps = number | BlockProps;
 
-    // Many victory components accept string or number or callback which returns string or number
+    /**
+     * This is the first parameter of a callback when a callback is used to
+     * resolve the value of a property instead of a concrete value.
+     *
+     * Note that additional properties here like `scale`, `x`, `y`, etc are resolved
+     * values of properties from the VictoryXXXProps for each component.
+     */
     interface CallbackArgs {
         active: boolean;
         datum: any;
         horizontal: boolean;
         x: number;
         y: number;
+        scale?: {
+            x?: D3Scale;
+            y?: D3Scale;
+        };
     }
     type VictoryStringOrNumberCallback = (args: CallbackArgs) => string | number;
     type VictoryNumberCallback = (args: CallbackArgs) => number;
@@ -1014,8 +1024,8 @@ declare module 'victory' {
          * the center coordinates of the flyout
          */
         center?: {
-          x?: number;
-          y?: number;
+            x?: number;
+            y?: number;
         };
         /**
          * the class name that will be applied to the rendered element
@@ -1231,6 +1241,7 @@ declare module 'victory' {
      * D3 scale function shape. Don't want to introduce typing dependency to d3
      */
     interface D3Scale {
+        (input: string | number): number;
         domain: () => any;
         range: () => any;
         copy: () => any;

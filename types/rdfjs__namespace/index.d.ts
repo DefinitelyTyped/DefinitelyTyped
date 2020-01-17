@@ -9,7 +9,7 @@ declare function namespace(baseIRI: string, options?: namespace.BuilderOptions):
 
 declare namespace namespace {
     interface NamespaceBuilder {
-        (property: TemplateStringsArray | string): NamedNode;
+        (property?: TemplateStringsArray | string): NamedNode;
 
         readonly [property: string]: NamedNode;
     }

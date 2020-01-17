@@ -518,6 +518,11 @@ export interface AuthOptions {
     redirectUri?: string;
     scope?: string;
     audience?: string;
+    /**
+     * maximum elapsed time in seconds since the last time the user
+     * was actively authenticatedby the authorization server.
+     */
+    maxAge?: number;
     leeway?: number;
     plugins?: any[];
     _disableDeprecationWarnings?: boolean;

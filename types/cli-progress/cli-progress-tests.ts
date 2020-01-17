@@ -107,3 +107,26 @@ function test6() {
 
     multiBar.stop();
 }
+
+// Options
+function test7() {
+    // defaults
+    let singleBar = new progress.SingleBar({});
+    // align
+    singleBar = new progress.SingleBar({
+        align: 'left',
+    });
+    singleBar = new progress.SingleBar({
+        align: 'center',
+    });
+    singleBar = new progress.SingleBar({
+        align: 'right',
+    });
+    // hideCursor
+    singleBar = new progress.SingleBar({
+        hideCursor: true,
+    });
+    singleBar = new progress.SingleBar({
+        hideCursor: null,
+    });
+}

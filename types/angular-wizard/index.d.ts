@@ -29,6 +29,12 @@ declare module 'angular' {
       currentStepTitle: () => string;
       getEnabledSteps(): WzStep[];
       totalStepCount(): number;
+      /** Set the edit mode of the wizard.
+       * Setting editMode to `true` will make ALL steps accessible,
+       * setting edit mode to `false` will make all steps with an index lower than
+       * the latest "completed" step accessible.
+       */
+      setEditMode(editMode: boolean): void;
     }
 
     interface WzStep {

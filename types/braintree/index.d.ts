@@ -743,7 +743,7 @@ declare namespace braintree {
         options?: {
             failOnDuplicatePaymentMethod?: boolean;
             makeDefault?: boolean;
-            verificationAcmount?: string;
+            verificationAmount?: string;
             verificationMerchantAccountId?: string;
             verifyCard?: boolean;
         };
@@ -958,8 +958,8 @@ declare namespace braintree {
             update?: DiscountUpdateRequest[];
         };
         firstBillingDate?: Date;
-        id: string;
-        merchantAccountId: string;
+        id?: string;
+        merchantAccountId?: string;
         neverExpires?: boolean;
         numberOfBillingCycles?: number;
         options?: {

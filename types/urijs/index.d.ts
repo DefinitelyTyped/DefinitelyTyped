@@ -231,6 +231,8 @@ declare namespace uri {
             password?: string;
         }): string;
 
+        preventInvalidHostname: boolean;
+
         removeQuery(data: object, prop: string, value: string): object;
         removeQuery(data: object, props: string[] | object): object;
 

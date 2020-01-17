@@ -365,7 +365,7 @@ export interface Source<Q extends BaseQuad = Quad> {
  *
  * For example parsers, serializers, transformations and stores can implement the Sink interface.
  */
-export interface Sink<Q extends BaseQuad = Quad> {
+export interface Sink<InputStream extends EventEmitter, OutputStream extends EventEmitter> {
     /**
      * Consumes the given stream.
      *
@@ -376,7 +376,7 @@ export interface Sink<Q extends BaseQuad = Quad> {
      * @param stream The stream that will be consumed.
      * @return The resulting event emitter.
      */
-    import(stream: Stream<Q>): EventEmitter;
+    import(stream: InputStream): OutputStream;
 }
 
 /**
@@ -387,7 +387,7 @@ export interface Sink<Q extends BaseQuad = Quad> {
  *
  * Access to stores LDP or SPARQL endpoints can be implemented with a Store inteface.
  */
-export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Q> {
+export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream<Q>, EventEmitter> {
     /**
      * Removes all streamed quads.
      *

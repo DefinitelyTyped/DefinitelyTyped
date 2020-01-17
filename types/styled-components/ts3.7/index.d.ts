@@ -75,7 +75,7 @@ type StyledComponentPropsWithAs<
     T extends object,
     O extends object,
     A extends keyof any
-> = StyledComponentProps<C, T, O, A> & { as?: C };
+> = StyledComponentProps<C, T, O, A> & { as?: C, forwardedAs?: C };
 
 export type FalseyValue = undefined | null | false;
 export type Interpolation<P> =
@@ -155,7 +155,7 @@ export interface StyledComponentBase<
 > extends ForwardRefExoticBase<StyledComponentProps<C, T, O, A>> {
     // add our own fake call signature to implement the polymorphic 'as' prop
     (
-        props: StyledComponentProps<C, T, O, A> & { as?: never }
+        props: StyledComponentProps<C, T, O, A> & { as?: never, forwardedAs?: never }
       ): React.ReactElement<StyledComponentProps<C, T, O, A>>;
     <AsC extends keyof JSX.IntrinsicElements | React.ComponentType<any> = C>(
       props: StyledComponentPropsWithAs<AsC, T, O, A>

@@ -1,10 +1,11 @@
-// Type definitions for react-map-gl 5.0
+// Type definitions for react-map-gl 5.1
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
 //                 Otto Urpelainen <https://github.com/oturpe>
 //                 Arman Safikhani <https://github.com/Arman92>
+//                 William Chiu <https://github.com/chiuhow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -423,3 +424,47 @@ export interface SVGOverlayProps extends BaseControlProps {
 }
 
 export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}
+
+export interface SourceProps {
+    id?: string;
+    type: string;
+    url?: string;
+    tiles?: string[];
+    tileSize?: number;
+    bounds?: number[];
+    schema?: 'xyz'|'tms';
+    minzoom?: number;
+    maxzoon?: number;
+    attribution?: string;
+    encoding?: 'terrarium' |'mapbox';
+    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+    buffer?: number;
+    tolerance?: number;
+    cluster?: boolean;
+    clusterRadius?: number;
+    clusterProperties?: object;
+    clusterMaxZoom?: number;
+    lineMetrics?: boolean;
+    generateId?: boolean;
+    coordinates?: number[][];
+    urls?: string[];
+    children?: React.ReactNode;
+}
+
+export class Source extends React.PureComponent<SourceProps> {}
+
+export interface LayerProps {
+    id?: string;
+    type: string;
+    source?: string;
+    beforeId?: string;
+    layout?: MapboxGL.AnyLayout;
+    paint: MapboxGL.BackgroundPaint | MapboxGL.FillPaint | MapboxGL.FillExtrusionPaint |
+           MapboxGL.LinePaint | MapboxGL.SymbolPaint | MapboxGL.RasterPaint | MapboxGL.CirclePaint |
+           MapboxGL.HeatmapPaint | MapboxGL.HillshadePaint;
+    filter?: any[];
+    minzoom?: number;
+    maxzoom?: number;
+}
+
+export class Layer extends React.PureComponent<LayerProps> {}
