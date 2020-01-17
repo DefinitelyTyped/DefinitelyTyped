@@ -21,7 +21,7 @@
 //                  Linus Unnebäck <https://github.com/LinusU>
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
@@ -181,6 +181,12 @@ namespace Parse {
         createdAt: Date;
         objectId: string;
         updatedAt: Date;
+    }
+
+    interface JSONBaseAttributes {
+        createdAt: string;
+        objectId: string;
+        updatedAt: string;
     }
 
     /**
@@ -360,13 +366,13 @@ namespace Parse {
         attributes: T;
         className: string;
 
-        add<K extends Extract<keyof T, string>>(
+        add<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
             attr: K,
-            item: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K][number] : never
+            item: T[K][number]
         ): this | false;
-        addAll<K extends Extract<keyof T, string>>(
+        addAll<K extends { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T]>(
             attr: K,
-            items: ((x: any[]) => void) extends ((x: T[K]) => void) ? T[K] : never
+            items: T[K]
         ): this | false;
         addAllUnique: this['addAll'];
         addUnique: this['add'];
@@ -427,7 +433,7 @@ namespace Parse {
             options?: Object.SetOptions
         ): this | false;
         setACL(acl: ACL, options?: SuccessFailureOptions): this | false;
-        toJSON(): any;
+        toJSON(): Object.ToJSON<T> & JSONBaseAttributes;
         toPointer(): Pointer;
         unPin(): Promise<void>;
         unPinWithName(name: string): Promise<void>;
@@ -454,7 +460,7 @@ namespace Parse {
         pinAll(objects: Object[]): Promise<void>;
         pinAllWithName(name: string, objects: Object[]): Promise<void>;
         registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
-        saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+        saveAll<T extends readonly Object[]>(list: T, options?: Object.SaveAllOptions): Promise<T>;
         unPinAll(objects: Object[]): Promise<void>;
         unPinAllObjects(): Promise<void>;
         unPinAllObjectsWithName(name: string): Promise<void>;
@@ -487,6 +493,27 @@ namespace Parse {
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
         }
+
+        // From https://github.com/parse-community/Parse-SDK-JS/blob/master/src/encode.js
+        type Encode<T> = (
+            T extends Object
+                ? ReturnType<T['toJSON']> | Pointer
+                : T extends (ACL | GeoPoint | Polygon | Relation | File)
+                    ? ReturnType<T['toJSON']>
+                    : T extends Date
+                        ? { __type: 'Date'; iso: string; }
+                        : T extends RegExp
+                            ? string
+                            : T extends Array<infer R>
+                                ? Array<Encode<R>>
+                                : T extends object
+                                    ? ToJSON<T>
+                                    : T
+        );
+
+        type ToJSON<T> = {
+            [K in keyof T]: Encode<T[K]>
+        };
     }
 
     class Polygon {
@@ -766,7 +793,7 @@ namespace Parse {
      */
     interface Role<T extends Attributes = Attributes> extends Object<T> {
         getRoles(): Relation<Role, Role>;
-        getUsers(): Relation<Role, User>;
+        getUsers<U extends User>(): Relation<Role, U>;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
@@ -828,15 +855,15 @@ namespace Parse {
         new(attributes?: Attributes): User;
 
         allowCustomUserClass(isAllowed: boolean): void;
-        become(sessionToken: string, options?: UseMasterKeyOption): Promise<User>;
-        current<T extends Attributes>(): User<T> | undefined;
-        currentAsync(): Promise<User | null>;
-        signUp(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<User>;
-        logIn(username: string, password: string, options?: FullOptions): Promise<User>;
-        logOut(): Promise<User>;
-        requestPasswordReset(email: string, options?: SuccessFailureOptions): Promise<User>;
+        become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
+        current<T extends User>(): T | undefined;
+        currentAsync<T extends User>(): Promise<T | null>;
+        signUp<T extends User>(username: string, password: string, attrs: any, options?: SignUpOptions): Promise<T>;
+        logIn<T extends User>(username: string, password: string, options?: FullOptions): Promise<T>;
+        logOut<T extends User>(): Promise<T>;
+        requestPasswordReset<T extends User>(email: string, options?: SuccessFailureOptions): Promise<T>;
         extend(protoProps?: any, classProps?: any): any;
-        hydrate(userJSON: any): Promise<User>;
+        hydrate<T extends User>(userJSON: any): Promise<T>;
         enableUnsafeCurrentUser(): void;
     }
     const User: UserConstructor;

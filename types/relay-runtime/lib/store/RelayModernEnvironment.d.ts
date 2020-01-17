@@ -46,12 +46,12 @@ export class RelayModernEnvironment implements Environment {
     revertUpdate(update: OptimisticUpdateFunction): void;
     replaceUpdate(update: OptimisticUpdateFunction, newUpdate: OptimisticUpdateFunction): void;
     applyMutation(optimisticConfig: OptimisticResponseConfig): Disposable;
-    check(readSelector: NormalizationSelector): boolean;
+    check(operation: OperationDescriptor): boolean;
     commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
     commitUpdate(updater: StoreUpdater): void;
     lookup(readSelector: SingularReaderSelector): Snapshot;
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
-    retain(selector: NormalizationSelector): Disposable;
+    retain(operation: OperationDescriptor): Disposable;
     execute(data: {
         operation: OperationDescriptor;
         cacheConfig?: CacheConfig | null;

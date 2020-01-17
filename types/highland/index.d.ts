@@ -127,7 +127,6 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-	<R>(source: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(source: R[]): Highland.Stream<R>;
 	<R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
@@ -1380,8 +1379,8 @@ declare namespace Highland {
 		 * @param {Array | Stream} ys - the other stream to combine values with
 		 * @api public
 		 */
-		zip(ys: R[]): Stream<R>;
-		zip(ys: Stream<R>): Stream<R>;
+		zip<U>(ys: U[]): Stream<[R, U]>;
+		zip<U>(ys: Stream<U>): Stream<[R, U]>;
 
 		/**
 		 * Takes a stream and a *finite* stream of `N` streams
@@ -1396,8 +1395,9 @@ declare namespace Highland {
 		 * @param {Array | Stream} ys - the array of streams to combine values with
 		 * @api public
 		 */
-		zipAll(ys: R[][]): Stream<R[]>;
-		zipAll(ys: Stream<R[]>): Stream<R[]>;
+		zipAll<U>(ys: U[][]): Stream<Array<R | U>>;
+		zipAll<U>(ys: Stream<U[]>): Stream<Array<R | U>>;
+		zipAll<U>(ys: Stream<Stream<U>>): Stream<Array<R | U>>;
 
 		/**
 		 * Takes a *finite* stream of streams and returns a stream where the first
