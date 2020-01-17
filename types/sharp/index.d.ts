@@ -717,15 +717,15 @@ declare namespace sharp {
         /** Boolean indicating whether the image is interlaced using a progressive scan */
         isProgressive?: boolean;
         /** Number of pages/frames contained within the image, with support for TIFF, HEIF, PDF, animated GIF and animated WebP */
-        pages: number;
+        pages?: number;
         /** Number of pixels high each page in a multi-page image will be. */
-        pageHeight: number;
+        pageHeight?: number;
         /** Number of times to loop an animated image, zero refers to a continuous loop. */
-        loop: number;
+        loop?: number;
         /** Delay in ms between each page in an animated image, provided as an array of integers. */
-        delay: number[];
+        delay?: number[];
         /**  Number of the primary page in a HEIF image */
-        pagePrimary: number;
+        pagePrimary?: number;
         /** Boolean indicating the presence of an embedded ICC profile */
         hasProfile?: boolean;
         /** Boolean indicating the presence of an alpha transparency channel */
@@ -739,7 +739,7 @@ declare namespace sharp {
         /** Buffer containing raw XMP data, if present */
         xmp?: Buffer;
         /** Buffer containing raw TIFFTAG_PHOTOSHOP data, if present */
-        tifftagPhotoshop: Buffer;
+        tifftagPhotoshop?: Buffer;
     }
 
     interface Stats {
