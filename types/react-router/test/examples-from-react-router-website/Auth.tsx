@@ -8,7 +8,6 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import { StaticContext } from 'react-router';
 
 ////////////////////////////////////////////////////////////
 // 1. Click the public page
@@ -69,9 +68,7 @@ const PrivateRoute: React.SFC<RouteProps> = ({ component, ...rest }) => (
 const Public: React.SFC<RouteComponentProps> = () => <h3>Public</h3>;
 const Protected: React.SFC<RouteComponentProps> = () => <h3>Protected</h3>;
 
-type Props = RouteComponentProps<{}, StaticContext, { from: { pathname: string; }; }>;
-
-class Login extends React.Component<Props, {redirectToReferrer: boolean}> {
+class Login extends React.Component<RouteComponentProps, {redirectToReferrer: boolean}> {
   state = {
     redirectToReferrer: false
   };

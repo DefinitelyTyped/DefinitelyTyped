@@ -6,7 +6,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import { StaticContext } from 'react-router';
 
 // This example shows how to render two different screens
 // (or the same screen in a different context) at the same url,
@@ -17,9 +16,7 @@ import { StaticContext } from 'react-router';
 // are the same as before but now we see them inside a modal
 // on top of the old screen.
 
-type Props = RouteComponentProps<{}, StaticContext, { modal: boolean }>;
-
-class ModalSwitch extends React.Component<Props> {
+class ModalSwitch extends React.Component<RouteComponentProps> {
   // We can pass a location to <Switch/> that will tell it to
   // ignore the router's current location and use the location
   // prop instead.
@@ -34,7 +31,7 @@ class ModalSwitch extends React.Component<Props> {
   // is still `/` even though its `/images/2`.
   previousLocation = this.props.location;
 
-  componentWillUpdate(nextProps: Props) {
+  componentWillUpdate(nextProps: RouteComponentProps) {
     const { location } = this.props;
     // set previousLocation if props.location is not modal
     if (
