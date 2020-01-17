@@ -1,6 +1,6 @@
 // Type definitions for Azure Data Studio 1.15
 // Project: https://github.com/microsoft/azuredatastudio
-// Definitions by: Azure Data Studio Team, Microsoft <https://github.com/Microsoft>
+// Definitions by: Azure Data Studio Team, Microsoft <https://github.com/microsoft/azuredatastudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*---------------------------------------------------------------------------------------------
