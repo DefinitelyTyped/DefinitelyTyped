@@ -1,4 +1,4 @@
-// Type definitions for keycloak-connect 8.0.1
+// Type definitions for keycloak-connect 8.0
 // Project: https://github.com/keycloak/keycloak-nodejs-connect, http://keycloak.org
 // Definitions by: Gregor Stamać <https://github.com/gstamac>
 //                 Kjell Dankert <https://github.com/kdankert>
