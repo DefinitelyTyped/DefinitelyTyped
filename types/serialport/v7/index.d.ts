@@ -1,9 +1,8 @@
-// Type definitions for serialport 8.0
+// Type definitions for serialport 7.0
 // Project: https://github.com/node-serialport/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 //                 Andrew Pearson <https://github.com/apearson>
 //                 Cameron Tacklind <https://github.com/cinderblock>
-//                 Doug Brunner <https://github.com/doug-a-brunner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -42,13 +41,14 @@ declare class SerialPort extends Stream.Duplex {
 
 	static Binding: SerialPort.BaseBinding;
 
-	static list(): Promise<SerialPort.PortInfo[]>;
+	static list(callback?: SerialPort.ListCallback): Promise<SerialPort.PortInfo[]>;
 }
 
 declare namespace SerialPort {
 	// Callbacks Type Defs
 	type ErrorCallback = (error?: Error | null) => void;
 	type ModemBitsCallback = (error: Error | null | undefined, status: {cts: boolean, dsr: boolean, dcd: boolean }) => void;
+	type ListCallback = (error: Error | null | undefined, ports: any[]) => void;
 
 	// Options Type Defs
 	interface OpenOptions {
@@ -81,7 +81,7 @@ declare namespace SerialPort {
     }
 
 	interface PortInfo {
-		path: string;
+		comName: string;
 		manufacturer?: string;
 		serialNumber?: string;
 		pnpId?: string;

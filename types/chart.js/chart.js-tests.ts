@@ -302,6 +302,11 @@ const customTooltipsPieChart = new Chart(ctx, {
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
+// Chart instances in the global namespace
+for (const id in Chart.instances) {
+    Chart.instances[id].resize();
+}
+
 // default global static values
 Chart.defaults.global.defaultFontColor = '#544615';
 Chart.defaults.global.defaultFontFamily = 'Arial';
