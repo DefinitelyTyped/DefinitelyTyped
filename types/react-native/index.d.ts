@@ -5036,8 +5036,8 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
 }
 
 export class TVEventHandler {
-  enable(context: any, callback: Function): Function;
-  disable: Function;
+  enable(context: any, callback: Function): undefined;
+  disable(): undefined;
 }
 
 export interface Route {

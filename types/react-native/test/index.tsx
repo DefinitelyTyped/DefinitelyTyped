@@ -1039,4 +1039,4 @@ newTVEventHandler.enable(); // $ExpectError
 newTVEventHandler.enable(null, 'A String'); // $ExpectError
 
 // has disable method not requiring any arguments.
-newTVEventHandler.disable(); // $ExpectType defined
+newTVEventHandler.disable(); // $ExpectType undefined
