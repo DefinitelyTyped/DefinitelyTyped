@@ -90,6 +90,7 @@ import {
     PushNotificationIOS,
     AccessibilityInfo,
     YellowBox,
+    useWindowDimensions,
 } from "react-native";
 
 declare module "react-native" {
@@ -117,6 +118,10 @@ function testDimensions() {
 
     Dimensions.addEventListener("change", dimensionsListener);
     Dimensions.removeEventListener("change", dimensionsListener);
+}
+
+function TextUseWindowDimensions() {
+    const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();

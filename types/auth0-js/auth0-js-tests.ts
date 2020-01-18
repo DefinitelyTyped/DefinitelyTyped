@@ -211,13 +211,20 @@ const authentication = new auth0.Authentication({
     _sendTelemetry: false
 });
 
+// $ExpectError
 authentication.buildAuthorizeUrl({state: '1234'});
+// $ExpectError
+authentication.buildAuthorizeUrl();
+// $ExpectType string
 authentication.buildAuthorizeUrl({
-    responseType: 'token',
+    audience: 'audience',
+    clientID: 'clientID',
+    nonce: '1234',
     redirectUri: 'http://anotherpage.com/callback2',
-    prompt: 'none',
+    responseMode: 'query',
+    responseType: 'code token',
+    scope: 'openid email',
     state: '1234',
-    connection_scope: 'scope1,scope2'
 });
 
 authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });

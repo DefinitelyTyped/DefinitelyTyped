@@ -217,6 +217,22 @@ function test_doc_storing() {
     storeGeneralized.addQuad(N3.DataFactory.namedNode('http://ex.org/Pluto'), N3.DataFactory.blankNode(), N3.DataFactory.namedNode('http://ex.org/Dog'));
 }
 
+function test_store_queries() {
+    const store: N3.N3Store = new N3.Store();
+
+    const subjs: N3.Quad_Subject[] = store.getSubjects(null, null, null);
+    store.forSubjects((subj: N3.Quad_Subject) => {}, null, null, null);
+
+    const preds: N3.Quad_Predicate[] = store.getPredicates(null, null, null);
+    store.forPredicates((subj: N3.Quad_Predicate) => {}, null, null, null);
+
+    const objs: N3.Quad_Object[] = store.getObjects(null, null, null);
+    store.forObjects((subj: N3.Quad_Object) => {}, null, null, null);
+
+    const graphs: N3.Quad_Graph[] = store.getGraphs(null, null, null);
+    store.forGraphs((subj: N3.Quad_Graph) => {}, null, null, null);
+}
+
 function test_doc_utility() {
     const N3Util = N3.Util;
     N3Util.isNamedNode(N3.DataFactory.namedNode('http://example.org/cartoons#Mickey')); // true
