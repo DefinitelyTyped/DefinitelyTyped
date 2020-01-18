@@ -1,4 +1,4 @@
-// Type definitions for algoliasearch-client-js 3.30.1
+// Type definitions for algoliasearch-client-js 3.35
 // Project: https://github.com/algolia/algoliasearch-client-js
 // Definitions by: Baptiste Coquelle <https://github.com/cbaptiste>
 //                 Haroen Viaene <https://github.com/haroenv>
@@ -101,6 +101,11 @@ declare namespace algoliasearch {
       attributes: string[],
       cb: (err: Error, res: {}) => void
     ): void;
+    /**
+     * Gets specific attributes from an object
+     * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
+     */
+    getObject<T>(objectID: string, attributes?: string[]): Promise<T>;
     /**
      * Gets a list of objects
      * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
