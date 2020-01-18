@@ -1,6 +1,7 @@
-// Type definitions for keycloak-connect 4.5
+// Type definitions for keycloak-connect 8.0.1
 // Project: https://github.com/keycloak/keycloak-nodejs-connect, http://keycloak.org
 // Definitions by: Gregor Stamać <https://github.com/gstamac>
+//                 Kjell Dankert <https://github.com/kdankert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -46,7 +47,15 @@ declare namespace Keycloak {
 	}
 
 	interface TokenContent {
+        jti: string;
 		exp: number;
+        nbf: number;
+        iat: number;
+        iss: string;
+        aud: string;
+        sub: string;
+        typ: string;
+        auth_time: string;
 		resource_access?: any;
 		realm_access?: { roles?: string[] };
 	}
