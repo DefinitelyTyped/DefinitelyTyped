@@ -4726,6 +4726,57 @@ class Example129 extends React.Component<any, any> {
     }
 }
 
+class Example130 extends React.Component {
+  render() {
+    return (
+      <>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <Carousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </Carousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={false}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+        <UncontrolledCarousel
+          activeIndex={1}
+          next={() => {}}
+          previous={() => {}}
+          enableTouch={true}
+          items={[]}
+        >
+          <CarouselIndicators items={[]} activeIndex={1} onClickHandler={() => {}} />
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={() => {}} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={() => {}} />
+        </UncontrolledCarousel>
+      </>
+    );
+  }
+}
+
 const CustomInputTestInnerRef = () => {
   const ref = React.createRef<HTMLButtonElement>();
   return (<CustomInput type="checkbox" innerRef={ref} />);

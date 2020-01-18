@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.23
+// Type definitions for sharp 0.24
 // Project: https://github.com/lovell/sharp
 // Definitions by: François Nguyen <https://github.com/lith-light-g>
 //                 Wooseop Kim <https://github.com/wooseopkim>
@@ -255,6 +255,7 @@ declare namespace sharp {
          * @param limit An integral Number of pixels, zero or false to remove limit, true to use default limit.
          * @throws {Error} Invalid limit
          * @returns A sharp instance that can be used to chain operations
+         * @deprecated since version 0.24.0 - moved to @see sharp.SharpOptions
          */
         limitInputPixels(limit: number | boolean): Sharp;
 
@@ -264,6 +265,7 @@ declare namespace sharp {
          * The default behaviour before function call is false, meaning the libvips access method is not sequential.
          * @param sequentialRead true to enable and false to disable (defaults to true)
          * @returns A sharp instance that can be used to chain operations
+         * @deprecated since version 0.24.0 - moved to @see sharp.SharpOptions
          */
         sequentialRead(sequentialRead?: boolean): Sharp;
 
@@ -635,6 +637,14 @@ declare namespace sharp {
          * (optional, default true)
          */
         failOnError?: boolean;
+        /**
+         * Do not process input images where the number of pixels (width x height) exceeds this limit.
+         * Assumes image dimensions contained in the input metadata can be trusted.
+         * An integral Number of pixels, zero or false to remove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). (optional, default 268402689)
+         */
+        limitInputPixels?: number | boolean;
+        /** Set this to true to use sequential rather than random access where possible. This can reduce memory usage and might improve performance on some systems. (optional, default false) */
+        sequentialRead?: boolean;
         /** Number representing the DPI for vector images. (optional, default 72) */
         density?: number;
         /** Number of pages to extract for multi-page input (GIF, TIFF, PDF), use -1 for all pages */
@@ -706,6 +716,16 @@ declare namespace sharp {
         chromaSubsampling: string;
         /** Boolean indicating whether the image is interlaced using a progressive scan */
         isProgressive?: boolean;
+        /** Number of pages/frames contained within the image, with support for TIFF, HEIF, PDF, animated GIF and animated WebP */
+        pages?: number;
+        /** Number of pixels high each page in a multi-page image will be. */
+        pageHeight?: number;
+        /** Number of times to loop an animated image, zero refers to a continuous loop. */
+        loop?: number;
+        /** Delay in ms between each page in an animated image, provided as an array of integers. */
+        delay?: number[];
+        /**  Number of the primary page in a HEIF image */
+        pagePrimary?: number;
         /** Boolean indicating the presence of an embedded ICC profile */
         hasProfile?: boolean;
         /** Boolean indicating the presence of an alpha transparency channel */
@@ -718,6 +738,8 @@ declare namespace sharp {
         iptc?: Buffer;
         /** Buffer containing raw XMP data, if present */
         xmp?: Buffer;
+        /** Buffer containing raw TIFFTAG_PHOTOSHOP data, if present */
+        tifftagPhotoshop?: Buffer;
     }
 
     interface Stats {

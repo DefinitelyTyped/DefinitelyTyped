@@ -1789,6 +1789,7 @@ export class Map extends Evented {
     stopLocate(): this;
 
     // Properties
+    attributionControl: L.Control.Attribution;
     boxZoom: Handler;
     doubleClickZoom: Handler;
     dragging: Handler;

@@ -68,6 +68,7 @@ const chart: Chart = new Chart(ctx, {
                 {
                     ticks: {
                         callback: Math.floor,
+                        sampleSize: 10,
                     },
                     gridLines: {
                         display: false,
@@ -266,7 +267,8 @@ const linearScaleChart: Chart = new Chart(ctx, {
                 distribution: 'series',
                 ticks: {
                     source: 'data',
-                    autoSkip: true
+                    autoSkip: true,
+                    sampleSize: 1,
                 }
             }],
             yAxes: [{
@@ -299,6 +301,11 @@ const customTooltipsPieChart = new Chart(ctx, {
 
 // platform global values
 Chart.platform.disableCSSInjection = true;
+
+// Chart instances in the global namespace
+for (const id in Chart.instances) {
+    Chart.instances[id].resize();
+}
 
 // default global static values
 Chart.defaults.global.defaultFontColor = '#544615';
