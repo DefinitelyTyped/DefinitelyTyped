@@ -90,6 +90,7 @@ import {
     PushNotificationIOS,
     AccessibilityInfo,
     YellowBox,
+    TVEventHandler
 } from "react-native";
 
 declare module "react-native" {
@@ -1027,3 +1028,15 @@ const PushNotificationTest = () => {
 
 // YellowBox
 const YellowBoxTest = () => <YellowBox />;
+
+// TVEventHandler
+// receive an instance, it is a class:
+const newTVEventHandler = new TVEventHandler();
+
+// has enable Method And it works without error
+newTVEventHandler.enable(null, () => {})  // $ExpectType undefined
+newTVEventHandler.enable(); // $ExpectError
+newTVEventHandler.enable(null, 'A String'); // $ExpectError
+
+// has disable method not requiring any arguments.
+newTVEventHandler.disable(); // $ExpectType defined
