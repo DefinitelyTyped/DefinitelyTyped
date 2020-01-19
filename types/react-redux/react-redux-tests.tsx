@@ -1394,6 +1394,10 @@ function testUseStore() {
     const typedState = typedStore.getState();
     typedState.counter;
     typedState.things.stuff; // $ExpectError
+                
+    const extendedStore = useStore(TypedState, TypedAction, { foo: 'bar' }>();
+    extendedStore.foo = 'bar';
+    extendedStore.notThere = 'oops'; // $ExpectError
 }
 
 // These should match the types of the hooks.
