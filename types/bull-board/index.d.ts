@@ -1,4 +1,4 @@
-// Type definitions for bull-board 1.0
+// Type definitions for bull-board 0.6
 // Project: https://github.com/vcapretz/bull-board
 // Definitions by: Keven Leone <https://github.com/kevenleone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
