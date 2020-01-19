@@ -250,6 +250,9 @@ fooStream = fooStream.filter((x: Foo) => {
   return bool;
 });
 
+// $ExpectType Stream<number>
+numStream = numStream.filter((n: number) => n < 3);
+
 // $ExpectType Stream<Baz>
 fooStream.filter(isBaz);
 
