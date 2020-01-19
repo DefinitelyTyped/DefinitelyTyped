@@ -591,7 +591,7 @@ export interface TypedUseSelectorHook<TState> {
  *   return <div>{store.getState()}</div>
  * }
  */
-export function useStore<S = RootStateOrAny, A extends Action = AnyAction>(): Store<S, A>;
+export function useStore<S = RootStateOrAny, A extends Action = AnyAction, Ext = {}>(): Store<S, A> & Ext;
 
 /**
  * Hook factory, which creates a `useSelector` hook bound to a given context.
