@@ -421,7 +421,10 @@ declare namespace yargs {
         parsed: DetailedArguments | false;
 
         /** Allows to configure advanced yargs features. */
-        parserConfiguration(configuration: Partial<Configuration>): Argv<T>;
+        parserConfiguration(configuration: Partial<Configuration & {
+            /** Sort commands alphabetically. Default is `false` */
+            'sort-commands': boolean;
+        }>): Argv<T>;
 
         /**
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.
