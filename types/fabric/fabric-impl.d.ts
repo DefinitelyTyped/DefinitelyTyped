@@ -1879,6 +1879,14 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @default
 	 */
 	fireMiddleClick?: boolean;
+
+	/**
+	 * Keep track of the subTargets for Mouse Events
+	 * @type {Array.<fabric.Object>}
+	 * @since 3.6.0
+	 * @default
+	 */
+	targets?: Object[];
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
