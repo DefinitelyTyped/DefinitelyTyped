@@ -89,12 +89,12 @@ declare namespace algoliasearch {
     indexName: string;
     /**
      * Gets a specific object
-     * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
+     * https://algolia.com/doc/api-reference/api-methods/get-objects/#retrieve-only-one-object
      */
     getObject(objectID: string, cb: (err: Error, res: {}) => void): void;
     /**
      * Gets specific attributes from an object
-     * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
+     * https://algolia.com/doc/api-reference/api-methods/get-objects/#retrieve-only-one-object
      */
     getObject(
       objectID: string,
@@ -103,7 +103,7 @@ declare namespace algoliasearch {
     ): void;
     /**
      * Gets specific attributes from an object
-     * https://github.com/algolia/algoliasearch-client-js#find-by-ids---getobjects
+     * https://algolia.com/doc/api-reference/api-methods/get-objects/#retrieve-only-one-object
      */
     getObject<T>(objectID: string, attributes?: string[]): Promise<T>;
     /**
