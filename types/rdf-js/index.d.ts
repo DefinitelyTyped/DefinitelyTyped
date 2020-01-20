@@ -479,7 +479,7 @@ export interface DatasetCoreFactory<Q extends BaseQuad = Quad, D extends Dataset
     dataset(quads?: BaseQuad[]): D;
 }
 
-export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q>, Iterable<Q> {
+export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Imports the quads into this dataset.
      *
