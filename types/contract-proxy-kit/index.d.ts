@@ -17,7 +17,7 @@ interface NetworkConfigEntry {
 
 interface CommonConfig {
     networks?: {
-        [id in number | string]: NetworkConfigEntry;
+        [id: string]: NetworkConfigEntry;
     };
 }
 
