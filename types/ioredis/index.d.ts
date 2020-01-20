@@ -13,6 +13,7 @@
 //                 Alex Petty <https://github.com/pettyalex>
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Tianlin <https://github.com/tianlinle>
+//                 Demian Rodriguez <https://github.com/demian85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
