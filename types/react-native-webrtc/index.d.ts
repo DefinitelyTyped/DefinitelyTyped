@@ -187,7 +187,52 @@ export class RTCPeerConnection {
 
     private _registerEvents(): void;
 
-    createDataChannel(label: string, dataChannelDict?: any): void;
+    createDataChannel(label: string, dataChannelDict?: any): RTCDataChannel;
+} 
+
+export interface RTCDataChannel extends EventTarget {
+    _peerConnectionId: number;
+
+    binaryType: string
+    readonly bufferedAmount: number
+    bufferedAmountLowThreshold: number
+    readonly id: number;
+    readonly label: string;
+    readonly maxPacketLifeTime?: number
+    readonly maxRetransmits?: number
+    readonly negotiated: boolean
+    readonly ordered: boolean
+    readonly protocol: string
+    readonly readyState: RTCDataChannelState
+
+    onopen?: (ev: RTCDataChannelEvent) => {}
+
+    onmessage?: (ev: MessageEvent) => {}
+    onbufferedamountlow?: (ev: Event) => {}
+    onerror?: (ev: Event) => {}
+    // react-native-webrtc appears not to implement RTCErrorEvent
+    onclose?: (ev: Event) => {}
+
+    send(data: string | ArrayBuffer | ArrayBufferView): void
+
+    close(): void
+
+    _unregisterEvents(): void
+
+    _registerEvents(): void
+}
+
+export interface MessageEvent {
+    type: string
+    data: string | ArrayBuffer | Blob
+    origin: string
+}
+
+export type RTCDataChannelState = "connecting" | "open" | "closing" | "closed"
+
+export interface RTCDataChannelEvent extends Event {
+    type: string
+    channel: RTCDataChannel
 }
 
 export class RTCIceCandidateType {
