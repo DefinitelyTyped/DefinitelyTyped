@@ -1487,10 +1487,38 @@ declare namespace H {
             getExterior(): H.geo.LineString;
             getInteriors(): H.geo.LineString[];
             getPoleCovering(): H.geo.Polygon.Direction;
+
+            /**
+             * To add an interior ring.
+             * @param interior - The interior ring to add.
+             * @throws {@link H.lang.InvalidArgumentError}
+             */
             pushInterior(interior: H.geo.LineString): void;
+
+            /**
+             * To remove the specified interior ring.
+             * @param interior - The interior ring to remove.
+             */
             removeInterior(interior: H.geo.LineString): H.geo.LineString | undefined;
+
+            /**
+             * To remove an interior ring at the given index.
+             * @param opt_index - The index of the interior ring to remove, defaults to 0.
+             */
             removeInteriorAt(opt_index?: number): H.geo.LineString | undefined;
+
+            /**
+             * To set the exterior ring of the polygon.
+             * @param exterior - The exterior ring to set
+             */
             setExterior(exterior: H.geo.LineString): void;
+
+            /**
+             * To specify whether this polygon covers the North or the South Pole.
+             * This information is only needed for very special polygons that are defined as a line string around the world on longitude axis (for example along the coast of the Antarctic).
+             * In such cases, an additional information is needed to know if the southern part of the Earth (Antarctic) or the northern part (anything except Antarctic) should be covered.
+             * @param direction - The direction to set.
+             */
             setPoleCovering(direction: H.geo.Polygon.Direction): H.geo.Polygon;
 
             /**
@@ -3947,7 +3975,7 @@ declare namespace H {
                         response: any,
                     ) => void,
                     onError?: (s: string) => void,
-                    opt_priority?: H.net.Request.Priority,
+                    opt_priority?: H.util.Job.Priority,
                 ): H.util.ICancelable;
 
                 /**
@@ -4750,20 +4778,6 @@ declare namespace H {
 
             w: number;
             h: number;
-        }
-    }
-
-    /***** net *****/
-    namespace net {
-        namespace Request {
-            enum State {
-                DONE = 2,
-                OPENED = 1,
-                UNSENT = 0,
-            }
-
-            // TODO no idea how this interface is set up, investigate
-            type Priority = any;
         }
     }
 
@@ -6395,7 +6409,7 @@ declare namespace H {
 
             /**
              * This method returns this ui's root element.
-             * @returns {ELement} - the root element
+             * @returns {Element} - the root element
              */
             getElement(): Element;
 
@@ -7419,6 +7433,36 @@ declare namespace H {
                 power: number;
                 duration: number;
             }
+        }
+
+        /**
+         * There is no documentation about this API
+         */
+        namespace Job {
+            type Priority = any;
+        }
+    }
+
+    namespace lang {
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.IllegalOperationError.html
+         */
+        class IllegalOperationError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_message?: any);
+        }
+
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.InvalidArgumentError.html
+         */
+        class InvalidArgumentError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_argNr?: number, opt_message?: any);
+        }
+
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.lang.InvalidArgumentError.html
+         */
+        class OutOfRangeError extends Error {
+            constructor(opt_caller?: (...args: any[]) => any, opt_val?: number, opt_range?: number[]);
         }
     }
 }
