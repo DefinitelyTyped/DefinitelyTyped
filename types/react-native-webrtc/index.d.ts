@@ -187,8 +187,17 @@ export class RTCPeerConnection {
 
     private _registerEvents(): void;
 
-    createDataChannel(label: string, dataChannelDict?: any): RTCDataChannel;
-} 
+    createDataChannel(label: string, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
+}
+
+export interface RTCDataChannelInit {
+    ordered?: boolean // defaults to true
+    maxPacketLifeTime?: number // defaults to null
+    maxRetransmits?: number // defaults to null
+    protocol?: string // defaults to empty string
+    negotiated?: boolean // defaults to false
+    id?: number
+}
 
 export interface RTCDataChannel extends EventTarget {
     _peerConnectionId: number;
