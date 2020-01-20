@@ -2,8 +2,6 @@ import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, Datas
   NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
-const factory: DataFactory = <any> {};
-
 function test_terms() {
     // Only types are checked in this tests,
     // so this does not have to be functional.
@@ -294,7 +292,7 @@ function test_datasetCoreFactory_covariance() {
 
 function test_datasetFactory_covariance() {
     const quad: BaseQuad = <any> {};
-    const dataset: DatasetCore = <any> {};
+    const dataset: Dataset = <any> {};
     const factory: DatasetFactory = <any> {};
 
     const fromQuads = factory.dataset([quad, quad]);

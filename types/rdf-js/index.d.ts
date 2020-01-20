@@ -622,7 +622,7 @@ export interface DatasetFactory<Q extends BaseQuad = Quad, D extends Dataset<Q> 
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: DatasetCore<BaseQuad>|BaseQuad[]): D;
+    dataset(quads?: Dataset<BaseQuad>|BaseQuad[]): D;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
