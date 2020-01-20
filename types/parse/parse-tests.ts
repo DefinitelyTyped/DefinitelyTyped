@@ -758,8 +758,7 @@ async function test_local_datastore() {
 }
 
 async function test_schema() {
-    Parse.Schema.all({ useMasterKey: true });
-    Parse.Schema.all({ sessionToken: '' });
+    Parse.Schema.all();
 
     const schema = new Parse.Schema('TestSchema');
 
@@ -777,31 +776,13 @@ async function test_schema() {
     schema.addRelation('relationField', '_User');
 
     schema.addIndex('testIndex', { stringField: 1 });
-
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
-
-    // Master Key
-    schema.delete({ useMasterKey: true }).then(results => {});
-
-    schema.get({ useMasterKey: true }).then(results => {});
-
+    schema.delete().then(results => {});
+    schema.get().then(results => {});
     schema.purge().then(results => {});
-
-    schema.save({ useMasterKey: true }).then(results => {});
-
-    schema.update({ useMasterKey: true }).then(results => {});
-
-    // Session Token
-    schema.delete({ sessionToken: '' }).then(results => {});
-
-    schema.get({ sessionToken: '' }).then(results => {});
-
-    schema.purge().then(results => {});
-
-    schema.save({ sessionToken: '' }).then(results => {});
-
-    schema.update({ sessionToken: '' }).then(results => {});
+    schema.save().then(results => {});
+    schema.update().then(results => {});
 }
 
 function testObject() {

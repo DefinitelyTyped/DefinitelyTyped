@@ -114,6 +114,11 @@ namespace Parse {
         error?: Function;
     }
 
+    interface FieldOptions {
+      required?: boolean;
+      defaultValue?: any;
+    }
+
     interface FullOptions {
         success?: Function;
         error?: Function;
@@ -888,18 +893,18 @@ namespace Parse {
 
         /**
          * Static method to get all schemas
-         * @param options Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         *
+         * @return {Promise} A promise that is resolved with the result when
+         * the query completes.
          */
-        static all(options?: ScopeOptions): Promise<Schema[]>;
+        static all(): Promise<Schema[]>;
 
-        addArray(name: string): this;
-        addBoolean(name: string): this;
-        addDate(name: string): this;
-        addField(name: string, type?: Schema.TYPE): this;
-        addFile(name: string): this;
-        addGeoPoint(name: string): this;
+        addArray(name: string, options?: FieldOptions): this;
+        addBoolean(name: string, options?: FieldOptions): this;
+        addDate(name: string, options?: FieldOptions): this;
+        addField(name: string, type?: Schema.TYPE, options?: FieldOptions): this;
+        addFile(name: string, options?: FieldOptions): this;
+        addGeoPoint(name: string, options?: FieldOptions): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -913,8 +918,8 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string): this;
-        addObject(name: string): this;
+        addNumber(name: string, options?: FieldOptions): this;
+        addObject(name: string, options?: FieldOptions): this;
 
         /**
          * Adding Pointer Field
@@ -922,9 +927,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string): this;
+        addPointer(name: string, targetClass: string, options?: FieldOptions): this;
 
-        addPolygon(name: string): this;
+        addPolygon(name: string, options?: FieldOptions): this;
 
         /**
          * Adding Relation Field
@@ -932,20 +937,16 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addRelation(name: string, targetClass: string): this;
+        addRelation(name: string, targetClass: string, options?: FieldOptions): this;
 
-        addString(name: string): this;
+        addString(name: string, options?: FieldOptions): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
-         * @param options
-         * Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
          * @returns A promise that is resolved with the result when the query completes.
          */
         // @TODO Fix Promise<any>
-        delete(options?: ScopeOptions): Promise<any>;
+        delete(): Promise<any>;
 
         /**
          * Deleting a Field to Update on a Schema
@@ -964,7 +965,7 @@ namespace Parse {
         /**
          * Get the Schema from Parse
          */
-        get(options?: ScopeOptions): Promise<Schema>;
+        get(): Promise<Schema>;
 
         /**
          * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
@@ -975,12 +976,12 @@ namespace Parse {
         /**
          * Create a new Schema on Parse
          */
-        save(options?: ScopeOptions): Promise<Schema>;
+        save(): Promise<Schema>;
 
         /**
          * Update a Schema on Parse
          */
-        update(options?: ScopeOptions): Promise<Schema>;
+        update(): Promise<Schema>;
     }
 
     namespace Schema {
