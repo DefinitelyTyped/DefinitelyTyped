@@ -48,6 +48,8 @@ const peer = new RTCPeerConnection({
 
 peer.onaddstream = () => {};
 
+peer.createDataChannel("test");
+
 const MediaStreamInit = new MediaStream({});
 
 MediaStreamInit.getTracks();

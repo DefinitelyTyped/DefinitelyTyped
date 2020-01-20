@@ -191,57 +191,57 @@ export class RTCPeerConnection {
 }
 
 export interface RTCDataChannelInit {
-    ordered?: boolean // defaults to true
-    maxPacketLifeTime?: number // defaults to null
-    maxRetransmits?: number // defaults to null
-    protocol?: string // defaults to empty string
-    negotiated?: boolean // defaults to false
-    id?: number
+    ordered?: boolean; // defaults to true
+    maxPacketLifeTime?: number; // defaults to null
+    maxRetransmits?: number; // defaults to null
+    protocol?: string; // defaults to empty string
+    negotiated?: boolean; // defaults to false
+    id?: number;
 }
 
 export interface RTCDataChannel extends EventTarget {
     _peerConnectionId: number;
 
-    binaryType: string
-    readonly bufferedAmount: number
-    bufferedAmountLowThreshold: number
+    binaryType: string;
+    readonly bufferedAmount: number;
+    bufferedAmountLowThreshold: number;
     readonly id: number;
     readonly label: string;
-    readonly maxPacketLifeTime?: number
-    readonly maxRetransmits?: number
-    readonly negotiated: boolean
-    readonly ordered: boolean
-    readonly protocol: string
-    readonly readyState: RTCDataChannelState
+    readonly maxPacketLifeTime?: number;
+    readonly maxRetransmits?: number;
+    readonly negotiated: boolean;
+    readonly ordered: boolean;
+    readonly protocol: string;
+    readonly readyState: RTCDataChannelState;
 
-    onopen?: (ev: RTCDataChannelEvent) => {}
+    onopen?: (ev: RTCDataChannelEvent) => {};
 
-    onmessage?: (ev: MessageEvent) => {}
-    onbufferedamountlow?: (ev: Event) => {}
-    onerror?: (ev: Event) => {}
+    onmessage?: (ev: MessageEvent) => {};
+    onbufferedamountlow?: (ev: Event) => {};
+    onerror?: (ev: Event) => {};
     // react-native-webrtc appears not to implement RTCErrorEvent
-    onclose?: (ev: Event) => {}
+    onclose?: (ev: Event) => {};
 
-    send(data: string | ArrayBuffer | ArrayBufferView): void
+    send(data: string | ArrayBuffer | ArrayBufferView): void;
 
-    close(): void
+    close(): void;
 
-    _unregisterEvents(): void
+    _unregisterEvents(): void;
 
-    _registerEvents(): void
+    _registerEvents(): void;
 }
 
 export interface MessageEvent {
-    type: string
-    data: string | ArrayBuffer | Blob
-    origin: string
+    type: string;
+    data: string | ArrayBuffer | Blob;
+    origin: string;
 }
 
-export type RTCDataChannelState = "connecting" | "open" | "closing" | "closed"
+export type RTCDataChannelState = "connecting" | "open" | "closing" | "closed";
 
 export interface RTCDataChannelEvent extends Event {
-    type: string
-    channel: RTCDataChannel
+    type: string;
+    channel: RTCDataChannel;
 }
 
 export class RTCIceCandidateType {
