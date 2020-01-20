@@ -421,6 +421,9 @@ if (listener) {
 // remove listener
 enterTransition = enterTransition.on('end', null); // check chaining return type by re-assigning
 
+// check end method exists
+enterTransition.end();
+
 // --------------------------------------------------------------------------
 // Test Control Flow
 // --------------------------------------------------------------------------

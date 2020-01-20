@@ -2,8 +2,10 @@ import * as React from "react";
 
 export type PanelProps = {
     className?: string;
-    /* The number of columns to span inside a `PanelGrid`. */
+    /* The number of columns to span inside a `LayoutGrid`. */
     colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
 } & { [x: string]: any };
 
 export type PanelActionsProps = {
@@ -36,12 +38,13 @@ export type PanelHeaderProps = {
 } & { [x: string]: any };
 
 declare const Panel: React.FunctionComponent<PanelProps> & {
-    Actions: React.FunctionComponent<PanelActionsProps>;
-    Body: React.FunctionComponent<PanelBodyProps>;
-    Filters: React.FunctionComponent<PanelFiltersProps>;
-    Footer: React.FunctionComponent<PanelFooterProps>;
-    Head: React.FunctionComponent<PanelHeadProps>;
-    Header: React.FunctionComponent<PanelHeaderProps>;
+    displayName: "Panel";
+    Actions: React.FunctionComponent<PanelActionsProps> & {displayName: "Panel.Actions"};
+    Body: React.FunctionComponent<PanelBodyProps> & {displayName: "Panel.Body"};
+    Filters: React.FunctionComponent<PanelFiltersProps> & {displayName: "Panel.Filters"};
+    Footer: React.FunctionComponent<PanelFooterProps> & {displayName: "Panel.Footer"};
+    Head: React.FunctionComponent<PanelHeadProps> & {displayName: "Panel.Head"};
+    Header: React.FunctionComponent<PanelHeaderProps> & {displayName: "Panel.Header"};
 };
 
 export default Panel;

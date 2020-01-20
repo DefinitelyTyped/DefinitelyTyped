@@ -6,6 +6,8 @@
 //                  Jan-Niclas Struewer <https://github.com/janniclas>
 //                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
+//                  Peter Ferrarotto <https://github.com/peterjferrarotto>
+//                  Xavier Ho <https://github.com/spaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -3707,7 +3709,7 @@ declare namespace cytoscape {
             "pie-i-background-opacity": PropertyValueNode<number>;
         }
 
-        interface Edge extends EdgeLine, EdgeArrow, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
+        interface Edge extends EdgeLine, EdgeArrow, Partial<Gradient>, Partial<Overlay>, Partial<BezierEdges>, Partial<UnbundledBezierEdges>,
         Partial<HaystackEdges>, Partial<SegmentsEdges>, Partial<Visibility<EdgeSingular>>, Partial<Labels<EdgeSingular>> { }
 
         /**
@@ -3740,6 +3742,39 @@ declare namespace cytoscape {
              * The style of the edge’s line.
              */
             "line-style"?: PropertyValueEdge<LineStyle>;
+            /**
+             * The cap of the edge's line.
+             */
+            "line-cap"?: PropertyValueEdge<"butt" | "round" | "square">;
+            /**
+             * The filling style of the edge's line.
+             */
+            "line-fill"?: PropertyValueEdge<"solid" | "linear-gradient" | "radial-gradient">;
+            /**
+             * The dashed line pattern which specifies alternating lengths of lines and gaps.
+             */
+            "line-dash-pattern"?: Array<PropertyValueEdge<number>>;
+            /**
+             * The dashed line offset.
+             */
+            "line-dash-offset"?: PropertyValueEdge<number>;
+        }
+
+        /**
+         * These properties specify the gradient colouration of an edge's line:
+         *
+         * https://js.cytoscape.org/#style/gradient
+         */
+        interface Gradient {
+            /**
+             * The colours of the gradient stops.
+             */
+            "line-gradient-stop-colours"?: Array<PropertyValueEdge<Colour>>;
+            /**
+             * The positions of the gradient stops.
+             * If not specified (or invalid), the stops will divide equally.
+             */
+            "line-gradient-stop-positions"?: Array<PropertyValueEdge<number>>;
         }
 
         /**
@@ -4634,7 +4669,7 @@ declare namespace cytoscape {
         // force num of columns in the grid
         cols?: number;
         // returns { row, col } for element
-        position(nodeid: string): { row: number; col: number; };
+        position(node: NodeSingular): { row: number; col: number; };
     }
 
     /**
@@ -4928,4 +4963,10 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#extensions
      */
     function use(module: Ext): void;
+    /**
+     * Surpress Cytoscape internal warnings globally with a flag.
+     * @param condition If true, all Cytoscape warnings are surpressed.
+     * https://js.cytoscape.org/#core/initialisation
+     */
+    function warnings(condition: boolean): void;
 }

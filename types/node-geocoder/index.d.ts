@@ -105,6 +105,7 @@ declare namespace node_geocoder {
         zipcode?: string;
         provider?: string;
         state?: string;
+        stateCode?: string;
         county?: string;
         district?: string;
         building?: string;

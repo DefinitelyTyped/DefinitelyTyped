@@ -129,6 +129,9 @@ connection.config.queryFormat = function(query, values) {
     });
 };
 
+// $ExpectType string
+connection.config.queryFormat("UPDATE posts SET title = :title", {title: "Hello MySQL"});
+
 connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
 
 const s: stream.Readable = connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"}).stream({highWaterMark: 5});

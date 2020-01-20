@@ -122,7 +122,7 @@ export function getSessionId(): number;
 
 export function setDomain(domain: string): void;
 
-export function setUserId(userId: string): void;
+export function setUserId(userId: string | null): void;
 
 export function setDeviceId(id: string): void;
 export function regenerateDeviceId(): void;

@@ -1,15 +1,17 @@
-// Type definitions for @google-cloud/kms 1.3
+// Type definitions for @google-cloud/kms 1.5
 // Project: https://github.com/googleapis/nodejs-kms
 // Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
 //                 Caian Ertl <https://github.com/caiertl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.4
 
 /// <reference types="node" />
 
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 export namespace v1 {
+    type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
     enum CryptoKeyVersionAlgorithm {
         // Not specified.
         CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED = 0,
@@ -198,12 +200,29 @@ export namespace v1 {
         }
         type DecryptCallback = (err: Error | null, apiResponse: [DecryptResponse, any, any]) => void;
 
+        interface CreateKeyRingRequest {
+            parent: string;
+            keyRingId: string;
+            keyRing?: Partial<KeyRing>;
+        }
+        type CreateKeyRingCallback = (err: Error | null, apiResponse: [KeyRing, any, any]) => void;
+
         interface ListKeyRingsRequest {
             parent: string;
             page_size?: number;
             page_token?: string;
         }
         type ListKeyRingsCallback = (err: Error | null, apiResponse: [KeyRing[], any, any]) => void;
+
+        interface CreateCryptoKeyRequest {
+            parent: string;
+            cryptoKeyId: string;
+            cryptoKey: Partial<Omit<CryptoKey, 'purpose'>> & {
+                purpose: keyof typeof CryptoKeyPurpose;
+            };
+            skipInitialVersionCreation?: boolean;
+        }
+        type CreateCryptoKeyCallback = (err: Error | null, apiResponse: [CryptoKey, any, any]) => void;
 
         interface ListCryptoKeysRequest {
             parent: string;
@@ -230,9 +249,19 @@ export namespace v1 {
         decrypt(request: KeyManagementServiceClient.DecryptRequest, callback: KeyManagementServiceClient.DecryptCallback): void;
         decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.DecryptCallback): void;
 
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing, any, any]>;
+
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing[], any, any]>;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
         listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
+
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        // This needs to be after the declaration that has callback but not options.
+        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey, any, any]>;
 
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey[], any, any]>;
         listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;

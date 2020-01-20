@@ -69,8 +69,6 @@ videojs("example_video_1").ready(function() {
 
 	testPlugin(this, {});
 
-	testAugmentation(this);
-
 	testLogger();
 });
 
@@ -118,16 +116,6 @@ function testPlugin(player: videojs.Player, options: {}) {
 		});
 	});
 	(player as any).uloztoExample(options);
-}
-
-function testAugmentation(player: videojs.Player) {
-	player.somePluginDefinedInAugmentation();
-	videojs("example_video_2", {
-		plugins: {
-			somePluginDefinedInAugmentation: {},
-			someOtherPluginNotTyped: {}
-		}
-	});
 }
 
 function testLogger() {

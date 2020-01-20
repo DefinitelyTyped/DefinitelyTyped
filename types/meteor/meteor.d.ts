@@ -28,7 +28,7 @@ declare module "meteor/meteor" {
             verified: boolean;
         }
         interface User {
-            _id?: string;
+            _id: string;
             username?: string;
             emails?: UserEmail[];
             createdAt?: Date;

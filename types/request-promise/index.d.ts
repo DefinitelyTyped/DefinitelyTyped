@@ -4,6 +4,7 @@
 //                 Joe Skeen <https://github.com/joeskeen>
 //                 Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Sergey Bakulin <https://github.com/vansergen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -13,12 +14,12 @@ import errors = require('./errors');
 import Promise = require('bluebird');
 
 declare namespace requestPromise {
-    interface RequestPromise extends request.Request {
-        then: Promise<any>["then"];
-        catch: Promise<any>["catch"];
-        finally: Promise<any>["finally"];
-        cancel: Promise<any>["cancel"];
-        promise(): Promise<any>;
+    interface RequestPromise<T = any> extends request.Request {
+        then: Promise<T>['then'];
+        catch: Promise<T>['catch'];
+        finally: Promise<T>['finally'];
+        cancel: Promise<T>['cancel'];
+        promise(): Promise<T>;
     }
 
     interface RequestPromiseOptions extends request.CoreOptions {

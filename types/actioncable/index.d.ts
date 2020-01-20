@@ -28,7 +28,7 @@ declare module ActionCable {
     connected?(): void;
     disconnected?(): void;
     received?(obj: any): void;
-    [key: string]: Function;
+    [key: string]: any;
   }
 
   interface ChannelNameWithParams {

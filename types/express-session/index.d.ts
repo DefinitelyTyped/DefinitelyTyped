@@ -4,6 +4,7 @@
 //                 Jacob Bogers <https://github.com/jacobbogers>
 //                 Naoto Yokoyama <https://github.com/builtinnya>
 //                 Ryan Cannon <https://github.com/ry7n>
+//                 Tom Spencer <https://github.com/fiznool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -58,7 +59,17 @@ declare namespace session {
     secret: string | string[];
     name?: string;
     store?: Store | MemoryStore;
-    cookie?: express.CookieOptions;
+    cookie?: {
+      maxAge?: number;
+      signed?: boolean;
+      expires?: Date;
+      httpOnly?: boolean;
+      path?: string;
+      domain?: string;
+      secure?: boolean | 'auto';
+      encode?: (val: string) => string;
+      sameSite?: boolean | 'lax' | 'strict' | 'none';
+    };
     genid?(req: express.Request): string;
     rolling?: boolean;
     resave?: boolean;

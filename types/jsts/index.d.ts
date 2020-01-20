@@ -77,6 +77,23 @@ declare namespace jsts {
              * @return {Point} A new Point.
              */
             createPoint(coordinates: Coordinate): Point;
+            /**
+            * Creates a LinearRing using the given Coordinates; a null or empty array
+            * will create an empty LinearRing. Consecutive points must not be equal.
+            *
+            * @param {Coordinate[]}
+            *          coordinates an array without null elements, or an empty array,
+            * or null.
+            * @return {LineString} A new LinearRing.
+            */
+            createLinearRing(coordinates: Array<Coordinate>): LinearRing;
+            /**
+            * Creates a Polygon using the given LinearRing.
+            *
+            * @param {LinearRing} A LinearRing constructed by coordinates.
+            * @return {Polygon} A new Polygon.
+            */
+            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;            
 
         }
 

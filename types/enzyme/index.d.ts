@@ -408,6 +408,9 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
+    find<C2 extends Component>(
+      componentClass: ComponentClass<C2['props']>,
+    ): ShallowWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -541,6 +544,9 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
+    find<C2 extends Component>(
+      componentClass: ComponentClass<C2['props']>,
+    ): ReactWrapper<C2['props'], C2['state'], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 

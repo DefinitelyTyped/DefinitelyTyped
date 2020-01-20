@@ -3468,7 +3468,7 @@ declare namespace Xrm {
              * Use this method to get a reference to the current view.
              * @returns The current view.
              */
-            getCurrentView(): ViewSelectorItem;
+            getCurrentView(): LookupValue;
 
             /**
              * Use this method to determine whether the view selector is visible.
@@ -3480,7 +3480,7 @@ declare namespace Xrm {
              * Use this method to set the current view.
              * @param viewSelectorItem The view selector item.
              */
-            setCurrentView(viewSelectorItem: ViewSelectorItem): void;
+            setCurrentView(viewSelectorItem: LookupValue): void;
         }
 
         /**
@@ -4886,38 +4886,7 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse {
-        /**
-         * (Optional). Object.Response body.
-         */
-        body: string;
-        /**
-         * Response headers.
-         */
-        headers: any;
-        /**
-         * Indicates whether the request was successful.
-         */
-        ok: boolean;
-        /**
-         * Numeric value in the response status code.
-         * @example 200
-         */
-        status: number;
-        /**
-         * Description of the response status code.
-         * @example "OK"
-         */
-        statusText: string;
-        /**
-         * Response type.Values are: the empty string (default), "arraybuffer", "blob", "document", "json", and "text".
-         */
-        type: string;
-        /**
-         * Request URL of the action, function, or CRUD request that was sent to the Web API endpoint.
-         */
-        url: string;
-    }
+    interface ExecuteResponse extends Response { }
 }
 
 declare namespace XrmEnum {

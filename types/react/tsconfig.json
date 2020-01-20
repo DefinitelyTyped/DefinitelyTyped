@@ -1,10 +1,10 @@
 {
     "files": [
         "index.d.ts",
-        "experimental.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx",
+        "test/elementAttributes.tsx",
         "test/managedAttributes.tsx",
         "test/hooks.tsx",
         "test/experimental.tsx"

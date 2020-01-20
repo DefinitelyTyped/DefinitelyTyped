@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "vector.d.ts",
         "integrate-adaptive-simpson-tests.ts"
     ]
 }

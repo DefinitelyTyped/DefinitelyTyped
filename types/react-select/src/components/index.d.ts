@@ -82,7 +82,11 @@ export interface SelectComponents<OptionType extends OptionTypeBase> {
 
 export type SelectComponentsConfig<OptionType extends OptionTypeBase> = Partial<SelectComponents<OptionType>>;
 
-export const components: Required<SelectComponents<any>>;
+export type DeepNonNullable<T> = {
+    [P in keyof T]-?: NonNullable<T[P]>;
+};
+
+export const components: Required<DeepNonNullable<SelectComponents<any>>>;
 
 export interface Props<OptionType extends OptionTypeBase> {
   components: SelectComponentsConfig<OptionType>;

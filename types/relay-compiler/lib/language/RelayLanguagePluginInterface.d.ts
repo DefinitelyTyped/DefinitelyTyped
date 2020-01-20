@@ -2,6 +2,7 @@ import { Root, Fragment, GeneratedDefinition } from '../core/GraphQLIR';
 import { IRTransform } from '../core/GraphQLCompilerContext';
 import { GeneratedNode, RelayConcreteNode } from 'relay-runtime';
 import { ScalarTypeMapping } from './javascript/RelayFlowTypeTransformers';
+import { Schema } from '../core/Schema';
 
 /**
  * A language plugin allows relay-compiler to both read and write files for any
@@ -243,5 +244,5 @@ export interface TypeGenerator {
      * for e.g. the selections made. It can, however, also generate any other
      * content such as importing other files, including other artifacts.
      */
-    generate: (node: Root | Fragment, options: TypeGeneratorOptions) => string;
+    generate: (schema: Schema, node: Root | Fragment, options: TypeGeneratorOptions) => string;
 }

@@ -158,7 +158,15 @@ function test_isRedirect() {
 }
 
 function test_FetchError() {
-    new FetchError("message", "type", "systemError");
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: 'Error message',
+        code: "systemError",
+    });
+    new FetchError("message", "type", {
+        name: 'Error',
+        message: "Error without code",
+    });
     new FetchError("message", "type");
 }
 

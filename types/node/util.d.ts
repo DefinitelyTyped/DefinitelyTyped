@@ -18,6 +18,7 @@ declare module "util" {
          * Allows changing inspect settings from the repl.
          */
         let replDefaults: InspectOptions;
+        const custom: unique symbol;
     }
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
@@ -176,5 +177,9 @@ declare module "util" {
         readonly encoding: string;
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
+    }
+
+    namespace promisify {
+        const custom: unique symbol;
     }
 }

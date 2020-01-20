@@ -2,6 +2,7 @@
 // Project: https://github.com/appcelerator/titanium_mobile
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 declare const Ti: typeof Titanium;
@@ -9583,7 +9584,7 @@ declare namespace Titanium {
 			/**
 			 * Replaces an existing section.
 			 */
-			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation: ListViewAnimationProperties): void;
+			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation?: ListViewAnimationProperties): void;
 
 			/**
 			 * Selects an item in the list using the specified item and section indices.
@@ -19495,7 +19496,7 @@ declare namespace Titanium {
 			/**
 			 * Fires a synthesized event to any registered listeners.
 			 */
-			function fireEvent(name: string, event: any): void;
+			function fireEvent(name: string, event?: any): void;
 
 			/**
 			 * Applies the properties to the proxy.
@@ -38437,32 +38438,17 @@ declare namespace Titanium {
 		/**
 		 * Logs messages with a `debug` severity-level.
 		 */
-		function debug(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with a `debug` severity-level.
-		 */
-		function debug(message: string): void;
+		function debug(...message: string[]): void;
 
 		/**
 		 * Logs messages with an `error` severity-level.
 		 */
-		function error(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with an `error` severity-level.
-		 */
-		function error(message: string): void;
+		function error(...message: string[]): void;
 
 		/**
 		 * Logs messages with an `info` severity-level.
 		 */
-		function info(message: ReadonlyArray<string>): void;
-
-		/**
-		 * Logs messages with an `info` severity-level.
-		 */
-		function info(message: string): void;
+		function info(...message: string[]): void;
 
 		/**
 		 * Logs messages with the specified severity-level.
@@ -43033,7 +43019,7 @@ declare namespace Titanium {
 		/**
 		 * Fires a synthesized event to any registered listeners.
 		 */
-		function fireEvent(name: string, event: any): void;
+		function fireEvent(name: string, event?: any): void;
 
 		/**
 		 * Applies the properties to the proxy.
@@ -46004,7 +45990,7 @@ declare namespace Titanium {
 				 * Removes the specified pending notifications to prevent them from being triggered.
 				 * If no notifications are specified, all pending notifications will be removed.
 				 */
-				function removePendingNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
+				function removePendingNotifications(notifications?: ReadonlyArray<UserNotificationDictionary>): void;
 
 				/**
 				 * Removes the specified delivered notifications from the notification-center.
@@ -62557,6 +62543,7 @@ interface ListDataItem {
 	 */
 	properties?: any;
 
+	[key: string]: any;
 }
 /**
  * Represents the custom edit action for a ListItem.

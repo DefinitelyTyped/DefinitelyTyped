@@ -41,7 +41,7 @@ export interface Header extends BaseSchema {
 
 // ----------------------------- Parameter -----------------------------------
 
-export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object';
+export type ParameterType = 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object' | 'file';
 
 export type BaseParameter = {
   name: string;

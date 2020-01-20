@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "dist/js/jCaptcha.d.ts",
         "js-captcha-tests.ts"
     ]
 }

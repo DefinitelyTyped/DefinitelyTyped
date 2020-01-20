@@ -50,16 +50,16 @@ const activitiesApi = new ActivitiesApi();
 // $ExpectType Promise<ApiResponse>
 activitiesApi.createActivity(
     {
-        id: '',
-        instruction: {},
-        appPackages: [''],
-        requiredEngineVersion: '',
-        parameters: {},
-        allowedChildProcesses: [{}],
-        version: 0,
-        description: '',
-        hostApplication: '',
-        isPublic: true,
+        Id: '',
+        Instruction: {},
+        AppPackages: [''],
+        RequiredEngineVersion: '',
+        Parameters: {},
+        AllowedChildProcesses: [{}],
+        Version: 0,
+        Description: '',
+        HostApplication: '',
+        IsPublic: true,
     },
     authClientTwoLegged,
     authToken,
@@ -252,13 +252,15 @@ const objectsApi = new ObjectsApi();
 // $ExpectType Promise<ApiResponse>
 objectsApi.copyTo('', '', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
-objectsApi.createSignedResource('', '', { minutesExpiration: 0 }, '', authClientTwoLegged, authToken);
+objectsApi.createSignedResource('', '', { minutesExpiration: 0 }, {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 objectsApi.deleteObject('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 objectsApi.deleteSignedResource('', '', authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 objectsApi.getObjectDetails('', '', {}, authClientTwoLegged, authToken);
+// $ExpectType Promise<ApiResponse>
+objectsApi.getObject('', '', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
 objectsApi.getObjects('', {}, authClientTwoLegged, authToken);
 // $ExpectType Promise<ApiResponse>
@@ -312,14 +314,14 @@ const workItemsApi = new WorkItemsApi();
 // $ExpectType Promise<ApiResponse>
 workItemsApi.createWorkItem(
     {
-        id: '',
-        _arguments: {},
-        status: '',
-        statusDetail: {},
-        availabilityZone: '',
-        activityId: '',
-        version: 0,
-        timestamp: '',
+        Id: '',
+        Arguments: {},
+        Status: '',
+        StatusDetail: {},
+        AvailabilityZone: '',
+        ActivityId: '',
+        Version: 0,
+        Timestamp: '',
     },
     authClientTwoLegged,
     authToken,

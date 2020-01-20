@@ -19,9 +19,9 @@ declare namespace defineProperties {
  * @param map The map of newly defined properties.
  * @param predicates The optional predicates map, return `true` to override existing properties on `object`.
  */
-declare function defineProperties<K extends keyof any>(
+declare function defineProperties<M extends object>(
 	object: object,
-	map: Record<K, any> & ThisType<any>,
-	predicates?: Partial<Record<K, () => boolean>>,
+	map: M & ThisType<any>,
+	predicates?: Partial<Record<keyof M, () => boolean>>,
 ): void;
 export = defineProperties;

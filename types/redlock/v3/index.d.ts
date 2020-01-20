@@ -38,9 +38,10 @@ declare namespace Redlock {
         constructor(message?: string);
     }
 
+    type EvalArg = string | number;
+
     interface CompatibleRedisClient {
-        eval(args: any[], callback?: (err: Error | null, res: any) => void): any;
-        eval(...args: any[]): any;
+        eval(args: EvalArg[], callback?: (err: Error | null, res: any) => void): any;
     }
 }
 

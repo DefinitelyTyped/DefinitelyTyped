@@ -81,7 +81,7 @@ export interface CentralDirectory {
     offsetToStartOfCentralDirectory: number;
     commentLength: number;
     files: File[];
-    extract: (opts: ParseOptions) => ParseStream;
+    extract: (opts: ParseOptions) => Promise<void>;
 }
 
 export interface File {

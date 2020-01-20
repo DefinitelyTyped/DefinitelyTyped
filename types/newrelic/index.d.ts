@@ -4,6 +4,7 @@
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
 //                 Kyle Scully <https://github.com/zieka>
+//                 Kenneth Aasan <https://github.com/kennethaasan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -354,6 +355,18 @@ export interface Metric {
     sumOfSquares: number;
 }
 
+export interface DistributedTracePayload {
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    text(): string;
+
+    /**
+     * The base64 encoded JSON representation of the distributed trace payload.
+     */
+    httpSafe(): string;
+}
+
 export interface TransactionHandle {
     /**
      * End the transaction.
@@ -364,4 +377,14 @@ export interface TransactionHandle {
      * Mark the transaction to be ignored.
      */
     ignore(): void;
+
+    /**
+     * Creates a distributed trace payload.
+     */
+    createDistributedTracePayload(): DistributedTracePayload;
+
+    /**
+     * Parses incoming distributed trace header payload.
+     */
+    acceptDistributedTracePayload(payload: DistributedTracePayload): void;
 }

@@ -1,38 +1,45 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@wordpress/data": ["wordpress__data"],
-            "@wordpress/components": ["wordpress__components"],
-            "@wordpress/edit-post": ["wordpress__edit-post"],
-            "@wordpress/element": ["wordpress__element"],
-            "@wordpress/notices": ["wordpress__notices"],
-            "@wordpress/rich-text": ["wordpress__rich-text"]
+            "@wordpress/data": [
+                "wordpress__data"
+            ],
+            "@wordpress/components": [
+                "wordpress__components"
+            ],
+            "@wordpress/edit-post": [
+                "wordpress__edit-post"
+            ],
+            "@wordpress/element": [
+                "wordpress__element"
+            ],
+            "@wordpress/notices": [
+                "wordpress__notices"
+            ],
+            "@wordpress/rich-text": [
+                "wordpress__rich-text"
+            ]
         }
     },
     "files": [
-        "components/block-settings-menu/plugin-block-settings-menu-item.d.ts",
-        "components/header/plugin-more-menu-item.d.ts",
-        "components/header/plugin-sidebar-more-menu-item.d.ts",
-        "components/sidebar/plugin-document-setting-panel.d.ts",
-        "components/sidebar/plugin-post-publish-panel.d.ts",
-        "components/sidebar/plugin-post-status-info.d.ts",
-        "components/sidebar/plugin-pre-publish-panel.d.ts",
-        "components/sidebar/plugin-sidebar.d.ts",
         "index.d.ts",
-        "store/actions.d.ts",
-        "store/selectors.d.ts",
         "wordpress__edit-post-tests.tsx"
     ]
 }

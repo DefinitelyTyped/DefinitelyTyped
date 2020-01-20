@@ -1,6 +1,7 @@
 // Type definitions for ical 0.6
 // Project: https://github.com/peterbraden/ical.js
 // Definitions by: Nick Clifford <https://github.com/nickbclifford>
+//                 Matej Vilk <https://github.com/iammatis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -51,7 +52,7 @@ export type CalendarComponent = {
 
 export interface Geo {
     lat: number;
-    long: number;
+    lon: number;
 }
 
 export interface FullCalendar {

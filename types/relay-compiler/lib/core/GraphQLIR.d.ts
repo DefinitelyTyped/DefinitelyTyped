@@ -7,6 +7,7 @@ import {
     GraphQLList,
     GraphQLNonNull,
 } from 'graphql';
+import { TypeReferenceNode } from 'typescript';
 
 export type Metadata = { [key: string]: unknown } | undefined;
 
@@ -51,6 +52,12 @@ export interface Condition {
     metadata: Metadata;
     passingValue: boolean;
     selections: ReadonlyArray<Selection>;
+}
+
+export interface Connection {
+    key: string;
+    conditional: boolean;
+    value: TypeReferenceNode;
 }
 
 export interface Directive {

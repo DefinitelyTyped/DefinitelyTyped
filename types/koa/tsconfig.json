@@ -2,7 +2,8 @@
     "files": [
         "index.d.ts",
         "test/index.ts",
-        "test/default.ts"
+        "test/default.ts",
+        "test/settings.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

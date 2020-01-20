@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isBase64: typeof validator.isBase64;
-export = isBase64;
+import validator from '../';
+export default validator.isBase64;

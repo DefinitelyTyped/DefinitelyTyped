@@ -24,6 +24,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -58,7 +59,7 @@
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
-// just to ensure the names are known and node typings can be sued without importing these libs.
+// just to ensure the names are known and node typings can be used without importing these libs.
 // if someone really needs these types the libs need to be added via --lib or in tsconfig.json
 interface MapConstructor { }
 interface WeakMapConstructor { }

@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isHash: typeof validator.isHash;
-export = isHash;
+import validator from '../';
+export default validator.isHash;

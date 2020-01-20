@@ -19,6 +19,31 @@ const credentials = {
 let kmsClient: kms.KeyManagementServiceClient;
 kmsClient = new kms.KeyManagementServiceClient({ credentials });
 
+async function exampleCreateKeyRing() {
+    const formattedParent = kmsClient.locationPath('[PROJECT]', '[LOCATION]');
+    const keyRingId = '';
+    const keyRing = {};
+    const request = {
+      parent: formattedParent,
+      keyRingId,
+      keyRing,
+    };
+
+    const [asyncCreatedKeyRing] = await kmsClient.createKeyRing(request);
+    console.log(`Created KeyRing: ${asyncCreatedKeyRing.name}`);
+
+    const [asyncCreatedKeyRingWithGaxOpts] = await kmsClient.createKeyRing(request, { timeout: 1000 });
+    console.log(`Created KeyRing with GAX opts: ${asyncCreatedKeyRingWithGaxOpts.name}`);
+
+    kmsClient.createKeyRing(request, (err, [response]) => {
+        console.log(`Created KeyRing: ${response.name}`);
+    });
+
+    kmsClient.createKeyRing(request, { timeout: 1000 }, (err, [response]) => {
+        console.log(`Created KeyRing: ${response.name}`);
+    });
+}
+
 async function exampleListKeyRings() {
     const locationPath = kmsClient.locationPath('[PROJECT_ID]', '[LOCATION]');
     const [ asyncKeyRings ] = await kmsClient.listKeyRings({parent: locationPath});
@@ -39,6 +64,43 @@ async function exampleListKeyRings() {
             const keyRing = callbackWithOptionsKeyRings[ 0 ];
             console.log(`KeyRing: ${keyRing.name}`);
         }
+    });
+}
+
+async function exampleCreateCryptoKey() {
+    const formattedParent = kmsClient.keyRingPath('[PROJECT]', '[LOCATION]', '[KEY_RING]');
+    const cryptoKeyId = 'my-app-key';
+    const purpose = 'ENCRYPT_DECRYPT' as const;
+    const nextRotationTime = {
+        seconds: 2147483647,
+        nanos: 0,
+    };
+    const rotationPeriod = {
+        seconds: 604800,
+    };
+    const cryptoKey = {
+        purpose,
+        nextRotationTime,
+        rotationPeriod,
+    };
+    const request = {
+        parent: formattedParent,
+        cryptoKeyId,
+        cryptoKey,
+    };
+
+    const [asyncCreatedCryptoKey] = await kmsClient.createCryptoKey(request);
+    console.log(`Created CryptoKey: ${asyncCreatedCryptoKey.name}`);
+
+    const [asyncCreatedCryptoKeyWithGaxOpts] = await kmsClient.createCryptoKey(request, { timeout: 1000 });
+    console.log(`Created CryptoKey with GAX opts: ${asyncCreatedCryptoKeyWithGaxOpts.name}`);
+
+    kmsClient.createCryptoKey(request, (err, [response]) => {
+        console.log(`Created CryptoKey: ${response.name}`);
+    });
+
+    kmsClient.createCryptoKey(request, { timeout: 1000 }, (err, [response]) => {
+        console.log(`Created CryptoKey: ${response.name}`);
     });
 }
 

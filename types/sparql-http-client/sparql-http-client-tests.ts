@@ -1,4 +1,4 @@
-import { SparqlHttp } from 'sparql-http-client';
+import * as SparqlHttp from 'sparql-http-client';
 
 const client = new SparqlHttp();
 
@@ -38,4 +38,24 @@ async function updateQuery() {
     });
 
     console.log(`The update ${response.ok ? 'succeeded' : 'faield'}`);
+}
+
+async function oneTimeAuth() {
+    const endpoint = new SparqlHttp({endpointUrl: 'http://example.com/endpoint'});
+
+    // authorize a single query
+    endpoint.selectQuery('query', {
+        headers: {
+            Authorization: 'Bearer token'
+        }
+    });
+}
+
+async function createAuthorizedCLient() {
+    new SparqlHttp({
+        endpointUrl: 'http://example.com/endpoint',
+        defaultHeaders: {
+            Authorization: 'Bearer token'
+        }
+    });
 }

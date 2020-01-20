@@ -124,7 +124,7 @@ declare namespace Lightpick {
         /**
          * Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.
          */
-        parentEl?: string;
+        parentEl?: string | Node;
 
         /**
          * Language code for names of days, months by Date.prototype.toLocaleString(). 'auto' will try detect user browser language.
@@ -258,6 +258,16 @@ declare namespace Lightpick {
         onSelect?: Options.OnSelectFn;
 
         /**
+         * Triggered when start date has been changed.
+         */
+        onSelectStart?: Options.OnSelectStartEndFn;
+
+        /**
+         * Triggered when end date has been changed.
+         */
+        onSelectEnd?: Options.OnSelectStartEndFn;
+
+        /**
          * Triggered when calendar has been opened.
          */
         onOpen?: Options.OnOpenFn;
@@ -371,6 +381,13 @@ declare namespace Lightpick {
          */
         interface OnSelectFn {
             (this: Lightpick, startDate: OutputDate, endDate: OutputDate): void;
+        }
+
+        /**
+         * Callback function for when either a start or an end date is selected.
+         */
+        interface OnSelectStartEndFn {
+            (this: Lightpick, date: OutputDate): void;
         }
 
         /**

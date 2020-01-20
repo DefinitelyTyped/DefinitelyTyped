@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "errors.d.ts",
         "request-promise-native-tests.ts"
     ]
 }

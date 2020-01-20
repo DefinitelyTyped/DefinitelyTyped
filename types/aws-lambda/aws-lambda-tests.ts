@@ -108,6 +108,7 @@ strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationProvider;
 strOrNull = apiGwEvtReqCtx.identity.cognitoAuthenticationType;
 strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityId;
 strOrNull = apiGwEvtReqCtx.identity.cognitoIdentityPoolId;
+strOrNull = apiGwEvtReqCtx.identity.principalOrgId;
 str = apiGwEvtReqCtx.identity.sourceIp;
 strOrNull = apiGwEvtReqCtx.identity.user;
 strOrNull = apiGwEvtReqCtx.identity.userAgent;
@@ -319,37 +320,19 @@ statement = {
 };
 
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: 123,
-};
+statement = { Effect: str, Action: str, Principal: 123, };
 
 // Bad Resource
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Resource: 123,
-};
+statement = { Effect: str, Action: str, Resource: 123, };
 
 // Bad Resource with valid Principal
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: { Service: str },
-    Resource: 123,
-};
+statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123, };
 
 // Bad principal with valid Resource
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: 123,
-    Resource: str,
-};
+statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
 
 // No Effect
 // $ExpectError
@@ -560,7 +543,7 @@ bool = context.callbackWaitsForEmptyEventLoop;
 str = context.functionName;
 str = context.functionVersion;
 str = context.invokedFunctionArn;
-num = context.memoryLimitInMB;
+str = context.memoryLimitInMB;
 str = context.awsRequestId;
 str = context.logGroupName;
 str = context.logStreamName;
@@ -717,10 +700,16 @@ const CloudFrontRequestWithCustomOriginEvent: AWSLambda.CloudFrontRequestEvent =
                     requestId: 'MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE==',
                 },
                 request: {
+                    body: {
+                        action: 'read-only',
+                        data: 'eyJ1c2VybmFtZSI6IkxhbWJkYUBFZGdlIiwiY29tbWVudCI6IlRoaXMgaXMgcmVxdWVzdCBib2R5In0=',
+                        encoding: 'base64',
+                        inputTruncated: false,
+                    },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {
@@ -771,10 +760,16 @@ const CloudFrontRequestWithS3OriginEvent: AWSLambda.CloudFrontRequestEvent = {
                     requestId: 'MRVMF7KydIvxMWfJIglgwHQwZsbG2IhRJ07sn9AkKUFSHS9EXAMPLE==',
                 },
                 request: {
+                    body: {
+                        action: 'read-only',
+                        data: 'eyJ1c2VybmFtZSI6IkxhbWJkYUBFZGdlIiwiY29tbWVudCI6IlRoaXMgaXMgcmVxdWVzdCBib2R5In0=',
+                        encoding: 'base64',
+                        inputTruncated: false,
+                    },
                     clientIp: '2001:0db8:85a3:0:0:8a2e:0370:7334',
-                    method: 'GET',
-                    uri: '/picture.jpg',
                     querystring: 'size=large',
+                    uri: '/picture.jpg',
+                    method: 'GET',
                     headers: {
                         host: [
                             {

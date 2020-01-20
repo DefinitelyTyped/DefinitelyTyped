@@ -20,15 +20,17 @@ export type LocalizationEditorProps = {
     }>;
     className?: string;
     compact?: boolean;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     id?: string;
     listProps?: { [x: string]: any };
     popoverProps?: { [x: string]: any };
     /* Set to **true** to enable a Localization Editor with a textarea. */
     textarea?: boolean;
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLDivElement>;
 
-declare const LocalizationEditor: React.FunctionComponent<
-    LocalizationEditorProps
->;
+declare const LocalizationEditor: React.FunctionComponent<LocalizationEditorProps> & {
+    displayName: "LocalizationEditor";
+};
 
 export default LocalizationEditor;

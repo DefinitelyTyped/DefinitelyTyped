@@ -8,7 +8,7 @@ interface TestState {
 }
 const middleware = createStateSyncMiddleware({
         channel: 'test',
-        predicate: (type) => true,
+        predicate: (action) => true,
         blacklist: [],
         whitelist: [],
         broadcastChannelOption: {}

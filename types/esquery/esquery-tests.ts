@@ -10,7 +10,7 @@ function f (n) {
 
 const s = 'FunctionDeclaration !VariableDeclaration > VariableDeclarator[init.value > 3]';
 
-// $ExpectType Selector | undefined
+// $ExpectType Selector
 const selector = esquery.parse(s);
 
 // $ExpectType Node[]
@@ -22,16 +22,27 @@ esquery(AST, s);
 // $ExpectError
 esquery.parse(3);
 
-if (selector) {
-    // $ExpectType Node[]
-    esquery.match(AST, selector);
+// $ExpectType Node[]
+esquery.match(AST, selector);
 
-    // $ExpectError
-    esquery.match(AST, 'VariableDeclarator');
+// $ExpectError
+esquery.match(AST, 'VariableDeclarator');
 
-    // $ExpectType boolean
-    esquery.matches(nodes[0], selector, esquery(AST, 'FunctionDeclaration'));
-}
+// $ExpectType boolean
+esquery.matches(nodes[0], selector, esquery(AST, 'FunctionDeclaration'));
 
 // $ExpectError
 esquery.match(3, selector);
+
+switch (selector.type) {
+    case 'adjacent':
+        // $ExpectType SubjectSelector
+        selector.left;
+        // $ExpectType SubjectSelector
+        selector.right;
+        break;
+
+    case 'attribute':
+        // $ExpectType string
+        selector.name;
+}

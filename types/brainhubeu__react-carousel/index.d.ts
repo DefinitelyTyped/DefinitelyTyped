@@ -39,6 +39,7 @@ export interface CarouselProps {
     keepDirectionWhenDragging?: boolean;
     animationSpeed?: number;
     dots?: boolean;
+    breakpoints?: any;
 }
 
 export default class extends React.Component<CarouselProps> {

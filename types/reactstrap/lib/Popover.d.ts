@@ -11,6 +11,7 @@ export interface PopoverProps extends React.HTMLAttributes<HTMLElement> {
     boundariesElement?: Popper.Boundary | Element;
     className?: string;
     placement?: Popper.Placement;
+    popperClassName?: string;
     innerClassName?: string;
     disabled?: boolean;
     hideArrow?: boolean;

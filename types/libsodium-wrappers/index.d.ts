@@ -98,10 +98,6 @@ export const crypto_box_PUBLICKEYBYTES: number;
 export const crypto_box_SEALBYTES: number;
 export const crypto_box_SECRETKEYBYTES: number;
 export const crypto_box_SEEDBYTES: number;
-export const crypto_core_hchacha20_CONSTBYTES: number;
-export const crypto_core_hchacha20_INPUTBYTES: number;
-export const crypto_core_hchacha20_KEYBYTES: number;
-export const crypto_core_hchacha20_OUTPUTBYTES: number;
 export const crypto_generichash_BYTES_MAX: number;
 export const crypto_generichash_BYTES_MIN: number;
 export const crypto_generichash_BYTES: number;
@@ -148,8 +144,6 @@ export const crypto_secretstream_xchacha20poly1305_ABYTES: number;
 export const crypto_secretstream_xchacha20poly1305_HEADERBYTES: number;
 export const crypto_secretstream_xchacha20poly1305_KEYBYTES: number;
 export const crypto_secretstream_xchacha20poly1305_MESSAGEBYTES_MAX: number;
-export const crypto_secretstream_xchacha20poly1305_MESSAGESBYTES_MAX: number;
-export const crypto_secretstream_xchacha20poly1305_NPUBBYTES: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_FINAL: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_MESSAGE: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_PUSH: number;
@@ -161,9 +155,6 @@ export const crypto_sign_MESSAGEBYTES_MAX: number;
 export const crypto_sign_PUBLICKEYBYTES: number;
 export const crypto_sign_SECRETKEYBYTES: number;
 export const crypto_sign_SEEDBYTES: number;
-export const crypto_stream_chacha20_ietf_MESSAGEBYTES_MAX: number;
-export const crypto_stream_MESSAGEBYTES_MAX: number;
-export const crypto_stream_xchacha20_MESSAGEBYTES_MAX: number;
 export const randombytes_SEEDBYTES: number;
 export const SODIUM_LIBRARY_VERSION_MAJOR: number;
 export const SODIUM_LIBRARY_VERSION_MINOR: number;
@@ -558,9 +549,6 @@ export function crypto_sign_update(state_address: StateAddress, message_chunk: s
 
 export function crypto_sign_verify_detached(signature: Uint8Array, message: string | Uint8Array, publicKey: Uint8Array): boolean;
 
-export function crypto_stream_keygen(outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
-export function crypto_stream_keygen(outputFormat: StringOutputFormat): string;
-
 export function from_base64(input: string, variant?: base64_variants): Uint8Array;
 
 export function from_hex(input: string): Uint8Array;
@@ -575,6 +563,8 @@ export function memcmp(b1: Uint8Array, b2: Uint8Array): boolean;
 
 export function memzero(bytes: Uint8Array): void;
 
+export function output_formats(): Array<Uint8ArrayOutputFormat | StringOutputFormat>;
+
 export function pad(buf: Uint8Array, blocksize: number): Uint8Array;
 
 export function randombytes_buf(length: number, outputFormat?: Uint8ArrayOutputFormat | null): Uint8Array;
@@ -586,8 +576,6 @@ export function randombytes_buf_deterministic(length: number, seed: Uint8Array, 
 export function randombytes_close(): void;
 
 export function randombytes_random(): number;
-
-export function randombytes_set_implementation(implementation: Uint8Array): void;
 
 export function randombytes_stir(): void;
 

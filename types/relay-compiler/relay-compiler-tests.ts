@@ -7,7 +7,7 @@ import {
 
 import * as InlineFragmentsTransform from 'relay-compiler/lib/transforms/InlineFragmentsTransform';
 import * as SkipRedundantNodesTransform from 'relay-compiler/lib/transforms/SkipRedundantNodesTransform';
-import * as RelayApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/RelayApplyFragmentArgumentTransform';
+import * as ApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/ApplyFragmentArgumentTransform';
 import * as FlattenTransform from 'relay-compiler/lib/transforms/FlattenTransform';
 import * as ConnectionFieldTransform from 'relay-compiler/lib/transforms/ConnectionFieldTransform';
 import { getLanguagePlugin } from 'relay-compiler/lib/bin/RelayCompilerMain';
@@ -29,7 +29,7 @@ const relayDocuments = RelayParser.transform(adjustedSchema, documentAsts);
 const queryCompilerContext = new GraphQLCompilerContext(adjustedSchema)
     .addAll(relayDocuments)
     .applyTransforms([
-        RelayApplyFragmentArgumentTransform.transform,
+        ApplyFragmentArgumentTransform.transform,
         InlineFragmentsTransform.transform,
         FlattenTransform.transformWithOptions({ flattenAbstractTypes: false }),
         SkipRedundantNodesTransform.transform,
@@ -47,8 +47,8 @@ getLanguagePlugin(() => ({
     inputExtensions: ['foo'],
     outputExtension: 'bar',
     typeGenerator: {
-        transforms: [RelayApplyFragmentArgumentTransform.transform],
-        generate: (node, options) => {
+        transforms: [ApplyFragmentArgumentTransform.transform],
+        generate: (schema, node, options) => {
             visit(node, {
                 Fragment(fragment) {
                     return {

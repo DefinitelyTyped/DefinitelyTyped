@@ -25,3 +25,30 @@ app.get<{ foo: string }>('/:foo', req => {
 
 // Params cannot be a custom type that does not conform to constraint
 app.get<{ foo: number }>('/:foo', () => {}); // $ExpectError
+
+// Default types
+app.post("/", (req, res) => {
+    req.params[0]; // $ExpectType string
+
+    req.body; // $ExpectType any
+    res.send("ok"); // $ExpectType Response<any>
+});
+
+// No params, only response body type
+app.get<never, { foo: string; }>("/", (req, res) => {
+    req.params.baz; // $ExpectError
+
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }>
+    req.body; // $ExpectType any
+});
+
+// No params, request body type and response body type
+app.post<never, { foo: string }, { bar: number }>('/', (req, res) => {
+    req.params.baz; // $ExpectError
+
+    res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }>
+    req.body.bar; // $ExpectType number
+
+    res.json({ baz: "fail" }); // $ExpectError
+    req.body.baz; // $ExpectError
+});

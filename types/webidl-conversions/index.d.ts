@@ -1,4 +1,4 @@
-// Type definitions for webidl-conversions 4.0
+// Type definitions for webidl-conversions 5.0
 // Project: https://github.com/jsdom/webidl-conversions#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,9 +52,7 @@ declare const WebIDLConversions: {
 	ByteString(V: any, opts?: WebIDLConversions.StringOptions): string;
 	USVString(V: any, opts?: WebIDLConversions.StringOptions): string;
 
-	object(V: any, opts?: WebIDLConversions.Options): object;
-	Error(V: any, opts?: WebIDLConversions.Options): Error;
-
+	object<V>(V: V, opts?: WebIDLConversions.Options): V extends object ? V : V & object;
 	ArrayBuffer(V: any, opts?: WebIDLConversions.Options): ArrayBuffer;
 	DataView(V: any, opts?: WebIDLConversions.Options): DataView;
 

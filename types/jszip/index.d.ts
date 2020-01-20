@@ -1,6 +1,8 @@
 // Type definitions for JSZip 3.1
 // Project: http://stuk.github.com/jszip/, https://github.com/stuk/jszip
-// Definitions by: mzeiher <https://github.com/mzeiher>, forabi <https://github.com/forabi>
+// Definitions by: mzeiher <https://github.com/mzeiher>
+//                 forabi <https://github.com/forabi>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +17,7 @@ interface JSZipSupport {
 
 type Compression = 'STORE' | 'DEFLATE';
 
-interface Metadata  {
+interface Metadata {
     percent: number;
     currentFile: string;
 }
@@ -37,6 +39,7 @@ interface InputByType {
 interface OutputByType {
     base64: string;
     text: string;
+    string: string;
     binarystring: string;
     array: number[];
     uint8array: Uint8Array;

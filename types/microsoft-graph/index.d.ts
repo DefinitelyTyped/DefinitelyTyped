@@ -1,4 +1,4 @@
-// Type definitions for non-npm package microsoft-graph 1.11
+// Type definitions for non-npm package microsoft-graph 1.12
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 // Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
 //                 Muthurathinam Muthusamy <https://github.com/muthurathinam>
@@ -60,6 +60,17 @@ export type RiskEventType =
     | "investigationsThreatIntelligenceSigninLinked"
     | "maliciousIPAddressValidCredentialsBlockedIP"
     | "unknownFutureValue";
+export type PhoneType =
+    | "home"
+    | "business"
+    | "mobile"
+    | "other"
+    | "assistant"
+    | "homeFax"
+    | "businessFax"
+    | "otherFax"
+    | "pager"
+    | "radio";
 export type EducationUserRole = "student" | "teacher" | "none" | "unknownFutureValue";
 export type EducationExternalSource = "sis" | "manual" | "unknownFutureValue";
 export type EducationGender = "female" | "male" | "other" | "unknownFutureValue";
@@ -132,17 +143,6 @@ export type WeekIndex = "first" | "second" | "third" | "fourth" | "last";
 export type RecurrenceRangeType = "endDate" | "noEnd" | "numbered";
 export type EventType = "singleInstance" | "occurrence" | "exception" | "seriesMaster";
 export type SelectionLikelihoodInfo = "notSpecified" | "high";
-export type PhoneType =
-    | "home"
-    | "business"
-    | "mobile"
-    | "other"
-    | "assistant"
-    | "homeFax"
-    | "businessFax"
-    | "otherFax"
-    | "pager"
-    | "radio";
 export type WebsiteType = "other" | "home" | "work" | "blog" | "profile";
 export type CategoryColor =
     | "preset0"
@@ -2239,7 +2239,28 @@ export interface Directory extends Entity {
     deletedItems?: DirectoryObject[];
 }
 export interface CertificateBasedAuthConfiguration extends Entity {
+    // Collection of certificate authorities which creates a trusted certificate chain.
     certificateAuthorities?: CertificateAuthority[];
+}
+export interface OrgContact extends DirectoryObject {
+    addresses?: PhysicalOfficeAddress[];
+    companyName?: string;
+    department?: string;
+    displayName?: string;
+    givenName?: string;
+    jobTitle?: string;
+    mail?: string;
+    mailNickname?: string;
+    onPremisesSyncEnabled?: boolean;
+    onPremisesLastSyncDateTime?: string;
+    onPremisesProvisioningErrors?: OnPremisesProvisioningError[];
+    phones?: Phone[];
+    proxyAddresses?: string[];
+    surname?: string;
+    manager?: DirectoryObject;
+    directReports?: DirectoryObject[];
+    memberOf?: DirectoryObject[];
+    transitiveMemberOf?: DirectoryObject[];
 }
 export interface Device extends DirectoryObject {
     // true if the account is enabled; otherwise, false. Required.
@@ -2682,6 +2703,10 @@ export interface Organization extends DirectoryObject {
     verifiedDomains?: VerifiedDomain[];
     // Mobile device management authority. Possible values are: unknown, intune, sccm, office365.
     mobileDeviceManagementAuthority?: MdmAuthority;
+    /**
+     * Navigation property to manage certificate-based authentication configuration. Only a single instance of
+     * certificateBasedAuthConfiguration can be created in the collection.
+     */
     certificateBasedAuthConfiguration?: CertificateBasedAuthConfiguration[];
     // The collection of open extensions defined for the organization. Read-only. Nullable.
     extensions?: Extension[];
@@ -2760,7 +2785,6 @@ export interface EducationSchool extends EducationOrganization {
     externalId?: string;
     // Phone number of school.
     phone?: string;
-    // Fax number of school.
     fax?: string;
     // Entity who created the school.
     createdBy?: IdentitySet;
@@ -8561,12 +8585,49 @@ export interface TimeZoneBase {
     name?: string;
 }
 export interface CertificateAuthority {
+    /**
+     * Required. true if the trusted certificate is a root authority, false if the trusted certificate is an intermediate
+     * authority.
+     */
     isRootAuthority?: boolean;
+    // The URL of the certificate revocation list.
     certificateRevocationListUrl?: string;
+    /**
+     * The URL contains the list of all revoked certificates since the last time a full certificate revocaton list was
+     * created.
+     */
     deltaCertificateRevocationListUrl?: string;
+    // Required. The base64 encoded string representing the public certificate.
     certificate?: number;
+    // The issuer of the certificate, calculated from the certificate value. Read-only.
     issuer?: string;
+    // The subject key identifier of the certificate, calculated from the certificate value. Read-only.
     issuerSki?: string;
+}
+export interface PhysicalOfficeAddress {
+    // The city.
+    city?: string;
+    // The country or region. It's a free-format string value, for example, 'United States'.
+    countryOrRegion?: string;
+    // Office location such as building and office number for an organizational contact.
+    officeLocation?: string;
+    // The postal code.
+    postalCode?: string;
+    // The state.
+    state?: string;
+    // The street.
+    street?: string;
+}
+export interface Phone {
+    /**
+     * The type of phone number. The possible values are: home, business, mobile, other, assistant, homeFax, businessFax,
+     * otherFax, pager, radio.
+     */
+    type?: PhoneType;
+    // The phone number.
+    number?: string;
+    region?: string;
+    language?: string;
 }
 export interface AlternativeSecurityId {
     // For internal use only
@@ -9464,17 +9525,6 @@ export interface ScoredEmailAddress {
     relevanceScore?: number;
     selectionLikelihood?: SelectionLikelihoodInfo;
     itemId?: string;
-}
-export interface Phone {
-    /**
-     * The type of phone number. The possible values are: home, business, mobile, other, assistant, homeFax, businessFax,
-     * otherFax, pager, radio.
-     */
-    type?: PhoneType;
-    // The phone number.
-    number?: string;
-    region?: string;
-    language?: string;
 }
 export interface Website {
     // The possible values are: other, home, work, blog, profile.

@@ -1,7 +1,7 @@
 
 import * as config from "config";
-import { deferConfig } from './defer';
-import { raw } from './raw';
+import { deferConfig } from 'config/defer';
+import { raw } from 'config/raw';
 
 var class1: config.IConfig = config;
 

@@ -18,7 +18,7 @@ define(object);
 define(null, {});
 
 define(object, {
-	getFoo() {
+	getFoo() { // $ExpectType () => string
 		this; // $ExpectType any
 
 		return __classPrivateFieldGet(this, object_foo);
@@ -26,22 +26,21 @@ define(object, {
 });
 
 define(object, {
-	foo: 'any'
+	foo: 'any' // $ExpectType string
 }, {
 	foo: () => (object as any).foo !== 'any'
 });
 
-// $ExpectError
 define(object, {
-	foo: 'any'
+	foo: 'any' // $ExpectType string
 }, {
 	foo: () => (object as any).foo !== 'any',
-	bar: () => { throw new Error(); },
+	bar: () => { throw new Error(); }, // $ExpectError
 });
 
 define(object, {
-	foo: 'any',
-	bar: 'valid'
+	foo: 'any', // $ExpectType string
+	bar: 'valid' // $ExpectType string
 }, {
 	foo: () => (object as any).foo !== 'any',
 });

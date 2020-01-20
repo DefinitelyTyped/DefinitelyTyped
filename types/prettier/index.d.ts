@@ -1,4 +1,4 @@
-// Type definitions for prettier 1.18
+// Type definitions for prettier 1.19
 // Project: https://github.com/prettier/prettier, https://prettier.io
 // Definitions by: Ika <https://github.com/ikatyang>,
 //                 Ifiok Jr. <https://github.com/ifiokjr>,
@@ -130,6 +130,10 @@ export interface RequiredOptions extends doc.printer.Options {
      * Change when properties in objects are quoted.
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
+    /**
+     * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     */
+    vueIndentScriptAndStyle: boolean;
 }
 
 export interface ParserOptions extends RequiredOptions {
@@ -344,6 +348,7 @@ export interface FileInfoOptions {
     ignorePath?: string;
     withNodeModules?: boolean;
     plugins?: string[];
+    resolveConfig?: boolean;
 }
 
 export interface FileInfoResult {

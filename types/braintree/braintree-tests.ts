@@ -14,6 +14,9 @@ import {
     PaymentMethod,
     PaymentMethodNonce,
     Transaction,
+    SampleNotification,
+    WebhookNotification,
+    WebhookNotificationKind,
 } from 'braintree';
 
 /**
@@ -94,4 +97,17 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     const transactions: Transaction[] = [];
     gateway.transaction.search(() => true).on('data', transactions.push);
+})();
+
+(async () => {
+    const kind: WebhookNotificationKind = 'subscription_canceled';
+    const subscriptionId = '123456';
+
+    const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
+    if (!sampleResponse) return;
+
+    const notificationResponse = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notificationResponse) return;
+
+    const notification: WebhookNotification = notificationResponse;
 })();

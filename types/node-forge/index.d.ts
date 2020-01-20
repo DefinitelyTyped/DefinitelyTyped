@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.8.1
+// Type definitions for node-forge 0.9.1
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal    <https://github.com/westy92>
 //                 Kay Schecker     <https://github.com/flynetworks>
@@ -11,6 +11,7 @@
 //                 supaiku0         <https://github.com/supaiku0>
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
+//                 Rogier Schouten  <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -64,6 +65,35 @@ declare module "node-forge" {
             prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
             legacy?: boolean;
         };
+
+        interface ByteBufferFingerprintOptions {
+            /**
+             * @description The type of fingerprint. If not specified, defaults to 'RSAPublicKey'
+             */
+            type?: 'SubjectPublicKeyInfo' | 'RSAPublicKey';
+            /**
+             * @description the delimiter to use between bytes for `hex` encoded output
+             */
+            delimiter?: string;
+            /**
+             * @description if not specified defaults to `md.md5`
+             */
+            md?: md.MessageDigest;
+        }
+
+        interface HexFingerprintOptions extends ByteBufferFingerprintOptions {
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding: 'hex';
+        }
+
+        interface BinaryFingerprintOptions extends ByteBufferFingerprintOptions {
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding: 'binary';
+        }
 
         interface KeyPair {
             publicKey: PublicKey;
@@ -247,6 +277,62 @@ declare module "node-forge" {
              */
             verify(child: Certificate): boolean;
 
+            /**
+             * Gets an issuer or subject attribute from its name, type, or short name.
+             *
+             * @param options a short name string or an object with:
+             *          shortName the short name for the attribute.
+             *          name the name for the attribute.
+             *          type the type for the attribute.
+             *
+             * @return the attribute.
+             */
+            getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+        }
+
+        /**
+         * Attribute members to search on; any one hit will return the attribute
+         */
+        interface GetAttributeOpts {
+            /**
+             * OID
+             */
+            type?: string;
+            /**
+             * Long name
+             */
+            name?: string;
+            /**
+             * Short name
+             */
+            shortName?: string;
+        }
+
+        interface Attribute {
+            /**
+             * e.g. challengePassword
+             */
+            name: string;
+            /**
+             * Short name, if available (e.g. 'CN' for 'commonName')
+             */
+            shortName?: string;
+            /**
+             * OID, e.g. '1.2.840.113549.1.9.7'
+             */
+            type: string;
+            /**
+             * Attribute value
+             */
+            value: any;
+            /**
+             * Attribute value data type
+             */
+            valueTagClass: number;
+            /**
+             * Extensions
+             */
+            extensions?: any[]
         }
 
         interface CAStore {
@@ -317,6 +403,10 @@ declare module "node-forge" {
         type setRsaPublicKey = typeof rsa.setPublicKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
+
+        function getPublicKeyFingerprint(publicKey: PublicKey, options?: ByteBufferFingerprintOptions): util.ByteStringBuffer;
+        function getPublicKeyFingerprint(publicKey: PublicKey, options: HexFingerprintOptions): Hex;
+        function getPublicKeyFingerprint(publicKey: PublicKey, options: BinaryFingerprintOptions): Bytes;
     }
 
     namespace random {
@@ -525,10 +615,10 @@ declare module "node-forge" {
 
         interface Pkcs12Pfx {
             version: string;
-            safeContents: [{
+            safeContents: {
                 encrypted: boolean;
                 safeBags: Bag[];
-            }];
+            }[];
             getBags: (filter: BagsFilter) => {
                 [key: string]: Bag[] | undefined;
                 localKeyId?: Bag[];

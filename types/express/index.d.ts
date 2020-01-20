@@ -1,6 +1,7 @@
 // Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 China Medical University Hospital <https://github.com/CMUH>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -86,17 +87,17 @@ declare namespace e {
     interface Application extends core.Application { }
     interface CookieOptions extends core.CookieOptions { }
     interface Errback extends core.Errback { }
-    interface ErrorRequestHandler extends core.ErrorRequestHandler { }
+    interface ErrorRequestHandler<P extends core.Params = core.ParamsDictionary> extends core.ErrorRequestHandler<P> { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
-    interface IRouter<T> extends core.IRouter { }
+    interface IRouter extends core.IRouter { }
     interface IRouterHandler<T> extends core.IRouterHandler<T> { }
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
-    interface Request extends core.Request { }
-    interface RequestHandler extends core.RequestHandler { }
+    interface Request<P extends core.Params = core.ParamsDictionary> extends core.Request<P> { }
+    interface RequestHandler<P extends core.Params = core.ParamsDictionary> extends core.RequestHandler<P> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
     export interface Response extends core.Response { }
     interface Router extends core.Router { }

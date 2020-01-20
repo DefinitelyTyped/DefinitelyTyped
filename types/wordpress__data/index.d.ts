@@ -1,6 +1,7 @@
 // Type definitions for @wordpress/data 4.6
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/data/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
+//                 Jon Surrell <https://github.com/sirreal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -31,6 +32,7 @@ export interface GenericStoreConfig {
     getSelectors(): SelectorMap;
     subscribe: Subscriber;
 }
+
 export interface StoreConfig<S> {
     reducer: Reducer<S>;
     actions?: {
@@ -46,7 +48,28 @@ export interface StoreConfig<S> {
         [k: string]: (action: Action) => any;
     };
     initialState?: S;
+
+    /**
+     * Use persist with the persistence plugin to persist state.
+     *
+     * The registry must use the `persistence` plugin.
+     *
+     * Set to `true` to persist all state, or pass an array of state keys to persist.
+     *
+     * @example
+     *
+     * import { plugins, registerStore, use } from '@wordpress/data';
+     *
+     * use( plugins.persistence, { storageKey: 'example' } );
+     *
+     * registerStore( 'my-plugin', {
+     *   // …
+     *   persist: [ 'state-key-to-persist' ],
+     * } );
+     */
+    persist?: true | Array<keyof S>;
 }
+
 export interface Store<S, A extends Action = Action> {
     getState(): S;
     subscribe: Subscriber;

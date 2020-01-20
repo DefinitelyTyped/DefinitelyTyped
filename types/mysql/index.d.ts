@@ -511,7 +511,7 @@ export interface ConnectionConfig extends ConnectionOptions {
     /**
      * A custom query format function
      */
-    queryFormat?(query: string, values: any): void;
+    queryFormat?(query: string, values: any): string;
 
     /**
      * When dealing with big numbers (BIGINT and DECIMAL columns) in the database, you should enable this option

@@ -1,7 +1,8 @@
-// Type definitions for jira-client 6.4
+// Type definitions for jira-client 6.13
 // Project: http://github.com/jira-node/node-jira-client
 // Definitions by: Anatoliy Ostapenko <https://github.com/KOPTE3>
 //                 Orta Therox <https://github.com/orta>
+//                 Robert Kesterson <https://github.com/rkesters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -81,7 +82,7 @@ declare class JiraApi {
 
     deleteIssue(issueId: string): Promise<JiraApi.JsonResponse>;
 
-    updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject): Promise<JiraApi.JsonResponse>;
+    updateIssue(issueId: string, issueUpdate: JiraApi.IssueObject, query?: JiraApi.Query): Promise<JiraApi.JsonResponse>;
 
     listComponents(project: string): Promise<JiraApi.JsonResponse>;
 
@@ -363,5 +364,4 @@ declare namespace JiraApi {
         intermediatePath?: string;
     }
 }
-
-export default JiraApi;
+ export = JiraApi;

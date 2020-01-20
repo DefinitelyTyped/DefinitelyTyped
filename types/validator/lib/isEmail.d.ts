@@ -1,3 +1,2 @@
-import * as validator from "validator";
-declare const isEmail: typeof validator.isEmail;
-export = isEmail;
+import validator from '../';
+export default validator.isEmail;

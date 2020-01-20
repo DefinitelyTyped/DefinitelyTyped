@@ -52,3 +52,16 @@ const quat: Cesium.Quaternion = Cesium.Quaternion.fromHeadingPitchRoll(hpr);
 const matrix: Cesium.Matrix3 = Cesium.Matrix3.fromHeadingPitchRoll(hpr);
 
 const webgl = Cesium.WebGLConstants.ALPHA;
+
+viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+const billboard = new Cesium.BillboardGraphics({
+    heightReference: new Cesium.ConstantProperty(Cesium.HeightReference.CLAMP_TO_GROUND),
+});
+
+const label = new Cesium.LabelGraphics({
+    heightReference: new Cesium.ConstantProperty(Cesium.HeightReference.CLAMP_TO_GROUND),
+});
+
+viewer.scene.globe.tileLoadProgressEvent.addEventListener((progress: number) => progress);
+viewer.scene.globe.terrainProviderChanged.addEventListener((provider: Cesium.TerrainProvider) => provider);

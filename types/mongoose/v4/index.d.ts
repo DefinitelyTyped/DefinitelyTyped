@@ -1181,7 +1181,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate?: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error | undefined;
 
     /** Hash containing current validation errors. */
     errors: any;

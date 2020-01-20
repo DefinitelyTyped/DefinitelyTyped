@@ -1,16 +1,19 @@
-// Type definitions for opossum 4.0
+// Type definitions for opossum 4.1
 // Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
 // Definitions by: Quinn Langille <https://github.com/quinnlangille>
 //                 Willy Zhang <https://github.com/merufm>
 //                 Lance Ball <https://github.com/lance>
 //                 Matt R. Wilson <https://github.com/mastermatt>
+//                 Tom Jenkinson <https://github.com/tjenkinson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /// <reference types="node"/>
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
+    static isOurError(error: any): boolean;
+
     constructor(action: (...args: TI) => Promise<TR>, options?: CircuitBreaker.Options);
 
     readonly name: string;
@@ -92,20 +95,20 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     healthCheck(func: () => Promise<void>, interval?: number): void;
 
     /* tslint:disable:unified-signatures */
-    on(event: "halfOpen", listener: (resetTimeout: number) => void): this;
-    on(event: "close", listener: () => void): this;
-    on(event: "open", listener: () => void): this;
-    on(event: "shutdown", listener: () => void): this;
-    on(event: "fire", listener: (args: TI) => void): this;
-    on(event: "cacheHit", listener: () => void): this;
-    on(event: "cacheMiss", listener: () => void): this;
-    on(event: "reject", listener: (err: Error) => void): this;
-    on(event: "timeout", listener: (err: Error) => void): this;
-    on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
-    on(event: "semaphoreLocked", listener: (err: Error) => void): this;
-    on(event: "healthCheckFailed", listener: (err: Error) => void): this;
-    on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
-    on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
+    on(event: 'halfOpen', listener: (resetTimeout: number) => void): this;
+    on(event: 'close', listener: () => void): this;
+    on(event: 'open', listener: () => void): this;
+    on(event: 'shutdown', listener: () => void): this;
+    on(event: 'fire', listener: (args: TI) => void): this;
+    on(event: 'cacheHit', listener: () => void): this;
+    on(event: 'cacheMiss', listener: () => void): this;
+    on(event: 'reject', listener: (err: Error) => void): this;
+    on(event: 'timeout', listener: (err: Error) => void): this;
+    on(event: 'success', listener: (result: TR, latencyMs: number) => void): this;
+    on(event: 'semaphoreLocked', listener: (err: Error) => void): this;
+    on(event: 'healthCheckFailed', listener: (err: Error) => void): this;
+    on(event: 'fallback', listener: (result: unknown, err: Error) => void): this;
+    on(event: 'failure', listener: (err: Error, latencyMs: number, args: TI) => void): this;
     /* tslint:enable:unified-signatures */
 }
 
@@ -221,7 +224,7 @@ declare namespace CircuitBreaker {
         stats: Stats;
         window: Window;
 
-        on(event: "snapshot", listener: (snapshot: Stats) => void): this;
+        on(event: 'snapshot', listener: (snapshot: Stats) => void): this;
     }
 
     interface Bucket {
