@@ -1,6 +1,6 @@
 import fetch = require('@rdfjs/fetch-lite');
 import { SinkMap } from '@rdfjs/sink-map';
-import { Stream, Dataset, Quad } from 'rdf-js';
+import { Stream, Dataset, BaseQuad } from 'rdf-js';
 import { EventEmitter } from 'events';
 
 const formats: {
@@ -17,7 +17,9 @@ async function fetchQuadStream(): Promise<Stream> {
     return response.quadStream();
 }
 
-interface DatasetX extends Dataset<Quad> {}
+interface DatasetX extends Dataset<BaseQuad> {
+    toCanonical(): string;
+}
 const factory: {
     dataset(): DatasetX;
 } = <any> {};
