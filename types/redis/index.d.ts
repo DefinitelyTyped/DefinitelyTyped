@@ -11,6 +11,7 @@
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
+//                 Alexis Tabaksyurov <https://github.com/f3nrir92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -1179,7 +1180,7 @@ export interface Commands<R> {
 
 export const RedisClient: new (options: ClientOpts) => RedisClient;
 
-export interface RedisClient extends Commands<boolean>, EventEmitter {
+export interface RedisClient extends Commands<any>, EventEmitter {
     connected: boolean;
     command_queue_length: number;
     offline_queue_length: number;
@@ -1209,10 +1210,10 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
 
     duplicate(options?: ClientOpts, cb?: Callback<RedisClient>): RedisClient;
 
-    sendCommand(command: string, cb?: Callback<any>): boolean;
-    sendCommand(command: string, args?: any[], cb?: Callback<any>): boolean;
-    send_command(command: string, cb?: Callback<any>): boolean;
-    send_command(command: string, args?: any[], cb?: Callback<any>): boolean;
+    sendCommand(command: string, cb?: Callback<any>): any;
+    sendCommand(command: string, args?: any[], cb?: Callback<any>): any;
+    send_command(command: string, cb?: Callback<any>): any;
+    send_command(command: string, args?: any[], cb?: Callback<any>): any;
 
     addCommand(command: string): void;
     add_command(command: string): void;
@@ -1230,11 +1231,11 @@ export interface RedisClient extends Commands<boolean>, EventEmitter {
 export const Multi: new () => Multi;
 
 export interface Multi extends Commands<Multi> {
-    exec(cb?: Callback<any[]>): boolean;
-    EXEC(cb?: Callback<any[]>): boolean;
+    exec(cb?: Callback<any[]>): any;
+    EXEC(cb?: Callback<any[]>): any;
 
-    exec_atomic(cb?: Callback<any[]>): boolean;
-    EXEC_ATOMIC(cb?: Callback<any[]>): boolean;
+    exec_atomic(cb?: Callback<any[]>): any;
+    EXEC_ATOMIC(cb?: Callback<any[]>): any;
 }
 
 export let debug_mode: boolean;
