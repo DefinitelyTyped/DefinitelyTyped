@@ -29,9 +29,9 @@ import { Readable } from 'stream';
 import { EventEmitter } from 'events';
 
 interface RedisStatic {
-    new(port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-    new(host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-    new(options?: IORedis.RedisOptions): IORedis.Redis;
+    new (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new (options?: IORedis.RedisOptions): IORedis.Redis;
     (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
@@ -45,10 +45,13 @@ export = IORedis;
 declare class Commander {
     getBuiltinCommands(): string[];
     createBuiltinCommand(commandName: string): {};
-    defineCommand(name: string, definition: {
-        numberOfKeys?: number;
-        lua?: string;
-    }): void;
+    defineCommand(
+        name: string,
+        definition: {
+            numberOfKeys?: number;
+            lua?: string;
+        },
+    ): void;
     sendCommand(): void;
 }
 
@@ -84,19 +87,57 @@ declare namespace IORedis {
         getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: KeyType): Promise<Buffer>;
 
-        set(key: KeyType, value: ValueType, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode?: string | any[],
+            time?: number | string,
+            setMode?: number | string,
+        ): Promise<string>;
 
         set(key: KeyType, value: ValueType, callback: (err: Error, res: string) => void): void;
         set(key: KeyType, value: ValueType, setMode: string | any[], callback: (err: Error, res: string) => void): void;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            callback: (err: Error, res: string) => void,
+        ): void;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            setMode: number | string,
+            callback: (err: Error, res: string) => void,
+        ): void;
 
-        setBuffer(key: KeyType, value: ValueType, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode?: string | any[],
+            time?: number | string,
+            setMode?: number | string,
+        ): Promise<Buffer>;
 
         setBuffer(key: KeyType, value: ValueType, callback: (err: Error, res: Buffer) => void): void;
         setBuffer(key: KeyType, value: ValueType, setMode: string, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            callback: (err: Error, res: Buffer) => void,
+        ): void;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            setMode: number | string,
+            callback: (err: Error, res: Buffer) => void,
+        ): void;
 
         setnx(key: KeyType, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
         setnx(key: KeyType, value: ValueType): Promise<BooleanResponse>;
@@ -155,8 +196,14 @@ declare namespace IORedis {
         lpushx(key: KeyType, value: ValueType, callback: (err: Error, res: number) => void): void;
         lpushx(key: KeyType, value: ValueType): Promise<number>;
 
-        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: ValueType, callback: (err: Error, res: number) => void): void;
-        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: ValueType): Promise<number>;
+        linsert(
+            key: KeyType,
+            direction: 'BEFORE' | 'AFTER',
+            pivot: string,
+            value: ValueType,
+            callback: (err: Error, res: number) => void,
+        ): void;
+        linsert(key: KeyType, direction: 'BEFORE' | 'AFTER', pivot: string, value: ValueType): Promise<number>;
 
         rpop(key: KeyType, callback: (err: Error, res: string) => void): void;
         rpop(key: KeyType): Promise<string>;
@@ -171,7 +218,12 @@ declare namespace IORedis {
 
         blpop(...keys: KeyType[]): Promise<[string, string]>;
 
-        brpoplpush(source: string, destination: string, timeout: number, callback: (err: Error, res: string) => void): void;
+        brpoplpush(
+            source: string,
+            destination: string,
+            timeout: number,
+            callback: (err: Error, res: string) => void,
+        ): void;
         brpoplpush(source: string, destination: string, timeout: number): Promise<string>;
 
         llen(key: KeyType, callback: (err: Error, res: number) => void): void;
@@ -205,7 +257,12 @@ declare namespace IORedis {
 
         srem(key: KeyType, ...members: ValueType[]): Promise<number>;
 
-        smove(source: string, destination: string, member: string, callback: (err: Error, res: BooleanResponse) => void): void;
+        smove(
+            source: string,
+            destination: string,
+            member: string,
+            callback: (err: Error, res: BooleanResponse) => void,
+        ): void;
         smove(source: string, destination: string, member: string): Promise<BooleanResponse>;
 
         sismember(key: KeyType, member: string, callback: (err: Error, res: BooleanResponse) => void): void;
@@ -248,7 +305,12 @@ declare namespace IORedis {
 
         zrem(key: KeyType, ...members: ValueType[]): Promise<number>;
 
-        zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
+        zremrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback: (err: Error, res: number) => void,
+        ): void;
         zremrangebyscore(key: KeyType, min: number | string, max: number | string): Promise<number>;
 
         zremrangebyrank(key: KeyType, start: number, stop: number, callback: (err: Error, res: number) => void): void;
@@ -259,22 +321,79 @@ declare namespace IORedis {
         zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Promise<number>;
 
         zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: string[]) => void): void;
-        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: string[]) => void): void;
-        zrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrange(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: (err: Error, res: string[]) => void,
+        ): void;
+        zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
         zrevrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: string[]) => void): void;
-        zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: string[]) => void): void;
-        zrevrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrevrange(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: (err: Error, res: string[]) => void,
+        ): void;
+        zrevrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
-        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<string[]>;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
+        zrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
 
-        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores?: "WITHSCORES"): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, withScores: "WITHSCORES", limit: "LIMIT", offset: number, count: number): Promise<string[]>;
-        zrevrangebyscore(key: KeyType, min: number | string, max: number | string, limit: "LIMIT", offset: number, count: number): Promise<string[]>;
+        zrevrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores?: 'WITHSCORES',
+        ): Promise<string[]>;
+        zrevrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            withScores: 'WITHSCORES',
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
+        zrevrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            limit: 'LIMIT',
+            offset: number,
+            count: number,
+        ): Promise<string[]>;
 
-        zcount(key: KeyType, min: number | string, max: number | string, callback: (err: Error, res: number) => void): void;
+        zcount(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback: (err: Error, res: number) => void,
+        ): void;
         zcount(key: KeyType, min: number | string, max: number | string): Promise<number>;
 
         zcard(key: KeyType, callback: (err: Error, res: number) => void): void;
@@ -291,10 +410,20 @@ declare namespace IORedis {
 
         hset(key: KeyType, field: string, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
         hset(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
-        hsetBuffer(key: KeyType, field: string, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
+        hsetBuffer(
+            key: KeyType,
+            field: string,
+            value: ValueType,
+            callback: (err: Error, res: BooleanResponse) => void,
+        ): void;
         hsetBuffer(key: KeyType, field: string, value: ValueType): Promise<Buffer>;
 
-        hsetnx(key: KeyType, field: string, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
+        hsetnx(
+            key: KeyType,
+            field: string,
+            value: ValueType,
+            callback: (err: Error, res: BooleanResponse) => void,
+        ): void;
         hsetnx(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
 
         hget(key: KeyType, field: string, callback: (err: Error, res: string | null) => void): void;
@@ -303,7 +432,11 @@ declare namespace IORedis {
         hgetBuffer(key: KeyType, field: string): Promise<Buffer>;
 
         hmset(key: KeyType, ...args: ValueType[]): Promise<BooleanResponse>;
-        hmset(key: KeyType, data: object | Map<string, ValueType>, callback: (err: Error, res: BooleanResponse) => void): void;
+        hmset(
+            key: KeyType,
+            data: object | Map<string, ValueType>,
+            callback: (err: Error, res: BooleanResponse) => void,
+        ): void;
         hmset(key: KeyType, data: object | Map<string, ValueType>): Promise<BooleanResponse>;
 
         hmget(key: KeyType, ...fields: string[]): Promise<Array<string | null>>;
@@ -375,7 +508,11 @@ declare namespace IORedis {
         expireat(key: KeyType, timestamp: number, callback: (err: Error, res: BooleanResponse) => void): void;
         expireat(key: KeyType, timestamp: number): Promise<BooleanResponse>;
 
-        pexpireat(key: KeyType, millisecondsTimestamp: number, callback: (err: Error, res: BooleanResponse) => void): void;
+        pexpireat(
+            key: KeyType,
+            millisecondsTimestamp: number,
+            callback: (err: Error, res: BooleanResponse) => void,
+        ): void;
         pexpireat(key: KeyType, millisecondsTimestamp: number): Promise<BooleanResponse>;
 
         keys(pattern: string, callback: (err: Error, res: string[]) => void): void;
@@ -403,8 +540,8 @@ declare namespace IORedis {
         bgrewriteaof(callback: (err: Error, res: string) => void): void;
         bgrewriteaof(): Promise<string>;
 
-        shutdown(save: "SAVE" | "NOSAVE", callback: (err: Error, res: never) => void): void;
-        shutdown(save: "SAVE" | "NOSAVE"): Promise<never>;
+        shutdown(save: 'SAVE' | 'NOSAVE', callback: (err: Error, res: never) => void): void;
+        shutdown(save: 'SAVE' | 'NOSAVE'): Promise<never>;
 
         lastsave(callback: (err: Error, res: number) => void): void;
         lastsave(): Promise<number>;
@@ -509,8 +646,20 @@ declare namespace IORedis {
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
         scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
 
-        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
-        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(
+            cursor: number | string,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+        ): Promise<[string, string[]]>;
+        scan(
+            cursor: number | string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+        ): Promise<[string, string[]]>;
 
         sscan(key: KeyType, cursor: number, ...args: ValueType[]): Promise<[string, string[]]>;
 
@@ -535,9 +684,21 @@ declare namespace IORedis {
 
         xadd(key: KeyType, id: string, ...args: string[]): Promise<string>;
         xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', count: number, ...args: string[]): Promise<string>;
-        xadd(key: KeyType, maxLenOption: 'MAXLEN' | 'maxlen', approximate: '~', count: number, ...args: string[]): Promise<string>;
+        xadd(
+            key: KeyType,
+            maxLenOption: 'MAXLEN' | 'maxlen',
+            approximate: '~',
+            count: number,
+            ...args: string[]
+        ): Promise<string>;
 
-        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
+        xclaim(
+            key: KeyType,
+            group: string,
+            consumer: string,
+            minIdleTime: number,
+            ...args: ValueType[]
+        ): Promise<Array<[string, string[]]>>;
 
         xdel(key: KeyType, ...ids: string[]): Promise<number>;
 
@@ -574,19 +735,55 @@ declare namespace IORedis {
 
         set(key: KeyType, value: ValueType, callback?: (err: Error, res: string) => void): Pipeline;
         set(key: KeyType, value: ValueType, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number, callback?: (err: Error, res: string) => void): Pipeline;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: string) => void): Pipeline;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            callback?: (err: Error, res: string) => void,
+        ): Pipeline;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            setMode: string,
+            callback?: (err: Error, res: string) => void,
+        ): Pipeline;
 
         setBuffer(key: KeyType, value: ValueType, callback?: (err: Error, res: Buffer) => void): Pipeline;
-        setBuffer(key: KeyType, value: ValueType, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number, callback?: (err: Error, res: Buffer) => void): Pipeline;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number, setMode: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            setMode: string,
+            callback?: (err: Error, res: Buffer) => void,
+        ): Pipeline;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            callback?: (err: Error, res: Buffer) => void,
+        ): Pipeline;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            setMode: string,
+            callback?: (err: Error, res: Buffer) => void,
+        ): Pipeline;
 
         setnx(key: KeyType, value: ValueType, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 
         setex(key: KeyType, seconds: number, value: ValueType, callback?: (err: Error, res: Ok) => void): Pipeline;
 
-        psetex(key: KeyType, milliseconds: number, value: ValueType, callback?: (err: Error, res: Ok) => void): Pipeline;
+        psetex(
+            key: KeyType,
+            milliseconds: number,
+            value: ValueType,
+            callback?: (err: Error, res: Ok) => void,
+        ): Pipeline;
 
         append(key: KeyType, value: ValueType, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -600,7 +797,12 @@ declare namespace IORedis {
 
         getbit(key: KeyType, offset: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        setrange(key: KeyType, offset: number, value: ValueType, callback?: (err: Error, res: number) => void): Pipeline;
+        setrange(
+            key: KeyType,
+            offset: number,
+            value: ValueType,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
         getrange(key: KeyType, start: number, end: number, callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -622,7 +824,13 @@ declare namespace IORedis {
 
         lpushx(key: KeyType, value: ValueType, callback?: (err: Error, res: number) => void): Pipeline;
 
-        linsert(key: KeyType, direction: "BEFORE" | "AFTER", pivot: string, value: ValueType, callback?: (err: Error, res: number) => void): Pipeline;
+        linsert(
+            key: KeyType,
+            direction: 'BEFORE' | 'AFTER',
+            pivot: string,
+            value: ValueType,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
         rpop(key: KeyType, callback?: (err: Error, res: string) => void): Pipeline;
 
@@ -634,7 +842,12 @@ declare namespace IORedis {
 
         blpop(...keys: KeyType[]): Pipeline;
 
-        brpoplpush(source: string, destination: string, timeout: number, callback?: (err: Error, res: string) => void): Pipeline;
+        brpoplpush(
+            source: string,
+            destination: string,
+            timeout: number,
+            callback?: (err: Error, res: string) => void,
+        ): Pipeline;
 
         llen(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -644,7 +857,12 @@ declare namespace IORedis {
 
         lrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: string[]) => void): Pipeline;
 
-        lrangeBuffer(key: KeyType, start: number, stop: number, callback?: (err: Error, res: Buffer[]) => void): Pipeline;
+        lrangeBuffer(
+            key: KeyType,
+            start: number,
+            stop: number,
+            callback?: (err: Error, res: Buffer[]) => void,
+        ): Pipeline;
 
         ltrim(key: KeyType, start: number, stop: number, callback?: (err: Error, res: Ok) => void): Pipeline;
 
@@ -656,7 +874,12 @@ declare namespace IORedis {
 
         srem(key: KeyType, ...members: ValueType[]): Pipeline;
 
-        smove(source: string, destination: string, member: string, callback?: (err: Error, res: string) => void): Pipeline;
+        smove(
+            source: string,
+            destination: string,
+            member: string,
+            callback?: (err: Error, res: string) => void,
+        ): Pipeline;
 
         sismember(key: KeyType, member: string, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 
@@ -684,29 +907,61 @@ declare namespace IORedis {
 
         zadd(key: KeyType, ...args: string[]): Pipeline;
 
-        zincrby(key: KeyType, increment: number, member: string, callback?: (err: Error, res: string) => void): Pipeline;
+        zincrby(
+            key: KeyType,
+            increment: number,
+            member: string,
+            callback?: (err: Error, res: string) => void,
+        ): Pipeline;
 
         zrem(key: KeyType, ...members: ValueType[]): Pipeline;
 
-        zremrangebyscore(key: KeyType, min: number | string, max: number | string, callback?: (err: Error, res: number) => void): Pipeline;
+        zremrangebyscore(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
-        zremrangebyrank(key: KeyType, start: number, stop: number, callback?: (err: Error, res: number) => void): Pipeline;
+        zremrangebyrank(
+            key: KeyType,
+            start: number,
+            stop: number,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
         zunionstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
         zinterstore(destination: string, numkeys: number, key: KeyType, ...args: string[]): Pipeline;
 
         zrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: string[]) => void): Pipeline;
-        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: string[]) => void): Pipeline;
+        zrange(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback?: (err: Error, res: string[]) => void,
+        ): Pipeline;
 
         zrevrange(key: KeyType, start: number, stop: number, callback?: (err: Error, res: string[]) => void): Pipeline;
-        zrevrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback?: (err: Error, res: string[]) => void): Pipeline;
+        zrevrange(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback?: (err: Error, res: string[]) => void,
+        ): Pipeline;
 
         zrangebyscore(key: KeyType, min: number | string, max: number | string, ...args: string[]): Pipeline;
 
         zrevrangebyscore(key: KeyType, max: number | string, min: number | string, ...args: string[]): Pipeline;
 
-        zcount(key: KeyType, min: number | string, max: number | string, callback?: (err: Error, res: number) => void): Pipeline;
+        zcount(
+            key: KeyType,
+            min: number | string,
+            max: number | string,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
         zcard(key: KeyType, callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -716,22 +971,46 @@ declare namespace IORedis {
 
         zrevrank(key: KeyType, member: string, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hset(key: KeyType, field: string, value: ValueType, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
-        hsetBuffer(key: KeyType, field: string, value: ValueType, callback?: (err: Error, res: Buffer) => void): Pipeline;
+        hset(
+            key: KeyType,
+            field: string,
+            value: ValueType,
+            callback?: (err: Error, res: BooleanResponse) => void,
+        ): Pipeline;
+        hsetBuffer(
+            key: KeyType,
+            field: string,
+            value: ValueType,
+            callback?: (err: Error, res: Buffer) => void,
+        ): Pipeline;
 
-        hsetnx(key: KeyType, field: string, value: ValueType, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
+        hsetnx(
+            key: KeyType,
+            field: string,
+            value: ValueType,
+            callback?: (err: Error, res: BooleanResponse) => void,
+        ): Pipeline;
 
         hget(key: KeyType, field: string, callback?: (err: Error, res: string | string) => void): Pipeline;
         hgetBuffer(key: KeyType, field: string, callback?: (err: Error, res: Buffer) => void): Pipeline;
 
         hmset(key: KeyType, ...args: ValueType[]): Pipeline;
-        hmset(key: KeyType, data: object | Map<string, any>, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
+        hmset(
+            key: KeyType,
+            data: object | Map<string, any>,
+            callback?: (err: Error, res: BooleanResponse) => void,
+        ): Pipeline;
 
         hmget(key: KeyType, ...fields: string[]): Pipeline;
 
         hincrby(key: KeyType, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
 
-        hincrbyfloat(key: KeyType, field: string, increment: number, callback?: (err: Error, res: number) => void): Pipeline;
+        hincrbyfloat(
+            key: KeyType,
+            field: string,
+            increment: number,
+            callback?: (err: Error, res: number) => void,
+        ): Pipeline;
 
         hdel(key: KeyType, ...fields: string[]): Pipeline;
 
@@ -775,7 +1054,11 @@ declare namespace IORedis {
 
         expireat(key: KeyType, timestamp: number, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 
-        pexpireat(key: KeyType, millisecondsTimestamp: number, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
+        pexpireat(
+            key: KeyType,
+            millisecondsTimestamp: number,
+            callback?: (err: Error, res: BooleanResponse) => void,
+        ): Pipeline;
 
         keys(pattern: string, callback?: (err: Error, res: string[]) => void): Pipeline;
 
@@ -794,7 +1077,7 @@ declare namespace IORedis {
 
         bgrewriteaof(callback?: (err: Error, res: string) => void): Pipeline;
 
-        shutdown(save: "SAVE" | "NOSAVE", callback?: (err: Error, res: never) => void): Pipeline;
+        shutdown(save: 'SAVE' | 'NOSAVE', callback?: (err: Error, res: never) => void): Pipeline;
 
         lastsave(callback?: (err: Error, res: number) => void): Pipeline;
 
@@ -872,8 +1155,20 @@ declare namespace IORedis {
         scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
         scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Pipeline;
 
-        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
-        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(
+            cursor: number | string,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+        ): Pipeline;
+        scan(
+            cursor: number | string,
+            countOption: 'count' | 'COUNT',
+            count: number,
+            matchOption: 'match' | 'MATCH',
+            pattern: string,
+        ): Pipeline;
         sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
 
         hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
@@ -890,7 +1185,14 @@ declare namespace IORedis {
 
         xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
 
-        xclaim(key: KeyType, group: string, consumer: string, minIdleTime: number, id: string, ...args: ValueType[]): Pipeline;
+        xclaim(
+            key: KeyType,
+            group: string,
+            consumer: string,
+            minIdleTime: number,
+            id: string,
+            ...args: ValueType[]
+        ): Pipeline;
 
         xdel(key: KeyType, ...ids: string[]): Pipeline;
 
@@ -937,17 +1239,55 @@ declare namespace IORedis {
         getBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         getBuffer(key: KeyType): Promise<Buffer>;
 
-        set(key: KeyType, value: ValueType, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<string>;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode?: string | any[],
+            time?: number | string,
+            setMode?: number | string,
+        ): Promise<string>;
         set(key: KeyType, value: ValueType, callback: (err: Error, res: string) => void): void;
         set(key: KeyType, value: ValueType, setMode: string | any[], callback: (err: Error, res: string) => void): void;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, callback: (err: Error, res: string) => void): void;
-        set(key: KeyType, value: ValueType, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: string) => void): void;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            callback: (err: Error, res: string) => void,
+        ): void;
+        set(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            setMode: number | string,
+            callback: (err: Error, res: string) => void,
+        ): void;
 
-        setBuffer(key: KeyType, value: ValueType, expiryMode?: string | any[], time?: number | string, setMode?: number | string): Promise<Buffer>;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode?: string | any[],
+            time?: number | string,
+            setMode?: number | string,
+        ): Promise<Buffer>;
         setBuffer(key: KeyType, value: ValueType, callback: (err: Error, res: Buffer) => void): void;
         setBuffer(key: KeyType, value: ValueType, setMode: string, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number, callback: (err: Error, res: Buffer) => void): void;
-        setBuffer(key: KeyType, value: ValueType, expiryMode: string, time: number | string, setMode: number | string, callback: (err: Error, res: Buffer) => void): void;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number,
+            callback: (err: Error, res: Buffer) => void,
+        ): void;
+        setBuffer(
+            key: KeyType,
+            value: ValueType,
+            expiryMode: string,
+            time: number | string,
+            setMode: number | string,
+            callback: (err: Error, res: Buffer) => void,
+        ): void;
 
         setnx(key: KeyType, value: ValueType, callback: (err: Error, res: number) => void): void;
         setnx(key: KeyType, value: ValueType): Promise<BooleanResponse>;
@@ -978,8 +1318,14 @@ declare namespace IORedis {
         zrem(key: KeyType, ...members: ValueType[]): Promise<number>;
 
         zrange(key: KeyType, start: number, stop: number, callback: (err: Error, res: string[]) => void): void;
-        zrange(key: KeyType, start: number, stop: number, withScores: "WITHSCORES", callback: (err: Error, res: string[]) => void): void;
-        zrange(key: KeyType, start: number, stop: number, withScores?: "WITHSCORES"): Promise<string[]>;
+        zrange(
+            key: KeyType,
+            start: number,
+            stop: number,
+            withScores: 'WITHSCORES',
+            callback: (err: Error, res: string[]) => void,
+        ): void;
+        zrange(key: KeyType, start: number, stop: number, withScores?: 'WITHSCORES'): Promise<string[]>;
 
         hset(key: KeyType, field: string, value: ValueType, callback: (err: Error, res: BooleanResponse) => void): void;
         hset(key: KeyType, field: string, value: ValueType): Promise<BooleanResponse>;
@@ -995,7 +1341,7 @@ declare namespace IORedis {
     }
 
     interface ClusterStatic extends EventEmitter, Commander {
-        new(nodes: ClusterNode[], options?: ClusterOptions): Cluster;
+        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
@@ -1079,13 +1425,13 @@ declare namespace IORedis {
         /**
          * default: "master".
          */
-        role?: "master" | "slave";
+        role?: 'master' | 'slave';
         /**
          * default: null.
          */
         name?: string;
         sentinelPassword?: string;
-        sentinels?: Array<{ host: string; port: number; }>;
+        sentinels?: Array<{ host: string; port: number }>;
         /**
          * If `sentinelRetryStrategy` returns a valid delay time, ioredis will try to reconnect from scratch.
          * default: function(times) { return Math.min(times * 10, 1000); }
@@ -1182,9 +1528,12 @@ declare namespace IORedis {
         count?: number;
     }
 
-    type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+    type DNSLookupFunction = (
+        hostname: string,
+        callback: (err: NodeJS.ErrnoException, address: string, family: number) => void,
+    ) => void;
     interface NatMap {
-        [key: string]: { host: string, port: number };
+        [key: string]: { host: string; port: number };
     }
 
     interface ClusterOptions {
