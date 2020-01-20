@@ -987,7 +987,7 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addRelation(name: string, targetClass: string): this;
+        addRelation(name: string, targetClass: string, options?: Schema.FieldOptions<Relation>): this;
 
         addString(name: string, options?: Schema.FieldOptions<string>): this;
 
