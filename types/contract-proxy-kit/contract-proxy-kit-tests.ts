@@ -63,7 +63,7 @@ CPK.create({
     },
 });
 
-CPK.create({ web3 }).then(async (cpk) => {
+CPK.create({ web3 }).then(async cpk => {
     // $ExpectType CPK
     cpk;
 
