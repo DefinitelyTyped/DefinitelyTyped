@@ -46,11 +46,11 @@ export interface MemoryRouterProps {
 
 export class MemoryRouter extends React.Component<MemoryRouterProps, any> {}
 
-export interface PromptProps {
-    message: string | ((location: H.Location) => string | boolean);
+export interface PromptProps<S = H.LocationState> {
+    message: string | ((location: H.Location<S>) => string | boolean);
     when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, any> {}
+export class Prompt<S = H.LocationState> extends React.Component<PromptProps<S>, any> {}
 
 export interface RedirectProps {
     to: H.LocationDescriptor;
@@ -78,7 +78,7 @@ export interface RouteComponentProps<
 }
 
 export interface RouteChildrenProps<Params extends { [K in keyof Params]?: string } = {}, S = H.LocationState> {
-    history: H.History;
+    history: H.History<S>;
     location: H.Location<S>;
     match: match<Params> | null;
 }
