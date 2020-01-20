@@ -1423,6 +1423,8 @@ declare namespace webpack {
             warningsFilter?: string | RegExp | Array<string | RegExp> | ((warning: string) => boolean);
             /** Show performance hint when file size exceeds `performance.maxAssetSize` */
             performance?: boolean;
+            /** Sets the preset for the type of information that gets displayed */
+            preset?: Preset;
             /** Show the exports of the modules */
             providedExports?: boolean;
         }
