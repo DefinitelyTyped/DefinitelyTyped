@@ -534,6 +534,7 @@ const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString =
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
+// The return type may not be an array
 // $ExpectError
 const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
