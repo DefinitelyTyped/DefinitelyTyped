@@ -1,3 +1,5 @@
+// Minimum TypeScript Version: 3.1
+
 /// <reference path="helpers.d.ts" />
 
 import { JSONSchema4 } from 'json-schema';
