@@ -515,7 +515,7 @@ formatter = cli.getFormatter('codeframe');
 formatter = cli.getFormatter();
 
 let data: CLIEngine.LintResultData;
-let meta: Rule.RuleMetaData = {
+const meta: Rule.RuleMetaData = {
     type: "suggestion",
     docs: {
         description: "disallow unnecessary semicolons",
@@ -528,7 +528,7 @@ let meta: Rule.RuleMetaData = {
     messages: {
         unexpected: "Unnecessary semicolon."
     }
-}
+};
 
 data = {rulesMeta: {"no-extra-semi": meta}};
 

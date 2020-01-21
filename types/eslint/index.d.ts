@@ -539,9 +539,9 @@ export namespace CLIEngine {
     }
 
     interface LintResultData {
-        rulesMeta : {
+        rulesMeta: {
             [ruleId: string]: Rule.RuleMetaData;
-        }
+        };
     }
 
     interface LintReport {
