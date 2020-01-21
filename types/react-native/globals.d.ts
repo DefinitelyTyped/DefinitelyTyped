@@ -282,6 +282,7 @@ interface WebSocketErrorEvent extends Event {
 interface WebSocketCloseEvent extends Event {
     code?: number;
     reason?: string;
+    message?: string;
 }
 
 interface WebSocket extends EventTarget {
