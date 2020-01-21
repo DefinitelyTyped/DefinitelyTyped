@@ -1376,6 +1376,20 @@ declare module 'victory' {
                   y?: ScalePropType | D3Scale;
               };
         /**
+         * By default `domainPadding` is coerced to existing quadrants. This means that if a given domain only
+         * includes positive values, no amount of padding applied by `domainPadding` will result in a domain with
+         * negative values. This is the desired behavior in most cases. For users that need to apply padding without
+         * regard to quadrant, the `singleQuadrantDomainPadding` prop may be used. This prop may be given as a boolean
+         * or an object with boolean values specified for "x" and/or "y". When this prop is false (or false for a given
+         * dimension), padding will be applied without regard to quadrant. If this prop is not specified,
+         * `domainPadding` will be coerced to existing quadrants.
+         *
+         * *note:* The `x` value supplied to the `singleQuadrantDomainPadding` prop refers to the *independent* variable,
+         * and the `y` value refers to the *dependent* variable. This may cause confusion in horizontal charts, as the
+         * independent variable will corresponds to the y axis.
+         */
+        singleQuadrantDomainPadding?: boolean | { x?: boolean; y?: boolean };
+        /**
          * The standalone prop determines whether the component will render a standalone svg
          * or a <g> tag that will be included in an external svg. Set standalone to false to
          * compose VictoryAxis with other components within an enclosing <svg> tag.
