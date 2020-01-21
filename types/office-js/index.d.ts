@@ -12176,7 +12176,7 @@ declare namespace Office {
          * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
          * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
          */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item | ItemCompose | ItemRead | MessageRead | MessageCompose | AppointmentRead | AppointmentCompose;
         /**
          * Gets an object that provides methods to manage the categories master list associated with a mailbox.
          *
