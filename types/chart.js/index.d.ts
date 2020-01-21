@@ -26,6 +26,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { Moment } from 'moment';
+
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
@@ -227,10 +229,10 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date;
-        y?: number | string | Date;
+        x?: number | string | Date | Moment;
+        y?: number | string | Date | Moment;
         r?: number;
-        t?: number | string | Date;
+        t?: number | string | Date | Moment;
     }
 
     interface ChartConfiguration {
@@ -241,7 +243,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         datasets?: ChartDataSets[];
     }
 
