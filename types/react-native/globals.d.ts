@@ -305,4 +305,8 @@ declare var WebSocket: {
             [optionName: string]: any;
         } | null,
     ): WebSocket;
+  readonly CLOSED: number;
+  readonly CLOSING: number;
+  readonly CONNECTING: number;
+  readonly OPEN: number;
 };
