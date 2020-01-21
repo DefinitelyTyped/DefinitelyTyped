@@ -529,7 +529,7 @@ const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
 const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
 // $ExpectType (string | Element)[]
 const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
-// $ExpectType (string | number | null)[]
+// $ExpectType Key[]
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
