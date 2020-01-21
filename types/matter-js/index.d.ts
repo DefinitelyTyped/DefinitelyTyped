@@ -2963,8 +2963,9 @@ declare namespace Matter {
         * @method create
         * @param {vector[]} points
         * @param {body} body
+        * @return {vertices} vertices
         */
-        static create(points: Array<Vector>, body: Body): void;
+        static create(points: Array<Vector>, body: Body): Array<Vector>;
 
         /**
          * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
