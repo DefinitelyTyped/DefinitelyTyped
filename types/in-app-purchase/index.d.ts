@@ -1,6 +1,9 @@
-// Type definitions for in-app-purchase 1.10
+// Type definitions for in-app-purchase 1.11.4
 // Project: https://github.com/voltrue2/in-app-purchase#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>, Dennis Kugelmann <https://github.com/IchordeDionysos>, Alexander Tartmin <https://github.com/Baskerville42>
+// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
+//                 Dennis Kugelmann <https://github.com/IchordeDionysos>
+//                 Alexander Tartmin <https://github.com/Baskerville42>
+//                 Hiroshi Kikuchi <https://github.com/kikuchy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -45,26 +48,44 @@ export interface Config {
 
   /* Configurations for Apple */
 
+  // if you want to exclude old transaction, set this to true. Default is false
+  appleExcludeOldTransactions?: boolean;
   // this comes from iTunes Connect (You need this to valiate subscriptions)
   applePassword?: string;
+
+  // Configurations for Google Service Account validation: You can validate with just packageName, productId, and purchaseToken
+  googleServiceAccount?: {
+    // client email from Google API service account JSON key file
+    clientEmail: string,
+    // private key string from Google API service account JSON key file
+    privateKey: string
+  };
 
   /* Configurations for Google Play */
   // this is the path to the directory containing iap-sanbox/iap-live files
   googlePublicKeyPath?: string;
+  // this is the google iap-sandbox public key string
+  googlePublicKeyStrSandBox?: string;
+  // this is the google iap-live public key string
+  googlePublicKeyStrLive?: string;
   // optional, for Google Play subscriptions
   googleAccToken?: string;
   // optional, for Google Play subscritions
   googleRefToken?: string;
   // optional, for Google Play subscriptions
-  clientId?: string;
+  googleClientID?: string;
   // optional, for Google Play subscriptions
-  clientSecret?: string;
+  googleClientSecret?: string;
   // optional, for Google Play subscriptions
-  refreshToken?: string;
+  googleRefreshToken?: string;
 
   /* Configurations for Roku */
   // this comes from Roku Developer Dashboard
   rokuApiKey?: string;
+
+  /* Configurations for Facebook (Payments Lite) */
+  facebookAppId?: string;
+  facebookAppSecret?: string;
 
   /* Configurations all platforms */
   // For Apple and Googl Play to force Sandbox validation only
