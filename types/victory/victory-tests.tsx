@@ -982,6 +982,6 @@ const sliceProps: VictorySliceProps = {
 };
 
 // singleQuadrantDomainPadding test
-test = <VictoryArea singleQuadrantDomainPadding={true} />
-test = <VictoryArea singleQuadrantDomainPadding={{ x: true }} />
-test = <VictoryArea singleQuadrantDomainPadding={5} /> // $ExpectError
+test = <VictoryArea singleQuadrantDomainPadding={true} />;
+test = <VictoryArea singleQuadrantDomainPadding={{ x: true }} />;
+test = <VictoryArea singleQuadrantDomainPadding={5} />; // $ExpectError
