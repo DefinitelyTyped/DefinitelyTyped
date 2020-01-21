@@ -287,7 +287,7 @@ export function createRenderer(): ShallowRenderer;
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
  */
 // the "void | undefined" is here to forbid any sneaky "Promise" returns.
-export function act(callback: () => void | undefined): DebugPromiseLike;
+export function act(callback: () => void | undefined): void;
 // the "void | undefined" is here to forbid any sneaky return values
 // tslint:disable-next-line: void-return
 export function act(callback: () => Promise<void | undefined>): Promise<undefined>;
