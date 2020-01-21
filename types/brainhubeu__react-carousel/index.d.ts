@@ -21,7 +21,7 @@ export class Dots extends React.Component<DotsProps> {
 export interface CarouselProps {
     value?: number;
     onChange?(value: number): void;
-    slides?: ImgProps[];
+    slides?: any[];
     slidesPerPage?: number;
     slidesPerScroll?: number;
     itemWidth?: number;
