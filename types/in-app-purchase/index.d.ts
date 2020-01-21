@@ -127,7 +127,7 @@ export interface PurchasedItem {
   cancellationDate?: number; // only Apple/Google
   // iTunes, windows and amazon subscription only
   // Google subscriptions only with google play store api info
-  expirationDate?: number;
+  expirationDate?: number | string;
   quantity: number;
   // this was created based on the source code of in-app-purchase
   // eventually there are more fields
