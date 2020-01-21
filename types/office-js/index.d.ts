@@ -8862,27 +8862,6 @@ declare namespace Office {
          */
         optionalAttendees: Recipients | EmailAddressDetails[];
         /**
-         * Gets the organizer for the specified meeting.
-         *
-         * **Read mode**
-         *
-         * The organizer property returns an {@link Office.EmailAddressDetails | EmailAddressDetails} object.
-         *
-         * **Compose mode**
-         * 
-         * The organizer property returns an {@link Office.Organizer | Organizer} object that provides a method to get the organizer value.
-         * Minimum permission level is ReadWriteItem.
-         *
-         * [Api set: All support Read mode; Mailbox 1.7 introduced Compose mode support]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer or Appointment Attendee
-         */
-        organizer: Organizer | EmailAddressDetails;
-        /**
          * Gets or sets the recurrence pattern of an appointment.
          * 
          * The recurrence property returns a recurrence object for recurring appointments or meetings requests if an item is a series or an instance 
@@ -8964,6 +8943,20 @@ declare namespace Office {
      * - {@link Office.Appointment | Appointment}
      */
     interface AppointmentCompose extends Appointment, ItemCompose {
+        /**
+         * Gets the organizer for the specified meeting.
+         *
+         * The organizer property returns an {@link Office.Organizer | Organizer} object that provides a method to get the organizer value.
+         *
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
+         */
+        organizer: Organizer;
     }
     /**
      * The AppointmentForm namespace is used to access the currently selected appointment.
@@ -9146,6 +9139,18 @@ declare namespace Office {
      * - {@link Office.Appointment | Appointment}
      */
     interface AppointmentRead extends Appointment, ItemRead {
+        /**
+         * Gets the organizer for the specified meeting.
+         *
+         * The organizer property returns an {@link Office.EmailAddressDetails | EmailAddressDetails} object.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
+         */
+        organizer: EmailAddressDetails;
     }
     /**
      * Provides the current dates and times of the appointment that raised the `Office.EventType.AppointmentTimeChanged` event. 
@@ -12584,31 +12589,6 @@ declare namespace Office {
          */
         conversationId: string;
         /**
-         * Gets the email address of the sender of a message.
-         *
-         * The from and sender properties represent the same person unless the message is sent by a delegate. 
-         * In that case, the from property represents the owner or delegator, and the sender property represents the delegate.
-         *
-         * **Read mode**
-         *
-         * The from property returns an EmailAddressDetails object.
-         *
-         * **Note**: The recipientType property of the EmailAddressDetails object in the from property is undefined.
-         *
-         * **Compose mode**
-         *
-         * The from property returns a From object that provides a method to get the from value. Minimum permission level is ReadWriteItem.
-         *
-         * [Api set: All support Read mode; Mailbox 1.7 introduced Compose mode support]
-         *
-         * @remarks
-         *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
-         * 
-         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose or Message Read
-         */
-        from: From | EmailAddressDetails;
-        /**
          * Provides access to the recipients on the To line of a message. The type of object and level of access depends on the mode of the 
          * current item.
          *
@@ -12667,6 +12647,23 @@ declare namespace Office {
          */
         bcc: Recipients;
         /**
+         * Gets the email address of the sender of a message.
+         *
+         * The from and sender properties represent the same person unless the message is sent by a delegate. 
+         * In that case, the from property represents the owner or delegator, and the sender property represents the delegate.
+         *
+         * The from property returns a From object that provides a method to get the from value.
+         *
+         * [Api set: Mailbox 1.7]
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Compose
+         */
+        from: From;
+        /**
          * Gets or sets the custom internet headers of a message.
          * 
          * The internetHeaders property returns an InternetHeaders object that provides methods to manage the internet headers on the message.
@@ -12711,6 +12708,23 @@ declare namespace Office {
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer, Appointment Attendee, or Message Read (meeting request)
          */
         end: Date;
+        /**
+         * Gets the email address of the sender of a message.
+         *
+         * The from and sender properties represent the same person unless the message is sent by a delegate. 
+         * In that case, the from property represents the owner or delegator, and the sender property represents the delegate.
+         *
+         * The from property returns an EmailAddressDetails object.
+         *
+         * **Note**: The recipientType property of the EmailAddressDetails object in the from property is undefined.
+         *
+         * @remarks
+         *
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
+         */
+        from: EmailAddressDetails;
         /**
          * Gets the Internet message identifier for an email message.
          *
