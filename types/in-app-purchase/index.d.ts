@@ -12,6 +12,7 @@ export const APPLE = 'apple';
 export const GOOGLE = 'google';
 export const WINDOWS = 'windows';
 export const AMAZON = 'amazon';
+export const FACEBOOK = 'facebook';
 export const ROKU = 'roku';
 
 export function config(params: Config): void;
@@ -94,7 +95,7 @@ export interface Config {
   verbose?: boolean;
 }
 
-export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDOWS | typeof AMAZON | typeof ROKU;
+export type Service = typeof UNITY | typeof APPLE | typeof GOOGLE | typeof WINDOWS | typeof AMAZON | typeof FACEBOOK | typeof ROKU;
 
 export type UnityReceipt = object | string;
 export type AppleReceipt = string;
@@ -105,8 +106,9 @@ export type GoogleReceipt = {
 export type WindowsReceipt = string;
 export type AmazonReceipt = object | string;
 export type RokuReceipt = string;
+export type FacebookReceipt = string;
 
-export type Receipt = UnityReceipt | AppleReceipt | GoogleReceipt | WindowsReceipt | AmazonReceipt | RokuReceipt;
+export type Receipt = UnityReceipt | AppleReceipt | GoogleReceipt | WindowsReceipt | AmazonReceipt | FacebookReceipt | RokuReceipt;
 
 export interface ValidationResponse {
   service: Service;
