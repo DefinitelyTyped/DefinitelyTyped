@@ -163,11 +163,14 @@ webAuth.client.login({
     scope: 'read:order write:order',
 }, (err, authResult) => {/*Auth tokens in the result or an error*/});
 
-webAuth.popup.buildPopupHandler();
+webAuth.popup.buildPopupHandler(); // $ExpectError
 webAuth.popup.preload({});
-webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, data) => {
+webAuth.popup.authorize({ domain: "", redirectUri: "", responseType: "code" }, (err, result) => {
     if (err) /* handle error */ return;
-    // do something with data
+    // do something with results
+    if (result) {
+        // ...
+    }
 });
 webAuth.popup.loginWithCredentials({}, (err, data) => {
     if (err) /* handle error */ return;
@@ -286,4 +289,9 @@ management.patchUserMetadata('asd', {role: 'admin'}, (err, user) => {
     if (!err && user.email_verified) return; // do something
 });
 
-management.linkUser('asd', 'eqwe', (err, user) => {});
+// tslint:disable-next-line: prefer-const
+let user: auth0.Auth0UserProfile;
+management.patchUserAttributes(); // $ExpectError
+management.patchUserAttributes('...'); // $ExpectError
+management.patchUserAttributes('...', {}); // $ExpectError
+management.patchUserAttributes('auth0|123', user, (err, user) => {}); // $ExpectType void

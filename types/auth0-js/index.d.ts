@@ -140,12 +140,17 @@ export class Management {
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
-     * Updates the user metdata. It will patch the user metdata with the attributes sent.
+     * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
-
+    /**
+     * Updates the user attributes.
+     * It will patch the root attributes that the server allows it.
+     * {@link https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id}
+     */
+    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
@@ -333,9 +338,8 @@ export class Popup {
 
     /**
      * Returns a new instance of the popup handler
-     *
      */
-    buildPopupHandler(): any;
+    private buildPopupHandler(): any;
 
     /**
      * Initializes the popup window and returns the instance to be used later in order to avoid being blocked by the browser.
@@ -411,7 +415,7 @@ export class Popup {
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
             owp?: boolean,
         },
-        callback: Auth0Callback<any>,
+        callback: Auth0Callback<Auth0Result>,
     ): void;
 
     /**
@@ -521,7 +525,7 @@ export interface AuthOptions {
     audience?: string;
     /**
      * maximum elapsed time in seconds since the last time the user
-     * was actively authenticatedby the authorization server.
+     * was actively authenticated by the authorization server.
      */
     maxAge?: number;
     leeway?: number;
@@ -588,6 +592,30 @@ export interface Auth0Error {
     original?: any;
     statusCode?: number;
     statusText?: string;
+}
+
+/**
+ * result of the Auth request.
+ * If there is no token available, this value will be null.
+ */
+export interface Auth0Result {
+    /**
+     * token that allows access to the specified resource server (identified by the audience parameter
+     * or by default Auth0's /userinfo endpoint)
+     */
+    accessToken?: string;
+    /** number of seconds until the access token expires */
+    expiresIn?: number;
+    /** token that identifies the user */
+    idToken?: string;
+    /**
+     * token that can be used to get new access tokens from Auth0.
+     * Note that not all Auth0 Applications can request them
+     * or the resource server might not allow them.
+     */
+    refreshToken?: string;
+    /** values that you receive back on the authentication response */
+    appState?: any;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
