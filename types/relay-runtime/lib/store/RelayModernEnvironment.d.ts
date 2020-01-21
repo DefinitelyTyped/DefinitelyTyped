@@ -7,6 +7,7 @@ import {
     LoggerProvider,
     Logger,
     OptimisticUpdateFunction,
+    OperationAvailability,
     OperationDescriptor,
     SelectorStoreUpdater,
     NormalizationSelector,
@@ -46,7 +47,7 @@ export class RelayModernEnvironment implements Environment {
     revertUpdate(update: OptimisticUpdateFunction): void;
     replaceUpdate(update: OptimisticUpdateFunction, newUpdate: OptimisticUpdateFunction): void;
     applyMutation(optimisticConfig: OptimisticResponseConfig): Disposable;
-    check(operation: OperationDescriptor): boolean;
+    check(operation: OperationDescriptor): OperationAvailability;
     commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
     commitUpdate(updater: StoreUpdater): void;
     lookup(readSelector: SingularReaderSelector): Snapshot;

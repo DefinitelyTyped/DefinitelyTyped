@@ -193,6 +193,8 @@ export interface MutableRecordSource extends RecordSource {
     set(dataID: DataID, record: Record): void;
 }
 
+export type OperationAvailability = 'available' | 'stale' | 'missing';
+
 /**
  * An interface for keeping multiple views of data consistent across an
  * application.
@@ -207,7 +209,7 @@ export interface Store {
      * Determine if the selector can be resolved with data in the store (i.e. no
      * fields are missing).
      */
-    check(selector: NormalizationSelector): boolean;
+    check(selector: OperationDescriptor): OperationAvailability;
 
     /**
      * Read the results of a selector from in-memory records in the store.
@@ -236,7 +238,7 @@ export interface Store {
      * retained in-memory. The records will not be eligible for garbage collection
      * until the returned reference is disposed.
      */
-    retain(selector: NormalizationSelector): Disposable;
+    retain(selector: OperationDescriptor): Disposable;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
@@ -408,7 +410,7 @@ export interface Environment {
      * cache and therefore takes time proportional to the size/complexity of the
      * selector.
      */
-    check(operation: OperationDescriptor): boolean;
+    check(operation: OperationDescriptor): OperationAvailability;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
