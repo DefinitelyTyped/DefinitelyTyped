@@ -1,6 +1,7 @@
 import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
+import * as url from 'url';
 
 {
     const ws = new WebSocket('ws://www.host.com/path');
@@ -9,7 +10,8 @@ import * as https from 'https';
 }
 
 {
-    const ws = new WebSocket('ws://www.host.com/path');
+    const addr = 'ws://www.host.com/path';
+    const ws = new WebSocket(addr);
     ws.on('open', () => {
         const array = new Float32Array(5);
         for (let i = 0; i < array.length; ++i) array[i] = i / 2;
@@ -132,4 +134,15 @@ import * as https from 'https';
     ws.onmessage = (event: WebSocket.MessageEvent) => {
         console.log(event.data, event.target, event.type);
     };
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    const duplex = WebSocket.createWebSocketStream(ws, {
+        allowHalfOpen: true
+    });
+
+    duplex.pipe(process.stdout);
+    process.stdin.pipe(duplex);
 }

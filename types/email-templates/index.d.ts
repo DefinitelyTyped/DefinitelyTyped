@@ -22,14 +22,20 @@ import StreamTransport = require('nodemailer/lib/stream-transport');
 // too and calls createTransport if given a non-function, thus a lot
 // of different types accepted for transport
 type NodeMailerTransportOptions =
-    Mail |
-    SMTPPool | SMTPPool.Options |
-    SendmailTransport | SendmailTransport.Options |
-    StreamTransport | StreamTransport.Options |
-    JSONTransport | JSONTransport.Options |
-    SESTransport | SESTransport.Options |
-    SMTPTransport | SMTPTransport.Options |
-    string;
+    | Mail
+    | SMTPPool
+    | SMTPPool.Options
+    | SendmailTransport
+    | SendmailTransport.Options
+    | StreamTransport
+    | StreamTransport.Options
+    | JSONTransport
+    | JSONTransport.Options
+    | SESTransport
+    | SESTransport.Options
+    | SMTPTransport
+    | SMTPTransport.Options
+    | string;
 
 // No typedef for https://github.com/niftylettuce/preview-email
 interface PreviewEmailOpts {
@@ -76,7 +82,7 @@ interface View {
     /**
      * View root. Defaults to the current working directory's "emails" folder via path.resolve('emails')
      */
-    root: string;
+    root?: string;
 
     options?: ViewOptions;
 }
@@ -101,7 +107,7 @@ interface EmailConfig<T = any> {
     /**
      * Preview the email
      */
-    preview?: boolean|PreviewEmailOpts;
+    preview?: boolean | PreviewEmailOpts;
     /**
      * Set to object to configure and Enable <https://github.com/ladjs/il8n>
      */
@@ -119,12 +125,12 @@ interface EmailConfig<T = any> {
      *
      * configuration object for html-to-text
      */
-    htmlToText?: HtmlToTextOptions|false;
+    htmlToText?: HtmlToTextOptions | false;
     /**
      * You can pass an option to prefix subject lines with a string
      * env === 'production' ? false : `[${env.toUpperCase()}] `; // <--- HERE
      */
-    subjectPrefix?: string|false;
+    subjectPrefix?: string | false;
     /**
      * <https://github.com/Automattic/juice>
      */
@@ -158,7 +164,7 @@ declare class EmailTemplate<T = any> {
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    juiceResources(html: string): Promise<string> ;
+    juiceResources(html: string): Promise<string>;
     /**
      *
      * @param view The Html pug to render
@@ -176,7 +182,7 @@ declare namespace EmailTemplate {
      *   shorthand use of `juiceResources` with the config
      *   mainly for custom renders like from a database).
      */
-    function juiceResources(html: string): Promise<string> ;
+    function juiceResources(html: string): Promise<string>;
 
     /**
      *

@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6","dom"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -19,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "future.d.ts",
         "test/fibers.ts",
         "test/futures.ts"
     ]

@@ -1,6 +1,5 @@
 import { DuplexConnection } from 'rsocket-types';
 import { Encoders, TransportServer } from 'rsocket-core';
-import { EventEmitter } from 'events';
 import { Flowable } from 'rsocket-flowable';
 import * as ws from 'ws';
 

@@ -1,1 +1,2 @@
-export { blacklist as default } from '../';
+import validator from '../';
+export default validator.blacklist;

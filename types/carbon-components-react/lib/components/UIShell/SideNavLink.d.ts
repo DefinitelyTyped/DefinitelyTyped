@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     ReactAttr,
+    ReactAnchorAttr,
     RenderIconProps,
     RequiresChildrenProps,
     SideNavSharedProps,
@@ -19,13 +20,13 @@ interface InheritedProps extends
 
 export interface SideNavLinkPropsBase extends InheritedProps { }
 
-export type SideNavLinkProps<E extends object = {}> = LinkProps<E> & SideNavLinkPropsBase;
+export type SideNavLinkProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavLinkPropsBase;
 
 declare interface SideNavLinkFC<E extends object = {}> extends React.FC<SideNavLinkProps<E>> { }
 export declare function createCustomSideNavLink<E extends object = {}>(
     element: SideNavLinkProps['element']
 ): SideNavLinkFC<Omit<E, 'element'>>;
 
-declare function SideNavLink<E extends object = {}>(props: React.PropsWithChildren<SideNavLinkProps<E>>): React.ReactElement | null;
+declare function SideNavLink<E extends object = ReactAnchorAttr>(props: React.PropsWithChildren<SideNavLinkProps<E>>): React.ReactElement | null;
 
 export default SideNavLink;

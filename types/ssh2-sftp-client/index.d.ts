@@ -7,6 +7,7 @@
 //                 Orblazer <https://github.com/orblazer>
 //                 Taylor Herron <https://github.com/gbhmt>
 //                 Lane Goldberg <https://github.com/builtbylane>
+//                 Lorenzo Adinolfi <https://github.com/loru88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as ssh2 from 'ssh2';
@@ -17,7 +18,7 @@ export = sftp;
 declare class sftp {
     connect(options: ssh2.ConnectConfig): Promise<ssh2.SFTPWrapper>;
 
-    list(remoteFilePath: string): Promise<sftp.FileInfo[]>;
+    list(remoteFilePath: string, pattern?: string|RegExp): Promise<sftp.FileInfo[]>;
 
     exists(remotePath: string): Promise<false | "d" | "-" | "l">;
 

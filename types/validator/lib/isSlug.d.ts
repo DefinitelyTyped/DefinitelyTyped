@@ -1,1 +1,2 @@
-export { isSlug as default } from '..';
+import validator from '../';
+export default validator.isSlug;

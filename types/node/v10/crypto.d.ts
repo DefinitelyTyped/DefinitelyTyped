@@ -88,11 +88,11 @@ declare module "crypto" {
         setAAD(buffer: Buffer, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherCCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options: CipherCCMOptions): DecipherCCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: CipherGCMTypes, password: string | Buffer | NodeJS.TypedArray | DataView, options?: CipherGCMOptions): DecipherGCM;
-    /** @deprecated since v10.0.0 use createCipheriv() */
+    /** @deprecated since v10.0.0 use createDecipheriv() */
     function createDecipher(algorithm: string, password: string | Buffer | NodeJS.TypedArray | DataView, options?: stream.TransformOptions): Decipher;
 
     function createDecipheriv(

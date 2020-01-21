@@ -1,1 +1,1 @@
-cldr.js-event.d.ts
+cldr/event.d.ts

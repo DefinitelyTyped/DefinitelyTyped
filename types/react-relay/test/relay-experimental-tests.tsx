@@ -12,6 +12,7 @@ import {
     useFragment,
     useRefetchableFragment,
     usePaginationFragment,
+    useBlockingPaginationFragment,
 } from 'react-relay/hooks';
 
 const source = new RecordSource();
@@ -431,7 +432,7 @@ function PaginationFragment() {
     }
 
     interface Props {
-        user: FriendsListComponent_user$key;
+        user: FriendsListComponent_user$key | null;
     }
 
     return function FriendsList(props: Props) {
@@ -466,6 +467,252 @@ function PaginationFragment() {
                 <h1>Friends of {data!.name}:</h1>
 
                 {data!.friends.edges.map(({ node }) => (
+                    <div>
+                        {node.name} - {node.age}
+                    </div>
+                ))}
+
+                <button onClick={() => loadNext(10)}>Load more friends</button>
+            </>
+        );
+    };
+}
+
+function PaginationFragment_WithNonNullUserProp() {
+    interface FriendsListPaginationQueryVariables {
+        count?: number;
+        cursor?: string;
+        id: string;
+    }
+    interface FriendsListPaginationQueryResponse {
+        readonly node: {
+            readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+        };
+    }
+    interface FriendsListPaginationQuery {
+        readonly response: FriendsListPaginationQueryResponse;
+        readonly variables: FriendsListPaginationQueryVariables;
+    }
+
+    interface FriendsListComponent_user {
+        readonly name: string;
+        readonly friends: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly name: string;
+                    readonly age: number;
+                };
+            }>;
+        };
+        readonly id: string;
+        readonly ' $refType': 'FriendsListComponent_user';
+    }
+    type FriendsListComponent_user$data = FriendsListComponent_user;
+    interface FriendsListComponent_user$key {
+        readonly ' $data'?: FriendsListComponent_user$data;
+        readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+    }
+
+    interface Props {
+        user: FriendsListComponent_user$key;
+    }
+
+    return function FriendsList(props: Props) {
+        const {
+            data,
+            loadNext,
+            loadPrevious,
+            hasNext,
+            hasPrevious,
+            isLoadingNext,
+            isLoadingPrevious,
+            refetch, // For refetching connection
+        } = usePaginationFragment<FriendsListPaginationQuery, FriendsListComponent_user$key>(
+            graphql`
+                fragment FriendsListComponent_user on User @refetchable(queryName: "FriendsListPaginationQuery") {
+                    name
+                    friends(first: $count, after: $cursor) @connection(key: "FriendsList_user_friends") {
+                        edges {
+                            node {
+                                name
+                                age
+                            }
+                        }
+                    }
+                }
+            `,
+            props.user,
+        );
+
+        return (
+            <>
+                <h1>Friends of {data.name}:</h1>
+
+                {data.friends.edges.map(({ node }) => (
+                    <div>
+                        {node.name} - {node.age}
+                    </div>
+                ))}
+
+                <button onClick={() => loadNext(10)}>Load more friends</button>
+            </>
+        );
+    };
+}
+
+/**
+ * Tests for useBlockingPaginationFragment
+ * see https://relay.dev/docs/en/experimental/api-reference#useblockingpaginationfragment
+ */
+function BlockingPaginationFragment() {
+    interface FriendsListPaginationQueryVariables {
+        count?: number;
+        cursor?: string;
+        id: string;
+    }
+    interface FriendsListPaginationQueryResponse {
+        readonly node: {
+            readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+        };
+    }
+    interface FriendsListPaginationQuery {
+        readonly response: FriendsListPaginationQueryResponse;
+        readonly variables: FriendsListPaginationQueryVariables;
+    }
+
+    interface FriendsListComponent_user {
+        readonly name: string;
+        readonly friends: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly name: string;
+                    readonly age: number;
+                };
+            }>;
+        };
+        readonly id: string;
+        readonly ' $refType': 'FriendsListComponent_user';
+    }
+    type FriendsListComponent_user$data = FriendsListComponent_user;
+    interface FriendsListComponent_user$key {
+        readonly ' $data'?: FriendsListComponent_user$data;
+        readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+    }
+
+    interface Props {
+        user: FriendsListComponent_user$key | null;
+    }
+
+    return function FriendsList(props: Props) {
+        const {
+            data,
+            loadNext,
+            loadPrevious,
+            hasNext,
+            hasPrevious,
+            refetch, // For refetching connection
+        } = useBlockingPaginationFragment<FriendsListPaginationQuery, FriendsListComponent_user$key>(
+            graphql`
+                fragment FriendsListComponent_user on User @refetchable(queryName: "FriendsListPaginationQuery") {
+                    name
+                    friends(first: $count, after: $cursor) @connection(key: "FriendsList_user_friends") {
+                        edges {
+                            node {
+                                name
+                                age
+                            }
+                        }
+                    }
+                }
+            `,
+            props.user,
+        );
+
+        return (
+            <>
+                <h1>Friends of {data!.name}:</h1>
+
+                {data!.friends.edges.map(({ node }) => (
+                    <div>
+                        {node.name} - {node.age}
+                    </div>
+                ))}
+
+                <button onClick={() => loadNext(10)}>Load more friends</button>
+            </>
+        );
+    };
+}
+
+function BlockingPaginationFragment_WithNonNullUserProp() {
+    interface FriendsListPaginationQueryVariables {
+        count?: number;
+        cursor?: string;
+        id: string;
+    }
+    interface FriendsListPaginationQueryResponse {
+        readonly node: {
+            readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+        };
+    }
+    interface FriendsListPaginationQuery {
+        readonly response: FriendsListPaginationQueryResponse;
+        readonly variables: FriendsListPaginationQueryVariables;
+    }
+
+    interface FriendsListComponent_user {
+        readonly name: string;
+        readonly friends: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly name: string;
+                    readonly age: number;
+                };
+            }>;
+        };
+        readonly id: string;
+        readonly ' $refType': 'FriendsListComponent_user';
+    }
+    type FriendsListComponent_user$data = FriendsListComponent_user;
+    interface FriendsListComponent_user$key {
+        readonly ' $data'?: FriendsListComponent_user$data;
+        readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+    }
+
+    interface Props {
+        user: FriendsListComponent_user$key;
+    }
+
+    return function FriendsList(props: Props) {
+        const {
+            data,
+            loadNext,
+            loadPrevious,
+            hasNext,
+            hasPrevious,
+            refetch, // For refetching connection
+        } = useBlockingPaginationFragment<FriendsListPaginationQuery, FriendsListComponent_user$key>(
+            graphql`
+                fragment FriendsListComponent_user on User @refetchable(queryName: "FriendsListPaginationQuery") {
+                    name
+                    friends(first: $count, after: $cursor) @connection(key: "FriendsList_user_friends") {
+                        edges {
+                            node {
+                                name
+                                age
+                            }
+                        }
+                    }
+                }
+            `,
+            props.user,
+        );
+
+        return (
+            <>
+                <h1>Friends of {data.name}:</h1>
+
+                {data.friends.edges.map(({ node }) => (
                     <div>
                         {node.name} - {node.age}
                     </div>

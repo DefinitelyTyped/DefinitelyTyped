@@ -123,17 +123,11 @@ export interface Theme extends StyledSystemTheme {
 export const jsx: typeof React.createElement;
 
 /**
- * The `SxStyleProp` extension `SystemStyleObject` and `Emotion` [style props](https://emotion.sh/docs/object-styles)
- * such that properties that are part of the `Theme` will be transformed to
- * their corresponding values. Other valid CSS properties are also allowed.
+ * The `sx` prop accepts a `SxStyleProp` object and properties that are part of
+ * the `Theme` will be transformed to their corresponding values. Other valid
+ * CSS properties are also allowed.
  */
-export type SxStyleProp = SystemStyleObject &
-    Record<
-        string,
-        | SystemStyleObject
-        | ResponsiveStyleValue<number | string>
-        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
-    >;
+export type SxStyleProp = SystemStyleObject;
 
 export interface SxProps {
     /**

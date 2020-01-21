@@ -81,6 +81,7 @@ export interface ReactImageGalleryProps {
     renderPlayPauseButton?: (onClick: React.MouseEventHandler<HTMLElement>, isPlaying: boolean) => React.ReactNode;
     renderFullscreenButton?: (onClick: React.MouseEventHandler<HTMLElement>, isFullscreen: boolean) => React.ReactNode;
     renderItem?: (item: ReactImageGalleryItem) => React.ReactNode;
+    renderThumbInner?: (item: ReactImageGalleryItem) => React.ReactNode;
     stopPropagation?: boolean;
     additionalClass?: string;
     useTranslate3D?: boolean;

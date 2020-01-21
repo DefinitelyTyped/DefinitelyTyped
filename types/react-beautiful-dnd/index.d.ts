@@ -35,6 +35,8 @@ export interface ResponderProvided {
     announce: Announce;
 }
 
+export type OnBeforeCaptureResponder = (before: BeforeCapture) => void;
+
 export type OnBeforeDragStartResponder = (start: DragStart) => void;
 
 export type OnDragStartResponder = (
@@ -53,6 +55,7 @@ export type OnDragEndResponder = (
 ) => void;
 
 export interface Responders {
+    onBeforeCapture?: OnBeforeCaptureResponder;
     onBeforeDragStart?: OnBeforeDragStartResponder;
     onDragStart?: OnDragStartResponder;
     onDragUpdate?: OnDragUpdateResponder;
@@ -63,11 +66,14 @@ export interface Responders {
  *  DragDropContext
  */
 
-export interface DragStart {
+export interface BeforeCapture {
     draggableId: DraggableId;
+    mode: MovementMode;
+}
+
+export interface DragStart extends BeforeCapture {
     type: TypeId;
     source: DraggableLocation;
-    mode: MovementMode;
 }
 
 export interface DragUpdate extends DragStart {
@@ -87,6 +93,7 @@ export interface DropResult extends DragUpdate {
 }
 
 export interface DragDropContextProps {
+    onBeforeCapture?(before: BeforeCapture): void;
     onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;

@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -101,12 +102,12 @@ declare namespace GoogleAppsScript {
       setPageWidth(pageWidth: number): Body;
       setText(text: string): Body;
       setTextAlignment(textAlignment: TextAlignment): Body;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): Body;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): Body;
     }
     /**
      * An object representing a bookmark.
@@ -230,7 +231,6 @@ declare namespace GoogleAppsScript {
     interface DocumentApp {
       Attribute: typeof Attribute;
       ElementType: typeof ElementType;
-      /** @deprecated DO NOT USE */FontFamily: typeof FontFamily;
       GlyphType: typeof GlyphType;
       HorizontalAlignment: typeof HorizontalAlignment;
       ParagraphHeading: typeof ParagraphHeading;
@@ -242,6 +242,7 @@ declare namespace GoogleAppsScript {
       getUi(): Base.Ui;
       openById(id: string): Document;
       openByUrl(url: string): Document;
+      /** @deprecated DO NOT USE */ FontFamily: typeof FontFamily;
     }
     /**
      * A generic element. Document contents are
@@ -516,12 +517,12 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FooterSection;
       setText(text: string): FooterSection;
       setTextAlignment(textAlignment: TextAlignment): FooterSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): FooterSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FooterSection;
     }
     /**
      * An element representing a footnote. Each Footnote is contained within a ListItem
@@ -576,10 +577,10 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): FootnoteSection;
       setText(text: string): FootnoteSection;
       setTextAlignment(textAlignment: TextAlignment): FootnoteSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): FootnoteSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FootnoteSection;
     }
     /**
      * An enumeration of the supported glyph types.
@@ -647,12 +648,12 @@ declare namespace GoogleAppsScript {
       setAttributes(attributes: any): HeaderSection;
       setText(text: string): HeaderSection;
       setTextAlignment(textAlignment: TextAlignment): HeaderSection;
-      /** @deprecated DO NOT USE */getFootnotes(): Footnote[];
-      /** @deprecated DO NOT USE */getLinkUrl(): string;
-      /** @deprecated DO NOT USE */getNextSibling(): Element;
-      /** @deprecated DO NOT USE */getPreviousSibling(): Element;
-      /** @deprecated DO NOT USE */isAtDocumentEnd(): boolean;
-      /** @deprecated DO NOT USE */setLinkUrl(url: string): HeaderSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): HeaderSection;
     }
     /**
      * An enumeration of the supported horizontal alignment types.
@@ -1091,7 +1092,7 @@ declare namespace GoogleAppsScript {
      */
     interface Range {
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
     /**
      * A builder used to construct Range objects from document elements.
@@ -1113,7 +1114,7 @@ declare namespace GoogleAppsScript {
       addRange(range: Range): RangeBuilder;
       build(): Range;
       getRangeElements(): RangeElement[];
-      /** @deprecated DO NOT USE */getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
     /**
      * A wrapper around an Element with a possible start and end offset. These offsets allow a
@@ -1308,7 +1309,7 @@ declare namespace GoogleAppsScript {
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
-      getMinimumHeight(): Integer;
+      getMinimumHeight(): number;
       getNextSibling(): Element;
       getNumCells(): Integer;
       getNumChildren(): Integer;
@@ -1329,7 +1330,7 @@ declare namespace GoogleAppsScript {
       replaceText(searchPattern: string, replacement: string): Element;
       setAttributes(attributes: any): TableRow;
       setLinkUrl(url: string): TableRow;
-      setMinimumHeight(minHeight: Integer): TableRow;
+      setMinimumHeight(minHeight: number): TableRow;
       setTextAlignment(textAlignment: TextAlignment): TableRow;
     }
     /**

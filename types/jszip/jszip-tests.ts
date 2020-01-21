@@ -69,6 +69,10 @@ function testJSZip() {
 		}).catch((e: any) => log(SEVERITY.ERROR, e));
 
 	const folder = newJszip.folder("test");
+
+		folder.file("test.txt").async('string'); // $ExpectType Promise<string>
+		folder.file("test.txt").async('text'); // $ExpectType Promise<string>
+
 		folder.file("test.txt").async('text').then((text: string) => {
 			if (text === "test string") {
 		log(SEVERITY.INFO, "all ok");

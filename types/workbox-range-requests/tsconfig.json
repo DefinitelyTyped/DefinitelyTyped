@@ -19,8 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "Plugin.d.ts",
-        "createPartialResponse.d.ts",
         "workbox-range-requests-tests.ts"
     ]
 }

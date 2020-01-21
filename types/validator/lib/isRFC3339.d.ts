@@ -1,1 +1,2 @@
-export { isRFC3339 as default } from '../';
+import validator from '../';
+export default validator.isRFC3339;

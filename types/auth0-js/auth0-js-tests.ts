@@ -2,7 +2,8 @@ import * as auth0 from 'auth0-js';
 
 const webAuth = new auth0.WebAuth({
     domain: 'mine.auth0.com',
-    clientID: 'dsa7d77dsa7d7'
+    clientID: 'dsa7d77dsa7d7',
+    maxAge: 40,
 });
 
 webAuth.authorize({
@@ -139,7 +140,8 @@ webAuth.passwordlessStart({
 webAuth.passwordlessLogin({
     connection: 'the_connection',
     phoneNumber: '123',
-    verificationCode: '456'
+    verificationCode: '456',
+    state: '12313eqwasdadaasd'
 }, (err, data) => {});
 
 webAuth.signupAndAuthorize({
@@ -209,13 +211,20 @@ const authentication = new auth0.Authentication({
     _sendTelemetry: false
 });
 
+// $ExpectError
 authentication.buildAuthorizeUrl({state: '1234'});
+// $ExpectError
+authentication.buildAuthorizeUrl();
+// $ExpectType string
 authentication.buildAuthorizeUrl({
-    responseType: 'token',
+    audience: 'audience',
+    clientID: 'clientID',
+    nonce: '1234',
     redirectUri: 'http://anotherpage.com/callback2',
-    prompt: 'none',
+    responseMode: 'query',
+    responseType: 'code token',
+    scope: 'openid email',
     state: '1234',
-    connection_scope: 'scope1,scope2'
 });
 
 authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });

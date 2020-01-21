@@ -60,6 +60,13 @@ declare module "worker_threads" {
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        resourceLimits?: ResourceLimits;
+    }
+
+    interface ResourceLimits {
+        maxYoungGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number;
+        codeRangeSizeMb?: number;
     }
 
     class Worker extends EventEmitter {
@@ -67,6 +74,7 @@ declare module "worker_threads" {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
+        readonly resourceLimits?: ResourceLimits;
 
         constructor(filename: string, options?: WorkerOptions);
 

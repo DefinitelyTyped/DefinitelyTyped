@@ -10,7 +10,7 @@
 
 // Import from dependencies
 import { Stream } from 'stream';
-import EventEmitter = NodeJS.EventEmitter;
+import { EventEmitter } from 'events';
 import { AgentOptions } from 'https';
 
 // Exports only from typings

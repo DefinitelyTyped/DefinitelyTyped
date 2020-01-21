@@ -1,11 +1,12 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
-/// <reference path="google-apps-script.charts.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.charts.d.ts" />
 /// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
@@ -99,6 +100,25 @@ declare namespace GoogleAppsScript {
      * Styles that can be set on a range using Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
      */
     enum BorderStyle { DOTTED, DASHED, SOLID, SOLID_MEDIUM, SOLID_THICK, DOUBLE }
+    /**
+     * A representation for a color.
+     */
+    interface Color {
+      asRgbColor(): Base.RgbColor;
+      asThemeColor(): ThemeColor;
+      getColorType(): Base.ColorType;
+    }
+    /**
+     * The builder for ColorBuilder. To create a new builder, use SpreadsheetApp.newColor().
+     */
+    interface ColorBuilder {
+      asRgbColor(): Base.RgbColor;
+      asThemeColor(): ThemeColor;
+      build(): Color;
+      getColorType(): Base.ColorType;
+      setRgbColor(cssString: string): ColorBuilder;
+      setThemeColor(themeColorType: ThemeColorType): ColorBuilder;
+    }
     /**
      * Access conditional formatting rules. To create a new rule, use SpreadsheetApp.newConditionalFormatRule() and ConditionalFormatRuleBuilder.
      * You can use Sheet.setConditionalFormatRules(rules) to set the
@@ -397,8 +417,8 @@ declare namespace GoogleAppsScript {
      * An enumeration representing the data validation criteria that can be set on a range.
      *
      *     // Change existing data-validation rules that require a date in 2013 to require a date in 2014.
-     *     var oldDates = [new Base.Date('1/1/2013'), new Base.Date('12/31/2013')];
-     *     var newDates = [new Base.Date('1/1/2014'), new Base.Date('12/31/2014')];
+     *     var oldDates = [new Date('1/1/2013'), new Date('12/31/2013')];
+     *     var newDates = [new Date('1/1/2014'), new Date('12/31/2014')];
      *     var sheet = SpreadsheetApp.getActiveSheet();
      *     var range = sheet.getRange(1, 1, sheet.getMaxRows(), sheet.getMaxColumns());
      *     var rules = range.getDataValidations();
@@ -1125,11 +1145,11 @@ declare namespace GoogleAppsScript {
      * Access and modify protected sheets in the older version of Google Sheets.
      */
     interface PageProtection {
-      /** @deprecated DO NOT USE */addUser(email: string): void;
-      /** @deprecated DO NOT USE */getUsers(): string[];
-      /** @deprecated DO NOT USE */isProtected(): boolean;
-      /** @deprecated DO NOT USE */removeUser(user: string): void;
-      /** @deprecated DO NOT USE */setProtected(protection: boolean): void;
+      /** @deprecated DO NOT USE */ addUser(email: string): void;
+      /** @deprecated DO NOT USE */ getUsers(): string[];
+      /** @deprecated DO NOT USE */ isProtected(): boolean;
+      /** @deprecated DO NOT USE */ removeUser(user: string): void;
+      /** @deprecated DO NOT USE */ setProtected(protection: boolean): void;
     }
     /**
      * Access and modify pivot table filters.
@@ -1739,8 +1759,8 @@ declare namespace GoogleAppsScript {
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
       updateChart(chart: EmbeddedChart): void;
-      /** @deprecated DO NOT USE */getSheetProtection(): PageProtection;
-      /** @deprecated DO NOT USE */setSheetProtection(permissions: PageProtection): void;
+      /** @deprecated DO NOT USE */ getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */ setSheetProtection(permissions: PageProtection): void;
     }
     /**
      * The different types of sheets that can exist in a spreadsheet.
@@ -1752,10 +1772,10 @@ declare namespace GoogleAppsScript {
      * methods to access and modify existing slicers. To create a new slicer, use Sheet.insertSlicer(range, anchorRowPos, anchorColPos).
      */
     interface Slicer {
-      getBackgroundColor(): string;
-      getColumnPosition(): Integer;
+      getBackgroundColor(): string | null;
+      getColumnPosition(): Integer | null;
       getContainerInfo(): ContainerInfo;
-      getFilterCriteria(): FilterCriteria;
+      getFilterCriteria(): FilterCriteria | null;
       getRange(): Range;
       getTitle(): string;
       getTitleHorizontalAlignment(): string;
@@ -1763,12 +1783,12 @@ declare namespace GoogleAppsScript {
       isAppliedToPivotTables(): boolean;
       remove(): void;
       setApplyToPivotTables(applyToPivotTables: boolean): Slicer;
-      setBackgroundColor(color: string): Slicer;
-      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria): Slicer;
+      setBackgroundColor(color: string | null): Slicer;
+      setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria | null): Slicer;
       setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Slicer;
       setRange(rangeApi: Range): Slicer;
       setTitle(title: string): Slicer;
-      setTitleHorizontalAlignment(horizontalAlignment: string): Slicer;
+      setTitleHorizontalAlignment(horizontalAlignment: string | null): Slicer;
       setTitleTextStyle(textStyle: TextStyle): Slicer;
     }
     /**
@@ -1825,6 +1845,7 @@ declare namespace GoogleAppsScript {
       getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
       getOwner(): Base.User | null;
+      getPredefinedSpreadsheetThemes(): SpreadsheetTheme[];
       getProtections(type: ProtectionType): Protection[];
       getRange(a1Notation: string): Range;
       getRangeByName(name: string): Range | null;
@@ -1838,6 +1859,7 @@ declare namespace GoogleAppsScript {
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
       getSheets(): Sheet[];
       getSpreadsheetLocale(): string;
+      getSpreadsheetTheme(): SpreadsheetTheme | null;
       getSpreadsheetTimeZone(): string;
       getUrl(): string;
       getViewers(): Base.User[];
@@ -1878,6 +1900,7 @@ declare namespace GoogleAppsScript {
       removeViewer(user: Base.User): Spreadsheet;
       rename(newName: string): void;
       renameActiveSheet(newName: string): void;
+      resetSpreadsheetTheme(): SpreadsheetTheme;
       setActiveRange(range: Range): Range;
       setActiveRangeList(rangeList: RangeList): RangeList;
       setActiveSelection(range: Range): Range;
@@ -1895,6 +1918,7 @@ declare namespace GoogleAppsScript {
       setRecalculationInterval(recalculationInterval: RecalculationInterval): Spreadsheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setSpreadsheetLocale(locale: string): void;
+      setSpreadsheetTheme(theme: SpreadsheetTheme): SpreadsheetTheme;
       setSpreadsheetTimeZone(timezone: string): void;
       show(userInterface: HTML.HtmlOutput): void;
       sort(columnPosition: Integer): Sheet;
@@ -1905,11 +1929,11 @@ declare namespace GoogleAppsScript {
       unhideColumn(column: Range): void;
       unhideRow(row: Range): void;
       updateMenu(name: string, subMenus: { name: string, functionName: string }[]): void;
-      /** @deprecated DO NOT USE */getSheetProtection(): PageProtection;
-      /** @deprecated DO NOT USE */isAnonymousView(): boolean;
-      /** @deprecated DO NOT USE */isAnonymousWrite(): boolean;
-      /** @deprecated DO NOT USE */setAnonymousAccess(anonymousReadAllowed: boolean, anonymousWriteAllowed: boolean): void;
-      /** @deprecated DO NOT USE */setSheetProtection(permissions: PageProtection): void;
+      /** @deprecated DO NOT USE */ getSheetProtection(): PageProtection;
+      /** @deprecated DO NOT USE */ isAnonymousView(): boolean;
+      /** @deprecated DO NOT USE */ isAnonymousWrite(): boolean;
+      /** @deprecated DO NOT USE */ setAnonymousAccess(anonymousReadAllowed: boolean, anonymousWriteAllowed: boolean): void;
+      /** @deprecated DO NOT USE */ setSheetProtection(permissions: PageProtection): void;
     }
     /**
      * Access and create Google Sheets files. This class is the parent class for the Spreadsheet service.
@@ -1919,6 +1943,7 @@ declare namespace GoogleAppsScript {
       BandingTheme: typeof BandingTheme;
       BooleanCriteria: typeof BooleanCriteria;
       BorderStyle: typeof BorderStyle;
+      ColorType: typeof Base.ColorType;
       CopyPasteType: typeof CopyPasteType;
       DataExecutionErrorCode: typeof DataExecutionErrorCode;
       DataExecutionState: typeof DataExecutionState;
@@ -1939,6 +1964,7 @@ declare namespace GoogleAppsScript {
       SheetType: typeof SheetType;
       TextDirection: typeof TextDirection;
       TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
+      ThemeColorType: typeof ThemeColorType;
       WrapStrategy: typeof WrapStrategy;
       create(name: string): Spreadsheet;
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
@@ -1953,6 +1979,7 @@ declare namespace GoogleAppsScript {
       getCurrentCell(): Range;
       getSelection(): Selection;
       getUi(): Base.Ui;
+      newColor(): ColorBuilder;
       newConditionalFormatRule(): ConditionalFormatRuleBuilder;
       newDataSourceSpec(): DataSourceSpecBuilder;
       newDataValidation(): DataValidationBuilder;
@@ -1968,6 +1995,17 @@ declare namespace GoogleAppsScript {
       setActiveSheet(sheet: Sheet, restoreSelection: boolean): Sheet;
       setActiveSpreadsheet(newActiveSpreadsheet: Spreadsheet): void;
       setCurrentCell(cell: Range): Range;
+    }
+    /**
+     * Access and modify existing themes. To set a theme on a spreadsheet, use Spreadsheet.setSpreadsheetTheme(theme).
+     */
+    interface SpreadsheetTheme {
+      getConcreteColor(themeColorType: ThemeColorType): Color;
+      getFontFamily(): string | null;
+      getThemeColors(): ThemeColorType[];
+      setConcreteColor(themeColorType: ThemeColorType, color: Color): SpreadsheetTheme;
+      setConcreteColor(themeColorType: ThemeColorType, red: Integer, green: Integer, blue: Integer): SpreadsheetTheme;
+      setFontFamily(fontFamily: string): SpreadsheetTheme;
     }
     /**
      * An enumerations of text directions.
@@ -2032,6 +2070,17 @@ declare namespace GoogleAppsScript {
      * columns.
      */
     enum TextToColumnsDelimiter { COMMA, SEMICOLON, PERIOD, SPACE }
+    /**
+     * A representation for a theme color.
+     */
+    interface ThemeColor {
+      getColorType(): Base.ColorType;
+      getThemeColorType(): ThemeColorType;
+    }
+    /**
+     * An enum which describes various color entries supported in themes.
+     */
+    enum ThemeColorType { UNSUPPORTED, TEXT, BACKGROUND, ACCENT1, ACCENT2, ACCENT3, ACCENT4, ACCENT5, ACCENT6, HYPERLINK }
     /**
      * An enumeration of the strategies used to handle cell text wrapping.
      */

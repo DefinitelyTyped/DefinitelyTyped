@@ -15,6 +15,8 @@ export type ShellbarProps = {
     className?: string;
     /* For use with applications that utilize CoPilot. */
     copilot?: boolean;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     localizedText?: {
         /* Aria-label for <span> element within the <button> element. */
         counterLabel: string;
@@ -69,6 +71,8 @@ export type ShellbarProps = {
     subtitle?: string;
 } & { [x: string]: any };
 
-declare class Shellbar extends React.Component<ShellbarProps> {}
+declare class Shellbar extends React.Component<ShellbarProps> {
+    static displayName: "Shellbar";
+}
 
 export default Shellbar;

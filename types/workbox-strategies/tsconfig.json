@@ -19,12 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "CacheFirst.d.ts",
-        "CacheOnly.d.ts",
-        "NetworkFirst.d.ts",
-        "NetworkOnly.d.ts",
-        "StaleWhileRevalidate.d.ts",
-        "types/MakeRequestCallback.d.ts",
         "workbox-strategies-tests.ts"
     ]
 }

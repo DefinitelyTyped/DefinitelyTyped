@@ -8,7 +8,6 @@ declare module "url" {
         host?: string | null;
         hostname?: string | null;
         href?: string | null;
-        path?: string | null;
         pathname?: string | null;
         protocol?: string | null;
         search?: string | null;

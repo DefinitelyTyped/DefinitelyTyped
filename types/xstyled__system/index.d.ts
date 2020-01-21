@@ -717,3 +717,12 @@ export function breakpoints(values: BreakPointsRules): (props: any) => any;
 export function up(key: string, rules: any): (props: any) => any;
 export function down(key: string, rules: any): (props: any) => any;
 export function between(lower: string, upper: string, rules: any): (props: any) => any;
+
+// ----- RPX TRANSFORMERS -----
+
+export interface RPXTransformers {
+    px: (value: string | number) => string | number;
+    border: (n: string | number) => string;
+}
+
+export const rpxTransformers: RPXTransformers;

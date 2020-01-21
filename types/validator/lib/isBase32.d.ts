@@ -1,1 +1,2 @@
-export { isBase32 as default } from '..';
+import validator from '../';
+export default validator.isBase32;

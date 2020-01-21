@@ -1,1 +1,2 @@
-export { isCurrency as default } from '../';
+import validator from '../';
+export default validator.isCurrency;

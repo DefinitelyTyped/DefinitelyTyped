@@ -516,7 +516,7 @@ export interface Context {
     functionName: string;
     functionVersion: string;
     invokedFunctionArn: string;
-    memoryLimitInMB: number;
+    memoryLimitInMB: string;
     awsRequestId: string;
     logGroupName: string;
     logStreamName: string;
@@ -579,7 +579,7 @@ export interface ALBResult {
     statusDescription: string;
     headers?: { [header: string]: boolean | number | string };
     multiValueHeaders?: { [header: string]: Array<boolean | number | string> };
-    body: string;
+    body?: string;
     isBase64Encoded: boolean;
 }
 

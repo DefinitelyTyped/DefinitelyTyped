@@ -19,6 +19,7 @@ export {
     MemoryRouter,
     RedirectProps,
     Redirect,
+    RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,

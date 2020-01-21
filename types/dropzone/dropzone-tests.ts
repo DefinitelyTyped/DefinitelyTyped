@@ -6,6 +6,8 @@ const dropzoneRenameFunction = (name: string): string => {
 
 Dropzone.createElement('<div id="divTest"></div>');
 Dropzone.isBrowserSupported();
+Dropzone.options['divTest'] = { clickable: true };
+Dropzone.options['noDiscover'] = false;
 console.log(Dropzone.instances.length);
 
 const dropzoneWithOptions = new Dropzone('.test', {
@@ -164,14 +166,19 @@ dropzoneWithOptionsVariations = new Dropzone('.test', {
 });
 
 dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile, response: object) => console.log(file, response),
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
 });
 dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile, response: string) => console.log(file, response),
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
 });
 
 const dropzone = new Dropzone('.test');
 
+dropzone.options.clickable = true;
+if (!dropzone.options.headers) {
+	dropzone.options.headers = {};
+}
+dropzone.options.headers.test = 'test';
 dropzone.enable();
 dropzone.disable();
 

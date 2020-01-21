@@ -62,10 +62,10 @@ declare class PDFDataRangeTransport {
     addProgressiveDoneListener(listener: PDFDataRangeTransportListener): void
     onDataRange(begin: number, chunk: unknown): void
     onDataProgress(loaded: number, total: number): void
-    onDataProgressiveRead(chunk: unknown): void    
+    onDataProgressiveRead(chunk: unknown): void
     onDataProgressiveDone(): void
-    transportReady() : void    
-    requestDataRange(begin: number, end: number): void    
+    transportReady() : void
+    requestDataRange(begin: number, end: number): void
     abort(): void
 }
 
@@ -77,11 +77,11 @@ interface PDFWorkerParameters {
 
 declare class PDFWorker {
     constructor(params?: PDFWorkerParameters)
-    readonly promise: Promise<unknown>    
+    readonly promise: Promise<unknown>
     readonly port: any |null
     readonly messageHandler: unknown | null
     destroy(): void
-    static fromPort(params?: PDFWorkerParameters): PDFWorker  
+    static fromPort(params?: PDFWorkerParameters): PDFWorker
     static getWorkerSrc(): string
 }
 declare enum  CMapCompressionType {
@@ -105,7 +105,7 @@ interface PDFSource {
      * Binary PDF data. Use typed arrays
      * (Uint8Array) to improve the memory usage. If PDF data is BASE64-encoded,
      * use atob() to convert it to a binary string first.
-     */    
+     */
     data?: Uint8Array | BufferSource | string;
     /**
      * Basic authentication headers.
@@ -115,7 +115,7 @@ interface PDFSource {
     };
     /**
      * For decrypting password-protected PDFs.
-     */    
+     */
     password?: string;
     /**
     * Indicates whether or not cross-site
@@ -145,7 +145,7 @@ interface PDFSource {
      * the loading and parsing of the PDF data.
      */
     worker?: PDFWorker;
-    /** 
+    /**
      * Controls the logging level; the
      * constants from {VerbosityLevel} should be used.
      */
@@ -169,7 +169,7 @@ interface PDFSource {
     nativeImageDecoderSupport?: "decode"|"display"|"none"
     /**
      * The URL where the predefined
-     * Adobe CMaps are located. Include trailing slash. */    
+     * Adobe CMaps are located. Include trailing slash. */
     cMapUrl?: string
     /**
      * Specifies if the Adobe CMaps are
@@ -180,46 +180,46 @@ interface PDFSource {
      * used when reading built-in CMap files. Providing a custom factory is useful
      * for environments without `XMLHttpRequest` support, such as e.g. Node.js.
      * The default value is {DOMCMapReaderFactory}.
-     */    
+     */
     CMapReaderFactory?: any
     /**
      * Reject certain promises, e.g.
      * `getOperatorList`, `getTextContent`, and `RenderTask`, when the associated
      * PDF data cannot be successfully parsed, instead of attempting to recover
      * whatever possible of the data. The default value is `false`.
-     */    
+     */
     stopAtErrors?: boolean
     /**
      * The maximum allowed image size
      * in total pixels, i.e. width * height. Images above this value will not be
      * rendered. Use -1 for no limit, which is also the default value.
-     */    
+     */
     maxImageSize?: number
     /**
      * Determines if we can eval
      * strings as JS. Primarily used to improve performance of font rendering,
      * and when parsing PDF functions. The default value is `true`.
-     */    
+     */
     isEvalSupported?: boolean
     /**
      * By default fonts are
      *   converted to OpenType fonts and loaded via font face rules. If disabled,
      *   fonts will be rendered using a built-in font renderer that constructs the
      *   glyphs with primitive path commands. The default value is `false`.
-     */    
+     */
     disableFontFace?: boolean
     /**
      * Disable range request loading
      *   of PDF files. When enabled, and if the server supports partial content
      *   requests, then the PDF will be fetched in chunks.
      *   The default value is `false`.
-     */    
+     */
     disableRange?: boolean
     /**
      * Disable streaming of PDF file
      *   data. By default PDF.js attempts to load PDFs in chunks.
      *   The default value is `false`.
-     */    
+     */
     disableStream?: boolean
     /**
      * Disable pre-fetching of PDF
@@ -228,18 +228,18 @@ interface PDFSource {
      *   The default value is `false`.
      *   NOTE: It is also necessary to disable streaming, see above,
      *         in order for disabling of pre-fetching to work correctly.
-     */    
+     */
     disableAutoFetch?: boolean
     /**
      * Disable the use of
      *   `URL.createObjectURL`, for compatibility with older browsers.
      *   The default value is `false`.
-     */    
+     */
     disableCreateObjectURL?: boolean
     /**
      * Enables special hooks for debugging
      * PDF.js (see `web/debugger.js`). The default value is `false`.
-     */    
+     */
     pdfBug?: boolean
 }
 
@@ -402,6 +402,11 @@ interface PDFRenderTask extends PDFLoadingTask<PDFPageProxy> {
 }
 
 interface PDFPageProxy {
+
+    /**
+     * Page index of the page.  First page is 0.
+     */
+    pageIndex: number;
 
     /**
      * Page number of the page.  First page is 1.

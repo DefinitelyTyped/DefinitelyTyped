@@ -2,6 +2,8 @@ import * as React from "react";
 
 export type ListGroupProps = {
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
 } & { [x: string]: any };
 
 export type ListGroupItemProps = {
@@ -19,9 +21,10 @@ export type ListGroupItemCheckboxProps = {
 } & { [x: string]: any };
 
 declare const ListGroup: React.FunctionComponent<ListGroupProps> & {
-    Item: React.FunctionComponent<ListGroupItemProps>;
-    ItemActions: React.FunctionComponent<ListGroupItemActionsProps>;
-    ItemCheckbox: React.FunctionComponent<ListGroupItemCheckboxProps>;
+    displayName: "ListGroup";
+    Item: React.FunctionComponent<ListGroupItemProps> & {displayName: "ListGroup.Item"};
+    ItemActions: React.FunctionComponent<ListGroupItemActionsProps> & {displayName: "ListGroup.ItemActions"};
+    ItemCheckbox: React.FunctionComponent<ListGroupItemCheckboxProps> & {displayName: "ListGroup.ItemCheckbox"};
 };
 
 export default ListGroup;

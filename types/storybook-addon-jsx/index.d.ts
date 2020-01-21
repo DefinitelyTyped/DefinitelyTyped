@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { ReactNode, ReactElement } from 'react';
-import { StoryApi, DecoratorFunction, Parameters } from '@storybook/addons';
+import { DecoratorFunction, Parameters, StoryApi } from '@storybook/addons';
+import { ReactElement, ReactNode } from 'react';
 
 export type displayNameFunc = (element: ReactElement) => string;
 
@@ -24,14 +24,10 @@ export type AddWithJSXFunc<StoryFnReturnType> = (
 
 declare module '@storybook/addons' {
     interface ClientStoryApi<StoryFnReturnType = unknown> {
-        storiesOf(
-            kind: string,
-            module: NodeModule
-        ): StoryApi<StoryFnReturnType> & {
-            addWithJSX: AddWithJSXFunc<StoryFnReturnType>;
-        };
-        addParameters(parameter: Parameters & { jsx: AddonParameters }): StoryApi<StoryFnReturnType>;
+        storiesOf(kind: string, module: NodeModule): StoryApi<StoryFnReturnType> &
+            { addWithJSX: AddWithJSXFunc<StoryFnReturnType> };
         addDecorator(decorator: DecoratorFunction<StoryFnReturnType>): StoryApi<StoryFnReturnType>;
+        addParameters(parameter: Parameters & { jsx: AddonParameters }): StoryApi<StoryFnReturnType>;
     }
 }
 

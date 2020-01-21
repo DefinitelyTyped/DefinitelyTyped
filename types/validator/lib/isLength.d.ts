@@ -1,1 +1,2 @@
-export { isLength as default } from '../';
+import validator from '../';
+export default validator.isLength;

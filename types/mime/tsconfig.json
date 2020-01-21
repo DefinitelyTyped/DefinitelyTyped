@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "Mime.d.ts",
         "mime-tests.ts"
     ]
 }

@@ -7,7 +7,7 @@
 //                 toddself <https://github.com/toddself>
 //                 ysulyma <https://github.com/ysulyma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 export = CodeMirror;
 export as namespace CodeMirror;

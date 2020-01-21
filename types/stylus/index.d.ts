@@ -6,6 +6,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 declare var stylus: Stylus.Static;
 export = stylus;
 
@@ -635,7 +637,7 @@ declare namespace Stylus {
     export class Compiler {
     }
 
-    export class Renderer extends NodeJS.EventEmitter {
+    export class Renderer extends EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;

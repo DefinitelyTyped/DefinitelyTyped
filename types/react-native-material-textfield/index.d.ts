@@ -3,6 +3,7 @@
 // Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Deividi Cavarzan <https://github.com/cavarzan>
+//                 Neel bhasin <https://github.com/neelb2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,8 +53,6 @@ export interface TextFieldProps extends TextInputProps {
 
     disabledLineWidth?: number;
 
-    renderAccessory?(): JSX.Element;
-
     clearTextOnFocus?: boolean;
 
     prefix?: string;
@@ -64,6 +63,17 @@ export interface TextFieldProps extends TextInputProps {
 
     onPress?(event: Event): void;
     onChangeText?(text: string): void;
+
+    renderLeftAccessory?(): JSX.Element;
+    renderRightAccessory?(): JSX.Element;
+
+    lineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none';
+
+    editable?: boolean;
+    multiline?: boolean;
+
+    formatText?(text: string): string;
 }
 
 /**
@@ -95,6 +105,10 @@ export class TextField extends React.Component<TextFieldProps, any> {
      * Get current restriction state
      */
     isRestricted(): boolean;
+    /*
+     * Set current value
+     */
+    setValue(value?: string): void;
 }
 
 export class OutlinedTextField extends TextField {}

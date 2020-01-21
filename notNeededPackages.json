@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "acme-client",
+            "typingsPackageName": "acme-client",
+            "sourceRepoURL": "https://github.com/publishlab/node-acme-client",
+            "asOfVersion": "3.3.0"
+        },
+        {
             "libraryName": "actions-on-google",
             "typingsPackageName": "actions-on-google",
             "sourceRepoURL": "https://github.com/actions-on-google/actions-on-google-nodejs",
@@ -1697,6 +1703,60 @@
             "typingsPackageName": "hapi-auth-jwt2",
             "sourceRepoURL": "https://github.com/dwyl/hapi-auth-jwt2/",
             "asOfVersion": "8.6.1"
+        },
+        {
+            "libraryName": "@hapi/accept",
+            "typingsPackageName": "hapi__accept",
+            "sourceRepoURL": "https://github.com/hapijs/accept",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/boom",
+            "typingsPackageName": "hapi__boom",
+            "sourceRepoURL": "https://github.com/hapijs/boom",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "@hapi/code",
+            "typingsPackageName": "hapi__code",
+            "sourceRepoURL": "https://github.com/hapijs/code",
+            "asOfVersion": "8.0.0"
+        },
+        {
+            "libraryName": "@hapi/cryptiles",
+            "typingsPackageName": "hapi__cryptiles",
+            "sourceRepoURL": "https://github.com/hapijs/cryptiles",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/hoek",
+            "typingsPackageName": "hapi__hoek",
+            "sourceRepoURL": "https://github.com/hapijs/hoek",
+            "asOfVersion": "9.0.0"
+        },
+        {
+            "libraryName": "@hapi/iron",
+            "typingsPackageName": "hapi__iron",
+            "sourceRepoURL": "https://github.com/hapijs/iron",
+            "asOfVersion": "6.0.0"
+        },
+        {
+            "libraryName": "@hapi/lab",
+            "typingsPackageName": "hapi__lab",
+            "sourceRepoURL": "https://github.com/hapijs/lab",
+            "asOfVersion": "22.0.0"
+        },
+        {
+            "libraryName": "@hapi/topo",
+            "typingsPackageName": "hapi__topo",
+            "sourceRepoURL": "https://github.com/hapijs/topo",
+            "asOfVersion": "5.0.0"
+        },
+        {
+            "libraryName": "@hapi/wreck",
+            "typingsPackageName": "hapi__wreck",
+            "sourceRepoURL": "https://github.com/hapijs/wreck",
+            "asOfVersion": "17.0.0"
         },
         {
             "libraryName": "hard-rejection",
@@ -4645,6 +4705,18 @@
             "asOfVersion": "5.2.0"
         },
         {
+            "libraryName": "@storybook/addon-storyshots",
+            "typingsPackageName": "storybook__addon-storyshots",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.3.0"
+        },
+        {
+            "libraryName": "@storybook/addon-storyshots-puppeteer",
+            "typingsPackageName": "storybook__addon-storyshots-puppeteer",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.3.0"
+        },
+        {
             "libraryName": "@storybook/addon-viewport",
             "typingsPackageName": "storybook__addon-viewport",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
@@ -4673,6 +4745,12 @@
             "typingsPackageName": "storybook__preact",
             "sourceRepoURL": "https://github.com/storybooks/storybook",
             "asOfVersion": "5.2.1"
+        },
+        {
+            "libraryName": "@storybook/react",
+            "typingsPackageName": "storybook__react",
+            "sourceRepoURL": "https://github.com/storybooks/storybook",
+            "asOfVersion": "5.2.0"
         },
         {
             "libraryName": "@storybook/react-native",

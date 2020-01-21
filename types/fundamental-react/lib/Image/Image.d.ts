@@ -7,6 +7,8 @@ export type ImageProps = {
     photo: string;
     size: imageSize;
     className?: string;
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
     type?: imageType;
 } & { [x: string]: any };
 

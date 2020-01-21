@@ -279,7 +279,7 @@ export class RemoteTrackPublication extends TrackPublication {
     kind: Track.Kind;
     track: RemoteTrack | null;
 }
-export class RemoteTrackStats {
+export class RemoteTrackStats extends TrackStats {
     bytesReceived: number | null;
     packetsReceived: number | null;
 }

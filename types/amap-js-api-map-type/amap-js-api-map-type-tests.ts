@@ -12,9 +12,7 @@ const mapType = new AMap.MapType({
 });
 
 // $ExpectError
-new AMap.MapType({
-    defaultType: 2
-});
+new AMap.MapType({ defaultType: 2 });
 
 // $ExpectType void
 mapType.show();

@@ -1,1 +1,2 @@
-export { isISO8601 as default } from '../';
+import validator from '../';
+export default validator.isISO8601;

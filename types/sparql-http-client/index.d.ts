@@ -1,8 +1,8 @@
-// Type definitions for sparql-http-client 1.1
+// Type definitions for sparql-http-client 1.2
 // Project: https://github.com/zazuko/sparql-http-client
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.6
 
 import { Term } from 'rdf-js';
 import { URL } from 'url';
@@ -16,6 +16,7 @@ declare namespace SparqlHttp {
   interface SparqlClientOptions extends SparqlHttpOptions {
         fetch?: typeof fetch;
         URL?: typeof URL;
+        defaultHeaders?: HeadersInit;
   }
 
   interface QueryRequestInit extends SparqlHttpOptions, RequestInit {}

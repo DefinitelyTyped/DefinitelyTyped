@@ -3,6 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ahstro <https://github.com/ahstro>
 //                 vsaarinen <https://github.com/vsaarinen>
+//                 aigoncharov <https://github.com/aigoncharov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -31,7 +32,7 @@ declare namespace RCTooltip {
 		placement?: Placement | Object;
 		align?: Object;
 		onPopupAlign?: (popupDomNode: Element, align: Object) => void;
-		overlay: React.ReactNode;
+		overlay: (() => React.ReactChild) | React.ReactChild | React.ReactFragment | React.ReactPortal;
 		arrowContent?: React.ReactNode;
 		getTooltipContainer?: () => Element;
 		destroyTooltipOnHide?: boolean;

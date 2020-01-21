@@ -401,14 +401,14 @@ export interface LoggerProvider {
  */
 export interface Environment {
     /**
-     * Determine if the selector can be resolved with data in the store (i.e. no
+     * Determine if the operation can be resolved with data in the store (i.e. no
      * fields are missing).
      *
      * Note that this operation effectively "executes" the selector against the
      * cache and therefore takes time proportional to the size/complexity of the
      * selector.
      */
-    check(selector: NormalizationSelector): boolean;
+    check(operation: OperationDescriptor): boolean;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
@@ -418,11 +418,11 @@ export interface Environment {
     subscribe(snapshot: Snapshot, callback: (snapshot: Snapshot) => void): Disposable;
 
     /**
-     * Ensure that all the records necessary to fulfill the given selector are
+     * Ensure that all the records necessary to fulfill the given operation are
      * retained in-memory. The records will not be eligible for garbage collection
      * until the returned reference is disposed.
      */
-    retain(selector: NormalizationSelector): Disposable;
+    retain(operation: OperationDescriptor): Disposable;
 
     /**
      * Apply an optimistic update to the environment. The mutation can be reverted

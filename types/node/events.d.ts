@@ -1,5 +1,6 @@
 declare module "events" {
-    class internal extends NodeJS.EventEmitter { }
+    interface internal extends NodeJS.EventEmitter {}
+    class internal { }
 
     interface NodeEventTarget {
         once(event: string | symbol, listener: (...args: any[]) => void): this;

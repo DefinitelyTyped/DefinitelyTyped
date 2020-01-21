@@ -27,7 +27,6 @@
     },
     "files": [
         "index.d.ts",
-        "dist/js/swiper.esm.d.ts",
         "swiper-tests.ts"
     ]
 }

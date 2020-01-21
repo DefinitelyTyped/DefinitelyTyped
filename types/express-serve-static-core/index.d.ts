@@ -7,6 +7,7 @@
 //                 Sami Jaber <https://github.com/samijaber>
 //                 aereal <https://github.com/aereal>
 //                 Jose Luis Leon <https://github.com/JoseLion>
+//                 David Stephens <https://github.com/dwrss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -185,7 +186,7 @@ export interface CookieOptions {
     domain?: string;
     secure?: boolean;
     encode?: (val: string) => string;
-    sameSite?: boolean | string;
+    sameSite?: boolean | 'lax' | 'strict' | 'none';
 }
 
 export interface ByteRange { start: number; end: number; }
@@ -368,7 +369,7 @@ export interface Request<P extends Params = ParamsDictionary, ResBody = any, Req
      *      req.is('html');
      *      // => false
      */
-    is(type: string): string | false;
+    is(type: string | string[]): string | false | null;
 
     /**
      * Return the protocol string "http" or "https"

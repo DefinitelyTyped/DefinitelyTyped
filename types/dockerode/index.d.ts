@@ -764,6 +764,11 @@ declare namespace Dockerode {
         DeviceSize: string;
       }
     };
+    RootFS: {
+      Type: string;
+      Layers?: string[];
+      BaseLayer?: string;
+    };
   }
 
   interface AuthConfig {

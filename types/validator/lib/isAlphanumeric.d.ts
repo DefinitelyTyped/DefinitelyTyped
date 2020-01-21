@@ -1,1 +1,2 @@
-export { isAlphanumeric as default } from '../';
+import validator from '../';
+export default validator.isAlphanumeric;

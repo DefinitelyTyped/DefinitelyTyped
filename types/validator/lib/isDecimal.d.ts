@@ -1,1 +1,2 @@
-export { isDecimal as default } from '../';
+import validator from '../';
+export default validator.isDecimal;

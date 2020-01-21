@@ -8,7 +8,7 @@ export as namespace adhan;
 
 // Declare method/property
 export class PrayerTimes {
-  constructor(coordinates: Coordinates, date: Date, params: Paramater);
+  constructor(coordinates: Coordinates, date: Date, params: Parameter);
 
   fajr: Date;
   sunrise: Date;
@@ -40,20 +40,20 @@ export const Math: AdhanMath;
 
 // Declare Interface
 export interface AdhanCalculationMethod {
-  Dubai(): Paramater;
-  Egyptian(): Paramater;
-  Karachi(): Paramater;
-  Kuwait(): Paramater;
-  MoonsightingCommittee(): Paramater;
-  MuslimWorldLeague(): Paramater;
-  NorthAmerica(): Paramater;
-  Other(): Paramater;
-  Qatar(): Paramater;
-  Singapore(): Paramater;
-  UmmAlQura(): Paramater;
+  Dubai(): Parameter;
+  Egyptian(): Parameter;
+  Karachi(): Parameter;
+  Kuwait(): Parameter;
+  MoonsightingCommittee(): Parameter;
+  MuslimWorldLeague(): Parameter;
+  NorthAmerica(): Parameter;
+  Other(): Parameter;
+  Qatar(): Parameter;
+  Singapore(): Parameter;
+  UmmAlQura(): Parameter;
 }
 
-export interface Paramater {
+export interface Parameter {
   readonly method: string;
   fajrAngle: number;
   ishaAngle: number;

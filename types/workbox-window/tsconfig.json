@@ -19,11 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "Workbox.d.ts",
-        "messageSW.d.ts",
-        "types/WorkboxEvent.d.ts",
-        "types/WorkboxEventMap.d.ts",
-        "utils/EventTargetShim.d.ts",
         "workbox-window-tests.ts"
     ]
 }

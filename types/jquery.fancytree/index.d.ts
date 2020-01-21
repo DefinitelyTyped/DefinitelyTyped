@@ -132,7 +132,7 @@ declare namespace Fancytree {
         getNodesByRef(refKey: string, rootNode?: FancytreeNode): FancytreeNode[];
 
         /** [ext-persist] Return persistence information from cookies Called like $("#tree").fancytree("getTree").getPersistData(); */
-        getPersistData(): void;
+        getPersistData(): PersistData;
 
         /** Return the invisible system root node.  */
         getRootNode(): FancytreeNode;
@@ -879,6 +879,13 @@ declare namespace Fancytree {
          * "No data."
          */
         noData?: string;
+    }
+
+    interface PersistData {
+        active: string | null;
+        expanded: string[];
+        focus: string | null;
+        selected: string[];
     }
 
     namespace Extensions {

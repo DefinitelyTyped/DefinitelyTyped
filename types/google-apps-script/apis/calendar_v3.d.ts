@@ -316,7 +316,7 @@ declare namespace GoogleAppsScript {
         addOnParameters?: Calendar.Schema.ConferenceParametersAddOnParameters;
       }
       interface ConferenceParametersAddOnParameters {
-        parameters?: object;
+        parameters?: Record<string, string>;
       }
       interface ConferenceProperties {
         allowedConferenceSolutionTypes?: string[];
@@ -424,8 +424,8 @@ declare namespace GoogleAppsScript {
         timeZone?: string;
       }
       interface EventExtendedProperties {
-        private?: object;
-        shared?: object;
+        private?: Record<string, string>;
+        shared?: Record<string, string>;
       }
       interface EventGadget {
         display?: string;

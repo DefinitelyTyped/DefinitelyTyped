@@ -136,6 +136,16 @@ declare namespace Aos {
     type AosEventType = "aos:in" | "aos:out";
 }
 
+declare global {
+    interface Document {
+        addEventListener(
+            type: Aos.AosEventType,
+            listener: (event: Aos.AosEvent) => void,
+            options?: boolean | AddEventListenerOptions
+        ): void;
+    }
+}
+
 declare const Aos: Aos.Aos;
 
 export = Aos;
