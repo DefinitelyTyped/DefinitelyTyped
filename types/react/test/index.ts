@@ -511,7 +511,7 @@ React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
-const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
+const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined>> = React.Children.toArray(children);
 
 declare const numberChildren: number[];
 declare const elementChildren: JSX.Element[];

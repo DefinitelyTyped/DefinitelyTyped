@@ -2794,7 +2794,7 @@ declare namespace React {
         forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
-        toArray<C>(children: C | C[]): C[];
+        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     }
 
     //
