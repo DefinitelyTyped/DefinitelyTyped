@@ -455,6 +455,12 @@ declare global {
 
             /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
             noNamespace?: boolean;
+
+            /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
+            objects?: boolean;
+
+            /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
+            states?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
@@ -489,6 +495,19 @@ declare global {
             version: any;
             /** if the adapter is connected to the host */
             connected: boolean;
+
+            /**
+             * Contains a live cache of the adapter's objects.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `objects: true`.
+             */
+            oObjects?: Record<string, ioBroker.Object>;
+            /**
+             * Contains a live cache of the adapter's states.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `states: true`.
+             */
+            oStates?: Record<string, State>;
 
             /*	===============================
                 Functions defined in adapter.js
