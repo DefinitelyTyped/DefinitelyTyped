@@ -236,6 +236,7 @@ declare namespace cast.framework {
     statusText: string;
     title: string;
     displayStatus: string;
+    liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
     mediaInfo?: chrome.cast.media.MediaInfo;
     imageUrl: string | null;
     playerState: chrome.cast.media.PlayerState | null;
