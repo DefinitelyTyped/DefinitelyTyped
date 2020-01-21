@@ -1,4 +1,5 @@
 import {
+    CheckOptions,
     Store,
     MutableRecordSource,
     Scheduler,
@@ -23,7 +24,7 @@ import {
 export class RelayModernStore implements Store {
     constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
     getSource(): RecordSource;
-    check(selector: OperationDescriptor): OperationAvailability;
+    check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
     retain(selector: OperationDescriptor): Disposable;
     lookup(selector: ReaderSelector): Snapshot;
     notify(): ReadonlyArray<RequestDescriptor>;

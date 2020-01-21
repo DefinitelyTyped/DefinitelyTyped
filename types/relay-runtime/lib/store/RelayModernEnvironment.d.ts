@@ -1,5 +1,6 @@
 import { HandlerProvider } from '../handlers/RelayDefaultHandlerProvider';
 import {
+    CheckOptions,
     OperationLoader,
     Store,
     MissingFieldHandler,
@@ -47,7 +48,7 @@ export class RelayModernEnvironment implements Environment {
     revertUpdate(update: OptimisticUpdateFunction): void;
     replaceUpdate(update: OptimisticUpdateFunction, newUpdate: OptimisticUpdateFunction): void;
     applyMutation(optimisticConfig: OptimisticResponseConfig): Disposable;
-    check(operation: OperationDescriptor): OperationAvailability;
+    check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
     commitPayload(operationDescriptor: OperationDescriptor, payload: PayloadData): void;
     commitUpdate(updater: StoreUpdater): void;
     lookup(readSelector: SingularReaderSelector): Snapshot;

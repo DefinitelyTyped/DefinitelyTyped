@@ -193,6 +193,11 @@ export interface MutableRecordSource extends RecordSource {
     set(dataID: DataID, record: Record): void;
 }
 
+export interface CheckOptions {
+    target: MutableRecordSource;
+    handlers: ReadonlyArray<MissingFieldHandler>;
+}
+
 export type OperationAvailability = 'available' | 'stale' | 'missing';
 
 /**
@@ -206,10 +211,10 @@ export interface Store {
     getSource(): RecordSource;
 
     /**
-     * Determine if the selector can be resolved with data in the store (i.e. no
+     * Determine if the operation can be resolved with data in the store (i.e. no
      * fields are missing).
      */
-    check(selector: OperationDescriptor): OperationAvailability;
+    check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
 
     /**
      * Read the results of a selector from in-memory records in the store.
@@ -310,7 +315,10 @@ export interface RecordProxy<T = {}> {
     // If a parent type is provided, provide the child type
     getLinkedRecord<K extends keyof T>(name: K, args?: Variables | null): RecordProxy<NonNullable<T[K]>>;
     // If a hint is provided, the return value is guaranteed to be the hint type
-    getLinkedRecord<H = never>(name: string, args?: Variables | null): [H] extends [never] ? RecordProxy | null : RecordProxy<H>;
+    getLinkedRecord<H = never>(
+        name: string,
+        args?: Variables | null,
+    ): [H] extends [never] ? RecordProxy | null : RecordProxy<H>;
     getLinkedRecords<K extends keyof T>(
         name: K,
         args?: Variables | null,
@@ -318,10 +326,11 @@ export interface RecordProxy<T = {}> {
     getLinkedRecords<H = never>(
         name: string,
         args?: Variables | null,
-    ): [H] extends [never] ? RecordProxy[] | null :
-        NonNullable<H> extends Array<infer U> ?
-            Array<RecordProxy<U>> | (H extends null ? null : never) :
-            never;
+    ): [H] extends [never]
+        ? RecordProxy[] | null
+        : NonNullable<H> extends Array<infer U>
+        ? Array<RecordProxy<U>> | (H extends null ? null : never)
+        : never;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
     getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
@@ -329,11 +338,9 @@ export interface RecordProxy<T = {}> {
     setLinkedRecord<K extends keyof T>(
         record: RecordProxy<T[K]> | null,
         name: K,
-        args?: Variables | null): RecordProxy<T>;
-    setLinkedRecord(
-        record: RecordProxy | null,
-        name: string,
-        args?: Variables | null): RecordProxy;
+        args?: Variables | null,
+    ): RecordProxy<T>;
+    setLinkedRecord(record: RecordProxy | null, name: string, args?: Variables | null): RecordProxy;
     setLinkedRecords<K extends keyof T>(
         records: Array<RecordProxy<Unarray<T[K]>> | null> | null | undefined,
         name: K,
@@ -410,7 +417,7 @@ export interface Environment {
      * cache and therefore takes time proportional to the size/complexity of the
      * selector.
      */
-    check(operation: OperationDescriptor): OperationAvailability;
+    check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
@@ -674,7 +681,7 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  * order to easily access the root fields of a query/mutation as well as a
  * second argument of the response object of the mutation.
  */
-export type     SelectorStoreUpdater<T = object> = (
+export type SelectorStoreUpdater<T = object> = (
     store: RecordSourceSelectorProxy<T>,
     // Actually SelectorData, but mixed is inconvenient to access deeply in
     // product code.
