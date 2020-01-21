@@ -10,15 +10,15 @@ declare namespace humps {
 	function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 	function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 
+	function camelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+	function pascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+	function decamelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+    function depascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+
 	function camelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
 	function pascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
 	function decamelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
 	function depascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-
-	function camelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function pascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function decamelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-	function depascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
 
 	interface HumpsOptions {
 		separator?: string;

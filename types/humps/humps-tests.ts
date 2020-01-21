@@ -67,3 +67,8 @@ humps.camelizeKeys(someObject, someOptions3);
 humps.pascalizeKeys(someObject, someOptions3);
 humps.decamelizeKeys(someObject, someOptions3);
 humps.depascalizeKeys(someObject, someOptions3);
+
+[...humps.camelizeKeys(someArray)];
+[...humps.pascalizeKeys(someArray)];
+[...humps.decamelizeKeys(someArray)];
+[...humps.depascalizeKeys(someArray)];
