@@ -519,6 +519,10 @@ declare const mixedChildren: Array<JSX.Element | string>;
 declare const singlePluralChildren: JSX.Element | JSX.Element[];
 declare const renderPropsChildren: () => JSX.Element;
 
+// $ExpectType null
+const mappedChildrenArray0 = React.Children.map(null, num => num);
+// $ExpectType undefined
+const mappedChildrenArray1 = React.Children.map(undefined, num => num);
 // $ExpectType number[]
 const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
 // $ExpectType Element[]

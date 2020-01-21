@@ -2788,6 +2788,8 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
+        map(children: null, fn: (child: never, index: number) => never): null;
+        map(children: undefined, fn: (child: never, index: number) => never): undefined;
         map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
         forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
