@@ -75,7 +75,8 @@ declare namespace cast.framework {
     DISPLAY_STATUS_CHANGED = "displayStatusChanged",
     MEDIA_INFO_CHANGED = "mediaInfoChanged",
     IMAGE_URL_CHANGED = "imageUrlChanged",
-    PLAYER_STATE_CHANGED = "playerStateChanged"
+    PLAYER_STATE_CHANGED = "playerStateChanged",
+    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRange"
   }
 
   enum ActiveInputState {
