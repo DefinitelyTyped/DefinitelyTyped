@@ -1264,6 +1264,17 @@ declare namespace chrome.cast.media {
     }
     
     export class LiveSeekableRange {
+        /**
+         * @constructor
+             * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LiveSeekableRange
+         */
+        constructor(
+            start?: number,
+            end?: number,
+            isMovingWindow?: boolean,
+            isLiveDone?: boolean
+        );
+        
         start?: number;
         end?: number;
         isMovingWindow?: boolean;
