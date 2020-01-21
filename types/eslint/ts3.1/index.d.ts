@@ -1,4 +1,4 @@
-// Minimum TypeScript Version: 3.1
+// TypeScript Version: 3.1
 
 /// <reference path="helpers.d.ts" />
 
