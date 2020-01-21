@@ -66,27 +66,6 @@ declare namespace H {
         zoomAt(zoom: number, x: number, y: number): void;
 
         /**
-         * This method sets the bounding rect to be displayed by the map. Maps display the bounding rect in a way that it fits entirely in the current viewport.
-         * @param boundingRect {H.geo.Rect} - view bound which should be shown on map
-         * @param opt_animate {boolean=} - parameter indicates if animated transition should be applied, default is false
-         * @returns {H.Map} - the instance itself
-         */
-        setViewBounds(boundingRect: H.geo.Rect, opt_animate?: boolean): H.Map;
-
-        /**
-         * This method returns bounding rect for the current map view. Returned bounding rect defines entire currently viewable area on the screen.
-         * @returns {H.geo.Rect}
-         */
-        getViewBounds(): H.geo.Rect;
-
-        /**
-         * Calculates the best CameraModel to show the provided bounding rectangle
-         * @param rect {H.geo.Rect} - The geographical bounding rectangle to use
-         * @returns {H.map.ViewModel.CameraData} - The result, represented by the properties zoom (number) and position (geo.Point)
-         */
-        getCameraDataForBounds(rect: H.geo.Rect): H.map.ViewModel.CameraData;
-
-        /**
          * This method returns current map viewport.
          * Viewport can be used to modify padding and margin which will reflect the position of the viewport center and the amount of extra data loaded (for margin)
          * @returns {H.map.ViewPort}
@@ -196,9 +175,9 @@ declare namespace H {
          * Returns the camera data according to the given screen coordinates. Method converts screen pixel coordinates to correct camera data object
          * @param x {number} - map viewport x-axis pixel coordinate
          * @param y {number} - map viewport y-axis pixel coordinate
-         * @returns {H.map.ViewModel.CameraData}
+         * @returns {H.map.ViewModel.ILookAtData}
          */
-        screenToCameraData(x: number, y: number): H.map.ViewModel.CameraData;
+        screenToLookAtData(x: number, y: number): H.map.ViewModel.ILookAtData;
 
         /**
          * This method adds an map object to the map. Map object can be a marker or a spatial object like polygon or polyline.
@@ -1964,10 +1943,10 @@ declare namespace H {
              * This method ends current control, which will stop ongoing animation triggered by the startControl method. This method can prevent kinetics as well as it can adjust the final view if
              * the adjust function is being passed.
              * @param opt_preventKinetics {boolean=} - if set to true will prevent kinetics animation
-             * @param opt_adjustView {function(H.map.ViewModel.CameraData)=} - user defined function which can adjust the final view this function takes last requestedData from the view model and
+             * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - user defined function which can adjust the final view this function takes last requestedData from the view model and
              * should return a modified H.map.ViewModel.CameraData which will be set as the final view
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.CameraData) => void): void;
+            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
         }
 
         /**
@@ -2935,17 +2914,16 @@ declare namespace H {
          */
         class ViewModel extends H.util.EventTarget implements H.map.IControl {
             /**
-             * This method returns the camera data, which is currently rendered.
-             * @returns {H.map.ViewModel.CameraData} - the current rendered camera data
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#setLookAtData}
+             * @param data - The values to be modified. Here are some of the main possibilities to reposition the camera at give look-at point
+             * @param opt_animate - A value indicating if an animated transition should be applied, default is false.
              */
-            getCameraData(): H.map.ViewModel.CameraData;
+            setLookAtData(data: H.map.ViewModel.ILookAtData, opt_animate?: boolean): H.map.ViewModel;
 
             /**
-             * This method sets new camera data to be processed by the renderer.
-             * @param data {H.map.ViewModel.CameraData} - the values to be modified
-             * @returns {H.map.ViewModel} - this view model object
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#getLookAtData}
              */
-            setCameraData(data: H.map.ViewModel.CameraData): H.map.ViewModel;
+            getLookAtData(): H.map.ViewModel.ILookAtData;
 
             /**
              * This method sets a new zoom level to be processed by the renderer
@@ -2959,12 +2937,6 @@ declare namespace H {
              * @returns {number} - current zoom level (scale)
              */
             getZoom(): number;
-
-            /**
-             * This method returns the currently requested data.
-             * @returns {H.map.ViewModel.CameraData} - last requested cam/view data
-             */
-            getRequestedCameraData(): H.map.ViewModel.CameraData;
 
             /**
              * A method to signal the begin of a control operation.
@@ -2989,9 +2961,9 @@ declare namespace H {
             /**
              * A method to signal the end of a control operation.
              * @param opt_preventKinetics {boolean=} - A flag to indicate whether a kinetic effect is performed
-             * @param opt_adjustView {function(H.map.ViewModel.CameraData)=} - An callback to adjust the final ViewModel by modifying the passed camera data.
+             * @param opt_adjustView {function(H.map.ViewModel.ILookAtData)=} - An callback to adjust the final ViewModel by modifying the passed camera data.
              */
-            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.CameraData) => void): void;
+            endControl(opt_preventKinetics?: boolean, opt_adjustView?: (data: H.map.ViewModel.ILookAtData) => void): void;
 
             /**
              * This method will dispatch event on the event target object
@@ -3014,37 +2986,20 @@ declare namespace H {
 
         namespace ViewModel {
             /**
-             * Defines camera's properties.
-             * @property zoom {number=} - zoom level to be used by rendering engine
-             * @property position {H.geo.IPoint} - the position of the virtual camera in geo-space
-             * @property pitch {number=} - the rotation of the virtual camera along its local x-axis
-             * @property yaw {number=} - the rotation of the virtual camera along its local y-axis
-             * @property roll {number=} - the rotation of the virtual camera along its local z-axis
-             * @property fov {number=} -
+             * {@link https://developer.here.com/documentation/maps/api_reference/H.map.ViewModel.html#.ILookAtData}
              */
-            interface CameraData {
+            interface ILookAtData {
+                position?: H.geo.IPoint;
                 zoom?: number;
-                position: H.geo.IPoint;
-                pitch?: number;
-                yaw?: number;
-                roll?: number;
-                fov?: number;
-            }
-
-            /**
-             * Defines currently requested view data, which will be rendered by the map.
-             * @property camera {H.map.ViewModel.CameraData=} - The requested camera properties
-             * @property zoom {number=} - The requested zoom level
-             * @property animate {boolean=} - indicates if the requested transition should be animated
-             */
-            interface RequestedData {
-                camera?: H.map.ViewModel.CameraData;
-                zoom?: number;
-                animate?: boolean;
+                bounds?: H.geo.AbstractGeometry;
+                heading?: number;
+                incline?: number;
+                tilt?: number;
             }
 
             /**
              * Update event is fired whenever view model data is changed. It contains property which hold currently requested data
+             * @fixme find documentation and update constructor typings
              * @property target {*} - Object which triggered the event
              * @property currentTarget {*} - Object which has listener attached
              * @property type {string} - Name of the dispatched event
@@ -3053,9 +3008,9 @@ declare namespace H {
             class UpdateEvent extends H.util.Event {
                 /**
                  * Constructor
-                 * @param requested {H.map.ViewModel.RequestedData}
+                 * @param requested {any}
                  */
-                constructor(requested: H.map.ViewModel.RequestedData);
+                constructor(requested: any);
 
                 /**
                  * Sets defaultPrevented to true. Which can be used to prevent some default behavior.
