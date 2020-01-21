@@ -23,7 +23,7 @@ export interface CollapseProps extends React.HTMLProps<HTMLElement> {
 
 export interface UncontrolledCollapseProps extends CollapseProps {
     defaultOpen?: boolean;
-    toggler: string | React.RefObject<HTMLElement>;
+    toggler: string;
     toggleEvents?: string[];
 }
 

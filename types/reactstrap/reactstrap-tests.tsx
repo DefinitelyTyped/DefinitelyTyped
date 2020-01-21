@@ -4793,8 +4793,3 @@ const UncontrolledTooltipTestInnerRef = () => {
   const container = React.createRef<HTMLDivElement>();
   return (<UncontrolledTooltip target={target} container={container}>Yo!</UncontrolledTooltip>);
 };
-
-const UncontrolledCollapseReactRef = () => {
-  const toggler = React.createRef<HTMLButtonElement>();
-  return (<UncontrolledCollapse toggler={toggler} />);
-};
