@@ -25,7 +25,7 @@ export class RelayModernStore implements Store {
     constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
     getSource(): RecordSource;
     check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
-    retain(selector: OperationDescriptor): Disposable;
+    retain(operation: OperationDescriptor): Disposable;
     lookup(selector: ReaderSelector): Snapshot;
     notify(): ReadonlyArray<RequestDescriptor>;
     publish(source: RecordSource): void;

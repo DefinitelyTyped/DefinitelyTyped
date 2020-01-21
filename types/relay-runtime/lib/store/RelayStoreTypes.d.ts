@@ -243,7 +243,7 @@ export interface Store {
      * retained in-memory. The records will not be eligible for garbage collection
      * until the returned reference is disposed.
      */
-    retain(selector: OperationDescriptor): Disposable;
+    retain(operation: OperationDescriptor): Disposable;
 
     /**
      * Subscribe to changes to the results of a selector. The callback is called
