@@ -1,4 +1,4 @@
-// Type definitions for ioBroker 2.0
+// Type definitions for ioBroker 2.2
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -864,8 +864,7 @@ declare global {
              * @param options If the returned list should be sorted. And some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            // TODO: options should be optional: https://github.com/ioBroker/ioBroker.js-controller/issues/574
-            // getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
+            getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
             getObjectList(
                 params: GetObjectListParams | null,
                 options: { sorted?: boolean } | Record<string, any>,
@@ -875,11 +874,10 @@ declare global {
              * Returns a list of objects with id between params.startkey and params.endkey
              * @param params Parameters determining the objects included in the return list. Null to include all objects
              * @param options If the returned list should be sorted. And some internal options.
-             * @param callback Is called when the operation has finished (successfully or not)
              */
             getObjectListAsync(
                 params: GetObjectListParams | null,
-                options: { sorted?: boolean } | Record<string, any>,
+                options?: { sorted?: boolean } | Record<string, any>,
             ): Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
             // ==============================
