@@ -145,7 +145,7 @@ function test_datasetcore() {
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
-    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+    const dataset3: DatasetCore<QuadBnode, QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
 
     const dataset2Size: number = dataset2.size;
     const dataset2Add: DatasetCore = dataset2.add(quad);
@@ -285,7 +285,7 @@ function test_dataset() {
 
 function test_datasetCoreFactory_covariance() {
     const quad: BaseQuad = <any> {};
-    const factory: DatasetCoreFactory = <any> {};
+    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any> {};
 
     const fromQuads = factory.dataset([quad, quad]);
 }
@@ -293,7 +293,7 @@ function test_datasetCoreFactory_covariance() {
 function test_datasetFactory_covariance() {
     const quad: BaseQuad = <any> {};
     const dataset: Dataset = <any> {};
-    const factory: DatasetFactory = <any> {};
+    const factory: DatasetFactory<Quad, BaseQuad> = <any> {};
 
     const fromQuads = factory.dataset([quad, quad]);
     const fromDataset = factory.dataset(dataset);
@@ -307,10 +307,10 @@ async function test_dataset_covariance(): Promise<Dataset> {
     interface QuadExt extends Quad {
         toCanonical(): string;
     }
-    let datasetExt: Dataset<QuadExt> = <any> {};
+    let datasetExt: Dataset<QuadExt, Quad> = <any> {};
 
     // stream coming from a generic parser
-    const stream: Stream<BaseQuad> = <any> {};
+    const stream: Stream = <any> {};
 
     datasetExt = datasetExt.add(quad);
     datasetExt = datasetExt.delete(quad);

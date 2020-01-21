@@ -429,7 +429,7 @@ export interface Store<Q extends BaseQuad = Quad> extends Source<Q>, Sink<Stream
 /* Dataset Interfaces */
 /* https://rdf.js.org/dataset-spec/ */
 
-export interface DatasetCore<Q extends BaseQuad = Quad> {
+export interface DatasetCore<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> {
     /**
      * A non-negative integer that specifies the number of quads in the set.
      */
@@ -440,17 +440,17 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      *
      * Existing quads, as defined in `Quad.equals`, will be ignored.
      */
-    add(quad: BaseQuad): this;
+    add(quad: InQuad): this;
 
     /**
      * Removes the specified quad from the dataset.
      */
-    delete(quad: BaseQuad): this;
+    delete(quad: InQuad): this;
 
     /**
      * Determines whether a dataset includes a certain quad.
      */
-    has(quad: BaseQuad): boolean;
+    has(quad: InQuad): boolean;
 
     /**
      * Returns a new dataset that is comprised of all quads in the current instance matching the given arguments.
@@ -469,24 +469,24 @@ export interface DatasetCore<Q extends BaseQuad = Quad> {
      */
     match(subject?: Term | null, predicate?: Term | null, object?: Term | null, graph?: Term | null): this;
 
-    [Symbol.iterator](): Iterator<Q>;
+    [Symbol.iterator](): Iterator<OutQuad>;
 }
 
-export interface DatasetCoreFactory<Q extends BaseQuad = Quad, D extends DatasetCore<Q> = DatasetCore<Q>> {
+export interface DatasetCoreFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends DatasetCore<OutQuad, InQuad> = DatasetCore<OutQuad, InQuad>> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: BaseQuad[]): D;
+    dataset(quads?: InQuad[]): D;
 }
 
-export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
+export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends DatasetCore<OutQuad, InQuad> {
     /**
      * Imports the quads into this dataset.
      *
      * This method differs from `Dataset.union` in that it adds all `quads` to the current instance, rather than
      * combining `quads` and the current instance to create a new instance.
      */
-    addAll(quads: Dataset<BaseQuad>|BaseQuad[]): this;
+    addAll(quads: Dataset<InQuad>|InQuad[]): this;
 
     /**
      * Returns `true` if the current instance is a superset of the given dataset; differently put: if the given dataset
@@ -494,7 +494,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * Blank Nodes will be normalized.
      */
-    contains(other: Dataset<BaseQuad>): boolean;
+    contains(other: Dataset<InQuad>): boolean;
 
     /**
      * This method removes the quads in the current instance that match the given arguments.
@@ -512,14 +512,14 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new dataset that contains all quads from the current dataset, not included in the given dataset.
      */
-    difference(other: Dataset<BaseQuad>): this;
+    difference(other: Dataset<InQuad>): this;
 
     /**
      * Returns true if the current instance contains the same graph structure as the given dataset.
      *
      * Blank Nodes will be normalized.
      */
-    equals(other: Dataset<BaseQuad>): boolean;
+    equals(other: Dataset<InQuad>): boolean;
 
     /**
      * Universal quantification method, tests whether every quad in the dataset passes the test implemented by the
@@ -531,38 +531,38 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.every()` in ECMAScript-262.
      */
-    every(iteratee: PropType<QuadFilterIteratee<Q>, 'test'>): boolean;
+    every(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): boolean;
 
     /**
      * Creates a new dataset with all the quads that pass the test implemented by the provided `iteratee`.
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: PropType<QuadFilterIteratee<Q>, 'test'>): this;
+    filter(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): this;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
      *
      * This method is aligned with `Array.prototype.forEach()` in ECMAScript-262.
      */
-    forEach(iteratee: PropType<QuadRunIteratee<Q>, 'run'>): void;
+    forEach(iteratee: PropType<QuadRunIteratee<OutQuad>, 'run'>): void;
 
     /**
      * Imports all quads from the given stream into the dataset.
      *
      * The stream events `end` and `error` are wrapped in a Promise.
      */
-    import(stream: Stream<BaseQuad>): Promise<this>;
+    import(stream: Stream<InQuad>): Promise<this>;
 
     /**
      * Returns a new dataset containing alls quads from the current dataset that are also included in the given dataset.
      */
-    intersection(other: Dataset<BaseQuad>): this;
+    intersection(other: Dataset<InQuad>): this;
 
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: PropType<QuadMapIteratee<Q>, 'map'>): this;
+    map(iteratee: PropType<QuadMapIteratee<OutQuad>, 'map'>): this;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -573,7 +573,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.reduce()` in ECMAScript-262.
      */
-    reduce<A = any>(iteratee: PropType<QuadReduceIteratee<A, Q>, 'run'>, initialValue?: A): A;
+    reduce<A = any>(iteratee: PropType<QuadReduceIteratee<A, OutQuad>, 'run'>, initialValue?: A): A;
 
     /**
      * Existential quantification method, tests whether some quads in the dataset pass the test implemented by the
@@ -583,7 +583,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * This method is aligned with `Array.prototype.some()` in ECMAScript-262.
      */
-    some(iteratee: PropType<QuadFilterIteratee<Q>, 'test'>): boolean;
+    some(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): boolean;
 
     /**
      * Returns the set of quads within the dataset as a host language native sequence, for example an `Array` in
@@ -591,7 +591,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
      *
      * Since a `Dataset` is an unordered set, the order of the quads within the returned sequence is arbitrary.
      */
-    toArray(): Q[];
+    toArray(): OutQuad[];
 
     /**
      * Returns an N-Quads string representation of the dataset, preprocessed with
@@ -602,7 +602,7 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a stream that contains all quads of the dataset.
      */
-    toStream(): Stream<Q>;
+    toStream(): Stream<OutQuad>;
 
     /**
      * Returns an N-Quads string representation of the dataset.
@@ -615,14 +615,15 @@ export interface Dataset<Q extends BaseQuad = Quad> extends DatasetCore<Q> {
     /**
      * Returns a new `Dataset` that is a concatenation of this dataset and the quads given as an argument.
      */
-    union(quads: Dataset<BaseQuad>): this;
+    union(quads: Dataset<InQuad>): this;
 }
 
-export interface DatasetFactory<Q extends BaseQuad = Quad, D extends Dataset<Q> = Dataset<Q>> extends DatasetCoreFactory<Q, D> {
+export interface DatasetFactory<OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad, D extends Dataset<OutQuad, InQuad> = Dataset<OutQuad, InQuad>>
+    extends DatasetCoreFactory<OutQuad, InQuad, D> {
     /**
      * Returns a new dataset and imports all quads, if given.
      */
-    dataset(quads?: Dataset<BaseQuad>|BaseQuad[]): D;
+    dataset(quads?: Dataset<InQuad>|InQuad[]): D;
 }
 
 export interface QuadFilterIteratee<Q extends BaseQuad = Quad> {
