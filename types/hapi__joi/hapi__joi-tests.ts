@@ -945,7 +945,7 @@ schema = Joi.link(str);
 
         result = schema.validate(value);
         if (result.error) {
-            throw Error("error should not be set");
+            throw Error('error should not be set');
         }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
@@ -959,7 +959,7 @@ schema = Joi.link(str);
         const falsyValue = { username: 'example' };
         result = schema.validate(falsyValue);
         if (!result.error) {
-            throw Error("error should be set");
+            throw Error('error should be set');
         }
     }
 }
