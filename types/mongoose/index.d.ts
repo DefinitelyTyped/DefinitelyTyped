@@ -1206,9 +1206,18 @@ declare module "mongoose" {
       (value: T, done: (result: boolean) => void): void;
     }
 
+    interface ValidatorProps {
+      path: string;
+      value: any;
+    }
+
+    interface ValidatorMessageFn {
+      (props: ValidatorProps): string;
+    }
+
     interface ValidateOptsBase {
       msg?: string;
-      message?: string;
+      message?: string | ValidatorMessageFn;
       type?: string;
     }
 

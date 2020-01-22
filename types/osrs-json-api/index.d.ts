@@ -37,8 +37,7 @@ export namespace hiscores {
             hunter: RankScoreObject
             rogue: RankScoreObject
         };
-        lms: {
-        };
+        lms: RankScoreObject;
         clues: {
             all: RankScoreObject
             beginner: RankScoreObject

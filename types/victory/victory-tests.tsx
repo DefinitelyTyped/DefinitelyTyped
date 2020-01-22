@@ -25,6 +25,7 @@ import {
     VictoryClipContainer,
     VictoryPortal,
     VictoryStringOrNumberCallback,
+    VictorySliceProps,
 } from 'victory';
 
 const commonData1 = [
@@ -661,6 +662,7 @@ test = (
             { animal: 'Bird', pet: 15, wild: 40 },
         ]}
         x={'animal'}
+        innerRadius={(props: VictorySliceProps) => 2 }
         y={data => data.pet + data.wild}
     />
 );
@@ -960,3 +962,26 @@ const fullTheme: RecursiveRequired<Required<VictoryThemeDefinition>> = {
         width: 0,
     },
 };
+
+// Slice.props
+const sliceProps: VictorySliceProps = {
+    cornerRadius: props => props.cornerRadius, // $ExpectError
+    datum: { x: 'Cat', y: 62 },
+    innerRadius: props => props.innerRadius, // $ExpectError
+    padAngle: props => props.padAngle, // $ExpectError
+    pathFunction: sliceProps => 'M1,1',
+    radius: props => props.radius, // $ExpectError
+    slice: {
+        data: [],
+        endAngle: 0,
+        padAngle: 0,
+        startAngle: 0,
+    },
+    sliceEndAngle: props => props.sliceEndAngle, // $ExpectError
+    sliceStartAngle: props => props.slieStartAngle, // $ExpectError
+};
+
+// singleQuadrantDomainPadding test
+test = <VictoryArea singleQuadrantDomainPadding={true} />;
+test = <VictoryArea singleQuadrantDomainPadding={{ x: true }} />;
+test = <VictoryArea singleQuadrantDomainPadding={5} />; // $ExpectError
