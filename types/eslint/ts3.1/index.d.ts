@@ -534,6 +534,12 @@ export namespace CLIEngine {
         source?: string;
     }
 
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
     interface LintReport {
         results: LintResult[];
         errorCount: number;
@@ -542,7 +548,7 @@ export namespace CLIEngine {
         fixableWarningCount: number;
     }
 
-    type Formatter = (results: LintResult[]) => string;
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion

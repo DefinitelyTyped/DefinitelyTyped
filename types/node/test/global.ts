@@ -1,8 +1,8 @@
 import { Readable, Writable } from 'stream';
 
 {
-    const x: NodeJS.Module = {} as any;
-    const y: NodeJS.Module = {} as any;
+    const x: NodeModule = {} as any;
+    const y: NodeModule = {} as any;
     x.children.push(y);
     x.parent = require.main!;
     require.main = y;

@@ -5,6 +5,7 @@
 //                 Max Brauer <https://github.com/mamachanko>
 //                 Nathan Rajlich <https://github.com/TooTallNate>
 //                 Daniel Berlanga <https://github.com/danikaze>
+//                 Jeff Huijsmans <https://github.com/jeffhuys>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -2335,7 +2336,7 @@ export namespace Widgets {
         /**
          * Removes an item from the list. Child can be an element, index, or string.
          */
-        removeItem(child: BlessedElement): BlessedElement;
+        removeItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Push an item onto the list.
@@ -2360,12 +2361,12 @@ export namespace Widgets {
         /**
          * Inserts an item to the list. Child can be an element, index, or string.
          */
-        insertItem(i: number, child: BlessedElement): void;
+        insertItem(i: number, child: BlessedElement | number | string): void;
 
         /**
          * Returns the item element. Child can be an element, index, or string.
          */
-        getItem(child: BlessedElement): BlessedElement;
+        getItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Set item to content.
@@ -2390,7 +2391,7 @@ export namespace Widgets {
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
          */
-        getItemIndex(child: BlessedElement): number;
+        getItemIndex(child: BlessedElement | number | string): number;
 
         /**
          * Select an index of an item.

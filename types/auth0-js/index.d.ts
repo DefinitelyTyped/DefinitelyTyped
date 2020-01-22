@@ -1,4 +1,4 @@
-// Type definitions for Auth0.js 9.10
+// Type definitions for Auth0.js 9.12
 // Project: https://github.com/auth0/auth0.js
 // Definitions by: Adrian Chia <https://github.com/adrianchia>
 //                 Matt Durrant <https://github.com/mdurrant>
@@ -6,7 +6,6 @@
 //                 Bartosz Kotrys <https://github.com/bkotrys>
 //                 Mark Nelissen <https://github.com/marknelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export as namespace auth0;
 
@@ -19,9 +18,11 @@ export class Authentication {
     /**
      * Builds and returns the `/authorize` url in order to initialize a new authN/authZ transaction
      *
-     * @param options: https://auth0.com/docs/api/authentication#!#get--authorize_db
+     * @param options: https://auth0.github.io/auth0.js/global.html#buildAuthorizeUrl
+     * @see {@link https://auth0.com/docs/api/authentication#authorize-client}
+     * @see {@link https://auth0.com/docs/api/authentication#social}
      */
-    buildAuthorizeUrl(options: any): string;
+    buildAuthorizeUrl(options: AuthorizeUrlOptions): string;
 
     /**
      * Builds and returns the Logout url in order to initialize a new authN/authZ transaction
@@ -139,12 +140,17 @@ export class Management {
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
-     * Updates the user metdata. It will patch the user metdata with the attributes sent.
+     * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
      *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
-
+    /**
+     * Updates the user attributes.
+     * It will patch the root attributes that the server allows it.
+     * {@link https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id}
+     */
+    patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
      *
@@ -332,9 +338,8 @@ export class Popup {
 
     /**
      * Returns a new instance of the popup handler
-     *
      */
-    buildPopupHandler(): any;
+    private buildPopupHandler(): any;
 
     /**
      * Initializes the popup window and returns the instance to be used later in order to avoid being blocked by the browser.
@@ -410,7 +415,7 @@ export class Popup {
             /** determines if Auth0 should render the relay page or not and the caller is responsible of handling the response. */
             owp?: boolean,
         },
-        callback: Auth0Callback<any>,
+        callback: Auth0Callback<Auth0Result>,
     ): void;
 
     /**
@@ -518,6 +523,11 @@ export interface AuthOptions {
     redirectUri?: string;
     scope?: string;
     audience?: string;
+    /**
+     * maximum elapsed time in seconds since the last time the user
+     * was actively authenticated by the authorization server.
+     */
+    maxAge?: number;
     leeway?: number;
     plugins?: any[];
     _disableDeprecationWarnings?: boolean;
@@ -582,6 +592,30 @@ export interface Auth0Error {
     original?: any;
     statusCode?: number;
     statusText?: string;
+}
+
+/**
+ * result of the Auth request.
+ * If there is no token available, this value will be null.
+ */
+export interface Auth0Result {
+    /**
+     * token that allows access to the specified resource server (identified by the audience parameter
+     * or by default Auth0's /userinfo endpoint)
+     */
+    accessToken?: string;
+    /** number of seconds until the access token expires */
+    expiresIn?: number;
+    /** token that identifies the user */
+    idToken?: string;
+    /**
+     * token that can be used to get new access tokens from Auth0.
+     * Note that not all Auth0 Applications can request them
+     * or the resource server might not allow them.
+     */
+    refreshToken?: string;
+    /** values that you receive back on the authentication response */
+    appState?: any;
 }
 
 export type Auth0ParseHashError = Auth0Error & {
@@ -690,6 +724,47 @@ export interface Office365UserProfile extends Auth0UserProfile {
 
 export interface AdfsUserProfile extends Auth0UserProfile {
     issuer?: string;
+}
+
+export interface AuthorizeUrlOptions {
+    /**
+     * your Auth0 client identifier obtained when creating the client in the Auth0 Dashboard
+     */
+    clientID?: string;
+    /**
+     * url that the Auth0 will redirect after Auth with the Authorization Response
+     */
+    redirectUri: string;
+    /**
+     * type of the response used by OAuth 2.0 flow. It can be any space separated
+     * list of the values `code`, `token`, `id_token`.
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0}
+     */
+    responseType: string;
+    /**
+     * how the Auth response is encoded and redirected back to the client.
+     * Supported values are `query`, `fragment` and `form_post`
+     * {@link https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html#ResponseModes}
+     */
+    responseMode?: 'query' | 'fragment' | 'form_post';
+    /**
+     * value used to mitigate XSRF attacks.
+     * {@link https://auth0.com/docs/protocols/oauth2/oauth-state}
+     */
+    state?: string;
+    /**
+     * value used to mitigate replay attacks when using Implicit Grant.
+     * {@link https://auth0.com/docs/api-auth/tutorials/nonce}
+     */
+    nonce?: string;
+    /**
+     * scopes to be requested during Auth. e.g. `openid email`
+     */
+    scope?: string;
+    /**
+     * identifier of the resource server who will consume the access token issued after Auth
+     */
+    audience?: string;
 }
 
 export interface Auth0Identity {

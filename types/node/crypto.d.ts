@@ -165,7 +165,7 @@ declare module "crypto" {
         type: KeyObjectType;
     }
 
-    type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm';
+    type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'chacha20-poly1305';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
 
     type BinaryLike = string | NodeJS.ArrayBufferView;

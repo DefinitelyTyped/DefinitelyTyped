@@ -13,7 +13,7 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode } from 'react';
+import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, ReactFragment } from 'react';
 
 export {};
 
@@ -190,6 +190,7 @@ export interface TableToggleHideAllColumnProps extends TableToggleCommonProps {}
 export interface UseTableInstanceProps<D extends object> {
     state: TableState<D>;
     hooks: Hooks<D>;
+    plugins: Array<PluginHook<D>>;
     dispatch: TableDispatch;
     columns: Array<ColumnInstance<D>>;
     flatColumns: Array<ColumnInstance<D>>;
@@ -752,7 +753,7 @@ export type StringKey<D> = Extract<keyof D, string>;
 export type IdType<D> = StringKey<D> | string;
 export type CellValue = any;
 
-export type Renderer<Props> = ComponentType<Props> | ReactNode;
+export type Renderer<Props> = ComponentType<Props> | ReactElement | ReactText | ReactFragment;
 
 export interface PluginHook<D extends object> {
     (hooks: Hooks<D>): void;
@@ -795,8 +796,10 @@ export function useGetLatest<T>(obj: T): () => T;
 
 export function safeUseLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
 
+export function useMountedLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
+
 export function useAsyncDebounce<F extends (...args: any[]) => any>(defaultFn: F, defaultWait?: number): F;
 
-export function useConsumeHookGetter(hooks: Hooks, hookName: string): any;
+export function useConsumeHookGetter<D extends object>(hooks: Hooks<D>, hookName: string): any;
 
 export function makeRenderer(instance: TableInstance, column: ColumnInstance, meta?: any): ReactElement;

@@ -152,3 +152,9 @@ if (decoded !== null && typeof decoded === "object") {
 decoded = jwt.decode(token, { json: false });
 
 decoded = jwt.decode(token, { complete: false, json: false });
+
+decoded = jwt.decode(token, { json: true });
+if (decoded) {
+    // $ExpectType { [key: string]: any; }
+    decoded;
+}

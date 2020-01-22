@@ -5,7 +5,7 @@
 //                 Matthias Meyer <https://github.com/mattmeye>
 //                 Alberto Vasquez <https://github.com/albertovasquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 /// <reference types="node"/>
 import * as http from 'http';
@@ -29,20 +29,20 @@ export function createServer(
 
 export function proxy(
     server: http.Server,
-    event: any,
+    event: lambda.APIGatewayProxyEvent,
     context: lambda.Context,
 ): http.Server;
 
 export function proxy(
     server: http.Server,
-    event: any,
+    event: lambda.APIGatewayProxyEvent,
     context: lambda.Context,
     resolutionMode: 'CONTEXT_SUCCEED' | 'PROMISE',
 ): ProxyResult;
 
 export function proxy(
     server: http.Server,
-    event: any,
+    event: lambda.APIGatewayProxyEvent,
     context: lambda.Context,
     resolutionMode: 'CALLBACK',
     callback?: (error: any, response: Response) => void

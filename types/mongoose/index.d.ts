@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5.1
+// Type definitions for Mongoose 5.5.10
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -1206,9 +1206,18 @@ declare module "mongoose" {
       (value: T, done: (result: boolean) => void): void;
     }
 
+    interface ValidatorProps {
+      path: string;
+      value: any;
+    }
+
+    interface ValidatorMessageFn {
+      (props: ValidatorProps): string;
+    }
+
     interface ValidateOptsBase {
       msg?: string;
-      message?: string;
+      message?: string | ValidatorMessageFn;
       type?: string;
     }
 
@@ -2915,9 +2924,13 @@ declare module "mongoose" {
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
      * This function does not trigger any middleware. In particular, it does not trigger aggregate middleware.
-     * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
+     * @param pipeline See http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
+     * @param options See https://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
      */
-    watch(options?: mongodb.ChangeStreamOptions & { session?: ClientSession }): mongodb.ChangeStream;
+    watch(
+        pipeline?: object[],
+        options?: mongodb.ChangeStreamOptions & { session?: ClientSession },
+    ): mongodb.ChangeStream;
 
     /**
      * Translate any aliases fields/conditions so the final query or document object is pure
@@ -2966,8 +2979,8 @@ declare module "mongoose" {
      * If a callback is not passed, the aggregate itself is returned.
      * @param aggregations pipeline operator(s) or operator array
      */
-    aggregate(aggregations?: any[]): Aggregate<any[]>;
-    aggregate(aggregations: any[], cb: Function): Promise<any[]>;
+    aggregate<U = any>(aggregations?: any[]): Aggregate<U[]>;
+    aggregate<U = any>(aggregations: any[], cb: Function): Promise<U[]>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;
@@ -3311,6 +3324,7 @@ declare module "mongoose" {
     /** Removes documents from the collection. */
     remove(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteOne(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
+    deleteOne(conditions: any, options: ModelOptions, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
     deleteMany(conditions: any, callback?: (err: any) => void): Query<mongodb.DeleteWriteOpResultObject['result'] & { deletedCount?: number }> & QueryHelpers;
 
     /**

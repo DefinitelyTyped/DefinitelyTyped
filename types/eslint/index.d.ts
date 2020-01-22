@@ -538,15 +538,27 @@ export namespace CLIEngine {
         source?: string;
     }
 
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
     interface LintReport {
         results: LintResult[];
         errorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    type Formatter = (results: LintResult[]) => string;
+    interface DeprecatedRuleUse {
+      ruleId: string;
+      replacedBy: string[];
+    }
+
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion
