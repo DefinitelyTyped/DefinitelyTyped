@@ -338,6 +338,17 @@ rule = {
             }
         });
 
+        context.report({
+            message: 'foo',
+            node: AST,
+            fix: ruleFixer => {
+                return [
+                    ruleFixer.insertTextAfter(AST, 'foo'),
+                    ruleFixer.insertTextAfter(TOKEN, 'foo')
+                ];
+            }
+        });
+
         return {
             onCodePathStart(codePath, node) {},
             onCodePathEnd(codePath, node) {},
