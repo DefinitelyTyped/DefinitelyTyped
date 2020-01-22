@@ -13,9 +13,9 @@ declare namespace Share {
     function shareSingle(options: Options & { social: SupportedSocialApps }): Promise<ShareSingleReturn>;
 }
 
-import Overlay from '../Overlay.d';
-import Button from '../Button.d';
-import Sheet from '../Sheet.d';
+import Overlay from './Overlay.d';
+import Button from './Button.d';
+import Sheet from './Sheet.d';
 
 export default Share;
 
