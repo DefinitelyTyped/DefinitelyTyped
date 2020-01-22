@@ -441,7 +441,10 @@ export class Button extends EventSource {
     ): (source: ButtonEventName, ...args: any[]) => void;
     raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
     removeAllHandlers(eventName: ButtonEventName): void;
-    removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
+    removeHandler(
+        eventName: ButtonEventName,
+        handler: EventHandler<ButtonEvent>
+    ): void;
 }
 
 export class ButtonGroup {
@@ -967,7 +970,10 @@ export class TiledImage {
     needsDraw(): boolean;
     raiseEvent(eventName: string, eventArgs: object): void;
     removeAllHandlers(eventName: string): void;
-    removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
+    removeHandler(
+        eventName: string,
+        handler: EventHandler<TiledImageEvent>
+    ): void;
     reset(): void;
     setClip(newClip: Rect | null): void;
     setCompositeOperation(compositeOperation: string): void;
@@ -1205,11 +1211,11 @@ export class Viewport {
         pixelHeight: number
     ): Point;
     imageToViewportRectangle(
-      imageX: number | Rect,
-      imageY?: number,
-      pixelWidth?: number,
-      pixelHeight?: number
-    ): Rect;
+        imageX: number | Rect,
+        imageY?: number,
+        pixelWidth?: number,
+        pixelHeight?: number
+    ): Rect;
     imageToViewportZoom(imageZoom: number): number;
     imageToWindowCoordinates(pixel: Point): Point;
     panBy(delta: Point, immediately?: boolean): Viewport;
