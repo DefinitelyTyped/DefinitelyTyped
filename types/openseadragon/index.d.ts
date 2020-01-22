@@ -4,6 +4,7 @@
 //                  RobertYost <https://github.com/RobertYost>
 //                  Jasper Staab <https://github.com/jstaab>
 //                  Kristin Ruben <https://github.com/kristinruben>
+//                  Geoff Harper <https://github.com/geoff-harper>
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
 // TypeScript Version: 3.5
 /// <reference types="node"/>
@@ -1203,6 +1204,12 @@ export class Viewport {
         pixelWidth: number,
         pixelHeight: number
     ): Point;
+    imageToViewportRectangle(
+      imageX: number | Rect,
+      imageY?: number,
+      pixelWidth?: number,
+      pixelHeight?: number
+    ): Rect;
     imageToViewportZoom(imageZoom: number): number;
     imageToWindowCoordinates(pixel: Point): Point;
     panBy(delta: Point, immediately?: boolean): Viewport;
