@@ -10,7 +10,7 @@ export type ImgProps = React.ReactComponentElement<'img'>;
 
 export interface DotsProps {
     number?: number;
-    thumbnails?: ImgProps[];
+    thumbnails?: JSX.Element[];
     value?: number;
     onChange?(value: number): void;
 }
