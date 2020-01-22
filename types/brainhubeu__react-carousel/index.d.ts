@@ -10,7 +10,7 @@ export type ImgProps = React.ReactComponentElement<'img'>;
 
 export interface DotsProps {
     number?: number;
-    thumbnails?: JSX.Element[];
+    thumbnails?: ImgProps[];
     value?: number;
     onChange?(value: number): void;
 }
@@ -21,7 +21,7 @@ export class Dots extends React.Component<DotsProps> {
 export interface CarouselProps {
     value?: number;
     onChange?(value: number): void;
-    slides?: any[];
+    slides?: JSX.Element[];
     slidesPerPage?: number;
     slidesPerScroll?: number;
     itemWidth?: number;
