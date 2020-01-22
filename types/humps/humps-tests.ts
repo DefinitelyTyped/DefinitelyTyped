@@ -3,18 +3,18 @@
 
 import * as humps from 'humps';
 
-let someObject = { attr_one: 'foo', attr_two: 'bar' };
-let someArray = [{ attr_one: 'foo' }, { attr_one: 'bar' }];
+const someObject = { attr_one: 'foo', attr_two: 'bar' };
+const someArray = [{ attr_one: 'foo' }, { attr_one: 'bar' }];
 
-let someOptions: humps.HumpsOptions = {
+const someOptions: humps.HumpsOptions = {
     separator: '-',
 };
-let someOptions2: humps.HumpsOptions = {
+const someOptions2: humps.HumpsOptions = {
     split: /^[A-Z0-9_]+$/,
 };
-let someOptions3: humps.HumpsOptions = {
+const someOptions3: humps.HumpsOptions = {
     separator: '-',
-    process: function(key: string, convert: humps.HumpsProcessorParameter, options: humps.HumpsOptions) {
+    process(key: string, convert: humps.HumpsProcessorParameter, options: humps.HumpsOptions) {
         return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
     },
 };
@@ -28,11 +28,11 @@ humps.camelizeKeys(someObject);
 
 humps.camelizeKeys(someArray);
 
-humps.camelizeKeys(someObject, function(key, convert) {
+humps.camelizeKeys(someObject, (key, convert) => {
     return /^[A-Z0-9_]+$/.test(key) ? key : convert(key);
 });
 
-humps.decamelizeKeys(someObject, function(key, convert, options) {
+humps.decamelizeKeys(someObject, (key, convert, options) => {
     return /^[A-Z0-9_]+$/.test(key) ? key : convert(key, options);
 });
 
