@@ -1,4 +1,4 @@
-// Type definitions for bull 3.10
+// Type definitions for bull 3.12
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 //                 Cameron Crothers <https://github.com/JProgrammer>
@@ -17,6 +17,7 @@
 //                 DoYoung Ha <https://github.com/hados99>
 //                 Borys Kupar <https://github.com/borys-kupar>
 //                 Remko Klein <https://github.com/remko79>
+//                 Levi Bostian <https://github.com/levibostian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -846,6 +847,11 @@ declare namespace Bull {
      * @param list String with all redis clients
      */
     parseClientList(list: string): Redis.Redis[];
+
+    /**
+     * Returns a promise that resolves when active jobs are finished
+     */
+    whenCurrentJobsFinished(): Promise<void>;
   }
 
   type EventCallback = () => void;

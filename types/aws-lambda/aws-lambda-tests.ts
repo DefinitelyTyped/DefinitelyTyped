@@ -155,7 +155,7 @@ num = albRes.statusCode;
 str = albRes.statusDescription;
 boolOrNumOrStr = albRes.headers!['example'];
 boolOrNumOrStr = albRes.multiValueHeaders!['example'][0];
-str = albRes.body;
+strOrUndefined = albRes.body;
 bool = albRes.isBase64Encoded;
 
 /* API Gateway CustomAuthorizer Event */

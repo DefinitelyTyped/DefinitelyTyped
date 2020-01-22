@@ -12,7 +12,7 @@ let term: Term = <any> {};
 const dataset: Dataset = <any> {};
 const graph: NamedNode = <any> {};
 
-let cf = new Clownface({ dataset });
+let cf: Clownface<Dataset> = new Clownface({ dataset });
 cf = new Clownface({ dataset, graph });
 const typedByTerm: Clownface<DatasetCore, NamedNode> = new Clownface({ dataset, term: node });
 const typedByTerms: Clownface<DatasetCore, NamedNode | BlankNode> = new Clownface({ dataset, term: [node, blankNode] });
@@ -71,28 +71,37 @@ cf = cf.deleteOut([node, node]);
 
 // factory
 cf = clownface({ dataset });
-cf = clownface({ dataset, term });
-cf = clownface({ dataset, graph });
-cf = clownface({ dataset, value: 'foo' });
+const namedGraph: clownface.Clownface<Dataset, NamedNode> = clownface({ dataset, graph });
+const singleFromValue: clownface.SingleContextClownface = clownface({ dataset, value: 'foo' });
 
-const termContext: Clownface = clownface({
+const termContext: clownface.SingleContextClownface = clownface({
     dataset,
     term
 });
 
-const namedContext: Clownface<DatasetCore, NamedNode> = clownface({
+const namedContext: clownface.SingleContextClownface<DatasetCore, NamedNode> = clownface({
     dataset,
     term: node,
 });
 
+const namedMutlipleTerms: clownface.SafeClownface<DatasetCore, NamedNode> = clownface({
+    dataset,
+    term: [node, node],
+});
+
+const mutlipleValues: clownface.SafeClownface = clownface({
+    dataset,
+    value: ['foo', 'bar'],
+});
+
 const maybeNamed: BlankNode | NamedNode = <any> {};
-const altContext: Clownface<DatasetCore, BlankNode | NamedNode> = clownface({
+const altContext: clownface.SingleContextClownface<DatasetCore, BlankNode | NamedNode> = clownface({
     dataset,
     term: maybeNamed,
 });
 
 const literalContext: clownface.SingleContextClownface<Dataset, Literal> = <any> {};
-const deriveContextFromOtherGraph: Clownface<Dataset, Literal>  = clownface(literalContext);
+const deriveContextFromOtherGraph: clownface.SingleContextClownface<Dataset, Literal> = clownface(literalContext);
 
 // .filter
 cf = cf.filter(() => true);
@@ -108,12 +117,13 @@ cf = cf.has([predicate, predicate], 'Stuart');
 cf = cf.has(predicate, [literal, literal]);
 
 // .in
+cf = cf.in();
 cf = cf.in(node);
 cf = cf.in([node, node]);
 cf = cf.in(cf.node(node));
 
 // .list
-const iterator: Iterator<Term> = cf.list();
+const listNodes: Iterable<clownface.SingleContextClownface<Dataset>> = cf.list();
 
 // .literal
 cf = cf.literal('foo');
@@ -141,6 +151,7 @@ cf = cf.node('example', { datatype: node.value });
 cf = cf.node('example', { datatype: node });
 
 // .out
+cf = cf.out();
 cf = cf.out(node);
 cf = cf.out([node, node]);
 cf = cf.out(cf.node([node, node]));
