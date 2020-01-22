@@ -282,6 +282,7 @@ interface WebSocketErrorEvent extends Event {
 interface WebSocketCloseEvent extends Event {
     code?: number;
     reason?: string;
+    message?: string;
 }
 
 interface WebSocket extends EventTarget {
@@ -304,4 +305,8 @@ declare var WebSocket: {
             [optionName: string]: any;
         } | null,
     ): WebSocket;
+  readonly CLOSED: number;
+  readonly CLOSING: number;
+  readonly CONNECTING: number;
+  readonly OPEN: number;
 };

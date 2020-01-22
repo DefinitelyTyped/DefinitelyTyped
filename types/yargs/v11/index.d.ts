@@ -120,7 +120,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv;
 
-        fail(func: (msg: string, err: Error) => any): Argv;
+        fail(func: (msg: string, err: Error, yargs: Argv) => any): Argv;
 
         getCompletion(args: string[], done: (completions: string[]) => void): Argv;
 

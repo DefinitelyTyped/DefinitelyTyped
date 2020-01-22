@@ -26,12 +26,20 @@ declare namespace clownface {
     type ClownfaceInit<D extends DatasetCore = DatasetCore, T extends Term = Term>
         = Partial<Pick<Clownface<D, T>, 'dataset' | '_context'> & { graph: Quad_Graph }>;
 
-    interface WithValue {
-        value: string | string[];
+    interface WithSingleValue {
+        value: string;
     }
 
-    interface WithTerm<T extends Term = Term> {
-        term: T | T[];
+    interface WithValues {
+        value: string[];
+    }
+
+    interface WithSingleTerm<T extends Term = Term> {
+        term: T;
+    }
+
+    interface WithTerms<T extends Term = Term> {
+        term: T[];
     }
 
     interface Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> {
@@ -42,7 +50,7 @@ declare namespace clownface {
         readonly dataset: D;
         readonly datasets: D[];
         readonly _context: any;
-        list(): Iterator<Term>;
+        list(): Iterable<SingleContextClownface<D>>;
         toArray(): Array<Clownface<D, T>>;
         filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
         forEach(cb: (quad: Clownface<D, T>) => void): void;
@@ -69,8 +77,8 @@ declare namespace clownface {
         namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
 
         // tslint:disable:no-unnecessary-generics
-        in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+        in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+        out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
         has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 
@@ -103,11 +111,16 @@ declare namespace clownface {
     }
 }
 
-type ClownfaceInitWithNode<D extends DatasetCore, T extends Term> =
-    clownface.ClownfaceInit<D> & clownface.WithTerm<T> |
-    clownface.ClownfaceInit<D> & clownface.WithValue;
+type ClownfaceInitWithNodes<D extends DatasetCore, T extends Term> =
+    clownface.ClownfaceInit<D> & clownface.WithTerms<T> |
+    clownface.ClownfaceInit<D> & clownface.WithValues;
 
-declare function clownface<D extends DatasetCore, T extends Term = Term>(options: ClownfaceInitWithNode<D, T>): clownface.SafeClownface<D, T>;
+type ClownfaceInitWithSingleNode<D extends DatasetCore, T extends Term> =
+    clownface.ClownfaceInit<D> & clownface.WithSingleTerm<T> |
+    clownface.ClownfaceInit<D> & clownface.WithSingleValue;
+
+declare function clownface<D extends DatasetCore, T extends Term = Term>(options: ClownfaceInitWithNodes<D, T>): clownface.SafeClownface<D, T>;
+declare function clownface<D extends DatasetCore, T extends Term = Term>(options: ClownfaceInitWithSingleNode<D, T>): clownface.SingleContextClownface<D, T>;
 declare function clownface<D extends DatasetCore, T extends Term = Term>(options: clownface.ClownfaceInit<D, T>): clownface.Clownface<D, T>;
 
 export = clownface;

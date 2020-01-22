@@ -1,6 +1,6 @@
 // Type definitions for Chartist v0.9.81
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>, Anastasiia Antonova <https://github.com/affilnost>, Sunny Juneja <https://github.com/sunnyrjuneja>, Sam Raudabaugh <https://github.com/raudabaugh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -531,6 +531,10 @@ declare namespace Chartist {
     }
 
     interface IChartistSvg {
+        /**
+         * The SVG DOM element wrapped by IChartistSvg
+         */
+        _node: HTMLElement;
 
         /**
          * Set attributes on the current SVG element of the wrapper you're currently working on.

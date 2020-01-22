@@ -204,7 +204,7 @@ interface AttributeConfig {
   sizes?: string;
 }
 
-type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.SourceHTMLAttributes<HTMLSourceElement>;
+type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.SourceHTMLAttributes<HTMLSourceElement> | Record<string, string>;
 
 interface CommonProps {
   className?: string;

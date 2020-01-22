@@ -84,7 +84,7 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
 }
 
 interface GeographiesChildrenArgument {
-    geographies: object[];
+    geographies: any[];
     path: GeoPath;
     projection: GeoProjection;
 }
@@ -97,7 +97,7 @@ export interface GeographiesProps extends React.SVGAttributes<SVGGElement> {
 
 export interface GeographyProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, 'style'>> {
-    geography?: object;
+    geography?: any;
     style?: {
         default?: React.CSSProperties;
         hover?: React.CSSProperties;
