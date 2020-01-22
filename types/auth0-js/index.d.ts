@@ -247,10 +247,17 @@ export class WebAuth {
     login(options: CrossOriginLoginOptions, callback: Auth0Callback<any>): void;
 
     /**
-     * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     * @deprecated Use {@link crossOriginVerification} instead.
      */
     crossOriginAuthenticationCallback(): void;
+
+    /**
+     * Runs the callback code for the cross origin authentication call.
+     * This method is meant to be called by the cross origin authentication callback url.
+     */
+    crossOriginVerification(): void;
 
     /**
      * Redirects to the auth0 logout endpoint
