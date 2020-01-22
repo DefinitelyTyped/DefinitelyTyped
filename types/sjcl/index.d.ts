@@ -22,8 +22,8 @@ declare namespace sjcl {
     export var prng: SjclRandomStatic;
     export var keyexchange: SjclKeyExchange;
     export var json: SjclJson;
-    export var encrypt: SjclConveninceEncryptor;
-    export var decrypt: SjclConveninceDecryptor;
+    export var encrypt: SjclConvenienceEncryptor;
+    export var decrypt: SjclConvenienceDecryptor;
 
     // ________________________________________________________________________
 
@@ -332,18 +332,18 @@ declare namespace sjcl {
 
     // ________________________________________________________________________
 
-    interface Pbkdf2Params {
+    interface PBKDF2Params {
         iter?: number;
         salt?: BitArray;
     }
 
     interface SjclMisc {
-        pbkdf2(password: string, salt: string, count?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        pbkdf2(password: BitArray, salt: string, count?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        pbkdf2(password: BitArray, salt: BitArray, count?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        pbkdf2(password: string, salt: BitArray, count?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        hmac: SjclHmacStatic;
-        cachedPbkdf2(password: string, obj?: Pbkdf2Params): {
+        pbkdf2(password: string, salt: string, count?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        pbkdf2(password: BitArray, salt: string, count?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        pbkdf2(password: BitArray, salt: BitArray, count?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        pbkdf2(password: string, salt: BitArray, count?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        hmac: SjclHMACStatic;
+        cachedPbkdf2(password: string, obj?: PBKDF2Params): {
             key: BitArray;
             salt: BitArray;
         };
@@ -351,18 +351,18 @@ declare namespace sjcl {
         hkdf(ikm: BitArray, keyBitLength: number, salt: BitArray, info: string, Hash?: SjclHashStatic): BitArray;
         hkdf(ikm: BitArray, keyBitLength: number, salt: BitArray, info: BitArray, Hash?: SjclHashStatic): BitArray;
         hkdf(ikm: BitArray, keyBitLength: number, salt: string, info: BitArray, Hash?: SjclHashStatic): BitArray;
-        scrypt(password: string, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        scrypt(password: BitArray, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        scrypt(password: BitArray, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
-        scrypt(password: string, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
+        scrypt(password: string, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        scrypt(password: BitArray, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        scrypt(password: BitArray, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
+        scrypt(password: string, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPRFFamilyStatic): BitArray;
     }
 
-    class SjclPseudorandomFunctionFamily {
+    class SjclPRFFamily {
         encrypt(data: string): BitArray;
         encrypt(data: BitArray): BitArray;
     }
 
-    interface SjclHmac extends SjclPseudorandomFunctionFamily {
+    interface SjclHMAC extends SjclPRFFamily {
         mac(data: string): BitArray;
         mac(data: BitArray): BitArray;
         reset(): void;
@@ -371,12 +371,12 @@ declare namespace sjcl {
         digest(): BitArray;
     }
 
-    interface SjclPseudorandomFunctionFamilyStatic {
-        new (key: BitArray): SjclPseudorandomFunctionFamily;
+    interface SjclPRFFamilyStatic {
+        new (key: BitArray): SjclPRFFamily;
     }
 
-    interface SjclHmacStatic {
-        new (key: BitArray, Hash?: SjclHashStatic): SjclHmac;
+    interface SjclHMACStatic {
+        new (key: BitArray, Hash?: SjclHashStatic): SjclHMAC;
     }
 
     // ________________________________________________________________________
@@ -400,7 +400,7 @@ declare namespace sjcl {
         deserialize(key: SjclECCKeyPairData): SjclECCSecretKey;
         basicKey: SjclECCBasic;
         elGamal: SjclElGamal;
-        ecdsa: SjclEcdsa;
+        ecdsa: SjclECDSA;
     }
 
     interface SjclEllipticalPoint {
@@ -508,18 +508,18 @@ declare namespace sjcl {
         generateKeys: SjclKeysGenerator<SjclElGamalPublicKey, SjclElGamalSecretKey>;
     }
 
-    class SjclEcdsaPublicKey extends SjclECCPublicKey {
+    class SjclECDSAPublicKey extends SjclECCPublicKey {
         verify(hash: BitArray, rs: BitArray, fakeLegacyVersion: boolean): boolean;
     }
 
-    class SjclEcdsaSecretKey extends SjclECCSecretKey {
+    class SjclECDSASecretKey extends SjclECCSecretKey {
         sign(hash: BitArray, paranoia: number, fakeLegacyVersion: boolean, fixedKForTesting?: BigNumber): BitArray;
     }
 
-    interface SjclEcdsa {
-        publicKey: SjclECCPublicKeyFactory<SjclEcdsaPublicKey>;
-        secretKey: SjclECCSecretKeyFactory<SjclEcdsaSecretKey>;
-        generateKeys: SjclKeysGenerator<SjclEcdsaPublicKey, SjclEcdsaSecretKey>;
+    interface SjclECDSA {
+        publicKey: SjclECCPublicKeyFactory<SjclECDSAPublicKey>;
+        secretKey: SjclECCSecretKeyFactory<SjclECDSASecretKey>;
+        generateKeys: SjclKeysGenerator<SjclECDSAPublicKey, SjclECDSASecretKey>;
     }
 
     // ________________________________________________________________________
@@ -545,7 +545,7 @@ declare namespace sjcl {
     // ________________________________________________________________________
 
     interface SjclKeyExchange {
-        srp: SecureRemotePassword;
+        srp: SjclSecureRemotePassword;
     }
 
     interface SjclSRPGroup {
@@ -553,7 +553,7 @@ declare namespace sjcl {
         g: BigNumber;
     }
 
-    interface SecureRemotePassword {
+    interface SjclSecureRemotePassword {
         makeVerifier(username: string, password: string, salt: BitArray, group: SjclSRPGroup): BitArray;
         makeX(username: string, password: string, salt: BitArray): BitArray;
         knownGroup(i: string): SjclSRPGroup;
@@ -591,13 +591,13 @@ declare namespace sjcl {
         key: BitArray;
     }
 
-    interface SjclConveninceEncryptor {
+    interface SjclConvenienceEncryptor {
         (password: string, plaintext: string, params?: SjclCipherEncryptParams, rp?: SjclCipherEncrypted): SjclCipherEncrypted;
         (password: BitArray, plaintext: string, params?: SjclCipherEncryptParams, rp?: SjclCipherEncrypted): SjclCipherEncrypted;
         (password: SjclElGamalPublicKey, plaintext: string, params?: SjclCipherEncryptParams, rp?: SjclCipherEncrypted): SjclCipherEncrypted;
     }
 
-    interface SjclConveninceDecryptor {
+    interface SjclConvenienceDecryptor {
         (password: string, ciphertext: SjclCipherEncrypted, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
         (password: string, ciphertext: string, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
         (password: BitArray, ciphertext: SjclCipherEncrypted, params?: SjclCipherDecryptParams, rp?: SjclCipherDecrypted): string;
@@ -605,8 +605,8 @@ declare namespace sjcl {
     }
 
     interface SjclJson {
-        encrypt: SjclConveninceEncryptor;
-        decrypt: SjclConveninceDecryptor;
+        encrypt: SjclConvenienceEncryptor;
+        decrypt: SjclConvenienceDecryptor;
         encode(obj: Object): string;
         decode(obj: string): Object;
     }
