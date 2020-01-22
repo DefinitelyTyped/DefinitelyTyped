@@ -1,6 +1,6 @@
 import { Bounds, Coords, Point, Size } from '.';
 
-interface tile extends Point {
+interface Tile extends Point {
     zoom: number;
 }
 
@@ -19,4 +19,4 @@ export function tile2LatLng(point: Point, zoom: number): { coords: Coords };
 
 export function latLng2Tile(coords: Coords, zoom: number): { point: Point };
 
-export function getTilesIds(start: { from: number; to: number }, zoom: number): tile[];
+export function getTilesIds(start: { from: number; to: number }, zoom: number): Tile[];
