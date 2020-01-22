@@ -106,7 +106,12 @@ export interface AsyncCargo {
     push(task: any, callback?: Function): void;
     saturated(): void;
     empty(): void;
-    drain(): void;
+    /**
+     * a function that sets a callback that is called when the last item from the queue has returned from the worker.
+     * If the callback is omitted, q.drain() returns a promise for the next occurrence.
+     */
+    drain(): Promise<void>;
+    drain(handler: () => void): void;
     idle(): boolean;
     pause(): void;
     resume(): void;
