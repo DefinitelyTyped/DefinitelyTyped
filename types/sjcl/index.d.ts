@@ -1,6 +1,6 @@
-// Type definitions for sjcl v1.0.1
+// Type definitions for sjcl v1.0.8
 // Project: http://crypto.stanford.edu/sjcl/
-// Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
+// Definitions by: Eugene Chernyshov <https://github.com/Evgenus>, Vytautas Mizgiris <https://github.com/mizvyt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = sjcl;
@@ -8,6 +8,7 @@ export as namespace sjcl;
 
 declare namespace sjcl {
 
+    export var arrayBuffer: SjclArrayBufferModes;
     export var bn: BigNumberStatic;
     export var bitArray: BitArrayStatic;
     export var codec: SjclCodecs;
@@ -91,6 +92,9 @@ declare namespace sjcl {
         /// this ^ x mod N
         powermod: TypeHelpers.BigNumberTrinaryOperator;
 
+        /// this ^ x mod N with Montomery reduction
+        montpowermod: TypeHelpers.BigNumberTrinaryOperator;
+
         trim(): BigNumber;
 
         /// Reduce mod a modulus.  Stubbed for subclassing.
@@ -162,7 +166,7 @@ declare namespace sjcl {
         bitSlice(a: BitArray, bstart: number, bend: number): BitArray;
 
         /// Extract a number packed into a bit array.
-        extract(a: BitArray, bstart: number, blenth: number): number;
+        extract(a: BitArray, bstart: number, blength: number): number;
 
         /// Concatenate two bit arrays.
         concat(a1: BitArray, a2: BitArray): BitArray
@@ -187,6 +191,9 @@ declare namespace sjcl {
 
         /// xor a block of 4 words together.
         _xor4(x: number[], y: number[]): number[];
+
+        /// byteswap a word array inplace. (does not handle partial words)
+        byteswapM(a: BitArray): BitArray;
     }
 
     // ________________________________________________________________________
@@ -196,12 +203,21 @@ declare namespace sjcl {
         toBits(value: T): BitArray;
     }
 
+    interface SjclArrayBufferCodec extends SjclCodec<ArrayBuffer> {
+        fromBits(bits: BitArray, padding?: boolean, padding_count?: number): ArrayBuffer;
+        hexDumpBuffer(buffer: ArrayBuffer): void;
+    }
+
     interface SjclCodecs {
+        arrayBuffer: SjclArrayBufferCodec;
         utf8String: SjclCodec<string>;
         hex: SjclCodec<string>;
         bytes: SjclCodec<number[]>;
+        base32: SjclCodec<string>;
+        base32hex: SjclCodec<string>;
         base64: SjclCodec<string>;
         base64url: SjclCodec<string>;
+        z85: SjclCodec<string>;
     }
 
     // ________________________________________________________________________
@@ -223,6 +239,7 @@ declare namespace sjcl {
         sha1: SjclHashStatic;
         sha256: SjclHashStatic;
         sha512: SjclHashStatic;
+        ripemd160: SjclHashStatic;
     }
 
     // ________________________________________________________________________
@@ -259,28 +276,58 @@ declare namespace sjcl {
         gcm: SjclGCMMode;
         ccm: SjclCCMMode;
         ocb2: SjclOCB2Mode;
+        ocb2progressive: SjclOCB2ProgressiveMode;
         cbc: SjclCBCMode;
+        ctr: SjclCTRMode;
+    }
+
+    interface SjclArrayBufferModes {
+        ccm: SjclArrayBufferCCMMode;
     }
 
     interface SjclGCMMode {
-        encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
-        decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+    }
+
+    interface SjclArrayBufferCCMMode {
+        compat_encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        compat_decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        encrypt(prf: SjclCipher, plaintext_buffer: ArrayBuffer, iv: BitArray, adata?: ArrayBuffer, tlen?: number, ol?: number): ArrayBuffer;
+        decrypt(prf: SjclCipher, ciphertext_buffer: ArrayBuffer, iv: BitArray, tag: BitArray, adata?: ArrayBuffer, tlen?: number, ol?: number): ArrayBuffer;
     }
 
     interface SjclCCMMode {
-        encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
-        decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        listenProgress(cb: (val: number) => void): void;
+        unListenProgress(cb: (val: number) => void): void;
+        encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
+        decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
     }
 
     interface SjclOCB2Mode {
-        encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
-        decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
-        pmac(prp: SjclCipher, adata: BitArray): number[];
+        encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
+        decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
+        pmac(prf: SjclCipher, adata: BitArray): number[];
+    }
+
+    interface SjclOCB2ProgressiveProcessor {
+        process(data: BitArray): BitArray;
+        finalize(): BitArray;
+    }
+
+    interface SjclOCB2ProgressiveMode {
+        createEncryptor(prp: SjclCipher, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): SjclOCB2ProgressiveProcessor;
+        createDecryptor(prp: SjclCipher, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): SjclOCB2ProgressiveProcessor;
     }
 
     interface SjclCBCMode {
-        encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
-        decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
+        encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
+        decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
+    }
+
+    interface SjclCTRMode {
+        encrypt(prf: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
+        decrypt(prf: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
     }
 
     // ________________________________________________________________________
@@ -300,6 +347,14 @@ declare namespace sjcl {
             key: BitArray;
             salt: BitArray;
         };
+        hkdf(ikm: BitArray, keyBitLength: number, salt: string, info: string, Hash?: SjclHashStatic): BitArray;
+        hkdf(ikm: BitArray, keyBitLength: number, salt: BitArray, info: string, Hash?: SjclHashStatic): BitArray;
+        hkdf(ikm: BitArray, keyBitLength: number, salt: BitArray, info: BitArray, Hash?: SjclHashStatic): BitArray;
+        hkdf(ikm: BitArray, keyBitLength: number, salt: string, info: BitArray, Hash?: SjclHashStatic): BitArray;
+        scrypt(password: string, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
+        scrypt(password: BitArray, salt: string, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
+        scrypt(password: BitArray, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
+        scrypt(password: string, salt: BitArray, N?: number, r?: number, p?: number, length?: number, Prff?: SjclPseudorandomFunctionFamilyStatic): BitArray;
     }
 
     class SjclPseudorandomFunctionFamily {
@@ -335,10 +390,14 @@ declare namespace sjcl {
             c224: SjclEllipticalCurve;
             c256: SjclEllipticalCurve;
             c384: SjclEllipticalCurve;
+            c521: SjclEllipticalCurve;
             k192: SjclEllipticalCurve;
             k224: SjclEllipticalCurve;
             k256: SjclEllipticalCurve;
         };
+        curveName(curve: SjclEllipticalCurve): string;
+        deserialize(key: SjclECCKeyPairData): SjclECCPublicKey;
+        deserialize(key: SjclECCKeyPairData): SjclECCSecretKey;
         basicKey: SjclECCBasic;
         elGamal: SjclElGamal;
         ecdsa: SjclEcdsa;
@@ -349,6 +408,7 @@ declare namespace sjcl {
         mult(k: BigNumber): SjclEllipticalPoint;
         mult2(k: BigNumber, k2: BigNumber, affine2: SjclEllipticalPoint): SjclEllipticalPoint;
         multiples(): Array<SjclEllipticalPoint>;
+        negate(): SjclEllipticalPoint;
         isValid(): boolean;
         toBits(): BitArray;
     }
@@ -363,11 +423,13 @@ declare namespace sjcl {
         toAffine(): SjclEllipticalPoint;
         mult(k: BigNumber, affine: SjclEllipticalPoint): SjclPointJacobian;
         mult2(k1: BigNumber, affine: SjclEllipticalPoint, k2: BigNumber, affine2: SjclEllipticalPoint): SjclPointJacobian;
+        negate(): SjclPointJacobian;
         isValid(): boolean;
     }
 
     interface SjclPointJacobianStatic {
-        new (curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber, z?: BigNumber):SjclPointJacobian;
+        new (curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber, z?: BigNumber): SjclPointJacobian;
+        toAffineMultiple(points: Array<SjclPointJacobian>): Array<SjclEllipticalPoint>;
     }
 
     interface SjclEllipticalCurve {
@@ -388,17 +450,28 @@ declare namespace sjcl {
         (curve: number, paranoia: number, sec?: BigNumber): SjclKeyPair<P, S>;
     }
 
+    interface SjclECCKeyPairData {
+        type: string;
+        secretKey: boolean;
+        point: string;
+        curve: string;
+    }
+
     interface SjclECCPublicKeyData {
         x: BitArray;
         y: BitArray;
     }
 
     class SjclECCPublicKey {
+        serialize(): SjclECCKeyPairData;
         get(): SjclECCPublicKeyData;
+        getType(): string;
     }
 
     class SjclECCSecretKey {
+        serialize(): SjclECCKeyPairData;
         get(): BitArray;
+        getType(): string;
     }
 
     interface SjclECCPublicKeyFactory<T extends SjclECCPublicKey> {
@@ -426,6 +499,7 @@ declare namespace sjcl {
     class SjclElGamalSecretKey extends SjclECCSecretKey {
         unkem(tag: BitArray): BitArray;
         dh(pk: SjclECCPublicKey): BitArray;
+        dhJavaEc(pk: SjclECCPublicKey): BitArray;
     }
 
     interface SjclElGamal {
