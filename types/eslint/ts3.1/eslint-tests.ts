@@ -514,7 +514,26 @@ let formatter: CLIEngine.Formatter;
 formatter = cli.getFormatter('codeframe');
 formatter = cli.getFormatter();
 
+let data: CLIEngine.LintResultData;
+const meta: Rule.RuleMetaData = {
+    type: "suggestion",
+    docs: {
+        description: "disallow unnecessary semicolons",
+        category: "Possible Errors",
+        recommended: true,
+        url: "https://eslint.org/docs/rules/no-extra-semi"
+    },
+    fixable: "code",
+    schema: [],
+    messages: {
+        unexpected: "Unnecessary semicolon."
+    }
+};
+
+data = {rulesMeta: {"no-extra-semi": meta}};
+
 formatter(cliReport.results);
+formatter(cliReport.results, data);
 
 CLIEngine.getErrorResults(cliReport.results);
 
