@@ -9,15 +9,15 @@ declare namespace humps {
     function decamelize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
     function depascalize(value: string, optionsOrProcessor?: OptionOrProcessor): string;
 
-    function camelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-    function pascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-    function decamelizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
-    function depascalizeKeys(str: Object[], optionsOrProcessor?: OptionOrProcessor): Object[];
+    function camelizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+    function pascalizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+    function decamelizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
+    function depascalizeKeys(str: object[], optionsOrProcessor?: OptionOrProcessor): object[];
 
-    function camelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-    function pascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-    function decamelizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
-    function depascalizeKeys(str: Object, optionsOrProcessor?: OptionOrProcessor): Object;
+    function camelizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
+    function pascalizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
+    function decamelizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
+    function depascalizeKeys(str: object, optionsOrProcessor?: OptionOrProcessor): object;
 
     interface HumpsOptions {
         separator?: string;

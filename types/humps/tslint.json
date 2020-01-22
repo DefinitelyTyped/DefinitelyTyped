@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "arrow-return-shorthand": false,
-        "ban-types": false,
         "callable-types": false,
         "comment-format": false,
         "npm-naming": false,
