@@ -4172,7 +4172,7 @@ declare namespace cytoscape {
             /**
              * Background:
              */
-            
+
             /**
              * The padding provides visual spacing between the text and the edge of the background.
              */
