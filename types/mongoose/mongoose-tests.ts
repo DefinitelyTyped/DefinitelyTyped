@@ -620,7 +620,8 @@ new mongoose.Schema({
       isAsync: true,
       validator: (val: number, done): void => {
         setImmediate(done, true);
-      }
+      },
+      message: (props) => `${props.value} is invalid`
     }
   },
   promiseValidated: {
@@ -628,7 +629,8 @@ new mongoose.Schema({
     validate: {
       validator: async (val: number) => {
         return val === 2;
-      }
+      },
+      message: 'Number is invalid'
     }
   },
 });

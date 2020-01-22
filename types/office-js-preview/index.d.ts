@@ -8810,6 +8810,25 @@ declare namespace Office {
             Beta = "beta"
         }
         /**
+         * Specifies the source of the selected data in an item (see `Office.mailbox.item.getSelectedDataAsync` for details).
+         * 
+         * [Api set: Mailbox 1.2]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         */
+        enum SourceProperty {
+            /**
+             * The source of the data is from the body of the item.
+             */
+            Body = "body",
+            /**
+             * The source of the data is from the subject of the item.
+             */
+            Subject = "subject"
+        }
+        /**
          * Specifies the week of the month.
          * 
          * [Api set: Mailbox 1.7]
@@ -8843,16 +8862,6 @@ declare namespace Office {
     }
     interface CoercionTypeOptions {
         coercionType?: Office.CoercionType | string;
-    }
-    enum SourceProperty {
-        /**
-         * The source of the data is from the body of the message.
-         */
-        Body,
-        /**
-         * The source of the data is from the subject of the message.
-         */
-        Subject
     }
     /**
      * The subclass of {@link Office.Item | Item} dealing with appointments.
@@ -9100,6 +9109,10 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
+         * **Important**: In recent builds of Outlook on Windows, a bug was introduced that incorrectly appends an `Authorization: Bearer` header to
+         * this action (whether using this API or the Outlook UI). To work around this issue, you can try using the `addFileAttachmentFromBase64` API
+         * introduced with requirement set 1.8.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -9132,6 +9145,10 @@ declare namespace Office {
          * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * **Important**: In recent builds of Outlook on Windows, a bug was introduced that incorrectly appends an `Authorization: Bearer` header to
+         * this action (whether using this API or the Outlook UI). To work around this issue, you can try using the `addFileAttachmentFromBase64` API
+         * introduced with requirement set 1.8.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -9597,6 +9614,8 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -9614,6 +9633,8 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -10755,6 +10776,8 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -10772,6 +10795,8 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -11247,6 +11272,8 @@ declare namespace Office {
      * The user defines {@link Office.MasterCategories | categories in a master list} on their mailbox.
      * They can then apply one or more categories to an item.
      *
+     * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
+     *
      * [Api set: Mailbox 1.8]
      *
      * @remarks
@@ -11427,10 +11454,10 @@ declare namespace Office {
         urls: string[];
     }
     /**
-     * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook. 
+     * The CustomProperties object represents custom properties that are specific to a particular item and specific to a mail add-in for Outlook.
      * For example, there might be a need for a mail add-in to save some data that is specific to the current email message that activated the add-in. 
      * If the user revisits the same message in the future and activates the mail add-in again, the add-in will be able to retrieve the data that had 
-     * been saved as custom properties.
+     * been saved as custom properties. **Important**: The maximum length of a CustomProperties JSON object is 2500 characters.
      *
      * Because Outlook on Mac doesn't cache custom properties, if the user's network goes down, mail add-ins cannot access their custom properties.
      *
@@ -13253,6 +13280,10 @@ declare namespace Office {
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
          *
+         * **Important**: In recent builds of Outlook on Windows, a bug was introduced that incorrectly appends an `Authorization: Bearer` header to
+         * this action (whether using this API or the Outlook UI). To work around this issue, you can try using the `addFileAttachmentFromBase64` API
+         * introduced with requirement set 1.8.
+         *
          * [Api set: Mailbox 1.1]
          *
          * @remarks
@@ -13287,6 +13318,10 @@ declare namespace Office {
          * The addFileAttachmentAsync method uploads the file at the specified URI and attaches it to the item in the compose form.
          *
          * You can subsequently use the identifier with the removeAttachmentAsync method to remove the attachment in the same session.
+         *
+         * **Important**: In recent builds of Outlook on Windows, a bug was introduced that incorrectly appends an `Authorization: Bearer` header to
+         * this action (whether using this API or the Outlook UI). To work around this issue, you can try using the `addFileAttachmentFromBase64` API
+         * introduced with requirement set 1.8.
          *
          * [Api set: Mailbox 1.1]
          *
@@ -13762,6 +13797,8 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -13779,6 +13816,8 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14090,6 +14129,8 @@ declare namespace Office {
         body: Body;
         /**
          * Gets an object that provides methods for managing the item's categories.
+         *
+         * **Important**: In Outlook on the web, you can't use the API to manage categories on a message in Read mode.
          *
          * [Api set: Mailbox 1.8]
          *
@@ -14840,6 +14881,8 @@ declare namespace Office {
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
          *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
+         *
          * [Api set: Mailbox 1.8]
          *
          * @remarks
@@ -14857,6 +14900,8 @@ declare namespace Office {
         getSharedPropertiesAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<SharedProperties>) => void): void;
         /**
          * Gets the properties of an appointment or message in a shared folder, calendar, or mailbox.
+         *
+         * **Note**: This method is not supported in Outlook on Mac, iOS, or Android.
          *
          * [Api set: Mailbox 1.8]
          *

@@ -204,6 +204,23 @@ describe("Stripe elements", () => {
         });
     });
 
+    it("should use payment method API with new format", () => {
+        const card = elements.create('card');
+        stripe.createPaymentMethod({
+            type: 'card',
+            card,
+            billing_details: {
+              name: 'Jenny Rosen',
+            },
+        }).then(result => {
+            if (result.error) {
+                console.error(result.error.param);
+            } else if (result.paymentMethod) {
+                console.log(result.paymentMethod.card && result.paymentMethod.card.brand);
+            }
+        });
+    });
+
     it("should use checkout API for client implementations", () => {
         stripe.redirectToCheckout({
             items: [

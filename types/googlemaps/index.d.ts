@@ -3536,6 +3536,7 @@ declare namespace google.maps {
 
         interface AutocompletePrediction {
             description: string;
+            id: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
             reference: string;
@@ -3548,6 +3549,7 @@ declare namespace google.maps {
             main_text: string;
             main_text_matched_substrings: PredictionSubstring[];
             secondary_text: string;
+            secondary_text_matched_substrings?: PredictionSubstring[];
         }
 
         interface OpeningHours {
@@ -3767,6 +3769,7 @@ declare namespace google.maps {
 
         interface QueryAutocompletePrediction {
             description: string;
+            id?: string;
             matched_substrings: PredictionSubstring[];
             place_id: string;
             terms: PredictionTerm[];

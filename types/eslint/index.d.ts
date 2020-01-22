@@ -544,6 +544,12 @@ export namespace CLIEngine {
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
+    }
+
+    interface DeprecatedRuleUse {
+      ruleId: string;
+      replacedBy: string[];
     }
 
     type Formatter = (results: LintResult[]) => string;
