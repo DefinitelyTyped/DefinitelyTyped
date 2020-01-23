@@ -995,7 +995,7 @@ namespace Parse {
          */
         interface SchemaOptions<T> {
             required?: boolean;
-            defaultValue: T;
+            defaultValue?: T;
         }
     }
 
