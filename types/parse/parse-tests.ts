@@ -765,9 +765,13 @@ async function test_schema() {
 
     schema.addField('defaultFieldString');
     schema.addString('stringField');
+    schema.addString('stringField2', {required: true, defaultValue: 'default'});
     schema.addNumber('numberField');
+    schema.addNumber('numberField2', {required: true, defaultValue: 0});
     schema.addBoolean('booleanField');
+    schema.addBoolean('booleanField2', {required: true, defaultValue: true});
     schema.addDate('dateField');
+    schema.addDate('dateField2', {required: true, defaultValue: new Date()});
     schema.addFile('fileField');
     schema.addGeoPoint('geoPointField');
     schema.addPolygon('polygonField');

@@ -894,12 +894,12 @@ namespace Parse {
          */
         static all(options?: ScopeOptions): Promise<Schema[]>;
 
-        addArray(name: string): this;
-        addBoolean(name: string): this;
-        addDate(name: string): this;
-        addField(name: string, type?: Schema.TYPE): this;
-        addFile(name: string): this;
-        addGeoPoint(name: string): this;
+        addArray(name: string, options?: Schema.SchemaOptions<[]>): this;
+        addBoolean(name: string, options?: Schema.SchemaOptions<boolean>): this;
+        addDate(name: string, options?: Schema.SchemaOptions<Date>): this;
+        addField(name: string, type?: Schema.TYPE, options?: Schema.SchemaOptions<any>): this;
+        addFile(name: string, options?: Schema.SchemaOptions<File>): this;
+        addGeoPoint(name: string, options?: Schema.SchemaOptions<GeoPoint>): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -913,8 +913,8 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string): this;
-        addObject(name: string): this;
+        addNumber(name: string, options?: Schema.SchemaOptions<number>): this;
+        addObject(name: string, options?: Schema.SchemaOptions<Object>): this;
 
         /**
          * Adding Pointer Field
@@ -922,9 +922,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string): this;
+        addPointer(name: string, targetClass: string, options?: Schema.SchemaOptions<Pointer>): this;
 
-        addPolygon(name: string): this;
+        addPolygon(name: string, options?: Schema.SchemaOptions<Polygon>): this;
 
         /**
          * Adding Relation Field
@@ -934,7 +934,7 @@ namespace Parse {
          */
         addRelation(name: string, targetClass: string): this;
 
-        addString(name: string): this;
+        addString(name: string, options?: Schema.SchemaOptions<string>): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
@@ -988,6 +988,14 @@ namespace Parse {
 
         interface Index {
             [fieldName: string]: TYPE;
+        }
+
+        /**
+         * Requires Parse Server 3.7.0+
+         */
+        interface SchemaOptions<T> {
+            required?: boolean;
+            defaultValue: T;
         }
     }
 
