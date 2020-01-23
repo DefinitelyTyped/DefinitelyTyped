@@ -1,4 +1,4 @@
-// NOTE: These definitions support NodeJS and TypeScript 3.2.
+// NOTE: These definitions support NodeJS and TypeScript 3.5.
 
 // Reference required types from the default lib:
 /// <reference lib="es2018" />
@@ -10,7 +10,8 @@
 // tslint:disable-next-line:no-bad-reference
 /// <reference path="../base.d.ts" />
 
-// TypeScript 3.2-specific augmentations:
+// TypeScript 3.5-specific augmentations:
 /// <reference path="fs.d.ts" />
 /// <reference path="util.d.ts" />
 /// <reference path="globals.d.ts" />
+/// <reference path="wasi.d.ts" />
