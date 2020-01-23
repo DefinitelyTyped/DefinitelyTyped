@@ -8,56 +8,58 @@ import { ethers } from 'ethers';
 
 export = CPK;
 
-interface NetworkConfigEntry {
-    masterCopyAddress: string;
-    proxyFactoryAddress: string;
-    multiSendAddress: string;
-    fallbackHandlerAddress: string;
-}
+declare namespace CPK {
+    interface NetworkConfigEntry {
+        masterCopyAddress: string;
+        proxyFactoryAddress: string;
+        multiSendAddress: string;
+        fallbackHandlerAddress: string;
+    }
 
-interface CommonConfig {
-    networks?: {
-        [id: string]: NetworkConfigEntry;
-    };
-}
+    interface CommonConfig {
+        networks?: {
+            [id: string]: NetworkConfigEntry;
+        };
+    }
 
-interface Web3SpecificConfig extends CommonConfig {
-    web3: object;
-    ownerAccount?: string;
-}
+    interface Web3SpecificConfig extends CommonConfig {
+        web3: object;
+        ownerAccount?: string;
+    }
 
-interface EthersSpecificConfig extends CommonConfig {
-    ethers: typeof ethers;
-    signer: ethers.Signer;
-}
+    interface EthersSpecificConfig extends CommonConfig {
+        ethers: typeof ethers;
+        signer: ethers.Signer;
+    }
 
-type CPKConfig = Web3SpecificConfig | EthersSpecificConfig;
+    type CPKConfig = Web3SpecificConfig | EthersSpecificConfig;
 
-interface Transaction {
-    operation: 0 | 1;
-    to: string;
-    value: number | string | object;
-    data: string;
-}
+    interface Transaction {
+        operation: 0 | 1;
+        to: string;
+        value: number | string | object;
+        data: string;
+    }
 
-type TransactionOptions = object;
+    type TransactionOptions = object;
 
-interface TransactionResult {
-    hash: string;
-    promiEvent?: object;
-    transactionResponse?: ethers.providers.TransactionResponse;
+    interface TransactionResult {
+        hash: string;
+        promiEvent?: object;
+        transactionResponse?: ethers.providers.TransactionResponse;
+    }
 }
 
 declare class CPK {
     static CALL: 0;
     static DELEGATECALL: 1;
 
-    static create(opts: CPKConfig): Promise<CPK>;
+    static create(opts: CPK.CPKConfig): Promise<CPK>;
 
     getOwnerAccount(): Promise<string>;
     get address(): string;
     execTransactions(
-        transactions: ReadonlyArray<Transaction>,
-        options?: TransactionOptions,
-    ): Promise<TransactionResult>;
+        transactions: ReadonlyArray<CPK.Transaction>,
+        options?: CPK.TransactionOptions,
+    ): Promise<CPK.TransactionResult>;
 }

@@ -9,6 +9,20 @@ CPK.CALL;
 // $ExpectType 1
 CPK.DELEGATECALL;
 
+const networkConfigEntry: CPK.NetworkConfigEntry = {
+    masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
+    proxyFactoryAddress: '0x345cA3e014Aaf5dcA488057592ee47305D9B3e10',
+    multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
+    fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
+};
+
+// $ExpectError
+const badEntry: CPK.NetworkConfigEntry = {
+    masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
+    multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
+    fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
+};
+
 // $ExpectError
 CPK.create();
 // $ExpectError
@@ -20,14 +34,7 @@ CPK.create({ web3, ownerAccount: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1' })
 // $ExpectError
 CPK.create({
     ownerAccount: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
-    networks: {
-        4447: {
-            masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
-            proxyFactoryAddress: '0x345cA3e014Aaf5dcA488057592ee47305D9B3e10',
-            multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
-            fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
-        },
-    },
+    networks: { 4447: networkConfigEntry },
 });
 // $ExpectError
 CPK.create({ ethers });
@@ -35,32 +42,16 @@ CPK.create({ ethers });
 CPK.create({ signer });
 // $ExpectType Promise<CPK>
 CPK.create({ ethers, signer: ethers.Wallet.createRandom() });
-// $ExpectError
-CPK.create({ web3, networks: { 4447: { masterCopyAddress: 'foo' } } });
 // $ExpectType Promise<CPK>
 CPK.create({
     web3,
-    networks: {
-        4447: {
-            masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
-            proxyFactoryAddress: '0x345cA3e014Aaf5dcA488057592ee47305D9B3e10',
-            multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
-            fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
-        },
-    },
+    networks: { 4447: networkConfigEntry },
 });
 // $ExpectType Promise<CPK>
 CPK.create({
     ethers,
     signer: ethers.Wallet.createRandom(),
-    networks: {
-        4447: {
-            masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
-            proxyFactoryAddress: '0x345cA3e014Aaf5dcA488057592ee47305D9B3e10',
-            multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
-            fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
-        },
-    },
+    networks: { 4447: networkConfigEntry },
 });
 
 CPK.create({ web3 }).then(async cpk => {
