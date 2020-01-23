@@ -1,5 +1,5 @@
 import express = require('express');
-import session = require('express-session');
+import session, { MemoryStore, Store, Session } from 'express-session';
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(session({
 app.use(session({
   secret: 'keyboard cat',
   name: 'connect.sid',
-  store: new session.MemoryStore(),
+  store: new MemoryStore(),
   cookie: { path: '/', httpOnly: true, secure: false, sameSite: true },
   genid: (req: express.Request): string => '',
   rolling: false,
@@ -36,27 +36,29 @@ app.use(session({
   unset: 'keep'
 }));
 
-interface MySession extends Express.Session {
-  views: number;
+// Custom session data using declaration merging
+declare global {
+  interface SessionData {
+    views: number;
+  }
 }
 
 app.use((req, res, next) => {
-  const sess = req.session as MySession;
-  if (sess.views) {
-    sess.views++;
+  if (req.session.views) {
+    req.session.views++;
     res.setHeader('Content-Type', 'text/html');
-    res.write(`<p>views: ${sess.views}</p>`);
-    res.write(`<p>expires in: ${((sess.cookie.maxAge || 0) / 1000)}s</p>`);
+    res.write(`<p>views: ${req.session.views}</p>`);
+    res.write(`<p>expires in: ${((req.session.cookie.maxAge || 0) / 1000)}s</p>`);
     res.end();
   } else {
-    sess.views = 1;
+    req.session.views = 1;
     res.end('welcome to the session demo. refresh!');
   }
 });
 
 // Custom Session Store
 
-class MyStore extends session.Store {
+class MyStore extends Store {
   private sessions: { [sid: string]: string | undefined };
 
   constructor() {
@@ -64,13 +66,13 @@ class MyStore extends session.Store {
     this.sessions = {};
   }
 
-  get = (sid: string, callback: (err: any, session?: Express.SessionData | null) => void): void => {
+  get = (sid: string, callback: (err: any, session?: SessionData | null) => void): void => {
     const sessionString: string | undefined = this.sessions[sid];
-    const sessionData: Express.SessionData | null = sessionString ? JSON.parse(sessionString) : null;
+    const sessionData: SessionData | null = sessionString ? JSON.parse(sessionString) : null;
     callback(null, sessionData);
   }
 
-  set = (sid: string, session: Express.SessionData, callback?: (err?: any) => void): void => {
+  set = (sid: string, session: SessionData, callback?: (err?: any) => void): void => {
     this.sessions[sid] = JSON.stringify(session);
     if (callback) callback();
   }
