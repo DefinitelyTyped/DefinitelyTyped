@@ -48,6 +48,11 @@ export {
     getRequest,
 } from './lib/query/RelayModernGraphQLTag';
 export {
+    isClientID,
+    generateClientID,
+    generateUniqueClientID,
+} from './lib/store/ClientID';
+export {
     ConnectionEvent,
     ConnectionID,
     ConnectionReference,
