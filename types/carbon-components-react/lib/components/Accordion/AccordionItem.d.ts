@@ -8,7 +8,7 @@ export interface HeadingClickData {
     isOpen: boolean;
 }
 
-export interface AccordionItemProps extends Omit<React.HTMLProps<InheritedProps>, "title"> {
+export interface AccordionItemProps extends Omit<InheritedProps, "title"> {
     onHeadingClick?(data: HeadingClickData): void,
     open?: boolean,
     renderExpando?: React.ReactNode,
