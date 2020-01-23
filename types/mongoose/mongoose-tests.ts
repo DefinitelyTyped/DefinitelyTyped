@@ -620,10 +620,10 @@ new mongoose.Schema({
     type: Number,
     validate: {
       isAsync: true,
-      validator: (val: number, done): void => {
+      validator: (val: number, done: any): void => {
         setImmediate(done, true);
       },
-      message: (props) => `${props.value} is invalid`
+      message: (props: any) => `${props.value} is invalid`
     }
   },
   promiseValidated: {
