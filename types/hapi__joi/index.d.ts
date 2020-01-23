@@ -663,18 +663,7 @@ declare namespace Joi {
         [key in keyof TSchema]?: SchemaLike | SchemaLike[];
     };
 
-    type Schema = AnySchema
-        | ArraySchema
-        | AlternativesSchema
-        | BinarySchema
-        | BooleanSchema
-        | DateSchema
-        | FunctionSchema
-        | NumberSchema
-        | ObjectSchema
-        | StringSchema
-        | LinkSchema
-        | SymbolSchema;
+    type Schema = AnySchema;
 
     type SchemaFunction = (schema: Schema) => Schema;
 

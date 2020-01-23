@@ -966,6 +966,14 @@ schema = Joi.link(str);
     const _objectTypeTest: { key: string } = Joi.object<{ key: string }>({ key: Joi.string() }).validate({}).value;
     const _dateTypeTest: Date = Joi.date().validate(new Date()).value;
     const _alternativeType: number | string = Joi.alternatives<number | string>(Joi.number(), Joi.string()).validate(1).value;
+    const _anySchema: any = (Joi.object<{ key: string }>({ key: Joi.string() }) as Joi.Schema).validate({}).value;
+    const _anySchema2Type: number = (Joi.number() as Joi.Schema).validate<number>({}).value;
+
+    const _schemaToCompile = Joi.object({
+        name: Joi.string(),
+    });
+    const _compiledResult: { name: string } = Joi.compile(_schemaToCompile).validate({ name: 'test' }).value;
+    const _compiledResult2: { name: string } = Joi.compile(_schemaToCompile).validate<{ name: string }>({ name: 'test' }).value;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
