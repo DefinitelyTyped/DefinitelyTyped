@@ -24,6 +24,10 @@ type Flattened<R> = {
 	array: R extends Array<infer U> ? Flattened<U> : never;
 }[R extends Array<any> ? 'array' : R extends Highland.Stream<any> ? 'stream' : 'value'];
 
+// Describes a constructor for a particular promise library
+interface PConstructor<T, P extends PromiseLike<T>> {
+	new(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): P
+}
 /**
  * Highland: the high-level streams library
  *
@@ -127,7 +131,6 @@ interface HighlandStatic {
 	 * @api public
 	 */
 	<R>(): Highland.Stream<R>;
-	<R>(source: Highland.Stream<R>[]): Highland.Stream<R>;
 	<R>(source: R[]): Highland.Stream<R>;
 	<R>(source: (push: (err: Error | null, x?: R | Highland.Nil) => void, next: () => void) => void): Highland.Stream<R>;
 
@@ -146,7 +149,7 @@ interface HighlandStatic {
 	// UTILS
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  /**
+	/**
 	 * Returns true if `x` is the end of stream marker.
 	 *
 	 * @id isNil
@@ -155,7 +158,7 @@ interface HighlandStatic {
 	 * @param x - the object to test
 	 * @api public
 	 */
-  isNil<R>(x: R | Highland.Nil): x is Highland.Nil;
+	isNil<R>(x: R | Highland.Nil): x is Highland.Nil;
 
 	/**
 	 * Returns true if `x` is a Highland Stream.
@@ -701,6 +704,7 @@ declare namespace Highland {
 		 * @param f - the truth test function
 		 * @api public
 		 */
+		filter<S extends R>(f: (x: R) => x is S): Stream<S>;
 		filter(f: (x: R) => boolean): Stream<R>;
 
 		/**
@@ -1084,27 +1088,27 @@ declare namespace Highland {
 		 */
 		throttle(ms: number): Stream<R>;
 
-    /**
-     * Filters out all duplicate values from the stream and keeps only the first
-     * occurence of each value, using === to define equality.
-     *
-     * @id uniq
-     * @section Streams
-     * @name Stream.uniq()
-     * @api public
-     */
-    uniq(): Stream<R>;
+		/**
+		 * Filters out all duplicate values from the stream and keeps only the first
+		 * occurence of each value, using === to define equality.
+		 *
+		 * @id uniq
+		 * @section Streams
+		 * @name Stream.uniq()
+		 * @api public
+		 */
+		uniq(): Stream<R>;
 
-    /**
-     * Filters out all duplicate values from the stream and keeps only the first
-     * occurence of each value, using the provided function to define equality.
-     *
-     * @id uniqBy
-     * @section Streams
-     * @name Stream.uniqBy()
-     * @api public
-     */
-    uniqBy(f: (a: R, b: R) => boolean): Stream<R>;
+		/**
+		 * Filters out all duplicate values from the stream and keeps only the first
+		 * occurence of each value, using the provided function to define equality.
+		 *
+		 * @id uniqBy
+		 * @section Streams
+		 * @name Stream.uniqBy()
+		 * @api public
+		 */
+		uniqBy(f: (a: R, b: R) => boolean): Stream<R>;
 
 		/**
 		 * A convenient form of filter, which returns all objects from a Stream
@@ -1157,7 +1161,7 @@ declare namespace Highland {
 		 * Creates a new Stream of values by applying each item in a Stream to an
 		 * iterator function which must return a (possibly empty) Stream. Each
 		 * item on these result Streams are then emitted on a single output Stream.
-		 * 
+		 *
 		 * This transform is functionally equivalent to `.map(f).sequence()`.
 		 *
 		 * @id flatMap
@@ -1215,7 +1219,7 @@ declare namespace Highland {
 		 * // => contents of foo.txt, bar.txt and baz.txt in the order they were read
 		 */
 		merge<U>(this: Stream<Stream<U>>): Stream<U>;
-		
+
 		/**
 		 * Takes a Stream of Streams and merges their values and errors into a
 		 * single new Stream, limitting the number of unpaused streams that can
@@ -1380,8 +1384,8 @@ declare namespace Highland {
 		 * @param {Array | Stream} ys - the other stream to combine values with
 		 * @api public
 		 */
-		zip(ys: R[]): Stream<R>;
-		zip(ys: Stream<R>): Stream<R>;
+		zip<U>(ys: U[]): Stream<[R, U]>;
+		zip<U>(ys: Stream<U>): Stream<[R, U]>;
 
 		/**
 		 * Takes a stream and a *finite* stream of `N` streams
@@ -1396,8 +1400,9 @@ declare namespace Highland {
 		 * @param {Array | Stream} ys - the array of streams to combine values with
 		 * @api public
 		 */
-		zipAll(ys: R[][]): Stream<R[]>;
-		zipAll(ys: Stream<R[]>): Stream<R[]>;
+		zipAll<U>(ys: U[][]): Stream<Array<R | U>>;
+		zipAll<U>(ys: Stream<U[]>): Stream<Array<R | U>>;
+		zipAll<U>(ys: Stream<Stream<U>>): Stream<Array<R | U>>;
 
 		/**
 		 * Takes a *finite* stream of streams and returns a stream where the first
@@ -1582,28 +1587,28 @@ declare namespace Highland {
 		 */
 		toNodeStream(options?: object): NodeJS.ReadableStream;
 
-    /**
-     * Converts the result of a stream to Promise.
-     *
-     * If the stream contains a single value, it will return
-     * with the single item emitted by the stream (if present).
-     * If the stream is empty, `undefined` will be returned.
-     * If an error is encountered in the stream, this function will stop
-     * consumption and call `cb` with the error.
-     * If the stream contains more than one item, it will stop consumption
-     * and reject with an error.
-     *
-     * @id toPromise
-     * @section Consumption
-     * @name Stream.toPromise(PromiseCtor)
-     * @param {Function} PromiseCtor - Promises/A+ compliant constructor
-     * @api public
-     *
-     * _([1, 2, 3, 4]).collect().toPromise(Promise).then(function (result) {
-     *     // parameter result will be [1,2,3,4]
-     * });
-     */
-    toPromise(PromiseCtor: PromiseConstructor): PromiseLike<R>;
+		/**
+		 * Converts the result of a stream to Promise.
+		 *
+		 * If the stream contains a single value, it will return
+		 * with the single item emitted by the stream (if present).
+		 * If the stream is empty, `undefined` will be returned.
+		 * If an error is encountered in the stream, this function will stop
+		 * consumption and call `cb` with the error.
+		 * If the stream contains more than one item, it will stop consumption
+		 * and reject with an error.
+		 *
+		 * @id toPromise
+		 * @section Consumption
+		 * @name Stream.toPromise(PromiseCtor)
+		 * @param {Function} PromiseCtor - Promises/A+ compliant constructor
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).collect().toPromise(Promise).then(function (result) {
+		 *     // parameter result will be [1,2,3,4]
+		 * });
+		 */
+		toPromise<P extends PromiseLike<R>>(PromiseCtor: PConstructor<R, P>): P;
 	}
 
 	interface PipeableStream<T, R> extends Stream<R> {}
@@ -1612,13 +1617,13 @@ declare namespace Highland {
 		end: boolean
 	}
 
-    type MappingHint = number | string[] | Function;
+	type MappingHint = number | string[] | Function;
 
-    interface CleanupObject {
-        onDestroy?: Function;
-        continueOnError?: boolean;
-    }
-    type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
+	interface CleanupObject {
+		onDestroy?: Function;
+		continueOnError?: boolean;
+	}
+	type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 
 declare var highland:HighlandStatic;

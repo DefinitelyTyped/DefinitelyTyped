@@ -1,7 +1,18 @@
+/// Extending Module
+// This requires -s "EXTRA_EXPORTED_RUNTIME_METHODS=['cwrap','ccall','getValue','setvalue']"
+// in emcc compilation flags
+interface EmscriptenModule {
+    cwrap: typeof cwrap;
+    ccall: typeof ccall;
+    getValue: typeof getValue;
+    setValue: typeof setValue;
+}
+
 /// Module
 function ModuleTest(): void {
     Module.environment = "WEB";
     Module.environment = "NODE";
+    Module.environment = "WORKER";
     Module.noInitialRun = false;
     Module.logReadFiles = false;
     Module.filePackagePrefixURL = "http://www.example.org/";
@@ -81,7 +92,9 @@ function FSTest(): void {
     FS.writeFile('file', 'foobar');
     FS.truncate('file', 3);
 
-    const contents = FS.readFile('file', { encoding: 'utf8' });
+    const contents1 = FS.readFile('file', { encoding: 'utf8' });
+    const contents2 = FS.readFile('file', { encoding: 'binary' });
+    const contents3 = FS.readFile('file');
 
     const rstream = FS.open('abinaryfile', 'r');
     const buf = new Uint8Array(4);
@@ -89,9 +102,11 @@ function FSTest(): void {
     FS.close(rstream);
 
     const data = new Uint8Array(32);
-    const wstream = FS.open('dummy', 'w+');
+    const wstream = FS.open('dummy1', 'w+');
     FS.write(wstream, data, 0, data.length, 0);
     FS.close(wstream);
+
+    FS.createDataFile('/', 'dummy2', data, true, true);
 
     const lookup = FS.lookupPath("path", { parent: true });
 }
@@ -117,4 +132,12 @@ function StringConv(): void {
     stringToUTF32(s, p, 42);
     p = allocateUTF8(s);
     Module._free(p);
+}
+
+// Stack allocations
+function StackAlloc() {
+    const stack = stackSave();
+    const ptr = stackAlloc(42);
+    const strPtr = allocateUTF8OnStack('testString');
+    stackRestore(stack);
 }

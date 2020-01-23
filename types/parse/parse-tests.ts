@@ -570,6 +570,11 @@ async function test_cloud_functions() {
         request.params.anything;
     });
 
+    Parse.Cloud.define<() => void>('AFunc', request => {
+        // $ExpectType {}
+        request.params;
+    });
+
     Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
         // $ExpectType { something: string; }
         request.params;
@@ -614,7 +619,7 @@ function test_geo_points() {
     point = new Parse.GeoPoint(40.0, -30.0);
     point = new Parse.GeoPoint({ latitude: 40.0, longitude: -30.0 });
 
-    const userObject = Parse.User.current<{ location: Parse.GeoPoint }>()!;
+    const userObject = Parse.User.current<Parse.User<{ location: Parse.GeoPoint }>>()!;
 
     // User's location
     const userGeoPoint = userObject.get('location');
@@ -821,6 +826,22 @@ function testObject() {
 
         // $ExpectError
         new Parse.Object<{ example: boolean }>('TestObject', { example: 'hello' });
+    }
+
+    function testStaticMethods() {
+        async function testSaveAll(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
+            // $ExpectType Object<Attributes>[]
+            await Parse.Object.saveAll([ objUntyped ]);
+
+            // $ExpectType Object<{ example: string; }>[]
+            await Parse.Object.saveAll([ objTyped ]);
+
+            // $ExpectType [Object<Attributes>, Object<{ example: string; }>]
+            await Parse.Object.saveAll<[ typeof objUntyped, typeof objTyped ]>([ objUntyped, objTyped ]);
+
+            // $ExpectError
+            await Parse.Object.saveAll([ 123 ]);
+        }
     }
 
     function testAttributes(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
@@ -1093,17 +1114,26 @@ function testObject() {
         objTyped.revert('other');
     }
 
-    async function testSave(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean }>) {
+    async function testSave(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<{ example: boolean; someString: string }>
+    ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
 
         // $ExpectType Object<Attributes>
         await objUntyped.save('whatever', 100);
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
+        await objTyped.save({ example: true, someString: 'hello' });
+
+        // $ExpectError
+        await objTyped.save({ example: 'hello', someString: true });
+
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save('example', true);
 
         // $ExpectError
@@ -1130,6 +1160,12 @@ function testObject() {
         objTyped.set({ example: false });
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: true, another: 123 });
+
+        // $ExpectError
+        objTyped.set({ example: 123, another: true });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set('example', true);
 
         // $ExpectError
@@ -1145,12 +1181,77 @@ function testObject() {
         objTyped.set('other', 100);
     }
 
-    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {
-        // $ExpectType any
-        objUntyped.toJSON();
+    interface AttributesAllTypes {
+        someString: string;
+        someNumber: number;
+        someBoolean: boolean;
+        someDate: Date;
+        someJSONObject: AttributesAllTypes;
+        someJSONArray: AttributesAllTypes[];
+        someRegExp: RegExp;
+        someUndefined: undefined;
+        someNull: null;
+        someParseObjectUntyped: Parse.Object;
+        someParseObjectTyped: Parse.Object<AttributesAllTypes>;
+        someParseACL: Parse.ACL;
+        someParseGeoPoint: Parse.GeoPoint;
+        someParsePolygon: Parse.Polygon;
+        someParseRelation: Parse.Relation;
+        someParseFile: Parse.File;
+    }
 
+    function testToJSON(objUntyped: Parse.Object, objTyped: Parse.Object<AttributesAllTypes>) {
+        // $ExpectType ToJSON<Attributes> & JSONBaseAttributes
+        const JSONUntyped = objUntyped.toJSON();
+        // $ExpectType string
+        JSONUntyped.objectId;
+        // $ExpectType string
+        JSONUntyped.createdAt;
+        // $ExpectType string
+        JSONUntyped.updatedAt;
         // $ExpectType any
-        objTyped.toJSON();
+        JSONUntyped.anything;
+
+        // $ExpectType ToJSON<AttributesAllTypes> & JSONBaseAttributes
+        const JSONTyped = objTyped.toJSON();
+        // $ExpectType string
+        JSONTyped.objectId;
+        // $ExpectType string
+        JSONTyped.createdAt;
+        // $ExpectType string
+        JSONTyped.updatedAt;
+        // $ExpectType string
+        JSONTyped.someString;
+        // $ExpectType number
+        JSONTyped.someNumber;
+        // $ExpectType boolean
+        JSONTyped.someBoolean;
+        // $ExpectType { __type: "Date"; iso: string; }
+        JSONTyped.someDate;
+        // $ExpectType ToJSON<AttributesAllTypes>
+        JSONTyped.someJSONObject;
+        // $ExpectType ToJSON<AttributesAllTypes>[]
+        JSONTyped.someJSONArray;
+        // $ExpectType string
+        JSONTyped.someRegExp;
+        // $ExpectType undefined
+        JSONTyped.someUndefined;
+        // $ExpectType null
+        JSONTyped.someNull;
+        // $ExpectType Pointer | (ToJSON<Attributes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectUntyped;
+        // $ExpectType Pointer | (ToJSON<AttributesAllTypes> & JSONBaseAttributes)
+        JSONTyped.someParseObjectTyped;
+        // $ExpectType any
+        JSONTyped.someParseACL;
+        // $ExpectType any
+        JSONTyped.someParseGeoPoint;
+        // $ExpectType any
+        JSONTyped.someParsePolygon;
+        // $ExpectType any
+        JSONTyped.someParseRelation;
+        // $ExpectType { __type: string; name: string; url: string; }
+        JSONTyped.someParseFile;
     }
 
     function testUnset(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: string }>) {

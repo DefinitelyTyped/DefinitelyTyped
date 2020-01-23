@@ -1,5 +1,6 @@
 declare module "module" {
     import { URL } from "url";
+    namespace Module {}
     interface Module extends NodeModule {}
     class Module {
         static runMain(): void;

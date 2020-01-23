@@ -85,6 +85,7 @@ export interface MenuProps<T extends HTMLElement>
 	 * The HTML tag for this element. Default: 'span'.
 	 */
 	tag?: T["tagName"];
+	children: JSX.Element | (({ isOpen }: { isOpen: boolean }) => JSX.Element);
 }
 
 /**
