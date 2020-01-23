@@ -173,7 +173,11 @@ function testCodecs() {
 
 function testHashes() {
     let hash: sjcl.SjclHash;
-    ba = hash.reset().update("xxx").update(ba).finalize();
+    ba = hash
+        .reset()
+        .update("xxx")
+        .update(ba)
+        .finalize();
 
     hash = new sjcl.hash.sha1();
     hash = new sjcl.hash.sha1(hash);
@@ -368,14 +372,8 @@ function testECC() {
 }
 
 function testECCElGamal() {
-    ret = new sjcl.ecc.elGamal.publicKey(
-        sjcl.ecc.curves.c192,
-        new sjcl.ecc.point(sjcl.ecc.curves.c192)
-    );
-    ret = new sjcl.ecc.elGamal.secretKey(
-        sjcl.ecc.curves.c192,
-        new sjcl.bn(2)
-    );
+    ret = new sjcl.ecc.elGamal.publicKey(sjcl.ecc.curves.c192, new sjcl.ecc.point(sjcl.ecc.curves.c192));
+    ret = new sjcl.ecc.elGamal.secretKey(sjcl.ecc.curves.c192, new sjcl.bn(2));
 
     const keys = sjcl.ecc.elGamal.generateKeys(192, 0);
 
@@ -399,14 +397,8 @@ function testECCElGamal() {
 }
 
 function testECCECDSA() {
-    ret = new sjcl.ecc.ecdsa.publicKey(
-        sjcl.ecc.curves.c192,
-        new sjcl.ecc.point(sjcl.ecc.curves.c192)
-    );
-    ret = new sjcl.ecc.ecdsa.secretKey(
-        sjcl.ecc.curves.c192,
-        new sjcl.bn(2)
-    );
+    ret = new sjcl.ecc.ecdsa.publicKey(sjcl.ecc.curves.c192, new sjcl.ecc.point(sjcl.ecc.curves.c192));
+    ret = new sjcl.ecc.ecdsa.secretKey(sjcl.ecc.curves.c192, new sjcl.bn(2));
 
     const keys = sjcl.ecc.ecdsa.generateKeys(192, 0);
 
