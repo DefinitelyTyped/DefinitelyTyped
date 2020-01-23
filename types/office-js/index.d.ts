@@ -8715,6 +8715,25 @@ declare namespace Office {
             Beta = "beta"
         }
         /**
+         * Specifies the source of the selected data in an item (see `Office.mailbox.item.getSelectedDataAsync` for details).
+         * 
+         * [Api set: Mailbox 1.2]
+         *
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose
+         */
+        enum SourceProperty {
+            /**
+             * The source of the data is from the body of the item.
+             */
+            Body = "body",
+            /**
+             * The source of the data is from the subject of the item.
+             */
+            Subject = "subject"
+        }
+        /**
          * Specifies the week of the month.
          * 
          * [Api set: Mailbox 1.7]
@@ -8748,16 +8767,6 @@ declare namespace Office {
     }
     interface CoercionTypeOptions {
         coercionType?: Office.CoercionType | string;
-    }
-    enum SourceProperty {
-        /**
-         * The source of the data is from the body of the message.
-         */
-        Body,
-        /**
-         * The source of the data is from the subject of the message.
-         */
-        Subject
     }
     /**
      * The subclass of {@link Office.Item | Item} dealing with appointments.
@@ -11842,14 +11851,15 @@ declare namespace Office {
          */
         ewsUrl: string;
         /**
-         * The mailbox item. Depending on the context in which the add-in opened, the item may be of any number of types.
-         * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+         * The mailbox item. Depending on the context in which the add-in opened, the item type may vary.
+         * If you want to see IntelliSense for only a specific type or mode, cast this item to one of the following:
          *
          * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
+         * {@link Office.Message | Message}, {@link Office.Appointment | Appointment},
          * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
          * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
          */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item & ItemCompose & ItemRead & Message & MessageCompose & MessageRead & Appointment & AppointmentCompose & AppointmentRead;
         /**
          * Gets an object that provides methods to manage the categories master list associated with a mailbox.
          *

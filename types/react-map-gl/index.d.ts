@@ -434,7 +434,7 @@ export interface SourceProps {
     bounds?: number[];
     schema?: 'xyz'|'tms';
     minzoom?: number;
-    maxzoon?: number;
+    maxzoom?: number;
     attribution?: string;
     encoding?: 'terrarium' |'mapbox';
     data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;

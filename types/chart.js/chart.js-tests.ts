@@ -1,4 +1,5 @@
 import { BorderWidth, Chart, Point, ChartColor } from 'chart.js';
+import moment = require('moment');
 
 // alternative:
 // import chartjs = require('chart.js');
@@ -302,6 +303,11 @@ const customTooltipsPieChart = new Chart(ctx, {
 // platform global values
 Chart.platform.disableCSSInjection = true;
 
+// Chart instances in the global namespace
+for (const id in Chart.instances) {
+    Chart.instances[id].resize();
+}
+
 // default global static values
 Chart.defaults.global.defaultFontColor = '#544615';
 Chart.defaults.global.defaultFontFamily = 'Arial';
@@ -404,3 +410,27 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
     console.log(doughnutChartView.x);
     console.log(doughnutChartView.y);
 }
+
+// Time Cartesian Axis
+const timeAxisChartData: Chart.ChartData = {
+    datasets: [{
+        data: [
+            { x: new Date(), y: 1 },
+            { y: new Date(), t: 1 },
+            { t: new Date(), y: 1 },
+            { x: moment(), y: 1 },
+            { y: moment(), t: 1 },
+            { t: moment(), y: 1 },
+        ]
+    }]
+};
+
+// Labels
+const timeLabelsChartData: Chart.ChartData = {
+    labels: [
+        'a', 'b', 'c',
+        1, 2, 3,
+        new Date(), new Date(), new Date(),
+        moment(), moment(), moment(),
+    ],
+};

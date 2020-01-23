@@ -117,6 +117,7 @@ cf = cf.has([predicate, predicate], 'Stuart');
 cf = cf.has(predicate, [literal, literal]);
 
 // .in
+cf = cf.in();
 cf = cf.in(node);
 cf = cf.in([node, node]);
 cf = cf.in(cf.node(node));
@@ -150,6 +151,7 @@ cf = cf.node('example', { datatype: node.value });
 cf = cf.node('example', { datatype: node });
 
 // .out
+cf = cf.out();
 cf = cf.out(node);
 cf = cf.out([node, node]);
 cf = cf.out(cf.node([node, node]));

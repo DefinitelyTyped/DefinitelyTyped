@@ -51,8 +51,8 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
 
     // tslint:disable:no-unnecessary-generics
-    in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
     has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 

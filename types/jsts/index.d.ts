@@ -8,6 +8,26 @@
 declare namespace jsts {
     export var version: string;
 
+    namespace algorithm {
+        import Point = jsts.geom.Point;
+        import Coordinate = jsts.geom.Coordinate;
+
+        export class Orientation {
+            static CLOCKWISE: number;
+            static RIGHT: number;
+            static COUNTERCLOCKWISE: number;
+            static LEFT: number;
+            static COLLINEAR: number;
+            static STRAIGHT: number;
+
+            static index(p1: Point, p2: Point, q: Point): number;
+
+            static isCCW(ring: Coordinate[]): boolean;
+        }
+
+        export class BoundaryNodeRule {}
+    }
+
     namespace geom {
 
 
@@ -208,6 +228,12 @@ declare namespace jsts {
             compareTo(other: Coordinate): number;
         }
 
+        export class CoordinateSequence {
+            static X: number;
+            static Y: number;
+            static Z: number;
+            static M: number;
+        }
         /**
          * Defines a rectangular region of the 2D coordinate plane. It is often used to
          * represent the bounding box of a {@link Geometry}, e.g. the minimum and
@@ -1574,6 +1600,94 @@ declare namespace jsts {
             toString(): string;
         }
 
+        export class IntersectionMatrix {
+            static matches(
+                actualDimensionValue: number,
+                requiredDimensionSymbol: string
+            ): boolean;
+
+            static matches(
+                actualDimensionSymbols: string,
+                requiredDimensionSymbols: string
+            ): boolean;
+
+            static isTrue(actualDimensionValue: number): boolean;
+
+            isIntersects(): boolean;
+
+            isCovers(): boolean;
+
+            isCoveredBy(): boolean;
+
+            set(dimensionSymbols: [string, string, string]): void;
+
+            set(row: number, col: number, dimensionValue: number): void;
+
+            isContains(): boolean;
+
+            setAtLeast(dimensionSymbols: [string, string, string]): void;
+
+            setAtLeast(row: number, col: number, dimensionValue: number): void;
+
+            setAtLeastIfValid(
+                row: number,
+                col: number,
+                minimumDimensionValue: number
+            ): void;
+
+            isWithin(): boolean;
+
+            isTouches(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            isOverlaps(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            isEquals(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            toString(): string;
+
+            setAll(dimensionValue: number): void;
+
+            get(row: number, column: number): number;
+
+            transpose(): IntersectionMatrix;
+
+            matches(
+                requiredDimensionSymbols: [
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string,
+                    string
+                ]
+            ): boolean;
+
+            add(im: IntersectionMatrix): void;
+
+            isDisjoint(): boolean;
+
+            isCrosses(
+                dimensionOfGeometryA: number,
+                dimensionOfGeometryB: number
+            ): boolean;
+
+            constructor(elements?: string[]);
+
+            constructor(other?: IntersectionMatrix);
+        }
+
         /**
          * Models an OGC SFS <code>LinearRing</code>. A LinearRing is a LineString
          * which is both closed and simple. In other words, the first and last
@@ -1694,6 +1808,179 @@ declare namespace jsts {
              */
             getNumInteriorRing(): number;
         }
+
+        namespace util {
+            export class AffineTransformation {
+                static translationInstance(x: number, y: number): AffineTransformation;
+
+                static shearInstance(
+                    xShear: number,
+                    yShear: number
+                ): AffineTransformation;
+
+                static reflectionInstance(
+                    x0: number,
+                    y0: number,
+                    x1?: number,
+                    y1?: number
+                ): AffineTransformation;
+
+                static rotationInstance(theta: number): AffineTransformation;
+
+                static rotationInstance(
+                    sinTheta: number,
+                    cosTheta: number
+                ): AffineTransformation;
+
+                static rotationInstance(
+                    theta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                static rotationInstance(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                static scaleInstance(
+                    xScale: number,
+                    yScale: number,
+                    x?: number,
+                    y?: number
+                ): AffineTransformation;
+
+                setToReflectionBasic(
+                    x0: number,
+                    y0: number,
+                    x1: number,
+                    y1: number
+                ): AffineTransformation;
+
+                getInverse(): AffineTransformation;
+
+                compose(trans: AffineTransformation): AffineTransformation;
+
+                equals(obj: AffineTransformation): boolean;
+
+                setToScale(xScale: number, yScale: number): AffineTransformation;
+
+                isIdentity(): boolean;
+
+                scale(xScale: number, yScale: number): AffineTransformation;
+
+                setToIdentity(): AffineTransformation;
+
+                isGeometryChanged(): boolean;
+
+                setTransformation(trans: AffineTransformation): AffineTransformation;
+
+                setTransformation(
+                    m00: number,
+                    m01: number,
+                    m02: number,
+                    m10: number,
+                    m11: number,
+                    m12: number
+                ): AffineTransformation;
+
+                setToRotation(theta: number): AffineTransformation;
+
+                setToRotation(sinTheta: number, cosTheta: number): AffineTransformation;
+
+                setToRotation(
+                    theta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                setToRotation(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                getMatrixEntries(): [number, number, number, number, number, number];
+
+                filter(seq: CoordinateSequence, i: number): void;
+
+                rotate(theta: number): AffineTransformation;
+
+                rotate(sinTheta: number, cosTheta: number): AffineTransformation;
+
+                rotate(theta: number, x: number, y: number): AffineTransformation;
+
+                rotate(
+                    sinTheta: number,
+                    cosTheta: number,
+                    x: number,
+                    y: number
+                ): AffineTransformation;
+
+                getDeterminant(): number;
+
+                composeBefore(trans: AffineTransformation): AffineTransformation;
+
+                setToShear(xShear: number, yShear: number): AffineTransformation;
+
+                isDone(): boolean;
+
+                clone(): AffineTransformation;
+
+                translate(x: number, y: number): AffineTransformation;
+
+                setToReflection(x: number, y: number): AffineTransformation;
+
+                setToReflection(
+                    x0: number,
+                    y0: number,
+                    x1: number,
+                    y1: number
+                ): AffineTransformation;
+
+                toString(): string;
+
+                setToTranslation(dx: number, dy: number): AffineTransformation;
+
+                shear(xShear: number, yShear: number): AffineTransformation;
+
+                transform<T extends Geometry>(g: T): T;
+
+                transform(src: Coordinate, dest: Coordinate): Coordinate;
+
+                transform(seq: CoordinateSequence, i: number): void;
+
+                reflect(
+                    x0: number,
+                    y0: number,
+                    x1?: number,
+                    y1?: number
+                ): AffineTransformation;
+
+                constructor(trans?: AffineTransformation);
+
+                constructor(
+                    m00: number,
+                    m01: number,
+                    m02: number,
+                    m10: number,
+                    m11: number,
+                    m12: number
+                );
+
+                constructor(
+                    src0: Coordinate,
+                    src1: Coordinate,
+                    src2: Coordinate,
+                    dest0: Coordinate,
+                    dest1: Coordinate,
+                    dest2: Coordinate
+                );
+            }
+        }
     }
 
     namespace io {
@@ -1789,6 +2076,61 @@ declare namespace jsts {
              */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
             
+        }
+    }
+
+    namespace operation {
+        import Geometry = jsts.geom.Geometry;
+        import PrecisionModel = jsts.geom.PrecisionModel;
+        import BoundaryNodeRule = jsts.algorithm.BoundaryNodeRule;
+
+        export class GeometryGraphOperation {
+            getArgGeometry(i: number): Geometry;
+
+            setComputationPrecision(pm: PrecisionModel): void;
+
+            constructor(g0: Geometry, g1?: Geometry);
+
+            constructor(
+                g0: Geometry,
+                g1: Geometry,
+                boundaryNodeRule: BoundaryNodeRule
+            );
+        }
+
+        namespace relate {
+            import Geometry = jsts.geom.Geometry;
+            import IntersectionMatrix = jsts.geom.IntersectionMatrix;
+
+            export class RelateOp extends GeometryGraphOperation {
+                static covers(g1: Geometry, g2: Geometry): boolean;
+
+                static intersects(g1: Geometry, g2: Geometry): boolean;
+
+                static touches(g1: Geometry, g2: Geometry): boolean;
+
+                static equalsTopo(g1: Geometry, g2: Geometry): boolean;
+
+                static relate(
+                    g1: Geometry,
+                    g2: Geometry,
+                    boundaryNodeRule?: BoundaryNodeRule
+                ): IntersectionMatrix;
+
+                static overlaps(g1: Geometry, g2: Geometry): boolean;
+
+                static crosses(g1: Geometry, g2: Geometry): boolean;
+
+                static contains(g1: Geometry, g2: Geometry): boolean;
+
+                getIntersectionMatrix(): IntersectionMatrix;
+
+                constructor(
+                    g1: Geometry,
+                    g2: Geometry,
+                    boundaryNodeRule?: BoundaryNodeRule
+                );
+            }
         }
     }
 }

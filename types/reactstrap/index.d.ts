@@ -1,4 +1,4 @@
-// Type definitions for reactstrap 8.2
+// Type definitions for reactstrap 8.4
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>
 //                 Marco Falkenberg <https://github.com/mfal>

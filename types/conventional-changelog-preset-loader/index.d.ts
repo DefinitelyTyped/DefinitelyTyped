@@ -24,7 +24,7 @@ import { Context as WriterContext } from "conventional-changelog-writer";
  *
  * @param path
  */
-declare function conventionalChangelogPresetLoader(path: string | Config): CoreOptions.Config<Commit, WriterContext>;
+declare function conventionalChangelogPresetLoader(path: string | Config): CoreOptions.Config;
 
 declare namespace conventionalChangelogPresetLoader {
     function presetLoader(requireMethod: presetLoader.RequireMethod): typeof conventionalChangelogPresetLoader;
@@ -32,6 +32,8 @@ declare namespace conventionalChangelogPresetLoader {
     namespace presetLoader {
         type RequireMethod = (id: string) => any;
     }
+
+    type Builder = (config: CoreOptions.Config.Object & Config) => CoreOptions.Config;
 
     interface Config {
         /**
