@@ -16,6 +16,7 @@ const ImgixTest = () => (
         className="lazyload"
         htmlAttributes={{
             src: '...',
+            'data-testid': 'testid',
         }}
     />
 );

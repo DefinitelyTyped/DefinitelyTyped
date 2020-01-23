@@ -12,6 +12,7 @@
 //                 Ting-Wai To <https://github.com/tingwai-to>
 //                 Alex Petty <https://github.com/pettyalex>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Tianlin <https://github.com/tianlinle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -502,13 +503,13 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number): Promise<[string, string[]]>;
+        scan(cursor: number | string): Promise<[string, string[]]>;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
 
         sscan(key: KeyType, cursor: number, ...args: ValueType[]): Promise<[string, string[]]>;
 
@@ -551,7 +552,7 @@ declare namespace IORedis {
 
         xread(...args: ValueType[]): Array<[string, string[]]>;
 
-        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string,  ...args: ValueType[]): any;
+        xreadgroup(groupOption: 'GROUP' | 'group', group: string, consumer: string, ...args: ValueType[]): any;
 
         xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Promise<Array<[string, string[]]>>;
 
@@ -865,13 +866,13 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number): Pipeline;
+        scan(cursor: number | string): Pipeline;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Pipeline;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
         sscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
 
         hscan(key: KeyType, cursor: number, ...args: ValueType[]): Pipeline;
@@ -904,7 +905,7 @@ declare namespace IORedis {
 
         xread(...args: ValueType[]): Pipeline;
 
-        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string,  ...args: ValueType[]): Pipeline;
+        xreadgroup(command: 'GROUP' | 'group', group: string, consumer: string, ...args: ValueType[]): Pipeline;
 
         xrevrange(key: KeyType, end: string, start: string, ...args: ValueType[]): Pipeline;
 
@@ -993,7 +994,7 @@ declare namespace IORedis {
     }
 
     interface ClusterStatic extends EventEmitter, Commander {
-        new (nodes: ClusterNode[], options?: ClusterOptions): Cluster;
+        new(nodes: ClusterNode[], options?: ClusterOptions): Cluster;
     }
 
     interface RedisOptions {
@@ -1182,7 +1183,7 @@ declare namespace IORedis {
 
     type DNSLookupFunction = (hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     interface NatMap {
-        [key: string]: {host: string, port: number};
+        [key: string]: { host: string, port: number };
     }
 
     interface ClusterOptions {

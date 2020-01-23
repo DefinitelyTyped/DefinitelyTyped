@@ -98,6 +98,10 @@ const testQueryStream = async (connection: oracledb.Connection): Promise<void> =
                 type: oracledb.NUMBER,
                 val: 20,
             },
+            anotherValue: {
+                dir: oracledb.BIND_INOUT,
+                type: oracledb.DB_TYPE_NCLOB,
+            }
         });
 
         let data = '';
@@ -155,8 +159,9 @@ const testResultSet = async (connection: oracledb.Connection): Promise<void> => 
 
     assertEqual(result.metaData[0], { name: '1' });
 
-    const { resultSet } = result;
+    const { resultSet, lastRowid } = result;
 
+    console.log(lastRowid);
     console.log('Testing resultSet.getRow()...');
 
     const row = await resultSet.getRow();

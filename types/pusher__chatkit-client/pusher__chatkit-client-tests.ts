@@ -48,7 +48,7 @@ async function test_connecting() {
     });
 
     // Subscribe to room with no params
-    await currentUser.subscribeToRoomMultipart({
+    const subscribedRoom = await currentUser.subscribeToRoomMultipart({
         roomId: room.id,
     });
 
@@ -86,4 +86,6 @@ async function test_connecting() {
     await currentUser.removeUserFromRoom({ userId: 'keith', roomId: room.id });
     await currentUser.isTypingIn({ roomId: room.id });
     await currentUser.deleteRoom({ roomId: room.id });
+
+    subscribedRoom.users.forEach(user => user.name);
 }

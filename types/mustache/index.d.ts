@@ -1,4 +1,4 @@
-// Type definitions for Mustache 3.2.1
+// Type definitions for Mustache 4.0.0
 // Project: https://github.com/janl/mustache.js
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
 //                 Manuel Thalmann <https://github.com/manuth>,
@@ -60,6 +60,17 @@ interface MustacheStatic {
     clearCache(): void;
 
     /**
+     * Customise the template caching behaviour by either:
+     *
+     * disable it completely by setting it to `undefined`
+     *
+     * -- or --
+     *
+     * provide a custom cache strategy that satisfies the `TemplateCache` interface
+     */
+    templateCache: TemplateCache | undefined;
+
+    /**
      * Parses and caches the given template in the default writer and returns the array of tokens it contains.
      *
      * Doing this ahead of time avoids the need to parse templates on the fly as they are rendered.
@@ -92,25 +103,6 @@ interface MustacheStatic {
      * The tags to use.
      */
     render(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
-
-    /**
-     * Renders the `template` with the given `view` and `partials` using the default writer.
-     *
-     * @param template
-     * The template to render.
-     *
-     * @param view
-     * The view to render the template with.
-     *
-     * @param partials
-     * Either an object that contains the names and templates of partials that are used in a template
-     *
-     * -- or --
-     *
-     * A function that is used to load partial template on the fly that takes a single argument: the name of the partial.
-     */
-    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn): string;
-    to_html(template: string, view: any | MustacheContext, partials?: PartialsOrLookupFn, send?: (result: string) => void): void;
 }
 
 /**
@@ -248,7 +240,102 @@ declare class MustacheWriter {
      *
      * If the template doesn't use higher-order sections, this argument may be omitted.
      */
-    renderTokens(tokens: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+    renderTokens(tokens: string[][], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Renders a section block.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param originalTemplate
+     * An object used to extract the portion of the original template that was contained in a higher-order section.
+     */
+    renderSection(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Renders an inverted section block.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param originalTemplate
+     * An object used to extract the portion of the original template that was contained in a higher-order section.
+     */
+    renderInverted(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, originalTemplate?: string): string;
+
+    /**
+     * Adds indentation to each line of the given partial.
+     *
+     * @param partial
+     * The partial to indent.
+     *
+     * @param indentation
+     * String containing a combination of spaces and tabs to use as indentation.
+     *
+     * @param lineHasNonSpace
+     * Whether to indent lines that are empty.
+     */
+    indentPartial(partial: string, indentation: string, lineHasNonSpace: boolean): string;
+
+    /**
+     * Renders a partial.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     *
+     * @param partials
+     * The partials to use for rendering the token.
+     *
+     * @param tags
+     * The tags to use.
+     */
+    renderPartial(token: string[], context: MustacheContext, partials?: PartialsOrLookupFn, tags?: OpeningAndClosingTags): string;
+
+    /**
+     * Renders an unescaped value.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     */
+    unescapedValue(token: string[], context: MustacheContext): string;
+
+    /**
+     * Renders an escaped value.
+     *
+     * @param token
+     * The token to render.
+     *
+     * @param context
+     * The context to use for rendering the token.
+     */
+    escapedValue(token: string[], context: MustacheContext): string;
+
+    /**
+     * Renders a raw token.
+     *
+     * @param token
+     * The token to render.
+     */
+    rawValue(token: string[]): string;
 }
 
 /**
@@ -265,6 +352,12 @@ type OpeningAndClosingTags = [string, string];
  */
 type PartialsOrLookupFn = Record<string, string> | PartialLookupFn
 type PartialLookupFn = (partialName: string) => string | undefined
+
+interface TemplateCache {
+    set(cacheKey: string, value: string): void
+    get(cacheKey: string): string | undefined
+    clear(): void
+}
 
 /**
  * Provides the functionality to render templates with `{{mustaches}}`.

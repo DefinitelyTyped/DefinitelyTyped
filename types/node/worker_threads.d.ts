@@ -54,6 +54,13 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
+        /**
+         * List of arguments which would be stringified and appended to
+         * `process.argv` in the worker. This is mostly similar to the `workerData`
+         * but the values will be available on the global `process.argv` as if they
+         * were passed as CLI options to the script.
+         */
+        argv?: any[];
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
