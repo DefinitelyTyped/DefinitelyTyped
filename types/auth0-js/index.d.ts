@@ -113,11 +113,10 @@ export class DBConnection {
     constructor(request: any, option: any);
 
     /**
-     * Signup a new user
-     *
-     * @param options: https://auth0.com/docs/api/authentication#!#post--dbconnections-signup
+     * Creates a new user in a Auth0 Database connection
+     * @param options https://auth0.com/docs/api/authentication#signup
      */
-    signup(options: DbSignUpOptions, callback: Auth0Callback<any>): void;
+    signup(options: DbSignUpOptions, callback: Auth0Callback<DbSignUpResults>): void;
 
     /**
      * Initializes the change password flow
@@ -834,13 +833,25 @@ export interface DelegationOptions {
 }
 
 export interface DbSignUpOptions {
+    /** user email address */
     email: string;
+    /** user password */
     password: string;
+    /** name of the connection where the user will be created */
     connection: string;
     /** User desired username. Required if you use a database connection and you have enabled `Requires Username` */
     username?: string;
     scope?: string;
-    user_metadata?: any;
+    /** additional signup attributes used for creating the user. Will be stored in `user_metadata` */
+    userMetadata?: any;
+}
+
+/** result of the signup request */
+export interface DbSignUpResults {
+    /** user's email */
+    email: string;
+    /** if the user's email was verified */
+    emailVerified: boolean;
 }
 
 export interface ParseHashOptions {
