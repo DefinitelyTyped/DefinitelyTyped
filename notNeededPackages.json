@@ -2251,6 +2251,12 @@
             "asOfVersion": "24.3.0"
         },
         {
+            "libraryName": "jest-docblock",
+            "typingsPackageName": "jest-docblock",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-docblock",
+            "asOfVersion": "25.1.0"
+        },
+        {
             "libraryName": "jest-each",
             "typingsPackageName": "jest-each",
             "sourceRepoURL": "https://github.com/facebook/jest",
