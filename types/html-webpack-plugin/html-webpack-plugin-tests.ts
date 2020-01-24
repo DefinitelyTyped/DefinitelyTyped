@@ -3,7 +3,7 @@ import { Compiler, compilation } from 'webpack';
 
 const plugin = new HtmlWebpackPlugin();
 
-let webpackCompilation: compilation.Compilation = {} as any;
+const webpackCompilation: compilation.Compilation = {} as any;
 const templateFunction = () => '';
 plugin.evaluateCompilationResult(webpackCompilation, '').then(res => {
 	if (typeof res === 'function') {

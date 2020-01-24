@@ -18,7 +18,7 @@ declare class HtmlWebpackPlugin extends Plugin {
     constructor(options?: HtmlWebpackPlugin.Options);
 
 		apply(compiler: Compiler): void;
-		
+
 		evaluateCompilationResult(compilation: compilation.Compilation, content: string): Promise<string | TemplateFunction>;
 
 		executeTemplate(templateFunction: TemplateFunction, chunks: any, assets: any, compilation: compilation.Compilation): Promise<string>;
