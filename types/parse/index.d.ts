@@ -889,7 +889,7 @@ namespace Parse {
         /**
          * Static method to get all schemas
          *
-         * @return {Promise} A promise that is resolved with the result when
+         * @return A promise that is resolved with the result when
          * the query completes.
          */
         static all(): Promise<Schema[]>;
