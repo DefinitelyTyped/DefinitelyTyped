@@ -8,14 +8,16 @@ import {
     SingleOrArray,
     SingleOrArrayOfTerms,
     SingleOrArrayOfTermsOrLiterals,
-    WithValue,
-    WithTerm,
+    WithValues,
+    WithSingleValue,
+    WithTerms,
+    WithSingleTerm,
     SingleContextClownface,
     SingleOrOneElementArray
 } from '..';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceInit & Partial<WithTerm<T>> & Partial<WithValue>);
+    constructor(options: ClownfaceInit & Partial<WithSingleTerm<T> | WithTerms<T>> & Partial<WithSingleValue | WithValues>);
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;
@@ -23,7 +25,7 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     readonly dataset: D;
     readonly datasets: D[];
     readonly _context: any;
-    list(): Iterator<Term>;
+    list(): Iterable<SingleContextClownface<D>>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
     forEach(cb: (quad: Clownface<D, T>) => void): void;
@@ -49,8 +51,8 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
 
     // tslint:disable:no-unnecessary-generics
-    in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
     has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 

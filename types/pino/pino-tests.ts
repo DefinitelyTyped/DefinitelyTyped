@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    mixin() { return { customName: 'unknown', customId: 111 }; },
+});
+
+pino({
+    mixin: () => ({ customName: 'unknown', customId: 111 }),
+});
+
+pino({
     redact: { paths: [], censor: 'SECRET' },
 });
 
@@ -163,6 +171,10 @@ const pretty = pino({
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
+});
+
+const withTimeFn = pino({
+    timestamp: pino.stdTimeFunctions.isoTime,
 });
 
 // Properties/types imported from pino-std-serializers

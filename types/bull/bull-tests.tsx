@@ -165,6 +165,11 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
     // error
 });
 
+pdfQueue.whenCurrentJobsFinished()
+.then(() => {
+    // Jobs finished
+});
+
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Typed Event Handlers

@@ -52,7 +52,7 @@ export interface MeasureProps {
     scroll?: boolean;
     bounds?: boolean;
     margin?: boolean;
-    innerRef?(ref: Element | null): void;
+    innerRef?: React.Ref<Element>;
     onResize?(contentRect: ContentRect): void;
     children?: React.SFC<MeasuredComponentProps>;
 }

@@ -412,7 +412,7 @@ namespace Parse {
         revert(...keys: Array<Extract<keyof T, string>>): void;
         save<K extends Extract<keyof T, string>>(
             attrs?: (((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
-                [key in K]: T[K];
+                [key in K]: T[key];
             }) | null,
             options?: Object.SaveOptions
         ): Promise<this>;
@@ -423,7 +423,7 @@ namespace Parse {
         ): Promise<this>;
         set<K extends Extract<keyof T, string>>(
             attrs: ((x: T) => void) extends ((x: Attributes) => void) ? Partial<T> : {
-                [key in K]: T[K];
+                [key in K]: T[key];
             },
             options?: Object.SetOptions
         ): this | false;
@@ -1107,6 +1107,10 @@ namespace Parse {
         function afterFind(arg1: any, func?: (request: AfterFindRequest) => any): void;
         function beforeLogin(func?: (request: TriggerRequest) => any): void;
         function define(name: string, func: (request: FunctionRequest) => any): void;
+        function define<T extends () => any>(
+            name: string,
+            func: (request: FunctionRequest<{}>) => Promise<ReturnType<T>> | ReturnType<T>
+        ): void;
         function define<T extends (
             param: { [P in keyof Parameters<T>[0]]: Parameters<T>[0][P] }
         ) => any>(

@@ -143,25 +143,25 @@ declare namespace EW {
          * The continent value is a two-letter code for the continent that
          * the IP address maps to.
          */
-        continent: string | undefined;
+        readonly continent: string | undefined;
 
         /**
          * The country value is an ISO-3166, two-letter code for the country
          * where the IP address maps to.
          */
-        country: string | undefined;
+        readonly country: string | undefined;
 
         /**
          * The region value is an ISO-3166, two-letter code for the state,
          * province, or region where the IP address maps to.
          */
-        region: string | undefined;
+        readonly region: string | undefined;
 
         /**
          * The city value is the city (within a 50-mile radius) that the IP
          * address maps to.
          */
-        city: string | undefined;
+        readonly city: string | undefined;
 
         /**
          * The zipCode value is the zipcode that the IP address maps to
@@ -187,7 +187,7 @@ declare namespace EW {
          *
          * See the EdgeScape Users Guide for more details.
          */
-        zipCode: string | undefined;
+        readonly zipCode: string | undefined;
     }
 
     /**
@@ -199,99 +199,99 @@ declare namespace EW {
         /**
          * Brand name of the device.
          */
-        brandName: string | undefined;
+        readonly brandName: string | undefined;
 
         /**
          * Model name of the device.
          */
-        modelName: string | undefined;
+        readonly modelName: string | undefined;
 
         /**
          * Marketing name of the device.
          */
-        marketingName: string | undefined;
+        readonly marketingName: string | undefined;
 
         /**
          * Indicates if the device is a wireless device.
          */
-        isWireless: boolean | undefined;
+        readonly isWireless: boolean | undefined;
 
         /**
          * Indicates if the device is a tablet.
          */
-        isTablet: boolean | undefined;
+        readonly isTablet: boolean | undefined;
 
         /**
          * The device operation system.
          */
-        os: string | undefined;
+        readonly os: string | undefined;
 
         /**
          * The device operating system version.
          */
-        osVersion: string | undefined;
+        readonly osVersion: string | undefined;
 
         /**
          * The mobile browser name.
          */
-        mobileBrowser: string | undefined;
+        readonly mobileBrowser: string | undefined;
 
         /**
          * The mobile browser version.
          */
-        mobileBrowserVersion: string | undefined;
+        readonly mobileBrowserVersion: string | undefined;
 
         /**
          * The screen resolution width, in pixels.
          */
-        resolutionWidth: number | undefined;
+        readonly resolutionWidth: number | undefined;
 
         /**
          * The screen resolution height, in pixels.
          */
-        resolutionHeight: number | undefined;
+        readonly resolutionHeight: number | undefined;
 
         /**
          * The physical screen height, in millimeters.
          */
-        physicalScreenHeight: number | undefined;
+        readonly physicalScreenHeight: number | undefined;
 
         /**
          * The physical screen width, in millimeters.
          */
-        physicalScreenWidth: number | undefined;
+        readonly physicalScreenWidth: number | undefined;
 
         /**
          * Indicates if the browser supports cookies.
          */
-        hasCookieSupport: boolean | undefined;
+        readonly hasCookieSupport: boolean | undefined;
 
         /**
          * Indicates if the device supports all of the following
          * JavaScript functions: "alert confirm access form elements
          * setTimeout setInterval and document.location"
          */
-        hasAjaxSupport: boolean | undefined;
+        readonly hasAjaxSupport: boolean | undefined;
 
         /**
          * Indicates if the browser supports Flash.
          */
-        hasFlashSupport: boolean | undefined;
+        readonly hasFlashSupport: boolean | undefined;
 
         /**
          * Indicates if the browser accepts third party cookies.
          */
-        acceptsThirdPartyCookie: boolean | undefined;
+        readonly acceptsThirdPartyCookie: boolean | undefined;
 
         /**
          * Indicates the level of support for XHTML.
          */
-        xhtmlSupportLevel: number | undefined;
+        readonly xhtmlSupportLevel: number | undefined;
 
         /**
          * Indicates if the device is a mobile device.
          */
-        isMobile: boolean | undefined;
+        readonly isMobile: boolean | undefined;
     }
 }
 
@@ -318,7 +318,7 @@ declare module "cookies" {
          *      take a string and return the result of the custom decoding of
          *      that string.
          */
-        constructor(header?: string | string[], options?: object);
+        constructor(header?: string | string[] | null, options?: object);
 
         /**
          * Returns the string representation to use when setting the Cookie

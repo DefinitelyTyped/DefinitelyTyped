@@ -1,7 +1,10 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset, NamedNode } from 'rdf-js';
+import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DatasetCore } from 'rdf-js';
 import QuadExt = require('rdf-ext/lib/Quad');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
+import DatasetExt = require('rdf-ext/lib/Dataset');
+import { EventEmitter } from 'events';
+import { Readable } from 'stream';
 
 function NamedNode_toCanonical(): string {
     const iri = 'http://example.org';
@@ -225,8 +228,14 @@ function dataset_empty(): boolean {
     return rdf.dataset().length === 0;
 }
 
-function dataset_merge(): Dataset {
-    return rdf.dataset().merge(rdf.dataset());
+function dataset_merge(): DatasetExt {
+    const other: Dataset = <any> {};
+    return rdf.dataset().merge(other);
+}
+
+function dataset_merge_arrau(): DatasetExt {
+    const other: Quad[] = <any> {};
+    return rdf.dataset().merge(other);
 }
 
 function dataset_clone(): Dataset {
@@ -278,4 +287,12 @@ function Dataset_toJSON() {
         && quad.object.termType === 'Literal'
         && quad.graph !== null;
     });
+}
+
+async function dataset_parserImport() {
+    const dataset: DatasetExt = <any> {};
+    const parserSink: Sink<EventEmitter, Stream> = <any> {};
+    const stream: Readable = <any> {};
+
+    const promise: DatasetExt = await dataset.import(parserSink.import(stream));
 }

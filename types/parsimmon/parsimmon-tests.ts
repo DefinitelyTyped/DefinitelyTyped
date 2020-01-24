@@ -146,6 +146,7 @@ fooPar = P.succeed(foo);
 fooArrPar = P.seq(fooPar, fooPar);
 const par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
 const par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
+const par3: Parser<[string, string, string, number, string, string, string, number]> = P.seq(fooPar, fooPar, fooPar, numPar, fooPar, fooPar, fooPar, numPar);
 
 interface SeqObj {
 	first: number;
@@ -258,6 +259,19 @@ strPar = P.seqMap(P.digit, (a: string) => 'foo');
 numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
 strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
 strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
+strPar = P.seqMap(
+	P.digit,
+	P.digit,
+	P.digit,
+	P.digit,
+	P.digit.map(Number),
+	P.digit.map(Number),
+	P.digit,
+	P.digit,
+	P.digit,
+	P.digit,
+	(a: string, b: string, c: string, d: string, e: number, f: number, g: string, h: string, i: string, j: string) => 'foo',
+);
 
 strArrPar = P.sepBy(P.string('foo'), P.string('bar'));
 strArrPar = P.sepBy1(P.string('foo'), P.string('bar'));

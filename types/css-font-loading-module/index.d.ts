@@ -58,4 +58,8 @@ declare global {
     interface Document {
         fonts: FontFaceSet;
     }
+
+    interface WorkerGlobalScope {
+        fonts: FontFaceSet;
+    }
 }

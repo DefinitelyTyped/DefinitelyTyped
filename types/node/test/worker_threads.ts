@@ -10,6 +10,7 @@ import { createContext } from "vm";
                     resourceLimits: {
                         codeRangeSizeMb: 123,
                     },
+                    argv: ['asd'],
                     workerData: script
                 });
                 worker.on('message', resolve);
