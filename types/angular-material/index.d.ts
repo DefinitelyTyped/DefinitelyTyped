@@ -434,6 +434,7 @@ declare module 'angular' {
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
+            updateAnimation(animation: IPanelAnimation): void;
             updatePosition(position: IPanelPosition): void;
             registerInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
             removeInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
