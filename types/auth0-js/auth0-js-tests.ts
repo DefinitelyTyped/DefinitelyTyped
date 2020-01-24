@@ -187,7 +187,8 @@ webAuth.popup.signupAndLogin({ email: "", password: "", connection: "" }, (err, 
 
 webAuth.login({username: 'bar', password: 'foo', state: '1234'}, (err, data) => {});
 
-webAuth.crossOriginAuthenticationCallback();
+// cross-origin verification
+webAuth.crossOriginVerification();
 
 webAuth.checkSession({
   audience: 'https://mystore.com/api/v2',

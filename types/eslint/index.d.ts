@@ -327,7 +327,7 @@ export namespace Rule {
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
     }
 
     interface RuleFixer {
