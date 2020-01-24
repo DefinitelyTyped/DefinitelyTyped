@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5.1
+// Type definitions for Mongoose 5.5.10
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -2924,9 +2924,13 @@ declare module "mongoose" {
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
      * This function does not trigger any middleware. In particular, it does not trigger aggregate middleware.
-     * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
+     * @param pipeline See http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
+     * @param options See https://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
      */
-    watch(options?: mongodb.ChangeStreamOptions & { session?: ClientSession }): mongodb.ChangeStream;
+    watch(
+        pipeline?: object[],
+        options?: mongodb.ChangeStreamOptions & { session?: ClientSession },
+    ): mongodb.ChangeStream;
 
     /**
      * Translate any aliases fields/conditions so the final query or document object is pure

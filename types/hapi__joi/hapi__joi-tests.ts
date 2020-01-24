@@ -956,6 +956,19 @@ schema = Joi.link(str);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// validate result types
+{
+    const _boolTypeTest: boolean = Joi.boolean().validate(true).value;
+    const _numberTypeTest: number = Joi.number().validate(1337).value;
+    const _stringTypeTest: string = Joi.string().validate('hello world').value;
+    const _symbolTypeTest: symbol = Joi.symbol().validate(Symbol('hello world')).value;
+    const _arrayTypeTest: number[] = Joi.array<number>().items(Joi.number()).validate([1, 2, 3]).value;
+    const _objectTypeTest: { key: string } = Joi.object<{ key: string }>({ key: Joi.string() }).validate({}).value;
+    const _dateTypeTest: Date = Joi.date().validate(new Date()).value;
+    const _alternativeType: number | string = Joi.alternatives<number | string>(Joi.number(), Joi.string()).validate(1).value;
+}
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.compile(obj);
 schema = Joi.compile(schemaMap);

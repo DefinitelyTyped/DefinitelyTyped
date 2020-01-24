@@ -23,8 +23,6 @@ import { EventEmitter } from "events";
  */
 export type Term = NamedNode | BlankNode | Literal | Variable | DefaultGraph;
 
-type PropType<TObj, TProp extends keyof TObj> = TObj[TProp];
-
 /**
  * Contains an IRI.
  */
@@ -531,21 +529,21 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
      *
      * This method is aligned with `Array.prototype.every()` in ECMAScript-262.
      */
-    every(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): boolean;
+    every(iteratee: QuadFilterIteratee<OutQuad>['test']): boolean;
 
     /**
      * Creates a new dataset with all the quads that pass the test implemented by the provided `iteratee`.
      *
      * This method is aligned with Array.prototype.filter() in ECMAScript-262.
      */
-    filter(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): this;
+    filter(iteratee: QuadFilterIteratee<OutQuad>['test']): this;
 
     /**
      * Executes the provided `iteratee` once on each quad in the dataset.
      *
      * This method is aligned with `Array.prototype.forEach()` in ECMAScript-262.
      */
-    forEach(iteratee: PropType<QuadRunIteratee<OutQuad>, 'run'>): void;
+    forEach(iteratee: QuadRunIteratee<OutQuad>['run']): void;
 
     /**
      * Imports all quads from the given stream into the dataset.
@@ -562,7 +560,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
     /**
      * Returns a new dataset containing all quads returned by applying `iteratee` to each quad in the current dataset.
      */
-    map(iteratee: PropType<QuadMapIteratee<OutQuad>, 'map'>): this;
+    map(iteratee: QuadMapIteratee<OutQuad>['map']): this;
 
     /**
      * This method calls the `iteratee` on each `quad` of the `Dataset`. The first time the `iteratee` is called, the
@@ -573,7 +571,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
      *
      * This method is aligned with `Array.prototype.reduce()` in ECMAScript-262.
      */
-    reduce<A = any>(iteratee: PropType<QuadReduceIteratee<A, OutQuad>, 'run'>, initialValue?: A): A;
+    reduce<A = any>(iteratee: QuadReduceIteratee<A, OutQuad>['run'], initialValue?: A): A;
 
     /**
      * Existential quantification method, tests whether some quads in the dataset pass the test implemented by the
@@ -583,7 +581,7 @@ export interface Dataset<OutQuad extends BaseQuad = Quad, InQuad extends BaseQua
      *
      * This method is aligned with `Array.prototype.some()` in ECMAScript-262.
      */
-    some(iteratee: PropType<QuadFilterIteratee<OutQuad>, 'test'>): boolean;
+    some(iteratee: QuadFilterIteratee<OutQuad>['test']): boolean;
 
     /**
      * Returns the set of quads within the dataset as a host language native sequence, for example an `Array` in

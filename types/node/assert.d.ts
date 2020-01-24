@@ -43,6 +43,9 @@ declare module "assert" {
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, message?: string | Error): Promise<void>;
         function doesNotReject(block: (() => Promise<any>) | Promise<any>, error: RegExp | Function, message?: string | Error): Promise<void>;
 
+        function match(value: string, regExp: RegExp, message?: string | Error): void;
+        function doesNotMatch(value: string, regExp: RegExp, message?: string | Error): void;
+
         const strict: typeof internal;
     }
 

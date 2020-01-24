@@ -12365,14 +12365,15 @@ declare namespace Office {
          */
         ewsUrl: string;
         /**
-         * The mailbox item. Depending on the context in which the add-in opened, the item may be of any number of types.
-         * If you want to see IntelliSense for only a specific type, cast this item to one of the following:
+         * The mailbox item. Depending on the context in which the add-in opened, the item type may vary.
+         * If you want to see IntelliSense for only a specific type or mode, cast this item to one of the following:
          *
          * {@link Office.ItemCompose | ItemCompose}, {@link Office.ItemRead | ItemRead},
+         * {@link Office.Message | Message}, {@link Office.Appointment | Appointment},
          * {@link Office.MessageCompose | MessageCompose}, {@link Office.MessageRead | MessageRead},
          * {@link Office.AppointmentCompose | AppointmentCompose}, {@link Office.AppointmentRead | AppointmentRead}
          */
-        item: Item & ItemCompose & ItemRead & MessageRead & MessageCompose & AppointmentRead & AppointmentCompose;
+        item: Item & ItemCompose & ItemRead & Message & MessageCompose & MessageRead & Appointment & AppointmentCompose & AppointmentRead;
         /**
          * Gets an object that provides methods to manage the categories master list associated with a mailbox.
          *
