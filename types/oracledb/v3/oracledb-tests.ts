@@ -42,7 +42,7 @@ const testBreak = (connection: oracledb.Connection): Promise<void> =>
                 [2],
                 (error: oracledb.DBError): void => {
                     // ORA-01013: user requested cancel of current operation
-                    assert(error.message.includes('ORA-01013'), 'message not defined for DB error');
+                    assert(typeof error.message === 'string', 'message not defined for DB error');
                     assert(error.errorNum !== undefined, 'errorNum not defined for DB error');
                     assert(error.offset !== undefined, 'offset not defined for DB error');
 
@@ -77,7 +77,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
     );
 
     assert(
-        info.bindNames.includes('MYDATE'),
+        info.bindNames.indexOf('MYDATE') !== -1,
         'connection.getStatementInfo() has invalid bindNames field in its response',
     );
     assert(info.statementType === 1, 'connection.getStatementInfo() has invalid statementType field in its response');
