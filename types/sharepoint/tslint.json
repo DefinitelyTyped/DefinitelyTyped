@@ -17,7 +17,6 @@
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "prefer-template": false,
-        "use-default-type-parameter": false,
         "interface-name": false
     }
 }
