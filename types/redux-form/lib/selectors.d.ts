@@ -2,7 +2,7 @@ import { FormErrors, GetFormState } from "../index";
 
 export type DataSelector<FormData = {}, State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => FormData;
 export type ErrorSelector<FormData = {}, State = {}, ErrorType = string> = (formName: string, getFormState?: GetFormState) => (state: State) => FormErrors<FormData, ErrorType>;
-export type GetFormErrorSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => any;
+export type GetFormErrorSelector<State = {}, ErrorType = string> = (formName: string, getFormState?: GetFormState) => (state: State) => ErrorType;
 export type BooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State) => boolean;
 export type NamesSelector<State = {}> = (getFormState?: GetFormState) => (state: State) => string[];
 export type FormOrFieldsBooleanSelector<State = {}> = (formName: string, getFormState?: GetFormState) => (state: State, ...fields: string[]) => boolean;
