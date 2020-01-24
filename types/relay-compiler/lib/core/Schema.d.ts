@@ -24,14 +24,14 @@ export type Argument = Readonly<{
     name: string,
     type: InputTypeID,
     defaultValue: any
-}>
+}>;
 
 export type Directive = Readonly<{
     args: ReadonlyArray<Argument>,
     isClient: boolean,
     locations: ReadonlyArray<DirectiveLocationEnum>,
     name: string
-}>
+}>;
 
 export interface Schema {
     areEqualTypes: (typeA: TypeID, typeB: TypeID) => boolean;
@@ -66,7 +66,7 @@ export interface Schema {
     expectQueryType: () => ObjectTypeID;
     expectStringType: () => ScalarTypeID;
     expectSubscriptionType: () => ObjectTypeID;
-    expectTypeFromAST: (ast: TypeNode) => TypeID
+    expectTypeFromAST: (ast: TypeNode) => TypeID;
     expectTypeFromString: (typeName: string) => TypeID;
     extend: (extensions: DocumentNode | ReadonlyArray<string>) => Schema;
     getDirectives: () => ReadonlyArray<Directive>;
@@ -115,7 +115,7 @@ export interface Schema {
     isPossibleType: (superType: AbstractTypeID, maybeSubType: ObjectTypeID) => boolean;
     isScalar: (type: TypeID) => boolean;
     isServerDefinedField: (type: CompositeTypeID, field: IRField) => boolean;
-    isServerDirective: (directiveName: String) => boolean;
+    isServerDirective: (directiveName: string) => boolean;
     isServerField: (field: FieldID) => boolean;
     isServerType: (type: TypeID) => boolean;
     isString: (type: TypeID) => boolean;

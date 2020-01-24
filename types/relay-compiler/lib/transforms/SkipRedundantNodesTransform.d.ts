@@ -4,4 +4,4 @@ declare function skipRedundantNodesTransform(
   context: CompilerContext,
 ): CompilerContext;
 
-export { skipRedundantNodesTransform as transform }
+export { skipRedundantNodesTransform as transform };
