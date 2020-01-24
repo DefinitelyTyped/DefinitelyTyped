@@ -4,4 +4,4 @@ declare function applyFragmentArgumentTransform(
     context: CompilerContext,
   ): CompilerContext;
 
-export { applyFragmentArgumentTransform as transform }
+export { applyFragmentArgumentTransform as transform };

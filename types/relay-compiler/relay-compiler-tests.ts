@@ -3,8 +3,8 @@ import {
     Fragment,
     Root,
     Printer as GraphQLIRPrinter,
+    Schema
 } from 'relay-compiler';
-import { Schema } from 'relay-compiler';
 import * as InlineFragmentsTransform from 'relay-compiler/lib/transforms/InlineFragmentsTransform';
 import * as SkipRedundantNodesTransform from 'relay-compiler/lib/transforms/SkipRedundantNodesTransform';
 import * as ApplyFragmentArgumentTransform from 'relay-compiler/lib/transforms/ApplyFragmentArgumentTransform';
@@ -18,7 +18,7 @@ const TestSchema: Schema = (undefined as any) as Schema;
 declare function parseGraphQLText(schema: Schema, text: string): {
     definitions: ReadonlyArray<Fragment | Root>,
     schema: Schema
-}
+};
 
 const schema = TestSchema.extend([
     /* GraphQL */ `
@@ -27,7 +27,7 @@ const schema = TestSchema.extend([
     `,
 ]);
 
-const text: string = `
+const text = `
     fragment ScalarField on User {
       traits
     }

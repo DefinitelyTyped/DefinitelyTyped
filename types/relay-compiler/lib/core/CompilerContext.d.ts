@@ -10,7 +10,7 @@ export type CompilerContextDocument = Fragment | Root | SplitOperation;
 
 export class CompilerContext {
   constructor(schema: Schema);
-  documents(): Array<CompilerContextDocument>;
+  documents(): CompilerContextDocument[];
   forEachDocument(fn: (doc: CompilerContextDocument) => void): void;
   replace(node: CompilerContextDocument): CompilerContext;
   add(node: CompilerContextDocument): CompilerContext;
