@@ -114,11 +114,6 @@ namespace Parse {
         error?: Function;
     }
 
-    interface FieldOptions {
-      required?: boolean;
-      defaultValue?: any;
-    }
-
     interface FullOptions {
         success?: Function;
         error?: Function;
@@ -899,12 +894,12 @@ namespace Parse {
          */
         static all(): Promise<Schema[]>;
 
-        addArray(name: string, options?: FieldOptions): this;
-        addBoolean(name: string, options?: FieldOptions): this;
-        addDate(name: string, options?: FieldOptions): this;
-        addField(name: string, type?: Schema.TYPE, options?: FieldOptions): this;
-        addFile(name: string, options?: FieldOptions): this;
-        addGeoPoint(name: string, options?: FieldOptions): this;
+        addArray(name: string, options?: Schema.FieldOptions<any[]>): this;
+        addBoolean(name: string, options?: Schema.FieldOptions<boolean>): this;
+        addDate(name: string, options?: Schema.FieldOptions<Date>): this;
+        addField<T extends Schema.TYPE = any>(name: string, type?: T, options?: Schema.FieldOptions): this;
+        addFile(name: string, options?: Schema.FieldOptions<Parse.File>): this;
+        addGeoPoint(name: string, options?: Schema.FieldOptions<GeoPoint>): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -918,8 +913,8 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string, options?: FieldOptions): this;
-        addObject(name: string, options?: FieldOptions): this;
+        addNumber(name: string, options?: Schema.FieldOptions<number>): this;
+        addObject(name: string, options?: Schema.FieldOptions<object>): this;
 
         /**
          * Adding Pointer Field
@@ -927,9 +922,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string, options?: FieldOptions): this;
+        addPointer(name: string, targetClass: string, options?: Schema.FieldOptions<Pointer>): this;
 
-        addPolygon(name: string, options?: FieldOptions): this;
+        addPolygon(name: string, options?: Schema.FieldOptions<Polygon>): this;
 
         /**
          * Adding Relation Field
@@ -937,9 +932,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addRelation(name: string, targetClass: string, options?: FieldOptions): this;
+        addRelation(name: string, targetClass: string): this;
 
-        addString(name: string, options?: FieldOptions): this;
+        addString(name: string, options?: Schema.FieldOptions<string>): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
@@ -985,7 +980,14 @@ namespace Parse {
     }
 
     namespace Schema {
-        type TYPE = string | number | boolean | Date | File | GeoPoint | any[] | object | Pointer | Relation;
+        type TYPE = 'String' | 'Number' | 'Boolean' | 'Date' | 'File' | 'GeoPoint' | 'Polygon' | 'Array' | 'Object' | 'Pointer' | 'Relation';
+
+        interface FieldOptions
+            <T extends string | number | boolean | Date | Parse.File | Parse.GeoPoint | any[] | object | Parse.Pointer | Parse.Polygon | Parse.Relation = any>
+        {
+            required?: boolean;
+            defaultValue?: T;
+        }
 
         interface Index {
             [fieldName: string]: TYPE;
