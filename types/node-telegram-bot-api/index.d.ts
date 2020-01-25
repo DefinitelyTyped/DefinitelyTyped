@@ -127,6 +127,7 @@ declare namespace TelegramBot {
     }
 
     interface SendMessageOptions extends SendBasicOptions {
+        text: string;
         parse_mode?: ParseMode;
         disable_web_page_preview?: boolean;
     }
