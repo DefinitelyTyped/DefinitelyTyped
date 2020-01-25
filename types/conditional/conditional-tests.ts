@@ -5,8 +5,10 @@ let callback;
 callback = (err: conditional.IllegalArgumentError | null) => {
     // $ExpectType IllegalArgumentError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.IllegalArgumentError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkArgument(true); // $ExpectType void
 conditional.checkArgument(true, 'message'); // $ExpectType void
@@ -16,8 +18,10 @@ conditional.checkArgument(true, callback); // $ExpectType void
 callback = (err: conditional.IllegalStateError | null) => {
     // $ExpectType IllegalStateError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.IllegalStateError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkState(true); // $ExpectType void
 conditional.checkState(true, 'message'); // $ExpectType void
@@ -27,8 +31,10 @@ conditional.checkState(true, callback); // $ExpectType void
 callback = (err: conditional.InvalidTypeError | null) => {
     // $ExpectType InvalidTypeError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.InvalidTypeError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkNumberType(true); // $ExpectType void
 conditional.checkNumberType(true, 'message'); // $ExpectType void
@@ -42,8 +48,10 @@ conditional.checkNotNumberType(true, callback); // $ExpectType void
 callback = (err: conditional.UnknownValueError | null) => {
     // $ExpectType UnknownValueError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.UnknownValueError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkContains('y', ['y', 'n']); // $ExpectType void
 conditional.checkContains('y', ['y', 'n'], 'message'); // $ExpectType void
@@ -65,8 +73,10 @@ conditional.checkDoesNotEqual('a', 'b', callback); // $ExpectType void
 callback = (err: conditional.UndefinedValueError | null) => {
     // $ExpectType UndefinedValueError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.UndefinedValueError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkDefined(null); // $ExpectType void
 conditional.checkDefined(null, 'message'); // $ExpectType void
@@ -80,8 +90,10 @@ conditional.checkUndefined(null, callback); // $ExpectType void
 callback = (err: conditional.IllegalValueError | null) => {
     // $ExpectType IllegalValueError | null
     err;
-    // $ExpectType string | undefined
-    err?.message;
+    if (err instanceof conditional.IllegalValueError) {
+        // $ExpectType string
+        err.message;
+    }
 };
 conditional.checkEmpty(null); // $ExpectType void
 conditional.checkEmpty(null, 'message'); // $ExpectType void
