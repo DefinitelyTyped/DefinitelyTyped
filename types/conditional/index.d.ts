@@ -5,7 +5,7 @@
 
 export as namespace preconditions;
 
-type ErrorCallback<T> = (err: T|null) => void;
+type ErrorCallback<T> = (err: T | null) => void;
 
 export class IllegalArgumentError extends Error {
     constructor(message?: string);
