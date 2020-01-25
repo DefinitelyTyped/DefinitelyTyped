@@ -3,7 +3,7 @@
 // Definitions by: Sankaku <https://github.com/sankaku-deltalab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default boxIntersect;
+export = boxIntersect;
 
 declare function boxIntersect(
     x: ReadonlyArray<ReadonlyArray<number>>,
