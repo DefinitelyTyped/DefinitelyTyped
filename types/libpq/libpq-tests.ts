@@ -1,7 +1,13 @@
 import { Buffer } from 'buffer';
-import assert = require('assert');
 import * as async from 'async';
 import PQ = require('libpq');
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: any, message?: string): void;
+declare function assertEqual<T>(actual: T, expected: T, message?: string): void;
+declare function assertIfError(value: any): void;
+declare function assertNotEqual<T>(actual: T, expected: T, message?: string): void;
+declare function assertThrows(fn: () => void, message?: string): void;
 
 // Stub mocha functions
 const {describe, it, before, after, beforeEach, afterEach} = null as any as {
@@ -78,9 +84,9 @@ describe('async connection', () => {
         const pq = new PQ();
         assert(!pq.connected, 'should have connected set to falsy');
         pq.connect(err => {
-            assert.ifError(err);
+            assertIfError(err);
             pq.exec('SELECT NOW()');
-            assert.equal(pq.ntuples(), 1);
+            assertEqual(pq.ntuples(), 1);
             done();
         });
     });
@@ -105,7 +111,7 @@ describe('async connection', () => {
             const activeDomain = process.domain;
             assert(activeDomain, 'Should have an active domain');
             pq.connect(() => {
-                assert.strictEqual(process.domain, activeDomain, 'Active domain is lost');
+                assertEqual(process.domain, activeDomain, 'Active domain is lost');
                 done();
             });
         });
@@ -135,14 +141,14 @@ describe('async simple query', () => {
         assert(pq.setNonBlocking(true));
         pq.writable(() => {
             const success = pq.sendQuery('SELECT 1');
-            assert.strictEqual(pq.flush(), 0, 'Should have flushed all data to socket');
+            assertEqual(pq.flush(), 0, 'Should have flushed all data to socket');
             assert(success, pq.errorMessage());
             consume(pq, () => {
-                assert.ifError(pq.errorMessage());
+                assertIfError(pq.errorMessage());
                 assert(pq.getResult());
-                assert.strictEqual(pq.getResult(), false);
-                assert.strictEqual(pq.ntuples(), 1);
-                assert.strictEqual(pq.getvalue(0, 0), '1');
+                assertEqual(pq.getResult(), false);
+                assertEqual(pq.ntuples(), 1);
+                assertEqual(pq.getvalue(0, 0), '1');
                 done();
             });
         });
@@ -151,13 +157,13 @@ describe('async simple query', () => {
     it('dispatches parameterized query', (done: Function) => {
         const success = pq.sendQueryParams('SELECT $1::text as name', ['Brian']);
         assert(success, pq.errorMessage());
-        assert.strictEqual(pq.flush(), 0, 'Should have flushed query text & parameters');
+        assertEqual(pq.flush(), 0, 'Should have flushed query text & parameters');
         consume(pq, () => {
-            assert.ifError(pq.errorMessage());
+            assertIfError(pq.errorMessage());
             assert(pq.getResult());
-            assert.strictEqual(pq.getResult(), false);
-            assert.strictEqual(pq.ntuples(), 1);
-            assert.equal(pq.getvalue(0, 0), 'Brian');
+            assertEqual(pq.getResult(), false);
+            assertEqual(pq.ntuples(), 1);
+            assertEqual(pq.getvalue(0, 0), 'Brian');
             done();
         });
     });
@@ -166,35 +172,35 @@ describe('async simple query', () => {
         const statementName = 'async-get-name';
         const success = pq.sendPrepare(statementName, 'SELECT $1::text as name', 1);
         assert(success, pq.errorMessage());
-        assert.strictEqual(pq.flush(), 0, 'Should have flushed query text');
+        assertEqual(pq.flush(), 0, 'Should have flushed query text');
         consume(pq, () => {
-            assert.ifError(pq.errorMessage());
+            assertIfError(pq.errorMessage());
 
             // first time there should be a result
             assert(pq.getResult());
 
             // call 'getResult' until it returns false indicating
             // there is no more input to consume
-            assert.strictEqual(pq.getResult(), false);
+            assertEqual(pq.getResult(), false);
 
             // since we only prepared a statement there should be
             // 0 tuples in the result
-            assert.equal(pq.ntuples(), 0);
+            assertEqual(pq.ntuples(), 0);
 
             // now execute the previously prepared statement
             const success = pq.sendQueryPrepared(statementName, ['Brian']);
             assert(success, pq.errorMessage());
-            assert.strictEqual(pq.flush(), 0, 'Should have flushed parameters');
+            assertEqual(pq.flush(), 0, 'Should have flushed parameters');
             consume(pq, () => {
-                assert.ifError(pq.errorMessage());
+                assertIfError(pq.errorMessage());
 
                 // consume the result of the query execution
                 assert(pq.getResult());
-                assert.equal(pq.ntuples(), 1);
-                assert.equal(pq.getvalue(0, 0), 'Brian');
+                assertEqual(pq.ntuples(), 1);
+                assertEqual(pq.getvalue(0, 0), 'Brian');
 
                 // call 'getResult' again to ensure we're finished
-                assert.strictEqual(pq.getResult(), false);
+                assertEqual(pq.getResult(), false);
                 done();
             });
         });
@@ -208,11 +214,11 @@ describe('cancel a request', () => {
         const sent = pq.sendQuery('pg_sleep(5000)');
         assert(sent, 'should have sent');
         const canceled = pq.cancel();
-        assert.strictEqual(canceled, true, 'should have canceled');
+        assertEqual(canceled, true, 'should have canceled');
         const hasResult = pq.getResult();
         assert(hasResult, 'should have a result');
-        assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
-        assert.equal(pq.getResult(), false);
+        assertEqual(pq.resultStatus(), 'PGRES_FATAL_ERROR');
+        assertEqual(pq.getResult(), false);
         pq.exec('SELECT NOW()');
         done();
     });
@@ -249,37 +255,37 @@ describe('COPY IN', () => {
 
     it('check existing data assuptions', () => {
         pq.exec('SELECT COUNT(*) FROM test_data');
-        assert.equal(pq.getvalue(0, 0), 3);
+        assertEqual(pq.getvalue(0, 0), '3');
     });
 
     it('copies data in', () => {
         const success = pq.exec('COPY test_data FROM stdin');
-        assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
+        assertEqual(pq.resultStatus(), 'PGRES_COPY_IN');
 
         const buffer = new Buffer("bob\t100\n", 'utf8');
         const res1 = pq.putCopyData(buffer);
-        assert.strictEqual(res1, 1);
+        assertEqual(res1, 1);
 
         const res2 = pq.putCopyEnd();
-        assert.strictEqual(res2, 1);
+        assertEqual(res2, 1);
 
         while (pq.getResult()) {
         }
 
         pq.exec('SELECT COUNT(*) FROM test_data');
-        assert.equal(pq.getvalue(0, 0), 4);
+        assertEqual(pq.getvalue(0, 0), '4');
     });
 
     it('can cancel copy data in', () => {
         const success = pq.exec('COPY test_data FROM stdin');
-        assert.equal(pq.resultStatus(), 'PGRES_COPY_IN');
+        assertEqual(pq.resultStatus(), 'PGRES_COPY_IN');
 
         const buffer = new Buffer("bob\t100\n", 'utf8');
         const res1 = pq.putCopyData(buffer);
-        assert.strictEqual(res1, 1);
+        assertEqual(res1, 1);
 
         const res2 = pq.putCopyEnd('cancel!');
-        assert.strictEqual(res2, 1);
+        assertEqual(res2, 1);
 
         while (pq.getResult()) {
         }
@@ -290,7 +296,7 @@ describe('COPY IN', () => {
         );
 
         pq.exec('SELECT COUNT(*) FROM test_data');
-        assert.equal(pq.getvalue(0, 0), 4);
+        assertEqual(pq.getvalue(0, 0), '4');
     });
 });
 
@@ -310,16 +316,16 @@ describe('COPY OUT', () => {
     const getRow = (pq: PQ, expected: string) => {
         const result = <Buffer> pq.getCopyData(false);
         assert(result instanceof Buffer, 'Result should be a buffer');
-        assert.equal(result.toString('utf8'), expected);
+        assertEqual(result.toString('utf8'), expected);
     };
 
     it('copies data out', () => {
         pq.exec('COPY test_data TO stdin');
-        assert.equal(pq.resultStatus(), 'PGRES_COPY_OUT');
+        assertEqual(pq.resultStatus(), 'PGRES_COPY_OUT');
         getRow(pq, 'brian\t32\n');
         getRow(pq, 'aaron\t30\n');
         getRow(pq, '\t\\N\n');
-        assert.strictEqual(<number> pq.getCopyData(), -1);
+        assertEqual(<number> pq.getCopyData(), -1);
     });
 });
 
@@ -327,28 +333,28 @@ describe('without being connected', () => {
     it('exec fails', () => {
         const pq = new PQ();
         pq.exec();
-        assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
+        assertEqual(pq.resultStatus(), 'PGRES_FATAL_ERROR');
         assert(pq.errorMessage());
     });
 
     it('fails on async query', () => {
         const pq = new PQ();
         const success = pq.sendQuery('blah');
-        assert.strictEqual(success, false);
-        assert.equal(pq.resultStatus(), 'PGRES_FATAL_ERROR');
+        assertEqual(success, false);
+        assertEqual(pq.resultStatus(), 'PGRES_FATAL_ERROR');
         assert(pq.errorMessage());
     });
 
     it('throws when reading while not connected', () => {
         const pq = new PQ();
-        assert.throws(() => {
+        assertThrows(() => {
             pq.startReader();
         });
     });
 
     it('throws when writing while not connected', () => {
         const pq = new PQ();
-        assert.throws(() => {
+        assertThrows(() => {
             pq.writable(() => {
             });
         });
@@ -372,7 +378,7 @@ describe('error info', () => {
         it('everything is null', () => {
             pq.exec('SELECT NOW()');
             assert(!pq.errorMessage(), pq.errorMessage());
-            assert.equal(pq.ntuples(), 1);
+            assertEqual(pq.ntuples(), 1);
             assert(pq.resultErrorFields(), undefined);
         });
     });
@@ -382,23 +388,23 @@ describe('error info', () => {
             pq.exec('INSERT INTO test_data VALUES(1, NOW())');
             assert(pq.errorMessage());
             const err = pq.resultErrorFields();
-            assert.notEqual(err, null);
-            assert.equal(err.severity, 'ERROR');
-            assert.equal(err.sqlState, 42804);
-            assert.equal(err.messagePrimary, 'column "age" is of type integer but expression is of type timestamp with time zone');
-            assert.equal(err.messageDetail, undefined);
-            assert.equal(err.messageHint, 'You will need to rewrite or cast the expression.');
-            assert.equal(err.statementPosition, 33);
-            assert.equal(err.internalPosition, undefined);
-            assert.equal(err.internalQuery, undefined);
-            assert.equal(err.context, undefined);
-            assert.equal(err.schemaName, undefined);
-            assert.equal(err.tableName, undefined);
-            assert.equal(err.dataTypeName, undefined);
-            assert.equal(err.constraintName, undefined);
-            assert.equal(err.sourceFile, "parse_target.c");
+            assertNotEqual(err, null);
+            assertEqual(err.severity, 'ERROR');
+            assertEqual(err.sqlState, '42804');
+            assertEqual(err.messagePrimary, 'column "age" is of type integer but expression is of type timestamp with time zone');
+            assertEqual(err.messageDetail, undefined);
+            assertEqual(err.messageHint, 'You will need to rewrite or cast the expression.');
+            assertEqual(err.statementPosition, '33');
+            assertEqual(err.internalPosition, undefined);
+            assertEqual(err.internalQuery, undefined);
+            assertEqual(err.context, undefined);
+            assertEqual(err.schemaName, undefined);
+            assertEqual(err.tableName, undefined);
+            assertEqual(err.dataTypeName, undefined);
+            assertEqual(err.constraintName, undefined);
+            assertEqual(err.sourceFile, "parse_target.c");
             assert(parseInt(err.sourceLine, 10));
-            assert.equal(err.sourceFunction, "transformAssignedExpr");
+            assertEqual(err.sourceFunction, "transformAssignedExpr");
         });
     });
 });
@@ -407,7 +413,7 @@ describe('escapeLiteral', () => {
     it('fails to escape when the server is not connected', () => {
         const pq = new PQ();
         const result = pq.escapeLiteral('test');
-        assert.strictEqual(result, null);
+        assertEqual(result, null);
         assert(pq.errorMessage());
     });
 
@@ -415,14 +421,14 @@ describe('escapeLiteral', () => {
         const pq = new PQ();
         pq.connectSync();
         const result = pq.escapeLiteral('bang');
-        assert.equal(result, "'bang'");
+        assertEqual(result, "'bang'");
     });
 
     it('escapes a bad string', () => {
         const pq = new PQ();
         pq.connectSync();
         const result = pq.escapeLiteral("'; TRUNCATE TABLE blah;");
-        assert.equal(result, "'''; TRUNCATE TABLE blah;'");
+        assertEqual(result, "'''; TRUNCATE TABLE blah;'");
     });
 });
 
@@ -430,7 +436,7 @@ describe('escapeIdentifier', () => {
     it('fails when the server is not connected', () => {
         const pq = new PQ();
         const result = pq.escapeIdentifier('test');
-        assert.strictEqual(result, null);
+        assertEqual(result, null);
         assert(pq.errorMessage());
     });
 
@@ -438,7 +444,7 @@ describe('escapeIdentifier', () => {
         const pq = new PQ();
         pq.connectSync();
         const result = pq.escapeIdentifier('bang');
-        assert.equal(result, '"bang"');
+        assertEqual(result, '"bang"');
     });
 });
 
@@ -476,7 +482,7 @@ describe('connect async', () => {
         const connect = (cb: Function) => {
             pqs.forEach((pq) => {
                 pq.connect((err) => {
-                    assert.ifError(err);
+                    assertIfError(err);
                     count++;
                     pq.startReader();
                     if (count === total) {
@@ -529,14 +535,14 @@ describe('set & get non blocking', () => {
     });
 
     it('is initially set to false', () => {
-        assert.strictEqual(pq.isNonBlocking(), false);
+        assertEqual(pq.isNonBlocking(), false);
     });
 
     it('can switch back and forth', () => {
-        assert.strictEqual(pq.setNonBlocking(true), true);
-        assert.strictEqual(pq.isNonBlocking(), true);
-        assert.strictEqual(pq.setNonBlocking(), true);
-        assert.strictEqual(pq.isNonBlocking(), false);
+        assertEqual(pq.setNonBlocking(true), true);
+        assertEqual(pq.isNonBlocking(), true);
+        assertEqual(pq.setNonBlocking(), true);
+        assertEqual(pq.isNonBlocking(), false);
     });
 });
 
@@ -554,15 +560,15 @@ describe('LISTEN/NOTIFY', () => {
     it('works', () => {
         notifier.exec("NOTIFY testing, 'My Payload'");
         let notice = listener.notifies();
-        assert.equal(notice, null);
+        assertEqual(notice, null);
 
         listener.exec('LISTEN testing');
         notifier.exec("NOTIFY testing, 'My Second Payload'");
         listener.exec('SELECT NOW()');
         notice = listener.notifies();
         assert(notice, 'listener should have had a notification come in');
-        assert.equal(notice.relname, 'testing', 'missing relname == testing');
-        assert.equal(notice.extra, 'My Second Payload');
+        assertEqual(notice.relname, 'testing', 'missing relname == testing');
+        assertEqual(notice.extra, 'My Second Payload');
         assert(notice.be_pid);
     });
 
@@ -591,15 +597,15 @@ describe('result accessors', () => {
     });
 
     it('has ntuples', () => {
-        assert.strictEqual(pq.ntuples(), 1);
+        assertEqual(pq.ntuples(), 1);
     });
 
     it('has cmdStatus', () => {
-        assert.equal(pq.cmdStatus(), 'INSERT 0 1');
+        assertEqual(pq.cmdStatus(), 'INSERT 0 1');
     });
 
     it('has command tuples', () => {
-        assert.strictEqual(pq.cmdTuples(), '1');
+        assertEqual(pq.cmdTuples(), '1');
     });
 });
 
@@ -608,15 +614,15 @@ describe('Retrieve server version from connection', () => {
         const pq = new PQ();
         pq.connectSync();
         const version = pq.serverVersion();
-        assert.equal(typeof version, 'number');
+        assertEqual(typeof version, 'number');
         assert(version > 60000);
     });
 
     it('return zero when not connected', () => {
         const pq = new PQ();
         const version = pq.serverVersion();
-        assert.equal(typeof version, 'number');
-        assert.equal(version, 0);
+        assertEqual(typeof version, 'number');
+        assertEqual(version, 0);
     });
 });
 
@@ -635,7 +641,7 @@ describe('getting socket', () => {
 
     it('returns -1 when not connected', () => {
         const pq = new PQ();
-        assert.equal(pq.socket(), -1);
+        assertEqual(pq.socket(), -1);
     });
 
     it('returns value when connected', () => {
@@ -648,11 +654,11 @@ describe('connecting with bad credentials', () => {
         try {
             new PQ().connectSync('asldkfjlasdf');
         } catch (e) {
-            assert.equal(e.toString().indexOf('connection pointer is NULL'), -1);
+            assertEqual(e.toString().indexOf('connection pointer is NULL'), -1);
             return;
         }
 
-        assert.fail(null, null, 'Should have thrown an exception', '');
+        throw new Error('Should have thrown an exception');
     });
 });
 
@@ -688,31 +694,31 @@ describe('result checking', () => {
 
     it('executes query', () => {
         pq.exec('SELECT NOW() as my_col');
-        assert.equal(pq.resultStatus(), 'PGRES_TUPLES_OK');
+        assertEqual(pq.resultStatus(), 'PGRES_TUPLES_OK');
     });
 
     it('has 1 tuple', () => {
-        assert.equal(pq.ntuples(), 1);
+        assertEqual(pq.ntuples(), 1);
     });
 
     it('has 1 field', () => {
-        assert.strictEqual(pq.nfields(), 1);
+        assertEqual(pq.nfields(), 1);
     });
 
     it('has column name', () => {
-        assert.equal(pq.fname(0), 'my_col');
+        assertEqual(pq.fname(0), 'my_col');
     });
 
     it('has oid type of timestamptz', () => {
-        assert.strictEqual(pq.ftype(0), 1184);
+        assertEqual(pq.ftype(0), 1184);
     });
 
     it('has value as a date', () => {
         const now = new Date();
         const val = pq.getvalue(0);
         const date = new Date(Date.parse(val));
-        assert.equal(date.getFullYear(), now.getFullYear());
-        assert.equal(date.getMonth(), now.getMonth());
+        assertEqual(date.getFullYear(), now.getFullYear());
+        assertEqual(date.getMonth(), now.getMonth());
     });
 
     it('can manually clear result multiple times', () => {
@@ -741,20 +747,20 @@ describe('low-level query integration tests', () => {
         });
 
         it('has correct tuples', () => {
-            assert.strictEqual(pq.ntuples(), 3);
+            assertEqual(pq.ntuples(), 3);
         });
 
         it('has correct field count', () => {
-            assert.strictEqual(pq.nfields(), 2);
+            assertEqual(pq.nfields(), 2);
         });
 
         it('has correct rows', () => {
-            assert.strictEqual(pq.getvalue(0, 0), 'brian');
-            assert.strictEqual(pq.getvalue(1, 1), '30');
-            assert.strictEqual(pq.getvalue(2, 0), '');
-            assert.strictEqual(pq.getisnull(2, 0), false);
-            assert.strictEqual(pq.getvalue(2, 1), '');
-            assert.strictEqual(pq.getisnull(2, 1), true);
+            assertEqual(pq.getvalue(0, 0), 'brian');
+            assertEqual(pq.getvalue(1, 1), '30');
+            assertEqual(pq.getvalue(2, 0), '');
+            assertEqual(pq.getisnull(2, 0), false);
+            assertEqual(pq.getvalue(2, 1), '');
+            assertEqual(pq.getisnull(2, 1), true);
         });
     });
 });
@@ -775,21 +781,21 @@ describe('sync query with parameters', () => {
     it('works with single string parameter', () => {
         const queryText = 'SELECT $1::text as name';
         pq.execParams(queryText, ['Brian']);
-        assert.strictEqual(pq.ntuples(), 1);
-        assert.strictEqual(pq.getvalue(0, 0), 'Brian');
+        assertEqual(pq.ntuples(), 1);
+        assertEqual(pq.getvalue(0, 0), 'Brian');
     });
 
     it('works with a number parameter', () => {
         const queryText = 'SELECT $1::int as age';
         pq.execParams(queryText, [32]);
-        assert.strictEqual(pq.ntuples(), 1);
-        assert.strictEqual(pq.getvalue(0, 0), '32');
+        assertEqual(pq.ntuples(), 1);
+        assertEqual(pq.getvalue(0, 0), '32');
     });
 
     it('works with multiple parameters', () => {
         const queryText = 'INSERT INTO test_data(name, age) VALUES($1, $2)';
         pq.execParams(queryText, ['Barkley', 4]);
-        assert.equal(pq.resultErrorMessage(), '');
+        assertEqual(pq.resultErrorMessage(), '');
     });
 });
 
@@ -811,18 +817,18 @@ describe('prepare and execPrepared', () => {
     describe('preparing a statement', () => {
         it('works properly', () => {
             pq.prepare(statementName, 'SELECT $1::text as name', 1);
-            assert.ifError(pq.resultErrorMessage());
-            assert.equal(pq.resultStatus(), 'PGRES_COMMAND_OK');
+            assertIfError(pq.resultErrorMessage());
+            assertEqual(pq.resultStatus(), 'PGRES_COMMAND_OK');
         });
     });
 
     describe('executing a prepared statement', () => {
         it('works properly', () => {
             pq.execPrepared(statementName, ['Brian']);
-            assert.ifError(pq.resultErrorMessage());
-            assert.strictEqual(pq.ntuples(), 1);
-            assert.strictEqual(pq.nfields(), 1);
-            assert.strictEqual(pq.getvalue(0, 0), 'Brian');
+            assertIfError(pq.resultErrorMessage());
+            assertEqual(pq.ntuples(), 1);
+            assertEqual(pq.nfields(), 1);
+            assertEqual(pq.getvalue(0, 0), 'Brian');
         });
     });
 });
