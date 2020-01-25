@@ -2251,6 +2251,12 @@
             "asOfVersion": "24.3.0"
         },
         {
+            "libraryName": "jest-docblock",
+            "typingsPackageName": "jest-docblock",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-docblock",
+            "asOfVersion": "25.1.0"
+        },
+        {
             "libraryName": "jest-each",
             "typingsPackageName": "jest-each",
             "sourceRepoURL": "https://github.com/facebook/jest",
@@ -2261,6 +2267,24 @@
             "typingsPackageName": "jest-get-type",
             "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-get-type",
             "asOfVersion": "24.2.0"
+        },
+        {
+            "libraryName": "jest-matcher-utils",
+            "typingsPackageName": "jest-matcher-utils",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-matcher-utils",
+            "asOfVersion": "25.1.0"
+        },
+        {
+            "libraryName": "expect",
+            "typingsPackageName": "jest-matchers",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/expect",
+            "asOfVersion": "25.1.0"
+        },
+        {
+            "libraryName": "jest-validate",
+            "typingsPackageName": "jest-validate",
+            "sourceRepoURL": "https://github.com/facebook/jest/tree/master/packages/jest-validate",
+            "asOfVersion": "25.1.0"
         },
         {
             "libraryName": "jimp",
