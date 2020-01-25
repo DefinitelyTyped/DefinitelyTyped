@@ -4285,6 +4285,18 @@
             "asOfVersion": "4.1.0"
         },
         {
+            "libraryName": "roads",
+            "typingsPackageName": "roads",
+            "sourceRepoURL": "https://github.com/Dashron/roads",
+            "asOfVersion": "6.0.1"
+        },
+        {
+            "libraryName": "roads-server",
+            "typingsPackageName": "roads-server",
+            "sourceRepoURL": "https://github.com/Dashron/roads-server",
+            "asOfVersion": "1.0.1"
+        },
+        {
             "libraryName": "rollup",
             "typingsPackageName": "rollup",
             "sourceRepoURL": "https://github.com/rollup/rollup",
