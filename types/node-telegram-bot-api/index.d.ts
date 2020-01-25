@@ -120,6 +120,7 @@ declare namespace TelegramBot {
     }
 
     interface SendBasicOptions {
+        chat_id?: number | string;
         disable_notification?: boolean;
         reply_to_message_id?: number;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply;
