@@ -299,14 +299,14 @@ function Argv$command() {
 }
 
 function Argv$positional() {
-    yargs.command('test [paths...]', 'run tests', yargs =>{
-        yargs.positional('paths', {
-            type: 'string',
-            array: true
+    yargs
+        .command('test [paths...]', 'run tests', yargs => {
+            yargs.positional('paths', {
+                type: 'string',
+                array: true,
+            });
         })
-    })
-    .help()
-    .argv;
+        .help().argv;
 }
 
 function Argv$completion_sync() {
