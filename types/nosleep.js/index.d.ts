@@ -22,4 +22,5 @@ declare class NoSleep {
     enable(): void;
 }
 
+export as namespace NoSleep;
 export = NoSleep;
