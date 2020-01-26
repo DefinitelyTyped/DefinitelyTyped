@@ -6121,11 +6121,23 @@ export interface ScrollViewPropsIOS {
     scrollIndicatorInsets?: Insets; //zeroes
 
     /**
+     * When true, the scroll view can be programmatically scrolled beyond its
+     * content size. The default value is false.
+     * @platform ios
+     */
+    scrollToOverflowEnabled?: boolean,
+
+    /**
      * When true the scroll view scrolls to top when the status bar is tapped.
      * The default value is true.
      */
     scrollsToTop?: boolean;
 
+    /**
+     * Fires when the scroll view scrolls to top after the status bar has been tapped
+     * @platform ios
+     */
+    onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
     /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing

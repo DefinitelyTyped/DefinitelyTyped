@@ -534,6 +534,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
+                            onScrollToTop={() => {}}
+                            scrollToOverflowEnabled={true}
                         />
                     );
                 }}
