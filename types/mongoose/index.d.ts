@@ -150,6 +150,12 @@ declare module "mongoose" {
   export function get(key: string): any;
 
   /**
+   * Tests whether Mongoose can cast a value to an ObjectId
+   * @param value value to be tested if it can be cast to an ObjectId
+   */
+  export function isValidObjectId(value: any): boolean;
+
+  /**
    * Defines a model or retrieves it.
    * Models defined on the mongoose instance are available to all connection
    *   created by the same mongoose instance.
