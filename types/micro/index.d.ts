@@ -15,7 +15,7 @@ export function run(req: IncomingMessage, res: ServerResponse, fn: RequestHandle
 declare function serve(fn: RequestHandler): Server;
 export default serve;
 
-export function send(res: ServerResponse, code: number, data?: any): Promise<void>;
+export function send<Data = any>(res: ServerResponse, code: number, data?: Data): Promise<void>;
 
 export function sendError(req: IncomingMessage, res: ServerResponse, info: { statusCode?: number, status?: number, message?: string, stack?: string }): Promise<void>;
 
