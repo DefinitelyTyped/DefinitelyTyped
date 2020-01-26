@@ -1,5 +1,7 @@
 import multireducer from 'multireducer';
-import { deepEqual } from 'assert';
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function deepEqual<T>(actual: T, expected: T): void;
 
 const initialState = { a: 1, b: 2, c: 3 };
 

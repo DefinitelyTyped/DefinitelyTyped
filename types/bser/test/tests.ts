@@ -1,6 +1,8 @@
 import * as bser from "bser";
 import Int64 from "node-int64";
-import * as assert from "assert";
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assertEqual<T>(actual: T, expected: T, message?: string): void;
 
 // This is a hard-coded template representation from the C test suite
 const template =
@@ -11,7 +13,7 @@ const template =
     "\x1e\x0c\x03\x19";
 
 const val = bser.loadFromBuffer(template);
-assert.deepStrictEqual(val, [
+assertEqual(val, [
     { name: "fred", age: 20 },
     { name: "pete", age: 30 },
     { age: 25 }
@@ -20,7 +22,7 @@ assert.deepStrictEqual(val, [
 function roundtrip(val: any) {
     const encoded = bser.dumpToBuffer(val);
     const decoded = bser.loadFromBuffer(encoded);
-    assert.deepStrictEqual(decoded, val);
+    assertEqual(decoded, val);
 }
 
 const values_to_test = [
@@ -56,31 +58,31 @@ roundtrip(values_to_test);
 // Verify Accumulator edge cases
 const acc = new bser.Accumulator(8);
 acc.append("hello");
-assert.equal(acc.readAvail(), 5);
-assert.equal(acc.readOffset, 0);
-assert.equal(acc.readString(3), "hel");
-assert.equal(acc.readOffset, 3);
-assert.equal(acc.readAvail(), 2);
-assert.equal(acc.writeAvail(), 3);
+assertEqual(acc.readAvail(), 5);
+assertEqual(acc.readOffset, 0);
+assertEqual(acc.readString(3), "hel");
+assertEqual(acc.readOffset, 3);
+assertEqual(acc.readAvail(), 2);
+assertEqual(acc.writeAvail(), 3);
 
 // This should trigger a shunt and not make the buffer bigger
 acc.reserve(5);
-assert.equal(acc.readOffset, 0, "shunted");
-assert.equal(acc.readAvail(), 2, "still have 2 available to read");
-assert.equal(acc.writeAvail(), 6, "2 left to read out of 8 total space");
-assert.equal(acc.peekString(2), "lo", "have the correct remainder");
+assertEqual(acc.readOffset, 0, "shunted");
+assertEqual(acc.readAvail(), 2, "still have 2 available to read");
+assertEqual(acc.writeAvail(), 6, "2 left to read out of 8 total space");
+assertEqual(acc.peekString(2), "lo", "have the correct remainder");
 
 // Don't include keys that have undefined values
 const res = bser.dumpToBuffer({ expression: undefined });
-assert.deepStrictEqual(bser.loadFromBuffer(res), {});
+assertEqual(bser.loadFromBuffer(res), {});
 
 // Dump numbers without fraction to integers
 let buffer;
 buffer = bser.dumpToBuffer(1);
-assert.equal(buffer.toString("hex"), "000105020000000301");
+assertEqual(buffer.toString("hex"), "000105020000000301");
 buffer = bser.dumpToBuffer(1.0);
-assert.equal(buffer.toString("hex"), "000105020000000301");
+assertEqual(buffer.toString("hex"), "000105020000000301");
 
 // Dump numbers with fraction to double
 buffer = bser.dumpToBuffer(1.1);
-assert.equal(buffer.toString("hex"), "00010509000000079a9999999999f13f");
+assertEqual(buffer.toString("hex"), "00010509000000079a9999999999f13f");

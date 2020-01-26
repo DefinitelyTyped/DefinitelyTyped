@@ -1,4 +1,4 @@
-// Type definitions for Jest 24.0
+// Type definitions for Jest 24.9
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -727,7 +727,7 @@ declare namespace jest {
         not: T
     };
     // should be R extends void|Promise<void> but getting dtslint error
-    interface Matchers<R, T> {
+    interface Matchers<R, T = {}> {
         /**
          * Ensures the last call to a mock function was provided specific args.
          *

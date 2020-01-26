@@ -14,6 +14,11 @@ declare const math: math.MathJsStatic;
 export as namespace math;
 export = math;
 
+type NoLiteralType<T> =
+    T extends number ? number :
+    T extends string ? string :
+    T extends boolean ? boolean :
+    T;
 declare namespace math {
     type MathArray = number[] | number[][];
     type MathType =
@@ -706,10 +711,10 @@ declare namespace math {
          * natural logarithm of x is calculated. Default value: e.
          * @returns Returns the logarithm of x
          */
-        log(
-            x: number | BigNumber | Complex | MathArray | Matrix,
+        log<T extends number | BigNumber | Complex | MathArray | Matrix>(
+            x: T,
             base?: number | BigNumber | Complex
-        ): number | BigNumber | Complex | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Calculate the 10-base of a value. This is the same as calculating
@@ -756,10 +761,10 @@ declare namespace math {
          * @param y Divisor
          * @returns Returns the remainder of x divided by y
          */
-        mod(
-            x: number | BigNumber | Fraction | MathArray | Matrix,
+        mod<T extends number | BigNumber | Fraction | MathArray | Matrix>(
+            x: T,
             y: number | BigNumber | Fraction | MathArray | Matrix
-        ): number | BigNumber | Fraction | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Multiply two values, x * y. The result is squeezed. For matrices, the
@@ -768,7 +773,7 @@ declare namespace math {
          * @param y The second value to multiply
          * @returns Multiplication of x and y
          */
-        multiply(x: Matrix | MathArray, y: MathType): Matrix | MathArray;
+        multiply<T extends Matrix | MathArray>(x: T, y: MathType): T;
         multiply(x: Unit, y: Unit): Unit;
         multiply(x: number, y: number): number;
         multiply(x: MathType, y: MathType): MathType;
@@ -816,12 +821,10 @@ declare namespace math {
          * @param n Number of decimals Default value: 0.
          * @returns Rounded value of x
          */
-        round(x: number, n?: number | BigNumber | MathArray): number;
-        round(x: BigNumber, n?: number | BigNumber | MathArray): BigNumber;
-        round(x: Fraction, n?: number | BigNumber | MathArray): Fraction;
-        round(x: Complex, n?: number | BigNumber | MathArray): Complex;
-        round(x: MathArray, n?: number | BigNumber | MathArray): MathArray;
-        round(x: Matrix, n?: number | BigNumber | MathArray): Matrix;
+        round<T extends number | BigNumber | Fraction | Complex | MathArray | Matrix>(
+            x: T,
+            n?: number | BigNumber | MathArray
+        ): NoLiteralType<T>;
 
         /**
          * Compute the sign of a value. The sign of a value x is: 1 when x > 1
@@ -928,10 +931,10 @@ declare namespace math {
          * @param y Second value to and
          * @returns AND of x and y
          */
-        bitAnd(
-            x: number | BigNumber | MathArray | Matrix,
+        bitAnd<T extends number | BigNumber | MathArray | Matrix>(
+            x: T,
             y: number | BigNumber | MathArray | Matrix
-        ): number | BigNumber | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise NOT value, ~x. For matrices, the function is evaluated
@@ -965,10 +968,10 @@ declare namespace math {
          * @param y Second value to xor
          * @returns XOR of x and y
          */
-        bitXor(
-            x: number | BigNumber | MathArray | Matrix,
+        bitXor<T extends number | BigNumber | MathArray | Matrix>(
+            x: T,
             y: number | BigNumber | MathArray | Matrix
-        ): number | BigNumber | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise left logical shift of a value x by y number of bits, x << y.
@@ -978,10 +981,10 @@ declare namespace math {
          * @param y Amount of shifts
          * @returns x shifted left y times
          */
-        leftShift(
-            x: number | BigNumber | MathArray | Matrix,
+        leftShift<T extends number | BigNumber | MathArray | Matrix>(
+            x: T,
             y: number | BigNumber
-        ): number | BigNumber | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise right arithmetic shift of a value x by y number of bits, x >>
@@ -991,10 +994,10 @@ declare namespace math {
          * @param y Amount of shifts
          * @returns x sign-filled shifted right y times
          */
-        rightArithShift(
-            x: number | BigNumber | MathArray | Matrix,
+        rightArithShift<T extends number | BigNumber | MathArray | Matrix>(
+            x: T,
             y: number | BigNumber
-        ): number | BigNumber | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /**
          * Bitwise right logical shift of value x by y number of bits, x >>> y.
@@ -1004,10 +1007,10 @@ declare namespace math {
          * @param y Amount of shifts
          * @returns x zero-filled shifted right y times
          */
-        rightLogShift(
-            x: number | MathArray | Matrix,
+        rightLogShift<T extends number | MathArray | Matrix>(
+            x: T,
             y: number
-        ): number | MathArray | Matrix;
+        ): NoLiteralType<T>;
 
         /*************************************************************************
          * Combinatorics functions
@@ -1041,10 +1044,10 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns Returns the composition counts of n into k parts.
          */
-        composition(
-            n: number | BigNumber,
+        composition<T extends number | BigNumber>(
+            n: T,
             k: number | BigNumber
-        ): number | BigNumber;
+        ): NoLiteralType<T>;
 
         /**
          * The Stirling numbers of the second kind, counts the number of ways to
@@ -1056,10 +1059,10 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns S(n,k)
          */
-        stirlingS2(
-            n: number | BigNumber,
+        stirlingS2<T extends number | BigNumber>(
+            n: T,
             k: number | BigNumber
-        ): number | BigNumber;
+        ): NoLiteralType<T>;
 
         /*************************************************************************
          * Complex functions
@@ -1084,9 +1087,9 @@ declare namespace math {
          * @param x A complex number or array with complex numbers
          * @returns The complex conjugate of x
          */
-        conj(
-            x: number | BigNumber | Complex | MathArray | Matrix
-        ): number | BigNumber | Complex | MathArray | Matrix;
+        conj<T extends number | BigNumber | Complex | MathArray | Matrix>(
+            x: T
+        ): NoLiteralType<T>;
 
         /**
          * Get the imaginary part of a complex number. For a complex number a +
@@ -1320,7 +1323,7 @@ declare namespace math {
          * @param x Matrix to be flattened
          * @returns Returns the flattened matrix
          */
-        flatten(x: MathArray | Matrix): MathArray | Matrix;
+        flatten<T extends MathArray | Matrix>(x: T): T;
 
         /**
          * Iterate over all elements of a matrix/array, and executes the given
@@ -1330,16 +1333,16 @@ declare namespace math {
          * parameters: the value of the element, the index of the element, and
          * the Matrix/array being traversed.
          */
-        forEach(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => void)): void;
+        forEach<T extends Matrix | MathArray>(x: T, callback: ((value: any, index: any, matrix: T) => void)): void;
 
         /**
          * Calculate the inverse of a square matrix.
          * @param x Matrix to be inversed
          * @returns The inverse of x
          */
-        inv(
-            x: number | Complex | MathArray | Matrix
-        ): number | Complex | MathArray | Matrix;
+        inv<T extends number | Complex | MathArray | Matrix>(
+            x: T
+        ): NoLiteralType<T>;
 
         /**
          * Calculate the kronecker product of two matrices or vectors
@@ -1358,7 +1361,7 @@ declare namespace math {
          * the Matrix/array being traversed.
          * @returns Transformed map of x
          */
-        map(x: Matrix | MathArray, callback: ((value: any, index: any, matrix: Matrix | MathArray) => MathType | string)): Matrix | MathArray;
+        map<T extends Matrix | MathArray>(x: T, callback: ((value: any, index: any, matrix: T) => MathType | string)): T;
 
         /**
          * Create a matrix filled with ones. The created matrix can have one or
@@ -1425,10 +1428,10 @@ declare namespace math {
          * dimension
          * @returns A reshaped clone of matrix x
          */
-        reshape(
-            x: MathArray | Matrix,
+        reshape<T extends MathArray | Matrix>(
+            x: T,
             sizes: number[]
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Resize a matrix
@@ -1438,11 +1441,11 @@ declare namespace math {
          * that case defaultValue = ' ' Default value: 0.
          * @returns A resized clone of matrix x
          */
-        resize(
-            x: MathArray | Matrix,
+        resize<T extends MathArray | Matrix>(
+            x: T,
             size: MathArray | Matrix,
             defaultValue?: number | string
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Calculate the size of a matrix or scalar.
@@ -1461,10 +1464,10 @@ declare namespace math {
          * b, and 0 when a == b. Default value: ‘asc’
          * @returns Returns the sorted matrix
          */
-        sort(
-            x: Matrix | MathArray,
+        sort<T extends Matrix | MathArray>(
+            x: T,
             compare: ((a: any, b: any) => number) | "asc" | "desc" | "natural"
-        ): Matrix | MathArray;
+        ): T;
 
         /**
          * Calculate the principal square root of a square matrix. The principal
@@ -1472,7 +1475,7 @@ declare namespace math {
          * @param A The square matrix A
          * @returns The principal square root of matrix A
          */
-        sqrtm(A: MathArray | Matrix): MathArray | Matrix;
+        sqrtm<T extends MathArray | Matrix>(A: T): T;
 
         /**
          * Squeeze a matrix, remove inner and outer singleton dimensions from a
@@ -1480,7 +1483,7 @@ declare namespace math {
          * @param x Matrix to be squeezed
          * @returns Squeezed matrix
          */
-        squeeze(x: MathArray | Matrix): Matrix | MathArray;
+        squeeze<T extends MathArray | Matrix>(x: T): T;
 
         /**
          * Get or set a subset of a matrix or string.
@@ -1494,12 +1497,12 @@ declare namespace math {
          * undefined. Default value: undefined.
          * @returns Either the retrieved subset or the updated matrix
          */
-        subset(
-            value: MathArray | Matrix | string,
+        subset<T extends MathArray | Matrix | string>(
+            value: T,
             index: Index,
             replacement?: any,
             defaultValue?: any
-        ): MathArray | Matrix | string;
+        ): T;
 
         /**
          * Calculate the trace of a matrix: the sum of the elements on the main
@@ -1515,7 +1518,7 @@ declare namespace math {
          * @param x Matrix to be transposed
          * @returns The transposed matrix
          */
-        transpose(x: MathArray | Matrix): MathArray | Matrix;
+        transpose<T extends MathArray | Matrix>(x: T): T;
 
         /**
          * Create a matrix filled with zeros. The created matrix can have one or
@@ -1545,10 +1548,10 @@ declare namespace math {
          * @param k Number of objects in the subset
          * @returns Number of possible combinations
          */
-        combinations(
-            n: number | BigNumber,
+        combinations<T extends number | BigNumber>(
+            n: T,
             k: number | BigNumber
-        ): number | BigNumber;
+        ): NoLiteralType<T>;
 
         /**
          * Compute the factorial of a value Factorial only supports an integer
@@ -1557,9 +1560,9 @@ declare namespace math {
          * @param n An integer number
          * @returns The factorial of n
          */
-        factorial(
-            n: number | BigNumber | MathArray | Matrix
-        ): number | BigNumber | MathArray | Matrix;
+        factorial<T extends number | BigNumber | MathArray | Matrix>(
+            n: T
+        ): NoLiteralType<T>;
 
         /**
          * Compute the gamma function of a value using Lanczos approximation for
@@ -1587,7 +1590,7 @@ declare namespace math {
          * @param a Integer number of objects in the subset
          * @returns multinomial coefficent
          */
-        multinomial(a: number[] | BigNumber[]): number | BigNumber;
+        multinomial<T extends number | BigNumber>(a: T[]): NoLiteralType<T>;
 
         /**
          * Compute the number of ways of obtaining an ordered subset of k
@@ -1597,10 +1600,10 @@ declare namespace math {
          * @param k The number of objects in the subset
          * @returns The number of permutations
          */
-        permutations(
-            n: number | BigNumber,
+        permutations<T extends number | BigNumber>(
+            n: T,
             k?: number | BigNumber
-        ): number | BigNumber;
+        ): NoLiteralType<T>;
 
         /**
          * Random pick a value from a one dimensional array. Array element is
@@ -1628,11 +1631,11 @@ declare namespace math {
          * @returns A random number
          */
         random(min?: number, max?: number): number;
-        random(
-            size: MathArray | Matrix,
+        random<T extends MathArray | Matrix>(
+            size: T,
             min?: number,
             max?: number
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Return a random integer number larger or equal to min and smaller
@@ -1644,11 +1647,11 @@ declare namespace math {
          * @returns A random number
          */
         randomInt(min: number, max?: number): number;
-        randomInt(
-            size: MathArray | Matrix,
+        randomInt<T extends MathArray | Matrix>(
+            size: T,
             min?: number,
             max?: number
-        ): MathArray | Matrix;
+        ): T;
 
         /*************************************************************************
          * Relational functions
@@ -1834,10 +1837,10 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The cartesian product of two (multi)sets
          */
-        setCartesian(
-            a1: MathArray | Matrix,
+        setCartesian<T extends MathArray | Matrix>(
+            a1: T,
             a2: MathArray | Matrix
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Create the difference of two (multi)sets: every element of set1, that
@@ -1847,10 +1850,10 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The difference of two (multi)sets
          */
-        setDifference(
-            a1: MathArray | Matrix,
+        setDifference<T extends MathArray | Matrix>(
+            a1: T,
             a2: MathArray | Matrix
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Collect the distinct elements of a multiset. A multi-dimension array
@@ -1858,7 +1861,7 @@ declare namespace math {
          * @param a A multiset
          * @returns A set containing the distinct elements of the multiset
          */
-        setDistinct(a: MathArray | Matrix): MathArray | Matrix;
+        setDistinct<T extends MathArray | Matrix>(a: T): T;
 
         /**
          * Create the intersection of two (multi)sets. Multi-dimension arrays
@@ -1867,10 +1870,10 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The intersection of two (multi)sets
          */
-        setIntersect(
-            a1: MathArray | Matrix,
+        setIntersect<T extends MathArray | Matrix>(
+            a1: T,
             a2: MathArray | Matrix
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Check whether a (multi)set is a subset of another (multi)set. (Every
@@ -1903,7 +1906,7 @@ declare namespace math {
          * @param a A multiset
          * @returns The powerset of the (multi)set
          */
-        setPowerset(a: MathArray | Matrix): MathArray | Matrix;
+        setPowerset<T extends MathArray | Matrix>(a: T): T;
 
         /**
          * Count the number of elements of a (multi)set. When a second parameter
@@ -1922,10 +1925,10 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The symmetric difference of two (multi)sets
          */
-        setSymDifference(
-            a1: MathArray | Matrix,
+        setSymDifference<T extends MathArray | Matrix>(
+            a1: T,
             a2: MathArray | Matrix
-        ): MathArray | Matrix;
+        ): T;
 
         /**
          * Create the union of two (multi)sets. Multi-dimension arrays will be
@@ -1934,10 +1937,10 @@ declare namespace math {
          * @param a2 A (multi)set
          * @returns The union of two (multi)sets
          */
-        setUnion(
-            a1: MathArray | Matrix,
+        setUnion<T extends MathArray | Matrix>(
+            a1: T,
             a2: MathArray | Matrix
-        ): MathArray | Matrix;
+        ): T;
 
         /*************************************************************************
          * Special functions
@@ -1949,7 +1952,7 @@ declare namespace math {
          * @param x A real number
          * @returns The erf of x
          */
-        erf(x: number | MathArray | Matrix): number | MathArray | Matrix;
+        erf<T extends number | MathArray | Matrix>(x: T): NoLiteralType<T>;
 
         /*************************************************************************
          * Statistics functions

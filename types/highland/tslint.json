@@ -8,6 +8,7 @@
         "callable-types": false,
         "comment-format": false,
         "dt-header": false,
+        "indent": [true, "tabs", 1],
         "npm-naming": false,
         "eofline": false,
         "export-just-namespace": false,

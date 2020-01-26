@@ -6,32 +6,46 @@
 export namespace si {
     type UserStatus = number;
 
-    interface Comment {
-        username: string;
-        user_id: number;
-        user_avatar: string;
-        user_status: string;
-        content: string;
-        date: string;
+    enum Filter {
+        'NO_FILTER' = 0,
+        'NO_REMAKES' = 1,
+        'TRUSTED_ONLY' = 2,
+    }
+
+    enum Category {
+        'ANIME' = '1_0',
+        'ANIME_AMV' = '1_1',
+        'ANIME_ENGLISH' = '1_2',
+        'ANIME_NON_ENGLISH' = '1_3',
+        'ANIME_RAW' = '1_4',
+        'AUDIO' = '2_0',
+        'AUDIO_LOSSLESS' = '2_1',
+        'AUDIO_LOSSY' = '2_2',
+        'LITERATURE' = '3_0',
+        'LITERATURE_ENGLISH' = '3_1',
+        'LITERATURE_NON_ENGLISH' = '3_2',
+        'LITERATURE_RAW' = '3_3',
+        'LIVE_ACTION' = '4_0',
+        'LIVE_ACTION_ENGLISH' = '4_1',
+        'LIVE_ACTION_IDOL_PV' = '4_2',
+        'LIVE_ACTION_NON_ENGLISH' = '4_3',
+        'LIVE_ACTION_RAW' = '4_4',
+        'PICTURES' = '5_0',
+        'PICTURES_GRAPHICS' = '5_1',
+        'PICTURES_PHOTOS' = '5_2',
+        'SOFTWARE' = '6_0',
+        'SOFTWARE_APPS' = '6_1',
+        'SOFTWARE_GAMES' = '6_2',
     }
 
     interface SearchOptions {
         term?: string;
         n?: number;
-        c?: string[];
-        page?: number;
-        userID?: string;
-        fromID?: string;
-        s?: string;
-        maxage?: string;
-        toDate?: string;
-        fromDate?: string;
-        dateType?: string;
-        minSize?: string;
-        maxSize?: string;
-        sizeType?: 'b' | 'k' | 'm' | 'g';
-        order?: boolean;
-        lang?: string[];
+        category?: Category;
+        p?: number;
+        sort?: string;
+        filter?: Filter;
+        direction?: 'asc' | 'desc';
     }
 
     interface SearchOptionsTerm extends SearchOptions {
@@ -39,7 +53,7 @@ export namespace si {
     }
 
     interface Torrent {
-        category: { label: string; code: string };
+        category: { label: string; code: Category };
         name: string;
         links: {
             page: string;
@@ -112,6 +126,33 @@ export namespace pantsu {
         'completed' = 7,
     }
 
+    enum Category {
+        'ALL' = '_',
+        'ANIME' = '3_',
+        'ANIME_AMV' = '3_12',
+        'ANIME_ENGLISH' = '3_5',
+        'ANIME_NON_ENGLISH' = '3_13',
+        'ANIME_RAW' = '3_6',
+        'AUDIO' = '2_',
+        'AUDIO_LOSSLESS' = '2_3',
+        'AUDIO_LOSSY' = '2_4',
+        'LITERATURE' = '4_',
+        'LITERATURE_ENGLISH' = '4_7',
+        'LITERATURE_NON_ENGLISH' = '4_14',
+        'LITERATURE_RAW' = '4_8',
+        'LIVE_ACTION' = '5_',
+        'LIVE_ACTION_ENGLISH' = '5_9',
+        'LIVE_ACTION_IDOL_PV' = '5_10',
+        'LIVE_ACTION_NON_ENGLISH' = '5_18',
+        'LIVE_ACTION_RAW' = '5_11',
+        'PICTURES' = '6_',
+        'PICTURES_GRAPHICS' = '6_15',
+        'PICTURES_PHOTOS' = '6_16',
+        'SOFTWARE' = '1_',
+        'SOFTWARE_APPS' = '1_1',
+        'SOFTWARE_GAMES' = '1_2',
+    }
+
     interface User {
         user_id: number;
         username: string;
@@ -134,7 +175,7 @@ export namespace pantsu {
     interface SearchOptions {
         term?: string;
         n?: number;
-        c?: string[];
+        c?: Category;
         page?: number;
         userID?: string;
         fromID?: string;
@@ -190,7 +231,7 @@ export namespace pantsu {
         username: string;
         name: string;
         magnet: string;
-        c: string;
+        c: Category;
         remake: boolean;
         description: string;
         status: number;

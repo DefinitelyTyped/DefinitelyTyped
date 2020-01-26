@@ -10,7 +10,8 @@ import BN = require("bn.js");
 export const utils: any;
 export const rand: any;
 
-export type BNInput = string | BN | number | Buffer | Uint8Array | number[];
+export type BNInput = string | BN | number | Buffer | Uint8Array | ReadonlyArray<number>;
+export type SignatureInput = ec.Signature | ec.SignatureOptions | Uint8Array | ReadonlyArray<number> | string;
 
 export const version: number;
 
@@ -204,19 +205,19 @@ export class ec {
     ): ec.Signature;
     verify(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         key: Buffer | ec.KeyPair,
         enc?: string
     ): boolean;
     recoverPubKey(
         msg: BNInput,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         j: number,
         enc?: string
     ): any;
     getKeyRecoveryParam(
         e: Error | undefined,
-        signature: ec.Signature | ec.SignatureOptions,
+        signature: SignatureInput,
         Q: BN,
         enc?: string
     ): number;
@@ -266,7 +267,7 @@ export namespace ec {
         sign(msg: BNInput, options?: SignOptions): Signature;
         verify(
             msg: BNInput,
-            signature: Signature | SignatureOptions | string
+            signature: SignatureInput
         ): boolean;
         inspect(): string;
     }
@@ -276,7 +277,7 @@ export namespace ec {
         s: BN;
         recoveryParam: number | null;
 
-        constructor(options: SignatureOptions | Signature, enc?: string);
+        constructor(options: SignatureInput, enc?: string);
 
         toDER(enc?: string | null): any; // ?
     }

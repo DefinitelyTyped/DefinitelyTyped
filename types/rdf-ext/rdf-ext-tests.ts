@@ -1,5 +1,11 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset } from 'rdf-js';
+import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DataFactory } from 'rdf-js';
+import DataFactoryExt = require('rdf-ext/lib/DataFactory');
+import DatasetExt = require('rdf-ext/lib/Dataset');
+import { EventEmitter } from 'events';
+import { Readable } from 'stream';
+
+const factory: DataFactory = rdf;
 
 function NamedNode_toCanonical(): string {
     const iri = 'http://example.org';
@@ -148,6 +154,42 @@ function Quad_withBlankSubject(): Quad {
     );
 }
 
+function static_Quad_fromBaseTerms(): Quad {
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+    const graph: NamedNode = <any> {};
+
+    return rdf.quad(subject, predicate, object, graph);
+}
+
+function static_Triple_fromBaseTerms(): Quad {
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+
+    return rdf.triple(subject, predicate, object);
+}
+
+function instance_Quad_fromBaseTerms(): Quad {
+    const factory: DataFactoryExt = <any> {};
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+    const graph: NamedNode = <any> {};
+
+    return factory.quad(subject, predicate, object, graph);
+}
+
+function instance_Triple_fromBaseTerms(): Quad {
+    const factory: DataFactoryExt = <any> {};
+    const subject: NamedNode = <any> {};
+    const predicate: NamedNode = <any> {};
+    const object: NamedNode = <any> {};
+
+    return factory.triple(subject, predicate, object);
+}
+
 function Quad_toJSON(): boolean {
     const quad = rdf.quad(
         rdf.blankNode('foo'),
@@ -185,8 +227,14 @@ function dataset_empty(): boolean {
     return rdf.dataset().length === 0;
 }
 
-function dataset_merge(): Dataset {
-    return rdf.dataset().merge(rdf.dataset());
+function dataset_merge(): DatasetExt {
+    const other: Dataset = <any> {};
+    return rdf.dataset().merge(other);
+}
+
+function dataset_merge_arrau(): DatasetExt {
+    const other: Quad[] = <any> {};
+    return rdf.dataset().merge(other);
 }
 
 function dataset_clone(): Dataset {
@@ -238,4 +286,12 @@ function Dataset_toJSON() {
         && quad.object.termType === 'Literal'
         && quad.graph !== null;
     });
+}
+
+async function dataset_parserImport() {
+    const dataset: DatasetExt = <any> {};
+    const parserSink: Sink<EventEmitter, Stream> = <any> {};
+    const stream: Readable = <any> {};
+
+    const promise: DatasetExt = await dataset.import(parserSink.import(stream));
 }

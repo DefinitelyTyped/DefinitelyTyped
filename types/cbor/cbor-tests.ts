@@ -1,12 +1,14 @@
 import cbor = require('cbor');
-import assert = require('assert');
 import fs = require('fs');
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean): void;
 
 let encoded = cbor.encode(true); // returns <Buffer f5>
 cbor.decodeFirst(encoded, (error, obj) => {
     // error != null if there was an error
     // obj is the unpacked object
-    assert.ok(obj === true);
+    assert(obj === true);
 });
 
 // Use integers as keys?

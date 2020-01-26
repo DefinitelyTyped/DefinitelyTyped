@@ -10,6 +10,7 @@
 //                 Raoul Jaeckel <https://github.com/raoulus>
 //                 Cory Donkin <https://github.com/Cooryd>
 //                 Adam Vigneaux <https://github.com/AdamVig>
+//                 Austin Beer <https://github.com/austin-beer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -125,10 +126,18 @@ declare namespace P {
          * The default time function for Pino. Returns a string like `,"time":1493426328206`.
          */
         epochTime: TimeFn;
+        /*
+         * Returns the seconds since Unix epoch
+         */
+        unixTime: TimeFn;
         /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
+        /*
+         * Returns ISO 8601-formatted time in UTC
+         */
+        isoTime: TimeFn;
     };
 
     /**
@@ -177,6 +186,7 @@ declare namespace P {
         labels: { [level: number]: string };
     }
     type TimeFn = () => string;
+    type MixinFn = () => object;
 
     interface DestinationStream {
         write(msg: string): void;
@@ -228,6 +238,13 @@ declare namespace P {
          * Warning: this option may not be supported by downstream transports.
          */
         useOnlyCustomLevels?: boolean;
+
+        /**
+         * If provided, the `mixin` function is called each time one of the active logging methods
+         * is called. The function must synchronously return an object. The properties of the
+         * returned object will be added to the logged JSON.
+         */
+        mixin?: MixinFn;
 
         /**
          * As an array, the redact option specifies paths that should have their values redacted from any log output.
@@ -310,13 +327,13 @@ declare namespace P {
             write?:
                 | WriteFn
                 | ({
-                    fatal?: WriteFn;
-                    error?: WriteFn;
-                    warn?: WriteFn;
-                    info?: WriteFn;
-                    debug?: WriteFn;
-                    trace?: WriteFn;
-                } & { [logLevel: string]: WriteFn });
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
 
             /**
              * The serializers provided to `pino` are ignored by default in the browser, including the standard
@@ -405,14 +422,14 @@ declare namespace P {
                  * the `send` function will be called based on the main logging `level` (set via `options.level`,
                  * defaulting to `info`).
                  */
-                level?: Level|string;
+                level?: Level | string;
                 /**
                  * Remotely record log messages.
                  *
                  * @description Called after writing the log message.
                  */
                 send: (level: Level, logEvent: LogEvent) => void;
-            }
+            };
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added

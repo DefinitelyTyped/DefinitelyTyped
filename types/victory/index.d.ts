@@ -108,6 +108,8 @@ declare module 'victory' {
     type StringOrNumberOrCallback = string | number | VictoryStringOrNumberCallback;
     type NumberOrCallback = number | VictoryNumberCallback;
 
+    type SliceNumberOrCallback<T, P = null> = number | ((props: Omit<T, P>) => number);
+
     type VictoryStyleObject = { [K in keyof React.CSSProperties]: StringOrNumberOrCallback };
     /**
      * Style interface used in components/themeing
@@ -1373,6 +1375,20 @@ declare module 'victory' {
                   x?: ScalePropType | D3Scale;
                   y?: ScalePropType | D3Scale;
               };
+        /**
+         * By default `domainPadding` is coerced to existing quadrants. This means that if a given domain only
+         * includes positive values, no amount of padding applied by `domainPadding` will result in a domain with
+         * negative values. This is the desired behavior in most cases. For users that need to apply padding without
+         * regard to quadrant, the `singleQuadrantDomainPadding` prop may be used. This prop may be given as a boolean
+         * or an object with boolean values specified for "x" and/or "y". When this prop is false (or false for a given
+         * dimension), padding will be applied without regard to quadrant. If this prop is not specified,
+         * `domainPadding` will be coerced to existing quadrants.
+         *
+         * *note:* The `x` value supplied to the `singleQuadrantDomainPadding` prop refers to the *independent* variable,
+         * and the `y` value refers to the *dependent* variable. This may cause confusion in horizontal charts, as the
+         * independent variable will corresponds to the y axis.
+         */
+        singleQuadrantDomainPadding?: boolean | { x?: boolean; y?: boolean };
         /**
          * The standalone prop determines whether the component will render a standalone svg
          * or a <g> tag that will be included in an external svg. Set standalone to false to
@@ -2936,11 +2952,12 @@ declare module 'victory' {
          */
         radius?: number;
         /**
-         * When creating a donut chart, this prop determines the number of pixels between
-         * the center of the chart and the inner edge of a donut. When this prop is set to zero
-         * a regular pie chart is rendered.
+         * The `innerRadius` prop determines the number of pixels between the center of the chart
+         * and the inner edge of a donut chart. When this prop is set to zero a regular pie chart is rendered.
+         * When this prop is given as a function, `innerRadius` will be evaluated for each slice
+         * of the pie with the props corresponding to that slice
          */
-        innerRadius?: number;
+        innerRadius?: number | ((props: VictorySliceProps) => number);
         /**
          * Set the cornerRadius for every dataComponent (Slice by default) within VictoryPie
          */
@@ -3017,5 +3034,71 @@ declare module 'victory' {
          * The groupComponent prop takes a component instance which will be used to create a group element for VictoryPortal to render its child component into. This prop defaults to a <g> tag.
          */
         groupComponent?: React.ReactElement;
+    }
+
+    export interface VictorySliceProps extends VictoryCommonProps {
+        /**
+         * the corner radius to apply to this slice.
+         * When this prop is given as a function
+         * it will be called with the rest of the props supplied to Slice.
+         */
+        cornerRadius?: SliceNumberOrCallback<VictorySliceProps, 'cornerRadius'>;
+        /**
+         * the data point corresponding to this slice
+         */
+        datum?: object;
+        /**
+         * the inner radius of the slice.
+         * When this prop is given as a function
+         * it will be called with datum and active.
+         */
+        innerRadius?: number | ((props: {
+            active?: boolean,
+            datum?: object,
+        }) => number);
+        /**
+         * the angular padding to add to the slice.
+         * When this prop is given as a function it will be called with
+         * the rest of the props supplied to Slice.
+         */
+        padAngle?: SliceNumberOrCallback<VictorySliceProps, 'padAngle'>;
+        /**
+         * the rendered path element
+         * @default pathComponent={<Path/>}
+         */
+        pathComponent?: React.ReactElement;
+        /**
+         * a function that calculates the path of a given slice.
+         * When given, this prop will be called with the slice object
+         */
+        pathFunction?: (props: VictorySliceProps) => string;
+        /**
+         * the outer radius of the slice.
+         * When this prop is given as a function it will be called with
+         * the rest of the props supplied to Slice.
+         */
+        radius?: SliceNumberOrCallback<VictorySliceProps, 'radius'>;
+        /**
+         * an object specifying the `startAngle`, `endAngle`, `padAngle`,
+         * and `data` of the slice
+         */
+        slice: {
+            startAngle?: number;
+            endAngle?: number;
+            padAngle?: number;
+            data?: any[];
+        };
+        /**
+         * the end angle the slice.
+         * When this prop is given as a function it will be called
+         * with the rest of the props supplied to Slice.
+         */
+        sliceEndAngle?: SliceNumberOrCallback<VictorySliceProps, 'sliceEndAngle'>;
+        /**
+         * the start angle the slice.
+         * When this prop is given as a function it will be called
+         * with the rest of the props supplied to Slice
+         */
+        sliceStartAngle?: SliceNumberOrCallback<VictorySliceProps, 'sliceStartAngle'>;
     }
 }

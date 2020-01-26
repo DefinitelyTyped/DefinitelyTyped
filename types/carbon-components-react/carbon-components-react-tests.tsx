@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    AccordionItem,
     DataTable,
     DataTableHeader,
     DataTableRow,
@@ -9,6 +10,24 @@ import {
     TableRow,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+
+// AccordionItem
+const titleNode = (
+    <h2 className="TitleClass">
+        <img src="some_image.png" alt="Something" />A heading
+    </h2>
+);
+const accordionItemOne = (
+    <AccordionItem title={titleNode} className="extra-class">
+        Lorem ipsum.
+    </AccordionItem>
+);
+const accordionTitle = 'Hello World!';
+const accordionItemTwo = (
+    <AccordionItem title={accordionTitle} className="extra-class">
+        Lorem ipsum.
+    </AccordionItem>
+);
 
 interface Row1 extends DataTableRow {
     rowProp: string;

@@ -305,10 +305,10 @@ QCModel.watch().once('change', (change: any) => {
   console.log(change);
 });
 
-QCModel.watch({
-  maxAwaitTimeMS: 10
+QCModel.watch([{ $match: { author: 'dave' } }], {
+    maxAwaitTimeMS: 10,
 }).once('change', (change: any) => {
-  console.log(change);
+    console.log(change);
 });
 
 /*
@@ -620,7 +620,8 @@ new mongoose.Schema({
       isAsync: true,
       validator: (val: number, done): void => {
         setImmediate(done, true);
-      }
+      },
+      message: (props) => `${props.value} is invalid`
     }
   },
   promiseValidated: {
@@ -628,7 +629,8 @@ new mongoose.Schema({
     validate: {
       validator: async (val: number) => {
         return val === 2;
-      }
+      },
+      message: 'Number is invalid'
     }
   },
 });

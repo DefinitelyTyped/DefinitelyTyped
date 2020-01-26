@@ -26,6 +26,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import { Moment } from 'moment';
+
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
@@ -77,6 +79,10 @@ declare class Chart {
 
     // Tooltip Static Options
     static Tooltip: Chart.ChartTooltipsStaticConfiguration;
+
+    static readonly instances: {
+        [key: string]: Chart;
+    };
 }
 declare class PluginServiceStatic {
     register(plugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions): void;
@@ -223,10 +229,10 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date;
-        y?: number | string | Date;
+        x?: number | string | Date | Moment;
+        y?: number | string | Date | Moment;
         r?: number;
-        t?: number | string | Date;
+        t?: number | string | Date | Moment;
     }
 
     interface ChartConfiguration {
@@ -237,7 +243,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -563,6 +569,12 @@ declare namespace Chart {
         mirror?: boolean;
         padding?: number;
         reverse?: boolean;
+        /**
+         * The number of ticks to examine when deciding how many labels will fit.
+         * Setting a smaller value will be faster, but may be less accurate
+         * when there is large variability in label length.
+         * Deault: `ticks.length`
+         */
         sampleSize?: number;
         showLabelBackdrop?: boolean;
         source?: 'auto' | 'data' | 'labels';
