@@ -944,6 +944,9 @@ schema = Joi.link(str);
         value = schema.validate(value).value;
 
         result = schema.validate(value);
+        if (result.error) {
+            throw Error('error should not be set');
+        }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
         asyncResult = schema.validateAsync(value, validOpts);
@@ -952,6 +955,12 @@ schema = Joi.link(str);
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
             .catch(e => { });
+
+        const falsyValue = { username: 'example' };
+        result = schema.validate(falsyValue);
+        if (!result.error) {
+            throw Error('error should be set');
+        }
     }
 }
 
