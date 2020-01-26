@@ -11,7 +11,7 @@ const test1 = (
         disabled={false}
         autoComplete="tel"
         defaultCountry="NZ"
-        countries={["NZ", "US", "FR"]}
+        countries={['NZ', 'US', 'FR']}
         placeholder="Place holder"
     >
         <div>panel 1</div>
