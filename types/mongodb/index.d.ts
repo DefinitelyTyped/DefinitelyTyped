@@ -1209,9 +1209,9 @@ export type ArrayOperator<Type> = {
 };
 
 export type SetFields<TSchema> = ({
-    readonly [key in KeysOfAType<TSchema, any[]>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
+    readonly [key in KeysOfAType<TSchema, any[] | undefined>]?: Unpacked<TSchema[key]> | AddToSetOperators<TSchema[key]>;
 } &
-    NotAcceptedFields<TSchema, any[]>) & {
+    NotAcceptedFields<TSchema, any[] | undefined>) & {
     readonly [key: string]: AddToSetOperators<any> | any;
 };
 
