@@ -213,6 +213,11 @@ declare namespace umzug {
     interface Migration {
         path: string;
         file: string;
+
+        migration(): Promise<any>;
+        up(): Promise<any>;
+        down(): Promise<any>;
+        testFileName(needle:string): boolean;
     }
 
     interface Umzug extends EventEmitter {
