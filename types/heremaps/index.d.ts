@@ -1461,8 +1461,11 @@ declare namespace H {
             resizeToCenter(center: H.geo.IPoint, opt_out?: H.geo.Rect): H.geo.Rect;
         }
 
+        /**
+         * @link https://developer.here.com/documentation/maps/api_reference/H.geo.Polygon.html
+         */
         class Polygon extends H.geo.AbstractGeometry {
-            constructor(exterior: H.geo.LineString, opt_interiors: H.geo.LineString[]);
+            constructor(exterior: H.geo.LineString, opt_interiors?: H.geo.LineString[]);
             getExterior(): H.geo.LineString;
             getInteriors(): H.geo.LineString[];
             getPoleCovering(): H.geo.Polygon.Direction;
