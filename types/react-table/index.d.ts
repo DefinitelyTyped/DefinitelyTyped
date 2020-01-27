@@ -311,7 +311,7 @@ export interface UseColumnOrderState<D extends object> {
 }
 
 export interface UseColumnOrderInstanceProps<D extends object> {
-    setColumnOrder: (updater: (columnOrder: Array<IdType<D>>) => Array<IdType<D>>) => void;
+    setColumnOrder: (updater: ((columnOrder: Array<IdType<D>>) => Array<IdType<D>>) | Array<IdType<D>>) => void;
 }
 
 //#endregion
