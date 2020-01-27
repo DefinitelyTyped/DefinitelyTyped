@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="Cypress" />
-import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+import { MatchImageSnapshotOptions } from '../jest-image-snapshot';
 
 export interface Options extends Partial<Cypress.ScreenshotOptions & MatchImageSnapshotOptions> {}
 
