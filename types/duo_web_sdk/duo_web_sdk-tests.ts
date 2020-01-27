@@ -17,4 +17,5 @@ Duo.init({
 
 Duo._onReady(() => {});
 Duo._parseSigRequest("sig");
-Duo._isDuoMessageEvent(new MessageEvent("event"));
+Duo._isDuoMessage(new MessageEvent("event"));
+Duo._doPostBack("response");

@@ -26,4 +26,5 @@ export function init(options: InitOptions): void;
 
 export function _onReady(callback: () => void): void;
 export function _parseSigRequest(sig: string): ParsedSig;
-export function _isDuoMessageEvent(event: MessageEvent): boolean;
+export function _isDuoMessage(event: MessageEvent): boolean;
+export function _doPostBack(response: string): void;
