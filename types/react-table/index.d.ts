@@ -231,7 +231,8 @@ export interface UseTableColumnProps<D extends object> {
     getToggleHiddenProps: (userProps?: any) => any;
     depth: number; // not documented
     index: number; // not documented
-}
+    placeholderOf?: ColumnInstance;
+ }
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
