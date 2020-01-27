@@ -2,10 +2,32 @@
 // Project: https://github.com/palmerhq/cypress-image-snapshot
 // Definitions by: Alex Kessock <https://github.com/Keysox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 /// <reference types="Cypress" />
-import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+
+interface MatchImageSnapshotOptions {
+    customDiffConfig?: {
+        readonly threshold?: number;
+        readonly includeAA?: boolean;
+    };
+    customSnapshotsDir?: string;
+    customDiffDir?: string;
+    customSnapshotIdentifier?:
+        | ((parameters: {
+              testPath: string;
+              currentTestName: string;
+              counter: number;
+              defaultIdentifier: string;
+          }) => string)
+        | string;
+    diffDirection?: 'horizontal' | 'vertical';
+    noColors?: boolean;
+    failureThreshold?: number;
+    failureThresholdType?: 'pixel' | 'percent';
+    updatePassedSnapshot?: boolean;
+    blur?: number;
+    runInProcess?: boolean;
+}
 
 export interface Options extends Partial<Cypress.ScreenshotOptions & MatchImageSnapshotOptions> {}
 
