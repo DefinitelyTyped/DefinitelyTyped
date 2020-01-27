@@ -174,7 +174,7 @@ declare namespace umzug {
         /**
          * Options for defined migration
          */
-        migrations?: MigrationOptions;
+        migrations?: MigrationOptions | Migration[];
 
     }
 
