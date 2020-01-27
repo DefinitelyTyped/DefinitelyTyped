@@ -1,4 +1,4 @@
-// Type definitions for vcards-js 2.1
+// Type definitions for vcards-js 2.10
 // Project: https://github.com/enesser/vCards-JS
 // Definitions by: Ben Allfree <https://github.com/benallfree>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,11 @@ interface vCard {
      * Date of birth
      */
     birthday: Date;
+
+    /**
+     * Anniversary
+     */
+    anniversary: Date;
 
     /**
      * Cell phone number
@@ -103,6 +108,11 @@ interface vCard {
      * The name and optionally the unit(s) of the organization associated with the vCard object
      */
     organization: string;
+
+    /**
+     * Whether or not this contact should be shown as a company
+     */
+    isOrganization: boolean;
 
     /**
      * Individual's photo
