@@ -727,7 +727,7 @@ export interface UseSortByColumnProps<D extends object> {
     canSort: boolean;
     toggleSortBy: (descending: boolean, multi: boolean) => void;
     getSortByToggleProps: (props?: Partial<TableSortByToggleProps>) => TableSortByToggleProps;
-    clearSorting: () => void;
+    clearSortBy: () => void;
     isSorted: boolean;
     sortedIndex: number;
     isSortedDesc: boolean | undefined;
