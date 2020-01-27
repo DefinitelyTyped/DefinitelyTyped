@@ -1,5 +1,6 @@
 import contentstack = require('contentstack');
 
+contentstack.Stack({ api_key: '', access_token: '', environment: ''});
 const stack = contentstack.Stack('api_key', 'access_token', 'environment_name');
 stack.ContentType('content_type');
 

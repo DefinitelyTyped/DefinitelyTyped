@@ -5,8 +5,16 @@
 // TypeScript Version: 3.6
 
 export function Stack(api_key: string, access_token: string, environment_name: string): Stack;
+export function Stack(config: Config): Stack;
+
+export interface Config {
+    api_key: string;
+    access_token: string;
+    environment: string;
+}
 
 export class Stack {
+    constructor(config: Config);
     constructor(api_key: string, access_token: string, environment_name: string);
 
     ContentType(uid: string): ContentType;
