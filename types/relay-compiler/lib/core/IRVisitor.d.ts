@@ -2,9 +2,7 @@ import {
     Argument,
     ClientExtension,
     Condition,
-    Connection,
     Defer,
-    ConnectionField,
     Directive,
     Fragment,
     FragmentSpread,
@@ -21,15 +19,13 @@ import {
     SplitOperation,
     Stream,
     Variable,
-} from './GraphQLIR';
+} from './IR';
 
 export type VisitNode =
     | Argument
     | ClientExtension
     | Condition
     | Defer
-    | ConnectionField
-    | Connection
     | Directive
     | Fragment
     | FragmentSpread
@@ -69,9 +65,7 @@ export type NodeVisitor =
           Argument?: VisitFn<Argument>;
           ClientExtension?: VisitFn<ClientExtension>;
           Condition?: VisitFn<Condition>;
-          Connection?: VisitFn<Connection>;
           Defer?: VisitFn<Defer>;
-          ConnectionField?: VisitFn<ConnectionField>;
           Directive?: VisitFn<Directive>;
           Fragment?: VisitFn<Fragment>;
           FragmentSpread?: VisitFn<FragmentSpread>;
@@ -92,9 +86,7 @@ export type NodeVisitor =
           Argument?: NodeVisitorObject<Argument>;
           ClientExtension?: VisitFn<ClientExtension>;
           Condition?: NodeVisitorObject<Condition>;
-          Connection?: NodeVisitorObject<Connection>;
           Defer?: NodeVisitorObject<Defer>;
-          ConnectionField?: NodeVisitorObject<ConnectionField>;
           Directive?: NodeVisitorObject<Directive>;
           Fragment?: NodeVisitorObject<Fragment>;
           FragmentSpread?: NodeVisitorObject<FragmentSpread>;
