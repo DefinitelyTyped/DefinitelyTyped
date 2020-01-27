@@ -119,15 +119,19 @@ export interface AsyncCargo {
 }
 
 // Collections
-export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>, callback: ErrorCallback<E>): void;
+export function each<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncIterator<T, E>): Promise<void>;
 export const eachSeries: typeof each;
-export function eachLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function eachLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncIterator<T, E>, callback: ErrorCallback<E>): void;
+export function eachLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncIterator<T, E>): Promise<void>;
 export const forEach: typeof each;
 export const forEachSeries: typeof each;
 export const forEachLimit: typeof eachLimit;
-export function forEachOf<T, E = Error>(obj: IterableCollection<T>, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function forEachOf<T, E = Error>(obj: IterableCollection<T>, iterator: AsyncForEachOfIterator<T, E>, callback: ErrorCallback<E>): void;
+export function forEachOf<T, E = Error>(obj: IterableCollection<T>, iterator: AsyncForEachOfIterator<T, E>): Promise<void>;
 export const forEachOfSeries: typeof forEachOf;
-export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>, callback?: ErrorCallback<E>): void;
+export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>, callback: ErrorCallback<E>): void;
+export function forEachOfLimit<T, E = Error>(obj: IterableCollection<T>, limit: number, iterator: AsyncForEachOfIterator<T, E>): Promise<void>;
 export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
