@@ -1,4 +1,4 @@
-import createReport from 'docx-templater';
+import createReport from 'docx-templates';
 
 createReport({
     template: 'templates/myTemplate.docx',
