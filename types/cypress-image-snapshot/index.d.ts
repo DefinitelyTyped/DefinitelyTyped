@@ -2,6 +2,7 @@
 // Project: https://github.com/palmerhq/cypress-image-snapshot
 // Definitions by: Alex Kessock <https://github.com/Keysox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="Cypress" />
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
