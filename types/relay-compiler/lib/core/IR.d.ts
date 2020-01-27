@@ -1,12 +1,11 @@
 import {
-    Source,
-    GraphQLInputType,
-    GraphQLOutputType,
-    GraphQLCompositeType,
-    GraphQLLeafType,
-    GraphQLList,
-    GraphQLNonNull,
-} from 'graphql';
+    LinkedFieldTypeID,
+    ScalarFieldTypeID,
+    CompositeTypeID,
+    InputTypeID,
+    TypeID,
+} from './Schema';
+import { Source } from 'graphql';
 import { TypeReferenceNode } from 'typescript';
 
 export type Metadata = { [key: string]: unknown } | undefined;
@@ -37,7 +36,7 @@ export interface Argument {
     loc: Location;
     metadata: Metadata;
     name: string;
-    type?: GraphQLInputType;
+    type?: InputTypeID;
     value: ArgumentValue;
 }
 
@@ -54,12 +53,6 @@ export interface Condition {
     selections: ReadonlyArray<Selection>;
 }
 
-export interface Connection {
-    key: string;
-    conditional: boolean;
-    value: TypeReferenceNode;
-}
-
 export interface Directive {
     args: ReadonlyArray<Argument>;
     kind: 'Directive';
@@ -68,7 +61,7 @@ export interface Directive {
     name: string;
 }
 
-export type Field = LinkedField | ScalarField | ConnectionField;
+export type Field = LinkedField | ScalarField;
 
 export interface Fragment {
     argumentDefinitions: ReadonlyArray<ArgumentDefinition>;
@@ -78,7 +71,7 @@ export interface Fragment {
     metadata: Metadata;
     name: string;
     selections: ReadonlyArray<Selection>;
-    type: GraphQLCompositeType;
+    type: CompositeTypeID;
 }
 
 export interface FragmentSpread {
@@ -93,7 +86,12 @@ export interface FragmentSpread {
 export interface Defer {
     kind: 'Defer';
     loc: Location;
-    metadata: Metadata;
+    metadata:
+        | {
+            fragmentTypeCondition: string;
+          }
+        | null
+        | undefined;
     selections: ReadonlyArray<Selection>;
     label: string;
     if: ArgumentValue | null;
@@ -107,6 +105,7 @@ export interface Stream {
     label: string;
     if: ArgumentValue | null;
     initialCount: ArgumentValue;
+    useCustomizedBatch: ArgumentValue | null;
 }
 
 export interface InlineDataFragmentSpread {
@@ -122,7 +121,6 @@ export type IR =
     | ClientExtension
     | Condition
     | Defer
-    | ConnectionField
     | Directive
     | Fragment
     | FragmentSpread
@@ -146,9 +144,8 @@ export type IR =
 export interface RootArgumentDefinition {
     kind: 'RootArgumentDefinition';
     loc: Location;
-    metadata: Metadata;
     name: string;
-    type: GraphQLInputType;
+    type: InputTypeID;
 }
 
 export interface InlineFragment {
@@ -157,14 +154,14 @@ export interface InlineFragment {
     loc: Location;
     metadata: Metadata;
     selections: ReadonlyArray<Selection>;
-    typeCondition: GraphQLCompositeType;
+    typeCondition: CompositeTypeID;
 }
 
 export interface Handle {
     name: string;
     key: string;
     dynamicKey: Variable | null;
-    filters?: Readonly<string>;
+    filters?: ReadonlyArray<string>;
 }
 
 export interface ClientExtension {
@@ -174,23 +171,10 @@ export interface ClientExtension {
     selections: ReadonlyArray<Selection>;
 }
 
-export interface ConnectionField {
-    alias: string;
-    args: ReadonlyArray<Argument>;
-    directives: ReadonlyArray<Directive>;
-    kind: 'ConnectionField';
-    label: string;
-    loc: Location;
-    metadata: Metadata;
-    name: string;
-    resolver: string;
-    selections: ReadonlyArray<Selection>;
-    type: GraphQLOutputType;
-}
-
 export interface LinkedField {
     alias: string;
     args: ReadonlyArray<Argument>;
+    connection: boolean;
     directives: ReadonlyArray<Directive>;
     handles?: ReadonlyArray<Handle>;
     kind: 'LinkedField';
@@ -198,7 +182,13 @@ export interface LinkedField {
     metadata: Metadata;
     name: string;
     selections: ReadonlyArray<Selection>;
-    type: GraphQLOutputType;
+    type: LinkedFieldTypeID;
+}
+
+export interface ListValue {
+    kind: 'ListValue';
+    items: ReadonlyArray<ArgumentValue>;
+    loc: Location;
 }
 
 export interface ListValue {
@@ -211,7 +201,6 @@ export interface ListValue {
 export interface Literal {
     kind: 'Literal';
     loc: Location;
-    metadata: Metadata;
     value: unknown;
 }
 
@@ -221,7 +210,7 @@ export interface LocalArgumentDefinition {
     loc: Location;
     metadata: Metadata;
     name: string;
-    type: GraphQLInputType;
+    type: InputTypeID;
 }
 
 export interface ModuleImport {
@@ -238,7 +227,6 @@ export type Node =
     | ClientExtension
     | Condition
     | Defer
-    | ConnectionField
     | Fragment
     | InlineDataFragmentSpread
     | InlineFragment
@@ -251,7 +239,6 @@ export type Node =
 export interface ObjectFieldValue {
     kind: 'ObjectFieldValue';
     loc: Location;
-    metadata: Metadata;
     name: string;
     value: ArgumentValue;
 }
@@ -260,7 +247,6 @@ export interface ObjectValue {
     kind: 'ObjectValue';
     fields: ReadonlyArray<ObjectFieldValue>;
     loc: Location;
-    metadata: Metadata;
 }
 
 export interface Request {
@@ -283,17 +269,8 @@ export interface Root {
     name: string;
     operation: 'query' | 'mutation' | 'subscription';
     selections: Readonly<Selection>;
-    type: GraphQLCompositeType;
+    type: CompositeTypeID;
 }
-
-// workaround for circular reference
-// tslint:disable-next-line:no-empty-interface
-export interface ScalarFieldTypeGraphQLList extends GraphQLList<ScalarFieldType> {}
-
-export type ScalarFieldType =
-    | GraphQLLeafType
-    | ScalarFieldTypeGraphQLList
-    | GraphQLNonNull<GraphQLLeafType | ScalarFieldTypeGraphQLList>;
 
 export interface ScalarField {
     alias: string;
@@ -304,14 +281,13 @@ export interface ScalarField {
     loc: Location;
     metadata: Metadata;
     name: string;
-    type: ScalarFieldType;
+    type: ScalarFieldTypeID;
 }
 
 export type Selection =
     | ClientExtension
     | Condition
     | Defer
-    | ConnectionField
     | FragmentSpread
     | InlineFragment
     | LinkedField
@@ -329,13 +305,13 @@ export interface SplitOperation {
     selections: ReadonlyArray<Selection>;
     loc: Location;
     metadata: Metadata;
-    type: GraphQLCompositeType;
+    parentSources: Set<string>;
+    type: TypeID;
 }
 
 export interface Variable {
     kind: 'Variable';
     loc: Location;
-    metadata: Metadata;
     variableName: string;
-    type?: GraphQLInputType;
+    type?: TypeID;
 }
