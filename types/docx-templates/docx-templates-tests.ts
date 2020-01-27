@@ -15,17 +15,19 @@ createReport({
     data: (query: string) => JSON.parse(query),
 });
 
-const buffer1: Buffer = await createReport({
-    output: 'buffer',
-    template: 'templates/myTemplate.docx',
-    data: {},
-});
+async function test() {
+    const buffer1: Buffer = await createReport({
+        output: 'buffer',
+        template: 'templates/myTemplate.docx',
+        data: {},
+    });
 
-const buffer2 = await createReport({
-    output: 'buffer',
-    template: buffer1,
-    data: {},
-});
+    const buffer2 = await createReport({
+        output: 'buffer',
+        template: buffer1,
+        data: {},
+    });
+}
 
 createReport({
     template: 'templates/myTemplate.docx',
