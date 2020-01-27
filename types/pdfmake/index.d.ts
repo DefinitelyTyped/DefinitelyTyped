@@ -182,12 +182,12 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentDefinitions {
-        background?: () => string | string;
+        background?: string | ((currentPage: number, pageSize: PageSize) => string | Content | null);
         compress?: boolean;
         content: string | Content | Array<string | Content>;
         defaultStyle?: Style;
-        footer?: TDocumentHeaderFooterFunction;
-        header?: TDocumentHeaderFooterFunction;
+        footer?: TDocumentHeaderFooterFunction | Content | string;
+        header?: TDocumentHeaderFooterFunction | Content | string;
         images?: { [key: string]: string };
         info?: TDocumentInformation;
         pageBreakBefore?: (
@@ -198,7 +198,7 @@ declare module "pdfmake/build/pdfmake" {
         ) => boolean;
         pageMargins?: Margins;
         pageOrientation?: PageOrientation;
-        pageSize?: PageSize;
+        pageSize?: PageSize | { width: number; height: number };
         styles?: Style;
     }
 

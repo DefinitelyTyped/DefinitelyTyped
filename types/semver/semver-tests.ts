@@ -2,13 +2,16 @@ import * as semver from "semver";
 
 let bool: boolean;
 let num: number;
-let str = '';
-let strn: string | null = '';
+// $ExpectType string
+let str = String(Math.random());
+// $ExpectType string | null
+let strn: string | null = Math.random() < 0.5 ? null : str;
 let diff: semver.ReleaseType | null;
 const op: semver.Operator = '';
 declare const arr: any[];
 declare const exp: RegExp;
 let strArr: ReadonlyArray<string> | null;
+let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
 let versionsArr: Array<string | semver.SemVer>;
@@ -18,10 +21,14 @@ const v2 = '';
 const version = '';
 const versions: string[] = [];
 const loose = true;
-let sem: semver.SemVer | null = new semver.SemVer(str, {});
+// $ExpectType SemVer | null
+let sem: semver.SemVer | null = Math.random() < 0.5 ? new semver.SemVer(str, {}) : null;
 
-sem = new semver.SemVer(str, {includePrerelease: false});
-sem = new semver.SemVer(str, {loose: true});
+// $ExpectType string | SemVer | null | undefined
+const anyVersion = Math.random() < 0.5 ? undefined : Math.random() < 0.5 ? strn : sem;
+
+sem = new semver.SemVer(str, { includePrerelease: false });
+sem = new semver.SemVer(str, { loose: true });
 
 sem = semver.parse(str);
 strn = semver.valid(str);
@@ -37,6 +44,7 @@ strn = semver.inc(str, "patch", loose);
 strn = semver.inc(str, "prepatch", loose);
 strn = semver.inc(str, "prerelease", loose);
 strn = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
@@ -72,6 +80,22 @@ sem = semver.minVersion(str, loose);
 // Coercion
 sem = semver.coerce(str);
 
+sem = semver.coerce(strn);
+sem = semver.coerce(strn, { rtl: false });
+sem = semver.coerce(strn, { rtl: true });
+
+sem = semver.coerce(sem);
+sem = semver.coerce(sem, { rtl: false });
+sem = semver.coerce(sem, { rtl: true });
+
+sem = semver.coerce(1);
+sem = semver.coerce(2, { rtl: false });
+sem = semver.coerce(3, { rtl: true });
+
+sem = semver.coerce(anyVersion);
+sem = semver.coerce(anyVersion, { rtl: false });
+sem = semver.coerce(anyVersion, { rtl: true });
+
 let ver = new semver.SemVer(str, bool);
 str = ver.raw;
 bool = ver.loose;
@@ -84,7 +108,8 @@ num = ver.minor;
 num = ver.patch;
 str = ver.version;
 strArr = ver.build;
-strArr = ver.prerelease;
+strNumArr = ver.prerelease;
+ver.prerelease = strNumArr;
 
 comparatorResult = ver.compare(ver);
 comparatorResult = ver.compareMain(ver);

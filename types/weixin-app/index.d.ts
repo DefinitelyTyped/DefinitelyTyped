@@ -232,7 +232,7 @@ declare namespace wx {
 	}
 	interface TempFilesData {
 		/** 文件的临时路径 */
-		tempFilePaths: string;
+		tempFilePaths: string[];
 		/**
 		 * 图片的本地文件列表，每一项是一个 File 对象
 		 * @version 1.2.0

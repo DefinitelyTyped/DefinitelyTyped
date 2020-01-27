@@ -5,7 +5,23 @@ const app = express();
 
 app.use(session({
   secret: 'keyboard cat',
+  cookie: { secure: true }
+}));
+app.use(session({
+  secret: 'keyboard cat',
   cookie: { secure: 'auto' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'none' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'lax' }
+}));
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: { sameSite: 'strict' }
 }));
 app.use(session({
   secret: 'keyboard cat',

@@ -50,6 +50,20 @@ if (options !== null) {
     const formatted = prettier.format('hello world', options);
 }
 
+prettier.resolveConfigFile().then(filePath => {
+    if (filePath !== null) {
+        prettier.resolveConfig(filePath);
+    }
+});
+prettier.resolveConfigFile('/path').then(filePath => {
+    if (filePath !== null) {
+        prettier.resolveConfig(filePath);
+    }
+});
+
+const configFilePathInCurrentDir = prettier.resolveConfigFile.sync();
+const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
+
 prettier.clearConfigCache();
 
 const currentSupportInfo = prettier.getSupportInfo();

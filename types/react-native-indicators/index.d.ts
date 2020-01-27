@@ -5,7 +5,12 @@
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { Animated, EasingFunction } from 'react-native';
+import {
+    Animated,
+    EasingFunction,
+    StyleProp,
+    ViewStyle,
+} from 'react-native';
 export interface BaseIndicatorProps {
     /**
      * Animation easing function
@@ -15,9 +20,27 @@ export interface BaseIndicatorProps {
 
     /**
      * Animation duration in ms
-     * @default1200
+     * @default 1200
      */
     animationDuration?: number;
+
+    /**
+     * Animation toggle
+     * @default true
+     */
+    animating?: boolean;
+
+    /**
+     * Animation is interaction
+     * @default true
+     */
+    interaction?: boolean;
+
+    /**
+     * Style is proxied to the underlying View
+     * @default undefined
+     */
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface UIActivityIndicatorProps extends BaseIndicatorProps {

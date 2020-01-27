@@ -134,7 +134,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 #### Errores comunes
 
 * Primero, sigue el consejo del [manual](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatear: Ya sea utilizar todo en tabs, o siempre utiliza 4 espacios.
+* Formatear: Utiliza 4 espacios.
 * `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
 * `interface Foo { new(): Foo; }`:
     Este define el tipo de objeto que esten nuevos. Probablemente quieras `declare class Foo { constructor(); }`.

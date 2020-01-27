@@ -1,43 +1,54 @@
-// Type definitions for hapi-pino 5.2
+// Type definitions for hapi-pino 6.3
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
+//                 Todd Bealmear <https://github.com/todd>
+//                 Matt Jeanes <https://github.com/BlooJeans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 /// <reference types='node' />
 
-import {
-    Plugin,
-} from 'hapi';
 import * as pino from 'pino';
 
-declare module 'hapi' {
-interface Server {
-    logger: () => pino.Logger;
-}
+import { Plugin, Request } from '@hapi/hapi';
 
-interface Request {
-    logger: pino.Logger;
-}
+declare module '@hapi/hapi' {
+    interface Server {
+        logger: () => pino.Logger;
+    }
+
+    interface Request {
+        logger: pino.Logger;
+    }
 }
 
 declare namespace HapiPino {
-    type LogLevels = 'trace' | 'debug' | 'info' | 'warn' | 'error';
+    interface Serializers {
+        [key: string]: pino.SerializerFn;
+    }
 
     interface Options {
         logPayload?: boolean;
         logRouteTags?: boolean;
+        logRequestStart?: boolean;
         stream?: NodeJS.WriteStream;
-        prettyPrint?: boolean;
-        levelTags?: { [key in LogLevels]: string };
-        allTags?: LogLevels;
-        serializers?: { [key: string]: (param: any) => void};
+        prettyPrint?: boolean | pino.PrettyOptions;
+        tags?: { [key in pino.Level]?: string };
+        allTags?: pino.Level;
+        serializers?: Serializers;
+        getChildBindings?: (
+            req: Request,
+        ) => {
+            level?: pino.Level | string;
+            serializers?: Serializers;
+            [key: string]: any;
+        };
         instance?: pino.Logger;
         logEvents?: string[] | false | null;
         mergeHapiLogData?: boolean;
         ignorePaths?: string[];
-        level?: LogLevels;
-        redact?: string[];
+        level?: pino.Level;
+        redact?: string[] | pino.redactOptions;
     }
 }
 

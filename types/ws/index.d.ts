@@ -1,10 +1,12 @@
-// Type definitions for ws 6.0
+// Type definitions for ws 7.2
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
+//                 reduckted <https://github.com/reduckted>
+//                 teidesu <https://github.com/teidesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -13,6 +15,9 @@ import * as events from 'events';
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as url from 'url';
+import * as zlib from 'zlib';
+import * as stream from 'stream';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -33,10 +38,10 @@ declare class WebSocket extends events.EventEmitter {
     CLOSING: number;
     CLOSED: number;
 
-    onopen: (event: { target: WebSocket }) => void;
-    onerror: (event: {error: any, message: string, type: string, target: WebSocket }) => void;
-    onclose: (event: { wasClean: boolean; code: number; reason: string; target: WebSocket }) => void;
-    onmessage: (event: { data: WebSocket.Data; type: string; target: WebSocket }) => void;
+    onopen: (event: WebSocket.OpenEvent) => void;
+    onerror: (event: WebSocket.ErrorEvent) => void;
+    onclose: (event: WebSocket.CloseEvent) => void;
+    onmessage: (event: WebSocket.MessageEvent) => void;
 
     constructor(address: string, options?: WebSocket.ClientOptions);
     constructor(address: string, protocols?: string | string[], options?: WebSocket.ClientOptions);
@@ -124,7 +129,9 @@ declare namespace WebSocket {
 
     interface ClientOptions {
         protocol?: string;
+        followRedirects?: boolean;
         handshakeTimeout?: number;
+        maxRedirects?: number;
         perMessageDeflate?: boolean | PerMessageDeflateOptions;
         localAddress?: string;
         protocolVersion?: number;
@@ -160,8 +167,33 @@ declare namespace WebSocket {
             dictionary?: Buffer | Buffer[] | DataView;
             info?: boolean;
         };
+        zlibInflateOptions?: zlib.ZlibOptions;
         threshold?: number;
         concurrencyLimit?: number;
+    }
+
+    interface OpenEvent {
+        target: WebSocket;
+    }
+
+    interface ErrorEvent {
+        error: any;
+        message: string;
+        type: string;
+        target: WebSocket;
+    }
+
+    interface CloseEvent {
+        wasClean: boolean;
+        code: number;
+        reason: string;
+        target: WebSocket;
+    }
+
+    interface MessageEvent {
+        data: Data;
+        type: string;
+        target: WebSocket;
     }
 
     interface ServerOptions {
@@ -202,15 +234,18 @@ declare namespace WebSocket {
         on(event: 'connection', cb: (this: WebSocket, socket: WebSocket, request: http.IncomingMessage) => void): this;
         on(event: 'error', cb: (this: WebSocket, error: Error) => void): this;
         on(event: 'headers', cb: (this: WebSocket, headers: string[], request: http.IncomingMessage) => void): this;
-        on(event: 'listening', cb: (this: WebSocket) => void): this;
+        on(event: 'close' | 'listening', cb: (this: WebSocket) => void): this;
         on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
 
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
-        addListener(event: 'listening', cb: () => void): this;
+        addListener(event: 'close' | 'listening', cb: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+
+    // WebSocket stream
+    function createWebSocketStream(websocket: WebSocket, options: stream.DuplexOptions): stream.Duplex;
 }
 
 export = WebSocket;

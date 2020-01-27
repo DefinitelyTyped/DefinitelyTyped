@@ -10,4 +10,5 @@ export default class OpenFinEnvironment implements Environment {
     private resolveUrl;
     isWindowExists: (uuid: string, name: string) => boolean;
     getWebWindow: (identity: Identity) => Window;
+    getCurrentEntityIdentity: () => Identity;
 }

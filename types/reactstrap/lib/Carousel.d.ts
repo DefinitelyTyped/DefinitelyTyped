@@ -14,6 +14,7 @@ export interface CarouselProps extends React.HTMLProps<HTMLElement> {
   mouseExit?: () => void;
   slide?: boolean;
   cssModule?: CSSModule;
+  enableTouch?: boolean;
 }
 
 export interface UncontrolledCarouselProps extends React.HTMLProps<HTMLElement> {
@@ -33,6 +34,7 @@ export interface UncontrolledCarouselProps extends React.HTMLProps<HTMLElement> 
   controls?: boolean;
   indicators?: boolean;
   autoPlay?: boolean;
+  enableTouch?: boolean;
 }
 
 declare class Carousel<T = {[key: string]: any}> extends React.Component<CarouselProps> {}

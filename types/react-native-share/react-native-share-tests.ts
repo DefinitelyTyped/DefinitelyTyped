@@ -28,7 +28,7 @@ Share.open({
 Share.shareSingle({
     url: '',
     message: '',
-    social: 'facebook',
+    social: Share.Social.FACEBOOK,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
@@ -38,5 +38,19 @@ Share.shareSingle({
     message: '',
     title: '',
     subject: '',
-    social: 'facebook',
+    social: Share.Social.FACEBOOK,
 });
+
+// $ExpectType Promise<ShareSingleReturn>
+Share.shareSingle({
+    url: '',
+    type: '',
+    message: '',
+    title: '',
+    subject: '',
+    filename: 'test',
+    social: Share.Social.FACEBOOK,
+});
+
+// $ExpectType Promise<ShareSingleReturn>
+Share.isPackageInstalled('');

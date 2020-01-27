@@ -78,7 +78,7 @@ app.use(async (ctx: Koa.ParameterizedContext<MyState, MyContext>, next) => {
 
 const router3 = new Router();
 router3.get('/', (ctx) => {
-    ctx.foo = "bar";
+    ctx.state.foo = 'bar';
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });
@@ -188,3 +188,10 @@ router4.post('/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.post('/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, routeHandler4);
 router4.get('name', '/foo', emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+
+
+const router5 = new Router();
+router5.register('/foo', ['GET'], middleware1, {
+    name: 'foo',
+});
+router5.register('/bar', ['GET', 'DELETE'], [middleware1, middleware2]);

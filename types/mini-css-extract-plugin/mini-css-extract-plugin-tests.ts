@@ -21,6 +21,15 @@ configuration = {
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
+            {
+                test: /\.css$/,
+                use: {
+                    loader: MiniCssExtractPlugin.loader,
+                    options: {
+                        publicPath: '/',
+                    },
+                },
+            },
             // Optionally extract less files
             // or any other compile-to-css language
             {
@@ -53,6 +62,17 @@ configuration = {
         new MiniCssExtractPlugin({
             filename: 'styles.css',
             chunkFilename: 'style.css',
+        }),
+    ],
+};
+
+configuration = {
+    // ...
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+            chunkFilename: 'style.css',
+            ignoreOrder: true,
         }),
     ],
 };

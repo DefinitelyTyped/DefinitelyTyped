@@ -9,11 +9,13 @@
 /// <reference types="node" />
 
 import fs = require('fs');
-import stream = require('stream');
+import tarStream = require('tar-stream');
 
-// Replace these return values with the value of tar-stream when it becomes available
-export function pack(cwd: string, opts?: PackOptions): stream.Readable;
-export function extract(cwd: string, opts?: ExtractOptions): stream.Writable;
+export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
+export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
+
+export type Pack = tarStream.Pack;
+export type Extract = tarStream.Extract;
 
 export interface Options {
     ignore?: (name: string) => boolean;

@@ -20,7 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-big-calendar-tests.tsx",
-        "lib/addons/dragAndDrop.d.ts"
+        "react-big-calendar-tests.tsx"
     ]
 }

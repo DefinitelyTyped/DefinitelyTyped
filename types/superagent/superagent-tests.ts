@@ -1,8 +1,10 @@
 // via: http://visionmedia.github.io/superagent/
 import request = require('superagent');
 import * as fs from 'fs';
-import assert = require('assert');
 import { Agent } from 'https';
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean): void;
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -417,6 +419,53 @@ request
         passphrase: 'test'
     })
     .end(callback);
+
+// HTTPS request with string, Buffer, and arrays of strings and Buffers, from: https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options
+request
+    .post('/secure')
+    .ca('ca')
+    .key('key')
+    .cert('cert')
+    .end(callback);
+
+request
+    .post('/secure')
+    .ca(['ca'])
+    .key(['key'])
+    .cert(['cert'])
+    .end(callback);
+
+request
+    .post('/secure')
+    .ca([ca])
+    .key([key])
+    .cert([cert])
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx('cert.pfx')
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx(['cert.pfx'])
+    .end(callback);
+
+request
+    .post('/secure')
+    .pfx([pfx])
+    .end(callback);
+
+// 'response' event, adapted from: https://visionmedia.github.io/superagent/docs/test.html
+request
+    .get('/user/1')
+    .on('response', res => {
+      try {
+        assert('bar' === res.body.foo);
+      } catch (e) { /* ignore */ }
+    })
+    .end();
 
 // ok, from: https://github.com/visionmedia/superagent/commit/34533bbc29833889090847c45a82b0ea81b2f06d
 request

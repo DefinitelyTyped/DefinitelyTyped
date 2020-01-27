@@ -8,7 +8,9 @@
 
 import { EventEmitter, EventSubscription } from 'fbemitter';
 import * as util from 'util';
-import * as assert from 'assert';
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assertEqual<T>(actual: T, expected: T): void;
 
 // Stub mocha functions
 const {describe, it, before, after, beforeEach, afterEach} = null as any as {
@@ -28,8 +30,8 @@ describe('EventEmitter', function tests() {
         var moop = new Beast()
             , meap = new Beast();
 
-        assert.strictEqual(moop instanceof Beast, true);
-        assert.strictEqual(moop instanceof EventEmitter, true);
+        assertEqual(moop instanceof Beast, true);
+        assertEqual(moop instanceof EventEmitter, true);
 
         moop.listeners('click');
         meap.listeners('click');
@@ -48,8 +50,8 @@ describe('EventEmitter', function tests() {
                 , e = new EventEmitter();
 
             e.addListener('foo', function (bar: string) {
-                assert.strictEqual(bar, 'bar');
-                assert.strictEqual(this, context);
+                assertEqual(bar, 'bar');
+                assertEqual(this, context);
 
                 done();
             }, context);
@@ -67,8 +69,8 @@ describe('EventEmitter', function tests() {
                     }
 
                     e.once('args', function () {
-                        assert.strictEqual(arguments.length, args.length);
-                        assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
+                        assertEqual(arguments.length, args.length);
+                        assertEqual(Array.prototype.slice.call(arguments), args);
                     });
 
                     e.emit.apply(e, (['args'] as any[]).concat(args));
@@ -86,23 +88,23 @@ describe('EventEmitter', function tests() {
                     }
 
                     e.once('args', function () {
-                        assert.strictEqual(arguments.length, args.length);
-                        assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
+                        assertEqual(arguments.length, args.length);
+                        assertEqual(Array.prototype.slice.call(arguments), args);
                     });
 
                     e.once('args', function () {
-                        assert.strictEqual(arguments.length, args.length);
-                        assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
+                        assertEqual(arguments.length, args.length);
+                        assertEqual(Array.prototype.slice.call(arguments), args);
                     });
 
                     e.once('args', function () {
-                        assert.strictEqual(arguments.length, args.length);
-                        assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
+                        assertEqual(arguments.length, args.length);
+                        assertEqual(Array.prototype.slice.call(arguments), args);
                     });
 
                     e.once('args', function () {
-                        assert.strictEqual(arguments.length, args.length);
-                        assert.deepStrictEqual(Array.prototype.slice.call(arguments), args);
+                        assertEqual(arguments.length, args.length);
+                        assertEqual(Array.prototype.slice.call(arguments), args);
                     });
 
                     e.emit.apply(e, (['args'] as any[]).concat(args));
@@ -114,13 +116,13 @@ describe('EventEmitter', function tests() {
             var e = new EventEmitter();
 
             e.addListener('foo', function (bar: string) {
-                assert.deepStrictEqual(this, { foo: 'bar' });
-                assert.strictEqual(bar, 'bar');
+                assertEqual(this, { foo: 'bar' });
+                assertEqual(bar, 'bar');
             }, { foo: 'bar' });
 
             e.addListener('foo', function (bar: string) {
-                assert.deepStrictEqual(this, { bar: 'baz' });
-                assert.strictEqual(bar, 'bar');
+                assertEqual(this, { bar: 'baz' });
+                assertEqual(bar, 'bar');
             }, { bar: 'baz' });
 
             e.emit('foo', 'bar');
@@ -140,18 +142,18 @@ describe('EventEmitter', function tests() {
             e.once('write', writer, 'banana');
 
             e.emit('write');
-            assert.strictEqual(pattern, 'foobazbarbanana');
+            assertEqual(pattern, 'foobazbarbanana');
         });
 
         it('receives the emitted events', function (done) {
             var e = new EventEmitter();
 
             e.addListener('data', function (a: string, b: EventEmitter, c: Date, d: void, undef: void) {
-                assert.strictEqual(a, 'foo');
-                assert.strictEqual(b, e);
-                assert.strictEqual(c instanceof Date, true);
-                assert.strictEqual(undef, undefined);
-                assert.strictEqual(arguments.length, 3);
+                assertEqual(a, 'foo');
+                assertEqual(b, e);
+                assertEqual(c instanceof Date, true);
+                assertEqual(undef, undefined);
+                assertEqual(arguments.length, 3);
 
                 done();
             });
@@ -173,7 +175,7 @@ describe('EventEmitter', function tests() {
 
             e.emit('foo');
 
-            assert.strictEqual(pattern.join(';'), 'foo1;foo2');
+            assertEqual(pattern.join(';'), 'foo1;foo2');
         });
 
     });
@@ -182,8 +184,8 @@ describe('EventEmitter', function tests() {
         it('returns an empty array if no listeners are specified', function () {
             var e = new EventEmitter();
 
-            assert.strictEqual(e.listeners('foo') instanceof Array, true);
-            assert.strictEqual(e.listeners('foo').length, 0);
+            assertEqual(e.listeners('foo') instanceof Array, true);
+            assertEqual(e.listeners('foo').length, 0);
         });
 
         it('returns an array of function', function () {
@@ -192,10 +194,10 @@ describe('EventEmitter', function tests() {
              function foo() {}
 
              e.addListener('foo', foo);
-             assert.strictEqual(e.listeners('foo') instanceof Array, true);
-             assert.strictEqual(e.listeners('foo').length, 1);
+             assertEqual(e.listeners('foo') instanceof Array, true);
+             assertEqual(e.listeners('foo').length, 1);
              console.log(e.listeners('foo')[0]);
-             assert.strictEqual(e.listeners('foo')[0], foo);
+             assertEqual(e.listeners('foo')[0], foo);
         });
 
         it('is not vulnerable to modifications', function () {
@@ -205,10 +207,10 @@ describe('EventEmitter', function tests() {
 
             e.addListener('foo', foo);
 
-            assert.strictEqual(e.listeners('foo')[0], foo);
+            assertEqual(e.listeners('foo')[0], foo);
 
             e.listeners('foo').length = 0;
-            assert.strictEqual(e.listeners('foo')[0], foo);
+            assertEqual(e.listeners('foo')[0], foo);
         });
     });
 
@@ -227,8 +229,8 @@ describe('EventEmitter', function tests() {
             e.emit('foo');
             e.emit('foo');
 
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(calls, 1);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(calls, 1);
         });
 
         it('only emits once if emits are nested inside the listener', function () {
@@ -241,8 +243,8 @@ describe('EventEmitter', function tests() {
             });
 
             e.emit('foo');
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(calls, 1);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(calls, 1);
         });
 
         it('only emits once for multiple events', function () {
@@ -269,10 +271,10 @@ describe('EventEmitter', function tests() {
             e.emit('foo');
             e.emit('foo');
 
-            assert.strictEqual(e.listeners('foo').length, 1);
-            assert.strictEqual(multi, 5);
-            assert.strictEqual(foo, 1);
-            assert.strictEqual(bar, 1);
+            assertEqual(e.listeners('foo').length, 1);
+            assertEqual(multi, 5);
+            assertEqual(foo, 1);
+            assertEqual(bar, 1);
         });
 
         it('only emits once with context', function (done) {
@@ -280,8 +282,8 @@ describe('EventEmitter', function tests() {
                 , e = new EventEmitter();
 
             e.once('foo', function (bar: string) {
-                assert.strictEqual(this, context);
-                assert.strictEqual(bar, 'bar');
+                assertEqual(this, context);
+                assertEqual(bar, 'bar');
                 done();
             }, context);
 
@@ -298,18 +300,18 @@ describe('EventEmitter', function tests() {
             var bar1 = e.addListener('bar', function () {});
             var bar2 = e.addListener('bar', bar);
 
-            assert.strictEqual(e.listeners('foo').length, 1);
-            assert.strictEqual(e.listeners('bar').length, 2);
+            assertEqual(e.listeners('foo').length, 1);
+            assertEqual(e.listeners('bar').length, 2);
 
             foo.remove();
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(e.listeners('bar').length, 2);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(e.listeners('bar').length, 2);
 
             bar2.remove();
-            assert.strictEqual(e.listeners('bar').length, 1);
+            assertEqual(e.listeners('bar').length, 1);
 
             bar1.remove();
-            assert.strictEqual(e.listeners('bar').length, 0);
+            assertEqual(e.listeners('bar').length, 0);
         });
     });
 
@@ -323,15 +325,15 @@ describe('EventEmitter', function tests() {
             e.addListener('aaa', function () { throw new Error('oops'); });
 
             e.removeAllListeners('foo');
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(e.listeners('bar').length, 1);
-            assert.strictEqual(e.listeners('aaa').length, 1);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(e.listeners('bar').length, 1);
+            assertEqual(e.listeners('aaa').length, 1);
 
             e.removeAllListeners('bar');
             e.removeAllListeners('aaa');
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(e.listeners('bar').length, 0);
-            assert.strictEqual(e.listeners('aaa').length, 0);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(e.listeners('bar').length, 0);
+            assertEqual(e.listeners('aaa').length, 0);
         });
 
         it('just nukes everything', function () {
@@ -343,9 +345,9 @@ describe('EventEmitter', function tests() {
             e.addListener('aaa', function () { throw new Error('oops'); });
 
             e.removeAllListeners();
-            assert.strictEqual(e.listeners('foo').length, 0);
-            assert.strictEqual(e.listeners('bar').length, 0);
-            assert.strictEqual(e.listeners('aaa').length, 0);
+            assertEqual(e.listeners('foo').length, 0);
+            assertEqual(e.listeners('bar').length, 0);
+            assertEqual(e.listeners('aaa').length, 0);
         });
     });
 

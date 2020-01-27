@@ -1,5 +1,7 @@
 import Memcached = require('memcached');
-import assert = require('assert');
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assert(value: boolean): void;
 
 function isString(expected?: string): void {
     if (expected !== undefined && typeof expected !== 'string') {
@@ -152,7 +154,7 @@ function test_get() {
 function test_getMulti() {
     memcached.getMulti(['foo', 'bar'], function(err, data) {
         isVoid(this);
-        assert(typeof data, 'object');
+        assert(typeof data === 'object');
     });
 }
 function test_cas() {
@@ -290,14 +292,14 @@ function test_incr() {
     }))
     .then(() => new Promise(resolve => {
         memcached.incr(key, value, function(err, result) {
-            assert.deepStrictEqual(result, 4);
+            assert(result === 4);
             isCommandData(this);
             resolve();
         });
     }))
     .then(() => new Promise(resolve => {
         memcached.incr('noexists', value, function(err, result) {
-            assert.deepStrictEqual(result, false);
+            assert(result === false);
             isCommandData(this);
             resolve();
         });
@@ -318,14 +320,14 @@ function test_decr() {
     }))
     .then(() => new Promise(resolve => {
         memcached.decr(key, value, function(err, result) {
-            assert.deepStrictEqual(result, 0);
+            assert(result === 0);
             isCommandData(this);
             resolve();
         });
     }))
     .then(() => new Promise(resolve => {
         memcached.decr('noexists', value, function(err, result) {
-            assert.deepStrictEqual(result, false);
+            assert(result === false);
             isCommandData(this);
             resolve();
         });

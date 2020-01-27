@@ -59,22 +59,27 @@ declare module "fs" {
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "close", listener: () => void): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         on(event: "error", listener: (error: Error) => void): this;
+        on(event: "close", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         once(event: "error", listener: (error: Error) => void): this;
+        once(event: "close", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "close", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
 
     class ReadStream extends stream.Readable {
@@ -442,7 +447,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -858,7 +863,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
+    function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace readdir {
@@ -888,7 +893,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
          */
-        function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
+        function __promisify__(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -913,11 +918,11 @@ declare module "fs" {
     function readdirSync(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): string[] | Buffer[];
 
     /**
-     * Asynchronous readdir(3) - read a directory.
+     * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
+    function readdirSync(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
@@ -1724,6 +1729,7 @@ declare module "fs" {
         mode?: number;
         autoClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**
@@ -2056,21 +2062,28 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
+        function readdir(path: PathLike, options?: { encoding?: BufferEncoding | null; withFileTypes?: false } | BufferEncoding | null): Promise<string[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer[]>;
+        function readdir(path: PathLike, options: { encoding: "buffer"; withFileTypes?: false } | "buffer"): Promise<Buffer[]>;
 
         /**
          * Asynchronous readdir(3) - read a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
          */
-        function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string[] | Buffer[]>;
+        function readdir(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): Promise<string[] | Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
+         */
+        function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
 
         /**
          * Asynchronous readlink(2) - read value of a symbolic link.

@@ -1,6 +1,8 @@
 // Type definitions for Angular Translate (pascalprecht.translate module) 2.16
 // Project: https://github.com/PascalPrecht/angular-translate
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Gabriel Gil <https://github.com/GabrielGil>
+// Definitions by: Michel Salib <https://github.com/michelsalib>,
+//                 Gabriel Gil <https://github.com/GabrielGil>,
+//                 Dmitry Gurovich <https://github.com/yrtimiD>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -56,6 +58,21 @@ declare module 'angular' {
             instant(translationId: string, interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): string;
             instant(translationId: string[], interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): { [key: string]: string };
             isPostCompilingEnabled(): boolean;
+            /**
+             * @ngdoc function
+             * @name pascalprecht.translate.$translate#negotiateLocale
+             * @methodOf pascalprecht.translate.$translate
+             *
+             * @description
+             * Returns a language key based on available languages and language aliases. If a
+             * language key cannot be resolved, returns undefined.
+             *
+             * If no or a falsy key is given, returns undefined.
+             *
+             * @param key Language key
+             * @return Language key or undefined if no language key is found.
+             */
+            negotiateLocale(key?: string): string | undefined;
             preferredLanguage(langKey?: string): string;
             proposedLanguage(): string;
             refresh(langKey?: string): angular.IPromise<void>;
@@ -121,6 +138,7 @@ declare module 'angular' {
     interface IFilterService {
         (name: 'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string, forceLanguage?: string): string;
+            (translationIds: string[], interpolateParams?: any, interpolation?: string, forceLanguage?: string): { [key: string]: string };
         };
     }
 }

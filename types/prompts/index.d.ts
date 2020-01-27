@@ -1,9 +1,10 @@
-// Type definitions for prompts 2.04
+// Type definitions for prompts 2.0
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/danielpa9708>
 //                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
 //                 theweirdone <https://github.com/theweirdone>
+//                 whoaa512 <https://github.com/whoaa512>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -18,9 +19,15 @@ declare namespace prompts {
     // Circular reference from prompts
     const prompt: any;
 
-    function inject(obj: any): void;
+    function inject(arr: ReadonlyArray<any>): void;
 
     namespace inject {
+        const prototype: {};
+    }
+
+    function override(obj: { [key: string]: any }): void;
+
+    namespace override {
         const prototype: {};
     }
 
@@ -50,7 +57,7 @@ declare namespace prompts {
 
     interface Choice {
         title: string;
-        value: string;
+        value: any;
         disable?: boolean;
     }
 
@@ -60,13 +67,13 @@ declare namespace prompts {
     }
 
     interface PromptObject<T extends string = string> {
-        type: ValueOrFunc<PromptType> | Falsy;
+        type: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>;
         name: ValueOrFunc<T>;
         message?: ValueOrFunc<string>;
         initial?: string | number | boolean | Date;
         style?: string;
         format?: PrevCaller<T, void>;
-        validate?: PrevCaller<T, void>;
+        validate?: PrevCaller<T, boolean | string | Promise<boolean | string>>;
         onState?: PrevCaller<T, void>;
         min?: number;
         max?: number;
@@ -78,7 +85,7 @@ declare namespace prompts {
         inactive?: string;
         choices?: Choice[];
         hint?: string;
-        suggest?: ((prev: any, values: any, prompt: PromptObject) => void);
+        suggest?: ((input: any, choices: Choice[]) => Promise<any>);
         limit?: number;
         mask?: string;
     }
@@ -93,7 +100,7 @@ declare namespace prompts {
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date";
+    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 }

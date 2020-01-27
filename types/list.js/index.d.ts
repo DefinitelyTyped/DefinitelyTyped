@@ -21,7 +21,7 @@ declare class List {
     sort(valueName: string, options: List.SortOptions): void;
     search(searchString: string, columns?: string[]): void;
     clear(): void;
-    filter(filterFunction: (item: List.ListItem) => boolean): void;
+    filter(filterFunction?: (item: List.ListItem) => boolean): void;
     size(): number;
     show(i: number, page: number): void;
     update(): void;

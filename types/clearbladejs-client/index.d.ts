@@ -454,3 +454,5 @@ declare namespace CbClient {
 
     let ClearBlade: ClearBladeGlobal;
 }
+
+declare var ClearBlade: CbClient.ClearBladeGlobal;

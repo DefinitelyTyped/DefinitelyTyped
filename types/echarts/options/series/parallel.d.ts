@@ -12,10 +12,10 @@ declare namespace echarts {
          * multivariate data.
          *
          * For example,
-         * [series-parallel.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data)
+         * [series-parallel.data](https://echarts.apache.org/en/option.html#series-parallel.data)
          * is the following data:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * [see doc](https://echarts.apache.org/en/option.html#series-parallel)
          *
          * In data above, each row is a "data item", and each column represents
          * a "dimension".
@@ -29,7 +29,7 @@ declare namespace echarts {
          * represents a data item.
          * Data can be brush-selected on axes. For example:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * [see doc](https://echarts.apache.org/en/option.html#series-parallel)
          *
          * * * *
          *
@@ -37,16 +37,16 @@ declare namespace echarts {
          *
          * Basic configuration parallel coordinates is shown as follow:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * [see doc](https://echarts.apache.org/en/option.html#series-parallel)
          *
          * Three components are involved here:
-         * [parallel](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel)
+         * [parallel](https://echarts.apache.org/en/option.html#parallel)
          * ,
-         * [parallelAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis)
+         * [parallelAxis](https://echarts.apache.org/en/option.html#parallelAxis)
          * ,
-         * [series-parallel](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * [series-parallel](https://echarts.apache.org/en/option.html#series-parallel)
          *
-         * + [parallel](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel)
+         * + [parallel](https://echarts.apache.org/en/option.html#parallel)
          *
          * This component is the coordinate system.
          * One or more series (like "Beijing", "Shanghai", and "Guangzhou" in
@@ -57,21 +57,21 @@ declare namespace echarts {
          *
          * Position setting is also carried out here.
          *
-         * + [parallelAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis)
+         * + [parallelAxis](https://echarts.apache.org/en/option.html#parallelAxis)
          *
          * This is axis configuration.
          * Multiple axes are needed in parallel coordinates.
          *
-         * [parallelAxis.parallelIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis.parallelIndex)
+         * [parallelAxis.parallelIndex](https://echarts.apache.org/en/option.html#parallelAxis.parallelIndex)
          * is used to specify which coordinate system this axis belongs to.
          * The first coordinate system is used by default.
          *
-         * + [series-parallel](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * + [series-parallel](https://echarts.apache.org/en/option.html#series-parallel)
          *
          * This is the definition of parallel series, which will be drawn on
          * parallel coordinate system.
          *
-         * [parallelAxis.parallelIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis.parallelIndex)
+         * [parallelAxis.parallelIndex](https://echarts.apache.org/en/option.html#parallelAxis.parallelIndex)
          * is used to specify which coordinate system this axis belongs to.
          * The first coordinate system is used by default.
          *
@@ -80,20 +80,20 @@ declare namespace echarts {
          * **Notes and Best Practices**
          *
          * When configuring multiple
-         * [parallelAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis)
+         * [parallelAxis](https://echarts.apache.org/en/option.html#parallelAxis)
          * , there might be some common attributes in each axis configuration.
          * To avoid writing them repeatly, they can be put under
-         * [parallel.parallelAxisDefault](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel.parallelAxisDefault)
+         * [parallel.parallelAxisDefault](https://echarts.apache.org/en/option.html#parallel.parallelAxisDefault)
          * . Before initializing axis, configurations in
-         * [parallel.parallelAxisDefault](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel.parallelAxisDefault)
+         * [parallel.parallelAxisDefault](https://echarts.apache.org/en/option.html#parallel.parallelAxisDefault)
          * will be merged into
-         * [parallelAxis](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallelAxis)
+         * [parallelAxis](https://echarts.apache.org/en/option.html#parallelAxis)
          * to generate the final axis configuration.
          *
          * **If data is too large and cause bad performance**
          *
          * It is suggested to set
-         * [series-parallel.lineStyle.width](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.width)
+         * [series-parallel.lineStyle.width](https://echarts.apache.org/en/option.html#series-parallel.lineStyle.width)
          * to be `0.5`
          * (or less), which may improve performance significantly.
          *
@@ -105,20 +105,20 @@ declare namespace echarts {
          * there will be more than 50 axes, which may hardly display in a page.
          *
          * In this case, you may use
-         * [parallel.axisExpandable](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel.axisExpandable)
+         * [parallel.axisExpandable](https://echarts.apache.org/en/option.html#parallel.axisExpandable)
          * to improve the display. See this example:
          *
-         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel)
+         * [see doc](https://echarts.apache.org/en/option.html#series-parallel)
          *
          *
-         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel
+         * @see https://echarts.apache.org/en/option.html#series-parallel
          */
         interface SeriesParallel {
 
             /**
              * @default
              * "parallel"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.type
+             * @see https://echarts.apache.org/en/option.html#series-parallel.type
              */
             type?: string;
 
@@ -128,7 +128,7 @@ declare namespace echarts {
              * or API.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.id
+             * @see https://echarts.apache.org/en/option.html#series-parallel.id
              */
             id?: string;
 
@@ -138,36 +138,36 @@ declare namespace echarts {
              * + `'parallel'`
              *
              * Use parallel coordinates, with
-             * [parallelIndex](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallelIndex)
+             * [parallelIndex](https://echarts.apache.org/en/option.html#series-parallel.parallelIndex)
              * to assign the corresponding parallel coordinate components.
              *
              *
              * @default
              * "parallel"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.coordinateSystem
+             * @see https://echarts.apache.org/en/option.html#series-parallel.coordinateSystem
              */
             coordinateSystem?: string;
 
             /**
              * Index of
-             * [parallel coordinates](https://ecomfe.github.io/echarts-doc/public/en/option.html#parallel)
+             * [parallel coordinates](https://echarts.apache.org/en/option.html#parallel)
              * to combine with, which is useful for multiple parallel axes in
              * one chart.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallelIndex
+             * @see https://echarts.apache.org/en/option.html#series-parallel.parallelIndex
              */
             parallelIndex?: number;
 
             /**
              * Series name used for displaying in
-             * [tooltip](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip)
+             * [tooltip](https://echarts.apache.org/en/option.html#tooltip)
              * and filtering with
-             * [legend](https://ecomfe.github.io/echarts-doc/public/en/option.html#legend)
+             * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.name
+             * @see https://echarts.apache.org/en/option.html#series-parallel.name
              */
             name?: string;
 
@@ -175,7 +175,7 @@ declare namespace echarts {
              * Line style.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle
+             * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle
              */
             lineStyle?: {
 
@@ -190,12 +190,12 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.lineStyle)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.lineStyle)
                  *
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.color
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.color
                  */
                 color?: string;
 
@@ -205,7 +205,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.width
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.width
                  */
                 width?: number;
 
@@ -221,7 +221,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.type
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.type
                  */
                 type?: string;
 
@@ -232,10 +232,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.lineStyle)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.lineStyle)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -243,7 +243,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowColor
                  */
                 shadowColor?: string;
 
@@ -251,7 +251,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -259,7 +259,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -271,18 +271,18 @@ declare namespace echarts {
                  *
                  * @default
                  * 0.45
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.lineStyle.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.lineStyle.opacity
                  */
                 opacity?: number;
             };
 
             /**
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis
+             * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis
              */
             emphasis?: {
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle
                  */
                 lineStyle?: {
 
@@ -297,12 +297,12 @@ declare namespace echarts {
                      * Gradient color and texture are also supported besides
                      * single colors.
                      * >
-                     * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.emphasis.lineStyle)
+                     * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.emphasis.lineStyle)
                      *
                      *
                      * @default
                      * "#000"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.color
                      */
                     color?: string;
 
@@ -312,7 +312,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 2
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.width
                      */
                     width?: number;
 
@@ -328,7 +328,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "solid"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.type
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.type
                      */
                     type?: string;
 
@@ -339,10 +339,10 @@ declare namespace echarts {
                      *
                      * For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.emphasis.lineStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.emphasis.lineStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.shadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowBlur
                      */
                     shadowBlur?: number;
 
@@ -350,7 +350,7 @@ declare namespace echarts {
                      * Shadow color. Support same format as `color`.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.shadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowColor
                      */
                     shadowColor?: string;
 
@@ -358,7 +358,7 @@ declare namespace echarts {
                      * Offset distance on the horizontal direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number;
 
@@ -366,7 +366,7 @@ declare namespace echarts {
                      * Offset distance on the vertical direction of shadow.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.shadowOffsetY
                      */
                     shadowOffsetY?: number;
 
@@ -378,7 +378,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 0.45
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.emphasis.lineStyle.opacity
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.emphasis.lineStyle.opacity
                      */
                     opacity?: number;
                 };
@@ -391,7 +391,7 @@ declare namespace echarts {
              *
              * @default
              * 0.05
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.inactiveOpacity
+             * @see https://echarts.apache.org/en/option.html#series-parallel.inactiveOpacity
              */
             inactiveOpacity?: number;
 
@@ -402,7 +402,7 @@ declare namespace echarts {
              *
              * @default
              * 1
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.activeOpacity
+             * @see https://echarts.apache.org/en/option.html#series-parallel.activeOpacity
              */
             activeOpacity?: number;
 
@@ -412,7 +412,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.realtime
+             * @see https://echarts.apache.org/en/option.html#series-parallel.realtime
              */
             realtime?: boolean;
 
@@ -422,7 +422,7 @@ declare namespace echarts {
              * from 0 to 1 which indicating the smoothness.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.smooth
+             * @see https://echarts.apache.org/en/option.html#series-parallel.smooth
              */
             smooth?: boolean | number;
 
@@ -440,7 +440,7 @@ declare namespace echarts {
              *
              * @default
              * 500
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.progressive
+             * @see https://echarts.apache.org/en/option.html#series-parallel.progressive
              */
             progressive?: number;
 
@@ -451,7 +451,7 @@ declare namespace echarts {
              *
              * @default
              * 3000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.progressiveThreshold
+             * @see https://echarts.apache.org/en/option.html#series-parallel.progressiveThreshold
              */
             progressiveThreshold?: number;
 
@@ -466,16 +466,16 @@ declare namespace echarts {
              *
              * @default
              * "sequential"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.progressiveChunkMode
+             * @see https://echarts.apache.org/en/option.html#series-parallel.progressiveChunkMode
              */
             progressiveChunkMode?: string;
 
             /**
              * For example,
-             * [series-parallel.data](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data)
+             * [series-parallel.data](https://echarts.apache.org/en/option.html#series-parallel.data)
              * is the following data:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel)
+             * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
              * In data above, each row is a "data item", and each column represents
              * a "dimension".
@@ -485,7 +485,7 @@ declare namespace echarts {
              * "sulfur dioxide level".
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data
+             * @see https://echarts.apache.org/en/option.html#series-parallel.data
              */
             data?: (
                 (number | string | SeriesParallel.DataObject)[]
@@ -507,7 +507,7 @@ declare namespace echarts {
              * smaller `zlevel`.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.zlevel
+             * @see https://echarts.apache.org/en/option.html#series-parallel.zlevel
              */
             zlevel?: number;
 
@@ -523,7 +523,7 @@ declare namespace echarts {
              *
              * @default
              * 2
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.z
+             * @see https://echarts.apache.org/en/option.html#series-parallel.z
              */
             z?: number;
 
@@ -533,7 +533,7 @@ declare namespace echarts {
              * events.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.silent
+             * @see https://echarts.apache.org/en/option.html#series-parallel.silent
              */
             silent?: boolean;
 
@@ -543,7 +543,7 @@ declare namespace echarts {
              *
              * @default
              * "true"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animation
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animation
              */
             animation?: boolean;
 
@@ -555,7 +555,7 @@ declare namespace echarts {
              *
              * @default
              * 2000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationThreshold
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationThreshold
              */
             animationThreshold?: number;
 
@@ -563,25 +563,25 @@ declare namespace echarts {
              * Duration of the first animation, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel)
+             * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
              *
              * @default
              * 1000
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationDuration
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationDuration
              */
             animationDuration?: Function | number;
 
             /**
              * Easing method used for the first animation.
              * Varied easing effects can be found at
-             * [easing effect example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=line-easing)
+             * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
              *
              *
              * @default
              * "linear"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationEasing
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationEasing
              */
             animationEasing?: string;
 
@@ -591,14 +591,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel)
+             * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationDelay
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelay
              */
             animationDelay?: Function | number;
 
@@ -606,12 +606,12 @@ declare namespace echarts {
              * Time for animation to complete, which supports callback function
              * for different data to have different animation effect:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel)
+             * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
              *
              * @default
              * 300
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationDurationUpdate
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationDurationUpdate
              */
             animationDurationUpdate?: Function | number;
 
@@ -621,7 +621,7 @@ declare namespace echarts {
              *
              * @default
              * "cubicOut"
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationEasingUpdate
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationEasingUpdate
              */
             animationEasingUpdate?: string;
 
@@ -631,14 +631,14 @@ declare namespace echarts {
              *
              * For example:
              *
-             * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel)
+             * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel)
              *
              * See
-             * [this example](https://ecomfe.github.io/echarts-examples/public/editor.html?c=bar-animation-delay)
+             * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.animationDelayUpdate
+             * @see https://echarts.apache.org/en/option.html#series-parallel.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number;
 
@@ -646,14 +646,14 @@ declare namespace echarts {
              * tooltip settings in this series.
              *
              *
-             * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip
+             * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip
              */
             tooltip?: {
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The position of the tooltip's floating layer, which would
@@ -668,13 +668,13 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * + `Function`
                  *
                  * Callback function in the following form:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * **Parameters:**
                  * point: Mouse position.
@@ -695,56 +695,56 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * Or:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * + `'inside'`
                  *
                  * Center position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'top'`
                  *
                  * Top position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'left'`
                  *
                  * Left position of the graphic element where the mouse is in,
                  * which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'right'`
                  *
                  * Right position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  * + `'bottom'`
                  *
                  * Bottom position of the graphic element where the mouse is
                  * in, which is only valid when
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'item'`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.position
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.position
                  */
                 position?: any[] | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The content formatter of tooltip's floating layer which supports
@@ -755,7 +755,7 @@ declare namespace echarts {
                  * The template variables are `{a}`, `{b}`, `{c}`, `{d}` and
                  * `{e}`, which stands for series name, data name and data value
                  * and ect. When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is set to be `'axis'`, there may be data from multiple series.
                  * In this time, series index can be refered as `{a0}`, `{a1}`,
                  * or `{a2}`.
@@ -788,22 +788,22 @@ declare namespace echarts {
                  *
                  * The format of callback function:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * The first parameter `params` is the data that the formatter
                  * needs. Its format is shown as follows:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * When
-                 * [trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * is `'axis'`, or when tooltip is triggered by
-                 * [axisPointer](https://ecomfe.github.io/echarts-doc/public/en/option.html#xAxis.axisPointer)
+                 * [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)
                  * , `params` is the data array of multiple series.
                  * The content of each item of the array is the same as above.
                  * Besides,
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  * **Note:** Using array to present all the parameters in ECharts
                  * 2.x is not supported anymore.
@@ -819,17 +819,17 @@ declare namespace echarts {
                  *
                  * Example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.formatter
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.formatter
                  */
                 formatter?: Function | string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The background color of tooltip's floating layer.
@@ -837,14 +837,14 @@ declare namespace echarts {
                  *
                  * @default
                  * "rgba(50,50,50,0.7)"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.backgroundColor
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.backgroundColor
                  */
                 backgroundColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border color of tooltip's floating layer.
@@ -852,27 +852,27 @@ declare namespace echarts {
                  *
                  * @default
                  * '#333'
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.borderColor
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.borderColor
                  */
                 borderColor?: string;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The border width of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.borderWidth
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.borderWidth
                  */
                 borderWidth?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The floating layer of tooltip space around content.
@@ -883,25 +883,25 @@ declare namespace echarts {
                  *
                  * Examples:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip)
                  *
                  *
                  * @default
                  * 5
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.padding
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.padding
                  */
                 padding?: number;
 
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * The text syle of tooltip's floating layer.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle
                  */
                 textStyle?: {
 
@@ -911,7 +911,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "#fff"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.color
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.color
                      */
                     color?: string;
 
@@ -927,7 +927,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.fontStyle
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontStyle
                      */
                     fontStyle?: string;
 
@@ -945,7 +945,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "normal"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.fontWeight
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontWeight
                      */
                     fontWeight?: string;
 
@@ -957,7 +957,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "sans-serif"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.fontFamily
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontFamily
                      */
                     fontFamily?: string;
 
@@ -967,7 +967,7 @@ declare namespace echarts {
                      *
                      * @default
                      * 14
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.fontSize
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.fontSize
                      */
                     fontSize?: number;
 
@@ -977,10 +977,10 @@ declare namespace echarts {
                      * If `lineHeight` is not set in `rich`, `lineHeight` in
                      * parent level will be used. For example:
                      *
-                     * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.tooltip.textStyle)
+                     * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.tooltip.textStyle)
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.lineHeight
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.lineHeight
                      */
                     lineHeight?: number;
 
@@ -1005,7 +1005,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.width
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.width
                      */
                     width?: number | string;
 
@@ -1021,7 +1021,7 @@ declare namespace echarts {
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.height
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.height
                      */
                     height?: number | string;
 
@@ -1031,7 +1031,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textBorderColor
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textBorderColor
                      */
                     textBorderColor?: string;
 
@@ -1039,7 +1039,7 @@ declare namespace echarts {
                      * Storke line width of the text.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textBorderWidth
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textBorderWidth
                      */
                     textBorderWidth?: number;
 
@@ -1049,7 +1049,7 @@ declare namespace echarts {
                      *
                      * @default
                      * "transparent"
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textShadowColor
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowColor
                      */
                     textShadowColor?: string;
 
@@ -1057,7 +1057,7 @@ declare namespace echarts {
                      * Shadow blue of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textShadowBlur
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowBlur
                      */
                     textShadowBlur?: number;
 
@@ -1065,7 +1065,7 @@ declare namespace echarts {
                      * Shadow X offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetX
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetX
                      */
                     textShadowOffsetX?: number;
 
@@ -1073,7 +1073,7 @@ declare namespace echarts {
                      * Shadow Y offset of the text itself.
                      *
                      *
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetY
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.textStyle.textShadowOffsetY
                      */
                     textShadowOffsetY?: number;
                 };
@@ -1081,7 +1081,7 @@ declare namespace echarts {
                 /**
                  *
                  * > **Notice：**series.tooltip only works when
-                 * > [tooltip.trigger](https://ecomfe.github.io/echarts-doc/public/en/option.html#tooltip.trigger)
+                 * > [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger)
                  * > is `'item'`.
                  *
                  * Extra CSS style for floating layer.
@@ -1093,7 +1093,7 @@ declare namespace echarts {
                  * ```
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.tooltip.extraCssText
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.tooltip.extraCssText
                  */
                 extraCssText?: string;
             };
@@ -1106,7 +1106,7 @@ declare namespace echarts {
                  * The name of a data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.name
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.name
                  */
                 name?: string;
 
@@ -1114,7 +1114,7 @@ declare namespace echarts {
                  * The value of a data item.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.value
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.value
                  */
                 value?: any[];
 
@@ -1122,7 +1122,7 @@ declare namespace echarts {
                  * Line style.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.lineStyle
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.lineStyle
                  */
                 lineStyle?: object;
 
@@ -1137,12 +1137,12 @@ declare namespace echarts {
                  * Gradient color and texture are also supported besides single
                  * colors.
                  * >
-                 * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
+                 * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data)
                  *
                  *
                  * @default
                  * "#000"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.color
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.color
                  */
                 color?: string;
 
@@ -1152,7 +1152,7 @@ declare namespace echarts {
                  *
                  * @default
                  * 2
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.width
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.width
                  */
                 width?: number;
 
@@ -1168,7 +1168,7 @@ declare namespace echarts {
                  *
                  * @default
                  * "solid"
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.type
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.type
                  */
                 type?: string;
 
@@ -1179,10 +1179,10 @@ declare namespace echarts {
                  *
                  * For example:
                  *
-                 * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data)
+                 * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data)
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowBlur
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowBlur
                  */
                 shadowBlur?: number;
 
@@ -1190,7 +1190,7 @@ declare namespace echarts {
                  * Shadow color. Support same format as `color`.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowColor
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowColor
                  */
                 shadowColor?: string;
 
@@ -1198,7 +1198,7 @@ declare namespace echarts {
                  * Offset distance on the horizontal direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetX
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetX
                  */
                 shadowOffsetX?: number;
 
@@ -1206,7 +1206,7 @@ declare namespace echarts {
                  * Offset distance on the vertical direction of shadow.
                  *
                  *
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.shadowOffsetY
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.shadowOffsetY
                  */
                 shadowOffsetY?: number;
 
@@ -1218,17 +1218,17 @@ declare namespace echarts {
                  *
                  * @default
                  * 0.45
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.opacity
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.opacity
                  */
                 opacity?: number;
 
                 /**
-                 * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis
+                 * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis
                  */
                 emphasis?: {
 
                     /**
-                     * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle
+                     * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle
                      */
                     lineStyle?: {
 
@@ -1244,12 +1244,12 @@ declare namespace echarts {
                          * Gradient color and texture are also supported besides
                          * single colors.
                          * >
-                         * > [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
+                         * > [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
                          *
                          *
                          * @default
                          * "#000"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.color
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.color
                          */
                         color?: string;
 
@@ -1259,7 +1259,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 2
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.width
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.width
                          */
                         width?: number;
 
@@ -1275,7 +1275,7 @@ declare namespace echarts {
                          *
                          * @default
                          * "solid"
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.type
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.type
                          */
                         type?: string;
 
@@ -1286,10 +1286,10 @@ declare namespace echarts {
                          *
                          * For example:
                          *
-                         * [see doc](https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
+                         * [see doc](https://echarts.apache.org/en/option.html#series-parallel.parallel.data.emphasis.lineStyle)
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowBlur
                          */
                         shadowBlur?: number;
 
@@ -1297,7 +1297,7 @@ declare namespace echarts {
                          * Shadow color. Support same format as `color`.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowColor
                          */
                         shadowColor?: string;
 
@@ -1305,7 +1305,7 @@ declare namespace echarts {
                          * Offset distance on the horizontal direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number;
 
@@ -1313,7 +1313,7 @@ declare namespace echarts {
                          * Offset distance on the vertical direction of shadow.
                          *
                          *
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.shadowOffsetY
                          */
                         shadowOffsetY?: number;
 
@@ -1325,7 +1325,7 @@ declare namespace echarts {
                          *
                          * @default
                          * 0.45
-                         * @see https://ecomfe.github.io/echarts-doc/public/en/option.html#series-parallel.data.emphasis.lineStyle.opacity
+                         * @see https://echarts.apache.org/en/option.html#series-parallel.data.emphasis.lineStyle.opacity
                          */
                         opacity?: number;
                     };

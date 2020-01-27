@@ -1,545 +1,457 @@
-// Type definitions for non-npm package the SketchApp 1.0
+// Type definitions for non-npm package the SketchApp 56.0
 // Project: https://github.com/xlayers/xlayers
 // Definitions by: Wassim Chegham <https://github.com/manekinekko>
 //                 Phetsinorath William <https://github.com/shikanime>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
+type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
 type SketchMSBorderPositionEnum = 0 | 1 | 2 | 3;
+interface SketchMSBorder {
+    _class: 'border';
+    isEnabled: boolean;
+    color: SketchMSColor;
+    fillType: SketchMSFillTypeEnum;
+    position: SketchMSBorderPositionEnum;
+    thickness: number;
+}
 type SketchMSBorderLineCapStyle = 0 | 1 | 2;
 type SketchMSBorderLineJoinStyle = 0 | 1 | 2;
-type SketchMSFillTypeEnum = 0 | 1 | 4 | 5;
-type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
-type SketchMSBlendModeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
-type SketchMSLineDecorationTypeEnum = 0 | 1 | 2 | 3;
-type SketchMSBooleanOperation = -1 | 0 | 1 | 2 | 3;
-type SketchMSCurveMode = 0 | 1 | 2 | 3 | 4;
-type SketchMSResizingType = 0 | 1 | 2 | 3;
-type SketchMSLayerListExpandedType = 0 | 1 | 2;
-type SketchMSEncodedBase64BinaryPlist = string;
-type SketchMSNSColorArchive = SketchMSKeyValueArchive;
-type SketchMSLayer = SketchMSPage | SketchMSSymbolMaster;
-type SketchMSUserData = SketchMSUserDocument | SketchMSUserPage;
-interface SketchMSNestedSymbolOverride {
-  symbolID: string;
-}
-interface SketchMSPreview {
-  source: string;
-  width: number;
-  height: number;
-}
-interface SketchMSUserPage {
-  [key: string]: {
-    scrollOrigin: SketchMSCurvePoint;
-    zoomValue: number;
-  };
-}
-interface SketchMSUserDocument {
-  document: {
-    pageListCollapsed: number;
-    pageListHeight: number;
-  };
-}
-interface SketchMSData {
-  pages: SketchMSPage[];
-  previews: SketchMSPreview[];
-  document: SketchMSDocumentData;
-  user: SketchMSUserData;
-  meta: SketchMSMetadata;
-}
-interface SketchMSStringAttribute {
-  _class: 'stringAttribute';
-  attributes: {
-    MSAttributedStringFontAttribute: {
-      _class: 'fontDescriptor';
-      attributes: {
-        name: string;
-        size: number;
-      }
-    };
-    paragraphStyle: {
-      _class: 'paragraphStyle',
-      allowsDefaultTighteningForTruncation: number
-    },
-    foregroundColor: SketchMSKeyValueArchive
-  };
-}
-interface SketchMSAttributedString {
-  _class: 'attributedString';
-  string: string;
-  attributes: SketchMSStringAttribute[];
-  archivedAttributedString?: SketchMSKeyValueArchive;
-}
-interface SketchMSKeyValueArchive {
-  _archive: SketchMSEncodedBase64BinaryPlist;
-}
-interface SketchMSFontAttribute {
-  _class: 'fontDescriptor';
-  _archive?: string;
-  attributes: {
-    name: string;
-    size: number;
-  };
-}
-interface SketchMSBorder {
-  _class: 'border';
-  isEnabled: boolean;
-  color: SketchMSColor;
-  fillType: SketchMSFillTypeEnum;
-  position: SketchMSBorderPositionEnum;
-  thickness: number;
-}
 interface SketchMSBorderOptions {
-  _class: 'borderOptions';
-  isEnabled: boolean;
-  dashPattern: number[];
-  lineCapStyle: SketchMSBorderLineCapStyle;
-  lineJoinStyle: SketchMSBorderLineJoinStyle;
+    _class: 'borderOptions';
+    isEnabled: boolean;
+    dashPattern: number[];
+    lineCapStyle: SketchMSBorderLineCapStyle;
+    lineJoinStyle: SketchMSBorderLineJoinStyle;
 }
-
 interface SketchMSImageDataReference {
-  _class: 'jSONOriginalDataReference';
-  _ref: string;
-  _ref_class: 'imageData';
-  data: {
-    _data: string;
-  };
-  sha1: {
-    _data: string;
-  };
+    _class: 'jSONOriginalDataReference';
+    _ref: string;
+    _ref_class: 'imageData';
+    data: {
+        _data: string;
+    };
+    sha1: {
+        _data: string;
+    };
 }
-type SketchMSPointString = string;
-interface SketchMSPath {
-  _class: 'path' | 'shapePath' | 'rectangle' | 'oval' | 'triangle';
-  isClosed: boolean;
-  frame: SketchMSRect;
-  points: SketchMSCurvePoint[];
-  style: SketchMSStyle;
-  layers: SketchMSPath[];
-}
-interface SketchMSCurvePoint {
-  _class: 'curvePoint';
-  cornerRadius: number;
-  curveFrom: SketchMSPointString;
-  curveMode: SketchMSCurveMode;
-  curveTo: SketchMSPointString;
-  hasCurveFrom: boolean;
-  hasCurveTo: boolean;
-  point: SketchMSPointString;
-}
-
+type SketchMSPatternFillTypeEnum = 0 | 1 | 2 | 3;
 interface SketchMSFill {
-  _class: 'fill';
-  isEnabled: boolean;
-  color?: SketchMSColor;
-  fillType: SketchMSFillTypeEnum;
-  image?: SketchMSImageDataReference;
-  noiseIndex: number;
-  noiseIntensity: number;
-  patternFillType: SketchMSPatternFillTypeEnum;
-  patternTileScale: number;
+    _class: 'fill';
+    isEnabled: boolean;
+    color?: SketchMSColor;
+    fillType: SketchMSFillTypeEnum;
+    image?: SketchMSImageDataReference;
+    noiseIndex: number;
+    noiseIntensity: number;
+    patternFillType: SketchMSPatternFillTypeEnum;
+    patternTileScale: number;
 }
 interface SketchMSShadow {
-  _class: 'shadow' | 'MSInnerShadow';
-  isEnabled: boolean;
-  blurRadius: number;
-  color: SketchMSColor;
-  contextSettings: SketchMSGraphicsContextSettings;
-  offsetX: number;
-  offsetY: number;
-  spread: number;
-}
-interface SketchMSImageCollection {
-  do_objectID?: string;
-  _class: 'imageCollection';
-  images: any[];
-}
-interface SketchMSAssetCollection {
-  do_objectID?: string;
-  _class: 'assetCollection';
-  gradients: any[];
-  colors: any[];
-  imageCollection: SketchMSImageCollection;
-  images: any[];
+    _class: 'shadow' | 'MSInnerShadow';
+    isEnabled: boolean;
+    blurRadius: number;
+    color: SketchMSColor;
+    contextSettings: SketchMSGraphicsContextSettings;
+    offsetX: number;
+    offsetY: number;
+    spread: number;
 }
 interface SketchMSStyleBorder {
-  position: number;
-  color: SketchMSColor;
-  do_objectID?: string;
-  _class: 'styleBorder';
-  gradient: SketchMSGradient;
-  fillType: number;
-  thickness: number;
-  contextSettings: SketchMSGraphicsContextSettings;
-  isEnabled: number;
+    _class: 'styleBorder';
+    position: number;
+    color: SketchMSColor;
+    gradient: SketchMSGradient;
+    fillType: number;
+    thickness: number;
+    contextSettings: SketchMSGraphicsContextSettings;
+    isEnabled: number;
 }
 interface SketchMSGradientStop {
-  do_objectID?: string;
-  _class: 'gradientStop';
-  color: SketchMSColor;
-  position: number;
+    _class: 'gradientStop';
+    color: SketchMSColor;
+    position: number;
 }
 interface SketchMSGradient {
-  from: {
-    x: number;
-    y: number;
-  };
-  shouldSmoothenOpacity: boolean;
-  gradientType: number;
-  do_objectID?: string;
-  _class: 'gradient';
-  stops: SketchMSGradientStop[];
-  to: {
-    x: number;
-    y: number;
-  };
-  elipseLength: number;
+    _class: 'gradient';
+    from: {
+        x: number;
+        y: number;
+    };
+    shouldSmoothenOpacity: boolean;
+    gradientType: number;
+    stops: SketchMSGradientStop[];
+    to: {
+        x: number;
+        y: number;
+    };
+    elipseLength: number;
 }
 interface SketchMSStyleFill {
-  contextSettings: SketchMSGraphicsContextSettings;
-  color: SketchMSColor;
-  do_objectID?: string;
-  _class: 'styleFill';
-  gradient: SketchMSGradient;
-  fillType: number;
-  noiseIntensity: number;
-  patternFillType: number;
-  patternTileScale: number;
-  noiseIndex: number;
-  isEnabled: number;
+    _class: 'styleFill';
+    contextSettings: SketchMSGraphicsContextSettings;
+    color: SketchMSColor;
+    gradient: SketchMSGradient;
+    fillType: number;
+    noiseIntensity: number;
+    patternFillType: number;
+    patternTileScale: number;
+    noiseIndex: number;
+    isEnabled: number;
 }
 interface SketchMSStyleShadow {
-  spread: number;
-  color: SketchMSColor;
-  offsetY: number;
-  offsetX: number;
-  do_objectID?: string;
-  _class: 'styleShadow';
-  blurRadius: number;
-  contextSettings: SketchMSGraphicsContextSettings;
-  isEnabled: number;
+    _class: 'styleShadow';
+    spread: number;
+    color: SketchMSColor;
+    offsetY: number;
+    offsetX: number;
+    blurRadius: number;
+    contextSettings: SketchMSGraphicsContextSettings;
+    isEnabled: number;
 }
-interface SketchMSSharedStyle {
-  do_objectID?: string;
-  _class: 'sharedStyle';
-  value: SketchMSStyle;
-  objectID: string;
-  name: string;
-}
-interface SketchMSTextStyle {
-  _class: 'textStyle';
-  encodedAttributes: {
-    MSAttributedStringColorAttribute?: SketchMSColor;
-    NSColor: SketchMSKeyValueArchive;
-    MSAttributedStringFontAttribute?: SketchMSFontAttribute;
-    NSParagraphStyle?: SketchMSKeyValueArchive;
-    NSKern: number;
-  };
-}
-interface SketchMSSharedStyleContainer {
-  do_objectID?: string;
-  _class: 'sharedStyleContainer';
-  objects: SketchMSSharedStyle[];
+interface SketchMSParagraphStyle {
+    _class: 'paragraphStyle';
+    alignment: number;
+    allowsDefaultTighteningForTruncation: number;
 }
 interface SketchMSStyleBorderOptions {
-  lineJoinStyle: number;
-  do_objectID?: string;
-  _class: 'styleBorderOptions';
-  isEnabled: number;
-  lineCapStyle: number;
-  dashPattern: any[];
+    _class: 'styleBorderOptions';
+    lineJoinStyle: number;
+    isEnabled: number;
+    lineCapStyle: number;
+    dashPattern: unknown[];
 }
 interface SketchMSGraphicsContextSettings {
-  do_objectID?: string;
-  _class: 'graphicsContextSettings';
-  opacity: number;
-  blendMode: number;
+    _class: 'graphicsContextSettings';
+    opacity: number;
+    blendMode: SketchMSGraphicsContextSettingsBlendMode;
 }
+type SketchMSGraphicsContextSettingsBlendMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 interface SketchMSStyleBlur {
-  radius: number;
-  do_objectID?: string;
-  _class: 'styleBlur';
-  motionAngle: number;
-  isEnabled: number;
-  type: number;
-  center: {
-    x: number;
-    y: number;
-  };
+    _class: 'styleBlur';
+    radius: number;
+    motionAngle: number;
+    isEnabled: number;
+    type: number;
+    center: {
+        x: number;
+        y: number;
+    };
 }
 interface SketchMSStyleReflection {
-  do_objectID?: string;
-  _class: 'styleReflection';
-  strength: number;
-  isEnabled: number;
-  distance: number;
+    _class: 'styleReflection';
+    strength: number;
+    isEnabled: number;
+    distance: number;
 }
 interface SketchMSStyleColorControls {
-  hue: number;
-  do_objectID?: string;
-  _class: 'styleColorControls';
-  brightness: number;
-  contrast: number;
-  isEnabled: number;
-  saturation: number;
+    _class: 'styleColorControls';
+    hue: number;
+    brightness: number;
+    contrast: number;
+    isEnabled: number;
+    saturation: number;
+}
+interface SketchMSFontAttribute {
+    _class: 'fontDescriptor';
+    attributes: {
+        name: string;
+        size: number;
+    };
+}
+interface SketchMSAttributes {
+    MSAttributedStringColorAttribute: SketchMSColor;
+    MSAttributedStringFontAttribute: SketchMSFontAttribute;
+    paragraphStyle: SketchMSParagraphStyle;
+    kerning: number;
+}
+interface SketchMSStringAttribute {
+    _class: 'stringAttribute';
+    attributes: SketchMSAttributes;
+}
+interface SketchMSTextStyle {
+    _class: 'textStyle';
+    encodedAttributes: SketchMSAttributes;
 }
 interface SketchMSStyle {
-  startDecorationType: number;
-  borderOptions: SketchMSStyleBorderOptions;
-  endDecorationType: number;
-  contextSettings: SketchMSGraphicsContextSettings;
-  blur: SketchMSStyleBlur;
-  textStyle: SketchMSTextStyle;
-  reflection: SketchMSStyleReflection;
-  do_objectID?: string;
-  _class: 'style';
-  miterLimit: number;
-  colorControls: SketchMSStyleColorControls;
-  fills: SketchMSStyleFill[];
-  borders: SketchMSStyleBorder[];
-  innerShadows: SketchMSStyleShadow[];
-  shadows: SketchMSStyleShadow[];
+    _class: 'style';
+    do_objectID: string;
+    endMarkerType: number;
+    miterLimit: number;
+    startMarkerType: number;
+    windingRule: number;
+    startDecorationType?: number;
+    borderOptions?: SketchMSStyleBorderOptions;
+    endDecorationType?: number;
+    contextSettings?: SketchMSGraphicsContextSettings;
+    blur?: SketchMSStyleBlur;
+    textStyle?: SketchMSTextStyle;
+    reflection?: SketchMSStyleReflection;
+    colorControls?: SketchMSStyleColorControls;
+    fills?: SketchMSStyleFill[];
+    borders?: SketchMSStyleBorder[];
+    innerShadows?: SketchMSStyleShadow[];
+    shadows?: SketchMSStyleShadow[];
 }
-interface SketchMSRulerData {
-  do_objectID?: string;
-  _class: 'rulerData';
-  base: number;
-  guides: any[];
+interface SketchMSAttributedString {
+    _class: 'attributedString';
+    string: string;
+    attributes: SketchMSStringAttribute[];
 }
-interface SketchMSRect {
-  y: number;
-  do_objectID?: string;
-  _class: 'rect';
-  constrainProportions: boolean;
-  height: number;
-  width: number;
-  x: number;
+interface SketchMSTextLayer extends SketchMSContainerLayer {
+    _class: 'text';
+    attributedString: SketchMSAttributedString;
 }
-interface SketchMSExportOptions {
-  shouldTrim: boolean;
-  do_objectID?: string;
-  _class: 'exportOptions';
-  includedLayerIds: any[];
-  layerOptions: number;
-  exportFormats: any[];
-}
-interface SketchMSColor {
-  do_objectID?: string;
-  _class: 'color';
-
-  /**
-   * ex: "#FFFFFF"
-   * ex: rgb(1,0,1)
-   */
-  value: string;
-  red: number;
-  green: number;
-  blue: number;
-  alpha: number;
-}
-interface SketchMSSimpleGrid {
-  do_objectID?: string;
-  _class: 'simpleGrid';
-  thickGridTimes: number;
-  objectID: string;
-  isEnabled: number;
-  gridSize: number;
+interface SketchMSLayoutSimpleGrid {
+    _class: 'simpleGrid';
+    thickGridTimes: number;
+    isEnabled: number;
+    gridSize: number;
 }
 interface SketchMSLayoutGrid {
-  columnWidth: number;
-  totalWidth: number;
-  drawHorizontalLines: number;
-  objectID: string;
-  gutterWidth: number;
-  horizontalOffset: number;
-  isEnabled: number;
-  do_objectID?: string;
-  _class: 'layoutGrid';
-  gutterHeight: number;
-  drawHorizontal: number;
-  guttersOutside: number;
-  numberOfColumns: number;
-  drawVertical: number;
-  rowHeightMultiplication: number;
+    _class: 'layoutGrid';
+    isEnabled: boolean;
+    columnWidth: number;
+    drawHorizontal: boolean;
+    drawHorizontalLines: boolean;
+    drawVertical: boolean;
+    gutterHeight: number;
+    gutterWidth: number;
+    guttersOutside: boolean;
+    horizontalOffset: number;
+    numberOfColumns: number;
+    rowHeightMultiplication: number;
+    totalWidth: number;
 }
-interface SketchMSSymbolMaster {
-  isFlippedHorizontal: number;
-  includeBackgroundColorInInstance: number;
-  objectID: string;
-  horizontalRulerData: SketchMSRulerData;
-  frame: SketchMSRect;
-  hasClickThrough: number;
-  includeInCloudUpload: number;
-  exportOptions: SketchMSExportOptions;
-  hasBackgroundColor: number;
-  layerListExpandedType: number;
-  resizesContent: number;
-  backgroundColor: SketchMSColor;
-  rotation: number;
-  style: SketchMSStyle;
-  verticalRulerData: SketchMSRulerData;
-  constrainProportions: boolean;
-  isFlippedVertical: number;
-  do_objectID?: string;
-  _class: 'symbolMaster';
-  attributedString: SketchMSAttributedString;
-  name: string;
-  layers: SketchMSLayer[];
-  isVisible: boolean;
-  nameIsFixed: boolean;
-  grid: SketchMSSimpleGrid;
-  resizingType: number;
-  userInfo: any;
-  isLocked: boolean;
-  layout: SketchMSLayoutGrid;
-  shouldBreakMaskChain: number;
-  resizingConstraint: 63 | number;
-  includeBackgroundColorInExport: number;
-  flow?: SketchMSImmutableFlowConnection;
-
-  // add this property to hold all CSS properties
-  // of the current layer
-  css?: { [key: string]: string };
+type SketchMSLayout = SketchMSLayoutGrid | SketchMSLayoutSimpleGrid;
+interface SketchMSFlowConnection {
+    _class: 'immutableFlowConnection';
+    animationType: number;
+    destinationArtboardID?: string | 'back';
 }
-interface SketchMSSymbolInstanceLayer {
-  _class: 'symbolInstance';
-  frame: SketchMSRect;
-  horizontalSpacing: number;
-  verticalSpacing: number;
-  masterInfluenceEdgeMinXPadding?: number;
-  masterInfluenceEdgeMaxXPadding?: number;
-  masterInfluenceEdgeMinYPadding?: number;
-  masterInfluenceEdgeMaxYPadding?: number;
-  symbolID: string;
-  overrides?: {
-    [objectId: string]: string | SketchMSNestedSymbolOverride | SketchMSImageDataReference;
-  };
-  isFlippedHorizontal: number;
-  includeBackgroundColorInInstance: number;
-  objectID: string;
-  horizontalRulerData: SketchMSRulerData;
-  hasClickThrough: number;
-  includeInCloudUpload: number;
-  exportOptions: SketchMSExportOptions;
-  hasBackgroundColor: number;
-  layerListExpandedType: number;
-  resizesContent: number;
-  backgroundColor: SketchMSColor;
-  rotation: number;
-  style: SketchMSStyle;
-  verticalRulerData: SketchMSRulerData;
-  isFlippedVertical: number;
-  do_objectID?: string;
-  name: string;
-  layers: SketchMSLayer[];
-  isVisible: boolean;
-  nameIsFixed: boolean;
-  grid: SketchMSSimpleGrid;
-  resizingType: number;
-  userInfo: any;
-  isLocked: boolean;
-  layout: SketchMSLayoutGrid;
-  shouldBreakMaskChain: number;
-  resizingConstraint: 63 | number;
-  includeBackgroundColorInExport: number;
-  flow?: SketchMSImmutableFlowConnection;
+type SketchMSFlow = SketchMSFlowConnection;
+interface SketchMSImmutableHotspotLayer extends SketchMSLayer {
+    _class: 'MSImmutableHotspotLayer';
+    flow: SketchMSFlow;
 }
-interface SketchMSPage {
-  isFlippedHorizontal: number;
-  style: SketchMSStyle;
-  horizontalRulerData: SketchMSRulerData;
-  frame: SketchMSRect;
-  hasClickThrough: number;
-  includeInCloudUpload: number;
-  exportOptions: SketchMSExportOptions;
-  objectID: string;
-  id: string;
-  rotation: number;
-  layerListExpandedType: number;
-  verticalRulerData: SketchMSRulerData;
-  isFlippedVertical: number;
-  resizingType: number;
-  do_objectID?: string;
-  _class: 'page' | 'layer';
-  layers: SketchMSLayer[];
-  isVisible: boolean;
-  nameIsFixed: number;
-  name: string;
-  constrainProportions: boolean;
-  attributedString: SketchMSAttributedString;
-  isLocked: boolean;
-  shouldBreakMaskChain: number;
-  resizingConstraint: number;
-  fixedRadius: number;
-
-  // add this property to hold all CSS properties
-  // of the current layer
-  css?: { [key: string]: string };
+type SketchMSPointString = string;
+type SketchMSCurveMode = 0 | 1 | 2 | 3 | 4;
+interface SketchMSCurvePoint {
+    _class: 'curvePoint';
+    cornerRadius: number;
+    curveFrom: SketchMSPointString;
+    curveMode: SketchMSCurveMode;
+    curveTo: SketchMSPointString;
+    hasCurveFrom: boolean;
+    hasCurveTo: boolean;
+    point: SketchMSPointString;
 }
-interface SketchMSSharedTextStyleContainer {
-  do_objectID?: string;
-  _class: 'sharedTextStyleContainer';
-  objects: any[];
+type SketchMSPoint = SketchMSCurvePoint;
+interface SketchMSPathLayer extends SketchMSLayer {
+    _class: 'path' | 'shapePath' | 'rectangle' | 'oval' | 'triangle';
+    edited: boolean;
+    isClosed: boolean;
+    pointRadiusBehaviour: number;
+    points: SketchMSPoint[];
+}
+interface SketchMSColor {
+    _class: 'color';
+    red: number;
+    green: number;
+    blue: number;
+    alpha: number;
+}
+interface SketchMSSymbolMasterLayer extends SketchMSPageLayer {
+    _class: 'symbolMaster';
+    backgroundColor: SketchMSColor;
+    hasBackgroundColor: boolean;
+    includeBackgroundColorInExport: boolean;
+    isFlowHome: boolean;
+    resizesContent: boolean;
+    includeBackgroundColorInInstance: boolean;
+    symbolID: string;
+    changeIdentifier: number;
+}
+interface SketchMSSymbolInstanceLayer extends SketchMSLayer {
+    _class: 'symbolInstance';
+    horizontalSpacing: number;
+    overrideValues: unknown[];
+    scale: number;
+    symbolID: string;
+    verticalSpacing: number;
+}
+interface SketchMSRulerData {
+    _class: 'rulerData';
+    base: number;
+    guides: unknown[];
+}
+interface SketchMSPageLayer extends SketchMSContainerLayer {
+    _class: 'page' | 'symbolMaster';
+    hasClickThrough: boolean;
+    horizontalRulerData: SketchMSRulerData;
+    includeInCloudUpload: boolean;
+    verticalRulerData: SketchMSRulerData;
+}
+interface SketchMSRect {
+    _class: 'rect';
+    constrainProportions: boolean;
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+}
+type SketchMSLayerBooleanOperation = -1 | 0 | 1 | 2 | 3;
+interface SketchMSLayerExportOptions {
+    _class: 'exportOptions';
+    exportFormats: unknown[];
+    includedLayerIds: unknown[];
+    layerOptions: number;
+    shouldTrim: boolean;
+}
+type SketchMSLayerFrame = SketchMSRect;
+type SketchMSLayerResizingType = 0 | 1 | 2 | 3;
+type SketchMSLayerClippingMaskMode = 0 | 1;
+interface SketchMSContainerLayer extends SketchMSLayer {
+    _class: string;
+    layers: SketchMSContainerLayer[];
+}
+interface SketchMSLayer {
+    _class: string;
+    do_objectID: string;
+    booleanOperation: SketchMSLayerBooleanOperation;
+    exportOptions: SketchMSLayerExportOptions;
+    frame: SketchMSLayerFrame;
+    isFixedToViewport: boolean;
+    isFlippedHorizontal: boolean;
+    isFlippedVertical: boolean;
+    isLocked: boolean;
+    isVisible: boolean;
+    layerListExpandedType: number;
+    name: string;
+    nameIsFixed: boolean;
+    resizingConstraint: number;
+    resizingType: SketchMSLayerResizingType;
+    rotation: number;
+    shouldBreakMaskChain: boolean;
+    clippingMaskMode: SketchMSLayerClippingMaskMode;
+    hasClippingMask: boolean;
+    style: SketchMSStyle;
+}
+interface SketchMSSharedStyle {
+    _class: 'sharedStyle';
+    value: SketchMSStyle;
+    name: string;
+}
+interface SketchMSImageCollection {
+    _class: 'imageCollection';
+    images: unknown[];
+}
+interface SketchMSDocumentAssets {
+    _class: 'assetCollection';
+    gradients: unknown[];
+    colors: unknown[];
+    imageCollection: SketchMSImageCollection;
+    images: unknown[];
+}
+interface SketchMSImmutableForeignSymbol {
+    _class: 'MSImmutableForeignSymbol';
+    libraryID: string;
+    sourceLibraryName: string;
+    symbolPrivate: boolean;
+    originalMaster: SketchMSSymbolMasterLayer;
+    symbolMaster: SketchMSSymbolMasterLayer;
+}
+interface SketchMSSharedStyleContainer {
+    _class: 'sharedStyleContainer';
+    objects: SketchMSSharedStyle[];
 }
 interface SketchMSSymbolContainers {
-  do_objectID?: string;
-  _class: 'symbolContainer';
-  objects: any[];
+    _class: 'symbolContainer';
+    objects: unknown[];
 }
-interface SketchMSDocumentData {
-  assets: SketchMSAssetCollection;
-  currentPageIndex: number;
-  foreignSymbols: any[];
-  layerStyles: SketchMSSharedStyleContainer;
-  pages: SketchMSPage[];
-  enableSliceInteraction: number;
-  do_objectID?: string;
-  _class: 'documentData';
-  layerTextStyles: SketchMSSharedTextStyleContainer;
-  enableLayerInteraction: number;
-  layerSymbols: SketchMSSymbolContainers;
-  objectID: string;
+interface SketchMSSharedTextStyleContainer {
+    _class: 'sharedTextStyleContainer';
+    objects: unknown[];
 }
-interface SketchMSArtboards {
-  name: string;
-  artboards: SketchMSArtboard;
+interface SketchMSPageReference {
+    _class: 'MSJSONFileReference';
+    _ref_class: 'MSImmutablePage';
+    _ref: string;
+}
+interface SketchMSDocument {
+    _class: 'documentData';
+    do_objectID: string;
+    assets: SketchMSDocumentAssets;
+    colorSpace: number;
+    currentPageIndex: number;
+    foreignSymbols: SketchMSImmutableForeignSymbol[];
+    foreignTextStyles: unknown[];
+    layerStyles: SketchMSSharedStyleContainer;
+    layerSymbols: SketchMSSymbolContainers;
+    layerTextStyles: SketchMSSharedTextStyleContainer;
+    pages: SketchMSPageReference[];
 }
 interface SketchMSArtboard {
-  frame: SketchMSRect;
-  backgroundColor: SketchMSColor;
-  hasBackgroundColor: boolean;
-  horizontalRulerData?: SketchMSRulerData;
-  verticalRulerData?: SketchMSRulerData;
-  includeBackgroundColorInExport?: boolean;
-  includeInCloudUpload?: boolean;
-  isFlowHome?: boolean;
+    frame: SketchMSRect;
+    backgroundColor: SketchMSColor;
+    hasBackgroundColor: boolean;
+    horizontalRulerData?: SketchMSRulerData;
+    verticalRulerData?: SketchMSRulerData;
+    includeBackgroundColorInExport?: boolean;
+    includeInCloudUpload?: boolean;
+    isFlowHome?: boolean;
+}
+interface SketchMSArtboards {
+    name: string;
+    artboards: SketchMSArtboard;
 }
 interface SketchMSPagesAndArtboards {
-  [key: string]: SketchMSArtboards;
+    [key: string]: SketchMSArtboards;
 }
-interface SketchMSMetadata {
-  commit: string;
-  pagesAndArtboards: SketchMSPagesAndArtboards;
-  version: number;
-  fonts: string[];
-  compatibilityVersion: number;
-  app: string;
-  autosaved: number;
-  variant: string;
-  created: {
+interface SketchMSMeta {
     commit: string;
+    pagesAndArtboards: SketchMSPagesAndArtboards;
+    version: number;
+    fonts: string[];
+    compatibilityVersion: number;
+    app: string;
+    autosaved: number;
+    variant: string;
+    created: {
+        commit: string;
+        appVersion: string;
+        build: number;
+        app: string;
+        compatibilityVersion: number;
+        version: number;
+        variant: string;
+    };
+    saveHistory: string[];
     appVersion: string;
     build: number;
-    app: string;
-    compatibilityVersion: number;
-    version: number;
-    variant: string;
-  };
-  saveHistory: string[];
-  appVersion: string;
-  build: number;
 }
-interface SketchMSImmutableFlowConnection {
-  _class: 'immutableFlowConnection';
-  animationType: number;
-  destinationArtboardID?: string | 'back';
+interface SketchMSUserDocument {
+    document: {
+        pageListHeight: number;
+        pageListCollapsed: number;
+    };
+}
+interface SketchMSUserPages {
+    [key: string]: {
+        scrollOrigin: SketchMSCurvePoint;
+        zoomValue: number;
+    };
+}
+type SketchMSUser = SketchMSUserPages | SketchMSUserDocument;
+interface SketchMSPreview {
+    source: string;
+    width: number;
+    height: number;
+}
+interface SketchMSData {
+    pages: SketchMSPageLayer[];
+    previews: SketchMSPreview[];
+    document: SketchMSDocument;
+    user: SketchMSUser;
+    meta: SketchMSMeta;
 }

@@ -1,4 +1,4 @@
-// Type definitions for yaml 1.0
+// Type definitions for yaml 1.2
 // Project: https://github.com/eemeli/yaml, https://eemeli.org/yaml
 // Definitions by: Ika <https://github.com/ikatyang>
 //                 Colin Bradley <https://github.com/ColinBradley>
@@ -50,7 +50,8 @@ export function parseAllDocuments(
  */
 export function createNode(
     value: any,
-    wrapScalars?: true
+    wrapScalars?: true,
+    tag?: string
 ): ast.MapBase | ast.SeqBase | ast.Scalar;
 
 /**
@@ -62,7 +63,8 @@ export function createNode(
  */
 export function createNode(
     value: any,
-    wrapScalars: false
+    wrapScalars: false,
+    tag?: string
 ): ast.MapBase | ast.SeqBase | string | number | boolean | null;
 
 export function parseCST(str: string): ParsedCST;
@@ -88,6 +90,10 @@ export interface ParseOptions {
      */
     keepNodeTypes?: boolean;
     /**
+     * When outputting JS, use Map rather than Object to represent mappings. By default `false`.
+     */
+    mapAsMap?: boolean;
+    /**
      * Enable support for `<<` merge keys.
      */
     merge?: boolean;
@@ -111,6 +117,10 @@ export interface Tag {
      */
     class?: new () => any;
     /**
+     * An optional factory function, used e.g. by collections when wrapping JS objects as AST nodes.
+     */
+    createNode?: (value: any) => ast.MapBase | ast.SeqBase | ast.Scalar;
+    /**
      * If `true`, the tag should not be explicitly included when stringifying.
      */
     default?: boolean;
@@ -118,6 +128,10 @@ export interface Tag {
      * If a tag has multiple forms that should be parsed and/or stringified differently, use `format` to identify them.
      */
     format?: string;
+    /**
+     * The `Node` child class that implements this tag. Required for collections and tags that have overlapping JS representations.
+     */
+    nodeClass?: new () => any;
     /**
      * Used by some tags to configure their stringification, where applicable.
      */
@@ -284,6 +298,10 @@ export namespace cst {
         readonly tag: null;
     }
 
+    interface BlankLine extends Node {
+        type: "BLANK_LINE";
+    }
+
     interface MapItem extends Node {
         type: "MAP_KEY" | "MAP_VALUE";
         node: ContentNode | null;
@@ -300,7 +318,7 @@ export namespace cst {
     interface Map extends Node {
         type: "MAP";
         /** implicit keys are not wrapped */
-        items: Array<Comment | Alias | Scalar | MapItem>;
+        items: Array<BlankLine | Comment | Alias | Scalar | MapItem>;
     }
 
     interface SeqItem extends Node {
@@ -310,7 +328,7 @@ export namespace cst {
 
     interface Seq extends Node {
         type: "SEQ";
-        items: Array<Comment | SeqItem>;
+        items: Array<BlankLine | Comment | SeqItem>;
     }
 
     interface FlowChar {
@@ -321,7 +339,7 @@ export namespace cst {
 
     interface FlowCollection extends Node {
         type: "FLOW_MAP" | "FLOW_SEQ";
-        items: Array<FlowChar | Comment | Alias | Scalar | FlowCollection>;
+        items: Array<FlowChar | BlankLine | Comment | Alias | Scalar | FlowCollection>;
     }
 
     interface FlowMap extends FlowCollection {
@@ -344,8 +362,8 @@ export namespace cst {
 
     interface Document extends Node {
         type: "DOCUMENT";
-        directives: Array<Comment | Directive>;
-        contents: Array<Comment | ContentNode>;
+        directives: Array<BlankLine | Comment | Directive>;
+        contents: Array<BlankLine | Comment | ContentNode>;
         readonly anchor: null;
         readonly comment: null;
         readonly tag: null;
@@ -392,6 +410,10 @@ export namespace ast {
          * into this node (undefined if not parsed)
          */
         range: null | [number, number];
+        /**
+         * a blank line before this node and its commentBefore
+         */
+        spaceBefore?: boolean;
         /**
          * Array of prefixes; each will have a string `handle` that
          * starts and ends with `!` and a string `prefix` that the handle will be replaced by.
@@ -487,6 +509,10 @@ export namespace ast {
          * into this node (undefined for pairs or if not parsed)
          */
         range: null | [number, number];
+        /**
+         * a blank line before this node and its commentBefore
+         */
+        spaceBefore?: boolean;
         /**
          * a fully qualified tag, if required
          */

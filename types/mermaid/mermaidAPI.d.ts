@@ -1,5 +1,5 @@
 declare namespace mermaidAPI {
-    type Theme = "default" | "forest" | "dark" | "netural";
+    type Theme = "default" | "forest" | "dark" | "neutral";
 
     enum LogLevel {
         Debug = 1,
@@ -99,7 +99,7 @@ declare namespace mermaidAPI {
         useMaxWidth?: boolean;
     }
 
-    interface GnattConfig {
+    interface GanttConfig {
         /**
          * **titleTopMargin** - margin top for the text over the gantt diagram
          * default: 25
@@ -162,6 +162,16 @@ declare namespace mermaidAPI {
     }
 
     interface Config {
+        /**
+         * securityLevel: disallow/allow potentially dangerous cross-site scripting behavior
+         *   the two documented values are "strict" and "loose", i.e. disallow and allow
+         *   default: "strict"
+         *   If the value is not present, the default behavior is "strict"
+         *   Up through version mermaid@8.2.3, if any text value is present in a config but is not "strict", the behavior is "loose".
+         *   This should be fixed after that version, i.e. any value other "loose" should be treated as "strict".
+         */
+        securityLevel?: string;
+
         theme?: Theme;
 
         /**
@@ -199,7 +209,7 @@ declare namespace mermaidAPI {
          * ### gantt
          * The object containing configurations specific for gantt diagrams*
          */
-        gnatt?: GnattConfig;
+        gantt?: GanttConfig;
 
         class?: any;
         git?: any;

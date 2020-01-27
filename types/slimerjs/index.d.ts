@@ -110,7 +110,6 @@ interface WebPage {
     childFramesCount(): number;  // DEPRECATED
     childFramesName(): string;  // DEPRECATED
     clearCookies(): void;
-    close(): Promise<void>;
     close(): void;
     currentFrameName(): string;  // DEPRECATED
     deleteCookie(cookieName: string): boolean;

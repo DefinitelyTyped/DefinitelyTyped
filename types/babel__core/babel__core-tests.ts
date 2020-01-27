@@ -40,6 +40,9 @@ babel.transformFromAstAsync(parsedAst!, sourceCode, options).then(transformFromA
     const { body } = ast!.program;
 });
 
+const pluginPath = babel.resolvePlugin('plugin-name', 'babelrcPath');
+const presetPath = babel.resolvePreset('preset-name', 'babelrcPath');
+
 function checkOptions(_options: babel.TransformOptions) {}
 function checkConfigFunction(_config: babel.ConfigFunction) {}
 

@@ -57,6 +57,7 @@ const vectorLiesOn = vector2.liesOn(new Line([1, 0], [0, 1]));
 const vectorLiesIn = vector2.liesIn(new Plane([1, 0], [0, 1]));
 const vectorRotate1 = vector2.rotate(1, vector1);
 const vectorRotate2 = vector2.rotate(1, new Line([1, 0], [0, 1]));
+const vectorRotate3 = vector2.rotate(new Matrix([[1, 0], [0, 1]]), new Line([1, 0], [0, 1]));
 const vectorReflectionIn1 = vector2.reflectionIn(vector1);
 const vectorReflectionIn2 = vector2.reflectionIn(new Line([1, 0], [0, 1]));
 const vectorReflectionIn3 = vector2.reflectionIn(new Plane([1, 0], [0, 1]));
