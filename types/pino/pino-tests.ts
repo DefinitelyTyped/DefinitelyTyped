@@ -177,6 +177,10 @@ const withTimeFn = pino({
     timestamp: pino.stdTimeFunctions.isoTime,
 });
 
+const withNestedKey = pino({
+    nestedKey: 'payload',
+});
+
 // Properties/types imported from pino-std-serializers
 const wrappedErrSerializer = pino.stdSerializers.wrapErrorSerializer((err: pino.SerializedError) => {
   return {...err, newProp: 'foo'};
