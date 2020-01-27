@@ -115,6 +115,10 @@ declare namespace OAuth2Server {
 
     abstract class AbstractGrantType {
         /**
+         * Model object
+         */
+        model: AuthorizationCodeModel | ClientCredentialsModel | RefreshTokenModel | PasswordModel | ExtensionModel;
+        /**
          * Instantiates AbstractGrantType using the supplied options.
          *
          */
