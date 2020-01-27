@@ -4,7 +4,7 @@
 //                Adrien Etienne <https://github.com/AdrienEtienne>
 //                Jonathan Fleckenstein <https://github.com/fleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.5
 
 import * as React from "react";
 
