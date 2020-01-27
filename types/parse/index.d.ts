@@ -898,7 +898,7 @@ namespace Parse {
         addBoolean(name: string, options?: Schema.FieldOptions<boolean>): this;
         addDate(name: string, options?: Schema.FieldOptions<Date>): this;
         addField<T extends Schema.TYPE = any>(name: string, type?: T, options?: Schema.FieldOptions): this;
-        addFile(name: string, options?: Schema.FieldOptions<Parse.File>): this;
+        addFile(name: string, options?: Schema.FieldOptions<File>): this;
         addGeoPoint(name: string, options?: Schema.FieldOptions<GeoPoint>): this;
 
         /**

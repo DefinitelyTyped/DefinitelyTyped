@@ -769,7 +769,7 @@ async function test_schema(
     notArray: Exclude<FieldType, any[]>,
     notObject: Exclude<FieldType, object>,
     notPointer: Exclude<FieldType, Parse.Pointer>,
-    notPolygon: Exclude<FieldType, Parse.Pointer>
+    notPolygon: Exclude<FieldType, Parse.Polygon>
 ) {
     Parse.Schema.all();
 
@@ -831,6 +831,8 @@ async function test_schema(
     // $ExpectError
     schema.addObject('field', { defaultValue: notObject });
 
+    schema.addPointer('field', 'SomeClass');
+    // $ExpectError
     schema.addPointer('field');
     /**
      * @todo Infer defaultValue type from targetClass
@@ -845,7 +847,10 @@ async function test_schema(
     // $ExpectError
     schema.addRelation('field', 'SomeClass', 'anything');
 
+    schema.addIndex('testIndex', { stringField: 'Number' });
+    // $ExpectError
     schema.addIndex('testIndex', { stringField: 1 });
+
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
     schema.delete().then(results => {});
