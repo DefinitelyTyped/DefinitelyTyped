@@ -17,6 +17,7 @@ export interface Variables {
 export interface OperationType {
     readonly variables: Variables;
     readonly response: unknown;
+    readonly rawResponse?: unknown;
 }
 
 /**
