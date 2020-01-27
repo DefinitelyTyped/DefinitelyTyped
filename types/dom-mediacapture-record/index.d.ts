@@ -1,6 +1,7 @@
 // Type definitions for non-npm package w3c MediaStream Recording 1.0
 // Project: https://w3c.github.io/mediacapture-record
 // Definitions by: Elias Meire <https://github.com/eliasmeire>
+//                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MediaRecorderErrorEventInit extends EventInit {
@@ -47,6 +48,13 @@ declare class MediaRecorder extends EventTarget {
     onstop: EventListener | null;
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
+
+    addEventListener(type: 'dataavailable', listener: (this: MediaRecorder, event: BlobEvent) => void, useCapture?: boolean): void;
+    addEventListener(type: 'error', listener: (this: MediaRecorder, event: MediaRecorderErrorEvent) => void, useCapture?: boolean): void;
+    addEventListener(type: 'pause', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
+    addEventListener(type: 'resume', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
+    addEventListener(type: 'start', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
+    addEventListener(type: 'stop', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
 
     start(timeslice?: number): void;
     stop(): void;
