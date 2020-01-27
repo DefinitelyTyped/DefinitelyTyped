@@ -56,7 +56,7 @@ export interface I18n {
 export type PartialI18n = Partial<Pick<I18n, 'search' | 'notfound'> & { categories: Partial<I18n['categories']> }>;
 
 export interface CustomIcons {
-    categories: Record<CategoryName, () => React.Component>;
+    categories: Record<CategoryName, () => React.ReactNode>;
 }
 
 export interface PickerProps {
