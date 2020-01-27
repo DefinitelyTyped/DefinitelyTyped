@@ -1,7 +1,7 @@
 import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
-import * as url from 'url';
+import * as net from 'net';
 
 {
     const ws = new WebSocket('ws://www.host.com/path');
@@ -145,4 +145,20 @@ import * as url from 'url';
 
     duplex.pipe(process.stdout);
     process.stdin.pipe(duplex);
+}
+
+{
+    const socket = net.connect(1234, "localhost");
+    const sender = new WebSocket.Sender(socket);
+
+    sender.send("test", {
+        binary: true,
+        compress: true,
+        fin: true,
+    });
+}
+
+{
+    const receiver = new WebSocket.Receiver('arraybuffer');
+    receiver.on('drain', () => console.log('drain'));
 }

@@ -7,6 +7,7 @@
 //                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
+//                 wbobeirne <https://github.com/wbobeirne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -216,6 +217,23 @@ declare namespace WebSocket {
         port: number;
     }
 
+    interface FrameOptions {
+        opcode?: number;
+        readOnly?: boolean;
+        fin?: boolean;
+        mask?: boolean;
+        rsv1?: boolean;
+    }
+
+    interface SendOptions {
+        compress?: boolean;
+        binary?: boolean;
+        fin?: boolean;
+        mask?: boolean;
+    }
+
+      type ReceiverBinaryTypes = 'nodebuffer' | 'arraybuffer' | 'fragments';
+
     // WebSocket Server
     class Server extends events.EventEmitter {
         options: ServerOptions;
@@ -242,6 +260,23 @@ declare namespace WebSocket {
         addListener(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
         addListener(event: 'close' | 'listening', cb: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    }
+
+    // WebSocket Sender
+    class Sender {
+        static frame(data: Buffer, options?: FrameOptions): Buffer[];
+
+        constructor(socket: net.Socket);
+
+        close(code?: number, data?: string, mask?: boolean, cb?: () => void): void;
+        ping(data?: any, mask?: boolean, cb?: () => void): void;
+        pong(data?: any, mask?: boolean, cb?: () => void): void;
+        send(data: any, options: SendOptions, cb?: () => void): void;
+    }
+
+    // WebSocket Receiver
+    class Receiver extends stream.Writable {
+        constructor(binaryType: ReceiverBinaryTypes);
     }
 
     // WebSocket stream
