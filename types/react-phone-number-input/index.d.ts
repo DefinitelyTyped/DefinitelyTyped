@@ -38,7 +38,7 @@ export interface InputComponentProps {
     metadata?: object;
 }
 
-export interface PhoneInputProps {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "id"> {
     // Required props
     onChange: (value: string) => void;
     value: string;
