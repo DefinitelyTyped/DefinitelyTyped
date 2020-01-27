@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "cypress": "^3.8.3",
+        "jest-image-snapshot": "^2.12.0"
+    }
+}

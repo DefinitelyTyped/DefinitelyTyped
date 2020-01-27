@@ -3,16 +3,10 @@
 // Definitions by: Alex Kessock <https://github.com/Keysox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    customSnapshotsDir?: string;
-    customDiffDir?: string;
-    failureThreshold?: number;
-    failureThresholdType?: 'percent' | 'number';
-    customDiffConfig?: {
-        threshold: number;
-    };
-    capture?: 'viewport';
-}
+/// <reference types="Cypress" />
+import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+
+export interface Options extends Partial<Cypress.ScreenshotOptions & MatchImageSnapshotOptions> {}
 
 declare global {
     namespace Cypress {
