@@ -306,8 +306,8 @@ adapter.states.getStates();
 // $ExpectError
 adapter.objects.getObjectView();
 
-adapter.oObjects && adapter.oObjects["foo"]._id.toString();
-adapter.oStates && adapter.oStates["foo"].val;
+adapter.oObjects && adapter.oObjects["foo"] && adapter.oObjects["foo"]._id.toString();
+adapter.oStates && adapter.oStates["foo"] && adapter.oStates["foo"].val;
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {
