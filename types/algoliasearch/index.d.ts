@@ -1270,7 +1270,7 @@ declare namespace algoliasearch {
      * Filter the query by a set of tags.
      * Default: []
      */
-    tagFilters?: string[];
+    tagFilters?: (string|string[])[];
     /**
      * Filter the query by a set of facets.
      * Default: []

@@ -220,7 +220,7 @@ declare namespace jasmine {
         oneFailurePerSpec?: boolean;
         hideDisabled?: boolean;
         specFilter?: Function;
-        promise?: Function;
+        Promise?: Function;
     }
 
     function clock(): Clock;

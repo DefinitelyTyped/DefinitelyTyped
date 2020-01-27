@@ -1,4 +1,4 @@
-import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
+import { CompilerContext } from '../core/CompilerContext';
 
 /**
  * This transform synthesizes "refetch" queries for fragments that
@@ -16,6 +16,6 @@ import { GraphQLCompilerContext } from '../core/GraphQLCompilerContext';
  * 3. Building the refetch queries, a straightforward copying transform from
  *    Fragment to Root IR nodes.
  */
-declare function relayRefetchableFragmentTransform(context: GraphQLCompilerContext): GraphQLCompilerContext;
+declare function relayRefetchableFragmentTransform(context: CompilerContext): CompilerContext;
 
 export { relayRefetchableFragmentTransform as transform };
