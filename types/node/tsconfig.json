@@ -50,6 +50,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "assert": ["node/assert.d.ts"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
