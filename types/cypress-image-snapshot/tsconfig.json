@@ -1,17 +1,23 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "cypress-image-snapshot-tests.ts"],
-    "include": ["node_modules/cypress"]
+    "files": [
+        "index.d.ts",
+        "cypress-image-snapshot-tests.ts"
+    ]
 }
