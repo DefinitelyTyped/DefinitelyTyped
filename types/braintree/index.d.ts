@@ -843,6 +843,8 @@ declare namespace braintree {
         merchantAccount?: MerchantAccount;
         transaction?: Transaction;
         dispute?: Dispute;
+        reportDate?: Date;
+        reportUrl?: string;
     }
 
     export type WebhookNotificationKind =
