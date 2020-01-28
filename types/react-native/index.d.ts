@@ -1124,6 +1124,28 @@ export interface TextInputAndroidProps {
     | 'off';
 
     /**
+     * Determines whether the individual fields in your app should be included in a
+     * view structure for autofill purposes on Android API Level 26+. Defaults to auto.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `auto` - let Android decide
+     * - `no` - not important for autofill
+     * - `noExcludeDescendants` - this view and its children aren't important for autofill
+     * - `yes` - is important for autofill
+     * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
+     */
+    importantForAutofill?:
+    | "auto"
+    | "no"
+    | "noExcludeDescendants"
+    | "yes"
+    | "yesExcludeDescendants";
+
+    /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
      * When true, this feature is disabled and users will always edit the text directly inside of the text input.
