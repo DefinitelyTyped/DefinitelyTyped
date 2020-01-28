@@ -317,6 +317,15 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
+      
+    /** Connected database name */
+    name: string
+
+    /** Connected host */
+    host: string
+
+    /** Connected port number */
+    port: number
 
     /** mapping of ready states */
     states: typeof ConnectionStates;
