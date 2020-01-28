@@ -735,6 +735,7 @@ function Argv$parserConfiguration() {
         'populate--': false,
         'set-placeholder-key': false,
         'short-option-groups': false,
+        'sort-commands': true,
     }).parse();
 
     const argv2 = yargs.parserConfiguration({

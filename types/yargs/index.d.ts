@@ -30,6 +30,11 @@ import { DetailedArguments, Configuration } from 'yargs-parser';
 declare namespace yargs {
     type BuilderCallback<T, R> = ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
 
+    type ParserConfigurationOptions = Configuration & {
+        /** Sort commands alphabetically. Default is `false` */
+        'sort-commands': boolean;
+    };
+
     /**
      * The type parameter `T` is the expected shape of the parsed options.
      * `Arguments<T>` is those options plus `_` and `$0`, and an indexer falling
@@ -427,7 +432,7 @@ declare namespace yargs {
         parsed: DetailedArguments | false;
 
         /** Allows to configure advanced yargs features. */
-        parserConfiguration(configuration: Partial<Configuration>): Argv<T>;
+        parserConfiguration(configuration: Partial<ParserConfigurationOptions>): Argv<T>;
 
         /**
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.
