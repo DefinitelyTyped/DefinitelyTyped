@@ -3,16 +3,34 @@
 // Definitions by: Alex Kessock <https://github.com/Keysox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
-    customSnapshotsDir?: string;
-    customDiffDir?: string;
-    failureThreshold?: number;
-    failureThresholdType?: 'percent' | 'number';
-    customDiffConfig?: {
-        threshold: number;
-    };
-    capture?: 'viewport';
-}
+/// <reference types="Cypress" />
+
+export interface Options
+    extends Partial<
+        Cypress.ScreenshotOptions & {
+            customDiffConfig?: {
+                readonly threshold?: number;
+                readonly includeAA?: boolean;
+            };
+            customSnapshotsDir?: string;
+            customDiffDir?: string;
+            customSnapshotIdentifier?:
+                | ((parameters: {
+                      testPath: string;
+                      currentTestName: string;
+                      counter: number;
+                      defaultIdentifier: string;
+                  }) => string)
+                | string;
+            diffDirection?: 'horizontal' | 'vertical';
+            noColors?: boolean;
+            failureThreshold?: number;
+            failureThresholdType?: 'pixel' | 'percent';
+            updatePassedSnapshot?: boolean;
+            blur?: number;
+            runInProcess?: boolean;
+        }
+    > {}
 
 declare global {
     namespace Cypress {
