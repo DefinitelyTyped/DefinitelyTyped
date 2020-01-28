@@ -13,6 +13,7 @@
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Austin Turner <https://github.com/paustint>
+//                 Kevin Soltysiak <https://github.com/ksol>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -180,6 +181,34 @@ declare namespace stripe {
         phone?: string;
     }
 
+    interface OfflineAcceptanceMandate {
+        contact_email: string;
+    }
+
+    interface OnlineAcceptanceMandate {
+        date: number;
+        ip: string;
+        user_agent: string;
+    }
+
+    interface SourceMandateAcceptance {
+        date: number;
+        status: 'accepted' | 'refused';
+        ip?: string;
+        offline?: OfflineAcceptanceMandate;
+        online?: OnlineAcceptanceMandate;
+        type?: 'online'| 'offline';
+        user_agent?: string;
+    }
+
+    interface SourceMandate {
+        acceptance?: SourceMandateAcceptance;
+        amount?: number;
+        currency?: string;
+        interval?: 'one_time' | 'scheduled' | 'variable';
+        notification_method?: 'email' | 'manual' | 'none';
+    }
+
     interface SourceOptions {
         type: string;
         flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
@@ -189,6 +218,7 @@ declare namespace stripe {
         currency?: string;
         amount?: number;
         owner?: OwnerInfo;
+        mandate?: SourceMandate;
         metadata?: {};
         statement_descriptor?: string;
         redirect?: {
