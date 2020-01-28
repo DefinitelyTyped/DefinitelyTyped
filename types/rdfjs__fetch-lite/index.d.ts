@@ -11,16 +11,16 @@ declare namespace rdfFetch {
         formats: Pick<typeof formats, 'parsers'>;
         fetch?: typeof fetch;
     }
-    
+
     interface FactoryInit<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends FormatsInit {
         factory: DatasetCoreFactory<OutQuad, InQuad, D>;
     }
 
-    interface RdfFetchResponse extends Response {
-        quadStream(): Stream<Quad>;
+    interface RdfFetchResponse<Q extends BaseQuad = Quad> extends Response {
+        quadStream(): Stream<Q>;
     }
 
-    interface DatasetResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends RdfFetchResponse {
+    interface DatasetResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends RdfFetchResponse<OutQuad> {
         dataset(): D;
     }
 }
