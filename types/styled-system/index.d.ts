@@ -301,7 +301,7 @@ export interface TextColorProps<ThemeType extends Theme = RequiredTheme, TVal = 
 
 export const textColor: styleFn;
 
-export interface BackgroundColorProps<ThemeType extends Theme = RequiredTheme, TVal = CSS.BackgroundProperty<TLengthStyledSystem>> {
+export interface BackgroundColorProps<ThemeType extends Theme = RequiredTheme, TVal = ThemeValue<'colors', ThemeType>> {
     /**
      * The color utility parses a component's `color` and `bg` props and converts them into CSS declarations.
      * By default the raw value of the prop is returned.
