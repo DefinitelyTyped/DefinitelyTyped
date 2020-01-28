@@ -26,7 +26,7 @@ import * as CSS from 'csstype';
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 
-export type ObjectOrArray<T, K extends keyof any = keyof any> = T[] | Record<K, T | Record<K, T | Record<K, T> | T[]> | T[]>;
+export type ObjectOrArray<T, K extends keyof any = keyof any> = T[] | Record<K, T | Record<K, T> | T[]>;
 
 export type Scale = ObjectOrArray<number | string>;
 
@@ -125,8 +125,6 @@ export interface SpaceProps<ThemeType extends Theme = RequiredTheme, TVal = Them
     paddingY?: ResponsiveValue<TVal, ThemeType>;
 }
 
-
-
 // Preserved to support v4 shim:
 // https://github.com/styled-system/styled-system/blob/master/packages/styled-system/src/index.js#L108
 export interface LowLevelStyleFunctionArguments<N, S> {
@@ -203,6 +201,7 @@ export function variant<
     K extends string = string,
     TPropName = string,
     >(
+        // tslint:disable-next-line no-unnecessary-generics
         props: VariantArgs<TStyle, K, TPropName>
     ): (...args: any[]) => any;
 /**
