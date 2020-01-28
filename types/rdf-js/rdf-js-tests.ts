@@ -1,5 +1,6 @@
 import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, DatasetFactory, DefaultGraph, Literal,
-  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
+  NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Subject, Quad_Predicate,
+  Quad_Object, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
 function test_terms() {
@@ -50,19 +51,19 @@ function test_terms() {
 
 function test_quads() {
     const quad: Quad = <any> {};
-    const s1: Term = quad.subject;
-    const p1: Term = quad.predicate;
-    const o1: Term = quad.object;
-    const g1: Term = quad.graph;
-    quad.equals(quad);
+    const s1: Quad_Subject = quad.subject;
+    const p1: Quad_Predicate = quad.predicate;
+    const o1: Quad_Object = quad.object;
+    const g1: Quad_Graph = quad.graph;
+    const e1: boolean = quad.equals(quad);
 
-    const triple: Triple = quad;
-    const s2: Term = triple.subject;
-    const p2: Term = triple.predicate;
-    const o2: Term = triple.object;
-    const g2: Term = triple.graph;
-    triple.equals(quad);
-    quad.equals(triple);
+    const triple: Triple = <any> {};
+    const s2: Quad_Subject = triple.subject;
+    const p2: Quad_Predicate = triple.predicate;
+    const o2: Quad_Object = triple.object;
+    const g2: DefaultGraph = triple.graph;
+    const e2: boolean = triple.equals(quad);
+    const e3: boolean = quad.equals(triple);
 }
 
 function test_datafactory() {
@@ -80,17 +81,21 @@ function test_datafactory() {
     const variable: Variable = dataFactory.variable ? dataFactory.variable('v1') : <any> {};
 
     const term: NamedNode = <any> {};
-    const triple: Quad = dataFactory.triple(term, term, term);
     interface QuadBnode extends BaseQuad {
       subject: Term;
       predicate: Term;
       object: Term;
       graph: Term;
+      foo: Term;
     }
 
     const quadBnodeFactory: DataFactory<QuadBnode> = <any> {};
     const quad = quadBnodeFactory.quad(literal1, blankNode1, term, term);
-    const hasBnode = quad.predicate.termType === "BlankNode";
+    const triple: Triple<QuadBnode> = quadBnodeFactory.triple(term, term, term);
+    const hasBnode1 = quad.predicate.termType === "BlankNode";
+    const hasBnode2 = triple.predicate.termType === "BlankNode";
+    const tripleGraph: DefaultGraph = triple.graph;
+    const tripleExtra: Term = triple.foo;
 }
 
 function test_stream() {
@@ -147,7 +152,7 @@ function test_datasetcore() {
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
-    const dataset3: DatasetCore<QuadBnode, QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
 
     const dataset2Size: number = dataset2.size;
     const dataset2Add: DatasetCore = dataset2.add(quad);

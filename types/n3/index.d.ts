@@ -100,8 +100,6 @@ export class Quad extends BaseQuad implements RDF.Quad {
     toJSON(): string;
 }
 
-export class Triple extends Quad implements RDF.Triple {}
-
 export namespace DataFactory {
     function namedNode(value: string): NamedNode;
     function blankNode(value?: string): BlankNode;
@@ -110,8 +108,8 @@ export namespace DataFactory {
     function defaultGraph(): DefaultGraph;
     function quad(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object, graph?: RDF.Quad_Graph): Quad;
     function quad<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object'], graph?: Q_In['graph']): Q_Out;
-    function triple(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object): Quad;
-    function triple<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object']): Q_Out;
+    function triple(subject: RDF.Quad_Subject, predicate: RDF.Quad_Predicate, object: RDF.Quad_Object): RDF.Triple<Quad>;
+    function triple<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Out extends BaseQuad = Quad>(subject: Q_In['subject'], predicate: Q_In['predicate'], object: Q_In['object']): RDF.Triple<Q_Out>;
 }
 
 export type ErrorCallback = (err: Error, result: any) => void;

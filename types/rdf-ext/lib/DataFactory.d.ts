@@ -1,4 +1,4 @@
-import { DataFactory, Sink, NamedNode, BaseQuad, Quad, Stream, Quad_Subject, Quad_Predicate, Quad_Object, Quad_Graph } from 'rdf-js';
+import { DataFactory, Sink, NamedNode, BaseQuad, Quad, Triple, Stream, Quad_Subject, Quad_Predicate, Quad_Object, Quad_Graph } from 'rdf-js';
 import BlankNodeExt = require("./BlankNode");
 import LiteralExt = require("./Literal");
 import NamedNodeExt = require("./NamedNode");
@@ -29,7 +29,7 @@ declare class DataFactoryExt implements DataFactory<QuadExt> {
   static literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
   static variable(value: string): VariableExt;
   static defaultGraph(): DefaultGraphExt;
-  static triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): QuadExt;
+  static triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): Triple<QuadExt>;
   static quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): QuadExt;
   static graph(quads?: any): Dataset;
   static prefixMap(prefixes: Prefixes): PrefixMap;
@@ -40,7 +40,7 @@ declare class DataFactoryExt implements DataFactory<QuadExt> {
   literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
   namedNode(value: string): NamedNode;
   quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): QuadExt;
-  triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): QuadExt;
+  triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): Triple<QuadExt>;
   variable(value: string): VariableExt;
 }
 
