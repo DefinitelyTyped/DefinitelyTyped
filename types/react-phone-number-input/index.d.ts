@@ -1,9 +1,10 @@
 // Type definitions for react-phone-number-input 3.0
 // Project: https://github.com/AdrienEtienne/react-phone-number-input
 // Definitions by: Peter Yang <https://github.com/PeterYangIO>
-//                  Adrien Etienne <https://github.com/AdrienEtienne>
+//                Adrien Etienne <https://github.com/AdrienEtienne>
+//                Jonathan Fleckenstein <https://github.com/fleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.5
 
 import * as React from "react";
 
@@ -38,7 +39,7 @@ export interface InputComponentProps {
     metadata?: object;
 }
 
-export interface PhoneInputProps {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "id"> {
     // Required props
     onChange: (value: string) => void;
     value: string;
