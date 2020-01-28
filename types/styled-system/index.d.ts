@@ -26,7 +26,7 @@ import * as CSS from 'csstype';
 
 export function get(obj: any, ...paths: Array<string | number>): any;
 
-export type ObjectOrArray<T, K extends keyof any = keyof any> = T[] | Record<K, T | Record<K, T> | T[]>;
+export type ObjectOrArray<T, K extends keyof any = keyof any> = T[] | Record<K, T | Record<K, T | Record<K, T> | T[]> | T[]>;
 
 export type Scale = ObjectOrArray<number | string>;
 
@@ -54,14 +54,14 @@ export interface Theme<TLength = TLengthStyledSystem> {
     textStyles?: ObjectOrArray<CSS.StandardProperties>;
 }
 
-type RequiredTheme = Required<Theme>;
+export type RequiredTheme = Required<Theme>;
 
 export type ResponsiveValue<
     T,
-    ThemeType extends Theme,
+    ThemeType extends Theme = RequiredTheme,
     > = T | Array<T | null> | { [key in ThemeValue<'breakpoints', ThemeType> & string | number]?: T };
 
-type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> =
+export type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> =
     ThemeType[K] extends TVal[] ? number :
     ThemeType[K] extends Record<infer E, TVal> ? E :
     ThemeType[K] extends ObjectOrArray<infer F> ? F : never;
@@ -183,8 +183,8 @@ export function createParser(config: ConfigStyle): styleFn;
 export function createStyleFunction(args: ConfigStyle): styleFn;
 
 export interface VariantArgs<
-    K extends string = string,
     TStyle = object,
+    K extends string = string,
     TPropName = string,
     > {
     key?: string;
@@ -198,10 +198,13 @@ export interface VariantArgs<
     };
 }
 
-export function variant<K extends string = string>(
-    props: VariantArgs<K>
-): (...args: any[]) => any;
-
+export function variant<
+    TStyle = object,
+    K extends string = string,
+    TPropName = string,
+    >(
+        props: VariantArgs<TStyle, K, TPropName>
+    ): (...args: any[]) => any;
 /**
  * Converts shorthand or longhand margin and padding props to margin and padding CSS declarations
  *
