@@ -2,7 +2,7 @@ const moneyFormat = wNumb({
 	mark: '.',
 	thousand: ',',
 	prefix: '$ ',
-	postfix: ' p.p.'
+	suffix: ' p.p.'
 });
 
 moneyFormat.to(301980.62);
@@ -23,7 +23,7 @@ Format = wNumb({
 
 Format = wNumb({
 	prefix: '$',
-	postfix: ',-',
+	suffix: ',-',
 	thousand: ','
 });
 
