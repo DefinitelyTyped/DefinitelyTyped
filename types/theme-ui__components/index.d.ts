@@ -2,7 +2,7 @@
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { StyledComponent } from '@emotion/styled';

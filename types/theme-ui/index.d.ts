@@ -8,7 +8,7 @@
 //                 Prateek Kathal <https://github.com/prateekkathal>
 //                 Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.5
 
 import { SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
