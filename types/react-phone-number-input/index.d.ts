@@ -2,9 +2,10 @@
 // Project: https://github.com/AdrienEtienne/react-phone-number-input
 // Definitions by: Peter Yang <https://github.com/PeterYangIO>
 //                 Adrien Etienne <https://github.com/AdrienEtienne>
+//                 Jonathan Fleckenstein <https://github.com/fleck>
 //                 James Lismore <https://github.com/jlismore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
+// Minimum TypeScript Version: 3.5
 
 import * as React from 'react';
 
