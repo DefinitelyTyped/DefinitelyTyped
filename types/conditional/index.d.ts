@@ -3,11 +3,11 @@
 // Definitions by: Richard Wang <https://github.com/rzhw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace preconditions;
+
 // Turn off automatic exporting since this type alias shouldn't get exported.
 export {};
 type ErrorCallback<T> = (err: T | null) => void;
-
-export as namespace preconditions;
 
 export class IllegalArgumentError extends Error {
     constructor(message?: string);
