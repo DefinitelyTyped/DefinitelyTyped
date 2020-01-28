@@ -222,14 +222,26 @@ export function auto<R extends Dictionary<any>, E = Error>(tasks: AsyncAutoTasks
 export function autoInject<E = Error>(tasks: any, callback?: AsyncResultCallback<any, E>): void;
 
 export function retry<T, E = Error>(
-    opts: number | {
-        times: number,
-        interval: number | ((retryCount: number) => number),
-        errorFilter?: (error: Error) => boolean
-    },
-    task: (callback: AsyncResultCallback<T, E>, results: any) => void,
-    callback: AsyncResultCallback<any, E>
-    ): void;
+    opts?:
+        | number
+        | {
+              times?: number;
+              interval?: number | ((retryCount: number) => number);
+              errorFilter?: (error: Error) => boolean;
+          },
+    task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
+): Promise<void>;
+export function retry<T, E = Error>(
+    opts?:
+        | number
+        | {
+              times?: number;
+              interval?: number | ((retryCount: number) => number);
+              errorFilter?: (error: Error) => boolean;
+          },
+    task?: (callback: AsyncResultCallback<T, E>, results: any) => void,
+    callback?: AsyncResultCallback<any, E>,
+): void;
 
 export function retryable<T, E = Error>(opts: number | {times: number, interval: number}, task: AsyncFunction<T, E>): AsyncFunction<T, E>;
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>;
