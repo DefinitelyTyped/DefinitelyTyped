@@ -12,6 +12,8 @@
 //                 Ting-Wai To <https://github.com/tingwai-to>
 //                 Alex Petty <https://github.com/pettyalex>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Tianlin <https://github.com/tianlinle>
+//                 Demian Rodriguez <https://github.com/demian85>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -476,8 +478,8 @@ declare namespace IORedis {
         hvals(key: KeyType, callback: (err: Error, res: string[]) => void): void;
         hvals(key: KeyType): Promise<string[]>;
 
-        hgetall(key: KeyType, callback: (err: Error, res: { [key: string]: string | number }) => void): void;
-        hgetall(key: KeyType): Promise<{ [key: string]: string | number }>;
+        hgetall(key: KeyType, callback: (err: Error, res: Record<string, string>) => void): void;
+        hgetall(key: KeyType): Promise<Record<string, string>>;
 
         hexists(key: KeyType, field: string, callback: (err: Error, res: BooleanResponse) => void): void;
         hexists(key: KeyType, field: string): Promise<BooleanResponse>;
@@ -659,20 +661,20 @@ declare namespace IORedis {
         quit(callback: (err: Error, res: string) => void): void;
         quit(): Promise<string>;
 
-        scan(cursor: number): Promise<[string, string[]]>;
+        scan(cursor: number | string): Promise<[string, string[]]>;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Promise<[string, string[]]>;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Promise<[string, string[]]>;
 
         scan(
-            cursor: number,
+            cursor: number | string,
             matchOption: 'match' | 'MATCH',
             pattern: string,
             countOption: 'count' | 'COUNT',
             count: number,
         ): Promise<[string, string[]]>;
         scan(
-            cursor: number,
+            cursor: number | string,
             countOption: 'count' | 'COUNT',
             count: number,
             matchOption: 'match' | 'MATCH',
@@ -1038,7 +1040,7 @@ declare namespace IORedis {
 
         hvals(key: KeyType, callback?: (err: Error, res: string[]) => void): Pipeline;
 
-        hgetall(key: KeyType, callback?: (err: Error, res: { [key: string]: string | number }) => void): Pipeline;
+        hgetall(key: KeyType, callback?: (err: Error, res: Record<string, string>) => void): Pipeline;
 
         hexists(key: KeyType, field: string, callback?: (err: Error, res: BooleanResponse) => void): Pipeline;
 
@@ -1168,20 +1170,20 @@ declare namespace IORedis {
 
         quit(callback?: (err: Error, res: string) => void): Pipeline;
 
-        scan(cursor: number): Pipeline;
+        scan(cursor: number | string): Pipeline;
 
-        scan(cursor: number, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
-        scan(cursor: number, countOption: 'count' | 'COUNT', count: number): Pipeline;
+        scan(cursor: number | string, matchOption: 'match' | 'MATCH', pattern: string): Pipeline;
+        scan(cursor: number | string, countOption: 'count' | 'COUNT', count: number): Pipeline;
 
         scan(
-            cursor: number,
+            cursor: number | string,
             matchOption: 'match' | 'MATCH',
             pattern: string,
             countOption: 'count' | 'COUNT',
             count: number,
         ): Pipeline;
         scan(
-            cursor: number,
+            cursor: number | string,
             countOption: 'count' | 'COUNT',
             count: number,
             matchOption: 'match' | 'MATCH',

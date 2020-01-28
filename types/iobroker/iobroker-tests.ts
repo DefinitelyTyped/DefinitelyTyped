@@ -198,12 +198,16 @@ adapter.getObjectViewAsync("system", "admin", {startkey: "foo", endkey: "bar"}).
     docs && docs.rows[0] && docs.rows[0].id.toLowerCase();
 });
 
-// TODO: https://github.com/ioBroker/ioBroker.js-controller/issues/574
-// {} should be left out or undefined
 adapter.getObjectList({startkey: "foo", endkey: "bar"}, {}, (err, result) => {
     result && result.rows[0] && result.rows[0].id.toLowerCase();
 });
+adapter.getObjectList({startkey: "foo", endkey: "bar"}, (err, result) => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
 adapter.getObjectListAsync({startkey: "foo", endkey: "bar"}, {}).then(result => {
+    result && result.rows[0] && result.rows[0].id.toLowerCase();
+});
+adapter.getObjectListAsync({startkey: "foo", endkey: "bar"}).then(result => {
     result && result.rows[0] && result.rows[0].id.toLowerCase();
 });
 
@@ -301,6 +305,9 @@ adapter.getHistory("state.id", {}, (err, result: ioBroker.GetHistoryResult) => {
 adapter.states.getStates();
 // $ExpectError
 adapter.objects.getObjectView();
+
+adapter.oObjects && adapter.oObjects["foo"] && adapter.oObjects["foo"]._id.toString();
+adapter.oStates && adapter.oStates["foo"] && adapter.oStates["foo"].val;
 
 // Repro from https://github.com/ioBroker/adapter-core/issues/3
 const repro1: ioBroker.ObjectChangeHandler = (id, obj) => {

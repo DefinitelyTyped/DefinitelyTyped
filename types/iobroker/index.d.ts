@@ -1,8 +1,8 @@
-// Type definitions for ioBroker 2.0
+// Type definitions for ioBroker 2.2
 // Project: https://github.com/ioBroker/ioBroker, http://iobroker.net
 // Definitions by: AlCalzone <https://github.com/AlCalzone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+// TypeScript Version: 3.6
 
 // Note: This is not the definition for the package `iobroker`,
 // which is just an installer, not a library.
@@ -455,6 +455,12 @@ declare global {
 
             /** if true, stateChange will be called with an id that has no namespace, e.g. "state" instead of "adapter.0.state". Default: false */
             noNamespace?: boolean;
+
+            /** If true, the adapter will have a property `oObjects` that contains a live cache of the adapter's objects */
+            objects?: boolean;
+
+            /** If true, the adapter will have a property `oStates` that contains a live cache of the adapter's states */
+            states?: boolean;
         } // end interface AdapterOptions
 
         // tslint:disable-next-line:no-empty-interface
@@ -489,6 +495,19 @@ declare global {
             version: any;
             /** if the adapter is connected to the host */
             connected: boolean;
+
+            /**
+             * Contains a live cache of the adapter's objects.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `objects: true`.
+             */
+            oObjects?: Record<string, ioBroker.Object | undefined>;
+            /**
+             * Contains a live cache of the adapter's states.
+             *
+             * NOTE: This is only defined if the adapter was initialized with the option `states: true`.
+             */
+            oStates?: Record<string, ioBroker.State | undefined>;
 
             /*	===============================
                 Functions defined in adapter.js
@@ -845,8 +864,7 @@ declare global {
              * @param options If the returned list should be sorted. And some internal options.
              * @param callback Is called when the operation has finished (successfully or not)
              */
-            // TODO: options should be optional: https://github.com/ioBroker/ioBroker.js-controller/issues/574
-            // getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
+            getObjectList(params: GetObjectListParams | null, callback: GetObjectListCallback): void;
             getObjectList(
                 params: GetObjectListParams | null,
                 options: { sorted?: boolean } | Record<string, any>,
@@ -856,11 +874,10 @@ declare global {
              * Returns a list of objects with id between params.startkey and params.endkey
              * @param params Parameters determining the objects included in the return list. Null to include all objects
              * @param options If the returned list should be sorted. And some internal options.
-             * @param callback Is called when the operation has finished (successfully or not)
              */
             getObjectListAsync(
                 params: GetObjectListParams | null,
-                options: { sorted?: boolean } | Record<string, any>,
+                options?: { sorted?: boolean } | Record<string, any>,
             ): Promise<NonNullCallbackReturnTypeOf<GetObjectListCallback>>;
 
             // ==============================

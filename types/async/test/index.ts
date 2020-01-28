@@ -256,6 +256,8 @@ const cargo = async.cargo((tasks, callback) => {
     }
     callback();
 }, 2);
+cargo.drain(); // $ExpectType Promise<void>
+cargo.drain(() => { console.log('done processing queue'); }); // $ExpectType void
 
 // add some items
 cargo.push({ name: 'foo' }, (err: Error) => { console.log('finished processing foo'); });
@@ -310,10 +312,31 @@ async.auto<A>({
     (err, results) => { console.log('finished auto'); }
 );
 
-async.retry(3, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200 }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: (retryCount) => 200 * retryCount }, (callback, results) => { }, (err, result) => { });
-async.retry({ times: 3, interval: 200, errorFilter: (err) => true }, (callback, results) => { }, (err, result) => { });
+async.retry(); // $ExpectType Promise<void>
+async.retry(3); // $ExpectType Promise<void>
+// $ExpectType Promise<void>
+async.retry(
+    3,
+    (callback, results) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: 200 },
+    (callback, results) => {},
+    (err, result) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: retryCount => 200 * retryCount },
+    (callback, results) => {},
+    (err, result) => {},
+);
+// $ExpectType void
+async.retry(
+    { times: 3, interval: 200, errorFilter: err => true },
+    (callback, results) => {},
+    (err, result) => {},
+);
 
 async.parallel([
         (callback: (err: Error, val: string) => void) => { },

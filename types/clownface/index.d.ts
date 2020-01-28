@@ -50,7 +50,7 @@ declare namespace clownface {
         readonly dataset: D;
         readonly datasets: D[];
         readonly _context: any;
-        list(): Iterator<Term>;
+        list(): Iterable<SingleContextClownface<D>>;
         toArray(): Array<Clownface<D, T>>;
         filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
         forEach(cb: (quad: Clownface<D, T>) => void): void;
@@ -77,8 +77,8 @@ declare namespace clownface {
         namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
 
         // tslint:disable:no-unnecessary-generics
-        in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-        out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+        in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+        out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
         has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 

@@ -1,7 +1,8 @@
-// Type definitions for Emscripten 1.38.33
+// Type definitions for Emscripten 1.39.5
 // Project: http://kripken.github.io/emscripten-site/index.html
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 //                 Periklis Tsirakidis <https://github.com/periklis>
+//                 Bumsik Kim <https://github.com/kbumsik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -14,8 +15,14 @@ declare namespace Emscripten {
     interface FileSystemType {
     }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
-    type ValueType = "number" | "string" | "array" | "boolean";
+
+    type JSType = "number" | "string" | "array" | "boolean";
     type TypeCompatibleWithC = number | string | any[] | boolean;
+
+    type CIntType = 'i8' | 'i16' | 'i32' | 'i64';
+    type CFloatType = 'float' | 'double';
+    type CPointerType = 'i8*' | 'i16*' | 'i32*' | 'i64*' | 'float*' | 'double*' | '*';
+    type CType =  CIntType | CFloatType | CPointerType;
 
     type WebAssemblyImports =  Array<{
         name: string;
@@ -34,6 +41,26 @@ declare namespace Emscripten {
 }
 
 interface EmscriptenModule {
+    /**
+     * Initializes an EmscriptenModule object and returns it. The initialized
+     * obejct will be passed to then(). Works only when -s MODULARIZE=1 is
+     * enabled. This is default exported function when -s EXPORT_ES6=1 is
+     * enabled.
+     * https://emscripten.org/docs/getting_started/FAQ.html#how-can-i-tell-when-the-page-is-fully-loaded-and-it-is-safe-to-call-compiled-functions
+     * @param moduleOverrides Properties of an initialized module to override.
+     */
+    (moduleOverrides?: Partial<this>): this;
+    /**
+     * Promise-like then() inteface.
+     * WRANGING: Emscripten's then() is not really promise-based 'thenable'.
+     * Don't try to use it with Promise.resolve() or in an async function
+     * without deleting delete Module["then"] in the callback.
+     * https://github.com/kripken/emscripten/issues/5820
+     * Works only when -s MODULARIZE=1 is enabled.
+     * @param callback A callback chained from Module() with an Module instance.
+     */
+    then(callback: (module: this) => void): this;
+
     print(str: string): void;
     printErr(str: string): void;
     arguments: string[];
@@ -59,22 +86,6 @@ interface EmscriptenModule {
     locateFile(url: string): string;
     onCustomMessage(event: MessageEvent): void;
 
-    Runtime: any;
-
-    ccall(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
-    cwrap(ident: string, returnType: Emscripten.ValueType | null, argTypes: Emscripten.ValueType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
-
-    setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
-    getValue(ptr: number, type: string, noSafe?: boolean): number;
-
-    ALLOC_NORMAL: number;
-    ALLOC_STACK: number;
-    ALLOC_STATIC: number;
-    ALLOC_DYNAMIC: number;
-    ALLOC_NONE: number;
-
-    allocate(slab: any, types: string | string[], allocator: number, ptr: number): number;
-
     // USE_TYPED_ARRAYS == 1
     HEAP: Int32Array;
     IHEAP: Int32Array;
@@ -99,16 +110,6 @@ interface EmscriptenModule {
     addOnPreMain(cb: () => any): void;
     addOnExit(cb: () => any): void;
     addOnPostRun(cb: () => any): void;
-
-    // Tools
-    intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
-    intArrayToString(array: number[]): string;
-    writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-    writeArrayToMemory(array: number[], buffer: number): void;
-    writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
-
-    addRunDependency(id: any): void;
-    removeRunDependency(id: any): void;
 
     preloadedImages: any;
     preloadedAudios: any;
@@ -197,7 +198,9 @@ declare namespace FS {
     function allocate(stream: FSStream, offset: number, length: number): void;
     function mmap(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position: number, prot: number, flags: number): any;
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
-    function readFile(path: string, opts?: { encoding?: "binary" | "utf8"; flags?: string }): string | Uint8Array;
+    function readFile(path: string, opts: { encoding: "binary", flags?: string }): Uint8Array;
+    function readFile(path: string, opts: { encoding: "utf8", flags?: string }): string;
+    function readFile(path: string, opts?: { flags?: string }): Uint8Array;
     function writeFile(path: string, data: string | ArrayBufferView, opts?: { flags?: string }): void;
 
     //
@@ -214,16 +217,48 @@ declare namespace FS {
     function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
     function createPreloadedFile(parent: string | FSNode, name: string, url: string,
         canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
+    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean): FSNode;
+}
+
+interface Math {
+    imul(a: number, b: number): number;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
 
+// Below runtime function/variable declarations are exportable by
+// -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
+// EmscriptenModule interface to add runtime functions.
+//
+// For example, by using -s "EXTRA_EXPORTED_RUNTIME_METHODS=['ccall']"
+// You can access ccall() via Module["ccall"]. In this case, you should
+// extend EmscriptenModule to pass the compiler check like the following:
+//
+// interface YourOwnEmscriptenModule extends EmscriptenModule {
+//     ccall: typeof ccall;
+// }
+//
+// See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
+
+declare function ccall(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], args: Emscripten.TypeCompatibleWithC[], opts?: Emscripten.CCallOpts): any;
+declare function cwrap(ident: string, returnType: Emscripten.JSType | null, argTypes: Emscripten.JSType[], opts?: Emscripten.CCallOpts): (...args: any[]) => any;
+
+declare function setValue(ptr: number, value: any, type: Emscripten.CType, noSafe?: boolean): void;
+declare function getValue(ptr: number, type: Emscripten.CType, noSafe?: boolean): number;
+
+declare function allocate(slab: number[] | ArrayBufferView | number, types: Emscripten.CType | Emscripten.CType[], allocator: number, ptr?: number): number;
+
+declare function stackAlloc(size: number): number;
+declare function stackSave(): number;
+declare function stackRestore(ptr: number): void;
+
 declare function UTF8ToString(ptr: number, maxBytesToRead?: number): string;
 declare function stringToUTF8(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF8(str: string): number;
 declare function allocateUTF8(str: string): number;
+declare function allocateUTF8OnStack(str: string): number;
 declare function UTF16ToString(ptr: number): string;
 declare function stringToUTF16(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF16(str: string): number;
@@ -231,6 +266,20 @@ declare function UTF32ToString(ptr: number): string;
 declare function stringToUTF32(str: string, outPtr: number, maxBytesToRead?: number): void;
 declare function lengthBytesUTF32(str: string): number;
 
-interface Math {
-    imul(a: number, b: number): number;
-}
+declare function intArrayFromString(stringy: string, dontAddNull?: boolean, length?: number): number[];
+declare function intArrayToString(array: number[]): string;
+declare function writeStringToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+declare function writeArrayToMemory(array: number[], buffer: number): void;
+declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: boolean): void;
+
+declare function addRunDependency(id: any): void;
+declare function removeRunDependency(id: any): void;
+
+declare function addFunction(func: () => any, signature?: string): number;
+declare function removeFunction(funcPtr: number): void;
+
+declare var ALLOC_NORMAL: number;
+declare var ALLOC_STACK: number;
+declare var ALLOC_STATIC: number;
+declare var ALLOC_DYNAMIC: number;
+declare var ALLOC_NONE: number;

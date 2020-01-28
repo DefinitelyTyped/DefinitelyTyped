@@ -2,6 +2,7 @@ function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
     selection: false,
+    targets: []
   });
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
