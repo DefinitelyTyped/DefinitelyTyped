@@ -983,8 +983,7 @@ namespace Parse {
         type TYPE = 'String' | 'Number' | 'Boolean' | 'Date' | 'File' | 'GeoPoint' | 'Polygon' | 'Array' | 'Object' | 'Pointer' | 'Relation';
 
         interface FieldOptions
-            <T extends string | number | boolean | Date | Parse.File | Parse.GeoPoint | any[] | object | Parse.Pointer | Parse.Polygon | Parse.Relation = any>
-        {
+            <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
             required?: boolean;
             defaultValue?: T;
         }
