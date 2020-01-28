@@ -3,7 +3,7 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DatasetFactory, Dataset, Quad, Stream } from 'rdf-js';
+import { DatasetCoreFactory, DatasetCore, Quad, Stream, BaseQuad } from 'rdf-js';
 import formats = require('@rdfjs/formats-common');
 
 declare namespace rdfFetch {
@@ -12,20 +12,22 @@ declare namespace rdfFetch {
         fetch?: typeof fetch;
     }
     
-    interface FactoryInit<D extends Dataset<Quad>> extends FormatsInit {
-        factory: DatasetFactory<Quad, D>;
+    interface FactoryInit<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends FormatsInit {
+        factory: DatasetCoreFactory<OutQuad, InQuad, D>;
     }
 
     interface RdfFetchResponse extends Response {
         quadStream(): Stream<Quad>;
     }
 
-    interface DatasetResponse<D extends Dataset<Quad>> extends RdfFetchResponse {
+    interface DatasetResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends RdfFetchResponse {
         dataset(): D;
     }
 }
 
 declare function rdfFetch(url: string, options: rdfFetch.FormatsInit): Promise<rdfFetch.RdfFetchResponse>;
-declare function rdfFetch <D extends Dataset<Quad>>(url: string, options: rdfFetch.FactoryInit<D>): Promise<rdfFetch.DatasetResponse<D>>;
+declare function rdfFetch <D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad>(
+    url: string,
+    options: rdfFetch.FactoryInit<D, OutQuad, InQuad>): Promise<rdfFetch.DatasetResponse<D, OutQuad, InQuad>>;
 
 export = rdfFetch;
