@@ -4,6 +4,7 @@
 //                 Felipe Ochoa <https://github.com/felipeochoa>
 //                 Chris Barth <https://github.com/cjbarth>
 //                 Rauno Viskus <https://github.com/rauno56>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
