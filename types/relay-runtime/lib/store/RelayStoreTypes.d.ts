@@ -482,7 +482,7 @@ export interface Environment {
      * Optionally takes an owner, corresponding to the operation that
      * owns this selector (fragment).
      */
-    lookup(selector: SingularReaderSelector): Snapshot;
+    lookup(selector: SingularReaderSelector | ReaderSelector): Snapshot;
 
     /**
      * Send a query to the server with Observer semantics: one or more
