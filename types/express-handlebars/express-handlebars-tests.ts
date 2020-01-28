@@ -1,5 +1,6 @@
 import express = require('express');
 import exphbs = require('express-handlebars');
+import assert = require('assert');
 
 var app = express();
 
