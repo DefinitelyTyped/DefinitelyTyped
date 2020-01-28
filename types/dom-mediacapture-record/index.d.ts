@@ -51,10 +51,7 @@ declare class MediaRecorder extends EventTarget {
 
     addEventListener(type: 'dataavailable', listener: (this: MediaRecorder, event: BlobEvent) => void, useCapture?: boolean): void;
     addEventListener(type: 'error', listener: (this: MediaRecorder, event: MediaRecorderErrorEvent) => void, useCapture?: boolean): void;
-    addEventListener(type: 'pause', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
-    addEventListener(type: 'resume', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
-    addEventListener(type: 'start', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
-    addEventListener(type: 'stop', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
+    addEventListener(type: 'pause' | 'resume' | 'start' | 'stop', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
 
     start(timeslice?: number): void;
     stop(): void;
