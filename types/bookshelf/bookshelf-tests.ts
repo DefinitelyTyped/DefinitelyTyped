@@ -1,10 +1,8 @@
 import Knex = require('knex');
 import Bookshelf = require('bookshelf');
+import assert = require('assert');
 import * as express from 'express';
 import * as _ from "lodash";
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: boolean): void;
 
 /**
  * The examples/tests below follow Bookshelf documentation chapter after chapter: http://bookshelfjs.org/
