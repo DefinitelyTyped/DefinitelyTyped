@@ -932,3 +932,37 @@ function test_frame() {
         console.log(parent.uuid, parent.name, parent.entityType, parent.parent.uuid, parent.parent.name);
     }, err => console.error(err));
 }
+
+async function testPlatform() {
+    // ** Class Methods ** //
+    // wrap
+    const platform = await fin.desktop.Platform.wrap({uuid: 'uuid',name: 'name'});
+    // getCurrent
+    const currentPlatform = await fin.desktop.Platform.getCurrent();
+    // getCurrentSync
+    const anotherCurrentPlatform = fin.desktop.Platform.getCurrentSync();
+    // start
+    fin.desktop.Platform.start({uuid: 'uuid', name: 'name'});
+    // start from manifest
+    fin.desktop.Platform.startFromManifest('some manifest url');
+
+    // ** Instance Methods ** //
+    // getSnapshot & applySnapshot
+    const snapshop = await platform.getSnapshot();
+    platform.applySnapshot(snapshop);
+    // create, reparent & close Views
+    const newViewIdentity = await platform.createView({url: 'some url', name: 'some name', target: {uuid: 'uuid', name: 'window name'}});
+    platform.reparentView({uuid: 'uuid', name: 'view_name'}, {uuid: 'uuid', name: 'target_name'});
+    platform.closeView(newViewIdentity);
+    // createWindow
+    platform.createWindow({uuid: 'uuid', name: 'name'});
+    // get and set context
+    const context = await platform.getContext();
+    platform.setContext(context);
+    // launchLegacyManifest
+    platform.launchLegacyManifest('some_manifest_url.html');
+    // onWindowContextUpdate
+    platform.onWindowContextUpdate((newContext, oldContext) => ({...oldContext, ...newContext}));
+    // quit
+    platform.quit();
+}

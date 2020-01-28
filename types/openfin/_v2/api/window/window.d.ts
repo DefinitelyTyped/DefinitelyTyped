@@ -8,7 +8,7 @@ import { WindowOption } from './windowOption';
 import { EntityType } from '../frame/frame';
 import { ExternalWindow } from '../external-window/external-window';
 import { WebContents } from '../webcontents/webcontents';
-import { BrowserView } from '../browserview/browserview';
+import { View } from '../view/view';
 /**
  * @lends Window
  */
@@ -77,9 +77,88 @@ export interface Area {
     x: number;
     y: number;
 }
+export interface PrinterInfo {
+    name: string;
+    description: string;
+    status: number;
+    isDefault: boolean;
+}
+interface Margins {
+    marginType?: ('default' | 'none' | 'printableArea' | 'custom');
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+}
+interface Dpi {
+    horizontal?: number;
+    vertical?: number;
+}
+export interface PrintOptions {
+    silent?: boolean;
+    printBackground?: boolean;
+    deviceName?: string;
+    color?: boolean;
+    margins?: Margins;
+    landscape?: boolean;
+    scaleFactor?: number;
+    pagesPerSheet?: number;
+    collate?: boolean;
+    copies?: number;
+    pageRanges?: Record<string, number>;
+    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge');
+    dpi?: Dpi;
+}
 interface WindowMovementOptions {
     moveIndependently: boolean;
 }
+export interface FindInPageOptions {
+    forward?: boolean;
+    findNext?: boolean;
+    matchCase?: boolean;
+    wordStart?: boolean;
+    medialCapitalAsWordStart?: boolean;
+}
+/**
+ * @typedef { object } Margins
+ * @property { string } [marginType]
+ * Can be `default`, `none`, `printableArea`, or `custom`. If `custom` is chosen,
+ * you will also need to specify `top`, `bottom`, `left`, and `right`.
+ *
+ * @property { number } [top] The top margin of the printed web page, in pixels.
+ * @property { number } [bottom] The bottom margin of the printed web page, in pixels.
+ * @property { number } [left] The left margin of the printed web page, in pixels.
+ * @property { number } [right] The right margin of the printed web page, in pixels.
+*/
+/**
+ * @typedef { object } Dpi
+ * @property { number } [horizontal] The horizontal dpi
+ * @property { number } [vertical] The vertical dpi
+*/
+/**
+ * @typedef { object } PrintOptions
+ * @property { boolean } [silent=false] Don't ask user for print settings.
+ * @property { boolean } [printBackground=false] Prints the background color and image of the web page.
+ * @property { string } [deviceName=''] Set the printer device name to use.
+ * @property { boolean } [color=true] Set whether the printed web page will be in color or grayscale.
+ * @property { Margins } [margins] Set margins for the printed web page
+ * @property { boolean } [landscape=false] Whether the web page should be printed in landscape mode.
+ * @property { number } [scaleFactor] The scale factor of the web page.
+ * @property { number } [pagesPerSheet] The number of pages to print per page sheet.
+ * @property { boolean } [collate] Whether the web page should be collated.
+ * @property { number } [copies] The number of copies of the web page to print.
+ * @property { Record<string, number> } [pageRanges] The page range to print. Should have two keys: from and to.
+ * @property { string } [duplexMode] Set the duplex mode of the printed web page. Can be simplex, shortEdge, or longEdge.
+ * @property { Dpi } [dpi] Set dpi for the printed web page
+ */
+/**
+* PrinterInfo interface
+* @typedef { object } PrinterInfo
+* @property { string } name Printer Name
+* @property { string } description Printer Description
+* @property { number } status Printer Status
+* @property { boolean } isDefault Indicates that system's default printer
+*/
 /**
  * @typedef {object} Window~options
  * @summary Window creation options.
@@ -188,8 +267,18 @@ interface WindowMovementOptions {
  * A field that the user can attach serializable data to to be ferried around with the window options.
  * _When omitted, the default value of this property is the empty string (`""`)._
  *
- * @property {customRequestHeaders[]} [customRequestHeaders]
- * Defines list of {@link customRequestHeaders} for requests sent by the window.
+ * @property {any} [customContext=""] - _Updatable._
+ * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
+ * is called.  If a window in a Platform is trying to update or retrieve its own context, it can use the
+ * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
+ * When omitted, the default value of this property is the empty string (`""`).
+ * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
+ *
+ * @property {object[]} [customRequestHeaders]
+ * Defines list of custom headers for requests sent by the window.
+ * @property {string[]} [customRequestHeaders.urlPatterns=[]] The URL patterns for which the headers will be applied
+ * @property {object[]} [customRequestHeaders.headers=[]] Objects representing headers and their values,
+ * where the object key is the name of header and value at key is the value of the header
  *
  * @property {boolean} [defaultCentered=false]
  * Centers the window in the primary monitor. This option overrides `defaultLeft` and `defaultTop`. When `saveWindowState` is `true`,
@@ -314,6 +403,16 @@ interface WindowMovementOptions {
 /**
  * @typedef { object } WindowMovementOptions
  * @property { boolean } moveIndependently - Move a window independently of its group or along with its group. Defaults to false.
+ */
+/**
+ * @typedef {object} FindInPageOptions
+ * @property {boolean} [forward=true] Whether to search forward or backward.
+ * @property {boolean} [findNext=false] Whether the operation is first request or a follow up.
+ * @property {boolean} [matchCase=false] Whether search should be case-sensitive.
+ * @property {boolean} [wordStart=false] Whether to look only at the start of words.
+ * @property {boolean} [medialCapitalAsWordStart=false]
+ * When combined with wordStart, accepts a match in the middle of a word if the match begins with an uppercase letter followed by a<br>
+ * lowercase or non-letter. Accepts several other intra-word matches.
  */
 /**
  * @typedef {object} Transition
@@ -466,6 +565,29 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.setZoomLevel
      */
     /**
+     * Find and highlight text on a page.
+     * @param { string } searchTerm Term to find in page
+     * @param { FindInPageOptions } options Search options
+     * @function findInPage
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.findInPage
+     */
+    /**
+     * Stops any findInPage call with the provided action.
+     * @param {string} action
+     * Action to execute when stopping a find in page:<br>
+     * "clearSelection" - Clear the selection.<br>
+     * "keepSelection" - Translate the selection into a normal selection.<br>
+     * "activateSelection" - Focus and click the selection node.<br>
+     * @function stopFindInPage
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.stopFindInPage
+     */
+    /**
      * Navigates the window to a specified URL. The url must contain the protocol prefix such as http:// or https://.
      * @param {string} url - The URL to navigate the window to.
      * @function navigate
@@ -505,6 +627,23 @@ export declare class _Window extends WebContents<WindowEvents> {
     * @instance
     * @return {Promise.<void>}
     * @tutorial Window.reload
+    */
+    /**
+    * Prints the window's web page
+    * @param { PrintOptions } [options] Printer Options
+    * @function print
+    * @memberOf Window
+    * @instance
+    * @return {Promise.<void>}
+    * @tutorial Window.print
+    */
+    /**
+    * Returns an array with all system printers
+    * @function getPrinters
+    * @memberOf Window
+    * @instance
+    * @return { Promise.Array.<PrinterInfo> }
+    * @tutorial Window.getPrinters
     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
@@ -578,10 +717,10 @@ export declare class _Window extends WebContents<WindowEvents> {
     /**
     * Retrieves window's attached views.
     * @experimental
-    * @return {Promise.Array.<BrowserView>}
+    * @return {Promise.Array.<View>}
     * @tutorial Window.getCurrentViews
     */
-    getCurrentViews(): Promise<Array<BrowserView>>;
+    getCurrentViews(): Promise<Array<View>>;
     disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.
