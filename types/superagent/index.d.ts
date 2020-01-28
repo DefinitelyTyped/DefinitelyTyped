@@ -8,13 +8,16 @@
 //                 Adam Haglund <https://github.com/beeequeue>
 //                 Lukas Elmer <https://github.com/lukaselmer>
 //                 Jesse Rogers <https://github.com/theQuazz>
+//                 Chris Arnesen <https://github.com/carnesen>
+//                 Anders Kindberg <https://github.com/ghostganz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 3.0
 
 /// <reference types="node" />
+/// <reference lib="dom" />
 
 import * as fs from 'fs';
-import * as https from 'https';
+import * as http from 'http';
 import * as stream from 'stream';
 import * as cookiejar from 'cookiejar';
 
@@ -36,7 +39,7 @@ declare const request: request.SuperAgentStatic;
 
 declare namespace request {
     interface SuperAgentRequest extends Request {
-        agent(agent?: https.Agent): this;
+        agent(agent?: http.Agent): this;
 
         cookies: string;
         method: string;
@@ -127,21 +130,22 @@ declare namespace request {
         auth(user: string, pass: string, options?: { type: 'basic' | 'auto' }): this;
         auth(token: string, options: { type: 'bearer' }): this;
         buffer(val?: boolean): this;
-        ca(cert: Buffer): this;
-        cert(cert: Buffer | string): this;
+        ca(cert: string | string[] | Buffer | Buffer[]): this;
+        cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
         get(field: string): string;
-        key(cert: Buffer | string): this;
+        key(cert: string | string[] | Buffer | Buffer[]): this;
         ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;
         on(name: 'progress', handler: (event: ProgressEvent) => void): this;
+        on(name: 'response', handler: (response: Response) => void): this;
         on(name: string, handler: (event: any) => void): this;
         parse(parser: Parser): this;
         part(): this;
-        pfx(cert: Buffer | string | { pfx: Buffer, passphrase: string }): this;
+        pfx(cert: string | string[] | Buffer | Buffer[] | { pfx: string | Buffer, passphrase: string }): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
         redirects(n: number): this;

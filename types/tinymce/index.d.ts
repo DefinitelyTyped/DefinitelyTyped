@@ -3,6 +3,7 @@
 // Definitions by: Martin Duparc <https://github.com/martinduparc>
 //                 Poul Poulsen <https://github.com/ipoul>
 //                 Nico Hartto <https://github.com/nicohartto>
+//                 Tyler Romeo <https://github.com/Parent5446>
 //                 Ashley Workman <https://github.com/CymruKakashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -152,7 +153,7 @@ export interface Settings {
 
   skin_url?: string;
 
-  skin?: string;
+  skin?: false | string;
 
   statusbar?: boolean;
 
@@ -1227,35 +1228,35 @@ export namespace html {
 
     addValidElements(valid_elements: string): void;
 
-    getBlockElements(): {};
+    getBlockElements(): {[name: string]: {}};
 
-    getBoolAttrs(): {};
+    getBoolAttrs(): {[name: string]: {}};
 
-    getCustomElements(): {};
+    getCustomElements(): {[name: string]: {}};
 
     getElementRule(name: string): {};
 
     getInvalidStyles(): void;
 
-    getMoveCaretBeforeOnEnterElements(): {};
+    getMoveCaretBeforeOnEnterElements(): {[name: string]: {}};
 
-    getNonEmptyElements(): {};
+    getNonEmptyElements(): {[name: string]: {}};
 
-    getSelfClosingElements(): {};
+    getSelfClosingElements(): {[name: string]: {}};
 
-    getShortEndedElements(): {};
+    getShortEndedElements(): {[name: string]: {}};
 
-    getSpecialElements(): {};
+    getSpecialElements(): {[name: string]: {}};
 
-    getTextBlockElements(): {};
+    getTextBlockElements(): {[name: string]: {}};
 
-    getTextInlineElements(): {};
+    getTextInlineElements(): {[name: string]: {}};
 
     getValidClasses(): void;
 
     getValidStyles(): void;
 
-    getWhiteSpaceElements(): {};
+    getWhiteSpaceElements(): {[name: string]: {}};
 
     isValid(name: string, attr?: string): boolean;
 

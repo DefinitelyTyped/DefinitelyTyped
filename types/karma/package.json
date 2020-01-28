@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "log4js": "^3.0.0"
+        "log4js": "^4.0.0"
     }
 }

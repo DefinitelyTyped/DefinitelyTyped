@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.d.ts",
         "waypoints-tests.ts"
     ]
 }

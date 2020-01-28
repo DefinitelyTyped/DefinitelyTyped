@@ -69,18 +69,22 @@ declare module "http" {
     }
 
     interface ClientRequestArgs {
-        protocol?: string;
-        host?: string;
-        hostname?: string;
+        protocol?: string | null;
+        host?: string | null;
+        hostname?: string | null;
         family?: number;
-        port?: number | string;
+        port?: number | string | null;
         defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
+        /**
+         * @default 8192
+         */
+        maxHeaderSize?: number;
         method?: string;
-        path?: string;
+        path?: string | null;
         headers?: OutgoingHttpHeaders;
-        auth?: string;
+        auth?: string | null;
         agent?: Agent | boolean;
         _defaultAgent?: Agent;
         timeout?: number;
@@ -92,14 +96,18 @@ declare module "http" {
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage;
         ServerResponse?: typeof ServerResponse;
+        /**
+         * Optionally overrides the value of
+         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 8192
+         */
+        maxHeaderSize?: number;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
 
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
-
+    interface HttpBase {
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
         /**
@@ -111,11 +119,17 @@ declare module "http" {
         timeout: number;
         /**
          * Limit the amount of time the parser will wait to receive the complete HTTP headers.
-         * @default 40000
+         * @default 60000
          * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+    }
+
+    interface Server extends HttpBase {}
+    class Server extends NetServer {
+        constructor(requestListener?: RequestListener);
+        constructor(options: ServerOptions, requestListener?: RequestListener);
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
@@ -125,9 +139,16 @@ declare module "http" {
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
         sendDate: boolean;
+        /**
+         * @deprecated Use `writableEnded` instead.
+         */
         finished: boolean;
         headersSent: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
 
         constructor();
 
@@ -156,6 +177,17 @@ declare module "http" {
         writeContinue(callback?: () => void): void;
         writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
+        writeProcessing(): void;
+    }
+
+    interface InformationEvent {
+        statusCode: number;
+        statusMessage: string;
+        httpVersion: string;
+        httpVersionMajor: number;
+        httpVersionMinor: number;
+        headers: IncomingHttpHeaders;
+        rawHeaders: string[];
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
@@ -166,12 +198,93 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+        addListener(event: 'abort', listener: () => void): this;
+        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(event: 'continue', listener: () => void): this;
+        addListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
+        addListener(event: 'socket', listener: (socket: Socket) => void): this;
+        addListener(event: 'timeout', listener: () => void): this;
+        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'drain', listener: () => void): this;
+        addListener(event: 'error', listener: (err: Error) => void): this;
+        addListener(event: 'finish', listener: () => void): this;
+        addListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
+        addListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        on(event: 'abort', listener: () => void): this;
+        on(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: 'continue', listener: () => void): this;
+        on(event: 'information', listener: (info: InformationEvent) => void): this;
+        on(event: 'response', listener: (response: IncomingMessage) => void): this;
+        on(event: 'socket', listener: (socket: Socket) => void): this;
+        on(event: 'timeout', listener: () => void): this;
+        on(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'drain', listener: () => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'finish', listener: () => void): this;
+        on(event: 'pipe', listener: (src: stream.Readable) => void): this;
+        on(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        once(event: 'abort', listener: () => void): this;
+        once(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: 'continue', listener: () => void): this;
+        once(event: 'information', listener: (info: InformationEvent) => void): this;
+        once(event: 'response', listener: (response: IncomingMessage) => void): this;
+        once(event: 'socket', listener: (socket: Socket) => void): this;
+        once(event: 'timeout', listener: () => void): this;
+        once(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'drain', listener: () => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
+        once(event: 'finish', listener: () => void): this;
+        once(event: 'pipe', listener: (src: stream.Readable) => void): this;
+        once(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependListener(event: 'abort', listener: () => void): this;
+        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(event: 'continue', listener: () => void): this;
+        prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
+        prependListener(event: 'socket', listener: (socket: Socket) => void): this;
+        prependListener(event: 'timeout', listener: () => void): this;
+        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'drain', listener: () => void): this;
+        prependListener(event: 'error', listener: (err: Error) => void): this;
+        prependListener(event: 'finish', listener: () => void): this;
+        prependListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
+        prependListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+
+        prependOnceListener(event: 'abort', listener: () => void): this;
+        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(event: 'continue', listener: () => void): this;
+        prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
+        prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
+        prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'timeout', listener: () => void): this;
+        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'drain', listener: () => void): this;
+        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+        prependOnceListener(event: 'finish', listener: () => void): this;
+        prependOnceListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     class IncomingMessage extends stream.Readable {
@@ -181,12 +294,16 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         complete: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: () => void): this;
+        setTimeout(msecs: number, callback?: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */
@@ -203,7 +320,6 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: Socket;
         destroy(error?: Error): void;
     }
 

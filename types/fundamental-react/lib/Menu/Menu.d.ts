@@ -4,14 +4,16 @@ export type MenuProps = {
     /* Set to **true** enables menu items with add-on before. */
     addonBefore?: boolean;
     className?: string;
-} & { [x: string]: any };
+    customStyles?: {[x: string]: any};
+    disableStyles?: boolean;
+} & React.HTMLAttributes<HTMLElement>;
 
 export type MenuGroupProps = {
     title: string;
     className?: string;
     headingLevel?: 2 | 3 | 4 | 5 | 6;
     titleProps?: { [x: string]: any };
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export type MenuItemProps = {
     /* Name of the SAP icon to be applied as an add-on before. */
@@ -27,16 +29,17 @@ export type MenuItemProps = {
     url?: string;
     /* Additional props to be spread to the Menu Item links (when using `url`). */
     urlProps?: { [x: string]: any };
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLLIElement>;
 
 export type MenuListProps = {
     className?: string;
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLUListElement>;
 
 declare const Menu: React.FunctionComponent<MenuProps> & {
-    Group: React.FunctionComponent<MenuGroupProps>;
-    Item: React.FunctionComponent<MenuItemProps>;
-    List: React.FunctionComponent<MenuListProps>;
+    displayName: "Menu";
+    Group: React.FunctionComponent<MenuGroupProps> & {displayName: "Menu.Group"};
+    Item: React.FunctionComponent<MenuItemProps> & {displayName: "Menu.Item"};
+    List: React.FunctionComponent<MenuListProps> & {displayName: "Menu.List"};
 };
 
 export default Menu;

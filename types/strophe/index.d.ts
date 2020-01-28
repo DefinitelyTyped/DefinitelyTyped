@@ -2,6 +2,7 @@
 // Project: http://strophe.im/strophejs/
 // Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.2
 
 export namespace Strophe {
     /** Constant: VERSION

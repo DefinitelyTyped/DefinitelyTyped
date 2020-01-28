@@ -1,6 +1,11 @@
 // Type definitions for angular-material 1.1
 // Project: https://github.com/angular/material, https://material.angularjs.org
-// Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>, Edward Knowles <https://github.com/eknowles>
+// Definitions by: Blake Bigelow <https://github.com/blbigelow>
+//                 Peter Hajdu <https://github.com/PeterHajdu>
+//                 Davide Donadello <https://github.com/Dona278>
+//                 Geert Jansen <https://github.com/geertjansen>
+//                 Edward Knowles <https://github.com/eknowles>
+//                 Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -429,6 +434,7 @@ declare module 'angular' {
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
+            updateAnimation(animation: IPanelAnimation): void;
             updatePosition(position: IPanelPosition): void;
             registerInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
             removeInterceptor(type: string, callback: () => IPromise<any>): IPanelRef;
@@ -523,6 +529,11 @@ declare module 'angular' {
             // tslint:disable-next-line:ban-types debounce takes in a user provided function
             debounce<T extends Function>(func: T, wait?: number, scope?: any, invokeApply?: boolean): T;
             enableScrolling(): void;
+        }
+
+        interface IMenuController {
+            close(skipFocus?: boolean, closeOpts?: {}): void;
+            open(event?: Event): void;
         }
     }
 }

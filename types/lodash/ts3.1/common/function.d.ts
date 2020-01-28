@@ -32,13 +32,13 @@ declare module "../index" {
          */
         ary(func: (...args: any[]) => any, n?: number): (...args: any[]) => any;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.ary
          */
         ary(n?: number): Function<(...args: any[]) => any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.ary
          */
@@ -294,7 +294,7 @@ declare module "../index" {
         (t1: T1, t2: __, t3: T3, t4: T4, t5: T5): RightCurriedFunction1<T2, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.curry
          */
@@ -306,7 +306,7 @@ declare module "../index" {
             T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<CurriedFunction5<T1, T2, T3, T4, T5, R>> :
             Function<(...args: any[]) => any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.curry
          */
@@ -330,7 +330,7 @@ declare module "../index" {
     interface LoDashStatic {
         curryRight: CurryRight;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.curryRight
          */
@@ -342,7 +342,7 @@ declare module "../index" {
             T extends (arg1: infer T1, arg2: infer T2, arg3: infer T3, arg4: infer T4, arg5: infer T5) => infer R ? Function<RightCurriedFunction5<T1, T2, T3, T4, T5, R>> :
             Function<(...args: any[]) => any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.curryRight
          */
@@ -521,7 +521,7 @@ declare module "../index" {
          * @param predicate The predicate to negate.
          * @return Returns the new function.
          */
-        negate<T extends any[]>(predicate: (...args: T) => any): (...args: T) => boolean;
+        negate<T extends any[]>(predicate: (...args: T) => boolean): (...args: T) => boolean;
     }
     interface Function<T extends (...args: any) => any> {
         /**
@@ -568,13 +568,13 @@ declare module "../index" {
          */
         overArgs(func: (...args: any[]) => any, ...transforms: Array<Many<(...args: any[]) => any>>): (...args: any[]) => any;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.overArgs
          */
         overArgs(...transforms: Array<Many<(...args: any[]) => any>>): Function<(...args: any[]) => any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.overArgs
          */
@@ -622,7 +622,7 @@ declare module "../index" {
         <TS extends any[], T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, ...ts: TS) => R, t1: T1, t2: T2, t3: T3, t4: T4): (...ts: TS) => R;
         placeholder: __;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.partial
          */
@@ -738,7 +738,7 @@ declare module "../index" {
          */
         partial(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.partial
          */
@@ -899,7 +899,7 @@ declare module "../index" {
         (func: (...args: any[]) => any, ...args: any[]): (...args: any[]) => any;
         placeholder: __;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.partialRight
          */
@@ -1062,7 +1062,7 @@ declare module "../index" {
          */
         partialRight(): Function<T extends (...ts: any[]) => any ? T : any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.partialRight
          */
@@ -1236,13 +1236,13 @@ declare module "../index" {
          */
         rearg(func: (...args: any[]) => any, ...indexes: Array<Many<number>>): (...args: any[]) => any;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.rearg
          */
         rearg(...indexes: Array<Many<number>>): Function<(...args: any[]) => any>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.rearg
          */
@@ -1285,13 +1285,13 @@ declare module "../index" {
          */
         spread<TResult>(func: (...args: any[]) => TResult, start?: number): (...args: any[]) => TResult;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.spread
          */
         spread(start?: number): Function<(...args: any[]) => ReturnType<T>>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.spread
          */
@@ -1353,13 +1353,13 @@ declare module "../index" {
          */
         unary<T, TResult>(func: (arg1: T, ...args: any[]) => TResult): (arg1: T) => TResult;
     }
-    interface Function<T> {
+    interface Function<T extends (...args: any) => any> {
         /**
          * @see _.unary
          */
         unary(): Function<(arg1: Parameters<T>['0']) => ReturnType<T>>;
     }
-    interface FunctionChain<T> {
+    interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.unary
          */

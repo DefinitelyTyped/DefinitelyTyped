@@ -71,6 +71,9 @@ const v1: Visitor = {
             return a + b;
         }`);
 
+        path.get('body').unshiftContainer('body', t.expressionStatement(t.stringLiteral("Start of function")));
+        path.get('body').pushContainer('body', t.expressionStatement(t.stringLiteral("End of function")));
+
         path.insertBefore(t.expressionStatement(t.stringLiteral("Because I'm easy come, easy go.")));
         path.insertAfter(t.expressionStatement(t.stringLiteral("A little high, little low.")));
         path.remove();
@@ -148,6 +151,8 @@ const VisitorStateTest: Visitor<SomeVisitorState> = {
         }
     }
 };
+
+traverse(ast, VisitorStateTest, undefined, { someState: "test" });
 
 const VisitorAliasTest: Visitor = {
     Function() {},

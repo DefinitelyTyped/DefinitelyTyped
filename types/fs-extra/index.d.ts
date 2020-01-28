@@ -1,11 +1,12 @@
-// Type definitions for fs-extra 5.1
+// Type definitions for fs-extra 8.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
 //                 Brendan Forster <https://github.com/shiftkey>,
 //                 Mees van Dijk <https://github.com/mees->,
-//                 Justin Rockwood <https://github.com/jrockwood>
-//                 Sang Dang <https://github.com/sangdth>
+//                 Justin Rockwood <https://github.com/jrockwood>,
+//                 Sang Dang <https://github.com/sangdth>,
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -238,8 +239,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<WriteResult>;
-export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
+export function write(fd: number, buffer: Buffer, offset?: number, length?: number, position?: number | null): Promise<WriteResult>;
+export function write(fd: number, data: any, offset?: number, encoding?: string): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: WriteFileOptions | string): Promise<void>;

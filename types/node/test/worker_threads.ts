@@ -1,6 +1,5 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
-import { worker } from "cluster";
 import { createContext } from "vm";
 
 {
@@ -8,6 +7,10 @@ import { createContext } from "vm";
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
+                    resourceLimits: {
+                        codeRangeSizeMb: 123,
+                    },
+                    argv: ['asd'],
                     workerData: script
                 });
                 worker.on('message', resolve);
@@ -46,4 +49,11 @@ import { createContext } from "vm";
             value.hereIsYourPort.close();
         });
     }
+}
+
+{
+    const w = new workerThreads.Worker(__filename);
+    w.terminate().then(() => {
+        // woot
+    });
 }

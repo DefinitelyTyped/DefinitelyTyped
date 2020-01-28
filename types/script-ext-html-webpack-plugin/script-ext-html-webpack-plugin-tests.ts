@@ -1,7 +1,10 @@
 import ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
+import webpack = require("webpack");
 
 new ScriptExtHtmlWebpackPlugin();
 new ScriptExtHtmlWebpackPlugin({});
+
+new ScriptExtHtmlWebpackPlugin().apply(new webpack.Compiler());
 
 new ScriptExtHtmlWebpackPlugin({
     inline: "string",

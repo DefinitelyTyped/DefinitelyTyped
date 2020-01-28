@@ -4,7 +4,7 @@
 //                 James Garbutt <https://github.com/43081j>
 //                 Yaroslav Admin <https://github.com/devoto13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
@@ -12,6 +12,7 @@
 import Promise = require('bluebird');
 import https = require('https');
 import { Appender } from 'log4js';
+import { EventEmitter } from 'events';
 
 /**
  * `start` method is deprecated since 0.13. It will be removed in 0.14.
@@ -97,7 +98,7 @@ export interface TestResults {
     success: number;
 }
 
-export class Server extends NodeJS.EventEmitter {
+export class Server extends EventEmitter {
     constructor(options?: ConfigOptions | ConfigFile, callback?: ServerCallback);
     /**
      * Start the server

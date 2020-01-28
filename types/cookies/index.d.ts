@@ -29,7 +29,8 @@ interface Cookies {
      * the current context to allow chaining.If the value is omitted,
      * an outbound header with an expired date is used to delete the cookie.
      */
-    set(name: string, value?: string, opts?: Cookies.SetOption): this;
+    set(name: string, value: string, opts?: Cookies.SetOption): this;
+    set(name: string, opts?: Cookies.SetOption): this;
 }
 
 declare namespace Cookies {
@@ -87,7 +88,7 @@ declare namespace Cookies {
          * a boolean or string indicating whether the cookie is a "same site" cookie (false by default).
          * This can be set to 'strict', 'lax', or true (which maps to 'strict').
          */
-        sameSite?: 'strict' | 'lax' | boolean;
+        sameSite?: 'strict' | 'lax' | 'none' | boolean;
         /**
          * a boolean indicating whether the cookie is to be signed (false by default).
          * If this is true, another cookie of the same name with the .sig suffix

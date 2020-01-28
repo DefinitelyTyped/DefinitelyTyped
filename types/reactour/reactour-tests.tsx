@@ -131,7 +131,7 @@ class CustomTour extends React.Component<{}, { isTourOpen: boolean }> {
                     scrollDuration={100}
                     scrollOffset={1}
                     showNumber={false}
-                    showButton={false}
+                    showButtons={false}
                     showCloseButton={false}
                     showNavigation={false}
                     showNavigationNumber={false}

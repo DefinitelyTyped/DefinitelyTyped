@@ -3,8 +3,13 @@ import * as assert from 'assert';
 import { promisify } from 'util';
 
 {
+    const copied: crypto.Hash = crypto.createHash('md5').copy();
+}
+
+{
     // crypto_hash_string_test
-    const hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    let hashResult: string = crypto.createHash('md5').update('world').digest('hex');
+    hashResult = crypto.createHash('shake256', { outputLength: 16 }).update('world').digest('hex');
 }
 
 {
@@ -159,6 +164,33 @@ import { promisify } from 'util';
         plaintextLength: ciphertext.length
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
+    decipher.final();
+}
+
+{
+    const key: string | null = 'keykeykeykeykeykeykeykey';
+    const nonce = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ccm', key, nonce, {
+        authTagLength: 16
+    });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext)
+    });
+    const ciphertext = cipher.update(plaintext, 'utf8');
+    cipher.final();
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ccm', key, nonce, {
+        authTagLength: 16
+    });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length
+    });
+    const receivedPlaintext: string = decipher.update(ciphertext, 'binary', 'utf8');
     decipher.final();
 }
 
@@ -337,6 +369,21 @@ import { promisify } from 'util';
         },
     });
 
+    const rsaResNoPassphrase: {
+        publicKey: Buffer;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 123,
+        publicKeyEncoding: {
+            format: 'der',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs8',
+        },
+    });
+
     const dsaRes: {
         publicKey: string;
         privateKey: Buffer;
@@ -355,6 +402,22 @@ import { promisify } from 'util';
         },
     });
 
+    const dsaResNoPassphrase: {
+        publicKey: string;
+        privateKey: Buffer;
+    } = crypto.generateKeyPairSync('dsa', {
+        modulusLength: 123,
+        divisorLength: 123,
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'spki',
+        },
+        privateKeyEncoding: {
+            format: 'der',
+            type: 'pkcs8',
+        },
+    });
+
     const ecRes: {
         publicKey: string;
         privateKey: string;
@@ -368,6 +431,21 @@ import { promisify } from 'util';
             cipher: 'some-cipher',
             format: 'pem',
             passphrase: 'secret',
+            type: 'pkcs8',
+        },
+    });
+
+    const ecResNoPassphrase: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync('ec', {
+        namedCurve: 'curve',
+        publicKeyEncoding: {
+            format: 'pem',
+            type: 'pkcs1',
+        },
+        privateKeyEncoding: {
+            format: 'pem',
             type: 'pkcs8',
         },
     });
@@ -597,5 +675,18 @@ import { promisify } from 'util';
 
 {
     const sig: Buffer = crypto.sign('md5', Buffer.from(''), 'mykey');
-    const correct: Buffer = crypto.verify('md5', sig, 'mykey', sig);
+    const correct: boolean = crypto.verify('md5', sig, 'mykey', sig);
+}
+
+{
+    const key = {
+        key: 'test',
+        oaepHash: 'sha1',
+        oaepLabel: Buffer.from('asd'),
+    };
+    const buf: Buffer = crypto.publicEncrypt(key, Buffer.from([]));
+    const dec: Buffer = crypto.publicDecrypt(key, buf);
+
+    const bufP: Buffer = crypto.privateEncrypt(key, Buffer.from([]));
+    const decp: Buffer = crypto.privateDecrypt(key, bufP);
 }

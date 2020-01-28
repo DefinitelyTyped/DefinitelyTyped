@@ -5,6 +5,8 @@ export type AlertType = "warning" | "error" | "success" | "information";
 export type AlertProps = {
     buttonProps?: { [x: string]: any };
     className?: string;
+    customStyles?: { [x: string]: any };
+    disableStyles?: boolean;
     /* Set to **true** to show a dismiss button. */
     dismissible?: boolean;
     /* Value to be applied to the anchor's `href` attribute. */
@@ -22,8 +24,10 @@ export type AlertProps = {
     onCloseClicked?: (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
-} & { [x: string]: any };
+} & React.HTMLAttributes<HTMLDivElement>;
 
-declare class Alert extends React.Component<AlertProps> {}
+declare class Alert extends React.Component<AlertProps> {
+    static displayName: "Alert";
+}
 
 export default Alert;

@@ -13,6 +13,13 @@ declare module "readline" {
     class Interface extends events.EventEmitter {
         readonly terminal: boolean;
 
+        // Need direct access to line/cursor data, for use in external processes
+        // see: https://github.com/nodejs/node/issues/30347
+        /** The current input data */
+        readonly line: string;
+        /** The current cursor position in the input line */
+        readonly cursor: number;
+
         /**
          * NOTE: According to the documentation:
          *

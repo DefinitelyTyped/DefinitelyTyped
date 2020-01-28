@@ -1,7 +1,10 @@
 // Type definitions for The Spotify Web API (including changes March 29th 2016)
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
+//                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
+//                 Nils Måsén <https://github.com/piksel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 // Release comments:
 // -----------------
@@ -84,9 +87,9 @@ declare namespace SpotifyApi {
         min_tempo?: number,
         min_time_signature?: number,
         min_valence?: number,
-        seed_artists?: string,   // Comma separated string
-        seed_genres?: string,   // Comma separated string
-        seed_tracks?: string,   // Comma separated string
+        seed_artists?: string[] | string,   // Array of strings or Comma separated string
+        seed_genres?: string[] | string,   // Array of strings or Comma separated string
+        seed_tracks?: string[] | string,   // Array of strings or Comma separated string
         target_acousticness?: number
         target_danceability?: number
         target_duration_ms?: number
@@ -103,6 +106,42 @@ declare namespace SpotifyApi {
         target_valence?: number
     }
 
+    interface RecentlyPlayedParameterObject {
+        limit?: number;
+        after?: number;
+        before?: number;
+    }
+
+    interface TransferPlaybackParameterObject {
+        play?: boolean;
+    }
+
+    interface TrackRelinkingParameterObject {
+        market?: string;
+    }
+
+    interface DeviceSpecificParameterObject {
+        device_id?: string;
+        context_uri?: string;
+        position_ms?: number;
+        uris?: string[];
+        offset?: Object;
+    }
+
+    interface PlayParameterObject {
+        device_id?: string;
+        context_uri?: string;
+        uris?: string[];
+        offset?: {
+            position?: number;
+            uri?: string;
+        };
+        position_ms?: number;
+    }
+
+    interface RestrictionsObject {
+        reason: string
+    }
 
     //
     // Responses from the Spotify Web API in the same order as in the API endpoint docs seen here:
@@ -416,6 +455,14 @@ declare namespace SpotifyApi {
     interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
 
     /**
+     * Get a User’s Recently Played Tracks
+     * 
+     * GET /v1/me/player/recently-played
+     * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+     */
+    interface UsersRecentlyPlayedTracksResponse extends CursorBasedPagingObject<PlayHistoryObject> {}
+
+    /**
      * Get recommendations based on seeds
      * 
      * GET /v1/recommendations
@@ -471,6 +518,16 @@ declare namespace SpotifyApi {
      */
     interface TrackSearchResponse {
         tracks: PagingObject<TrackObjectFull>
+    }
+
+    /**
+     * Search for artists/albums/tracks/playlists
+     * 
+     * GET /v1/search?type=album
+     * https://developer.spotify.com/web-api/search-item/
+     */
+    interface SearchResponse extends Partial<ArtistSearchResponse>, Partial<AlbumSearchResponse>, Partial<TrackSearchResponse>, Partial<PlaylistSearchResponse> {
+      
     }
 
     /**
@@ -580,6 +637,14 @@ declare namespace SpotifyApi {
     interface ReplacePlaylistTracksResponse extends VoidResponse {}
 
     /**
+     * Upload a Custom Playlist Cover Image
+     * 
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}/images
+     * https://developer.spotify.com/web-api/upload-a-custom-playlist-cover-image/
+     */
+    interface UploadCustomPlaylistCoverImageReponse extends VoidResponse {}
+
+    /**
      * Check if Users Follow a Playlist
      * 
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
@@ -587,7 +652,13 @@ declare namespace SpotifyApi {
      */
     interface UsersFollowPlaylistReponse extends Array<boolean> {}
 
+    interface UserDevicesResponse {
+        devices: UserDevice[];
+    }
 
+    interface CurrentPlaybackResponse extends CurrentlyPlayingObject, PlaybackObject {}
+
+    interface CurrentlyPlayingResponse extends CurrentlyPlayingObject {}
 
     //
     // Objects from the Object Models of the Spotify Web Api, ordered alphabetically.
@@ -599,14 +670,12 @@ declare namespace SpotifyApi {
      * [album object (full)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectFull extends AlbumObjectSimplified {
-        artists: ArtistObjectSimplified[],
         copyrights: CopyrightObject[],
         external_ids: ExternalIdObject,
         genres: string[],
+        label: string,
         popularity: number,
-        release_date: string,
-        release_date_precision: string,
-        tracks: PagingObject<TrackObjectSimplified>,
+        tracks: PagingObject<TrackObjectSimplified>
     }
 
     /**
@@ -614,13 +683,18 @@ declare namespace SpotifyApi {
      * [album object (simplified)](https://developer.spotify.com/web-api/object-model/#album-object-simplified)
      */
     interface AlbumObjectSimplified {
+        album_group?: string,
         album_type: string,
+        artists: ArtistObjectSimplified[],
         available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
         images: ImageObject[],
         name: string,
+        release_date: string,
+        release_date_precision: string,
+        restrictions?: RestrictionsObject,
         type: "album",
         uri: string
     }
@@ -700,6 +774,7 @@ declare namespace SpotifyApi {
      */
     interface CursorObject {
         after: string
+        before?: string
     }
 
     /**
@@ -776,7 +851,7 @@ declare namespace SpotifyApi {
         limit: number,
         next: string,
         cursors: CursorObject,
-        total: number
+        total?: number
     }
 
     /**
@@ -939,4 +1014,50 @@ declare namespace SpotifyApi {
         uri: string
     }
 
+    /**
+     * Context Object
+     * [](https://developer.spotify.com/web-api/object-model/#context-object)
+     */
+    interface ContextObject {
+        type: ContextObjectType;
+        href: string | null;
+        external_urls: ExternalUrlObject | null;
+        uri: string;
+    }
+
+    /**
+     * Play History Object
+     * [](https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/#play-history-object)
+     */
+    interface PlayHistoryObject {
+        track: TrackObjectSimplified;
+        played_at: string;
+        context: ContextObject;
+    }
+
+    interface PlaybackObject {
+        shuffle_state: boolean;
+        repeat_state: PlaybackRepeatState;
+    }
+
+    interface CurrentlyPlayingObject {
+        timestamp: number;
+        device: UserDevice;
+        progress_ms: number | null;
+        is_playing: boolean;
+        item: TrackObjectFull | null;
+        context: ContextObject | null;
+    }
+
+    interface UserDevice {
+        id: string | null;
+        is_active: boolean;
+        is_restricted: boolean;
+        name: string;
+        type: string;
+        volume_percent: number | null;
+    }
+
+    type ContextObjectType = 'artist' | 'playlist' | 'album';
+    type PlaybackRepeatState = 'off' | 'track' | 'context';
 }

@@ -8,7 +8,7 @@ app.use(compress({
 }));
 app.use(compress({
     threshold: 512,
-    filter: (req, res) => {
+    filter: (req: express.Request, res: express.Response) => {
         if (req.headers['x-no-compression']) {
             // don't compress responses with this request header
             return false;
@@ -16,5 +16,5 @@ app.use(compress({
 
         // fallback to standard filter function
         return compress.filter(req, res);
-    }
+    },
 }));

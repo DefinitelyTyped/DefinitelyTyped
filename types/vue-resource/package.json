@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/vue": "^1.0.31"
-    }
-}

@@ -13,7 +13,6 @@
         "typeRoots": [
             "../../"
         ],
-        "types": [],
         "paths": {
             "swiper": [
                 "swiper/v3"

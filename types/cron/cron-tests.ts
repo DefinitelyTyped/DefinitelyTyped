@@ -53,7 +53,7 @@ var job = new CronJob('00 30 11 * * 1-5', 'ls', { command: 'ls', args: ['./'] },
 );
 
 // For good measure
-var job = new CronJob({
+var job = cron.job({
   cronTime: '00 30 11 * * 1-5',
   onTick: () => {
     /*
@@ -91,4 +91,3 @@ try {
 new CronTime('* * * * * *');
 new CronTime(new Date());
 new CronTime(moment());
-

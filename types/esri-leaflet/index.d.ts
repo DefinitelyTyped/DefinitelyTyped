@@ -182,7 +182,7 @@ declare module 'leaflet' {
              */
             getTimeRange(): Date[];
             /**
-             * Redraws the layer with he passed time range.
+             * Redraws the layer with the passed time range.
              */
             setTimeRange(from: Date, to: Date): this;
             /**

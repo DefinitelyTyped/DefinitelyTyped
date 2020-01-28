@@ -27,6 +27,8 @@ export interface Namespace {
     bind(callback: Func<void>, context?: Context): Func<void>;
     bind<T>(callback: Func<T>, context?: Context): Func<T>;
     bindEmitter(emitter: NodeJS.EventEmitter): void;
+    enter(context: Context): void;
+    exit(context: Context): void;
 }
 
 export function createNamespace(name: string): Namespace;

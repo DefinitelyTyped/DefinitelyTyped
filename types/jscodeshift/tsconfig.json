@@ -18,12 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "src/core.d.ts",
-        "src/Collection.d.ts",
-        "src/collections/JSXElement.d.ts",
-        "src/collections/Node.d.ts",
-        "src/collections/VariableDeclarator.d.ts",
-        "src/template.d.ts",
         "test/jscodeshift-tests.ts",
         "test/js-transforms/bind-this-to-bind-expression.ts",
         "test/js-transforms/call-expression-bind-this-to-arrow-function-expression.ts",

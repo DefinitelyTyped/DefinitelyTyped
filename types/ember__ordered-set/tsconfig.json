@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember/ordered-set": ["ember__ordered-set"],
+            "@ember/ordered-set/*": ["ember__ordered-set/*"],
+            "@ember/utils": ["ember__utils"],
+            "@ember/utils/*": ["ember__utils/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/ember__ordered-set-tests.ts",
+        "test/lib/assert.ts"
+    ]
+}

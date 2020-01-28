@@ -102,6 +102,12 @@ $(".tooltip").tooltip({
     title: "",
     trigger: "hover focus",
     viewport: { selector: "body", padding: 0 },
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $(".tooltip").tooltip({
@@ -139,6 +145,10 @@ $(".tooltip").tooltip({
     viewport: "body",
 });
 
+$("#tooltip").tooltip({
+    sanitizeFn: null,
+});
+
 $(".tooltip").on("hidden.bs.tooltip", () => {
     // do something...
 });
@@ -165,6 +175,12 @@ $(".popover").popover({
     title: "",
     trigger: "hover focus",
     viewport: { selector: "body", padding: 0 },
+    sanitize: false,
+    whiteList: {
+        h1: [],
+        img: ['src', 'alt', 'title', 'width', 'height'],
+    },
+    sanitizeFn: (x: string) => x.replace("<", ""),
 });
 
 $(".popover").popover({
@@ -196,6 +212,10 @@ $(".popover").popover({
 
 $(".popover").popover({
     viewport: "body",
+});
+
+$(".popover").popover({
+    sanitizeFn: null,
 });
 
 $(".popover").on("hidden.bs.popover", () => {
@@ -309,7 +329,7 @@ $(".affix").affix({
     offset: {
         top: 100,
         bottom() {
-            const that = this as BootstrapOffset;
+            const that = this as Bootstrap.Offset;
             return (that.bottom = $(".footer").outerHeight(true)!);
         },
     }
@@ -335,4 +355,4 @@ $(".item").emulateTransitionEnd(2000);
 
 $.support.transition = false;
 
-console.log(($.support.transition as TransitionEventNames).end === "transitionend");
+console.log(($.support.transition as Bootstrap.TransitionEventNames).end === "transitionend");

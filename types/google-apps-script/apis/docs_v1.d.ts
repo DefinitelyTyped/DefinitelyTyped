@@ -1,13 +1,12 @@
 // Type definitions for Google Apps Script 2019-03-25
 // Project: https://developers.google.com/apps-script/
 // Generator: https://github.com/grant/google-apps-script-dts
-// Definitions by: grant <https://github.com/grant/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GoogleAppsScript {
   namespace Docs {
     namespace Collection {
-      export interface DocumentsCollection {
+      interface DocumentsCollection {
         // Applies one or more updates to the document.
         // Each request is validated before
         // being applied. If any request is not valid, then the entire request will
@@ -37,99 +36,99 @@ declare namespace GoogleAppsScript {
       }
     }
     namespace Schema {
-      export interface AutoText {
+      interface AutoText {
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
         type?: string;
       }
-      export interface Background {
+      interface Background {
         color?: Docs.Schema.OptionalColor;
       }
-      export interface BackgroundSuggestionState {
+      interface BackgroundSuggestionState {
         backgroundColorSuggested?: boolean;
       }
-      export interface BatchUpdateDocumentRequest {
+      interface BatchUpdateDocumentRequest {
         requests?: Docs.Schema.Request[];
         writeControl?: Docs.Schema.WriteControl;
       }
-      export interface BatchUpdateDocumentResponse {
+      interface BatchUpdateDocumentResponse {
         documentId?: string;
         replies?: Docs.Schema.Response[];
         writeControl?: Docs.Schema.WriteControl;
       }
-      export interface Body {
+      interface Body {
         content?: Docs.Schema.StructuralElement[];
       }
-      export interface Bullet {
+      interface Bullet {
         listId?: string;
         nestingLevel?: number;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface BulletSuggestionState {
+      interface BulletSuggestionState {
         listIdSuggested?: boolean;
         nestingLevelSuggested?: boolean;
         textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
       }
-      export interface Color {
+      interface Color {
         rgbColor?: Docs.Schema.RgbColor;
       }
-      export interface ColumnBreak {
+      interface ColumnBreak {
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface CreateNamedRangeRequest {
+      interface CreateNamedRangeRequest {
         name?: string;
         range?: Docs.Schema.Range;
       }
-      export interface CreateNamedRangeResponse {
+      interface CreateNamedRangeResponse {
         namedRangeId?: string;
       }
-      export interface CreateParagraphBulletsRequest {
+      interface CreateParagraphBulletsRequest {
         bulletPreset?: string;
         range?: Docs.Schema.Range;
       }
-      export interface CropProperties {
-        angle?: Number;
-        offsetBottom?: Number;
-        offsetLeft?: Number;
-        offsetRight?: Number;
-        offsetTop?: Number;
+      interface CropProperties {
+        angle?: number;
+        offsetBottom?: number;
+        offsetLeft?: number;
+        offsetRight?: number;
+        offsetTop?: number;
       }
-      export interface CropPropertiesSuggestionState {
+      interface CropPropertiesSuggestionState {
         angleSuggested?: boolean;
         offsetBottomSuggested?: boolean;
         offsetLeftSuggested?: boolean;
         offsetRightSuggested?: boolean;
         offsetTopSuggested?: boolean;
       }
-      export interface DeleteContentRangeRequest {
+      interface DeleteContentRangeRequest {
         range?: Docs.Schema.Range;
       }
-      export interface DeleteNamedRangeRequest {
+      interface DeleteNamedRangeRequest {
         name?: string;
         namedRangeId?: string;
       }
-      export interface DeleteParagraphBulletsRequest {
+      interface DeleteParagraphBulletsRequest {
         range?: Docs.Schema.Range;
       }
-      export interface DeletePositionedObjectRequest {
+      interface DeletePositionedObjectRequest {
         objectId?: string;
       }
-      export interface DeleteTableColumnRequest {
+      interface DeleteTableColumnRequest {
         tableCellLocation?: Docs.Schema.TableCellLocation;
       }
-      export interface DeleteTableRowRequest {
+      interface DeleteTableRowRequest {
         tableCellLocation?: Docs.Schema.TableCellLocation;
       }
-      export interface Dimension {
-        magnitude?: Number;
+      interface Dimension {
+        magnitude?: number;
         unit?: string;
       }
-      export interface Document {
+      interface Document {
         body?: Docs.Schema.Body;
         documentId?: string;
         documentStyle?: Docs.Schema.DocumentStyle;
@@ -147,7 +146,7 @@ declare namespace GoogleAppsScript {
         suggestionsViewMode?: string;
         title?: string;
       }
-      export interface DocumentStyle {
+      interface DocumentStyle {
         background?: Docs.Schema.Background;
         defaultFooterId?: string;
         defaultHeaderId?: string;
@@ -164,7 +163,7 @@ declare namespace GoogleAppsScript {
         useEvenPageHeaderFooter?: boolean;
         useFirstPageHeaderFooter?: boolean;
       }
-      export interface DocumentStyleSuggestionState {
+      interface DocumentStyleSuggestionState {
         backgroundSuggestionState?: Docs.Schema.BackgroundSuggestionState;
         defaultFooterIdSuggested?: boolean;
         defaultHeaderIdSuggested?: boolean;
@@ -181,7 +180,7 @@ declare namespace GoogleAppsScript {
         useEvenPageHeaderFooterSuggested?: boolean;
         useFirstPageHeaderFooterSuggested?: boolean;
       }
-      export interface EmbeddedObject {
+      interface EmbeddedObject {
         description?: string;
         embeddedDrawingProperties?: any;
         embeddedObjectBorder?: Docs.Schema.EmbeddedObjectBorder;
@@ -194,19 +193,19 @@ declare namespace GoogleAppsScript {
         size?: Docs.Schema.Size;
         title?: string;
       }
-      export interface EmbeddedObjectBorder {
+      interface EmbeddedObjectBorder {
         color?: Docs.Schema.OptionalColor;
         dashStyle?: string;
         propertyState?: string;
         width?: Docs.Schema.Dimension;
       }
-      export interface EmbeddedObjectBorderSuggestionState {
+      interface EmbeddedObjectBorderSuggestionState {
         colorSuggested?: boolean;
         dashStyleSuggested?: boolean;
         propertyStateSuggested?: boolean;
         widthSuggested?: boolean;
       }
-      export interface EmbeddedObjectSuggestionState {
+      interface EmbeddedObjectSuggestionState {
         descriptionSuggested?: boolean;
         embeddedDrawingPropertiesSuggestionState?: any;
         embeddedObjectBorderSuggestionState?: Docs.Schema.EmbeddedObjectBorderSuggestionState;
@@ -219,22 +218,22 @@ declare namespace GoogleAppsScript {
         sizeSuggestionState?: Docs.Schema.SizeSuggestionState;
         titleSuggested?: boolean;
       }
-      export interface EndOfSegmentLocation {
+      interface EndOfSegmentLocation {
         segmentId?: string;
       }
-      export interface Equation {
+      interface Equation {
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
       }
-      export interface Footer {
+      interface Footer {
         content?: Docs.Schema.StructuralElement[];
         footerId?: string;
       }
-      export interface Footnote {
+      interface Footnote {
         content?: Docs.Schema.StructuralElement[];
         footnoteId?: string;
       }
-      export interface FootnoteReference {
+      interface FootnoteReference {
         footnoteId?: string;
         footnoteNumber?: string;
         suggestedDeletionIds?: string[];
@@ -242,26 +241,26 @@ declare namespace GoogleAppsScript {
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface Header {
+      interface Header {
         content?: Docs.Schema.StructuralElement[];
         headerId?: string;
       }
-      export interface HorizontalRule {
+      interface HorizontalRule {
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface ImageProperties {
-        angle?: Number;
-        brightness?: Number;
+      interface ImageProperties {
+        angle?: number;
+        brightness?: number;
         contentUri?: string;
-        contrast?: Number;
+        contrast?: number;
         cropProperties?: Docs.Schema.CropProperties;
         sourceUri?: string;
-        transparency?: Number;
+        transparency?: number;
       }
-      export interface ImagePropertiesSuggestionState {
+      interface ImagePropertiesSuggestionState {
         angleSuggested?: boolean;
         brightnessSuggested?: boolean;
         contentUriSuggested?: boolean;
@@ -270,110 +269,110 @@ declare namespace GoogleAppsScript {
         sourceUriSuggested?: boolean;
         transparencySuggested?: boolean;
       }
-      export interface InlineObject {
+      interface InlineObject {
         inlineObjectProperties?: Docs.Schema.InlineObjectProperties;
         objectId?: string;
         suggestedDeletionIds?: string[];
         suggestedInlineObjectPropertiesChanges?: object;
         suggestedInsertionId?: string;
       }
-      export interface InlineObjectElement {
+      interface InlineObjectElement {
         inlineObjectId?: string;
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface InlineObjectProperties {
+      interface InlineObjectProperties {
         embeddedObject?: Docs.Schema.EmbeddedObject;
       }
-      export interface InlineObjectPropertiesSuggestionState {
+      interface InlineObjectPropertiesSuggestionState {
         embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState;
       }
-      export interface InsertInlineImageRequest {
+      interface InsertInlineImageRequest {
         endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
         location?: Docs.Schema.Location;
         objectSize?: Docs.Schema.Size;
         uri?: string;
       }
-      export interface InsertInlineImageResponse {
+      interface InsertInlineImageResponse {
         objectId?: string;
       }
-      export interface InsertInlineSheetsChartResponse {
+      interface InsertInlineSheetsChartResponse {
         objectId?: string;
       }
-      export interface InsertPageBreakRequest {
+      interface InsertPageBreakRequest {
         endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
         location?: Docs.Schema.Location;
       }
-      export interface InsertTableRequest {
+      interface InsertTableRequest {
         columns?: number;
         endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
         location?: Docs.Schema.Location;
         rows?: number;
       }
-      export interface InsertTableRowRequest {
+      interface InsertTableRowRequest {
         insertBelow?: boolean;
         tableCellLocation?: Docs.Schema.TableCellLocation;
       }
-      export interface InsertTextRequest {
+      interface InsertTextRequest {
         endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation;
         location?: Docs.Schema.Location;
         text?: string;
       }
-      export interface Link {
+      interface Link {
         bookmarkId?: string;
         headingId?: string;
         url?: string;
       }
-      export interface LinkedContentReference {
+      interface LinkedContentReference {
         sheetsChartReference?: Docs.Schema.SheetsChartReference;
       }
-      export interface LinkedContentReferenceSuggestionState {
+      interface LinkedContentReferenceSuggestionState {
         sheetsChartReferenceSuggestionState?: Docs.Schema.SheetsChartReferenceSuggestionState;
       }
-      export interface List {
+      interface List {
         listProperties?: Docs.Schema.ListProperties;
         suggestedDeletionIds?: string[];
         suggestedInsertionId?: string;
         suggestedListPropertiesChanges?: object;
       }
-      export interface ListProperties {
+      interface ListProperties {
         nestingLevels?: Docs.Schema.NestingLevel[];
       }
-      export interface ListPropertiesSuggestionState {
+      interface ListPropertiesSuggestionState {
         nestingLevelsSuggestionStates?: Docs.Schema.NestingLevelSuggestionState[];
       }
-      export interface Location {
+      interface Location {
         index?: number;
         segmentId?: string;
       }
-      export interface NamedRange {
+      interface NamedRange {
         name?: string;
         namedRangeId?: string;
         ranges?: Docs.Schema.Range[];
       }
-      export interface NamedRanges {
+      interface NamedRanges {
         name?: string;
         namedRanges?: Docs.Schema.NamedRange[];
       }
-      export interface NamedStyle {
+      interface NamedStyle {
         namedStyleType?: string;
         paragraphStyle?: Docs.Schema.ParagraphStyle;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface NamedStyleSuggestionState {
+      interface NamedStyleSuggestionState {
         namedStyleType?: string;
         paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState;
         textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
       }
-      export interface NamedStyles {
+      interface NamedStyles {
         styles?: Docs.Schema.NamedStyle[];
       }
-      export interface NamedStylesSuggestionState {
+      interface NamedStylesSuggestionState {
         stylesSuggestionStates?: Docs.Schema.NamedStyleSuggestionState[];
       }
-      export interface NestingLevel {
+      interface NestingLevel {
         bulletAlignment?: string;
         glyphFormat?: string;
         glyphSymbol?: string;
@@ -383,7 +382,7 @@ declare namespace GoogleAppsScript {
         startNumber?: number;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface NestingLevelSuggestionState {
+      interface NestingLevelSuggestionState {
         bulletAlignmentSuggested?: boolean;
         glyphFormatSuggested?: boolean;
         glyphSymbolSuggested?: boolean;
@@ -393,19 +392,19 @@ declare namespace GoogleAppsScript {
         startNumberSuggested?: boolean;
         textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
       }
-      export interface ObjectReferences {
+      interface ObjectReferences {
         objectIds?: string[];
       }
-      export interface OptionalColor {
+      interface OptionalColor {
         color?: Docs.Schema.Color;
       }
-      export interface PageBreak {
+      interface PageBreak {
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface Paragraph {
+      interface Paragraph {
         bullet?: Docs.Schema.Bullet;
         elements?: Docs.Schema.ParagraphElement[];
         paragraphStyle?: Docs.Schema.ParagraphStyle;
@@ -414,13 +413,13 @@ declare namespace GoogleAppsScript {
         suggestedParagraphStyleChanges?: object;
         suggestedPositionedObjectIds?: object;
       }
-      export interface ParagraphBorder {
+      interface ParagraphBorder {
         color?: Docs.Schema.OptionalColor;
         dashStyle?: string;
         padding?: Docs.Schema.Dimension;
         width?: Docs.Schema.Dimension;
       }
-      export interface ParagraphElement {
+      interface ParagraphElement {
         autoText?: Docs.Schema.AutoText;
         columnBreak?: Docs.Schema.ColumnBreak;
         endIndex?: number;
@@ -432,7 +431,7 @@ declare namespace GoogleAppsScript {
         startIndex?: number;
         textRun?: Docs.Schema.TextRun;
       }
-      export interface ParagraphStyle {
+      interface ParagraphStyle {
         alignment?: string;
         avoidWidowAndOrphan?: boolean;
         borderBetween?: Docs.Schema.ParagraphBorder;
@@ -447,7 +446,7 @@ declare namespace GoogleAppsScript {
         indentStart?: Docs.Schema.Dimension;
         keepLinesTogether?: boolean;
         keepWithNext?: boolean;
-        lineSpacing?: Number;
+        lineSpacing?: number;
         namedStyleType?: string;
         shading?: Docs.Schema.Shading;
         spaceAbove?: Docs.Schema.Dimension;
@@ -455,7 +454,7 @@ declare namespace GoogleAppsScript {
         spacingMode?: string;
         tabStops?: Docs.Schema.TabStop[];
       }
-      export interface ParagraphStyleSuggestionState {
+      interface ParagraphStyleSuggestionState {
         alignmentSuggested?: boolean;
         avoidWidowAndOrphanSuggested?: boolean;
         borderBetweenSuggested?: boolean;
@@ -477,44 +476,44 @@ declare namespace GoogleAppsScript {
         spaceBelowSuggested?: boolean;
         spacingModeSuggested?: boolean;
       }
-      export interface PositionedObject {
+      interface PositionedObject {
         objectId?: string;
         positionedObjectProperties?: Docs.Schema.PositionedObjectProperties;
         suggestedDeletionIds?: string[];
         suggestedInsertionId?: string;
         suggestedPositionedObjectPropertiesChanges?: object;
       }
-      export interface PositionedObjectPositioning {
+      interface PositionedObjectPositioning {
         layout?: string;
         leftOffset?: Docs.Schema.Dimension;
         topOffset?: Docs.Schema.Dimension;
       }
-      export interface PositionedObjectPositioningSuggestionState {
+      interface PositionedObjectPositioningSuggestionState {
         layoutSuggested?: boolean;
         leftOffsetSuggested?: boolean;
         topOffsetSuggested?: boolean;
       }
-      export interface PositionedObjectProperties {
+      interface PositionedObjectProperties {
         embeddedObject?: Docs.Schema.EmbeddedObject;
         positioning?: Docs.Schema.PositionedObjectPositioning;
       }
-      export interface PositionedObjectPropertiesSuggestionState {
+      interface PositionedObjectPropertiesSuggestionState {
         embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState;
         positioningSuggestionState?: Docs.Schema.PositionedObjectPositioningSuggestionState;
       }
-      export interface Range {
+      interface Range {
         endIndex?: number;
         segmentId?: string;
         startIndex?: number;
       }
-      export interface ReplaceAllTextRequest {
+      interface ReplaceAllTextRequest {
         containsText?: Docs.Schema.SubstringMatchCriteria;
         replaceText?: string;
       }
-      export interface ReplaceAllTextResponse {
+      interface ReplaceAllTextResponse {
         occurrencesChanged?: number;
       }
-      export interface Request {
+      interface Request {
         createNamedRange?: Docs.Schema.CreateNamedRangeRequest;
         createParagraphBullets?: Docs.Schema.CreateParagraphBulletsRequest;
         deleteContentRange?: Docs.Schema.DeleteContentRangeRequest;
@@ -532,54 +531,54 @@ declare namespace GoogleAppsScript {
         updateParagraphStyle?: Docs.Schema.UpdateParagraphStyleRequest;
         updateTextStyle?: Docs.Schema.UpdateTextStyleRequest;
       }
-      export interface Response {
+      interface Response {
         createNamedRange?: Docs.Schema.CreateNamedRangeResponse;
         insertInlineImage?: Docs.Schema.InsertInlineImageResponse;
         insertInlineSheetsChart?: Docs.Schema.InsertInlineSheetsChartResponse;
         replaceAllText?: Docs.Schema.ReplaceAllTextResponse;
       }
-      export interface RgbColor {
-        blue?: Number;
-        green?: Number;
-        red?: Number;
+      interface RgbColor {
+        blue?: number;
+        green?: number;
+        red?: number;
       }
-      export interface SectionBreak {
+      interface SectionBreak {
         sectionStyle?: Docs.Schema.SectionStyle;
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
       }
-      export interface SectionColumnProperties {
+      interface SectionColumnProperties {
         paddingEnd?: Docs.Schema.Dimension;
         width?: Docs.Schema.Dimension;
       }
-      export interface SectionStyle {
+      interface SectionStyle {
         columnProperties?: Docs.Schema.SectionColumnProperties[];
         columnSeparatorStyle?: string;
         contentDirection?: string;
       }
-      export interface Shading {
+      interface Shading {
         backgroundColor?: Docs.Schema.OptionalColor;
       }
-      export interface ShadingSuggestionState {
+      interface ShadingSuggestionState {
         backgroundColorSuggested?: boolean;
       }
-      export interface SheetsChartReference {
+      interface SheetsChartReference {
         chartId?: number;
         spreadsheetId?: string;
       }
-      export interface SheetsChartReferenceSuggestionState {
+      interface SheetsChartReferenceSuggestionState {
         chartIdSuggested?: boolean;
         spreadsheetIdSuggested?: boolean;
       }
-      export interface Size {
+      interface Size {
         height?: Docs.Schema.Dimension;
         width?: Docs.Schema.Dimension;
       }
-      export interface SizeSuggestionState {
+      interface SizeSuggestionState {
         heightSuggested?: boolean;
         widthSuggested?: boolean;
       }
-      export interface StructuralElement {
+      interface StructuralElement {
         endIndex?: number;
         paragraph?: Docs.Schema.Paragraph;
         sectionBreak?: Docs.Schema.SectionBreak;
@@ -587,55 +586,55 @@ declare namespace GoogleAppsScript {
         table?: Docs.Schema.Table;
         tableOfContents?: Docs.Schema.TableOfContents;
       }
-      export interface SubstringMatchCriteria {
+      interface SubstringMatchCriteria {
         matchCase?: boolean;
         text?: string;
       }
-      export interface SuggestedBullet {
+      interface SuggestedBullet {
         bullet?: Docs.Schema.Bullet;
         bulletSuggestionState?: Docs.Schema.BulletSuggestionState;
       }
-      export interface SuggestedDocumentStyle {
+      interface SuggestedDocumentStyle {
         documentStyle?: Docs.Schema.DocumentStyle;
         documentStyleSuggestionState?: Docs.Schema.DocumentStyleSuggestionState;
       }
-      export interface SuggestedInlineObjectProperties {
+      interface SuggestedInlineObjectProperties {
         inlineObjectProperties?: Docs.Schema.InlineObjectProperties;
         inlineObjectPropertiesSuggestionState?: Docs.Schema.InlineObjectPropertiesSuggestionState;
       }
-      export interface SuggestedListProperties {
+      interface SuggestedListProperties {
         listProperties?: Docs.Schema.ListProperties;
         listPropertiesSuggestionState?: Docs.Schema.ListPropertiesSuggestionState;
       }
-      export interface SuggestedNamedStyles {
+      interface SuggestedNamedStyles {
         namedStyles?: Docs.Schema.NamedStyles;
         namedStylesSuggestionState?: Docs.Schema.NamedStylesSuggestionState;
       }
-      export interface SuggestedParagraphStyle {
+      interface SuggestedParagraphStyle {
         paragraphStyle?: Docs.Schema.ParagraphStyle;
         paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState;
       }
-      export interface SuggestedPositionedObjectProperties {
+      interface SuggestedPositionedObjectProperties {
         positionedObjectProperties?: Docs.Schema.PositionedObjectProperties;
         positionedObjectPropertiesSuggestionState?: Docs.Schema.PositionedObjectPropertiesSuggestionState;
       }
-      export interface SuggestedTableCellStyle {
+      interface SuggestedTableCellStyle {
         tableCellStyle?: Docs.Schema.TableCellStyle;
         tableCellStyleSuggestionState?: Docs.Schema.TableCellStyleSuggestionState;
       }
-      export interface SuggestedTableRowStyle {
+      interface SuggestedTableRowStyle {
         tableRowStyle?: Docs.Schema.TableRowStyle;
         tableRowStyleSuggestionState?: Docs.Schema.TableRowStyleSuggestionState;
       }
-      export interface SuggestedTextStyle {
+      interface SuggestedTextStyle {
         textStyle?: Docs.Schema.TextStyle;
         textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState;
       }
-      export interface TabStop {
+      interface TabStop {
         alignment?: string;
         offset?: Docs.Schema.Dimension;
       }
-      export interface Table {
+      interface Table {
         columns?: number;
         rows?: number;
         suggestedDeletionIds?: string[];
@@ -643,7 +642,7 @@ declare namespace GoogleAppsScript {
         tableRows?: Docs.Schema.TableRow[];
         tableStyle?: Docs.Schema.TableStyle;
       }
-      export interface TableCell {
+      interface TableCell {
         content?: Docs.Schema.StructuralElement[];
         endIndex?: number;
         startIndex?: number;
@@ -652,17 +651,17 @@ declare namespace GoogleAppsScript {
         suggestedTableCellStyleChanges?: object;
         tableCellStyle?: Docs.Schema.TableCellStyle;
       }
-      export interface TableCellBorder {
+      interface TableCellBorder {
         color?: Docs.Schema.OptionalColor;
         dashStyle?: string;
         width?: Docs.Schema.Dimension;
       }
-      export interface TableCellLocation {
+      interface TableCellLocation {
         columnIndex?: number;
         rowIndex?: number;
         tableStartLocation?: Docs.Schema.Location;
       }
-      export interface TableCellStyle {
+      interface TableCellStyle {
         backgroundColor?: Docs.Schema.OptionalColor;
         borderBottom?: Docs.Schema.TableCellBorder;
         borderLeft?: Docs.Schema.TableCellBorder;
@@ -676,7 +675,7 @@ declare namespace GoogleAppsScript {
         paddingTop?: Docs.Schema.Dimension;
         rowSpan?: number;
       }
-      export interface TableCellStyleSuggestionState {
+      interface TableCellStyleSuggestionState {
         backgroundColorSuggested?: boolean;
         borderBottomSuggested?: boolean;
         borderLeftSuggested?: boolean;
@@ -690,16 +689,16 @@ declare namespace GoogleAppsScript {
         paddingTopSuggested?: boolean;
         rowSpanSuggested?: boolean;
       }
-      export interface TableColumnProperties {
+      interface TableColumnProperties {
         width?: Docs.Schema.Dimension;
         widthType?: string;
       }
-      export interface TableOfContents {
+      interface TableOfContents {
         content?: Docs.Schema.StructuralElement[];
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
       }
-      export interface TableRow {
+      interface TableRow {
         endIndex?: number;
         startIndex?: number;
         suggestedDeletionIds?: string[];
@@ -708,23 +707,23 @@ declare namespace GoogleAppsScript {
         tableCells?: Docs.Schema.TableCell[];
         tableRowStyle?: Docs.Schema.TableRowStyle;
       }
-      export interface TableRowStyle {
+      interface TableRowStyle {
         minRowHeight?: Docs.Schema.Dimension;
       }
-      export interface TableRowStyleSuggestionState {
+      interface TableRowStyleSuggestionState {
         minRowHeightSuggested?: boolean;
       }
-      export interface TableStyle {
+      interface TableStyle {
         tableColumnProperties?: Docs.Schema.TableColumnProperties[];
       }
-      export interface TextRun {
+      interface TextRun {
         content?: string;
         suggestedDeletionIds?: string[];
         suggestedInsertionIds?: string[];
         suggestedTextStyleChanges?: object;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface TextStyle {
+      interface TextStyle {
         backgroundColor?: Docs.Schema.OptionalColor;
         baselineOffset?: string;
         bold?: boolean;
@@ -737,7 +736,7 @@ declare namespace GoogleAppsScript {
         underline?: boolean;
         weightedFontFamily?: Docs.Schema.WeightedFontFamily;
       }
-      export interface TextStyleSuggestionState {
+      interface TextStyleSuggestionState {
         backgroundColorSuggested?: boolean;
         baselineOffsetSuggested?: boolean;
         boldSuggested?: boolean;
@@ -750,27 +749,27 @@ declare namespace GoogleAppsScript {
         underlineSuggested?: boolean;
         weightedFontFamilySuggested?: boolean;
       }
-      export interface UpdateParagraphStyleRequest {
+      interface UpdateParagraphStyleRequest {
         fields?: string;
         paragraphStyle?: Docs.Schema.ParagraphStyle;
         range?: Docs.Schema.Range;
       }
-      export interface UpdateTextStyleRequest {
+      interface UpdateTextStyleRequest {
         fields?: string;
         range?: Docs.Schema.Range;
         textStyle?: Docs.Schema.TextStyle;
       }
-      export interface WeightedFontFamily {
+      interface WeightedFontFamily {
         fontFamily?: string;
         weight?: number;
       }
-      export interface WriteControl {
+      interface WriteControl {
         requiredRevisionId?: string;
         targetRevisionId?: string;
       }
     }
   }
-  export interface Docs {
+  interface Docs {
     Documents?: Docs.Collection.DocumentsCollection;
     // Create a new instance of AutoText
     newAutoText(): Docs.Schema.AutoText;

@@ -3,6 +3,7 @@
 // Definitions by: Milen Stefanov <https://github.com/m1llen1um>
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Enzo Volkmann <https://github.com/evolkmann>
+//                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -181,12 +182,12 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentDefinitions {
-        background?: () => string | string;
+        background?: string | ((currentPage: number, pageSize: PageSize) => string | Content | null);
         compress?: boolean;
-        content: string | Content;
+        content: string | Content | Array<string | Content>;
         defaultStyle?: Style;
-        footer?: TDocumentHeaderFooterFunction;
-        header?: TDocumentHeaderFooterFunction;
+        footer?: TDocumentHeaderFooterFunction | Content | string;
+        header?: TDocumentHeaderFooterFunction | Content | string;
         images?: { [key: string]: string };
         info?: TDocumentInformation;
         pageBreakBefore?: (
@@ -197,7 +198,7 @@ declare module "pdfmake/build/pdfmake" {
         ) => boolean;
         pageMargins?: Margins;
         pageOrientation?: PageOrientation;
-        pageSize?: PageSize;
+        pageSize?: PageSize | { width: number; height: number };
         styles?: Style;
     }
 
