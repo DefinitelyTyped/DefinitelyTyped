@@ -1,7 +1,6 @@
 // Type definitions for styled-system 5.1
 // Project: https://github.com/jxnblk/styled-system#readme
-// Definitions by: Marshall Bowers <https://github.com/maxdeviant>
-//                 Ben McCormick <https://github.com/phobon>
+// Definitions by: Ben McCormick <https://github.com/phobon>
 //                 Justin Bennett <https://github.com/zephraph>
 //                 Christopher Pappas <https://github.com/damassi>
 //                 Eloy Durán <https://github.com/alloy>

@@ -1,9 +1,9 @@
-import { Dataset, DatasetCore, Stream, Quad } from 'rdf-js';
+import { Dataset, Stream, Quad } from 'rdf-js';
 import { PropType } from './_PropType';
 import QuadExt = require('./Quad');
 import { Readable } from 'stream';
 
-interface DatasetExt extends Dataset {
+interface DatasetExt extends Dataset<QuadExt, Quad> {
   readonly length: number;
   toJSON(): Array<ReturnType<PropType<QuadExt, 'toJSON'>>>;
   clone(): this;

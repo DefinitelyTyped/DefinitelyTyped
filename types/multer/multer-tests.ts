@@ -20,6 +20,12 @@ const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'galler
 app.post('/cool-profile', cpUpload, (req: express.Request, res: express.Response, next: express.NextFunction) => {
 });
 
+app.post('/text-only', upload.none(), (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (err instanceof multer.MulterError) {
+        next(new Error(err.code));
+    }
+});
+
 const diskStorage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, '/tmp/my-uploads');

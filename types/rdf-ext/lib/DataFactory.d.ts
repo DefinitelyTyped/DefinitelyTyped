@@ -12,7 +12,7 @@ import { PropType } from './_PropType';
 type PrefixesRecord = Record<string, NamedNode | string>;
 type Prefixes = PrefixMap | PrefixesRecord;
 
-declare class DataFactoryExt implements DataFactory {
+declare class DataFactoryExt implements DataFactory<QuadExt> {
   static defaults: {
     defaultGraph: DefaultGraphExt;
     NamedNode: NamedNodeExt;
@@ -39,10 +39,8 @@ declare class DataFactoryExt implements DataFactory {
   defaultGraph(): DefaultGraphExt;
   literal(value: string, languageOrDatatype?: string | NamedNode): LiteralExt;
   namedNode(value: string): NamedNode;
-  // tslint:disable:no-unnecessary-generics
-  quad<Q extends BaseQuad = QuadExt>(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): Q;
-  triple<Q extends BaseQuad = QuadExt>(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): Q;
-  // tslint:enable:no-unnecessary-generics
+  quad(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object, graph?: Quad_Graph): QuadExt;
+  triple(subject: Quad_Subject, predicate: Quad_Predicate, object: Quad_Object): QuadExt;
   variable(value: string): VariableExt;
 }
 

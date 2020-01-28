@@ -888,18 +888,18 @@ namespace Parse {
 
         /**
          * Static method to get all schemas
-         * @param options Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
+         *
+         * @return A promise that is resolved with the result when
+         * the query completes.
          */
-        static all(options?: ScopeOptions): Promise<Schema[]>;
+        static all(): Promise<Schema[]>;
 
-        addArray(name: string): this;
-        addBoolean(name: string): this;
-        addDate(name: string): this;
-        addField(name: string, type?: Schema.TYPE): this;
-        addFile(name: string): this;
-        addGeoPoint(name: string): this;
+        addArray(name: string, options?: Schema.FieldOptions<any[]>): this;
+        addBoolean(name: string, options?: Schema.FieldOptions<boolean>): this;
+        addDate(name: string, options?: Schema.FieldOptions<Date>): this;
+        addField<T extends Schema.TYPE = any>(name: string, type?: T, options?: Schema.FieldOptions): this;
+        addFile(name: string, options?: Schema.FieldOptions<File>): this;
+        addGeoPoint(name: string, options?: Schema.FieldOptions<GeoPoint>): this;
 
         /**
          * Adding an Index to Create / Update a Schema
@@ -913,8 +913,8 @@ namespace Parse {
          */
         addIndex(name: string, index: Schema.Index): this;
 
-        addNumber(name: string): this;
-        addObject(name: string): this;
+        addNumber(name: string, options?: Schema.FieldOptions<number>): this;
+        addObject(name: string, options?: Schema.FieldOptions<object>): this;
 
         /**
          * Adding Pointer Field
@@ -922,9 +922,9 @@ namespace Parse {
          * @param targetClass  Name of the target Pointer Class
          * @return Returns the schema, so you can chain this call.
          */
-        addPointer(name: string, targetClass: string): this;
+        addPointer(name: string, targetClass: string, options?: Schema.FieldOptions<Pointer>): this;
 
-        addPolygon(name: string): this;
+        addPolygon(name: string, options?: Schema.FieldOptions<Polygon>): this;
 
         /**
          * Adding Relation Field
@@ -934,18 +934,14 @@ namespace Parse {
          */
         addRelation(name: string, targetClass: string): this;
 
-        addString(name: string): this;
+        addString(name: string, options?: Schema.FieldOptions<string>): this;
 
         /**
          * Removing a Schema from Parse Can only be used on Schema without objects
-         * @param options
-         * Valid options are:
-         * - useMasterKey: In Cloud Code and Node only, causes the Master Key to be used for this request.
-         * - sessionToken: A valid session token, used for making a request on behalf of a specific user.
          * @returns A promise that is resolved with the result when the query completes.
          */
         // @TODO Fix Promise<any>
-        delete(options?: ScopeOptions): Promise<any>;
+        delete(): Promise<any>;
 
         /**
          * Deleting a Field to Update on a Schema
@@ -964,7 +960,7 @@ namespace Parse {
         /**
          * Get the Schema from Parse
          */
-        get(options?: ScopeOptions): Promise<Schema>;
+        get(): Promise<Schema>;
 
         /**
          * Removes all objects from a Schema (class) in Parse. EXERCISE CAUTION, running this will delete all objects for this schema and cannot be reversed
@@ -975,16 +971,22 @@ namespace Parse {
         /**
          * Create a new Schema on Parse
          */
-        save(options?: ScopeOptions): Promise<Schema>;
+        save(): Promise<Schema>;
 
         /**
          * Update a Schema on Parse
          */
-        update(options?: ScopeOptions): Promise<Schema>;
+        update(): Promise<Schema>;
     }
 
     namespace Schema {
-        type TYPE = string | number | boolean | Date | File | GeoPoint | any[] | object | Pointer | Relation;
+        type TYPE = 'String' | 'Number' | 'Boolean' | 'Date' | 'File' | 'GeoPoint' | 'Polygon' | 'Array' | 'Object' | 'Pointer' | 'Relation';
+
+        interface FieldOptions
+            <T extends string | number | boolean | Date | File | GeoPoint | Polygon | any[] | object | Pointer | Relation = any> {
+            required?: boolean;
+            defaultValue?: T;
+        }
 
         interface Index {
             [fieldName: string]: TYPE;
