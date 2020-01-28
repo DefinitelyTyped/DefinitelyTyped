@@ -20,7 +20,7 @@
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Hammad Jutt <https://github.com/hammadj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.0
 
 import * as CSS from 'csstype';
 
