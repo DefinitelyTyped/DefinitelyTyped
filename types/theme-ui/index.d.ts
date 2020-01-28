@@ -36,7 +36,7 @@ export function ThemeProvider<Theme>(props: ThemeProviderProps<Theme>): React.Re
  * nested objects within a theme.colors.modes object. Each key in this object
  * should correspond to a color mode name, where the name can be anything, but
  * typically light and dark are used for applications with a dark mode. The
- * initialColorMode key is required to enable color modes and will be used as
+ * initialColorModeName key is required to enable color modes and will be used as
  * the name for the root color palette.
  */
 export type ColorMode = {
@@ -86,7 +86,7 @@ export interface Theme extends StyledSystemTheme {
     /**
      * Provide a value here to enable color modes
      */
-    initialColorMode?: string;
+    initialColorModeName?: string;
 
     /**
      * Define the colors that are available through this theme
@@ -94,7 +94,7 @@ export interface Theme extends StyledSystemTheme {
     colors?: ColorMode & {
         /**
          * Nested color modes can provide overrides when used in conjunction with
-         * `Theme.initialColorMode and `useColorMode()`
+         * `Theme.initialColorModeName and `useColorMode()`
          */
         modes?: {
             [k: string]: ColorMode;
