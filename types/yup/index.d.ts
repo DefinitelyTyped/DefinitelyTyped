@@ -93,7 +93,7 @@ export interface MixedSchema<T = any> extends Schema<T> {
     nullable(isNullable?: true): MixedSchema<T | null>;
     nullable(isNullable: false): MixedSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): MixedSchema<T>;
-    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): MixedSchema<Exclude<T, undefined>>;
     notRequired(): MixedSchema<T | undefined>;
     concat(schema: this): this;
     concat<U>(schema: MixedSchema<U>): MixedSchema<T | U>;
@@ -123,7 +123,7 @@ export interface StringSchema<T extends string | null | undefined = string> exte
     nullable(isNullable?: true): StringSchema<T | null>;
     nullable(isNullable: false): StringSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): StringSchema<T>;
-    required(message?: TestOptionsMessage): StringSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): StringSchema<Exclude<T, undefined>>;
     notRequired(): StringSchema<T | undefined>;
 }
 
@@ -145,7 +145,7 @@ export interface NumberSchema<T extends number | null | undefined = number> exte
     nullable(isNullable?: true): NumberSchema<T | null>;
     nullable(isNullable: false): NumberSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): NumberSchema<T>;
-    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): NumberSchema<Exclude<T, undefined>>;
     notRequired(): NumberSchema<T | undefined>;
 }
 
@@ -158,7 +158,7 @@ export interface BooleanSchema<T extends boolean | null | undefined = boolean> e
     nullable(isNullable?: true): BooleanSchema<T | null>;
     nullable(isNullable: false): BooleanSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): BooleanSchema<T>;
-    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): BooleanSchema<Exclude<T, undefined>>;
     notRequired(): BooleanSchema<T | undefined>;
 }
 
@@ -173,7 +173,7 @@ export interface DateSchema<T extends Date | null | undefined = Date> extends Sc
     nullable(isNullable?: true): DateSchema<T | null>;
     nullable(isNullable: false): DateSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): DateSchema<T>;
-    required(message?: TestOptionsMessage): DateSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): DateSchema<Exclude<T, undefined>>;
     notRequired(): DateSchema<T | undefined>;
 }
 
@@ -258,7 +258,7 @@ export interface ObjectSchema<T extends object | null | undefined = object> exte
     nullable(isNullable?: true): ObjectSchema<T | null>;
     nullable(isNullable: false): ObjectSchema<Exclude<T, null>>;
     nullable(isNullable?: boolean): ObjectSchema<T>;
-    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, null | undefined>>;
+    required(message?: TestOptionsMessage): ObjectSchema<Exclude<T, undefined>>;
     notRequired(): ObjectSchema<T | undefined>;
     concat(schema: this): this;
     concat<U extends object>(schema: ObjectSchema<U>): ObjectSchema<T & U>;
@@ -291,7 +291,7 @@ export interface TestContext {
     parent: any;
     schema: Schema<any>;
     resolve: (value: any) => any;
-    createError: (params?: { path?: string; message?: string; params?: object }) => ValidationError;
+    createError: (params?: { path?: string; message?: string, params?: object }) => ValidationError;
 }
 
 export interface ValidateOptions {
