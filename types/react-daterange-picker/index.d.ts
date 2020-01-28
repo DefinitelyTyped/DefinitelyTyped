@@ -7,14 +7,14 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
-import * as moment from "moment";
-import * as momentRange from "moment-range";
+import * as React from 'react';
+import * as moment from 'moment';
+import * as momentRange from 'moment-range';
 
-export default class DateRangePicker extends React.Component<Props> { }
+export default class DateRangePicker extends React.Component<Props> {}
 export as namespace ReactDateRangePicker;
 
-export interface Props<T = DateRangePicker> extends React.Props<T> {
+export interface BaseProps<T = DateRangePicker> extends React.Props<T> {
     bemBlock?: string;
     bemNamespace?: string;
     dateStates?: DateState[];
@@ -33,16 +33,26 @@ export interface Props<T = DateRangePicker> extends React.Props<T> {
     numberOfCalendars?: number;
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
-    onSelect?(value: OnSelectCallbackParam): void;
     onSelectStart?(value: momentRange.MomentRange & typeof moment): void;
     paginationArrowComponent?: React.ComponentClass<PaginationArrowProps> | React.SFC<PaginationArrowProps>;
     selectedLabel?: string;
-    selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
     value?: (momentRange.MomentRange & typeof moment) | momentRange.DateRange | moment.Moment;
 }
+
+export interface RangeProps<T = DateRangePicker> extends BaseProps<T> {
+    onSelect?(value: OnSelectCallbackParam): void;
+    selectionType?: 'range';
+}
+
+export interface SingleProps<T = DateRangePicker> extends BaseProps<T> {
+    onSelect?(value: moment.Moment): void;
+    selectionType?: 'single';
+}
+
+export type Props<T = DateRangePicker> = RangeProps<T> | SingleProps<T>;
 
 export interface DateState {
     state: string;

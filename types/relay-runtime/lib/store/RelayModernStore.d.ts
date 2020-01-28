@@ -1,8 +1,11 @@
 import {
+    CheckOptions,
     Store,
     MutableRecordSource,
     Scheduler,
     OperationLoader,
+    OperationAvailability,
+    OperationDescriptor,
     RecordSource,
     NormalizationSelector,
     ReaderSelector,
@@ -21,8 +24,8 @@ import {
 export class RelayModernStore implements Store {
     constructor(source: MutableRecordSource, gcScheduler?: Scheduler, operationLoader?: OperationLoader | null);
     getSource(): RecordSource;
-    check(selector: NormalizationSelector): boolean;
-    retain(selector: NormalizationSelector): Disposable;
+    check(operation: OperationDescriptor, options?: CheckOptions): OperationAvailability;
+    retain(operation: OperationDescriptor): Disposable;
     lookup(selector: ReaderSelector): Snapshot;
     notify(): ReadonlyArray<RequestDescriptor>;
     publish(source: RecordSource): void;

@@ -39,6 +39,10 @@ new Polly('test recording', {
         fetch: {
             context: {},
         },
+        puppeteer: {
+            page: {},
+            requestResourceTypes: ['fetch', 'xhr'],
+        },
         foo: {
             bar: true,
         },
@@ -55,17 +59,17 @@ new Polly('test recording', {
     },
     timing: Timing.relative(3),
     matchRequestsBy: {
-        method(method) {
+        method(method, _req) {
             return method.toLowerCase();
         },
         headers:
             1 === 1
                 ? { exclude: ['X-Auth'] }
-                : headers => {
+                : (headers, _req) => {
                       delete headers['X-Auth'];
                       return headers;
                   },
-        body(body) {
+        body(body, _req) {
             const json = JSON.parse(body);
 
             delete json.email;
@@ -73,30 +77,44 @@ new Polly('test recording', {
         },
 
         url: {
-            protocol(protocol) {
+            protocol(protocol, _req) {
                 return protocol === 'http' ? 'https:' : protocol;
             },
-            username(username) {
+            username(username, _req) {
                 return username === 'johndoe' ? 'username' : username;
             },
-            password(password) {
+            password(password, _req) {
                 return password || 'password';
             },
-            hostname(hostname) {
+            hostname(hostname, _req) {
                 return hostname.replace('.com', '.net');
             },
-            port(port) {
+            port(port, _req) {
                 return port > 80 ? 3000 : 433;
             },
-            pathname(pathname) {
+            pathname(pathname, _req) {
                 return pathname.replace('/api/v1', '/api');
             },
-            query(query) {
+            query(query, _req) {
                 return { ...query, token: '' };
             },
-            hash(hash) {
+            hash(hash, _req) {
                 return hash.replace(/token=[0-9]+/, '');
             },
+        },
+    },
+});
+
+polly.configure({
+    matchRequestsBy: {
+        url: false,
+    },
+});
+
+polly.configure({
+    matchRequestsBy: {
+        url(url, _req) {
+            return url.replace('https', 'http');
         },
     },
 });
@@ -110,6 +128,12 @@ async function test() {
 
     polly.pause();
     polly.play();
+    polly.record();
+    polly.replay();
+    polly.passthrough();
+    await polly.flush();
+    await polly.stop();
+
     const { server } = polly;
     server.get('/session').on('request', req => {
         req.headers['X-AUTH'] = '<ACCESS_TOKEN>';
@@ -192,8 +216,6 @@ async function test() {
         req.removeHeaders(['Content-Type', 'Content-Length']);
         log(req.pathname + JSON.stringify(error));
     });
-
-    await polly.flush();
 }
 
 setupMocha();

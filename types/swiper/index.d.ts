@@ -439,6 +439,7 @@ export interface SwiperOptions {
     wrapperClass?: string;
 
     // Components
+    controller?: ControllerOptions | boolean;
     navigation?: NavigationOptions;
     pagination?: PaginationOptions;
     scrollbar?: ScrollbarOptions;

@@ -1,7 +1,9 @@
-import assert = require('assert');
 import sortObject = require('sort-object-keys');
 
-assert.equal(JSON.stringify({
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assertEqual<T>(actual: T, expected: T): void;
+
+assertEqual(JSON.stringify({
     c: 1,
     b: 1,
     d: 1,
@@ -13,7 +15,7 @@ assert.equal(JSON.stringify({
     d: 1,
 }));
 
-assert.equal(JSON.stringify(sortObject({
+assertEqual(JSON.stringify(sortObject({
     c: 1,
     b: 1,
     d: 1,
@@ -31,7 +33,7 @@ function removeKeyAncCompareIndex(keyA: string, keyB: string) {
     return a - b;
 }
 
-assert.equal(JSON.stringify(sortObject({
+assertEqual(JSON.stringify(sortObject({
     "key-1": 1,
     "key-3": 1,
     "key-10": 1,

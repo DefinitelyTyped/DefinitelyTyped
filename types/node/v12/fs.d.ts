@@ -1824,6 +1824,7 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        emitClose?: boolean;
         start?: number;
         highWaterMark?: number;
     }): WriteStream;

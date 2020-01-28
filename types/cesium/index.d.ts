@@ -294,6 +294,7 @@ declare namespace Cesium {
         toString(): string;
         static fromRadians(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
         static fromDegrees(longitude: number, latitude: number, height?: number, result?: Cartographic): Cartographic;
+        static fromCartesian(cartesian: Cartesian3, ellipsoid?: Ellipsoid, result?: Cartographic): Cartographic;
         static toCartesian(cartographic: Cartographic, ellipsoid?: Ellipsoid, result?: Cartesian3): Cartesian3;
         static clone(cartographic: Cartographic, result?: Cartographic): Cartographic;
         static equals(left?: Cartographic, right?: Cartographic): boolean;

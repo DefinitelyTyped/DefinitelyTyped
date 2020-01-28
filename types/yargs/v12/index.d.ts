@@ -145,7 +145,7 @@ declare namespace yargs {
 
         exitProcess(enabled: boolean): Argv<T>;
 
-        fail(func: (msg: string, err: Error) => any): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
 

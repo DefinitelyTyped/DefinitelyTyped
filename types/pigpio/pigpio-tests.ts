@@ -1,5 +1,7 @@
 import * as pigpio from 'pigpio';
-import * as assert from 'assert';
+
+// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
+declare function assertEqual<T>(actual: T, expected: T, message?: string): void;
 
 (function alert_pwm_measurement(): void {
     const Gpio = pigpio.Gpio;
@@ -125,7 +127,7 @@ import * as assert from 'assert';
     let iv: NodeJS.Timer;
 
     bank1.clear(1 << 18 | 1 << 17);
-    assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
+    assertEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
 
     iv = setInterval(function timer(): void {
         const bits = (bank1.read() >> 17) & 0x3;
@@ -133,22 +135,22 @@ import * as assert from 'assert';
         switch (bits) {
             case 0:
                 bank1.set(1 << 17);
-                assert.strictEqual((bank1.read() >> 17) & 0x3, 1, 'expected 1');
+                assertEqual((bank1.read() >> 17) & 0x3, 1, 'expected 1');
                 break;
             case 1:
                 bank1.clear(1 << 17);
                 bank1.set(1 << 18);
-                assert.strictEqual((bank1.read() >> 17) & 0x3, 2, 'expected 2');
+                assertEqual((bank1.read() >> 17) & 0x3, 2, 'expected 2');
                 break;
             case 2:
                 bank1.set(1 << 17);
                 bank1.set(1 << 18);
-                assert.strictEqual((bank1.read() >> 17) & 0x3, 3, 'expected 3');
+                assertEqual((bank1.read() >> 17) & 0x3, 3, 'expected 3');
                 break;
             case 3:
                 bank1.clear(1 << 17);
                 bank1.clear(1 << 18);
-                assert.strictEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
+                assertEqual((bank1.read() >> 17) & 0x3, 0, 'expected 0');
                 break;
         }
     }, 250);
@@ -227,25 +229,25 @@ import * as assert from 'assert';
     const gpio7 = new Gpio(7, { mode: Gpio.INPUT });
     const gpio8 = new Gpio(8, { mode: Gpio.OUTPUT });
 
-    assert.strictEqual(gpio7.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio7');
-    assert.strictEqual(gpio8.getMode(), Gpio.OUTPUT, 'expected OUTPUT mode for gpio8');
+    assertEqual(gpio7.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio7');
+    assertEqual(gpio8.getMode(), Gpio.OUTPUT, 'expected OUTPUT mode for gpio8');
 
     gpio8.mode(Gpio.INPUT);
-    assert.strictEqual(gpio8.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio8');
+    assertEqual(gpio8.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio8');
 
     gpio7.mode(Gpio.OUTPUT);
-    assert.strictEqual(gpio7.getMode(), Gpio.OUTPUT, 'expected OUTPUT mode for gpio7');
+    assertEqual(gpio7.getMode(), Gpio.OUTPUT, 'expected OUTPUT mode for gpio7');
 
     gpio7.mode(Gpio.INPUT);
-    assert.strictEqual(gpio7.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio7');
+    assertEqual(gpio7.getMode(), Gpio.INPUT, 'expected INPUT mode for gpio7');
 })();
 
 (function gpio_numbers(): void {
     const Gpio = pigpio.Gpio;
 
-    assert.strictEqual(Gpio.MIN_GPIO, 0, 'expected Gpio.MIN_GPIO to be 0');
-    assert.strictEqual(Gpio.MAX_GPIO, 53, 'expected Gpio.MAX_GPIO to be 53');
-    assert.strictEqual(Gpio.MAX_USER_GPIO, 31, 'expected Gpio.MAX_USER_GPIO to be 31');
+    assertEqual(Gpio.MIN_GPIO, 0, 'expected Gpio.MIN_GPIO to be 0');
+    assertEqual(Gpio.MAX_GPIO, 53, 'expected Gpio.MAX_GPIO to be 53');
+    assertEqual(Gpio.MAX_USER_GPIO, 31, 'expected Gpio.MAX_USER_GPIO to be 31');
 })();
 
 (function isr_enable_disable(): void {
@@ -769,9 +771,9 @@ import * as assert from 'assert';
     const Gpio = pigpio.Gpio;
     const input = new Gpio(22, { mode: Gpio.INPUT, pullUpDown: Gpio.PUD_UP });
 
-    assert.strictEqual(input.digitalRead(), 1, 'expected gpio22 to be 1');
+    assertEqual(input.digitalRead(), 1, 'expected gpio22 to be 1');
     input.pullUpDown(Gpio.PUD_DOWN);
-    assert.strictEqual(input.digitalRead(), 0, 'expected gpio22 to be 0');
+    assertEqual(input.digitalRead(), 0, 'expected gpio22 to be 0');
 })();
 
 (function pulse_led(): void {
@@ -783,7 +785,7 @@ import * as assert from 'assert';
         led.pwmWrite(dutyCycle);
 
         const dutyCycleRead: number = led.getPwmDutyCycle();
-        assert.strictEqual(dutyCycleRead, dutyCycle,
+        assertEqual(dutyCycleRead, dutyCycle,
             'expected dutyCycle to be ' + dutyCycle + ', not ' + dutyCycleRead
         );
 
@@ -804,34 +806,34 @@ import * as assert from 'assert';
     const led = new Gpio(18, { mode: Gpio.OUTPUT });
     let dutyCycle: number;
 
-    assert.strictEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
-    assert.strictEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
-    assert.strictEqual(led.getPwmFrequency(), 800, 'expected get pwm frequency to be 800');
+    assertEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
+    assertEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
+    assertEqual(led.getPwmFrequency(), 800, 'expected get pwm frequency to be 800');
 
     led.pwmRange(125);
-    assert.strictEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
-    assert.strictEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
-    assert.strictEqual(led.getPwmFrequency(), 800, 'expected get pwm frequency to be 800');
+    assertEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
+    assertEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
+    assertEqual(led.getPwmFrequency(), 800, 'expected get pwm frequency to be 800');
 
     led.pwmFrequency(2000);
-    assert.strictEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
-    assert.strictEqual(led.getPwmRealRange(), 100, 'expected pwm real range to be 100');
-    assert.strictEqual(led.getPwmFrequency(), 2000, 'expected get pwm frequency to be 2000');
+    assertEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
+    assertEqual(led.getPwmRealRange(), 100, 'expected pwm real range to be 100');
+    assertEqual(led.getPwmFrequency(), 2000, 'expected get pwm frequency to be 2000');
 
     dutyCycle = Math.floor(led.getPwmRange() / 2);
     led.pwmWrite(dutyCycle);
-    assert.strictEqual(led.getPwmDutyCycle(), dutyCycle, 'expected duty cycle to be ' + dutyCycle);
+    assertEqual(led.getPwmDutyCycle(), dutyCycle, 'expected duty cycle to be ' + dutyCycle);
 
     led.hardwarePwmWrite(1e7, 500000);
-    assert.strictEqual(led.getPwmRange(), 1e6, 'expected pwm range to be 1e6');
-    assert.strictEqual(led.getPwmRealRange(), 25, 'expected pwm real range to be 25');
-    assert.strictEqual(led.getPwmFrequency(), 1e7, 'expected get pwm frequency to be 1e7');
-    assert.strictEqual(led.getPwmDutyCycle(), 500000, 'expected duty cycle to be 500000');
+    assertEqual(led.getPwmRange(), 1e6, 'expected pwm range to be 1e6');
+    assertEqual(led.getPwmRealRange(), 25, 'expected pwm real range to be 25');
+    assertEqual(led.getPwmFrequency(), 1e7, 'expected get pwm frequency to be 1e7');
+    assertEqual(led.getPwmDutyCycle(), 500000, 'expected duty cycle to be 500000');
 
     led.digitalWrite(0);
-    assert.strictEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
-    assert.strictEqual(led.getPwmRealRange(), 100, 'expected pwm real range to be 100');
-    assert.strictEqual(led.getPwmFrequency(), 2000, 'expected get pwm frequency to be 2000');
+    assertEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
+    assertEqual(led.getPwmRealRange(), 100, 'expected pwm real range to be 100');
+    assertEqual(led.getPwmFrequency(), 2000, 'expected get pwm frequency to be 2000');
 });
 
 (function servo_control(): void {
@@ -841,7 +843,7 @@ import * as assert from 'assert';
     let pulseWidth = 500;
 
     motor.servoWrite(0);
-    assert.strictEqual(motor.getServoPulseWidth(), 0,
+    assertEqual(motor.getServoPulseWidth(), 0,
         'expected pulseWidth to be 0'
     );
 
@@ -849,7 +851,7 @@ import * as assert from 'assert';
         motor.servoWrite(pulseWidth);
 
         const pulseWidthRead = motor.getServoPulseWidth();
-        assert.strictEqual(pulseWidthRead, pulseWidth,
+        assertEqual(pulseWidthRead, pulseWidth,
             'expected pulseWidth to be ' + pulseWidth + ', not ' + pulseWidthRead
         );
 
@@ -885,7 +887,7 @@ import * as assert from 'assert';
     setTimeout(() => {
         const endTick: number = pigpio.getTick();
         const diff: number = pigpio.tickDiff(startTick, endTick);
-        assert.ok(diff > 0, 'expected tick count to increase across a timer call');
+        assertEqual(diff > 0, true, 'expected tick count to increase across a timer call');
     }, 50);
 })();
 
@@ -917,7 +919,7 @@ import * as assert from 'assert';
     }, 500);
 
     setTimeout(() => {
-        assert.strictEqual(count, 1, 'expected 1 alert function call instead of ' + count);
+        assertEqual(count, 1, 'expected 1 alert function call instead of ' + count);
         console.log("  success...");
         process.exit(0);
     }, 1000);

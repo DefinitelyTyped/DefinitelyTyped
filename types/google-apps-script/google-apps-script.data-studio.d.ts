@@ -151,14 +151,14 @@ declare namespace GoogleAppsScript {
      *       .setGroup('DATETIME');
      */
     interface Field {
-      getAggregation(): AggregationType;
-      getDescription(): string;
-      getFormula(): string;
-      getGroup(): string;
-      getId(): string;
-      getIsReaggregatable(): boolean;
-      getName(): string;
-      getType(): FieldType;
+      getAggregation(): AggregationType | null;
+      getDescription(): string | null;
+      getFormula(): string | null;
+      getGroup(): string | null;
+      getId(): string | null;
+      getIsReaggregatable(): boolean | null;
+      getName(): string | null;
+      getType(): FieldType | null;
       isDefault(): boolean;
       isDimension(): boolean;
       isHidden(): boolean;
@@ -193,9 +193,9 @@ declare namespace GoogleAppsScript {
       asArray(): Field[];
       build(): any[];
       forIds(ids: string[]): Fields;
-      getDefaultDimension(): Field;
-      getDefaultMetric(): Field;
-      getFieldById(fieldId: string): Field;
+      getDefaultDimension(): Field | null;
+      getDefaultMetric(): Field | null;
+      getFieldById(fieldId: string): Field | null;
       newDimension(): Field;
       newMetric(): Field;
       setDefaultDimension(fieldId: string): void;

@@ -58,4 +58,31 @@ import * as R from 'ramda';
   });
 
   const ex3Test: { a: { b: string; c: null; d: { e: string } } } = ex3;
+
+  // Evolver with a generic:
+
+  const ev1: R.Evolver<{ a: string }> = { a: R.always("b") };
+
+  // Evolver supports partial transformation:
+
+  const ev2: R.Evolver<{ a: string, b: boolean }> = { b: (b: boolean) => true };
+
+  // Evolver disallows unknown prop:
+
+  // $ExpectError
+  const ev3: R.Evolver<{ a: string }> = { b: R.not };
+
+  // Typed Evolver disallows nesting:
+
+  const ev4: R.Evolver<{ a: { b: boolean } }> = { a: { b: R.not } };
+
+  // Evolver disallows nesting for primitives:
+
+  // $ExpectError
+  const ev5: R.Evolver<{ a: string }> = { a: { b: R.not } };
+
+  // Evolver needs function:
+
+  // $ExpectError
+  const ev6: R.Evolver = { a: 1 };
 };

@@ -636,8 +636,7 @@ const definitionBC: yup.ObjectSchemaDefinition<BC> = {
 };
 const combinedSchema = yup.object(definitionAB).shape(definitionBC); // $ExpectType ObjectSchema<Shape<AB, BC>>
 
-// $ExpectError
-yup.object<MyInterface>({
+const schemaWithoutNumberField = {
     stringField: yup.string().required(),
     subFields: yup
         .object({
@@ -645,10 +644,13 @@ yup.object<MyInterface>({
         })
         .required(),
     arrayField: yup.array(yup.string()).required(),
-});
+};
 
 // $ExpectError
-yup.object<MyInterface>({ stringField: yup.number().required(),
+yup.object<MyInterface>(schemaWithoutNumberField);
+
+const schemaWithWrongType = {
+    stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -656,17 +658,22 @@ yup.object<MyInterface>({ stringField: yup.number().required(),
         })
         .required(),
     arrayField: yup.array(yup.string()).required(),
-});
+};
 
 // $ExpectError
-yup.object<MyInterface>({
+yup.object<MyInterface>(schemaWithWrongType);
+
+const schemaWithoutSubtype = {
     stringField: yup.string().required(),
     numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
-});
+};
 
 // $ExpectError
-yup.object<MyInterface>({ subFields: yup
+yup.object<MyInterface>(schemaWithoutSubtype);
+
+const schemaWithWrongSubtype = {
+    subFields: yup
         .object({
             testField: yup.number().required(),
         })
@@ -674,7 +681,10 @@ yup.object<MyInterface>({ subFields: yup
     stringField: yup.string().required(),
     numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
-});
+};
+
+// $ExpectError
+yup.object<MyInterface>(schemaWithWrongSubtype);
 
 enum Gender {
     Male = 'Male',
@@ -694,7 +704,13 @@ const personSchema = yup.object({
         .nullable()
         .notRequired()
         .min(new Date(1900, 0, 1)),
-    canBeNull: yup.string().nullable(true), // $ExpectType StringSchema<string | null>
+    // $ExpectType StringSchema<string | null>
+    canBeNull: yup.string().nullable(true),
+    // $ExpectType StringSchema<string>
+    requiredNullable: yup
+        .string()
+        .nullable()
+        .required(),
     isAlive: yup
         .boolean()
         .nullable()
@@ -720,6 +736,7 @@ type Person = yup.InferType<typeof personSchema>;
 //     email?: string | null | undefined;
 //     birthDate?: Date | null | undefined;
 //     canBeNull: string | null;
+//     requiredNullable: string;
 //     isAlive: boolean | null | undefined;
 //     mustBeAString: string;
 //     children?: string[] | null | undefined;
@@ -729,6 +746,7 @@ const minimalPerson: Person = {
     firstName: '',
     gender: Gender.Female,
     canBeNull: null,
+    requiredNullable: '',
     mustBeAString: '',
 };
 
@@ -738,6 +756,7 @@ const person: Person = {
     email: null,
     birthDate: null,
     canBeNull: null,
+    requiredNullable: '',
     isAlive: null,
     mustBeAString: '',
     children: null,

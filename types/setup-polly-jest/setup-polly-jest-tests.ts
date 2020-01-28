@@ -1,7 +1,7 @@
 import { setupPolly } from 'setup-polly-jest';
 
 setupPolly();
-setupPolly({ recordIfExpired: true });
+setupPolly({ recordIfMissing: true });
 setupPolly({ adapters: ['xhr'] });
 
 const context = setupPolly();
