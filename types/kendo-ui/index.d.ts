@@ -743,7 +743,7 @@ declare namespace kendo.data {
         parentNode(): Node;
     }
 
-    class FileEntrty extends Node {
+    class FileEntry extends Node {
         children: FileManagerDataSource;
     }
 
