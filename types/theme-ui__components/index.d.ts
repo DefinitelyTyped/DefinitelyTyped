@@ -12,6 +12,8 @@ import { SpaceProps, ColorProps, ResponsiveValue, MarginProps } from 'styled-sys
 
 export {};
 
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
 type Assign<T, U> = {
     [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;
 };
