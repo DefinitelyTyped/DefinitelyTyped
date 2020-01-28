@@ -6,4 +6,6 @@
 
 import Adapter from '@pollyjs/adapter';
 
-export default class PuppeteerAdapter extends Adapter {}
+declare class PuppeteerAdapter extends Adapter {}
+
+export = PuppeteerAdapter;

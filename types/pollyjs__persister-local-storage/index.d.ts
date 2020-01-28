@@ -6,4 +6,6 @@
 
 import Persister from '@pollyjs/persister';
 
-export default class LocalStoragePersister extends Persister {}
+declare class LocalStoragePersister extends Persister {}
+
+export = LocalStoragePersister;
