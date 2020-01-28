@@ -1,7 +1,10 @@
-// Type definitions for wnumb 1.0
+// Type definitions for wnumb 1.2.0
 // Project: https://github.com/leongersen/wnumb
-// Definitions by: Corey Jepperson <https://github.com/acoreyj>
+// Definitions by: Corey Jepperson <https://github.com/acoreyj> and Jamie Neubert Pedersen <https://github.com/eikooc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export = wNumb;
+export as namespace wNumb;
 
 /**
  * Create a wNumb
@@ -28,7 +31,7 @@ declare namespace wNumb {
         /**
          * A number to append to a number. For example: ',-'.
          */
-        postfix?: string;
+        suffix?: string;
         /**
          * The prefix for negative values. Defaults to '-' if negativeBefore isn't set.
          */
@@ -39,7 +42,6 @@ declare namespace wNumb {
         negativeBefore?: string;
         /**
          * This is a powerful option to manually modify the slider output.
-         *
          * For example, to show a number in another currency:
          * function( value ){
          *  return value * 1.32;
