@@ -1,8 +1,6 @@
 /// <reference types="node" />
+import assert = require("assert");
 import MIMEType = require('whatwg-mimetype');
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assert(value: boolean): void;
 
 const mt = MIMEType.parse("text/plain");
 
