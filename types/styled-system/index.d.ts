@@ -20,7 +20,7 @@
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Hammad Jutt <https://github.com/hammadj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
+// TypeScript Version: 2.9
 
 import * as CSS from 'csstype';
 
@@ -61,8 +61,8 @@ export type ResponsiveValue<
     ThemeType extends Theme,
     > = T | Array<T | null> | { [key in ThemeValue<'breakpoints', ThemeType> & string | number]?: T };
 
-type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = unknown> =
-    ThemeType[K] extends Array<TVal> ? number :
+type ThemeValue<K extends keyof ThemeType, ThemeType, TVal = any> =
+    ThemeType[K] extends TVal[] ? number :
     ThemeType[K] extends Record<infer E, TVal> ? E :
     ThemeType[K] extends ObjectOrArray<infer F> ? F : never;
 
