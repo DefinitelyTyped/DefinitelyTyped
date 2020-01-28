@@ -231,11 +231,11 @@ declare namespace WebSocket {
         shouldHandle(request: http.IncomingMessage): boolean;
 
         // Events
-        on(event: 'connection', cb: (this: WebSocket, socket: WebSocket, request: http.IncomingMessage) => void): this;
-        on(event: 'error', cb: (this: WebSocket, error: Error) => void): this;
-        on(event: 'headers', cb: (this: WebSocket, headers: string[], request: http.IncomingMessage) => void): this;
-        on(event: 'close' | 'listening', cb: (this: WebSocket) => void): this;
-        on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+        on(event: 'connection', cb: (this: Server, socket: WebSocket, request: http.IncomingMessage) => void): this;
+        on(event: 'error', cb: (this: Server, error: Error) => void): this;
+        on(event: 'headers', cb: (this: Server, headers: string[], request: http.IncomingMessage) => void): this;
+        on(event: 'close' | 'listening', cb: (this: Server) => void): this;
+        on(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;
