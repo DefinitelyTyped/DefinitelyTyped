@@ -3994,7 +3994,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     removeClippedSubviews?: boolean;
 }
 
-export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
+export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>> {
     /**
      * Exports some data, e.g. for perf investigations or analytics.
      */
@@ -4222,7 +4222,7 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -8467,21 +8467,25 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
+    export interface AnimatedComponent<T extends React.FC | typeof React.Component> extends React.FC<T['props']> {
+      getNode: () => T;
+    }
+
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent(component: any): any;
+    export function createAnimatedComponent<T>(component: React.FC<T> | typeof React.Component): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export const View: any;
-    export const Image: any;
-    export const Text: any;
-    export const ScrollView: any;
-    export const FlatList: any;
-    export const SectionList: any;
+    export const View: AnimatedComponent<View>;
+    export const Image: AnimatedComponent<Image>;
+    export const Text: AnimatedComponent<Text>;
+    export const ScrollView: AnimatedComponent<ScrollView>;
+    export const FlatList: AnimatedComponent<FlatList>;
+    export const SectionList: AnimatedComponent<SectionList>;
 }
 
 // tslint:disable-next-line:interface-name
