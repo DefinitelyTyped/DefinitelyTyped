@@ -3,9 +3,9 @@
 // Definitions by: hrngoode <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Component} from "react";
+import { Component } from "react";
 
-export class Graph extends Component<any, any>{
+export class Graph extends Component<any, any> {
     constructor(props: any, ...args: any[]);
 
     UNSAFE_componentWillReceiveProps(nextProps: any): any;
@@ -19,15 +19,14 @@ export class Graph extends Component<any, any>{
     render(): any;
 }
 
-export class Link extends Component<any, any>{
+export class Link extends Component<any, any> {
     constructor(...args: any[]);
 
     render(): any;
 }
 
-export class Node extends Component<any, any>{
+export class Node extends Component<any, any> {
     constructor(...args: any[]);
 
     render(): any;
 }
-
