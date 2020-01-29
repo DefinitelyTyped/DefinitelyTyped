@@ -92,7 +92,6 @@ declare namespace fin {
     type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
     type View = import('./_v2/api/view/view').View;
     type ViewOptions = import('./_v2/api/view/view').ViewOptions;
-
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
     type WindowInfo = import('./_v2/api/window/window').WindowInfo;

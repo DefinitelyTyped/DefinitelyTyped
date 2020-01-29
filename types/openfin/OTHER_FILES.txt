@@ -16,6 +16,7 @@ _v2/api/events/frame.d.ts
 _v2/api/events/globalHotkey.d.ts
 _v2/api/events/notifications.d.ts
 _v2/api/events/system.d.ts
+_v2/api/events/view.d.ts
 _v2/api/events/webcontents.d.ts
 _v2/api/events/window.d.ts
 _v2/api/external-application/external-application.d.ts
