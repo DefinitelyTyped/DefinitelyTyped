@@ -519,7 +519,7 @@ declare namespace Xrm {
             getStage(): ProcessFlow.Stage;
 
             /**
-             * Prevents the stage or status change operation from being submitted to the server.             
+             * Prevents the stage or status change operation from being submitted to the server.
              */
             preventDefault(): void;
         }
