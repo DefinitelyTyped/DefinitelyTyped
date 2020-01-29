@@ -11,7 +11,7 @@ import ExternalApplication from './external-application/external-application';
 import ExternalWindow from './external-window/external-window';
 import _FrameModule from './frame/frame';
 import GlobalHotkey from './global-hotkey';
-import { ViewModule } from './view/view';
+import ViewModule from './view/view';
 import PlatformModule from './platform/platform';
 export default class Fin extends EventEmitter {
     private wire;

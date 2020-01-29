@@ -1,6 +1,3 @@
-import { View } from './_v2/main';
-import { ViewOptions } from './_v2/api/view/view';
-
 // Type definitions for non-npm package OpenFin API 49.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
@@ -93,6 +90,9 @@ declare namespace fin {
     type TransitionOptions = import('./_v2/shapes').TransitionOptions;
     type TransitionBase = import('./_v2/shapes').TransitionBase;
     type ViewCreationOptions = import('./_v2/api/view/view').ViewCreationOptions;
+    type View = import('./_v2/api/view/view').View;
+    type ViewOptions = import('./_v2/api/view/view').ViewOptions;
+
     type WindowDetail = import('./_v2/api/system/window').WindowDetail;
     type WindowOption = import('./_v2/api/window/windowOption').WindowOption;
     type WindowInfo = import('./_v2/api/window/window').WindowInfo;
