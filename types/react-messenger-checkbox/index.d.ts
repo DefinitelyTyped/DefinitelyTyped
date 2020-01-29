@@ -1,4 +1,4 @@
-// Type definitions for react-messenger-checkbox 0.1.0
+// Type definitions for react-messenger-checkbox 0.1
 // Project: https://github.com/Yoctol/react-messenger-checkbox
 // Definitions by: Rémi Roycourt <https://github.com/remiroyc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
