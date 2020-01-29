@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "dom",
-            "es6",
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -18,7 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib/runtime.d.ts",
+        "index.d.ts",
         "serviceworker-webpack-plugin-tests.ts"
     ]
 }
