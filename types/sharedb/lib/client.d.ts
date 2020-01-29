@@ -5,7 +5,7 @@ import Agent = require('./agent');
 
 export class Connection {
     constructor(ws: WebSocket | WS);
-    agent?: Agent;
+    agent: Agent | null;
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
