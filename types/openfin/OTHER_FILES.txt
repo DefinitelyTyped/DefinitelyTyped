@@ -1,12 +1,11 @@
 _v2/api/application/application.d.ts
 _v2/api/application/applicationOption.d.ts
 _v2/api/base.d.ts
-_v2/api/browserview/browserview.d.ts
+_v2/api/view/view.d.ts
 _v2/api/clipboard/clipboard.d.ts
 _v2/api/clipboard/write-request.d.ts
 _v2/api/events/application.d.ts
 _v2/api/events/base.d.ts
-_v2/api/events/browserview.d.ts
 _v2/api/events/channel.d.ts
 _v2/api/events/emitterMap.d.ts
 _v2/api/events/eventAggregator.d.ts
