@@ -11,7 +11,11 @@ export interface ServiceWorkerOption {
     jsonStats?: Stats.ToJsonOutput;
 }
 
-export interface ServiceWorkerWebpackPluginOptions<T = Pick<ServiceWorkerOption, 'assets'>> {
+export interface ServiceWorkerDefaultOption {
+    assets: string[];
+}
+
+export interface ServiceWorkerWebpackPluginOptions<T = ServiceWorkerDefaultOption> {
     /**
      * Path to the actual service worker implementation.
      */
@@ -63,6 +67,6 @@ export interface ServiceWorkerWebpackPluginOptions<T = Pick<ServiceWorkerOption,
     minimize?: boolean;
 }
 
-export default class ServiceWorkerWebpackPlugin extends Plugin {
-    constructor(options: ServiceWorkerWebpackPluginOptions);
+export default class ServiceWorkerWebpackPlugin<T = ServiceWorkerDefaultOption> extends Plugin {
+    constructor(options: ServiceWorkerWebpackPluginOptions<T>);
 }
