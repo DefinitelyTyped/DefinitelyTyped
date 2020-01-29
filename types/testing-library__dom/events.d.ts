@@ -35,6 +35,7 @@ export type EventType =
     | 'mouseOut'
     | 'mouseOver'
     | 'mouseUp'
+    | 'popState'
     | 'select'
     | 'touchCancel'
     | 'touchEnd'
