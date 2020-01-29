@@ -9,7 +9,7 @@ import { ViewBounds, ContextMenuSettings } from '../../shapes';
 /**
  * @lends View
  */
-export declare class ViewModule extends Base {
+export default class ViewModule extends Base {
     /**
      * Creates a new View.
      * @param { View~options } options - View creation options

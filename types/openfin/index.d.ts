@@ -1,3 +1,6 @@
+import { View } from './_v2/main';
+import { ViewOptions } from './_v2/api/view/view';
+
 // Type definitions for non-npm package OpenFin API 49.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker>
@@ -36,6 +39,7 @@ declare namespace fin {
     var Platform: import('./_v2/api/platform/platform').default;
     var Notification: import('./_v2/api/notification/notification').default;
     var System: import('./_v2/api/system/system').default;
+    var View: import('./_v2/api/view/view').default;
     var Window: import('./_v2/api/window/window').default;
 
     // v2 shapes
@@ -103,6 +107,7 @@ declare namespace fin {
         Notification: OpenFinNotificationStatic;
         Platform: OpenFinPlatformStatic;
         System: OpenFinSystem;
+        View: OpenFinViewStatic;
         Window: OpenFinWindowStatic;
         ExternalWin: OpenFinExternalWindowStatic;
         Frame: OpenFinFrameStatic;
@@ -1519,6 +1524,145 @@ declare namespace fin {
         onWindowContextUpdate(listener: (newContext: any, oldContext?: any) => any): Promise<boolean>;
     }
 
+    interface OpenFinView {
+        identity: Identity;
+
+        /**
+        * Attaches the current view to a the given window identity.
+        * Identity must be the identity of a window in the same application.
+        * This detaches the view from it's current window, and sets the view to be destroyed when its new window closes.
+        * @param target {Identity}
+        * @return {Promise.<void>}
+        * @tutorial View.attach
+        * @experimental
+        */
+        attach: (target: Identity) => Promise<void>;
+        /**
+         * Navigates the view to a specified URL. The url must contain the protocol prefix such as http:// or https://.
+         * @param { string } url - The URL to navigate the view to.
+         * @return {Promise.<void>}
+         * @function navigate
+         * @memberof View
+         * @instance
+         * @tutorial View.navigate
+         * @experimental
+         */
+        /**
+        * Destroys the current view
+        * @return {Promise.<void>}
+        * @tutorial View.destroy
+        * @experimental
+        */
+        destroy: () => Promise<void>;
+        /**
+        * Shows the current view if it is currently hidden.
+        * @return {Promise.<void>}
+        * @tutorial View.show
+        * @experimental
+        */
+        show: () => Promise<void>;
+        /**
+        * Hides the current view if it is currently visible.
+        * @return {Promise.<void>}
+        * @tutorial View.hide
+        * @experimental
+        */
+        hide: () => Promise<void>;
+        /**
+        * Sets the bounds (top, left, width, height) of the view relative to its window.
+        * @param bounds {Bounds}
+        * @return {Promise.<void>}
+        * @tutorial View.setBounds
+        * @experimental
+        */
+        setBounds: (bounds: Pick<Bounds, "height" | "width" | "top" | "left">) => Promise<void>;
+        /**
+        * Gets the View's info.
+        * @return {Promise.<ViewInfo>}
+        * @tutorial View.getInfo
+        * @experimental
+        */
+        getInfo: () => Promise<any>;
+        /**
+        * Gets the View's options.
+        * @return {Promise<ViewCreationOptions>}
+        * @tutorial View.getOptions
+        * @experimental
+        */
+        getOptions: () => Promise<ViewCreationOptions>;
+        /**
+        * Gets the view's info.
+        * @param { Partial<ViewOptions> } options
+        * @return {Promise.<void>}
+        * @tutorial View.updateOptions
+        * @experimental
+        */
+        updateOptions: (options: Partial<ViewOptions>) => Promise<any>;
+        /**
+        * Retrieves the window the view is currently attached to.
+        * @return {Promise.<OpenFinWindow>}
+        * @tutorial View.getCurrentWindow
+        * @experimental
+        */
+        getCurrentWindow: () => Promise<OpenFinWindow>;
+        /**
+        * Sets a custom window handler.
+        * @return {function}
+        * @param { string | string[] } urls
+        * @experimental
+        */
+        setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => void>;
+    }
+
+    interface OpenFinViewStatic {
+        /**
+         * Creates a new View.
+         * @param { View~options } options - View creation options
+         * @return {Promise.<View>}
+         * @tutorial View.create
+         * @experimental
+         * @static
+         */
+        create(options: ViewCreationOptions): Promise<View>;
+
+        /**
+         * Asynchronously returns a View object that represents an existing view.
+         * @param { Identity } identity
+         * @return {Promise.<View>}
+         * @tutorial View.wrap
+         * @experimental
+         * @static
+         */
+        wrap(identity: Identity): Promise<View>;
+
+        /**
+         * Synchronously returns a View object that represents an existing view.
+         * @param { Identity } identity
+         * @return {View}
+         * @tutorial View.wrapSync
+         * @experimental
+         * @static
+         */
+        wrapSync(identity: Identity): View;
+
+        /**
+         * Asynchronously returns a View object that represents the current view
+         * @return {Promise.<View>}
+         * @tutorial View.getCurrent
+         * @experimental
+         * @static
+         */
+        getCurrent(): Promise<View>;
+
+        /**
+         * Synchronously returns a View object that represents the current view
+         * @return {View}
+         * @tutorial View.getCurrentSync
+         * @experimental
+         * @static
+         */
+        getCurrentSync(): View;
+    }
     interface ApplicationBaseEvent {
         topic: string;
         type: OpenFinApplicationEventType;
