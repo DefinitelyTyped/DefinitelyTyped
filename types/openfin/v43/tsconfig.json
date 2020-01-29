@@ -16,7 +16,7 @@
         "types": [],
         "paths": {
             "openfin": [
-                "openfin/v43"
+                "openfin/v45"
             ]
         },
         "noEmit": true,
