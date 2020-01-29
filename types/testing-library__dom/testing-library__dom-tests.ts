@@ -19,7 +19,7 @@ async function testQueries() {
     screen.queryByText('foo');
     await screen.findByText('foo');
     await screen.findByText('foo', undefined, { timeout: 10 });
-    screen.getAllByText('bar');
+    screen.debug(screen.getAllByText('bar'));
     screen.queryAllByText('bar');
     await screen.findAllByText('bar');
     await screen.findAllByText('bar', undefined, { timeout: 10 });
