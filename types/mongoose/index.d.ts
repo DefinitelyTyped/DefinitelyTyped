@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5.10
+// Type definitions for Mongoose 5.7.12
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -148,6 +148,12 @@ declare module "mongoose" {
 
   /** Gets mongoose options */
   export function get(key: string): any;
+
+  /**
+   * Tests whether Mongoose can cast a value to an ObjectId
+   * @param value value to be tested if it can be cast to an ObjectId
+   */
+  export function isValidObjectId(value: any): boolean;
 
   /**
    * Defines a model or retrieves it.
@@ -311,6 +317,15 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
+      
+    /** Connected database name */
+    name: string
+
+    /** Connected host */
+    host: string
+
+    /** Connected port number */
+    port: number
 
     /** mapping of ready states */
     states: typeof ConnectionStates;

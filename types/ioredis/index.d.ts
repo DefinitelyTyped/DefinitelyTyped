@@ -36,7 +36,7 @@ interface RedisStatic {
     (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
     (options?: IORedis.RedisOptions): IORedis.Redis;
     Cluster: IORedis.ClusterStatic;
-    Command: IORedis.Command;
+    Command: typeof Command;
 }
 
 declare var IORedis: RedisStatic;
@@ -55,6 +55,29 @@ declare class Commander {
     sendCommand(): void;
 }
 
+interface CommandOptions {
+    replyEncoding?: string | null;
+    errorStack?: string;
+    keyPrefix?: string;
+}
+declare class Command {
+    isCustomCommand: boolean;
+    args: IORedis.ValueType[];
+    getSlot(): number | null;
+    getKeys(): Array<string | Buffer>;
+    constructor(
+        name: string,
+        args: IORedis.ValueType[],
+        opts?: CommandOptions,
+        callback?: (err: null, result: any) => void,
+    );
+    static setArgumentTransformer(name: string, fn: (args: IORedis.ValueType[]) => IORedis.ValueType[]): void;
+    static setReplyTransformer(name: string, fn: (result: any) => any): void;
+}
+
+// For backwards compatibility
+type _Command = typeof Command;
+
 declare namespace IORedis {
     type KeyType = string | Buffer;
 
@@ -62,10 +85,7 @@ declare namespace IORedis {
 
     type ValueType = string | Buffer | number | any[];
 
-    interface Command {
-        setArgumentTransformer(name: string, fn: (args: ValueType[]) => ValueType[]): void;
-        setReplyTransformer(name: string, fn: (result: any) => any): void;
-    }
+    type Command = _Command;
 
     interface Redis extends EventEmitter, Commander {
         Promise: typeof Promise;
