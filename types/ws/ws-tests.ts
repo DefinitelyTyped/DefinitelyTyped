@@ -10,7 +10,7 @@ import * as url from 'url';
 }
 
 {
-    const addr = 'ws://www.host.com/path';
+    const addr = new url.URL('ws://www.host.com/path');
     const ws = new WebSocket(addr);
     ws.on('open', () => {
         const array = new Float32Array(5);
