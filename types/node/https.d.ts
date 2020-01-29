@@ -21,26 +21,10 @@ declare module "https" {
         options: AgentOptions;
     }
 
+    interface Server extends http.HttpBase {}
     class Server extends tls.Server {
         constructor(requestListener?: http.RequestListener);
         constructor(options: ServerOptions, requestListener?: http.RequestListener);
-
-        setTimeout(callback: () => void): this;
-        setTimeout(msecs?: number, callback?: () => void): this;
-        /**
-         * Limits maximum incoming headers count. If set to 0, no limit will be applied.
-         * @default 2000
-         * {@link https://nodejs.org/api/http.html#http_server_maxheaderscount}
-         */
-        maxHeadersCount: number | null;
-        timeout: number;
-        /**
-         * Limit the amount of time the parser will wait to receive the complete HTTP headers.
-         * @default 40000
-         * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
-         */
-        headersTimeout: number;
-        keepAliveTimeout: number;
     }
 
     function createServer(requestListener?: http.RequestListener): Server;

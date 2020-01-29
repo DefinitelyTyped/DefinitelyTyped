@@ -198,3 +198,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         // }
     });
 }
+
+{
+    const rl = readline.createInterface({
+        input: process.stdin,
+    });
+    const pos: readline.CursorPos = rl.getCursorPos();
+}

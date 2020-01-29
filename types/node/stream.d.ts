@@ -6,7 +6,9 @@ declare module "stream" {
     }
 
     namespace internal {
-        class Stream extends internal { }
+        class Stream extends internal {
+            constructor(opts?: ReadableOptions);
+        }
 
         interface ReadableOptions {
             highWaterMark?: number;

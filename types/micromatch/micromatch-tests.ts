@@ -64,3 +64,12 @@ const regex: RegExp = mm.makeRe('*.js');
 // .braces
 strArrResult = mm.braces('*.js');
 strArrResult = mm.braces('*.js', { expand: true });
+
+// $ExpectType ScanInfo
+mm.scan('*');
+
+// $ExpectType ScanInfoWithTokens
+mm.scan('*', { tokens: true });
+
+// $ExpectType ScanInfoWithParts
+mm.scan('*', { parts: true });

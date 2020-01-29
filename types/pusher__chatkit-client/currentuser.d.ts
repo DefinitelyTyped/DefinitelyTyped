@@ -94,7 +94,7 @@ export interface CurrentUser {
     getJoinableRooms: () => Promise<PusherRoom[]>;
     joinRoom: (params: RoomIdParams) => Promise<PusherRoom>;
     leaveRoom: (params: RoomIdParams) => Promise<PusherRoom>;
-    subscribeToRoomMultipart: (params: RoomSubcriptionParams) => Promise<void>;
+    subscribeToRoomMultipart: (params: RoomSubcriptionParams) => Promise<PusherRoom>;
     sendSimpleMessage: (params: SendSimpleMessageParams) => Promise<number>;
     sendMultipartMessage: (params: SendMultipartMessageParams) => Promise<number>;
     isTypingIn: (params: RoomIdParams) => Promise<void>;

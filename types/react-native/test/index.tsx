@@ -90,6 +90,7 @@ import {
     PushNotificationIOS,
     AccessibilityInfo,
     YellowBox,
+    useWindowDimensions,
 } from "react-native";
 
 declare module "react-native" {
@@ -117,6 +118,10 @@ function testDimensions() {
 
     Dimensions.addEventListener("change", dimensionsListener);
     Dimensions.removeEventListener("change", dimensionsListener);
+}
+
+function TextUseWindowDimensions() {
+    const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
@@ -529,6 +534,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
+                            onScrollToTop={() => {}}
+                            scrollToOverflowEnabled={true}
                         />
                     );
                 }}

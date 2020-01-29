@@ -1,4 +1,4 @@
-// Type definitions for @pollyjs/core 3.0
+// Type definitions for @pollyjs/core 4.0
 // Project: https://github.com/netflix/pollyjs/tree/master/packages/@pollyjs/core
 // Definitions by: feinoujc <https://github.com/feinoujc>
 //                 Borui Gu <https://github.com/BoruiGu>
@@ -18,7 +18,7 @@ export const Timing: {
     relative(ratio: number): (ms: number) => Promise<void>;
 };
 
-export type MatchBy<T = string, R = T> = (input: T) => R;
+export type MatchBy<T = string, R = T> = (input: T, req: Request) => R;
 export type Headers = Record<string, string | string[]>;
 export interface PollyConfig {
     mode?: MODE;
@@ -26,7 +26,7 @@ export interface PollyConfig {
     adapters?: Array<string | typeof Adapter>;
     adapterOptions?: {
         fetch?: { context?: any };
-        puppeteer?: { page?: any };
+        puppeteer?: { page?: any; requestResourceTypes?: string[] };
         xhr?: { context?: any };
         [key: string]: any;
     };
@@ -43,8 +43,6 @@ export interface PollyConfig {
     logging?: boolean;
 
     recordIfMissing?: boolean;
-    /** @deprecated use expiryStrategy */
-    recordIfExpired?: boolean;
     recordFailedRequests?: boolean;
     expiryStrategy?: EXPIRY_STRATEGY;
 
@@ -57,16 +55,19 @@ export interface PollyConfig {
         body?: boolean | MatchBy<any>;
         order?: boolean;
 
-        url?: {
-            protocol?: boolean | MatchBy;
-            username?: boolean | MatchBy;
-            password?: boolean | MatchBy;
-            hostname?: boolean | MatchBy;
-            port?: boolean | MatchBy<number>;
-            pathname?: boolean | MatchBy;
-            query?: boolean | MatchBy<any>;
-            hash?: boolean | MatchBy;
-        };
+        url?:
+            | boolean
+            | MatchBy
+            | {
+                  protocol?: boolean | MatchBy;
+                  username?: boolean | MatchBy;
+                  password?: boolean | MatchBy;
+                  hostname?: boolean | MatchBy;
+                  port?: boolean | MatchBy<number>;
+                  pathname?: boolean | MatchBy;
+                  query?: boolean | MatchBy<{ [key: string]: any }>;
+                  hash?: boolean | MatchBy;
+              };
     };
 }
 export interface HTTPBase {
@@ -185,12 +186,13 @@ export class Polly {
     adapters: Map<string, Adapter>;
     config: PollyConfig;
 
-    pause: () => void;
-    play: () => void;
-    replay: () => void;
-    record: () => void;
-    stop: () => Promise<void>;
-    flush: () => Promise<void>;
+    pause(): void;
+    play(): void;
+    replay(): void;
+    record(): void;
+    passthrough(): void;
+    stop(): Promise<void>;
+    flush(): Promise<void>;
     configure(config: PollyConfig): void;
     connectTo(name: string | typeof Adapter): void;
     disconnectFrom(name: string | typeof Adapter): void;
