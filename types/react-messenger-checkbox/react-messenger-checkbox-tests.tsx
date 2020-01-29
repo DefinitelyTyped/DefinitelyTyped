@@ -7,14 +7,7 @@ const ORIGIN = '';
 const USER_REF = '';
 
 class Test extends React.Component {
-    public render() {
-        return (
-            <MessengerCheckbox
-              pageId={PAGE_ID}
-              appId={APP_ID}
-              origin={ORIGIN}
-              userRef={USER_REF}
-            />
-        );
+    render() {
+        return <MessengerCheckbox pageId={PAGE_ID} appId={APP_ID} origin={ORIGIN} userRef={USER_REF} />;
     }
 }

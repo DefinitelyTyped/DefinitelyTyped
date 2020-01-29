@@ -4,30 +4,28 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-declare module 'react-messenger-checkbox' {
-    import * as React from 'react';
+import * as React from 'react';
 
-    export interface ReactMessengerProps {
-        pageId: string;
-        appId: string;
-        origin: string;
-        userRef: string;
+export interface ReactMessengerProps {
+    pageId: string;
+    appId: string;
+    origin: string;
+    userRef: string;
 
-        prechecked?: boolean;
-        allowLogin?: boolean;
-        size?: 'small' | 'medium' | 'large' | 'standard' | 'xlarge';
-        skin?: 'light' | 'dark';
-        centerAlign?: boolean;
-        autoLogAppEvents?: boolean;
-        xfbml?: boolean;
-        version?: string;
-        language?: string;
-        debug?: boolean;
-        onEvent?: (event: any) => void;
-    }
-
-    /**
-     * <MessengerCheckbox />
-     */
-    export default class MessengerCheckbox extends React.Component<ReactMessengerProps> {}
+    prechecked?: boolean;
+    allowLogin?: boolean;
+    size?: 'small' | 'medium' | 'large' | 'standard' | 'xlarge';
+    skin?: 'light' | 'dark';
+    centerAlign?: boolean;
+    autoLogAppEvents?: boolean;
+    xfbml?: boolean;
+    version?: string;
+    language?: string;
+    debug?: boolean;
+    onEvent?: (event: any) => void;
 }
+
+/**
+ * <MessengerCheckbox />
+ */
+export default class MessengerCheckbox extends React.Component<ReactMessengerProps> {}
