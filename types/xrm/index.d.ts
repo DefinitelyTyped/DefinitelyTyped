@@ -3791,7 +3791,7 @@ declare namespace Xrm {
              *                event handler.
              */
             addOnPreProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
-            
+
             /**
              * Use this to add a function as an event handler for the OnPreStageChange event so that it will be called before the
              * business process flow stage changes.
