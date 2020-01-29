@@ -1,3 +1,5 @@
+import wNumb = require('wNumb');
+
 const moneyFormat = wNumb({
 	mark: '.',
 	thousand: ',',
