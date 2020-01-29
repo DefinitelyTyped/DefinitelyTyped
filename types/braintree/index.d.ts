@@ -836,13 +836,34 @@ declare namespace braintree {
         bt_payload: string;
     }
 
-    export class WebhookNotification {
+    export abstract class WebhookNotification {
         kind: WebhookNotificationKind;
         timestamp: Date;
-        subscription?: Subscription;
-        merchantAccount?: MerchantAccount;
-        transaction?: Transaction;
-        dispute?: Dispute;
+    }
+
+    export class TransactionNotification extends WebhookNotification {
+        transaction: Transaction;
+    }
+
+    export class SubMerchantAccountApprovedNotification extends WebhookNotification {
+        merchantAccount: MerchantAccount;
+    }
+
+    export class SubMerchantAccountDeclinedNotification extends WebhookNotification {
+        merchantAccount: MerchantAccount;
+    }
+
+    export class SubscriptionNotification extends WebhookNotification {
+        subscription: Subscription;
+    }
+
+    export class DisputeNotification extends WebhookNotification {
+        dispute: Dispute;
+    }
+
+    export class AccountUpdaterNotification extends WebhookNotification {
+        reportDate: Date;
+        reportUrl: string;
     }
 
     export type WebhookNotificationKind =
