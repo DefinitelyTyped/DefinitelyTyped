@@ -1,9 +1,11 @@
 /// <reference path="sharedb.d.ts" />
 import * as WS from 'ws';
 import * as ShareDB from './sharedb';
+import Agent = require('./agent');
 
 export class Connection {
     constructor(ws: WebSocket | WS);
+    agent?: Agent;
     get(collectionName: string, documentID: string): Doc;
     createFetchQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
     createSubscribeQuery(collectionName: string, query: any, options: {results?: Query[]}, callback: (err: Error, results: any[]) => void): Query;
