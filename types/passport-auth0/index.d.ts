@@ -3,6 +3,7 @@
 // Definitions by: John Umeh <https://github.com/johnbendi>
 //                 Vishnu Sankar <https://github.com/iamvishnusankar>
 //                 Duncan Hall <https://github.com/duncanhall>
+//                 Karl Horky <https://github.com/karlhorky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
