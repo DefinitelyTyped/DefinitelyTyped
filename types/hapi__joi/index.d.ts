@@ -20,6 +20,7 @@
 //                 Anand Chowdhary <https://github.com/AnandChowdhary>
 //                 Miro Yovchev <https://github.com/myovchev>
 //                 David Recuenco <https://github.com/RecuencoJones>
+//                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -616,9 +617,9 @@ declare namespace Joi {
     type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult<T = any> {
-        error: ValidationError;
-        errors: ValidationError;
-        warning: ValidationError;
+        error?: ValidationError;
+        errors?: ValidationError;
+        warning?: ValidationError;
         value: T;
     }
 

@@ -13311,7 +13311,7 @@ declare namespace Office {
          * 
          * [Api set: Mailbox 1.7] 
          */ 
-        changedRecipientsFields: RecipientsChangedFields; 
+        changedRecipientFields: RecipientsChangedFields; 
         /** 
          * Gets the type of the event. See `Office.EventType` for details. 
          * 
@@ -13320,29 +13320,47 @@ declare namespace Office {
         type: "olkRecipientsChanged"; 
     } 
     /**
-     * Represents `RecipientsChangedEventArgs.changedRecipientsFields` object. 
-     * 
-     * [Api set: Mailbox 1.7] 
-     */ 
-    interface RecipientsChangedFields { 
-        /** 
-         * Gets if optional attendees were changed. 
-         * 
-         * [Api set: Mailbox 1.7] 
-         */ 
-        optionalAttendees: boolean; 
-        /** 
-         * Gets if required attendees were changed. 
-         * 
-         * [Api set: Mailbox 1.7] 
-         */ 
-        requiredAttendees: boolean; 
-        /** 
-         * Gets if resources were changed. 
-         * 
-         * [Api set: Mailbox 1.7] 
-         */ 
-        resources: boolean; 
+     * Represents `RecipientsChangedEventArgs.changedRecipientFields` object.
+     *
+     * [Api set: Mailbox 1.7]
+     */
+    interface RecipientsChangedFields {
+        /**
+         * Gets if recipients in the **bcc** field were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        bcc: boolean
+        /**
+         * Gets if recipients in the **cc** field were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        cc: boolean;
+        /**
+         * Gets if optional attendees were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        optionalAttendees: boolean;
+        /**
+         * Gets if required attendees were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        requiredAttendees: boolean;
+        /**
+         * Gets if resources were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        resources: boolean;
+        /**
+         * Gets if recipients in the **to** field were changed.
+         *
+         * [Api set: Mailbox 1.7]
+         */
+        to: boolean;
     }
     /**
      * The recurrence object provides methods to get and set the recurrence pattern of appointments but only get the recurrence pattern of 
@@ -14250,7 +14268,7 @@ declare namespace Office {
          */
         displayName: string;
         /**
-         * Gets the user's display name.
+         * Gets the user's SMTP email address.
          *
          * @remarks
          * 
@@ -14260,7 +14278,7 @@ declare namespace Office {
          */
         emailAddress: string;
         /**
-         * Gets the user's SMTP email address.
+         * Gets the user's time zone.
          *
          * @remarks
          * 
@@ -17947,7 +17965,6 @@ declare namespace Excel {
         /**
          *
          * Represents the formula in A1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -17955,7 +17972,6 @@ declare namespace Excel {
         /**
          *
          * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -17963,7 +17979,6 @@ declare namespace Excel {
         /**
          *
          * Represents the formula in R1C1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -18020,7 +18035,6 @@ declare namespace Excel {
         /**
          *
          * Represents Excel's number format code for the given range.
-            When setting number format to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -18028,8 +18042,6 @@ declare namespace Excel {
         /**
          *
          * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
-            If the argument is a single value, it will be applied to all cells in the range.​
             Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
             Any returned text uses the locally-formatted strings based on the language specified in the system settings.
          *
@@ -18090,7 +18102,6 @@ declare namespace Excel {
         /**
          *
          * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
-            When setting values to a range, the value argument can be either a single value (string, number or boolean) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -42185,7 +42196,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -42193,7 +42203,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -42201,7 +42210,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in R1C1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -42216,7 +42224,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range.
-            When setting number format to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -42224,8 +42231,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
-            If the argument is a single value, it will be applied to all cells in the range.​
             Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
             Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
@@ -42251,7 +42256,6 @@ declare namespace Excel {
             /**
              *
              * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
-            When setting values to a range, the value argument can be either a single value (string, number or boolean) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -47094,7 +47098,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -47102,7 +47105,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -47110,7 +47112,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in R1C1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -47167,7 +47168,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range.
-            When setting number format to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -47175,8 +47175,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
-            If the argument is a single value, it will be applied to all cells in the range.​
             Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
             Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
@@ -47237,7 +47235,6 @@ declare namespace Excel {
             /**
              *
              * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
-            When setting values to a range, the value argument can be either a single value (string, number or boolean) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -53170,7 +53167,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -53178,7 +53174,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -53186,7 +53181,6 @@ declare namespace Excel {
             /**
              *
              * Represents the formula in R1C1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -53243,7 +53237,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range.
-            When setting number format to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -53251,8 +53244,6 @@ declare namespace Excel {
             /**
              *
              * Represents Excel's number format code for the given range, based on the language settings of the user.​
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
-            If the argument is a single value, it will be applied to all cells in the range.​
             Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
             Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
@@ -53313,7 +53304,6 @@ declare namespace Excel {
             /**
              *
              * Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
-            When setting values to a range, the value argument can be either a single value (string, number or boolean) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -60838,7 +60828,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the formula in A1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -60846,7 +60835,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -60854,7 +60842,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the formula in R1C1-style notation.
-            When setting formulas to a range, the value argument can be either a single value (a string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.2]
              */
@@ -60911,7 +60898,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents Excel's number format code for the given range.
-            When setting number format to a range, the value argument can be either a single value (string) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */
@@ -60919,8 +60905,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents Excel's number format code for the given range, based on the language settings of the user.​
-            When setting number format local to a range, the value argument can be either a single value (string) or a two-dimensional array.
-            If the argument is a single value, it will be applied to all cells in the range.​
             Excel does not perform any language or format coercion when getting or setting the `numberFormatLocal` property.
             Any returned text uses the locally-formatted strings based on the language specified in the system settings.
              *
@@ -60981,7 +60965,6 @@ declare namespace Excel {
             /**
              *
              * For EACH ITEM in the collection: Represents the raw values of the specified range. The data returned could be of type string, number, or a boolean. Cells that contain an error will return the error string.
-            When setting values to a range, the value argument can be either a single value (string, number or boolean) or a two-dimensional array. If the argument is a single value, it will be applied to all cells in the range.
              *
              * [Api set: ExcelApi 1.1]
              */

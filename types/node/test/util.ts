@@ -39,6 +39,10 @@ import { readFile } from 'fs';
         colors: true,
     };
 
+    util.inspect({
+        [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+    });
+
     util.formatWithOptions({ colors: true }, 'See object %O', { foo: 42 });
 
     // util.callbackify

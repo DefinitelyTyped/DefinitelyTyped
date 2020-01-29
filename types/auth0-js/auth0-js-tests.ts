@@ -150,7 +150,7 @@ webAuth.signupAndAuthorize({
     password: '123456',
     scope: 'openid',
     username: "blabla",
-    user_metadata: {
+    userMetadata: {
         foo: 'bar'
     }
 }, (err, data) => {});
@@ -263,9 +263,40 @@ authentication.getUserCountry((err, data) => {});
 authentication.getSSOData();
 authentication.getSSOData(true, (err, data) => {});
 
+// $ExpectError
+authentication.dbConnection.signup();
+// $ExpectError
+authentication.dbConnection.signup({});
+// $ExpectError
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla' });
+// $ExpectError
+authentication.dbConnection.signup({ connection: 'bla', email: 'blabla', password: '123456' });
 authentication.dbConnection.signup(
     { connection: 'bla', email: 'blabla', password: '123456', username: 'blabla' },
-    () => {}
+    (auth0Error, results) => {
+        if (auth0Error) {
+            const { error, errorDescription } = auth0Error;
+        }
+        if (results) {
+            const { email, emailVerified } = results;
+        }
+    },
+);
+authentication.dbConnection.signup(
+    {
+        email: 'the email',
+        password: 'the password',
+        connection: 'the_connection',
+        userMetadata: {
+            firstName: 'Toon',
+            lastName: 'De Coninck',
+            last_location: 'Mexico',
+        },
+    },
+    (err, data) => {
+        console.assert(err === null);
+        console.assert(data.email !== null);
+    },
 );
 authentication.dbConnection.changePassword({connection: 'bla', email: 'blabla'}, () => {});
 

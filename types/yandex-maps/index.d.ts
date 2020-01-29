@@ -3040,7 +3040,7 @@ declare namespace ymaps {
 	}
 
 	interface IEventTrigger {
-		fire(type: string, eventobject: object | IEvent): this;
+		fire(type: string, eventobject?: object | IEvent): this;
 	}
 
 	interface IEventWorkflowController extends IEventController {
