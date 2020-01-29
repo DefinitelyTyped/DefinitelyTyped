@@ -1,4 +1,4 @@
-import { queries, screen, isInaccessible } from '@testing-library/dom';
+import { fireEvent, queries, screen, isInaccessible } from '@testing-library/dom';
 
 const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryByRole, findByRole } = queries;
 
@@ -42,4 +42,11 @@ async function testByRole() {
 function testA11yHelper() {
     const element = document.createElement('svg');
     console.assert(!isInaccessible(element));
+}
+
+function eventTest() {
+    fireEvent.popState(window, {
+        location: 'http://www.example.com/?page=1',
+        state: { page: 1 },
+    });
 }
