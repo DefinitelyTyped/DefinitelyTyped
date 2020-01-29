@@ -17,20 +17,17 @@ export class Graph extends Component<any, any>{
     componentWillUnmount(): void;
 
     render(): any;
-
 }
 
-export class Link {
+export class Link extends Component<any, any>{
     constructor(...args: any[]);
 
     render(): any;
-
 }
 
-export class Node {
+export class Node extends Component<any, any>{
     constructor(...args: any[]);
 
     render(): any;
-
 }
 

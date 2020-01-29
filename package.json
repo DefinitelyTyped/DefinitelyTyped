@@ -24,7 +24,8 @@
     "devDependencies": {
         "dtslint": "latest",
         "prettier": "^1.17.1",
-        "types-publisher": "github:Microsoft/types-publisher#production"
+        "types-publisher": "github:Microsoft/types-publisher#production",
+        "react-d3-graph": "latest"
     },
     "husky": {
         "hooks": {
