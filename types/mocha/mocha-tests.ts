@@ -841,6 +841,10 @@ function test_constructor_timeout_option() {
     const m: Mocha = new LocalMocha({ timeout: 25 });
 }
 
+function test_constructor_timeout_option_string() {
+    const m: Mocha = new LocalMocha({ timeout: '1s' });
+}
+
 function test_constructor_globals_option() {
     const m: Mocha = new LocalMocha({ globals: ['mocha'] });
 }
