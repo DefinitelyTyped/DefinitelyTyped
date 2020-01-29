@@ -1038,10 +1038,22 @@ function test_runner_events(runner: LocalMocha.Runner) {
     runner.on("start", () => {});
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_RUN_BEGIN, () => {});
+
+    // $ExpectType Runner
     runner.on("end", () => {});
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_RUN_END, () => {});
+
+    // $ExpectType Runner
     runner.on("suite", (suite) => {
+        // $ExpectType Suite
+        suite;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_SUITE_BEGIN, (suite) => {
         // $ExpectType Suite
         suite;
     });
@@ -1053,7 +1065,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_SUITE_END, (suite) => {
+        // $ExpectType Suite
+        suite;
+    });
+
+    // $ExpectType Runner
     runner.on("test", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_BEGIN, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1065,7 +1089,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_END, (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
     runner.on("hook", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_HOOK_BEGIN, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1077,7 +1113,19 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_HOOK_END, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Runner
     runner.on("pass", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_PASS, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1092,7 +1140,22 @@ function test_runner_events(runner: LocalMocha.Runner) {
     });
 
     // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_FAIL, (test, err) => {
+        // $ExpectType Test
+        test;
+
+        // $ExpectType any
+        err;
+    });
+
+    // $ExpectType Runner
     runner.on("pending", (test) => {
+        // $ExpectType Test
+        test;
+    });
+
+    // $ExpectType Runner
+    runner.on(LocalMocha.Runner.constants.EVENT_TEST_PENDING, (test) => {
         // $ExpectType Test
         test;
     });
@@ -1114,7 +1177,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_BEFORE_ALL, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
     suite.on("afterAll", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_AFTER_ALL, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1126,7 +1201,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_BEFORE_EACH, (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
     suite.on("afterEach", (hook) => {
+        // $ExpectType Hook
+        hook;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_SUITE_ADD_HOOK_AFTER_EACH, (hook) => {
         // $ExpectType Hook
         hook;
     });
@@ -1135,7 +1222,19 @@ function test_suite_events(suite: LocalMocha.Suite) {
     suite.on("run", () => { });
 
     // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_ROOT_SUITE_RUN, () => { });
+
+    // $ExpectType Suite
     suite.on("pre-require", (context, file, mocha) => {
+        // $ExpectType MochaGlobals
+        context;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
+
+    // $ExpectType Suite
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_PRE_REQUIRE, (context, file, mocha) => {
         // $ExpectType MochaGlobals
         context;
         // $ExpectType string
@@ -1152,8 +1251,24 @@ function test_suite_events(suite: LocalMocha.Suite) {
         const m: Mocha = mocha;
     });
 
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_REQUIRE, (module, file, mocha) => {
+        // $ExpectType any
+        module;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
+
     // $ExpectType Suite
     suite.on("post-require", (context, file, mocha) => {
+        // $ExpectType MochaGlobals
+        context;
+        // $ExpectType string
+        file;
+        const m: Mocha = mocha;
+    });
+
+    suite.on(LocalMocha.Suite.constants.EVENT_FILE_POST_REQUIRE, (context, file, mocha) => {
         // $ExpectType MochaGlobals
         context;
         // $ExpectType string
