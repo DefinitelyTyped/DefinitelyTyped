@@ -8467,21 +8467,25 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
+    interface AnimatedComponent<T> extends React.Component<T> {
+      getNode: () => T;
+    }
+
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent(component: any): any;
+    export function createAnimatedComponent<T extends React.FC>(component: T): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export const View: any;
-    export const Image: any;
-    export const Text: any;
-    export const ScrollView: any;
-    export const FlatList: any;
-    export const SectionList: any;
+    export const View: AnimatedComponent<View>;
+    export const Image: AnimatedComponent<Image>;
+    export const Text: AnimatedComponent<Text>;
+    export const ScrollView: AnimatedComponent<ScrollView>;
+    export const FlatList: AnimatedComponent<FlatList>;
+    export const SectionList: AnimatedComponent<SectionList>;
 }
 
 // tslint:disable-next-line:interface-name
