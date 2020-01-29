@@ -1,5 +1,5 @@
 import {Graph, Link, Node} from "./index";
-import * as React from '../react';
+import * as React from 'react';
 
 export module X {
     export class Example extends React.Component {
