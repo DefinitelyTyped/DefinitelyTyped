@@ -72,3 +72,5 @@ export class Strategy extends passport.Strategy {
     name: string;
     authenticate(req: express.Request, options?: object): void;
 }
+
+export = Strategy;
