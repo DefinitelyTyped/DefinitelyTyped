@@ -1,4 +1,4 @@
-import wNumb = require('wNumb');
+import wNumb from 'wnumb';
 
 const moneyFormat = wNumb({
 	mark: '.',
