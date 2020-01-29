@@ -24,7 +24,6 @@
       "url": "https://github.com/hrngoode"
     }
   ],
-  "license": "MIT",
   "dependencies": {
     "@types/react": "^16.9.19"
   }
