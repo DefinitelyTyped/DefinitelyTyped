@@ -1,6 +1,6 @@
 import { fireEvent, queries, screen, isInaccessible } from '@testing-library/dom';
 
-const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryByRole, findByRole } = queries;
+const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryAllByRole, queryByRole, findByRole } = queries;
 
 async function testQueries() {
     // element queries
@@ -37,6 +37,8 @@ async function testByRole() {
 
     console.assert(await findByRole(element, 'button', undefined, { timeout: 10 }) === null);
     console.assert(await findByRole(element, 'button', { hidden: true }, { timeout: 10 }) !== null);
+
+    console.assert(queryAllByRole(document.body, 'progressbar', {queryFallbacks: true}).length === 1);
 }
 
 function testA11yHelper() {
