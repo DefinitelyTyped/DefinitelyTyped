@@ -4,7 +4,7 @@
 //				   Seth Butler <https://github.com/sbutler2901>
 //                 Jip Sterk <https://github.com/JipSterk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="express" />
 /// <reference types="express-session" />
