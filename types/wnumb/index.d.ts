@@ -1,6 +1,7 @@
-// Type definitions for wnumb 1.2.0
+// Type definitions for wnumb 1.2
 // Project: https://github.com/leongersen/wnumb
-// Definitions by: Corey Jepperson <https://github.com/acoreyj> and Jamie Neubert Pedersen <https://github.com/eikooc>
+// Definitions by: Corey Jepperson <https://github.com/acoreyj>
+//                 Jamie Neubert Pedersen <https://github.com/eikooc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = wNumb;
