@@ -1348,20 +1348,20 @@ declare namespace Mocha {
     }
 
     interface RunnerConstants {
-        EVENT_HOOK_BEGIN: 'hook';
-        EVENT_HOOK_END: 'hook end';
-        EVENT_RUN_BEGIN: 'start';
-        EVENT_DELAY_BEGIN: 'waiting';
-        EVENT_DELAY_END: 'ready';
-        EVENT_RUN_END: 'end';
-        EVENT_SUITE_BEGIN: 'suite';
-        EVENT_SUITE_END: 'suite end';
-        EVENT_TEST_BEGIN: 'test';
-        EVENT_TEST_END: 'test end';
-        EVENT_TEST_FAIL: 'fail';
-        EVENT_TEST_PASS: 'pass';
-        EVENT_TEST_PENDING: 'pending';
-        EVENT_TEST_RETRY: 'retry';
+        readonly EVENT_HOOK_BEGIN: 'hook';
+        readonly EVENT_HOOK_END: 'hook end';
+        readonly EVENT_RUN_BEGIN: 'start';
+        readonly EVENT_DELAY_BEGIN: 'waiting';
+        readonly EVENT_DELAY_END: 'ready';
+        readonly EVENT_RUN_END: 'end';
+        readonly EVENT_SUITE_BEGIN: 'suite';
+        readonly EVENT_SUITE_END: 'suite end';
+        readonly EVENT_TEST_BEGIN: 'test';
+        readonly EVENT_TEST_END: 'test end';
+        readonly EVENT_TEST_FAIL: 'fail';
+        readonly EVENT_TEST_PASS: 'pass';
+        readonly EVENT_TEST_PENDING: 'pending';
+        readonly EVENT_TEST_RETRY: 'retry';
     }
 
     /**
@@ -1379,7 +1379,7 @@ declare namespace Mocha {
         private prevGlobalsLength;
         private nextSuite;
 
-        static constants: RunnerConstants;
+        static readonly constants: RunnerConstants;
 
         constructor(suite: Suite, delay: boolean);
 
@@ -1703,22 +1703,22 @@ declare namespace Mocha {
     // #endregion Runner untyped events
 
     interface SuiteConstants {
-        EVENT_FILE_POST_REQUIRE: 'post-require';
-        EVENT_FILE_PRE_REQUIRE: 'pre-require';
-        EVENT_FILE_REQUIRE: 'require';
-        EVENT_ROOT_SUITE_RUN: 'run';
+        readonly EVENT_FILE_POST_REQUIRE: 'post-require';
+        readonly EVENT_FILE_PRE_REQUIRE: 'pre-require';
+        readonly EVENT_FILE_REQUIRE: 'require';
+        readonly EVENT_ROOT_SUITE_RUN: 'run';
 
-        HOOK_TYPE_AFTER_ALL: 'afterAll';
-        HOOK_TYPE_AFTER_EACH: 'afterEach';
-        HOOK_TYPE_BEFORE_ALL: 'beforeAll';
-        HOOK_TYPE_BEFORE_EACH: 'beforeEach';
+        readonly HOOK_TYPE_AFTER_ALL: 'afterAll';
+        readonly HOOK_TYPE_AFTER_EACH: 'afterEach';
+        readonly HOOK_TYPE_BEFORE_ALL: 'beforeAll';
+        readonly HOOK_TYPE_BEFORE_EACH: 'beforeEach';
 
-        EVENT_SUITE_ADD_HOOK_AFTER_ALL: 'afterAll';
-        EVENT_SUITE_ADD_HOOK_AFTER_EACH: 'afterEach';
-        EVENT_SUITE_ADD_HOOK_BEFORE_ALL: 'beforeAll';
-        EVENT_SUITE_ADD_HOOK_BEFORE_EACH: 'beforeEach';
-        EVENT_SUITE_ADD_SUITE: 'suite';
-        EVENT_SUITE_ADD_TEST: 'test';
+        readonly EVENT_SUITE_ADD_HOOK_AFTER_ALL: 'afterAll';
+        readonly EVENT_SUITE_ADD_HOOK_AFTER_EACH: 'afterEach';
+        readonly EVENT_SUITE_ADD_HOOK_BEFORE_ALL: 'beforeAll';
+        readonly EVENT_SUITE_ADD_HOOK_BEFORE_EACH: 'beforeEach';
+        readonly EVENT_SUITE_ADD_SUITE: 'suite';
+        readonly EVENT_SUITE_ADD_TEST: 'test';
     }
 
     /**
@@ -1739,7 +1739,7 @@ declare namespace Mocha {
         private _onlyTests;
         private _onlySuites;
 
-        static constants: SuiteConstants;
+        static readonly constants: SuiteConstants;
 
         constructor(title: string, parentContext?: Context);
         /** @deprecated Use the overload that accepts `Mocha.Context` instead. */
