@@ -1,4 +1,4 @@
-// Type definitions for mocha 5.2
+// Type definitions for mocha 7.0
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -1347,6 +1347,23 @@ declare namespace Mocha {
         [key: string]: any;
     }
 
+    interface RunnerConstants {
+        EVENT_HOOK_BEGIN: 'hook';
+        EVENT_HOOK_END: 'hook end';
+        EVENT_RUN_BEGIN: 'start';
+        EVENT_DELAY_BEGIN: 'waiting';
+        EVENT_DELAY_END: 'ready';
+        EVENT_RUN_END: 'end';
+        EVENT_SUITE_BEGIN: 'suite';
+        EVENT_SUITE_END: 'suite end';
+        EVENT_TEST_BEGIN: 'test';
+        EVENT_TEST_END: 'test end';
+        EVENT_TEST_FAIL: 'fail';
+        EVENT_TEST_PASS: 'pass';
+        EVENT_TEST_PENDING: 'pending';
+        EVENT_TEST_RETRY: 'retry';
+    }
+
     /**
      * Initialize a `Runner` for the given `suite`.
      *
@@ -1361,6 +1378,8 @@ declare namespace Mocha {
         private hookErr;
         private prevGlobalsLength;
         private nextSuite;
+
+        static constants: RunnerConstants;
 
         constructor(suite: Suite, delay: boolean);
 
@@ -1683,6 +1702,25 @@ declare namespace Mocha {
     }
     // #endregion Runner untyped events
 
+    interface SuiteConstants {
+        EVENT_FILE_POST_REQUIRE: 'post-require';
+        EVENT_FILE_PRE_REQUIRE: 'pre-require';
+        EVENT_FILE_REQUIRE: 'require';
+        EVENT_ROOT_SUITE_RUN: 'run';
+
+        HOOK_TYPE_AFTER_ALL: 'afterAll';
+        HOOK_TYPE_AFTER_EACH: 'afterEach';
+        HOOK_TYPE_BEFORE_ALL: 'beforeAll';
+        HOOK_TYPE_BEFORE_EACH: 'beforeEach';
+
+        EVENT_SUITE_ADD_HOOK_AFTER_ALL: 'afterAll';
+        EVENT_SUITE_ADD_HOOK_AFTER_EACH: 'afterEach';
+        EVENT_SUITE_ADD_HOOK_BEFORE_ALL: 'beforeAll';
+        EVENT_SUITE_ADD_HOOK_BEFORE_EACH: 'beforeEach';
+        EVENT_SUITE_ADD_SUITE: 'suite';
+        EVENT_SUITE_ADD_TEST: 'test';
+    }
+
     /**
      * Initialize a new `Suite` with the given `title` and `ctx`.
      *
@@ -1700,6 +1738,8 @@ declare namespace Mocha {
         private _retries;
         private _onlyTests;
         private _onlySuites;
+
+        static constants: SuiteConstants;
 
         constructor(title: string, parentContext?: Context);
         /** @deprecated Use the overload that accepts `Mocha.Context` instead. */
