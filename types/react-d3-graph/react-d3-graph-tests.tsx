@@ -1,4 +1,4 @@
-import {Graph, Link, Node} from "react-d3-graph";
+import {Graph, Link, Node} from "./index";
 import * as React from '../react';
 
 export module X {
@@ -10,7 +10,6 @@ export module X {
                     <Link/>
                     <Node/>
                 </div>
-
             );
         }
     }
