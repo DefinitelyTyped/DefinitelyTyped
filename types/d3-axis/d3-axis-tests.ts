@@ -35,6 +35,7 @@ let num: number;
 let axisScaleNumber: d3Axis.AxisScale<number>;
 let axisScaleDate: d3Axis.AxisScale<Date>;
 let axisScaleString: d3Axis.AxisScale<string>;
+let axisScaleToString: d3Axis.AxisScale<{ toString(): string }>;
 
 // --------------------------------------------------------------------------
 // Test AxisScale Helper Interface
@@ -47,6 +48,7 @@ axisScaleNumber = scaleBand<number>();
 axisScaleNumber = scalePoint<number>();
 axisScaleString = scaleBand();
 axisScaleString = scalePoint();
+axisScaleToString = scaleBand<{ toString(): string }>();
 
 // --------------------------------------------------------------------------
 // Test AxisContainerElement
@@ -69,7 +71,7 @@ containerElement = canvas; // fails, incompatible type
 let topAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisTop(scaleLinear());
 let rightAxis: d3Axis.Axis<Date> = d3Axis.axisRight<Date>(scaleTime());
 let bottomAxis: d3Axis.Axis<string> = d3Axis.axisBottom(scaleOrdinal<number>());
-let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scaleLinear<number>());
+let leftAxis: d3Axis.Axis<{ toString(): string }> = d3Axis.axisLeft(scaleBand<{ toString(): string }>());
 
 // --------------------------------------------------------------------------
 // Test Configure Axis
@@ -77,8 +79,8 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 
 // scale(...) ----------------------------------------------------------------
 
-leftAxis = leftAxis.scale(scalePow());
-const powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
+topAxis = topAxis.scale(scalePow());
+const powerScale: ScalePower<number, number> = topAxis.scale<ScalePower<number, number>>();
 
 bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
 // $ExpectError

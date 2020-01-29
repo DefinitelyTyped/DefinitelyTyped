@@ -4,6 +4,7 @@
 //                 Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 denisname <https://github.com/denisname>
+//                 Robert Moura <https://github.com/robertmoura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -18,7 +19,7 @@ import { Selection, TransitionLike } from 'd3-selection';
 /**
  * A helper type to alias elements which can serve as a domain for an axis.
  */
-export type AxisDomain = number | string | Date | { valueOf(): number};
+export type AxisDomain = { toString(): string } | number | { valueOf(): number};
 
 /**
  * A helper interface to describe the minimal contract to be met by a time interval
