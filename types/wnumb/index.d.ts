@@ -4,7 +4,7 @@
 //                 Jamie Neubert Pedersen <https://github.com/eikooc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = wNumb;
+export default wNumb;
 export as namespace wNumb;
 
 /**
