@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "openfin-tests.ts"
+        "openfin-tests.ts",
+        "OTHER_FILES.txt"
     ]
 }
