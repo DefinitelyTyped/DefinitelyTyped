@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "cypress": "^3.8.3"
-    }
-}
