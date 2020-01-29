@@ -29,6 +29,7 @@ _v2/api/interappbus/channel/index.d.ts
 _v2/api/interappbus/channel/provider.d.ts
 _v2/api/interappbus/interappbus.d.ts
 _v2/api/notification/notification.d.ts
+_v2/api/platform/platform.d.ts
 _v2/api/system/application.d.ts
 _v2/api/system/clearCacheOption.d.ts
 _v2/api/system/cookie.d.ts
