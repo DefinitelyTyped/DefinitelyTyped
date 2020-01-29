@@ -517,6 +517,11 @@ declare namespace Xrm {
              * @returns The stage object. For switching between entities, returns the previous stage object
              */
             getStage(): ProcessFlow.Stage;
+
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.             
+             */
+            preventDefault(): void;
         }
 
         /**
