@@ -80,7 +80,8 @@ export type EventType =
     | 'pointerOut'
     | 'pointerLeave'
     | 'gotPointerCapture'
-    | 'lostPointerCapture';
+    | 'lostPointerCapture'
+    | 'popstate';
 
 export type FireFunction = (element: Document | Element | Window, event: Event) => boolean;
 export type FireObject = {
