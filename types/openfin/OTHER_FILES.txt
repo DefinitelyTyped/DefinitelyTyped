@@ -1,12 +1,11 @@
 _v2/api/application/application.d.ts
 _v2/api/application/applicationOption.d.ts
 _v2/api/base.d.ts
-_v2/api/browserview/browserview.d.ts
+_v2/api/view/view.d.ts
 _v2/api/clipboard/clipboard.d.ts
 _v2/api/clipboard/write-request.d.ts
 _v2/api/events/application.d.ts
 _v2/api/events/base.d.ts
-_v2/api/events/browserview.d.ts
 _v2/api/events/channel.d.ts
 _v2/api/events/emitterMap.d.ts
 _v2/api/events/eventAggregator.d.ts
@@ -16,6 +15,7 @@ _v2/api/events/frame.d.ts
 _v2/api/events/globalHotkey.d.ts
 _v2/api/events/notifications.d.ts
 _v2/api/events/system.d.ts
+_v2/api/events/view.d.ts
 _v2/api/events/webcontents.d.ts
 _v2/api/events/window.d.ts
 _v2/api/external-application/external-application.d.ts
@@ -29,6 +29,7 @@ _v2/api/interappbus/channel/index.d.ts
 _v2/api/interappbus/channel/provider.d.ts
 _v2/api/interappbus/interappbus.d.ts
 _v2/api/notification/notification.d.ts
+_v2/api/platform/platform.d.ts
 _v2/api/system/application.d.ts
 _v2/api/system/clearCacheOption.d.ts
 _v2/api/system/cookie.d.ts
@@ -73,3 +74,4 @@ _v2/transport/wire.d.ts
 _v2/util/normalize-config.d.ts
 _v2/util/promises.d.ts
 _v2/util/ref-counter.d.ts
+_v2/util/entity-type.d.ts
