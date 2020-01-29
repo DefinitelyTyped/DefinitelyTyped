@@ -52,7 +52,6 @@
 /// <reference path="Devtools.d.ts" />
 /// <reference path="LaunchScreen.d.ts" />
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -1123,6 +1122,28 @@ export interface TextInputAndroidProps {
     | 'tel'
     | 'username'
     | 'off';
+
+    /**
+     * Determines whether the individual fields in your app should be included in a
+     * view structure for autofill purposes on Android API Level 26+. Defaults to auto.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `auto` - let Android decide
+     * - `no` - not important for autofill
+     * - `noExcludeDescendants` - this view and its children aren't important for autofill
+     * - `yes` - is important for autofill
+     * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
+     */
+    importantForAutofill?:
+    | "auto"
+    | "no"
+    | "noExcludeDescendants"
+    | "yes"
+    | "yesExcludeDescendants";
 
     /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
@@ -2898,8 +2919,6 @@ export interface PickerItemProps {
     value?: any;
 }
 
-export class PickerItem extends React.Component<PickerItemProps> { }
-
 export interface PickerPropsIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
@@ -2975,7 +2994,7 @@ export class Picker extends React.Component<PickerProps> {
      */
     static MODE_DROPDOWN: string;
 
-    static Item: typeof PickerItem;
+    static Item: React.Component<PickerItemProps>;
 }
 
 /**
@@ -3883,12 +3902,12 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<ItemT> | null, index: number) => { length: number; offset: number; index: number };
+    getItemLayout?: (data: Array<ItemT> | null | undefined, index: number) => { length: number; offset: number; index: number };
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
      */
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * How many items to render in the initial batch
@@ -3898,7 +3917,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Instead of starting at the top with the first item, start at initialScrollIndex
      */
-    initialScrollIndex?: number;
+    initialScrollIndex?: number | null;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -3960,7 +3979,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem: ListRenderItem<ItemT> | null | undefined;
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -4107,7 +4126,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
-    inverted?: boolean;
+    inverted?: boolean | null;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -4250,7 +4269,7 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
 export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
-    renderItem: ListRenderItem<ItemT>;
+    renderItem: ListRenderItem<ItemT> | null | undefined;
 }
 
 export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
@@ -4317,7 +4336,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
         index: number;
     };
 
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * How many items to render in the initial batch. This should be enough to fill the screen but not
@@ -4332,12 +4351,12 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * always rendered and immediately renders the items starting at this initial index. Requires
      * `getItemLayout` to be implemented.
      */
-    initialScrollIndex?: number;
+    initialScrollIndex?: number | null;
 
     /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
-    inverted?: boolean;
+    inverted?: boolean | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 
@@ -6122,11 +6141,23 @@ export interface ScrollViewPropsIOS {
     scrollIndicatorInsets?: Insets; //zeroes
 
     /**
+     * When true, the scroll view can be programmatically scrolled beyond its
+     * content size. The default value is false.
+     * @platform ios
+     */
+    scrollToOverflowEnabled?: boolean,
+
+    /**
      * When true the scroll view scrolls to top when the status bar is tapped.
      * The default value is true.
      */
     scrollsToTop?: boolean;
 
+    /**
+     * Fires when the scroll view scrolls to top after the status bar has been tapped
+     * @platform ios
+     */
+    onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
     /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing
@@ -6199,7 +6230,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * When true the scroll view's children are arranged horizontally in a row
      * instead of vertically in a column. The default value is false.
      */
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * If sticky headers should stick at the bottom instead of the top of the
@@ -6584,13 +6615,13 @@ export interface ActionSheetIOSStatic {
 
 export type ShareContent =
     | {
-        title?: string;
-        message: string;
-    }
+    title?: string;
+    message: string;
+}
     | {
-        title?: string;
-        url: string;
-    };
+    title?: string;
+    url: string;
+};
 
 export type ShareOptions = {
     dialogTitle?: string;

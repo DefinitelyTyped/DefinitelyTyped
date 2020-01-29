@@ -9,6 +9,7 @@
 //                 geirsagberg <https://github.com/geirsagberg>
 //                 Harry Hedger <https://github.com/hedgerh>
 //                 Adam Rich <https://github.com/adam1658>
+//                 Karl-Aksel Puulmann <https://github.com/macobo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -371,3 +372,5 @@ export function scrollBehavior(): ScrollBehavior | void;
 export function setKind(action: Action, kind: string): Action;
 
 export function updateScroll(): void;
+
+export function selectLocationState<TState = any>(state: TState): LocationState;

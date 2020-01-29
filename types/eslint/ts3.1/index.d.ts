@@ -320,7 +320,7 @@ export namespace Rule {
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
     }
 
     interface RuleFixer {
@@ -546,6 +546,12 @@ export namespace CLIEngine {
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
+    }
+
+    interface DeprecatedRuleUse {
+        ruleId: string;
+        replacedBy: string[];
     }
 
     type Formatter = (results: LintResult[], data?: LintResultData) => string;

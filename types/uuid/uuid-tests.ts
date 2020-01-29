@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import uuid = require('uuid');
 import v1 = require('uuid/v1');
 import v4 = require('uuid/v4');
@@ -52,3 +54,10 @@ const d: number[] = v5('world', MY_NAMESPACE, [], 0);
 // https://github.com/kelektiv/node-uuid#quickstart---commonjs-recommended
 const e: string = v5('hello.example.com', v5.DNS);
 const f: string = v5('http://example.com/hello', v5.URL);
+
+const g = Buffer.alloc(16);
+v4(null, g); // $ExpectType Buffer
+
+class CustomBuffer extends Uint8Array {}
+const h = new CustomBuffer(10);
+v4(null, h); // $ExpectType CustomBuffer

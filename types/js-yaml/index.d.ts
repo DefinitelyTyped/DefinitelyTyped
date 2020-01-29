@@ -1,6 +1,8 @@
 // Type definitions for js-yaml 3.12
 // Project: https://github.com/nodeca/js-yaml
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Sebastian Clausen <https://github.com/sclausen>
+//                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -16,9 +18,9 @@ export class Type {
 	construct(data: any): any;
 	instanceOf: object | null;
 	predicate: ((data: object) => boolean) | null;
-	represent: ((data: object) => any) | { [x: string]: (data: object) => any; } | null;
+	represent: ((data: object) => any) | { [x: string]: (data: object) => any } | null;
 	defaultStyle: string | null;
-	styleAliases: { [x: string]: any; };
+	styleAliases: { [x: string]: any };
 }
 
 /* tslint:disable-next-line:no-unnecessary-class */
@@ -28,12 +30,11 @@ export class Schema implements SchemaDefinition {
 	static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 }
 
-export function safeLoadAll(str: string, iterator?: undefined, opts?: LoadOptions): any[];
-export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
+export function safeLoadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
+export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
 
-export function loadAll(str: string, iterator?: undefined, opts?: LoadOptions): any[];
-
-export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): undefined;
+export function loadAll(str: string, iterator?: null, opts?: LoadOptions): any[];
+export function loadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): void;
 
 export function safeDump(obj: any, opts?: DumpOptions): string;
 export function dump(obj: any, opts?: DumpOptions): string;
@@ -59,7 +60,7 @@ export interface DumpOptions {
 	/** specifies level of nesting, when to switch from block to flow style for collections. -1 means block style everwhere */
 	flowLevel?: number;
 	/** Each tag may have own set of styles.	- "tag" => "style" map. */
-	styles?: { [x: string]: any; };
+	styles?: { [x: string]: any };
 	/** specifies a schema to use. */
 	schema?: SchemaDefinition;
 	/** if true, sort keys when dumping YAML. If a function, use the function to sort the keys. (default: false) */
@@ -85,7 +86,7 @@ export interface TypeConstructorOptions {
 	predicate?: (data: object) => boolean;
 	represent?: ((data: object) => any) | { [x: string]: (data: object) => any };
 	defaultStyle?: string;
-	styleAliases?: { [x: string]: any; };
+	styleAliases?: { [x: string]: any };
 }
 
 export interface SchemaDefinition {
