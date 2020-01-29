@@ -6,7 +6,7 @@
 //                 Li Cui <https://github.com/licui3936>
 //                 Tomer Sharon <https://github.com/tomer-openfin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 2.9
 
 // based on v15.80.49.4
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
