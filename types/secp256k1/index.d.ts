@@ -113,7 +113,7 @@ export function signatureImportLax(signature: Buffer): Buffer;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function sign(message: Buffer, privateKey: Buffer, options?: SignOptions): {signature: Buffer, recovery: number};
+export function ecdsaSign(message: Buffer, privateKey: Buffer, options?: SignOptions): {signature: Uint8Array, recovery: number};
 
 /**
  * Verify an ECDSA signature.

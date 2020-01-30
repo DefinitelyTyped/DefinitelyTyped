@@ -11,6 +11,7 @@ export as namespace wu;
 declare namespace wu {
 	type Consumer<T> = (t: T) => void;
 	type Filter<T> = (t: T) => boolean;
+	type TypeGuardFilter<T, S extends T> = (t: T) => t is S;
 
 	// only static
 	function chain<T>(...iters: Array<Iterable<T>>): WuIterable<T>;
@@ -29,7 +30,9 @@ declare namespace wu {
 	function concatMap<T, U>(fn: (t: T) => Iterable<U>, iter: Iterable<T>): WuIterable<U>;
 	function enumerate<T>(iter: Iterable<T>): WuIterable<[T, number]>;
 	function every<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
+	function filter<T, S extends T>(fn: TypeGuardFilter<T, S>, iter: Iterable<T>): WuIterable<S>;
 	function filter<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
+	function find<T, S extends T>(fn: TypeGuardFilter<T, S>, iter: Iterable<T>): S | undefined;
 	function find<T>(fn: Filter<T>, iter: Iterable<T>): T | undefined;
 	function flatten(iter: Iterable<any>): WuIterable<any>;
 	function flatten(shallow: boolean, iter: Iterable<any>): WuIterable<any>;
@@ -79,7 +82,9 @@ declare namespace wu {
 		concatMap<U>(fn: (t: T) => Iterable<U>): WuIterable<U>;
 		enumerate(): WuIterable<[T, number]>;
 		every(fn: Filter<T>): boolean;
+		filter<S extends T>(fn: TypeGuardFilter<T, S>): WuIterable<S>;
 		filter(fn: Filter<T>): WuIterable<T>;
+		find<S extends T>(fn: TypeGuardFilter<T, S>): S | undefined;
 		find(fn: Filter<T>): T | undefined;
 		flatten(shallow?: boolean): WuIterable<any>;
 		forEach(fn: Consumer<T>): void;

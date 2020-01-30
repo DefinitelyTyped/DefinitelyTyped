@@ -1,7 +1,8 @@
 import { CrashedEvent } from './application';
 import { WindowEvent, BaseEventMap } from './base';
-import { WindowOptionDiff } from '../window/windowOption';
+import { WindowOptionDiff, WindowOption } from '../window/windowOption';
 import { WebContentsEventMapping, WindowResourceLoadFailedEvent, WindowResourceResponseReceivedEvent } from './webcontents';
+import { PropagatedViewEventMapping } from './view';
 export declare type SpecificWindowEvent<Type> = WindowEvent<'window', Type>;
 export interface WindowAlertRequestedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     message: string;
@@ -21,13 +22,14 @@ export interface WindowEndLoadEvent<Topic, Type> extends WindowEvent<Topic, Type
     isMain: boolean;
 }
 export interface WindowNavigationRejectedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    sourceName: string;
+    sourceName?: string;
     url: string;
 }
 export interface WindowReloadedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     url: string;
 }
 export interface WindowOptionsChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
+    options: WindowOption;
     diff: WindowOptionDiff;
 }
 export interface WindowExternalProcessExitedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
@@ -120,7 +122,6 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'close-requested': WindowEvent<Topic, Type>;
     'closed': WindowEvent<Topic, Type>;
     'closing': WindowEvent<Topic, Type>;
-    'crashed': CrashedEvent & WindowEvent<Topic, Type>;
     'disabled-movement-bounds-changed': WindowBoundsChange<Topic, Type>;
     'disabled-movement-bounds-changing': WindowBoundsChange<Topic, Type>;
     'embedded': WindowEvent<Topic, Type>;
@@ -133,7 +134,6 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'initialized': WindowEvent<Topic, Type>;
     'maximized': WindowEvent<Topic, Type>;
     'minimized': WindowEvent<Topic, Type>;
-    'navigation-rejected': WindowNavigationRejectedEvent<Topic, Type>;
     'options-changed': WindowOptionsChangedEvent<Topic, Type>;
     'performance-report': WindowPerformanceReport<Topic, Type>;
     'preload-scripts-state-changed': WindowPreloadScriptsStateChangeEvent<Topic, Type>;
@@ -144,6 +144,8 @@ export interface WindowEventMapping<Topic = string, Type = string> extends WebCo
     'shown': WindowEvent<Topic, Type>;
     'user-movement-disabled': WindowEvent<Topic, Type>;
     'user-movement-enabled': WindowEvent<Topic, Type>;
+    'view-attached': WindowEvent<Topic, Type>;
+    'view-detached': WindowEvent<Topic, Type>;
     'will-move': WillMoveOrResize<Topic, Type>;
     'will-resize': WillMoveOrResize<Topic, Type>;
 }
@@ -182,7 +184,7 @@ export interface PropagatedWindowEventMapping<Topic = string, Type = string> ext
     'window-will-move': WillMoveOrResize<Topic, Type>;
     'window-will-resize': WillMoveOrResize<Topic, Type>;
 }
-export declare type WindowEvents = {
+export declare type WindowEvents = PropagatedViewEventMapping<'window'> & {
     [Type in keyof WindowEventMapping]: WindowEventMapping<'window', Type>[Type];
 };
 export declare type PropagatedWindowEvents<Topic> = {

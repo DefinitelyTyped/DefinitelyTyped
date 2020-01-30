@@ -48,6 +48,13 @@ declare module "readline" {
         write(data: string | Buffer, key?: Key): void;
 
         /**
+         * Returns the real position of the cursor in relation to the input
+         * prompt + string.  Long input (wrapping) strings, as well as multiple
+         * line prompts are included in the calculations.
+         */
+        getCursorPos(): CursorPos;
+
+        /**
          * events.EventEmitter
          * 1. close
          * 2. line
@@ -130,6 +137,7 @@ declare module "readline" {
         prompt?: string;
         crlfDelay?: number;
         removeHistoryDuplicates?: boolean;
+        escapeCodeTimeout?: number;
     }
 
     function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
@@ -137,6 +145,11 @@ declare module "readline" {
     function emitKeypressEvents(stream: NodeJS.ReadableStream, readlineInterface?: Interface): void;
 
     type Direction = -1 | 0 | 1;
+
+    interface CursorPos {
+        rows: number;
+        cols: number;
+    }
 
     /**
      * Clears the current line of this WriteStream in a direction identified by `dir`.

@@ -2936,8 +2936,9 @@ declare namespace Matter {
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
+         * @return {vertices} vertices
          */
-        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
+        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
 
 
         /**
@@ -2993,8 +2994,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {number} angle
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static rotate(vertices: Array<Vector>, angle: number, point: Vector): void;
+        static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -3003,8 +3005,9 @@ declare namespace Matter {
          * @param {number} scaleX
          * @param {number} scaleY
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): void;
+        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
         /**
          * Translates the set of vertices in-place.
@@ -3012,8 +3015,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {vector} vector
          * @param {number} scalar
+         * @return {vertices} vertices
          */
-        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): void;
+        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
 
     interface IWorldDefinition extends ICompositeDefinition {

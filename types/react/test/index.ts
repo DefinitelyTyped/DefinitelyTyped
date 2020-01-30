@@ -514,6 +514,7 @@ onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined>> = React.Children.toArray(children);
 
 declare const numberChildren: number[];
+declare const nodeChildren: React.ReactNode;
 declare const elementChildren: JSX.Element[];
 declare const mixedChildren: Array<JSX.Element | string>;
 declare const singlePluralChildren: JSX.Element | JSX.Element[];
@@ -533,6 +534,9 @@ const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString =
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
+// The return type may not be an array
+// $ExpectError
+const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
 //
 // Example from http://facebook.github.io/react/

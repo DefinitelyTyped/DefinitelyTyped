@@ -148,6 +148,9 @@ conn1.config.hasOwnProperty('');
 conn1.db.bufferMaxEntries;
 conn1.collections['coll'].$format(999);
 conn1.readyState.toFixed();
+conn1.name.toLowerCase()
+conn1.host.toLowerCase()
+conn1.port.toFixed()
 conn1.useDb('myDb').useDb('');
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
@@ -305,10 +308,10 @@ QCModel.watch().once('change', (change: any) => {
   console.log(change);
 });
 
-QCModel.watch({
-  maxAwaitTimeMS: 10
+QCModel.watch([{ $match: { author: 'dave' } }], {
+    maxAwaitTimeMS: 10,
 }).once('change', (change: any) => {
-  console.log(change);
+    console.log(change);
 });
 
 /*

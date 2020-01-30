@@ -350,6 +350,7 @@ import { URL } from 'url';
         maxSendHeaderBlockLength: 0,
         paddingStrategy: 0,
         peerMaxConcurrentStreams: 0,
+        protocol: 'https:',
         selectPadding: (frameLen: number, maxFrameLen: number) => 0,
         settings
     };
