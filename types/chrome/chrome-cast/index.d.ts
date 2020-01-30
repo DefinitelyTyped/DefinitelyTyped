@@ -990,6 +990,7 @@ declare namespace chrome.cast.media {
         customData: Object;
         idleReason: chrome.cast.media.IdleReason;
         items: Array<chrome.cast.media.QueueItem>;
+        liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
         loadingItemId: number;
         media: chrome.cast.media.MediaInfo;
         mediaSessionId: number;
@@ -1260,6 +1261,24 @@ declare namespace chrome.cast.media {
         fontGenericFamily: chrome.cast.media.TextTrackFontGenericFamily;
         fontStyle: chrome.cast.media.TextTrackFontStyle;
         customData: Object;
+    }
+    
+    export class LiveSeekableRange {
+        /**
+         * @constructor
+             * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.LiveSeekableRange
+         */
+        constructor(
+            start?: number,
+            end?: number,
+            isMovingWindow?: boolean,
+            isLiveDone?: boolean
+        );
+        
+        start?: number;
+        end?: number;
+        isMovingWindow?: boolean;
+        isLiveDone?: boolean;
     }
 }
 

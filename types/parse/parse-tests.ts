@@ -570,6 +570,11 @@ async function test_cloud_functions() {
         request.params.anything;
     });
 
+    Parse.Cloud.define<() => void>('AFunc', request => {
+        // $ExpectType {}
+        request.params;
+    });
+
     Parse.Cloud.define<(params: { something: string }) => number>('AFunc', (request) => {
         // $ExpectType { something: string; }
         request.params;
@@ -752,51 +757,107 @@ async function test_local_datastore() {
     Parse.setLocalDatastoreController({});
 }
 
-async function test_schema() {
-    Parse.Schema.all({ useMasterKey: true });
-    Parse.Schema.all({ sessionToken: '' });
+type FieldType = string | number | boolean | Date | Parse.File | Parse.GeoPoint | any[] | object | Parse.Pointer | Parse.Polygon | Parse.Relation;
+async function test_schema(
+    anyField: FieldType,
+    notString: Exclude<FieldType, string>,
+    notNumber: Exclude<FieldType, number>,
+    notboolean: Exclude<FieldType, boolean>,
+    notDate: Exclude<FieldType, Date>,
+    notFile: Exclude<FieldType, Parse.File>,
+    notGeopoint: Exclude<FieldType, Parse.GeoPoint[]>,
+    notArray: Exclude<FieldType, any[]>,
+    notObject: Exclude<FieldType, object>,
+    notPointer: Exclude<FieldType, Parse.Pointer>,
+    notPolygon: Exclude<FieldType, Parse.Polygon>
+) {
+    Parse.Schema.all();
 
     const schema = new Parse.Schema('TestSchema');
 
-    schema.addField('defaultFieldString');
-    schema.addString('stringField');
-    schema.addNumber('numberField');
-    schema.addBoolean('booleanField');
-    schema.addDate('dateField');
-    schema.addFile('fileField');
-    schema.addGeoPoint('geoPointField');
-    schema.addPolygon('polygonField');
     schema.addArray('arrayField');
-    schema.addObject('objectField');
-    schema.addPointer('pointerField', '_User');
-    schema.addRelation('relationField', '_User');
+    schema.addArray('arrayField', { defaultValue: [1, 2, 3, 4] });
+    // $ExpectError
+    schema.addArray('arrayField', { defaultValue: notArray });
 
+    /**
+     * @todo Enable type check for defaul value
+     */
+    schema.addField('defaultFieldString');
+    schema.addField('defaultFieldString', 'String', { defaultValue: anyField });
+    schema.addField('defaultFieldString', 'Number');
+    schema.addField('defaultFieldString', 'Relation');
+    // $ExpectError
+    schema.addField('defaultFieldString', 'String', 'Invalid Options');
+
+    schema.addString('field');
+    schema.addString('field', { defaultValue: 'some string', required: true });
+    // $ExpectError
+    schema.addString('field', { defaultValue: notString });
+
+    schema.addNumber('field');
+    schema.addNumber('field', { defaultValue: 0, required: true });
+    // $ExpectError
+    schema.addNumber('field', { defaultValue: notNumber });
+
+    schema.addBoolean('field');
+    schema.addBoolean('field', { defaultValue: true, required: true });
+    // $ExpectError
+    schema.addBoolean('field', { defaultValue: notboolean });
+
+    schema.addDate('field');
+    schema.addDate('field', { defaultValue: new Date(), required: true });
+    // $ExpectError
+    schema.addDate('field', { defaultValue: notDate });
+
+    schema.addFile('field');
+    schema.addFile('field', { defaultValue: new Parse.File('myfile', []), required: true });
+    // $ExpectError
+    schema.addFile('field', { defaultValue: notFile });
+
+    schema.addGeoPoint('field');
+    schema.addGeoPoint('field', { defaultValue: new Parse.GeoPoint(), required: true });
+    // $ExpectError
+    schema.addGeoPoint('field', { defaultValue: notGeopoint });
+
+    schema.addPolygon('field');
+    schema.addPolygon('field', { defaultValue: new Parse.Polygon([]), required: true });
+    // $ExpectError
+    schema.addPolygon('field', { defaultValue: notPolygon });
+
+    schema.addObject('field');
+    schema.addObject('field', { defaultValue: { }, required: true });
+    schema.addObject('field', { defaultValue: { abc: 'def' } });
+    // $ExpectError
+    schema.addObject('field', { defaultValue: notObject });
+
+    schema.addPointer('field', 'SomeClass');
+    // $ExpectError
+    schema.addPointer('field');
+    /**
+     * @todo Infer defaultValue type from targetClass
+     */
+    schema.addPointer('field', '_User', { defaultValue: new Parse.User().toPointer(), required: true });
+    // $ExpectError
+    schema.addPointer('field', { defaultValue: notPointer });
+
+    schema.addRelation('field', 'SomeClass');
+    // $ExpectError
+    schema.addRelation('field');
+    // $ExpectError
+    schema.addRelation('field', 'SomeClass', 'anything');
+
+    schema.addIndex('testIndex', { stringField: 'Number' });
+    // $ExpectError
     schema.addIndex('testIndex', { stringField: 1 });
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
-
-    // Master Key
-    schema.delete({ useMasterKey: true }).then(results => {});
-
-    schema.get({ useMasterKey: true }).then(results => {});
-
+    schema.delete().then(results => {});
+    schema.get().then(results => {});
     schema.purge().then(results => {});
-
-    schema.save({ useMasterKey: true }).then(results => {});
-
-    schema.update({ useMasterKey: true }).then(results => {});
-
-    // Session Token
-    schema.delete({ sessionToken: '' }).then(results => {});
-
-    schema.get({ sessionToken: '' }).then(results => {});
-
-    schema.purge().then(results => {});
-
-    schema.save({ sessionToken: '' }).then(results => {});
-
-    schema.update({ sessionToken: '' }).then(results => {});
+    schema.save().then(results => {});
+    schema.update().then(results => {});
 }
 
 function testObject() {
@@ -1109,17 +1170,26 @@ function testObject() {
         objTyped.revert('other');
     }
 
-    async function testSave(objUntyped: Parse.Object, objTyped: Parse.Object<{ example: boolean }>) {
+    async function testSave(
+        objUntyped: Parse.Object,
+        objTyped: Parse.Object<{ example: boolean; someString: string }>
+    ) {
         // $ExpectType Object<Attributes>
         await objUntyped.save({ whatever: 100 });
 
         // $ExpectType Object<Attributes>
         await objUntyped.save('whatever', 100);
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save({ example: true });
 
-        // $ExpectType Object<{ example: boolean; }>
+        // $ExpectType Object<{ example: boolean; someString: string; }>
+        await objTyped.save({ example: true, someString: 'hello' });
+
+        // $ExpectError
+        await objTyped.save({ example: 'hello', someString: true });
+
+        // $ExpectType Object<{ example: boolean; someString: string; }>
         await objTyped.save('example', true);
 
         // $ExpectError
@@ -1144,6 +1214,12 @@ function testObject() {
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set({ example: false });
+
+        // $ExpectType false | Object<{ example: boolean; another: number; }>
+        objTyped.set({ example: true, another: 123 });
+
+        // $ExpectError
+        objTyped.set({ example: 123, another: true });
 
         // $ExpectType false | Object<{ example: boolean; another: number; }>
         objTyped.set('example', true);

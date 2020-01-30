@@ -3,6 +3,6 @@
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function format(format: string, str: string): string;
+declare function format(message: string, ...optionalParams: any[]): string;
 
 export = format;

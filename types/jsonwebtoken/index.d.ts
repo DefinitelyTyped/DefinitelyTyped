@@ -7,7 +7,8 @@
 //                 Daniel Parker <https://github.com/rlgod>,
 //                 Kjell Dießel <https://github.com/kettil>,
 //                 Robert Gajda <https://github.com/RunAge>,
-//                 Nico Flaig <https://github.com/nflaig>
+//                 Nico Flaig <https://github.com/nflaig>,
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -196,7 +197,5 @@ export function verify(
  * [options] - Options for decoding
  * returns - The decoded Token
  */
-export function decode(
-    token: string,
-    options?: DecodeOptions,
-): null | { [key: string]: any } | string;
+export function decode(token: string, options: DecodeOptions & { json: true }): null | { [key: string]: any };
+export function decode(token: string, options?: DecodeOptions): null | { [key: string]: any } | string;
