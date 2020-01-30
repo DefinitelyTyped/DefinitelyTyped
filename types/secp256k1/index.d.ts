@@ -113,7 +113,7 @@ export function signatureImportLax(signature: Buffer): Buffer;
  * - Compose 32-byte scalar `s = k^-1 * (r * d + m)`. Reject nonce if `s` is zero.
  * - The signature is `(r, s)`.
  */
-export function ecdsaSign(message: Buffer, privateKey: Buffer, options?: SignOptions): {signature: Uint8Array, recovery: number};
+export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?: SignOptions): {signature: Uint8Array, recovery: number};
 
 /**
  * Verify an ECDSA signature.
@@ -126,7 +126,7 @@ export function ecdsaSign(message: Buffer, privateKey: Buffer, options?: SignOpt
  * - Compute point `R = (s^-1 * m * G + s^-1 * r * Q)`. Reject if `R` is infinity.
  * - Signature is valid if R's `x` coordinate equals to `r`.
  */
-export function verify(message: Buffer, signature: Buffer, publicKey: Buffer): boolean;
+export function ecdsaVerify(message: Uint8Array, signature: Uint8Array, publicKey: Uint8Array): boolean;
 
 /**
  * Recover an ECDSA public key from a signature.
