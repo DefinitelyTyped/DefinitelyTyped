@@ -565,6 +565,8 @@ declare namespace Autodesk {
             setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
+            getWorldPoint(x: number, y: number): THREE.Vector3;
+            screenToViewport(x: number, y: number): THREE.Vector3;
         }
 
         interface Properties {
