@@ -40,7 +40,8 @@ const testExpress = () => {
 
   const app = express();
 
-  const middleware = getMiddleware({ ip: '1.1.1.1' });
+  let middleware = getMiddleware({ ip: '1.1.1.1' });
+  middleware = getMiddleware(); // Opts aren't required
 
   app.use(middleware);
 };
