@@ -4033,7 +4033,7 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
     /**
      * Provides a handle to the underlying scroll responder.
      */
-    getScrollResponder: () => JSX.Element;
+    getScrollResponder: () => JSX.Element | null | undefined;
 
     /**
      * Provides a reference to the underlying host component
