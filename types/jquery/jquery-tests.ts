@@ -115,6 +115,9 @@ function JQueryStatic() {
         $('span', $('p'));
 
         // $ExpectType JQuery<HTMLElement>
+        $('span', 'p');
+
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
         // $ExpectType JQuery<SVGLineElement>
