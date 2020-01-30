@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Helmet, HelmetData, HelmetsOpenedVisor } from "react-helmet-with-visor";
-import HelmetDefaultExport from "react-helmet-with-visor";
+import HelmetDefaultExport, { Helmet, HelmetData, HelmetsOpenedVisor } from "react-helmet-with-visor";
 
 const Application = () =>
     <div className="application">

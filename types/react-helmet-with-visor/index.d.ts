@@ -19,13 +19,13 @@ type LinkProps = JSX.IntrinsicElements['link'];
 type MetaProps = JSX.IntrinsicElements['meta'];
 
 export interface HelmetTags {
-    baseTag: Array<any>;
-    linkTags: Array<HTMLLinkElement>;
-    metaTags: Array<HTMLMetaElement>;
-    noscriptTags: Array<any>;
-    scriptTags: Array<HTMLScriptElement>;
-    styleTags: Array<HTMLStyleElement>;
-    openedVisorTags: Array<any>;
+    baseTag: any[]
+    linkTags: HTMLLinkElement[]
+    metaTags: HTMLMetaElement[]
+    noscriptTags: any[]
+    scriptTags: HTMLScriptElement[]
+    styleTags: HTMLStyleElement[]
+    openedVisorTags: any[]
 }
 
 export interface HelmetProps {
@@ -39,11 +39,11 @@ export interface HelmetProps {
     onChangeClientState?: (newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void;
     link?: LinkProps[];
     meta?: MetaProps[];
-    noscript?: Array<any>;
-    script?: Array<any>;
-    style?: Array<any>;
+    noscript?: any[]
+    script?: any[]
+    style?: any[]
     title?: string;
-    titleAttributes?: Object;
+    titleAttributes?: object;
     titleTemplate?: string;
 }
 
@@ -83,9 +83,9 @@ export interface HelmetHTMLElementDatum {
     toComponent(): React.HTMLAttributes<HTMLHtmlElement>;
 }
 
-export const peek: () => HelmetData;
-export const rewind: () => HelmetData;
-export const renderStatic: () => HelmetData;
+export function peek(): HelmetData;
+export function rewind(): HelmetData;
+export function renderStatic(): HelmetData;
 export const canUseDOM: boolean;
 export default Helmet;
 
