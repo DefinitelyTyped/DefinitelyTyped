@@ -8467,7 +8467,7 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
-    export interface AnimatedComponent<T extends React.FC | typeof React.Component> extends React.FC<T['props']> {
+    export interface AnimatedComponent<T extends React.ComponentType> extends React.FC<T['props']> {
       getNode: () => T;
     }
 
