@@ -30,4 +30,4 @@ interface ReactMessengerProps {
  */
 declare class MessengerCheckbox extends React.Component<ReactMessengerProps> {}
 
-export {};
+export = MessengerCheckbox;
