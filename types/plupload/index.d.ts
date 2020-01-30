@@ -770,5 +770,5 @@ declare namespace plupload {
 }
 
 declare module 'plupload' {
-    export default plupload
+    export = plupload;
 }
