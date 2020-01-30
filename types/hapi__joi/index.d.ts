@@ -616,11 +616,11 @@ declare namespace Joi {
 
     type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
 
-    interface ValidationResult<T = any> {
+    interface ValidationResult {
         error?: ValidationError;
         errors?: ValidationError;
         warning?: ValidationError;
-        value: T;
+        value: any;
     }
 
     interface CreateErrorOptions {
@@ -754,11 +754,10 @@ declare namespace Joi {
         /**
          * Runs internal validations against given value.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        $_validate<T = any>(value: any, state: State, prefs: ValidationOptions): ValidationResult<T>;
+        $_validate(value: any, state: State, prefs: ValidationOptions): ValidationResult;
     }
 
-    interface AnySchema<TSchema = any> extends SchemaInternals {
+    interface AnySchema extends SchemaInternals {
         /**
          * Flags of current schema.
          */
@@ -1083,14 +1082,12 @@ declare namespace Joi {
         /**
          * Validates a value using the schema and options.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        validate<T = TSchema>(value: any, options?: ValidationOptions): ValidationResult<T>;
+        validate(value: any, options?: ValidationOptions): ValidationResult;
 
         /**
          * Validates a value using the schema and options.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        validateAsync<T = TSchema>(value: any, options?: AsyncValidationOptions): Promise<T>;
+        validateAsync(value: any, options?: AsyncValidationOptions): Promise<any>;
 
         /**
          * Same as `rule({ warn: true })`.
@@ -1150,7 +1147,7 @@ declare namespace Joi {
         localize?(...args: any[]): State;
     }
 
-    interface BooleanSchema extends AnySchema<boolean> {
+    interface BooleanSchema extends AnySchema {
         /**
          * Allows for additional values to be considered valid booleans by converting them to false during validation.
          * String comparisons are by default case insensitive,
@@ -1173,7 +1170,7 @@ declare namespace Joi {
         truthy(...values: Array<string | number>): this;
     }
 
-    interface NumberSchema extends AnySchema<number> {
+    interface NumberSchema extends AnySchema {
         /**
          * Specifies that the value must be greater than limit.
          * It can also be a reference to another field.
@@ -1240,7 +1237,7 @@ declare namespace Joi {
         unsafe(enabled?: any): this;
     }
 
-    interface StringSchema extends AnySchema<string> {
+    interface StringSchema extends AnySchema {
         /**
          * Requires the string value to only contain a-z, A-Z, and 0-9.
          */
@@ -1405,7 +1402,7 @@ declare namespace Joi {
         uuid(options?: GuidOptions): this;
     }
 
-    interface SymbolSchema extends AnySchema<symbol> {
+    interface SymbolSchema extends AnySchema {
         // TODO: support number and symbol index
         map(iterable: Iterable<[string | number | boolean | symbol, symbol]> | { [key: string]: symbol }): this;
     }
@@ -1429,7 +1426,7 @@ declare namespace Joi {
 
     type ComparatorFunction = (a: any, b: any) => boolean;
 
-    interface ArraySchema<TArrayValueSchema = any> extends AnySchema<TArrayValueSchema[]> {
+    interface ArraySchema extends AnySchema {
         /**
          * Verifies that an assertion passes for at least one item in the array, where:
          * `schema` - the validation rules required to satisfy the assertion. If the `schema` includes references, they are resolved against
@@ -1505,7 +1502,7 @@ declare namespace Joi {
         matches: SchemaLike | Reference;
     }
 
-    interface ObjectSchema<TSchema = any> extends AnySchema<TSchema> {
+    interface ObjectSchema<TSchema = any> extends AnySchema {
         /**
          * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
          *
@@ -1641,7 +1638,7 @@ declare namespace Joi {
         length(limit: number | Reference): this;
     }
 
-    interface DateSchema extends AnySchema<Date> {
+    interface DateSchema extends AnySchema {
         /**
          * Specifies that the value must be greater than date.
          * Notes: 'now' can be passed in lieu of date so as to always compare relatively to the current date,
@@ -1711,7 +1708,7 @@ declare namespace Joi {
         maxArity(n: number): this;
     }
 
-    interface AlternativesSchema<TAlternativesSchema = any> extends AnySchema<TAlternativesSchema> {
+    interface AlternativesSchema extends AnySchema {
         /**
          * Adds a conditional alternative schema type, either based on another key value, or a schema peeking into the current value.
          */
@@ -1882,8 +1879,7 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an array data type.
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        array<T>(): ArraySchema<T>;
+        array(): ArraySchema;
 
         /**
          * Generates a schema object that matches a boolean data type (as well as the strings 'true', 'false', 'yes', and 'no'). Can also be called via bool().
@@ -1939,10 +1935,8 @@ declare namespace Joi {
         /**
          * Generates a type that will match one of the provided alternative schemas
          */
-        // tslint:disable-next-line:no-unnecessary-generics
-        alternatives<T = any>(types: SchemaLike[]): AlternativesSchema<T>;
-        // tslint:disable-next-line:no-unnecessary-generics
-        alternatives<T = any>(...types: SchemaLike[]): AlternativesSchema<T>;
+        alternatives(types: SchemaLike[]): AlternativesSchema;
+        alternatives(...types: SchemaLike[]): AlternativesSchema;
 
         /**
          * Alias for `alternatives`
