@@ -106,7 +106,7 @@ function FSTest(): void {
     FS.write(wstream, data, 0, data.length, 0);
     FS.close(wstream);
 
-    FS.createDataFile('/', 'dummy2', data, true, true);
+    FS.createDataFile('/', 'dummy2', data, true, true, true);
 
     const lookup = FS.lookupPath("path", { parent: true });
 }
