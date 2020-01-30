@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export interface ReactMessengerProps {
+interface ReactMessengerProps {
     pageId: string;
     appId: string;
     origin: string;
@@ -28,4 +28,6 @@ export interface ReactMessengerProps {
 /**
  * <MessengerCheckbox />
  */
-export default class MessengerCheckbox extends React.Component<ReactMessengerProps> {}
+declare class MessengerCheckbox extends React.Component<ReactMessengerProps> {}
+
+export {};
