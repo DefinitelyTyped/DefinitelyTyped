@@ -12,6 +12,7 @@ declare class List {
     matchingItems: object[];
     searched: boolean;
     filtered: boolean;
+    alphabet: string;
 
     constructor(element: string|HTMLElement, options?: List.ListOptions, values?: object[]);
 
