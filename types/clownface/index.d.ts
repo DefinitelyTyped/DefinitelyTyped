@@ -50,7 +50,7 @@ declare namespace clownface {
         readonly values: string[];
         readonly dataset: D;
         readonly datasets: D[];
-        readonly _context: Context<D, T>;
+        readonly _context: Array<Context<D, T>>;
         list(): Iterable<SingleContextClownface<D>>;
         toArray(): Array<Clownface<D, T>>;
         filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;

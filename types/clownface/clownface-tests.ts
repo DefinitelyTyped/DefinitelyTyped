@@ -206,6 +206,6 @@ multipleLiterals = clownface({ dataset }).node([ 'a', 10, false ]);
 const multipleMixedTerms: clownface.SafeClownface<Dataset> = clownface({ dataset }).node([ 'a', node, null ]);
 
 // .context
-const ctxTerm: Literal = fromSingleArrayLiteral._context.term;
-const ctxGraph: Quad_Graph | undefined = fromSingleArrayLiteral._context.graph;
-const ctxDataset: Dataset = fromSingleArrayLiteral._context.dataset;
+const ctxTerm: Literal = fromSingleArrayLiteral._context[0].term;
+const ctxGraph: Quad_Graph | undefined = fromSingleArrayLiteral._context[0].graph;
+const ctxDataset: Dataset = fromSingleArrayLiteral._context[0].dataset;
