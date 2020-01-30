@@ -1,4 +1,4 @@
-import ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin';
+import * as ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin';
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
 new ServiceWorkerWebpackPlugin({
