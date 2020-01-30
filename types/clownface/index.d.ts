@@ -109,6 +109,7 @@ declare namespace clownface {
         readonly terms: [T];
         readonly value: string;
         readonly values: [string];
+        readonly _context: [Context<D, T>];
     }
 }
 
