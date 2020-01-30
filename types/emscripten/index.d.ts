@@ -217,7 +217,7 @@ declare namespace FS {
     function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
     function createPreloadedFile(parent: string | FSNode, name: string, url: string,
         canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
-    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean): FSNode;
+    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean, canOwn: boolean): FSNode;
 }
 
 interface Math {
