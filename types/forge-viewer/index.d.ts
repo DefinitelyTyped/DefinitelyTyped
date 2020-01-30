@@ -992,6 +992,7 @@ declare namespace Autodesk {
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
             }
 
             class VisibilityManager {
