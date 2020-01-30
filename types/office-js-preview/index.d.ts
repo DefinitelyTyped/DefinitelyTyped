@@ -9391,6 +9391,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -9420,6 +9423,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -10495,6 +10501,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -10524,6 +10533,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -13568,6 +13580,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -13597,6 +13612,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -14597,6 +14615,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -14626,6 +14647,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment is an embedded image in Rich Text Format,
+         *                               or it isn't an email or calendar item (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
