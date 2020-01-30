@@ -622,64 +622,57 @@ expect.addSnapshotSerializer({
 });
 
 expect.addSnapshotSerializer({
-    print(value, serialize, indent, opts, colors) {
+    serialize(value, config, indentation, depth, refs, printer) {
         let result = '';
 
-        if (opts.callToJSON !== undefined && opts.callToJSON) {
+        if (config.callToJSON !== undefined && config.callToJSON) {
             result += ' ';
         }
 
-        result += opts.edgeSpacing;
-        result += opts.spacing;
+        result += config.spacingInner;
+        result += config.spacingOuter;
 
-        if (opts.escapeRegex !== undefined && opts.escapeRegex) {
+        if (config.escapeRegex !== undefined && config.escapeRegex) {
             result += ' ';
         }
 
-        if (opts.indent !== undefined) {
-            for (let i = 0; i < opts.indent; i += 1) {
-                result += '\t';
-            }
+        if (indentation !== undefined) {
+            result += indentation;
         }
 
-        if (opts.maxDepth !== undefined) {
-            result = result.substring(0, opts.maxDepth);
+        if (config.maxDepth !== undefined) {
+            result = result.substring(0, config.maxDepth);
         }
 
-        if (opts.min !== undefined && opts.min) {
+        if (config.min !== undefined && config.min) {
             result += ' ';
         }
 
-        if (opts.plugins !== undefined) {
-            for (const plugin of opts.plugins) {
+        if (config.plugins !== undefined) {
+            for (const plugin of config.plugins) {
                 expect.addSnapshotSerializer(plugin);
             }
         }
 
-        if (opts.printFunctionName !== undefined && opts.printFunctionName) {
+        if (config.printFunctionName !== undefined && config.printFunctionName) {
             result += ' ';
         }
 
-        if (opts.theme) {
-            if (opts.theme.comment !== undefined) {
-                result += opts.theme.comment;
-            }
+        return result;
+    },
+    test: (value: {}) => value === value,
+});
 
-            if (opts.theme.content !== undefined) {
-                result += opts.theme.content;
-            }
+// old API
+expect.addSnapshotSerializer({
+    print(value, serialize, indent, opts, colors) {
+        let result = '';
 
-            if (opts.theme.prop !== undefined) {
-                result += opts.theme.prop;
-            }
+        result += opts.edgeSpacing;
+        result += opts.spacing;
 
-            if (opts.theme.tag !== undefined) {
-                result += opts.theme.tag;
-            }
-
-            if (opts.theme.value !== undefined) {
-                result += opts.theme.value;
-            }
+        if (opts.min !== undefined && opts.min) {
+            result += ' ';
         }
 
         for (const color of [colors.comment, colors.content, colors.prop, colors.tag, colors.value]) {

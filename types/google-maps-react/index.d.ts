@@ -2,8 +2,9 @@
 // Project: https://github.com/fullstackreact/google-maps-react#readme
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
+//                 Paito Anderson <https://github.com/PaitoAnderson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import 'googlemaps';
 import * as React from 'react';
@@ -103,12 +104,15 @@ export class HeatMap extends React.Component<any, any> {
 }
 
 export interface InfoWindowProps extends Partial<google.maps.InfoWindowOptions> {
-  google: typeof google;
-  map: google.maps.Map;
-  marker: google.maps.Marker;
+  google?: typeof google;
+  map?: google.maps.Map;
+  marker?: google.maps.Marker;
 
   mapCenter?: google.maps.LatLng | google.maps.LatLngLiteral;
   visible?: boolean;
+
+  onOpen?: () => void;
+  onClose?: () => void;
 }
 
 export class InfoWindow<P extends InfoWindowProps = InfoWindowProps, S = any> extends React.Component<P, S> {

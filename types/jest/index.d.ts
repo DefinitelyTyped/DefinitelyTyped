@@ -526,49 +526,7 @@ declare namespace jest {
         message: () => string;
     }
 
-    interface SnapshotSerializerOptions {
-        callToJSON?: boolean;
-        edgeSpacing?: string;
-        spacing?: string;
-        escapeRegex?: boolean;
-        highlight?: boolean;
-        indent?: number;
-        maxDepth?: number;
-        min?: boolean;
-        plugins?: SnapshotSerializerPlugin[];
-        printFunctionName?: boolean;
-        theme?: SnapshotSerializerOptionsTheme;
-
-        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
-    }
-    interface SnapshotSerializerOptionsTheme {
-        comment?: string;
-        content?: string;
-        prop?: string;
-        tag?: string;
-        value?: string;
-    }
-    interface SnapshotSerializerColor {
-        close: string;
-        open: string;
-    }
-    interface SnapshotSerializerColors {
-        comment: SnapshotSerializerColor;
-        content: SnapshotSerializerColor;
-        prop: SnapshotSerializerColor;
-        tag: SnapshotSerializerColor;
-        value: SnapshotSerializerColor;
-    }
-    interface SnapshotSerializerPlugin {
-        print(
-            val: any,
-            serialize: (val: any) => string,
-            indent: (str: string) => string,
-            opts: SnapshotSerializerOptions,
-            colors: SnapshotSerializerColors
-        ): string;
-        test(val: any): boolean;
-    }
+    type SnapshotSerializerPlugin = import('pretty-format').Plugin;
 
     interface InverseAsymmetricMatchers {
         /**

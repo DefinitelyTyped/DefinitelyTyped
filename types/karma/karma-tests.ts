@@ -99,7 +99,8 @@ module.exports = (config: karma.Config) => {
       },
     },
 
-    singleRun: true
+    singleRun: true,
+    restartOnFileChange: true
   });
 };
 
@@ -119,5 +120,6 @@ console.log(karma.constants.DEFAULT_HOSTNAME);
 console.log(karma.VERSION);
 
 karma.config.parseConfig('karma.conf.js', {
-    singleRun: true
+    singleRun: true,
+    restartOnFileChange: true
 });

@@ -1,11 +1,20 @@
 import rdf = require('rdf-ext');
-import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DataFactory } from 'rdf-js';
+import { Literal, Quad, Dataset, NamedNode, Stream, Sink, DataFactory, DatasetFactory } from 'rdf-js';
+import QuadExt = require('rdf-ext/lib/Quad');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
 import DatasetExt = require('rdf-ext/lib/Dataset');
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
 
 const factory: DataFactory = rdf;
+
+function rdfExt_factory() {
+    const baseFactory: DatasetFactory = rdf;
+    const factory: DatasetFactory<QuadExt, Quad> = rdf;
+
+    const baseDataset: Dataset = rdf.dataset();
+    const dataset: Dataset<QuadExt> = rdf.dataset();
+}
 
 function NamedNode_toCanonical(): string {
     const iri = 'http://example.org';

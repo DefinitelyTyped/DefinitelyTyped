@@ -1,6 +1,7 @@
 import TripleToQuadTransform = require('rdf-transform-triple-to-quad');
 import { Stream, NamedNode, DataFactory, Sink } from 'rdf-js';
-import { Readable, EventEmitter } from 'stream';
+import { Readable } from 'stream';
+import { EventEmitter } from 'events';
 
 const inputStream: Stream & Readable = <any> {};
 const graph: NamedNode = <any> {};

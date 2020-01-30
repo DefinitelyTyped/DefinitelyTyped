@@ -13,7 +13,7 @@ const dataFactory2: DataFactory<QuadBnode> & DatasetCoreFactory<QuadBnode> = {} 
 const quads1: Quad[] = [] as any;
 const quads2: QuadBnode[] = [] as any;
 
-const test1: DatasetCore = datasetFactory();
+const test1: DatasetCore<Quad, BaseQuad> = datasetFactory();
 const test2: DatasetCore = datasetFactory(quads1);
 const test3: DatasetCore = datasetFactory(quads1, dataFactory1);
 const test4: DatasetCore<QuadBnode> = datasetFactory(quads2);

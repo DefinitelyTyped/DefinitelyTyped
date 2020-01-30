@@ -15,6 +15,7 @@ import {
     SingleContextClownface,
     SingleOrOneElementArray
 } from '..';
+import { Context } from './Context';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
     constructor(options: ClownfaceInit & Partial<WithSingleTerm<T> | WithTerms<T>> & Partial<WithSingleValue | WithValues>);
@@ -24,7 +25,7 @@ declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Te
     readonly values: string[];
     readonly dataset: D;
     readonly datasets: D[];
-    readonly _context: any;
+    readonly _context: Array<Context<D, T>>;
     list(): Iterable<SingleContextClownface<D>>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;

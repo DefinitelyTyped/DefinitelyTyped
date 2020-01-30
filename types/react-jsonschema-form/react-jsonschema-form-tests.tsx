@@ -1,5 +1,15 @@
 import * as React from 'react';
-import Form, { UiSchema, ErrorListProps, FieldProps, WidgetProps, ErrorSchema, withTheme } from 'react-jsonschema-form';
+import Form, {
+    UiSchema,
+    ErrorListProps,
+    FieldProps,
+    WidgetProps,
+    ErrorSchema,
+    withTheme,
+    FieldTemplateProps,
+    ArrayFieldTemplateProps,
+    ObjectFieldTemplateProps,
+} from 'react-jsonschema-form';
 import SchemaField, { SchemaFieldProps } from 'react-jsonschema-form/lib/components/fields/SchemaField';
 import { JSONSchema6 } from 'json-schema';
 
@@ -44,6 +54,18 @@ const schema: JSONSchema6 = {
     },
 };
 
+const ExampleFieldTemplate = (_props: FieldTemplateProps) => null;
+
+const ExampleArrayFieldTemplate = ({ items }: ArrayFieldTemplateProps) => (
+    <div>
+        {items.map(element => (
+            <div key={element.key}>{element.children}</div>
+        ))}
+    </div>
+);
+
+const ExampleObjectFieldTemplate = (_props: ObjectFieldTemplateProps) => null;
+
 const uiSchema: UiSchema = {
     age: {
         'ui:widget': 'updown',
@@ -58,6 +80,9 @@ const uiSchema: UiSchema = {
     date: {
         'ui:widget': 'alt-datetime',
     },
+    'ui:FieldTemplate': ExampleFieldTemplate,
+    'ui:ArrayFieldTemplate': ExampleArrayFieldTemplate,
+    'ui:ObjectFieldTemplate': ExampleObjectFieldTemplate,
 };
 
 interface IExampleState {
@@ -231,4 +256,17 @@ export const customFieldExample = (props: FieldProps) => {
         },
     };
     return <SchemaField {...props} {...customProps} />;
+};
+
+export const omitExtraDataExample = (schema: JSONSchema6) => {
+    return <Form schema={schema} omitExtraData liveOmit />;
+};
+
+export const customTagName = (schema: JSONSchema6) => {
+    return <Form schema={schema} tagName="div" />;
+};
+
+const TestForm = (props: React.ComponentProps<'form'>) => <form {...props} />;
+export const customTagNameUsingComponent = (schema: JSONSchema6) => {
+    return <Form schema={schema} tagName={TestForm} />;
 };

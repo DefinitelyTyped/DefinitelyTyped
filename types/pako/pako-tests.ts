@@ -1,7 +1,5 @@
 import pako = require("pako");
-
-// Declaring shims removes assert dependency. These tests are never executed, only typechecked, so this is fine.
-declare function assertEqual<T>(actual: T, expected: T): void;
+import * as assert from "assert";
 
 const chunk1 = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 const chunk2 = new Uint8Array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
@@ -43,10 +41,10 @@ deflator.push(data, true);
 const inflator = new pako.Inflate({ to: 'string' });
 inflator.push(deflator.result, true);
 
-assertEqual(inflator.err, 0);
-assertEqual(inflator.result, data);
+assert.equal(inflator.err, 0);
+assert.equal(inflator.result, data);
 
 const header = inflator.header;
-assertEqual(header.time, 1234567);
-assertEqual(header.os, 15);
-assertEqual(header.name, 'test name');
+assert.equal(header.time, 1234567);
+assert.equal(header.os, 15);
+assert.equal(header.name, 'test name');

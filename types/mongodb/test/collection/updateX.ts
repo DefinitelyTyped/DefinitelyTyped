@@ -11,6 +11,8 @@ async function run() {
         field2: string;
     }
 
+    type FruitTypes = 'apple' | 'pear';
+
     // test with collection type
     interface TestModel {
         stringField: string;
@@ -19,6 +21,7 @@ async function run() {
         otherDateField: Date;
         oneMoreDateField: Date;
         fruitTags: string[];
+        maybeFruitTags?: FruitTypes[];
         subInterfaceField: SubTestModel;
         subInterfaceArray: SubTestModel[];
     }
@@ -95,6 +98,7 @@ async function run() {
 
     buildUpdateQuery({ $addToSet: { fruitTags: 'stringField' } });
     buildUpdateQuery({ $addToSet: { fruitTags: { $each: ['stringField'] } } });
+    buildUpdateQuery({ $addToSet: { maybeFruitTags: 'apple' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': 'stringField' } });
     buildUpdateQuery({ $addToSet: { 'dot.notation': { $each: ['stringfield'] } } });
 

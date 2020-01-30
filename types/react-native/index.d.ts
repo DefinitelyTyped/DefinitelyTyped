@@ -1124,6 +1124,28 @@ export interface TextInputAndroidProps {
     | 'off';
 
     /**
+     * Determines whether the individual fields in your app should be included in a
+     * view structure for autofill purposes on Android API Level 26+. Defaults to auto.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `auto` - let Android decide
+     * - `no` - not important for autofill
+     * - `noExcludeDescendants` - this view and its children aren't important for autofill
+     * - `yes` - is important for autofill
+     * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
+     */
+    importantForAutofill?:
+    | "auto"
+    | "no"
+    | "noExcludeDescendants"
+    | "yes"
+    | "yesExcludeDescendants";
+
+    /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
      * When true, this feature is disabled and users will always edit the text directly inside of the text input.
@@ -2897,8 +2919,6 @@ export interface PickerItemProps {
     value?: any;
 }
 
-export class PickerItem extends React.Component<PickerItemProps> { }
-
 export interface PickerPropsIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
@@ -2974,7 +2994,7 @@ export class Picker extends React.Component<PickerProps> {
      */
     static MODE_DROPDOWN: string;
 
-    static Item: typeof PickerItem;
+    static Item: React.Component<PickerItemProps>;
 }
 
 /**
@@ -3976,37 +3996,27 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
 
 export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
     /**
-     * Exports some data, e.g. for perf investigations or analytics.
-     */
-    getMetrics: () => {
-        contentLength: number;
-        totalRows: number;
-        renderedRows: number;
-        visibleRows: number;
-    };
-
-    /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd: (params?: { animated?: boolean }) => void;
+    scrollToEnd: (params?: { animated?: boolean | null }) => void;
 
     /**
      * Scrolls to the item at the specified index such that it is positioned in the viewable area
      * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean | null; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean | null; item: ItemT; viewPosition?: number }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
+    scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
@@ -4019,6 +4029,21 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
      * Displays the scroll indicators momentarily.
      */
     flashScrollIndicators: () => void;
+
+    /**
+     * Provides a handle to the underlying scroll responder.
+     */
+    getScrollResponder: () => JSX.Element | null | undefined;
+
+    /**
+     * Provides a reference to the underlying host component
+     */
+    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+
+    getScrollableNode: () => any;
+
+    // TODO: use `unknown` instead of `any` for Typescript >= 3.0
+    setNativeProps: (props: {[key: string]: any}) => void;
 }
 
 /**

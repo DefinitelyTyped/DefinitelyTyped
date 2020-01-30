@@ -1,8 +1,6 @@
-/// <reference types="node" />
-
 // Uses ArrayLike to admit Unit8 and co.
-export type OutputBuffer = ArrayLike<number> | Buffer;
-export type InputBuffer = ArrayLike<number> | Buffer;
+export type OutputBuffer = ArrayLike<number>;
+export type InputBuffer = ArrayLike<number>;
 
 export interface V1Options {
     node?: InputBuffer;
