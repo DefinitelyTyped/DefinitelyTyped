@@ -77,7 +77,7 @@ export type ColorMode = {
     accent?: CSS.ColorProperty;
 };
 
-export interface Theme extends StyledSystemTheme {
+export interface Theme extends Omit<StyledSystemTheme, 'colors'> {
     /**
      * Enable/disable custom CSS properties/variables if lower browser
      * support is required (for eg. IE 11).
