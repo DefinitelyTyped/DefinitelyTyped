@@ -33,6 +33,15 @@ interface MediaRecorderOptions {
 
 type RecordingState = 'inactive' | 'recording' | 'paused';
 
+interface MediaRecorderEventMap {
+    "dataavailable": BlobEvent;
+    "error": MediaRecorderErrorEvent;
+    "pause": Event;
+    "resume": Event;
+    "start": Event;
+    "stop": Event;
+}
+
 declare class MediaRecorder extends EventTarget {
     readonly stream: MediaStream;
     readonly mimeType: string;
@@ -49,9 +58,10 @@ declare class MediaRecorder extends EventTarget {
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
 
-    addEventListener(type: 'dataavailable', listener: (this: MediaRecorder, event: BlobEvent) => void, useCapture?: boolean): void;
-    addEventListener(type: 'error', listener: (this: MediaRecorder, event: MediaRecorderErrorEvent) => void, useCapture?: boolean): void;
-    addEventListener(type: 'pause' | 'resume' | 'start' | 'stop', listener: (this: MediaRecorder, event: Event) => void, useCapture?: boolean): void;
+    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     start(timeslice?: number): void;
     stop(): void;
