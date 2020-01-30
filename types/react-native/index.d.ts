@@ -8467,14 +8467,16 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
-    export interface AnimatedComponent<T extends React.ComponentType> extends React.FC<T['props']> {
-      getNode: () => T;
+    export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
+
+    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<ComponentProps<T>>{
+        getNode: () => T;
     }
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType>(component: T): AnimatedComponent<T>;
+    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<InstanceType<T>>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
