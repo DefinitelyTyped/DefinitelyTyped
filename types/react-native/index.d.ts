@@ -8476,7 +8476,7 @@ export namespace Animated {
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<InstanceType<T>>;
+    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<T extends React.FunctionComponent<ComponentProps<T>> ? T : InstanceType<T>>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
