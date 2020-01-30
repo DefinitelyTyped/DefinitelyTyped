@@ -802,7 +802,7 @@ export namespace promise {
     constructor(opt_msg?: string);
   }
 
-  interface IThenable<T> {
+  interface IThenable<T> extends PromiseLike<T> {
     /**
      * Cancels the computation of this promise's value, rejecting the promise in
      * the process. This method is a no-op if the promise has already been
@@ -829,7 +829,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
+    then<R>(opt_callback?: (value: T) => R | PromiseLike<R>, opt_errback?: (error: any) => any): Promise<R>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
