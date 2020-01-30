@@ -716,7 +716,7 @@ declare namespace Application {
         req: IncomingMessage;
         res: ServerResponse;
         originalUrl: string;
-        cookies: Cookies;
+        cookies: typeof Cookies;
         accept: accepts.Accepts;
         /**
          * To bypass Koa's built-in response handling, you may explicitly set `ctx.respond = false;`
