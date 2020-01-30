@@ -66,7 +66,7 @@ async function testPromisify() {
 }
 
 {
-    let cp = childProcess.spawn('asd', { stdio: 'inherit' });
+    let cp = childProcess.fork('asd');
     const _socket: net.Socket = net.createConnection(1);
     const _server: net.Server = net.createServer();
     let _boolean: boolean;

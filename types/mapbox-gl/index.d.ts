@@ -6,6 +6,7 @@
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
+//                 Marko Klopets <https://github.com/mklopets>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -193,7 +194,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[]): this;
+        setFilter(layer: string, filter?: any[] | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -361,7 +362,7 @@ declare namespace mapboxgl {
         crossSourceCollisions?: boolean;
 
         /** ID of the container element */
-        container: string | Element;
+        container: string | HTMLElement;
 
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
@@ -511,7 +512,7 @@ declare namespace mapboxgl {
 
         /**
          * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
-         * 
+         *
          * @default null
          */
         accessToken?: string;

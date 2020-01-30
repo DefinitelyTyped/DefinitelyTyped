@@ -1,4 +1,4 @@
-// Type definitions for ws 6.0
+// Type definitions for ws 7.2
 // Project: https://github.com/websockets/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
 //                 Matt Silverlock <https://github.com/elithrar>
@@ -6,6 +6,7 @@
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
+//                 teidesu <https://github.com/teidesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -16,6 +17,7 @@ import * as https from 'https';
 import * as net from 'net';
 import * as url from 'url';
 import * as zlib from 'zlib';
+import * as stream from 'stream';
 
 // WebSocket socket.
 declare class WebSocket extends events.EventEmitter {
@@ -127,7 +129,9 @@ declare namespace WebSocket {
 
     interface ClientOptions {
         protocol?: string;
+        followRedirects?: boolean;
         handshakeTimeout?: number;
+        maxRedirects?: number;
         perMessageDeflate?: boolean | PerMessageDeflateOptions;
         localAddress?: string;
         protocolVersion?: number;
@@ -227,18 +231,21 @@ declare namespace WebSocket {
         shouldHandle(request: http.IncomingMessage): boolean;
 
         // Events
-        on(event: 'connection', cb: (this: WebSocket, socket: WebSocket, request: http.IncomingMessage) => void): this;
-        on(event: 'error', cb: (this: WebSocket, error: Error) => void): this;
-        on(event: 'headers', cb: (this: WebSocket, headers: string[], request: http.IncomingMessage) => void): this;
-        on(event: 'listening', cb: (this: WebSocket) => void): this;
-        on(event: string | symbol, listener: (this: WebSocket, ...args: any[]) => void): this;
+        on(event: 'connection', cb: (this: Server, socket: WebSocket, request: http.IncomingMessage) => void): this;
+        on(event: 'error', cb: (this: Server, error: Error) => void): this;
+        on(event: 'headers', cb: (this: Server, headers: string[], request: http.IncomingMessage) => void): this;
+        on(event: 'close' | 'listening', cb: (this: Server) => void): this;
+        on(event: string | symbol, listener: (this: Server, ...args: any[]) => void): this;
 
         addListener(event: 'connection', cb: (client: WebSocket) => void): this;
         addListener(event: 'error', cb: (err: Error) => void): this;
         addListener(event: 'headers', cb: (headers: string[], request: http.IncomingMessage) => void): this;
-        addListener(event: 'listening', cb: () => void): this;
+        addListener(event: 'close' | 'listening', cb: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
+
+    // WebSocket stream
+    function createWebSocketStream(websocket: WebSocket, options: stream.DuplexOptions): stream.Duplex;
 }
 
 export = WebSocket;

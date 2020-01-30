@@ -305,7 +305,7 @@ async function testPromisify() {
 (async () => {
     try {
         await fs.promises.rmdir('some/test/path');
-        await fs.promises.rmdir('some/test/path', { recursive: true });
+        await fs.promises.rmdir('some/test/path', { recursive: true, maxRetries: 123, retryDelay: 123 });
     } catch (e) {}
 })();
 
@@ -326,5 +326,6 @@ async function testPromisify() {
 
     const dirEntProm: Promise<fs.Dir> = fs.promises.opendir('test', {
         encoding: 'utf8',
+        bufferSize: 42,
     });
 }

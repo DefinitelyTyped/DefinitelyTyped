@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    mixin() { return { customName: 'unknown', customId: 111 }; },
+});
+
+pino({
+    mixin: () => ({ customName: 'unknown', customId: 111 }),
+});
+
+pino({
     redact: { paths: [], censor: 'SECRET' },
 });
 
@@ -50,6 +58,18 @@ pino({
             info(o) {
             },
             error(o) {
+            }
+        },
+        serialize: true,
+        asObject: true,
+        transmit: {
+            level: 'fatal',
+            send: (level, logEvent) => {
+                level;
+                logEvent.bindings;
+                logEvent.level;
+                logEvent.ts;
+                logEvent.messages;
             }
         }
     }
@@ -151,6 +171,10 @@ const pretty = pino({
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
+});
+
+const withTimeFn = pino({
+    timestamp: pino.stdTimeFunctions.isoTime,
 });
 
 // Properties/types imported from pino-std-serializers

@@ -135,3 +135,14 @@ import * as url from 'url';
         console.log(event.data, event.target, event.type);
     };
 }
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    const duplex = WebSocket.createWebSocketStream(ws, {
+        allowHalfOpen: true
+    });
+
+    duplex.pipe(process.stdout);
+    process.stdin.pipe(duplex);
+}

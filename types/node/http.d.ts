@@ -77,6 +77,10 @@ declare module "http" {
         defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
+        /**
+         * @default 8192
+         */
+        maxHeaderSize?: number;
         method?: string;
         path?: string | null;
         headers?: OutgoingHttpHeaders;
@@ -92,14 +96,18 @@ declare module "http" {
     interface ServerOptions {
         IncomingMessage?: typeof IncomingMessage;
         ServerResponse?: typeof ServerResponse;
+        /**
+         * Optionally overrides the value of
+         * [`--max-http-header-size`][] for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 8192
+         */
+        maxHeaderSize?: number;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
 
-    class Server extends NetServer {
-        constructor(requestListener?: RequestListener);
-        constructor(options: ServerOptions, requestListener?: RequestListener);
-
+    interface HttpBase {
         setTimeout(msecs?: number, callback?: () => void): this;
         setTimeout(callback: () => void): this;
         /**
@@ -111,11 +119,17 @@ declare module "http" {
         timeout: number;
         /**
          * Limit the amount of time the parser will wait to receive the complete HTTP headers.
-         * @default 40000
+         * @default 60000
          * {@link https://nodejs.org/api/http.html#http_server_headerstimeout}
          */
         headersTimeout: number;
         keepAliveTimeout: number;
+    }
+
+    interface Server extends HttpBase {}
+    class Server extends NetServer {
+        constructor(requestListener?: RequestListener);
+        constructor(options: ServerOptions, requestListener?: RequestListener);
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
@@ -125,9 +139,16 @@ declare module "http" {
         shouldKeepAlive: boolean;
         useChunkedEncodingByDefault: boolean;
         sendDate: boolean;
+        /**
+         * @deprecated Use `writableEnded` instead.
+         */
         finished: boolean;
         headersSent: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
 
         constructor();
 
@@ -146,7 +167,6 @@ declare module "http" {
     class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
-        writableFinished: boolean;
 
         constructor(req: IncomingMessage);
 
@@ -178,7 +198,8 @@ declare module "http" {
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        readonly path: string;
+        method: string;
+        path: string;
         abort(): void;
         onSocket(socket: Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
@@ -273,7 +294,11 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         complete: boolean;
+        /**
+         * @deprecate Use `socket` instead.
+         */
         connection: Socket;
+        socket: Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
@@ -295,7 +320,6 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: Socket;
         destroy(error?: Error): void;
     }
 

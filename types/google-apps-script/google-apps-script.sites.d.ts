@@ -1,6 +1,7 @@
-// Type definitions for Google Apps Script 2019-11-06
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
@@ -100,7 +101,6 @@ declare namespace GoogleAppsScript {
       setValueByIndex(index: Integer, value: string): ListItem;
       setValueByName(name: string, value: string): ListItem;
     }
-
     interface PageAdvancedParameters {
       /** only get pages of this type */
       type?: PageType[];
@@ -170,11 +170,11 @@ declare namespace GoogleAppsScript {
       setName(name: string): Page;
       setParent(parent: Page): Page;
       setTitle(title: string): Page;
-      /** @deprecated DO NOT USE */addComment(content: string): Comment;
-      /** @deprecated DO NOT USE */getComments(): Comment[];
-      /** @deprecated DO NOT USE */getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
-      /** @deprecated DO NOT USE */getPageName(): string;
-      /** @deprecated DO NOT USE */getSelfLink(): string;
+      /** @deprecated DO NOT USE */ addComment(content: string): Comment;
+      /** @deprecated DO NOT USE */ getComments(): Comment[];
+      /** @deprecated DO NOT USE */ getComments(optOptions: { start?: Integer; max?: Integer}): Comment[];
+      /** @deprecated DO NOT USE */ getPageName(): string;
+      /** @deprecated DO NOT USE */ getSelfLink(): string;
     }
     /**
      * A typesafe enum for sites page type.
@@ -230,27 +230,27 @@ declare namespace GoogleAppsScript {
       setSummary(summary: string): Site;
       setTheme(theme: string): Site;
       setTitle(title: string): Site;
-      /** @deprecated DO NOT USE */addCollaborator(email: string): Site;
-      /** @deprecated DO NOT USE */addCollaborator(user: Base.User): Site;
-      /** @deprecated DO NOT USE */createAnnouncement(title: string, html: string, parent: Page): Page;
-      /** @deprecated DO NOT USE */createComment(inReplyTo: string, html: string, parent: Page): Comment;
-      /** @deprecated DO NOT USE */createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
-      /** @deprecated DO NOT USE */createWebAttachment(title: string, url: string, parent: Page): Attachment;
-      /** @deprecated DO NOT USE */deleteSite(): void;
-      /** @deprecated DO NOT USE */getAnnouncements(): Page[];
-      /** @deprecated DO NOT USE */getAnnouncementsPages(): Page[];
-      /** @deprecated DO NOT USE */getAttachments(): Attachment[];
-      /** @deprecated DO NOT USE */getCollaborators(): Base.User[];
-      /** @deprecated DO NOT USE */getComments(): Comment[];
-      /** @deprecated DO NOT USE */getFileCabinetPages(): Page[];
-      /** @deprecated DO NOT USE */getListItems(): ListItem[];
-      /** @deprecated DO NOT USE */getListPages(): Page[];
-      /** @deprecated DO NOT USE */getSelfLink(): string;
-      /** @deprecated DO NOT USE */getSiteName(): string;
-      /** @deprecated DO NOT USE */getWebAttachments(): Attachment[];
-      /** @deprecated DO NOT USE */getWebPages(): Page[];
-      /** @deprecated DO NOT USE */removeCollaborator(email: string): Site;
-      /** @deprecated DO NOT USE */removeCollaborator(user: Base.User): Site;
+      /** @deprecated DO NOT USE */ addCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */ addCollaborator(user: Base.User): Site;
+      /** @deprecated DO NOT USE */ createAnnouncement(title: string, html: string, parent: Page): Page;
+      /** @deprecated DO NOT USE */ createComment(inReplyTo: string, html: string, parent: Page): Comment;
+      /** @deprecated DO NOT USE */ createListItem(html: string, columnNames: string[], values: string[], parent: Page): ListItem;
+      /** @deprecated DO NOT USE */ createWebAttachment(title: string, url: string, parent: Page): Attachment;
+      /** @deprecated DO NOT USE */ deleteSite(): void;
+      /** @deprecated DO NOT USE */ getAnnouncements(): Page[];
+      /** @deprecated DO NOT USE */ getAnnouncementsPages(): Page[];
+      /** @deprecated DO NOT USE */ getAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */ getCollaborators(): Base.User[];
+      /** @deprecated DO NOT USE */ getComments(): Comment[];
+      /** @deprecated DO NOT USE */ getFileCabinetPages(): Page[];
+      /** @deprecated DO NOT USE */ getListItems(): ListItem[];
+      /** @deprecated DO NOT USE */ getListPages(): Page[];
+      /** @deprecated DO NOT USE */ getSelfLink(): string;
+      /** @deprecated DO NOT USE */ getSiteName(): string;
+      /** @deprecated DO NOT USE */ getWebAttachments(): Attachment[];
+      /** @deprecated DO NOT USE */ getWebPages(): Page[];
+      /** @deprecated DO NOT USE */ removeCollaborator(email: string): Site;
+      /** @deprecated DO NOT USE */ removeCollaborator(user: Base.User): Site;
     }
     /**
      * Create and access Google Sites.

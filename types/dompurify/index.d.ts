@@ -83,13 +83,13 @@ declare namespace DOMPurify {
 
     interface SanitizeElementHookEvent {
         tagName: string;
-        allowedTags: string[];
+        allowedTags: { [key: string]: boolean };
     }
 
     interface SanitizeAttributeHookEvent {
         attrName: string;
         attrValue: string;
         keepAttr: boolean;
-        allowedAttributes: string[];
+        allowedAttributes: { [key: string]: boolean };
     }
 }

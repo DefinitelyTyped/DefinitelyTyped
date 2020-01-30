@@ -1,5 +1,10 @@
 declare module "util" {
     interface InspectOptions extends NodeJS.InspectOptions { }
+    type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
+    type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => string;
+    interface InspectOptionsStylized extends InspectOptions {
+        stylize(text: string, styleType: Style): string;
+    }
     function format(format: any, ...param: any[]): string;
     function formatWithOptions(inspectOptions: InspectOptions, format: string, ...param: any[]): string;
     /** @deprecated since v0.11.3 - use a third party module instead. */
@@ -11,13 +16,14 @@ declare module "util" {
             [color: string]: [number, number] | undefined
         };
         let styles: {
-            [style: string]: string | undefined
+            [K in Style]: string
         };
         let defaultOptions: InspectOptions;
         /**
          * Allows changing inspect settings from the repl.
          */
         let replDefaults: InspectOptions;
+        const custom: unique symbol;
     }
     /** @deprecated since v4.0.0 - use `Array.isArray()` instead. */
     function isArray(object: any): object is any[];
@@ -176,5 +182,9 @@ declare module "util" {
         readonly encoding: string;
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
+    }
+
+    namespace promisify {
+        const custom: unique symbol;
     }
 }

@@ -7,6 +7,10 @@ import { createContext } from "vm";
         module.exports = async function parseJSAsync(script: string) {
             return new Promise((resolve, reject) => {
                 const worker = new workerThreads.Worker(__filename, {
+                    resourceLimits: {
+                        codeRangeSizeMb: 123,
+                    },
+                    argv: ['asd'],
                     workerData: script
                 });
                 worker.on('message', resolve);

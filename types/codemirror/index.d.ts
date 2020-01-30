@@ -6,6 +6,7 @@
 //                 rileymiller <https://github.com/rileymiller>
 //                 toddself <https://github.com/toddself>
 //                 ysulyma <https://github.com/ysulyma>
+//                 azoson <https://github.com/azoson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -642,7 +643,7 @@ declare namespace CodeMirror {
         setCursor(pos: CodeMirror.Position | number, ch?: number, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Set a single selection range. anchor and head should be {line, ch} objects. head defaults to anchor when not given. */
-        setSelection(anchor: CodeMirror.Position, head: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
+        setSelection(anchor: CodeMirror.Position, head?: CodeMirror.Position, options?: { bias?: number, origin?: string, scroll?: boolean }): void;
 
         /** Sets a new set of selections. There must be at least one selection in the given array. When primary is a
         number, it determines which selection is the primary one. When it is not given, the primary index is taken from
@@ -820,6 +821,15 @@ declare namespace CodeMirror {
         above?: boolean;
         /** When true, will cause the widget to be rendered even if the line it is associated with is hidden. */
         showIfHidden?: boolean;
+        /** Determines whether the editor will capture mouse and drag events occurring in this widget. 
+        Default is false—the events will be left alone for the default browser handler, or specific handlers on the widget, to capture. */
+        handleMouseEvents?: boolean;
+        /** By default, the widget is added below other widgets for the line. 
+        This option can be used to place it at a different position (zero for the top, N to put it after the Nth other widget). 
+        Note that this only has effect once, when the widget is created. */
+        insertAt?: number;
+        /** Add an extra CSS class name to the wrapper element created for the widget. */
+        className?: string;
     }
 
     interface EditorChange {
@@ -1345,7 +1355,7 @@ declare namespace CodeMirror {
 
         /** When multiple selections are present, this deselects all but the primary selection. */
         singleSelection(cm: CodeMirror.Editor): void;
-        
+
         /** Emacs-style line killing. Deletes the part of the line after the cursor. If that consists only of whitespace, the newline at the end of the line is also deleted. */
         killLine(cm: CodeMirror.Editor): void;
 

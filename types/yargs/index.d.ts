@@ -1,4 +1,4 @@
-// Type definitions for yargs 13.0
+// Type definitions for yargs 15.0
 // Project: https://github.com/chevex/yargs, https://yargs.js.org
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 //                 Mizunashi Mana <https://github.com/mizunashi-mana>
@@ -29,6 +29,11 @@ import { DetailedArguments, Configuration } from 'yargs-parser';
 
 declare namespace yargs {
     type BuilderCallback<T, R> = ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
+
+    type ParserConfigurationOptions = Configuration & {
+        /** Sort commands alphabetically. Default is `false` */
+        'sort-commands': boolean;
+    };
 
     /**
      * The type parameter `T` is the expected shape of the parsed options.
@@ -295,7 +300,7 @@ declare namespace yargs {
          * Method to execute when a failure occurs, rather than printing the failure message.
          * @param func Is called with the failure message that would have been printed, the Error instance originally thrown and yargs state when the failure occurred.
          */
-        fail(func: (msg: string, err: Error) => any): Argv<T>;
+        fail(func: (msg: string, err: Error, yargs: Argv<T>) => any): Argv<T>;
 
         /**
          * Allows to programmatically get completion choices for any line.
@@ -389,6 +394,12 @@ declare namespace yargs {
         number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
 
         /**
+         * Method to execute when a command finishes successfully.
+         * @param func Is called with the successful result of the command that finished.
+         */
+        onFinishCommand(func: (result: any) => void): Argv<T>;
+
+        /**
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
@@ -421,7 +432,7 @@ declare namespace yargs {
         parsed: DetailedArguments | false;
 
         /** Allows to configure advanced yargs features. */
-        parserConfiguration(configuration: Partial<Configuration>): Argv<T>;
+        parserConfiguration(configuration: Partial<ParserConfigurationOptions>): Argv<T>;
 
         /**
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.

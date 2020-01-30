@@ -2091,6 +2091,12 @@ declare namespace chrome.devtools.panels {
      * function() {...};
      */
     export function openResource(url: string, lineNumber: number, callback: () => void): void;
+
+    /**
+     * @since Chrome 59.
+     * The name of the color theme set in user's DevTools settings.
+     */
+    export var themeName: 'default'|'dark';
 }
 
 ////////////////////

@@ -242,8 +242,8 @@ export function call(fn: (...args: readonly any[]) => (...args: readonly any[]) 
  * `chain` maps a function over a list and concatenates the results.
  * This implementation is compatible with the Fantasy-land Chain spec
  */
-export function chain<T, U>(fn: (n: T) => U[], list: readonly T[]): U[];
-export function chain<T, U>(fn: (n: T) => U[]): (list: readonly T[]) => U[];
+export function chain<T, U>(fn: (n: T) => readonly U[], list: readonly T[]): U[];
+export function chain<T, U>(fn: (n: T) => readonly U[]): (list: readonly T[]) => U[];
 export function chain<X0, X1, R>(fn: (x0: X0, x1: X1) => R, fn1: (x1: X1) => X0): (x1: X1) => R;
 
 /**

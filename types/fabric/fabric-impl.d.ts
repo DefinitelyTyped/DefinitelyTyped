@@ -1879,6 +1879,14 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @default
 	 */
 	fireMiddleClick?: boolean;
+
+	/**
+	 * Keep track of the subTargets for Mouse Events
+	 * @type {Array.<fabric.Object>}
+	 * @since 3.6.0
+	 * @default
+	 */
+	targets?: Object[];
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -2229,7 +2237,7 @@ export class Ellipse {
 }
 interface IGroupOptions extends IObjectOptions {
 	/**
-	 * Indicates if click events should also check for subtargets
+	 * Indicates if click, mouseover, mouseout events & hoverCursor should also check for subtargets
 	 * @type Boolean
 	 */
 	subTargetCheck?: boolean;
@@ -5915,9 +5923,8 @@ interface IUtilDomMisc {
 	/**
 	 * Returns element scroll offsets
 	 * @param element Element to operate on
-	 * @param upperCanvasEl Upper canvas element
 	 */
-	getScrollLeftTop(element: HTMLElement, upperCanvasEl: HTMLElement): { left: number; right: number; };
+	getScrollLeftTop(element: HTMLElement): { left: number; top: number; };
 	/**
 	 * Returns offset for a given element
 	 * @param element Element to get offset for

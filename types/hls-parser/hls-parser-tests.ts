@@ -8,7 +8,7 @@ if (playlist.isMasterPlaylist) {
     // Media playlist
 }
 
-const { MediaPlaylist, Segment } = HLS.types;
+const { MediaPlaylist, MasterPlaylist, Segment } = HLS.types;
 
 new MediaPlaylist({
     targetDuration: 9,
@@ -21,4 +21,9 @@ new MediaPlaylist({
             discontinuitySequence: 0,
         }),
     ],
+});
+
+new MasterPlaylist({
+    version: 3,
+    variants: [],
 });

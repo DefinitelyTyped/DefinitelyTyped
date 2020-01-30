@@ -1,16 +1,17 @@
-// Type definitions for relay-runtime 6.0
+// Type definitions for relay-runtime 8.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 //                 Eloy Durán <https://github.com/alloy>
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Renan Machado <https://github.com/renanmav>
+//                 Stephen Pittman <https://github.com/Stephen2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import ConnectionInterface from './lib/handlers/connection/RelayConnectionInterface';
+import ConnectionInterface from './lib/handlers/connection/ConnectionInterface';
 export { ConnectionInterface };
-export { ConnectionMetadata } from './lib/handlers/connection/RelayConnectionHandler';
-export { EdgeRecord, PageInfo } from './lib/handlers/connection/RelayConnectionInterface';
+export { ConnectionMetadata } from './lib/handlers/connection/ConnectionHandler';
+export { EdgeRecord, PageInfo } from './lib/handlers/connection/ConnectionInterface';
 export {
     DeclarativeMutationConfig,
     MutationTypes,
@@ -171,9 +172,9 @@ export { readInlineData } from './lib/store/readInlineData';
 // Extensions
 export { RelayDefaultHandlerProvider as DefaultHandlerProvider } from './lib/handlers/RelayDefaultHandlerProvider';
 
-import DefaultMissingFieldHandlers from './lib/handlers/RelayDefaultMissingFieldHandlers';
-export { DefaultMissingFieldHandlers };
-import * as ConnectionHandler from './lib/handlers/connection/RelayConnectionHandler';
+import getDefaultMissingFieldHandlers from './lib/handlers/getRelayDefaultMissingFieldHandlers';
+export { getDefaultMissingFieldHandlers };
+import * as ConnectionHandler from './lib/handlers/connection/ConnectionHandler';
 export { ConnectionHandler };
 
 // Helpers (can be implemented via the above API)

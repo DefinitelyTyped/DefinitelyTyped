@@ -1,20 +1,39 @@
-import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels } from 'mui-datatables';
+import MUIDataTable, { MUIDataTableOptions, MUIDataTableTextLabels, MUIDataTableState, MUIDataTableColumn } from 'mui-datatables';
 import * as React from 'react';
 
 interface Props extends MUIDataTableOptions {
     data: any;
     title: string;
     textLabels?: MUIDataTableTextLabels;
+    options?: MUIDataTableOptions;
 }
 
 const MuiCustomTable: React.FC<Props> = (props) => {
     const data: string[][] = props.data.map((asset: any) => Object.values(asset));
-    const columns = props.data
-        .map((entry: any) => Object.keys(entry))
-        .flat()
-        .map((title: string) => title.toUpperCase())
-        .filter((element: string, index: number, array: string[]) => array.indexOf(element) === index);
+    const columns: MUIDataTableColumn[] = [
+        {
+            name: 'id',
+            label: 'id'
+        },
+        {
+            name: 'name',
+            label: 'Name',
+            options: {
+                filterType: 'custom',
+                sortDirection: 'none'
+            }
+        },
+        {
+            name: 'amount',
+            label: 'Amount'
+        }
+    ];
+
     const TableOptions: MUIDataTableOptions = {
+        fixedHeaderOptions: {
+            xAxis: false,
+            yAxis: true
+        },
         filterType: 'checkbox',
         responsive: 'scrollFullHeight',
         selectableRows: 'none',
@@ -49,6 +68,16 @@ const MuiCustomTable: React.FC<Props> = (props) => {
                     </button>
                 </span>
             );
+        },
+        onTableChange: (action, tableState: MUIDataTableState) => {
+            switch (action) {
+                case 'sort':
+                    tableState.columns.forEach(c => {
+                        if (c.sort && (c.sortDirection === 'asc' || c.sortDirection === 'desc')) {
+                            console.log(`${c.sortDirection} sort set on ${c.name}`);
+                        }
+                    });
+            }
         },
         textLabels: {
             body: {
@@ -96,4 +125,16 @@ const TableFruits = [
     { id: 5, name: "Orange", amount: 9 },
 ];
 
-<MuiCustomTable title="Awesome Table" data={TableFruits} />;
+const options: MUIDataTableOptions = {
+    filter: true,
+    filterType: 'dropdown',
+    responsive: 'scrollMaxHeight',
+    onDownload: (buildHead, buildBody, columns, data) => {
+        if (data) {
+            return buildHead(columns) + buildBody(data);
+        }
+        return false;
+    },
+};
+
+<MuiCustomTable title="Awesome Table" data={TableFruits} options={options} />;

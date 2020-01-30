@@ -3,9 +3,9 @@
 // Definitions by: BamButz <https://github.com/BamButz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var module: {
+declare var md5: {
 	(filename: string, cb: (err: Error, hash: string) => void): void;
 	sync: (filename: string) => string;
 };
 
-export = module;
+export = md5;

@@ -54,12 +54,26 @@ declare module "worker_threads" {
     }
 
     interface WorkerOptions {
+        /**
+         * List of arguments which would be stringified and appended to
+         * `process.argv` in the worker. This is mostly similar to the `workerData`
+         * but the values will be available on the global `process.argv` as if they
+         * were passed as CLI options to the script.
+         */
+        argv?: any[];
         eval?: boolean;
         workerData?: any;
         stdin?: boolean;
         stdout?: boolean;
         stderr?: boolean;
         execArgv?: string[];
+        resourceLimits?: ResourceLimits;
+    }
+
+    interface ResourceLimits {
+        maxYoungGenerationSizeMb?: number;
+        maxOldGenerationSizeMb?: number;
+        codeRangeSizeMb?: number;
     }
 
     class Worker extends EventEmitter {
@@ -67,6 +81,7 @@ declare module "worker_threads" {
         readonly stdout: Readable;
         readonly stderr: Readable;
         readonly threadId: number;
+        readonly resourceLimits?: ResourceLimits;
 
         constructor(filename: string, options?: WorkerOptions);
 

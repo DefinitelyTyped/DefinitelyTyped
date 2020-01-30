@@ -24,6 +24,9 @@ channelWrapper.sendToQueue("foo", Buffer.from("bar"))
         // nothing
     });
 
+// Test that plain objects are implicitly serialized.
+channelWrapper.sendToQueue("foo", {a: 'bar'}).catch(_ => {});
+
 // Checking connection options
 amqpConMgr.connect(["foo", "bar"], {
     findServers(callback) {

@@ -2,6 +2,7 @@ function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
     selection: false,
+    targets: []
   });
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
@@ -1040,4 +1041,11 @@ function sample11() {
    const canvas2dFilterBackend = new fabric.Canvas2dFilterBackend();
    const webglFilterBackend = new fabric.WebglFilterBackend();
    fabric.filterBackend = new fabric.Canvas2dFilterBackend();
+}
+
+function sample12() {
+  const canvas = new fabric.Canvas('c');
+  const position = fabric.util.getScrollLeftTop(canvas.getElement());
+  const x = position.left;
+  const y = position.top;
 }

@@ -7,6 +7,7 @@
 //                  Cerberuser <https://github.com/cerberuser>
 //                  Andrej Kirejeŭ <https://github.com/gsbelarus>
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
+//                  Xavier Ho <https://github.com/spaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -3757,6 +3758,10 @@ declare namespace cytoscape {
              * The dashed line offset.
              */
             "line-dash-offset"?: PropertyValueEdge<number>;
+            /**
+             * The distance the edge ends from its target.
+             */
+            "target-distance-from-node"?: PropertyValueEdge<number>;
         }
 
         /**
@@ -3909,6 +3914,9 @@ declare namespace cytoscape {
          * http://js.cytoscape.org/#style/edge-arrow
          */
         interface EdgeArrow {
+            /** The size of the arrow. */
+            "arrow-scale"?: PropertyValueEdge<number>;
+
             /** The colour of the edge’s source arrow. */
             "source-arrow-color"?: PropertyValueEdge<Colour>;
             /** The colour of the edge’s "mid-source" arrow. */
@@ -4165,6 +4173,10 @@ declare namespace cytoscape {
              * Background:
              */
 
+            /**
+             * The padding provides visual spacing between the text and the edge of the background.
+             */
+            "text-background-padding": PropertyValue<SingularType, string>;
             /**
              * A colour to apply on the text background.
              */
@@ -4962,4 +4974,10 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#extensions
      */
     function use(module: Ext): void;
+    /**
+     * Surpress Cytoscape internal warnings globally with a flag.
+     * @param condition If true, all Cytoscape warnings are surpressed.
+     * https://js.cytoscape.org/#core/initialisation
+     */
+    function warnings(condition: boolean): void;
 }

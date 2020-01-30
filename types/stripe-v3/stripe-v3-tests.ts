@@ -204,6 +204,23 @@ describe("Stripe elements", () => {
         });
     });
 
+    it("should use payment method API with new format", () => {
+        const card = elements.create('card');
+        stripe.createPaymentMethod({
+            type: 'card',
+            card,
+            billing_details: {
+              name: 'Jenny Rosen',
+            },
+        }).then(result => {
+            if (result.error) {
+                console.error(result.error.param);
+            } else if (result.paymentMethod) {
+                console.log(result.paymentMethod.card && result.paymentMethod.card.brand);
+            }
+        });
+    });
+
     it("should use checkout API for client implementations", () => {
         stripe.redirectToCheckout({
             items: [
@@ -277,6 +294,118 @@ describe("Stripe elements", () => {
               console.log(result.paymentIntent.source);
             }
           });
+
+        // confirmCardPayment
+
+        // stripe.confirmCardPayment(clientSecret)
+        stripe
+            .confirmCardPayment(
+                'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2'
+            )
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+        // stripe.confirmCardPayment(clientSecret,data?)
+        stripe
+            .confirmCardPayment(
+                'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+                {
+                    payment_method: {
+                        card,
+                        billing_details: {
+                            name: 'Jenny Rosen',
+                        },
+                    },
+                    shipping: {
+                        address: {
+                            line1: 'Line 1',
+                        },
+                        name: 'Recipient name',
+                    },
+                }
+            )
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+        // stripe.confirmCardPayment(clientSecret,data?,options?)
+        stripe
+            .confirmCardPayment(
+                'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+                {
+                    payment_method: {
+                        card,
+                        billing_details: {
+                            name: 'Jenny Rosen',
+                        },
+                    },
+                },
+                {
+                    handleActions: false,
+                }
+            )
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        // confirmPaymentIntent
+
+        // stripe.confirmPaymentIntent(clientSecret)
+        stripe
+            .confirmPaymentIntent('{PAYMENT_INTENT_CLIENT_SECRET}')
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        // stripe.confirmPaymentIntent(clientSecret,element)
+        stripe
+            .confirmPaymentIntent('{PAYMENT_INTENT_CLIENT_SECRET}', card)
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        // stripe.confirmPaymentIntent(clientSecret,element,data?)
+        stripe
+            .confirmPaymentIntent('{PAYMENT_INTENT_CLIENT_SECRET}', card, {
+                payment_method_data: {
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                },
+                return_url: 'https://example.com/return_url',
+            })
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        // stripe.confirmPaymentIntent(clientSecret,data?)
+        stripe
+            .confirmPaymentIntent('{PAYMENT_INTENT_CLIENT_SECRET}', {
+                payment_method: '{PAYMENT_METHOD_ID}',
+                return_url: 'https://example.com/return_url',
+            })
+            .then(_result => {
+                // Handle result.error or result.paymentIntent
+            });
+
+        const ibanElement = elements.create('iban');
+        stripe.confirmSepaDebitPayment(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    sepa_debit: ibanElement,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                        email: 'jenny@example.com',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.paymentIntent) {
+              console.log(result.paymentIntent.source);
+            }
+        });
     });
 
     it("should handle card setup", () => {
@@ -289,6 +418,51 @@ describe("Stripe elements", () => {
                 payment_method_data: {
                     billing_details: {
                         name: 'Jenny Rosen',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should confirm card setup", () => {
+        const card = elements.create('card');
+
+        stripe.confirmCardSetup(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    card,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                }
+            }
+        ).then(result => {
+            if (result.error) {
+                console.error(result.error.message);
+            } else if (result.setupIntent) {
+                console.log(result.setupIntent.id);
+            }
+        });
+    });
+
+    it("should confirm SEPA debit setup", () => {
+        const ibanElement = elements.create('iban');
+
+        stripe.confirmSepaDebitSetup(
+            'pi_18eYalAHEMiOZZp1l9ZTjSU0_secret_NibvRz4PMmJqjfb0sqmT7aq2',
+            {
+                payment_method: {
+                    sepa_debit: ibanElement,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                        email: 'jenny@example.com',
                     },
                 }
             }

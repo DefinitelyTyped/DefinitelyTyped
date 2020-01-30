@@ -1,5 +1,6 @@
 import { DownloadPreloadOption } from '../system/download-preload';
 import { RGB, ContextMenuSettings } from '../../shapes';
+
 export interface WindowOption {
     accelerator?: Accelerator;
     alphaMask?: RGB;
@@ -13,6 +14,7 @@ export interface WindowOption {
     contextMenu?: boolean;
     contextMenuSettings?: ContextMenuSettings;
     cornerRounding?: CornerRounding;
+    customContext?: any;
     customData?: any;
     customRequestHeaders?: Array<CustomRequestHeaders>;
     defaultCentered?: boolean;
@@ -46,7 +48,7 @@ export interface WindowOption {
 }
 export interface CustomRequestHeaders {
     urlPatterns: Array<string>;
-    headers: Array<object>;
+    headers: Array<any>;
 }
 export declare type WindowOptionDiff = {
     [key in keyof WindowOption]: {
