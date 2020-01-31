@@ -62,7 +62,7 @@ declare namespace chroma {
          */
         hex(color: string): Color;
 
-        valid(color: any): boolean;
+        valid(color: any, mode?: string): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
