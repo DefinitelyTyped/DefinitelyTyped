@@ -12,13 +12,13 @@ import AdapterError, {
     errorsArrayToHash,
 } from '@ember-data/adapter/error';
 
-InvalidError; // $ExpectType DS.InvalidError
-TimeoutError; // $ExpectType DS.TimeoutError
-AbortError; // $ExpectType DS.AbortError
-UnauthorizedError; // $ExpectType DS.UnauthorizedError
-ForbiddenError; // $ExpectType DS.ForbiddenError
-NotFoundError; // $ExpectType DS.NotFoundError
-ConflictError; // $ExpectType DS.ConflictError
-ServerError; // $ExpectType DS.ServerError
+InvalidError; // $ExpectType typeof DS.InvalidError
+TimeoutError; // $ExpectType typeof DS.TimeoutError
+AbortError; // $ExpectType typeof DS.AbortError
+UnauthorizedError; // $ExpectType typeof DS.UnauthorizedError
+ForbiddenError; // $ExpectType typeof DS.ForbiddenError
+NotFoundError; // $ExpectType typeof DS.NotFoundError
+ConflictError; // $ExpectType typeof DS.ConflictError
+ServerError; // $ExpectType typeof DS.ServerError
 errorsHashToArray; // $ExpectType<typeof DS.errorsHashToArray>
 errorsArrayToHash; // $ExpectType<typeof DS.errorsArrayToHash>
