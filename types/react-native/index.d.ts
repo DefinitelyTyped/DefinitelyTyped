@@ -8471,7 +8471,7 @@ export namespace Animated {
 
     export type WithAnimatedValue<T> = T extends Object ? {
         [K in keyof T]: WithAnimatedValue<T[K]>;
-    } : T | Value;
+    } : T extends Array<infer P> ? WithAnimatedValue<P>[] : T | Value;
 
     export type AnimatedProps<T> = {
         [key in keyof T]: WithAnimatedValue<T[key]>;
