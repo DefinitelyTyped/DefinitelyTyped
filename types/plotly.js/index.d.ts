@@ -413,13 +413,19 @@ export interface Shape {
 	path: string;
 	// x-reference is assigned to the x-values
 	xref: 'x' | 'paper';
+	xsizemode: "scaled" | "pixel";
+	xanchor: number | string;
 	// y-reference is assigned to the plot paper [0,1]
 	yref: 'paper' | 'y';
+	ysizemode: "scaled" | "pixel";
+	yanchor: number | string;
 	x0: Datum;
 	y0: Datum;
 	x1: Datum;
 	y1: Datum;
 	fillcolor: string;
+	name: string;
+	templateitemname: string;
 	opacity: number;
 	line: Partial<ShapeLine>;
 }
