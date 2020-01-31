@@ -27,7 +27,6 @@
     },
     "files": [
         "index.d.ts",
-        "add-commands.d.ts",
         "testing-library__cypress-tests.ts"
     ]
 }
