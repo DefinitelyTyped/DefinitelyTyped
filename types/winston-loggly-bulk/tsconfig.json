@@ -7,11 +7,8 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
-        "types": [],
+        "baseUrl": ".",
+        "paths": { "winston-loggly-bulk": ["."]},
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": ["index.d.ts", "winston-loggly-bulk-tests.ts"]
+    }
 }
