@@ -84,7 +84,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} />
+            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
         </View>
     );
 }
