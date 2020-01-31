@@ -1,4 +1,8 @@
-import DS from 'ember-data';
+// These tests *actually do* what we need: show that the imports work at all.
+// They are empty sub-classes of EmberObject at present in the base definitions
+// being re-exported here. As long as the imports resolve, this is safe (until
+// we make these the root definitions and expand these as appropriate).
+
 import AdapterError, {
     InvalidError,
     TimeoutError,
@@ -17,27 +21,6 @@ class MyInvalid extends InvalidError {
         super([]); // required
     }
 }
-
-declare let timeout: TimeoutError; // $ExpectType AdapterError
-class MyTimeout extends TimeoutError {}
-
-declare let Abort: AbortError; // $ExpectType typeofAdapterError
-class MyAbort extends AbortError {}
-
-declare let Unauthorized: UnauthorizedError; // $ExpectType AdapterError
-class MyUnauthorized extends UnauthorizedError {}
-
-declare let Forbidden: ForbiddenError; // $ExpectType AdapterError
-class MyForbidden extends ForbiddenError {}
-
-declare let NotFound: NotFoundError; // $ExpectType AdapterError
-class MyNotFound extends NotFoundError {}
-
-declare let Conflict: ConflictError; // $ExpectType AdapterError
-class MyConflict extends ConflictError {}
-
-declare let Server: ServerError; // $ExpectType AdapterError
-class MyServer extends ServerError {}
 
 errorsHashToArray({}); // $ExpectType<any[]>
 errorsArrayToHash([]); // $ExpectType<{}>
