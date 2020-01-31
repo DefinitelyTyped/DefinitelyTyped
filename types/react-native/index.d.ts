@@ -8469,9 +8469,9 @@ export namespace Animated {
 
     export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
-    export type WithAnimatedValue<T> = T extends Object ? {
-        [K in keyof T]: WithAnimatedValue<T[K]>;
-    } : T extends Array<infer P> ? WithAnimatedValue<P>[] : T | Value;
+    export type WithAnimatedValue<T> = T extends object ? {
+        [K in keyof T]?: WithAnimatedValue<T[K]>;
+    } : T extends (infer P)[] ? WithAnimatedValue<P>[] : T | Value | AnimatedInterpolation;
 
     export type AnimatedProps<T> = {
         [key in keyof T]: WithAnimatedValue<T[key]>;
