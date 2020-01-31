@@ -54,6 +54,7 @@
         "index.d.ts",
         "test/lib/assert.ts",
         "test/index.ts",
+        "test/error.ts",
         "test/json-api.ts",
         "test/rest.ts"
     ]
