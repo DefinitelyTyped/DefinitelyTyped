@@ -59,7 +59,7 @@ export interface SearchOptions {
 	attributes?: string | string[];  
 	/** Defaults to 0 (unlimited) */ 
 	sizeLimit?: number; 
-	/** Defaults to 10. Lots of servers will ignore this! */ 
+	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */ 
 	timeLimit?: number; 
 	derefAliases?: number;
 	typesOnly?: boolean;
