@@ -12,13 +12,32 @@ import AdapterError, {
     errorsArrayToHash,
 } from '@ember-data/adapter/error';
 
-InvalidError; // $ExpectType typeof DS.InvalidError
-TimeoutError; // $ExpectType typeof DS.TimeoutError
-AbortError; // $ExpectType typeof DS.AbortError
-UnauthorizedError; // $ExpectType typeof DS.UnauthorizedError
-ForbiddenError; // $ExpectType typeof DS.ForbiddenError
-NotFoundError; // $ExpectType typeof DS.NotFoundError
-ConflictError; // $ExpectType typeof DS.ConflictError
-ServerError; // $ExpectType typeof DS.ServerError
-errorsHashToArray; // $ExpectType<typeof DS.errorsHashToArray>
-errorsArrayToHash; // $ExpectType<typeof DS.errorsArrayToHash>
+class MyInvalid extends InvalidError {
+    constructor() {
+        super([]); // required
+    }
+}
+
+declare let timeout: TimeoutError; // $ExpectType AdapterError
+class MyTimeout extends TimeoutError {}
+
+declare let Abort: AbortError; // $ExpectType typeofAdapterError
+class MyAbort extends AbortError {}
+
+declare let Unauthorized: UnauthorizedError; // $ExpectType AdapterError
+class MyUnauthorized extends UnauthorizedError {}
+
+declare let Forbidden: ForbiddenError; // $ExpectType AdapterError
+class MyForbidden extends ForbiddenError {}
+
+declare let NotFound: NotFoundError; // $ExpectType AdapterError
+class MyNotFound extends NotFoundError {}
+
+declare let Conflict: ConflictError; // $ExpectType AdapterError
+class MyConflict extends ConflictError {}
+
+declare let Server: ServerError; // $ExpectType AdapterError
+class MyServer extends ServerError {}
+
+errorsHashToArray({}); // $ExpectType<any[]>
+errorsArrayToHash([]); // $ExpectType<{}>
