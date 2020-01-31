@@ -30,7 +30,7 @@ export namespace Loggly {
     }
 }
 
-export class Loggly {
+export class Loggly extends Transport {
     constructor(options?: Loggly.LogglyOptions);
 }
 
