@@ -1,6 +1,6 @@
 import React = require('react');
 
-type CheckboxProps = {
+export interface CheckboxProps {
     checked?: boolean;
     disabled?: boolean;
     children?: string;
@@ -15,12 +15,12 @@ type CheckboxProps = {
         spacing?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export class Checkbox extends React.Component<CheckboxProps> {}
-type CheckboxType = React.ComponentType<CheckboxProps>;
+export type CheckboxType = React.ComponentType<CheckboxProps>;
 
-type CheckboxButtonProps = {
+export interface CheckboxButtonProps {
     children?: React.ReactNode[] | React.ReactNode;
     skin?: 'neutral' | 'primary' | 'success' | 'warning' | 'error';
     checked?: boolean;
@@ -32,11 +32,11 @@ type CheckboxButtonProps = {
     name: string;
     onChange?: () => void;
     value?: string;
-};
+}
 
-type CheckboxButton = React.ComponentType<CheckboxButtonProps>;
+export type CheckboxButton = React.ComponentType<CheckboxButtonProps>;
 
-type CheckboxGroupProps = {
+export interface CheckboxGroupProps {
     children?: JSX.Element[] | JSX.Element;
     error?: string;
     inline?: boolean;
@@ -53,7 +53,7 @@ type CheckboxGroupProps = {
         colors?: object;
         spacing?: object;
     };
-};
+}
 
 export class CheckboxGroup extends React.Component<CheckboxGroupProps> {
     static Checkbox: CheckboxType;

@@ -1,6 +1,6 @@
 import React = require('react');
 
-type TextAreaProps = {
+export interface TextAreaProps {
     disabled?: boolean;
     error?: string;
     helperText?: string;
@@ -10,6 +10,6 @@ type TextAreaProps = {
     required?: boolean;
     value?: string;
     id?: string | number;
-};
+}
 
 export default class TextArea extends React.Component<TextAreaProps> {}

@@ -1,6 +1,6 @@
 import React = require('react');
 
-type ProgressBarProps = {
+export interface ProgressBarProps {
     skin?: 'neutral' | 'primary' | 'secondary';
     theme?: {
         components?: {
@@ -12,6 +12,6 @@ type ProgressBarProps = {
     progressText?: number;
     progressPercent?: number;
     label?: string;
-};
+}
 
 export default class ProgressBar extends React.Component<ProgressBarProps> {}

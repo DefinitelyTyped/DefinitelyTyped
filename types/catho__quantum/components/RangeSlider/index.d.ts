@@ -1,6 +1,6 @@
 import React = require('react');
 
-type RangeSliderProps = {
+export interface RangeSliderProps {
     step?: number;
     max?: number;
     min?: number;
@@ -22,6 +22,6 @@ type RangeSliderProps = {
         colors?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class RangeSlider extends React.Component<RangeSliderProps> {}

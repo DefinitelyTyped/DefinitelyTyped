@@ -1,8 +1,8 @@
 import React = require('react');
 
-type ItemPropType = string | { value: string | number; label: string };
+export type ItemPropType = string | { value: string | number; label: string };
 
-type DropdownProps = {
+export interface DropdownProps {
     autocomplete?: boolean;
     disabled?: boolean;
     required?: boolean;
@@ -19,6 +19,6 @@ type DropdownProps = {
         spacing?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class Dropdown extends React.Component<DropdownProps> {}

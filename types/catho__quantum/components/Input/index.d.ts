@@ -1,9 +1,9 @@
 import React = require('react');
 
-type MaskFunction = (rawValue: string) => string[];
-type Mask = boolean | RegExp | string | MaskFunction;
+export type MaskFunction = (rawValue: string) => string[];
+export type Mask = boolean | RegExp | string | MaskFunction;
 
-type InputProps = {
+export interface InputProps {
     value?: string;
     label?: string;
     helperText?: string;
@@ -21,6 +21,6 @@ type InputProps = {
         colors?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class Input extends React.Component<InputProps> {}

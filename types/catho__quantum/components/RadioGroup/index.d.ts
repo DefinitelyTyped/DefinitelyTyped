@@ -1,6 +1,6 @@
 import React = require('react');
 
-type RadioProps = {
+export interface RadioProps {
     disabled?: boolean;
     error?: boolean;
     children?: string;
@@ -11,11 +11,11 @@ type RadioProps = {
         spacing?: object;
     };
     value: string;
-};
+}
 
-type Radio = React.ComponentType<RadioProps>;
+export type Radio = React.ComponentType<RadioProps>;
 
-type RadioButtonProps = {
+export interface RadioButtonProps {
     checked?: boolean;
     children?: string;
     skin?: 'neutral' | 'primary' | 'success' | 'warning' | 'error';
@@ -35,11 +35,11 @@ type RadioButtonProps = {
         };
     };
     value: string;
-};
+}
 
-type RadioButton = React.ComponentType<RadioButtonProps>;
+export type RadioButton = React.ComponentType<RadioButtonProps>;
 
-type RadioGroupProps = {
+export interface RadioGroupProps {
     type?: 'radio' | 'button';
     options?: Array<{
         label?: React.ReactNode;
@@ -57,7 +57,7 @@ type RadioGroupProps = {
         spacing?: object;
     };
     name: string;
-};
+}
 
 export default class RadioGroup extends React.Component<RadioGroupProps> {
     static Radio: Radio;

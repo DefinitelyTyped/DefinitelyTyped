@@ -1,12 +1,12 @@
 import React = require('react');
 
-type ToggleProps = {
+export interface ToggleProps {
     checked?: boolean;
     theme?: {
         colors?: object;
         spacing?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class Toggle extends React.Component<ToggleProps> {}

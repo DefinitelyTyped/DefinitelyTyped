@@ -38,7 +38,7 @@ import {
     Toggle,
     Tooltip,
     Input,
-} from '.';
+} from 'catho__quantum';
 
 <Button size="small" />;
 <Button.Icon />;

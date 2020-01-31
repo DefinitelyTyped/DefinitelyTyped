@@ -1,6 +1,6 @@
 import React = require('react');
 
-type TagProps = {
+export interface TagProps {
     bold?: boolean;
     inverted?: boolean;
     onClose?: () => void;
@@ -15,6 +15,6 @@ type TagProps = {
         };
         spacing?: object;
     };
-};
+}
 
 export default class Tag extends React.Component<TagProps> {}

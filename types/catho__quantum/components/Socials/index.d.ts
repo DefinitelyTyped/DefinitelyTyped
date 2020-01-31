@@ -1,8 +1,8 @@
 import React = require('react');
 
-type NonEmptyArray<T> = [T, ...T[]];
+export type NonEmptyArray<T> = [T, ...T[]];
 
-type SocialsProps = {
+export interface SocialsProps {
     size?: string;
     theme?: {
         spacing?: object;
@@ -13,6 +13,6 @@ type SocialsProps = {
         title?: string;
     }>;
     withBox?: boolean;
-};
+}
 
 export default class Socials extends React.Component<SocialsProps> {}

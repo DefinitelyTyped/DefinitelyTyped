@@ -1,6 +1,6 @@
 import React = require('react');
 
-type PopoverProps = {
+export interface PopoverProps {
     inverted?: boolean;
     visible?: boolean;
     children: React.ReactNode[] | React.ReactNode;
@@ -8,6 +8,6 @@ type PopoverProps = {
     skin?: 'neutral' | 'primary' | 'success' | 'warning' | 'error';
     trigger: React.ReactNode;
     onClose?: () => void;
-};
+}
 
 export default class Popover extends React.Component<PopoverProps> {}

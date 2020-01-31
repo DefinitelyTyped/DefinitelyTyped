@@ -1,4 +1,4 @@
-type Breakpoints = {
+export interface Breakpoints {
     xsmall: {
         width: number;
         columns: number;
@@ -19,7 +19,7 @@ type Breakpoints = {
         width: number;
         columns: number;
     };
-};
+}
 declare const breakPoints: Breakpoints;
 
 export default breakPoints;

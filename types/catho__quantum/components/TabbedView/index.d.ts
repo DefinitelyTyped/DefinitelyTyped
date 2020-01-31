@@ -1,6 +1,6 @@
 import React = require('react');
 
-type TabbedViewProps = {
+export interface TabbedViewProps {
     fluid?: boolean;
     children: React.ReactNode[] | React.ReactNode;
     activeTab?: string;
@@ -13,15 +13,15 @@ type TabbedViewProps = {
         breakpoints?: object;
         spacing?: object;
     };
-};
+}
 
 export class TabbedView extends React.Component<TabbedViewProps> {}
 
-type TabProps = {
+export interface TabProps {
     title: string;
     badge?: React.ReactNode;
     icon?: React.ReactNode;
     children: React.ReactNode[] | React.ReactNode;
-};
+}
 
 export class Tab extends React.Component<TabProps> {}

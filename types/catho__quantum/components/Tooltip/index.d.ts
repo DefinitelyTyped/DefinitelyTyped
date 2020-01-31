@@ -1,6 +1,6 @@
 import React = require('react');
 
-type TooltipProps = {
+export interface TooltipProps {
     text: string;
     placement?: 'top' | 'right' | 'bottom' | 'left';
     visible?: boolean;
@@ -10,6 +10,6 @@ type TooltipProps = {
         colors?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class Tooltip extends React.Component<TooltipProps> {}

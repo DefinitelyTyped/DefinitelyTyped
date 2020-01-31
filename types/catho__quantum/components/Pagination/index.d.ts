@@ -1,6 +1,6 @@
 import React = require('react');
 
-type PaginationProps = {
+export interface PaginationProps {
     tabIndex?: number;
     ariaLabel?: string;
     activePage?: number;
@@ -13,6 +13,6 @@ type PaginationProps = {
     onPageClick?: () => void;
     infoFormatter?: () => void;
     followOnlyFirstPage?: boolean;
-};
+}
 
 export default class Pagination extends React.Component<PaginationProps> {}

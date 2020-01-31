@@ -1,29 +1,29 @@
 import React = require('react');
 
-type SkeletonButtonProps = {
+export interface SkeletonButtonProps {
     size: 'xsmall' | 'small' | 'medium' | 'large';
     theme: {
         spacing?: object;
     };
-};
+}
 
-type SkeletonButton = React.ComponentType<SkeletonButtonProps>;
+export type SkeletonButton = React.ComponentType<SkeletonButtonProps>;
 
-type SkeletonCircle = React.ComponentType;
+export type SkeletonCircle = React.ComponentType;
 
-type SkeletonText = React.ComponentType;
+export type SkeletonText = React.ComponentType;
 
-type SkeletonTagProps = {
+export interface SkeletonTagProps {
     size: 'xsmall' | 'small' | 'medium' | 'large';
     theme: {
         spacing?: object;
         baseFontSize?: number;
     };
-};
+}
 
-type SkeletonTag = React.ComponentType<SkeletonTagProps>;
+export type SkeletonTag = React.ComponentType<SkeletonTagProps>;
 
-type SkeletonProps = {
+export interface SkeletonProps {
     type?: 'rect' | 'circle' | 'text' | 'button' | 'tag';
     width?: string;
     height?: string;
@@ -32,7 +32,7 @@ type SkeletonProps = {
         spacing?: object;
         baseFontSize?: number;
     };
-};
+}
 
 export default class Skeleton extends React.Component<SkeletonProps> {
     static Button: SkeletonButton;

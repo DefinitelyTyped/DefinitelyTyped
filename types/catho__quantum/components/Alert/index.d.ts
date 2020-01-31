@@ -1,6 +1,6 @@
 import React = require('react');
 
-type AlertProps = {
+export interface AlertProps {
     children: React.ReactNode;
     onClose: () => void;
     icon?: string;
@@ -14,6 +14,6 @@ type AlertProps = {
             button?: object;
         };
     };
-};
+}
 
 export default class Alert extends React.Component<AlertProps> {}

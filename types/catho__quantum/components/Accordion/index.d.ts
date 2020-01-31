@@ -1,6 +1,6 @@
 import React = require('react');
 
-type AccordionProps = {
+export interface AccordionProps {
     theme?: {
         colors?: object;
         spacing?: object;
@@ -13,6 +13,6 @@ type AccordionProps = {
         opened?: boolean;
         onClick?: () => void;
     }>;
-};
+}
 
 export default class Accordion extends React.Component<AccordionProps> {}

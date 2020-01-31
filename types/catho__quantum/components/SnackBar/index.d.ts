@@ -1,6 +1,6 @@
 import React = require('react');
 
-type SnackBarProps = {
+export interface SnackBarProps {
     actionTrigger?: {
         title?: string;
         callback?: () => void;
@@ -22,6 +22,6 @@ type SnackBarProps = {
     text?: string;
     inverted?: boolean;
     id?: string;
-};
+}
 
 export default class SnackBar extends React.Component<SnackBarProps> {}

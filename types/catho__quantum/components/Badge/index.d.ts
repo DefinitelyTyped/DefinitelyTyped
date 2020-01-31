@@ -1,6 +1,6 @@
 import React = require('react');
 
-type BadgeProps = {
+export interface BadgeProps {
     skin?: 'primary' | 'secondary' | 'success' | 'error' | 'neutral';
     children?: React.ReactNode[] | React.ReactNode;
     number?: number;
@@ -12,6 +12,6 @@ type BadgeProps = {
             badge?: object;
         };
     };
-};
+}
 
 export default class Badge extends React.Component<BadgeProps> {}

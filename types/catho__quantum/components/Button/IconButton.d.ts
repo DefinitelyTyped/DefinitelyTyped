@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type IconButtonProps = {
+export interface IconButtonProps {
     size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
     skin?: 'neutral' | 'primary' | 'secondary' | 'success' | 'warning' | 'error';
     theme?: {
@@ -11,7 +11,7 @@ type IconButtonProps = {
             button?: object;
         };
     };
-};
+}
 
 type IconButton = React.ComponentType<IconButtonProps>;
 

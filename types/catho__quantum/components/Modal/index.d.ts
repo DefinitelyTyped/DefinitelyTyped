@@ -1,6 +1,6 @@
 import React = require('react');
 
-type ModalProps = {
+export interface ModalProps {
     children?: React.ReactNode[] | React.ReactNode;
     onClose?: () => void;
     closeButtonAriaLabel?: string;
@@ -12,6 +12,6 @@ type ModalProps = {
             button?: object;
         };
     };
-};
+}
 
 export default class Modal extends React.Component<ModalProps> {}

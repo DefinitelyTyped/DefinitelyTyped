@@ -1,7 +1,7 @@
 import React = require('react');
 import IconButton from './IconButton';
 
-type ButtonProps = {
+export interface ButtonProps {
     center?: boolean;
     disabled?: boolean;
     stroked?: boolean;
@@ -22,7 +22,7 @@ type ButtonProps = {
             button: object;
         };
     };
-};
+}
 
 export default class Button extends React.Component<ButtonProps> {
     static Icon: IconButton;

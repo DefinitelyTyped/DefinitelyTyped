@@ -1,6 +1,6 @@
 import React = require('react');
 
-type IconNames =
+export type IconNames =
     | 'access_alarm'
     | 'access_alarms'
     | 'accessibility'
@@ -930,10 +930,10 @@ type IconNames =
     | 'zoom_out'
     | 'zoom_out_map';
 
-type IconProps = {
+export interface IconProps {
     name: IconNames;
     style?: React.CSSProperties;
     skin?: string;
-};
+}
 
 export default class Icon extends React.Component<IconProps> {}
