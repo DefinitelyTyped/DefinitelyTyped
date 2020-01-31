@@ -1,5 +1,16 @@
 import * as React from 'react';
-import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
+import {
+    BeforeCapture,
+    DragDropContext,
+    Draggable,
+    DragStart,
+    DragUpdate,
+    Droppable,
+    DroppableStateSnapshot,
+    DropResult,
+    resetServerContext,
+    ResponderProvided,
+} from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
 
 interface Item {
@@ -46,6 +57,10 @@ class App extends React.Component<{}, AppState> {
         this.onDragEnd = this.onDragEnd.bind(this);
     }
 
+    onBeforeCapture(beforeCapture: BeforeCapture) {
+        //
+    }
+
     onBeforeDragStart(dragStart: DragStart) {
         //
     }
@@ -79,6 +94,7 @@ class App extends React.Component<{}, AppState> {
     render() {
         return (
             <DragDropContext
+                onBeforeCapture={this.onBeforeCapture}
                 onBeforeDragStart={this.onBeforeDragStart}
                 onDragStart={this.onDragStart}
                 onDragUpdate={this.onDragUpdate}
@@ -99,6 +115,7 @@ class App extends React.Component<{}, AppState> {
                                             >
                                                 {item.content}
                                             </div>
+                                            {provided.placeholder}
                                         </div>
                                     )}
                                 </Draggable>
