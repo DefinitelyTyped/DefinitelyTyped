@@ -213,8 +213,7 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onClose?: (
             final: {
-                startDate: momentPropTypes.momentObj;
-                endDate: momentPropTypes.momentObj;
+                date: momentPropTypes.momentObj;
             }
         ) => void;
 
