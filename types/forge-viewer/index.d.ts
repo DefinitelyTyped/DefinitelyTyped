@@ -565,6 +565,8 @@ declare namespace Autodesk {
             setVerticalFov(fov: number, adjustPosition: boolean): void;
             setUseLeftHandedInput(value: boolean): any;
             setZoomTowardsPivot(value: boolean): any;
+            getWorldPoint(x: number, y: number): THREE.Vector3;
+            screenToViewport(x: number, y: number): THREE.Vector3;
         }
 
         interface Properties {
@@ -990,6 +992,7 @@ declare namespace Autodesk {
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
+                viewportToRay(vpVec: THREE.Vector3, ray: THREE.Ray): THREE.Ray;
             }
 
             class VisibilityManager {
