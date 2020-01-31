@@ -52,10 +52,6 @@
     },
     "files": [
         "index.d.ts",
-        "json-api.d.ts",
-        "json.d.ts",
-        "rest.d.ts",
-        "transform.d.ts",
         "test/index.ts",
         "test/json-api.ts",
         "test/json.ts",
