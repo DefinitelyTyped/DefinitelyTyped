@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "winston-transport": "^4.2.0"
+        "winston": "^3.0.0",
+        "winston-loggly-bulk": "^3.0.1"
     }
 }
