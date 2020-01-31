@@ -30,7 +30,7 @@ export interface LogglyOptions extends TransportStream.TransportStreamOptions {
     token: string;
 }
 
-export class Loggly {
+export class Loggly extends TransportStream {
     constructor(options?: LogglyOptions);
 
     extend(destination: any, source: any): any;
