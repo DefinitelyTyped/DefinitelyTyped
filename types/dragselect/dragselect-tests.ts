@@ -1,4 +1,4 @@
-import { DragSelect } from './index.d';
+import { DragSelect } from 'dragselect';
 
 const container = document.getElementById('container')!;
 
