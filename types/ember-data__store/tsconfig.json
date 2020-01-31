@@ -52,7 +52,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/lib/assert.ts",
         "ember-data__store-tests.ts"
     ]
 }
