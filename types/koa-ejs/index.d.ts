@@ -8,7 +8,7 @@ import * as Koa from "koa";
 
 declare module "Koa" {
   interface ExtendableContext {
-    render: (template:string, properties?: {[name:string]:string}) => Promise<string>
+    render: (template: string, properties?: {[name: string]: string}) => Promise<string>
   }
 }
 
