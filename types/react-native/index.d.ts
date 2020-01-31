@@ -8475,7 +8475,7 @@ export namespace Animated {
           ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
           : T extends (infer P)[]
           ? WithAnimatedValue<P>[]
-          : T | Animated.Value | Animated.AnimatedInterpolation
+          : T | Value | AnimatedInterpolation
         > {}
 
     export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
