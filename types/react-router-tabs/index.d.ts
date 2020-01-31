@@ -4,18 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Route, Link, RouteProps, LinkProps, NavLinkProps } from 'react-router-dom';
-import { ReactNode } from 'react';
+import { ReactNode, ComponentType } from 'react';
 
 export type AriaCurrent = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
 
 export interface NavTabProps extends NavLinkProps {
-    activeStyle?: React.CSSProperties;
     style?: React.CSSProperties;
     disabled?: boolean;
     allowClickOnActive?: boolean;
     'aria-current'?: AriaCurrent;
 }
-
 export interface RoutedTabsProps {
     startPathWith?: string;
     className?: string;
@@ -29,4 +27,4 @@ export interface RoutedTabsProps {
 
 export const NavTab: React.FC<NavTabProps>;
 
-export const RoutedTabs: React.FC<RoutedTabsProps>;
+export const RoutedTabs: ComponentType<RoutedTabsProps>;
