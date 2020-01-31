@@ -8469,7 +8469,15 @@ export namespace Animated {
 
     export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
-    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<ComponentProps<T>> {
+    export type WithAnimatedValue<T> = T extends Object ? {
+        [K in keyof T]: WithAnimatedValue<T[K]>;
+    } : T | Value;
+
+    export type AnimatedProps<T> = {
+        [key in keyof T]: WithAnimatedValue<T[key]>;
+    }
+
+    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<AnimatedProps<ComponentProps<T>>> {
         getNode: () => T;
     }
 
