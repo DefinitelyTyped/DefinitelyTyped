@@ -6,14 +6,14 @@
 /// <reference types="node" />
 
 import { Url } from 'url';
-import Transport = require('winston-transport');
+import TransportStream = require('winston-transport');
 
 export interface BufferOptions {
     size: number;
     retriesInMilliseconds: number;
 }
 
-export interface LogglyOptions extends Transport.TransportStreamOptions {
+export interface LogglyOptions extends TransportStream.TransportStreamOptions {
     auth?: {
         username: string;
         password: string;
@@ -30,8 +30,26 @@ export interface LogglyOptions extends Transport.TransportStreamOptions {
     token: string;
 }
 
-export class Loggly extends Transport {
+export class Loggly {
     constructor(options?: LogglyOptions);
+
+    extend(destination: any, source: any): any;
+
+    extractContext(obj: any): any;
+
+    formatQuery(query: any): any;
+
+    formatResults(results: any, _options: any): any;
+
+    log(meta: any, callback: any): any;
+
+    loglify(obj: any): any;
+
+    query(options: any, callback: any): any;
+
+    sanitizeLogs(logs: any): any;
+
+    stream(maybeOptions: any): any;
 }
 
 export function flushLogsAndExit(): void;

@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "winston": "^3.0.0",
-        "winston-loggly-bulk": "^3.0.1"
+        "winston": "^3.0.0"
     }
 }
