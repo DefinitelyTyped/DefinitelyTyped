@@ -51,11 +51,16 @@ export interface ClientOptions {
 }
 
 export interface SearchOptions {
-	scope?: string;
-	filter?: string | Filter;
-	attributes?: string | string[];
-	sizeLimit?: number;
-	timeLimit?: number;
+	/** Defaults to base */
+	scope?: "base" | "one" | "sub"; 
+	/**  Defaults to (objectclass=*) */ 
+	filter?: string | Filter; 
+	/** Defaults to the empty set, which means all attributes */
+	attributes?: string | string[];  
+	/** Defaults to 0 (unlimited) */ 
+	sizeLimit?: number; 
+	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */ 
+	timeLimit?: number; 
 	derefAliases?: number;
 	typesOnly?: boolean;
 	paged?: boolean | {
