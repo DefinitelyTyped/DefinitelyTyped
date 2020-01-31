@@ -25,6 +25,6 @@ export interface RoutedTabsProps {
     children?: ReactNode;
 }
 
-export const NavTab: React.FC<NavTabProps>;
+export const NavTab: ComponentType<NavTabProps>;
 
 export const RoutedTabs: ComponentType<RoutedTabsProps>;
