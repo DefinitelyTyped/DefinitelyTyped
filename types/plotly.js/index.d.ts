@@ -285,6 +285,23 @@ export interface Layout {
 	bargroupgap: 0 | 1;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
+	grid: Partial<{
+		rows: number;
+		roworder: "top to bottom" | "bottom to top";
+		columns: number;
+		subplots: string[];
+		xaxes: string[];
+		yaxes: string[];
+		pattern: "independent" | "coupled";
+		xgap: number;
+		ygap: number;
+		domain: Partial<{
+			x: number[];
+			y: number[];
+		}>;
+		xside: "bottom" | "bottom plot" | "top plot" | "top";
+		yside: "left" | "left plot" | "right plot" | "right";
+	}>;
 }
 
 export interface Legend extends Label {
