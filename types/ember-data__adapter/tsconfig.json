@@ -52,9 +52,6 @@
     },
     "files": [
         "index.d.ts",
-        "error.d.ts",
-        "json-api.d.ts",
-        "rest.d.ts",
         "test/lib/assert.ts",
         "test/index.ts",
         "test/json-api.ts",
