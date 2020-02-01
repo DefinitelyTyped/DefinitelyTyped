@@ -2,6 +2,9 @@
 // Project: https://github.com/matthewmatician/xml-flow
 // Definitions by: Nazar Rohozhuk <https://github.com/kodexxx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.1
+
+/// <reference types="node" />
 
 import { Readable } from 'stream';
 import { EventEmitter } from 'events';
