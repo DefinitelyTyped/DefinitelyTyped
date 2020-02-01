@@ -22,5 +22,5 @@
     "utils/*.d.ts",
     "index.d.ts",
     "uikit-tests.ts"
-  ],
+  ]
 }
