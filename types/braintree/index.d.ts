@@ -837,7 +837,7 @@ declare namespace braintree {
     }
 
     export interface BaseWebhookNotification {
-        kind: string;
+        kind: WebhookNotificationKind;
         timestamp: Date;
     }
 
