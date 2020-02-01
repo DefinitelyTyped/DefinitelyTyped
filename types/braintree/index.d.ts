@@ -831,40 +831,64 @@ declare namespace braintree {
      * Webhooks
      */
 
-    export class SampleNotification {
+    export interface SampleNotification {
         bt_signature: string;
         bt_payload: string;
     }
 
-    export abstract class WebhookNotification {
-        kind: WebhookNotificationKind;
+    export interface BaseWebhookNotification {
+        kind: string;
         timestamp: Date;
     }
 
-    export class TransactionNotification extends WebhookNotification {
+    export interface TransactionNotification extends BaseWebhookNotification {
+        kind: 'transaction_disbursed'
+            | 'transaction_settled'
+            | 'transaction_settlement_declined';
         transaction: Transaction;
     }
 
-    export class SubMerchantAccountApprovedNotification extends WebhookNotification {
+    export interface SubMerchantAccountApprovedNotification extends BaseWebhookNotification {
+        kind: 'sub_merchant_account_approved';
         merchantAccount: MerchantAccount;
     }
 
-    export class SubMerchantAccountDeclinedNotification extends WebhookNotification {
+    export interface SubMerchantAccountDeclinedNotification extends BaseWebhookNotification {
+        kind: 'sub_merchant_account_declined';
         merchantAccount: MerchantAccount;
     }
 
-    export class SubscriptionNotification extends WebhookNotification {
+    export interface SubscriptionNotification extends BaseWebhookNotification {
+        kind: 'subscription_canceled'
+            | 'subscription_charged_successfully'
+            | 'subscription_charged_unsuccessfully'
+            | 'subscription_expired'
+            | 'subscription_trial_ended'
+            | 'subscription_went_active'
+            | 'subscription_went_past_due';
         subscription: Subscription;
     }
 
-    export class DisputeNotification extends WebhookNotification {
+    export interface DisputeNotification extends BaseWebhookNotification {
+        kind: 'dispute_opened'
+            | 'dispute_lost'
+            | 'dispute_won';
         dispute: Dispute;
     }
 
-    export class AccountUpdaterNotification extends WebhookNotification {
+    export interface AccountUpdaterNotification extends BaseWebhookNotification {
+        kind: 'account_updater_daily_report';
         reportDate: Date;
         reportUrl: string;
     }
+
+    export type WebhookNotification =
+        TransactionNotification
+        | SubMerchantAccountApprovedNotification
+        | SubMerchantAccountDeclinedNotification
+        | SubscriptionNotification
+        | DisputeNotification
+        | AccountUpdaterNotification;
 
     export type WebhookNotificationKind =
         | 'account_updater_daily_report'
