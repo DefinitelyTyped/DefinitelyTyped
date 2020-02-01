@@ -6,12 +6,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "amplitude-js": [ "amplitude-js/v4" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
