@@ -12,7 +12,7 @@ const Home = (props: RouteComponentProps) => <div>Home</div>;
 const Dash = (props: RouteComponentProps<DashParams>) => <div>Dash for item ${props.id}</div>;
 
 const WithLocationState = (props: RouteComponentProps<{}, { from: string }>) => (
-    <div>I've got state.from = ${props.location?.state.from}</div>
+    <div>I've got state.from = ${props.location!.state.from}</div>
 );
 
 const NotFound = (props: RouteComponentProps) => <div>Route not found</div>;
