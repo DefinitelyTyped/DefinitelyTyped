@@ -1,4 +1,4 @@
-import { DragSelect } from 'dragselect';
+import DragSelect = require('dragselect');
 
 const container = document.getElementById('container')!;
 

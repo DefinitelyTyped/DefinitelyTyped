@@ -3,7 +3,7 @@
 // Definitions by: IceCreamYou <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class DragSelect {
+declare class DragSelect {
     // These properties store the options passed to the constructor, or the
     // defaults if the relevant options aren't passed. See the docs below.
     selectedClass: string;
@@ -298,3 +298,5 @@ export class DragSelect {
         height: number;
     };
 }
+
+export = DragSelect;
