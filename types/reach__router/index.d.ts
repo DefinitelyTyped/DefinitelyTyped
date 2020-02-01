@@ -3,12 +3,13 @@
 // Definitions by: Kingdaro <https://github.com/kingdaro>,
 //                 A.Mokhtar <https://github.com/xMokAx>,
 //                 Awwit <https://github.com/awwit>
+//                 Stefan <https://github.com/flienteen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
-import { Location as HLocation } from 'history';
-export type WindowLocation = Window['location'] & HLocation;
+import { Location as HLocation, LocationState as HLocationState } from 'history';
+export type WindowLocation<LocationState = HLocationState> = Window['location'] & HLocation<LocationState>;
 
 export type HistoryActionType = 'PUSH' | 'POP';
 export type HistoryLocation = WindowLocation & { state?: any };
@@ -35,10 +36,10 @@ export interface RouterProps {
     component?: React.ComponentType | string;
 }
 
-export type RouteComponentProps<TParams = {}> = Partial<TParams> & {
+export type RouteComponentProps<TParams = {}, LocationState = HLocationState> = Partial<TParams> & {
     path?: string;
     default?: boolean;
-    location?: WindowLocation;
+    location?: WindowLocation<LocationState>;
     navigate?: NavigateFn;
     uri?: string;
 };
@@ -84,7 +85,7 @@ export interface MatchProps<TParams> {
 export type MatchRenderFn<TParams> = (props: MatchRenderProps<TParams>) => React.ReactNode;
 
 export interface MatchRenderProps<TParams> {
-    match: null | { uri: string; path: string } & TParams;
+    match: null | ({ uri: string; path: string } & TParams);
     location: WindowLocation;
     navigate: NavigateFn;
 }
