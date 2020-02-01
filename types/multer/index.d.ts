@@ -1,7 +1,7 @@
 // Type definitions for multer 1.4
 // Project: https://github.com/expressjs/multer
 // Definitions by: jt000 <https://github.com/jt000>
-//                 vilicvane <https://vilic.github.io/>
+//                 vilicvane <https://github.com/vilic>
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
 //                 HyunSeob Lee <https://github.com/hyunseob>
@@ -11,7 +11,6 @@
 // TypeScript Version: 2.8
 
 import { Request, RequestHandler } from 'express';
-import { Readable } from 'stream';
 
 declare global {
     namespace Express {
@@ -40,8 +39,6 @@ declare global {
                 path: string;
                 /** `MemoryStorage` A Buffer containing the entire file. */
                 buffer: Buffer;
-                /** A readable stream of this file. */
-                stream: Readable;
             }
         }
 
