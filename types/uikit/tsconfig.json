@@ -18,7 +18,6 @@
   },
   "files": [
     "utils/index.d.ts",
-    "index.d.ts",
     "uikit-tests.ts",
     "core/accordion.d.ts",
     "core/alert.d.ts",
