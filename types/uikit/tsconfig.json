@@ -17,7 +17,6 @@
     ]
   },
   "files": [
-    "utils/index.d.ts",
     "uikit-tests.ts",
     "core/accordion.d.ts",
     "core/alert.d.ts",
@@ -29,7 +28,6 @@
     "core/height-match.d.ts",
     "core/icon.d.ts",
     "core/image.d.ts",
-    "core/index.d.ts",
     "core/leader.d.ts",
     "core/margin.d.ts",
     "core/modal.d.ts",
