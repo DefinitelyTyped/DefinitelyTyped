@@ -1678,7 +1678,7 @@ declare namespace webpack {
                 fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
                 fileDependencies?: string[]
             );
-            exec(parser: webpack.compilation.normalModuleFactory.Parser): CodeValuePrimitive;
+            exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
         }
         type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
     }
