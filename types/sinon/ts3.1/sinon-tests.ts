@@ -352,6 +352,9 @@ function testTypedSpy() {
         foo(a: number, b: string): number {
             return 3;
         }
+        overloadTest(param: string): void;
+        overloadTest(param: number): void;
+        overloadTest(param: number|string): void {}
     };
 
     const instance = new cls();
@@ -376,11 +379,6 @@ function testTypedSpy() {
     spy.neverCalledWith(sinon.match(5), 'x');
     spy.neverCalledWith(5, 'x');
 
-    const stub = sinon.stub(instance, 'foo');
-
-    stub.withArgs(5, 'x').returns(3);
-    stub.withArgs(sinon.match(5), 'x').returns(5);
-
     const accessorSpy = sinon.spy(instance, 'accessorTest', ['get', 'set']);
     accessorSpy.get.returned(5);
     accessorSpy.set.calledWith(55);
@@ -390,6 +388,12 @@ function testTypedSpy() {
 
     const setterSpy = sinon.spy(instance, 'setterTest', ['set']);
     setterSpy.set.calledWith(100);
+
+    const overloadSpy = sinon.spy<
+        typeof instance,
+        'overloadTest',
+        [number]>(instance, 'overloadTest');
+    overloadSpy.calledWith(5);
 }
 
 function testSpy() {
@@ -601,16 +605,35 @@ function testTypedStub() {
         bar(baz: number, qux: string): boolean {
             return true;
         }
+        overloadTest(param: string): void;
+        overloadTest(param: number): void;
+        overloadTest(param: string|number): void {}
     }
     let stub: sinon.SinonStub<[number, string], boolean> = sinon.stub();
     let stub2 = sinon.stub<[number, string], boolean>();
-    const foo = new Foo();
-    stub = sinon.stub(foo, 'bar');
-    stub2 = sinon.stub(foo, 'bar');
+
+    const instance = new Foo();
+
+    stub = sinon.stub(instance, 'bar');
+    stub2 = sinon.stub(instance, 'bar');
+
     const result: boolean = stub(42, 'qux');
+
     const fooStub: sinon.SinonStubbedInstance<Foo> = {
-        bar: sinon.stub()
+        bar: sinon.stub(),
+        overloadTest: sinon.stub()
     };
+
+    const barStub = sinon.stub(instance, 'bar');
+
+    barStub.withArgs(5, 'x').returns(true);
+    barStub.withArgs(sinon.match(5), 'x').returns(false);
+
+    const overloadStub = sinon.stub<
+        typeof instance,
+        'overloadTest',
+        [number]>(instance, 'overloadTest');
+    overloadStub(500);
 }
 
 function testMock() {

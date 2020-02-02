@@ -336,6 +336,8 @@ declare namespace Sinon {
     }
 
     interface SinonSpyStatic {
+        /* tslint:disable:no-unnecessary-generics */
+
         /**
          * Creates an anonymous function that records arguments, this value, exceptions and return values for all calls.
          */
@@ -351,16 +353,23 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
-        ) => infer TReturnValue
-            ? SinonSpy<TArgs, TReturnValue>
-            : SinonSpy;
+        <
+            TObj,
+            TKey extends keyof TObj,
+            TArgs extends any[] = TObj[TKey] extends (
+                ...args: infer TArgsValue
+            ) => any ? TArgsValue : any[],
+            TReturn = TObj[TKey] extends (
+                ...args: any[]
+            ) => infer TReturnValue ? TReturnValue : any
+        >(obj: TObj, method: TKey): SinonSpy<TArgs, TReturn>;
 
         <T, K extends keyof T>(obj: T, method: K, types: Array<('get'|'set')>): PropertyDescriptor & {
             get: SinonSpy<[], T[K]>;
             set: SinonSpy<[T[K]], void>;
         };
+
+        /* tslint:enable:no-unnecessary-generics */
     }
 
     interface SinonStub<TArgs extends any[] = any[], TReturnValue = any>
@@ -643,8 +652,6 @@ declare namespace Sinon {
          */
         <TArgs extends any[] = any[], R = any>(): SinonStub<TArgs, R>;
 
-        /* tslint:enable:no-unnecessary-generics */
-
         /**
          * Stubs all the object’s methods.
          * Note that it’s usually better practice to stub individual methods, particularly on objects that you don’t understand or control all the methods for (e.g. library dependencies).
@@ -657,11 +664,18 @@ declare namespace Sinon {
          * An exception is thrown if the property is not already a function.
          * The original function can be restored by calling object.method.restore(); (or stub.restore();).
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (
-            ...args: infer TArgs
-        ) => infer TReturnValue
-            ? SinonStub<TArgs, TReturnValue>
-            : SinonStub;
+        <
+            TObj,
+            TKey extends keyof TObj,
+            TArgs extends any[] = TObj[TKey] extends (
+                ...args: infer TArgsValue
+            ) => any ? TArgsValue : any[],
+            TReturn = TObj[TKey] extends (
+                ...args: any[]
+            ) => infer TReturnValue ? TReturnValue : any
+        >(obj: TObj, method: TKey): SinonStub<TArgs, TReturn>;
+
+        /* tslint:enable:no-unnecessary-generics */
     }
 
     interface SinonExpectation extends SinonStub {
