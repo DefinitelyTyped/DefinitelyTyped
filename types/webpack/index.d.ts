@@ -1622,13 +1622,9 @@ declare namespace webpack {
         constructor(resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any);
     }
 
-    class RuntimeValue {
-        constructor(fn: ({ module }: { module: any }) => any, fileDependencies?: any[])
-    }
-
     class DefinePlugin extends Plugin {
         constructor(definitions: { [key: string]: any });
-        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: any[]): RuntimeValue
+        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: any[]): any;
     }
 
     class DllPlugin extends Plugin {
