@@ -1,4 +1,4 @@
-import UIkit from 'uikit'
+import UIkit from 'uikit';
 
 function testDropdown() {
     UIkit.dropdown("#parent");
@@ -18,18 +18,26 @@ function testModal() {
     const modal = UIkit.modal('#modal', {
         stack: true,
         container: false
-    })
+    });
     UIkit.modal.confirm("Are you sure?").then(() => alert('success'));
-    modal.hide()
-    setTimeout(() => modal.show(), 2000)
+    modal.hide();
+    setTimeout(() => modal.show(), 2000);
 
-    UIkit.modal.alert('UIkit alert!')
-    UIkit.modal.confirm('UIkit confirm!')
-    UIkit.modal.prompt('Name:', 'Your name')
-    UIkit.modal.dialog('<p>UIkit dialog!</p>')
+    UIkit.modal.alert('UIkit alert!');
+    UIkit.modal.confirm('UIkit confirm!');
+    UIkit.modal.prompt('Name:', 'Your name');
+    UIkit.modal.dialog('<p>UIkit dialog!</p>');
 }
 
 function testOffCanvas() {
     UIkit.offcanvas("#id").show();
     UIkit.offcanvas("#id").hide();
+}
+
+function testUpload() {
+    UIkit.upload('#upload', {
+        abort: (asd: number) => {
+            return asd;
+        }
+    });
 }
