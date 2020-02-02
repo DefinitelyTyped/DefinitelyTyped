@@ -14,8 +14,8 @@ interface VNDB {
     /**
      * Connects to the VNDB API.
      * Host and port are not required unless VNDB changes them.
-     * @param host {String} VNDB host address
-     * @param port {Number} VNDB port
+     * @param host VNDB host address
+     * @param port VNDB port
      */
     start(host?: string, port?: number): Promise<VNDB.vndb>;
 }
@@ -29,7 +29,7 @@ declare namespace VNDB {
 
         /**
          * Send a message to the VNDB API, according to https://vndb.org/d11
-         * @param message {String} message to send to the VNDB API
+         * @param message message to send to the VNDB API
          */
         write(message: string): Promise<string>;
 
