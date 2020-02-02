@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "dependencies": {
+        "vndb": "^0.1.0"
+    },
+    "devDependencies": {
+        "@types/node": "^13.7.0"
+    }
+}
