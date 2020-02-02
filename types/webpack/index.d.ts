@@ -1627,18 +1627,18 @@ declare namespace webpack {
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
             fileDependencies?: string[]
-        ): DefinePlugin.RuntimeValue
+        ): DefinePlugin.RuntimeValue;
     }
 
     namespace DefinePlugin {
         class RuntimeValue {
             constructor(
-                fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+                fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
                 fileDependencies?: string[]
             );
-            exec(parser: any): DefinePlugin.CodeValuePrimitive
+            exec(parser: any): CodeValuePrimitive;
         }
-        type CodeValuePrimitive = string | number | boolean | RegExp | Function | RuntimeValue | null | undefined;
+        type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
     }
 
     class DllPlugin extends Plugin {
