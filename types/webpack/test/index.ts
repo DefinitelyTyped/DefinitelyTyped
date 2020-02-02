@@ -895,6 +895,23 @@ class BannerPlugin extends webpack.Plugin {
     }
 }
 
+class DefinePlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DefinePlugin",
+            (compilation, { normalModuleFactory }) => {
+                normalModuleFactory.hooks.parser
+                    .for("javascript/auto")
+                    .tap("DefinePlugin", (parser) => {
+                        parser.hooks.evaluateIdentifier
+                            .for("TEST")
+                            .tap("DefinePlugin", () => {});
+                    });
+            }
+        );
+    }
+}
+
 configuration = {
     module: {
         rules: [
