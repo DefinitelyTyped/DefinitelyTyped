@@ -19,6 +19,7 @@
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
+//                 Daniel Chin <https://github.com/danielthank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1621,8 +1622,13 @@ declare namespace webpack {
         constructor(resourceRegExp: any, newContentResource?: any, newContentRecursive?: any, newContentRegExp?: any);
     }
 
+    class RuntimeValue {
+        constructor(fn: ({ module }: { module: any }) => any, fileDependencies?: any[])
+    }
+
     class DefinePlugin extends Plugin {
         constructor(definitions: { [key: string]: any });
+        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: string[]): RuntimeValue
     }
 
     class DllPlugin extends Plugin {
