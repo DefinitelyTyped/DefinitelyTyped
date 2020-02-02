@@ -4,7 +4,6 @@ async function connect() {
     try {
         const vndb: VNDB.vndb = await VNDB.start();
         console.log('Connected !');
-        vndb.write('ww');
         await vndb.end();
         console.log('Ended Connection !');
     } catch (e) {
