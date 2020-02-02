@@ -447,6 +447,22 @@ plugin = new webpack.DefinePlugin({
     TWO: "1+1",
     "typeof window": JSON.stringify("object")
 });
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE")
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        ({ module }) => JSON.stringify(module)
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        ["value.txt"]
+    )
+});
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
     $: "jquery"
