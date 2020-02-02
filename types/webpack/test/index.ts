@@ -445,16 +445,14 @@ plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
     BROWSER_SUPPORTS_HTML5: true,
     TWO: "1+1",
-    "typeof window": JSON.stringify("object")
-});
-plugin = new webpack.DefinePlugin({
-    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+    "typeof window": JSON.stringify("object"),
+    RUNTIME: webpack.DefinePlugin.runtimeValue(
         () => JSON.stringify("TEST_VALUE")
     )
 });
 plugin = new webpack.DefinePlugin({
     TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
-        ({ module }) => JSON.stringify(module)
+        ({ module }) => JSON.stringify(module.context)
     )
 });
 plugin = new webpack.DefinePlugin({

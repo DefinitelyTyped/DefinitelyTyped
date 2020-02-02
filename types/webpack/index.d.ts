@@ -1623,8 +1623,22 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: any });
-        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: any[]): any;
+        constructor(definitions: { [key: string]: DefinePlugin.CodeValuePrimitive});
+        static runtimeValue(
+            fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+            fileDependencies?: string[]
+        ): DefinePlugin.RuntimeValue
+    }
+
+    namespace DefinePlugin {
+        class RuntimeValue {
+            constructor(
+                fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+                fileDependencies?: string[]
+            );
+            exec(parser: any): DefinePlugin.CodeValuePrimitive
+        }
+        type CodeValuePrimitive = string | number | boolean | RegExp | Function | RuntimeValue | null | undefined;
     }
 
     class DllPlugin extends Plugin {
