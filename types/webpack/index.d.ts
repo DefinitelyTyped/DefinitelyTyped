@@ -1628,7 +1628,7 @@ declare namespace webpack {
 
     class DefinePlugin extends Plugin {
         constructor(definitions: { [key: string]: any });
-        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: string[]): RuntimeValue
+        static runtimeValue(fn: ({ module }: { module: any }) => any, fileDependencies?: any[]): RuntimeValue
     }
 
     class DllPlugin extends Plugin {
