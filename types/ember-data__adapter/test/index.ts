@@ -37,7 +37,7 @@ class Customized extends Adapter {
         this.defaultSerializer = 'a string';
         this.defaultSerializer = 12; // $ExpectError
 
-        return await this.session.login('hi@example.com', 'password');
+        return this.session.login('hi@example.com', 'password');
     }
 }
 
