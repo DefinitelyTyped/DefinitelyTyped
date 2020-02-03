@@ -41,8 +41,58 @@ export declare class CStream extends Stream {
     on (ev: string, handler: (value?: string) => void): void
 }
 
-export declare let MAX_BUFFER_LENGTH: number
-export declare let DEBUG: boolean
-export declare let INFO: boolean
-export declare const EVENTS: Array<string>
-//export declare const STATE: {[key: number | string]: number | string}
+export const MAX_BUFFER_LENGTH: number
+export const DEBUG: boolean
+export const INFO: boolean
+export const EVENTS: string[]
+
+export const STATE: {
+    "0": string;
+    "1": string;
+    "10": string;
+    "11": string;
+    "12": string;
+    "13": string;
+    "14": string;
+    "15": string;
+    "16": string;
+    "17": string;
+    "18": string;
+    "19": string;
+    "2": string;
+    "20": string;
+    "21": string;
+    "22": string;
+    "23": string;
+    "3": string;
+    "4": string;
+    "5": string;
+    "6": string;
+    "7": string;
+    "8": string;
+    "9": string;
+    BACKSLASH: number;
+    BEGIN: number;
+    CLOSE_ARRAY: number;
+    CLOSE_KEY: number;
+    CLOSE_OBJECT: number;
+    END: number;
+    FALSE: number;
+    FALSE2: number;
+    FALSE3: number;
+    FALSE4: number;
+    NULL: number;
+    NULL2: number;
+    NULL3: number;
+    NUMBER_DECIMAL_POINT: number;
+    NUMBER_DIGIT: number;
+    OPEN_ARRAY: number;
+    OPEN_KEY: number;
+    OPEN_OBJECT: number;
+    STRING: number;
+    TEXT_ESCAPE: number;
+    TRUE: number;
+    TRUE2: number;
+    TRUE3: number;
+    VALUE: number;
+};
