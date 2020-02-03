@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "workbox-routing": "^5.0.0"
-    }
-}
