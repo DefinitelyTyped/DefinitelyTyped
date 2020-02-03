@@ -88,10 +88,8 @@ declare namespace request {
     }
 
     interface ResponseError extends Error {
-        status: number;
-        text: string;
-        method: string;
-        path: string;
+        status?: number;
+        response?: Response;
     }
 
     interface Response extends NodeJS.ReadableStream {
