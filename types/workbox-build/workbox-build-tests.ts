@@ -6,10 +6,13 @@ import {
     copyWorkboxLibraries,
     injectManifest,
     InjectManifestConfig,
+    InjectManifestResult,
     generateSW,
     GenerateSWConfig,
+    GenerateSWResult,
     getManifest,
     GetManifestConfig,
+    GetManifestResult,
     getModuleURL,
 } from 'workbox-build';
 
@@ -42,9 +45,9 @@ export namespace GetModuleURLTest {
 
 export namespace GenerateSWTest {
     declare const config: GenerateSWConfig;
+    let result: GenerateSWResult;
 
-    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
-    generateSW(config);
+    result = generateSW(config);
 }
 
 //==============================================================================
@@ -53,9 +56,9 @@ export namespace GenerateSWTest {
 
 export namespace GetManifestTest {
     declare const config: GetManifestConfig;
+    let result: GetManifestResult;
 
-    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
-    getManifest(config);
+    result = getManifest(config);
 }
 
 //==============================================================================
@@ -64,7 +67,7 @@ export namespace GetManifestTest {
 
 export namespace InjectManifestTest {
     declare const config: InjectManifestConfig;
+    let result: InjectManifestResult;
 
-    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
-    injectManifest(config);
+    result = injectManifest(config);
 }
