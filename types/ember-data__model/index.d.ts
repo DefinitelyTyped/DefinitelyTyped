@@ -10,6 +10,6 @@
 import DS from 'ember-data';
 export default DS.Model;
 
-export const attr: typeof DS.attr;
-export const belongsTo: typeof DS.belongsTo;
-export const hasMany: typeof DS.hasMany;
+export import attr = DS.attr;
+export import belongsTo = DS.belongsTo;
+export import hasMany = DS.hasMany;

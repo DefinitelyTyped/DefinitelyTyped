@@ -9,6 +9,6 @@
 
 import DS from 'ember-data';
 
-export let normalizeModelName: typeof DS.normalizeModelName;
+export import normalizeModelName = DS.normalizeModelName;
 
 export default DS.Store;
