@@ -19,6 +19,7 @@
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
+//                 Daniel Chin <https://github.com/danielthank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -943,13 +944,55 @@ declare namespace webpack {
             createModule: SyncBailHook;
             module: SyncWaterfallHook;
             createParser: HookMap;
-            parser: HookMap;
+            parser: HookMap<normalModuleFactory.Parser>;
             createGenerator: HookMap;
             generator: HookMap;
         }
 
         class NormalModuleFactory extends Tapable {
             hooks: NormalModuleFactoryHooks;
+        }
+
+        namespace normalModuleFactory {
+            interface ParserHooks {
+                evaluateTypeof: HookMap;
+                evaluate: HookMap;
+                evaluateIdentifier: HookMap;
+                evaluateDefinedIdentifier: HookMap;
+                evaluateCallExpressionMember: HookMap;
+                statement: SyncBailHook;
+                statementIf: SyncBailHook;
+                label: HookMap;
+                import: SyncBailHook;
+                importSpecifier: SyncBailHook;
+                export: SyncBailHook;
+                exportImport: SyncBailHook;
+                exportDeclaration: SyncBailHook;
+                exportExpression: SyncBailHook;
+                exportSpecifier: SyncBailHook;
+                exportImportSpecifier: SyncBailHook;
+                varDeclaration: SyncBailHook;
+                varDeclarationLet: HookMap;
+                varDeclarationConst: HookMap;
+                varDeclarationVar: HookMap;
+                canRename: HookMap;
+                rename: HookMap;
+                assigned: HookMap;
+                typeof: HookMap;
+                importCall: SyncBailHook;
+                call: HookMap;
+                callAnyMember: HookMap;
+                new: HookMap;
+                expression: HookMap;
+                expressionAnyMember: HookMap;
+                expressionConditionalOperator: SyncBailHook;
+                expressionLogicalOperator: SyncBailHook;
+                program: SyncBailHook;
+            }
+
+            class Parser extends Tapable {
+                hooks: ParserHooks;
+            }
         }
 
         interface ContextModuleFactoryHooks {
@@ -1622,7 +1665,22 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: any });
+        constructor(definitions: { [key: string]: DefinePlugin.CodeValuePrimitive});
+        static runtimeValue(
+            fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+            fileDependencies?: string[]
+        ): DefinePlugin.RuntimeValue;
+    }
+
+    namespace DefinePlugin {
+        class RuntimeValue {
+            constructor(
+                fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
+                fileDependencies?: string[]
+            );
+            exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
+        }
+        type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
     }
 
     class DllPlugin extends Plugin {
