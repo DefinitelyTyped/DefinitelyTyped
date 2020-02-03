@@ -13,12 +13,12 @@ export interface InjectManifestConfig {
      *
      * @default true
      */
-    additionalManifestEntries?: Array<ManifestEntry>;
+    additionalManifestEntries?: ManifestEntry[];
 
     /**
      * One or more chunk names whose corresponding output files should be included in the precache manifest.
      */
-    chunks?: Array<string>;
+    chunks?: string[];
 
     /**
      * Assets that match this will be assumed to be uniquely versioned via their
@@ -37,19 +37,19 @@ export interface InjectManifestConfig {
      *
      * @default [/\.map$/, /^manifest.*\.js$]
      */
-    exclude?: Array<string | RegExp | Function>;
+    exclude?: Array<string | RegExp | ((path: string) => boolean)>;
 
     /**
      * One or more names of webpack chunks. The content of those chunks will be included
      * in the generated service worker, via a call to `importScripts()`.
      */
-    importScriptsViaChunks?: Array<string>;
+    importScriptsViaChunks?: string[];
 
     /**
      * One or more chunk names whose corresponding output files should be excluded
      * from the precache manifest.
      */
-    excludeChunks?: Array<string>;
+    excludeChunks?: string[];
 
     /**
      * One or more specifiers used to include assets in the precache manifest.
@@ -57,7 +57,7 @@ export interface InjectManifestConfig {
      * [the same rules](https://webpack.js.org/configuration/module/#condition)
      * as `webpack`'s standard `include` option.
      */
-    include?: Array<string | RegExp | Function>;
+    include?: Array<string | RegExp | ((path: string) => boolean)>;
 
     /**
      * The string to find inside of the `swSrc` file. Once found, it will be replaced by
@@ -72,10 +72,10 @@ export interface InjectManifestConfig {
      * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
      * also specified, their corresponding transformations will be applied first.
      */
-    manifestTransforms?: Array<ManifestTransform>;
+    manifestTransforms?: ManifestTransform;
 
     /**
-     *This value can be used to determine the maximum size of files that will be
+     * This value can be used to determine the maximum size of files that will be
      * precached. This prevents you from inadvertently precaching very large files
      * that might have accidentally matched one of your patterns.
      *
@@ -112,7 +112,7 @@ export interface InjectManifestConfig {
     /**
      * Optional `webpack` plugins that will be used when compiling the `swSrc` input file.
      */
-    webpackCompilationPlugins?: Array<Object>;
+    webpackCompilationPlugins?: object[];
 }
 
 /**
