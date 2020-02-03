@@ -12,7 +12,14 @@ export import messages = messages;
 
 export type HTMLMediaElement = any;
 export as namespace framework;
-export type LoggerLevel = 'DEBUG' | 'VERBOSE' | 'INFO' | 'WARNING' | 'ERROR' | 'NONE';
+export enum LoggerLevel {
+    DEBUG = '0',
+    ERROR = '1000',
+    INFO = '800',
+    NONE = '1500',
+    VERBOSE = '500',
+    WARNING = '900'
+}
 
 export enum ContentProtection {
     NONE = 'none',
