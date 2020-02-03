@@ -105,9 +105,11 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
 
-    const notificationResponse = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
-    if (!notificationResponse) return;
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
 
-    const notification: SubscriptionNotification = notificationResponse as SubscriptionNotification;
+    // this should cause the type of `notification` to be narrowed to `SubscriptionNotification`
+    if (notification.kind !== kind) return;
+
     const subscription = notification.subscription;
 })();
