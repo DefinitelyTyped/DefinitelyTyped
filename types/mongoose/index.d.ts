@@ -1048,7 +1048,7 @@ declare module "mongoose" {
   /*
    * Intellisense for Schema definitions
    */
-  type SchemaDefinition<T> = {
+  type SchemaDefinition<T = {[x: string]: unknown}> = {
     [path in keyof T]?: SchemaTypeOpts<any> | Schema | SchemaType;
   };
 
