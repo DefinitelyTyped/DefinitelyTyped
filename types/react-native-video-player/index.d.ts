@@ -2,7 +2,6 @@
 // Project: https://github.com/cornedor/react-native-video-player.git
 // Definitions by: Junseong Park <https://github.com/Kweiza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ImageSourcePropType, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
