@@ -67,6 +67,8 @@ declare class AGClientSocket extends AsyncStreamEmitter<any> implements AGChanne
     codec: AGServer.CodecEngine;
     transport?: AGTransport;
 
+    poolIndex?: number;
+
     constructor(opts: AGClientSocket.ClientOptions);
 
     emit(eventName: 'removeAuthToken', data: { oldAuthToken: object }): void;
