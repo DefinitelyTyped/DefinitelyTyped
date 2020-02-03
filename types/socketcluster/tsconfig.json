@@ -16,6 +16,9 @@
         "paths": {
             "socketcluster-server": [
                 "socketcluster-server/v14"
+            ],
+            "sc-broker-cluster": [
+                "sc-broker-cluster/v6"
             ]
         },
         "noEmit": true,

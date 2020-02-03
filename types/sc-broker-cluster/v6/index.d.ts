@@ -2,7 +2,6 @@
 // Project: https://github.com/SocketCluster/sc-broker-cluster
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
 import { SCServerSocket, SCServer } from "socketcluster-server";
 import { BrokerStartInfo, BrokerExitInfo } from "socketcluster";
