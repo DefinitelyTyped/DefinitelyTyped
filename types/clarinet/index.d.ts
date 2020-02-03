@@ -1,50 +1,50 @@
-// Type definitions for clarinet 0.12.4
+// Type definitions for clarinet 0.12
 // Project: https://github.com/dscape/clarinet
 // Definitions by: corno <https://github.com/corno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Stream } from "stream"
+// import { Stream } from "stream";
 
-export function parser(opt?: Options): CParser
-export function createStream(opt?: Options): CStream
+export function parser(opt?: Options): CParser;
+export function createStream(opt?: Options): CStream;
 
-export declare type Options = {
-    trim?: boolean
-    normalize?: boolean
+export interface Options {
+    trim?: boolean;
+    normalize?: boolean;
 }
 
-export declare class CParser {
-    line: number
-    column: number
-    position: number
-    onvalue: (value: string | boolean | null) => void
-    onkey: (key: string) => void
-    onopenobject: (key: string) => void
-    oncloseobject: () => void
-    onopenarray: () => void
-    onclosearray: () => void
-    onend: () => void
-    onerror: (e: Error) => void
-    onready: () => void
-    constructor(opt?: Options)
-    end(): void
-    write(chunk: string): void
-    resume(): void
-    close(): void
+export class CParser {
+    line: number;
+    column: number;
+    position: number;
+    onvalue: (value: string | boolean | null) => void;
+    onkey: (key: string) => void;
+    onopenobject: (key: string) => void;
+    oncloseobject: () => void;
+    onopenarray: () => void;
+    onclosearray: () => void;
+    onend: () => void;
+    onerror: (e: Error) => void;
+    onready: () => void;
+    constructor(opt?: Options);
+    end(): void;
+    write(chunk: string): void;
+    resume(): void;
+    close(): void;
 }
 
-export declare class CStream extends Stream {
-    _parser: CParser
-    constructor(opt?: Options)
-    destroy(): void
-    end(chunk: string): void
-    on (ev: string, handler: (value?: string) => void): void
+export class CStream /*extends Stream*/ {
+    _parser: CParser;
+    constructor(opt?: Options);
+    destroy(): void;
+    end(chunk: string): void;
+    on(ev: string, handler: (value?: string) => void): void;
 }
 
-export const MAX_BUFFER_LENGTH: number
-export const DEBUG: boolean
-export const INFO: boolean
-export const EVENTS: string[]
+export const MAX_BUFFER_LENGTH: number;
+export const DEBUG: boolean;
+export const INFO: boolean;
+export const EVENTS: string[];
 
 export const STATE: {
     "0": string;

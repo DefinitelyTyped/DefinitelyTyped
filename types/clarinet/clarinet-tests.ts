@@ -1,9 +1,9 @@
-import * as clarinet from "clarinet"
+import * as clarinet from "clarinet";
 
-const stream = clarinet.createStream({})
+const stream = clarinet.createStream({});
 
-const parser = clarinet.parser({})
+const parser = clarinet.parser({});
 
-parser.close()
-parser.end()
-const line: number = parser.line
+parser.close();
+parser.end();
+const line: number = parser.line;
