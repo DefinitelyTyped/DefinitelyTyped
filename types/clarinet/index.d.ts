@@ -5,8 +5,8 @@
 
 import { Stream } from "stream"
 
-export function parser(opt?: any): CParser
-export function createStream(opt?: any): CStream
+export function parser(opt?: Options): CParser
+export function createStream(opt?: Options): CStream
 
 export declare type Options = {
     trim?: boolean
