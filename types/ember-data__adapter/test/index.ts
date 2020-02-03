@@ -5,7 +5,11 @@ import Model from '@ember-data/model';
 import Store from '@ember-data/store';
 import DS from 'ember-data';
 
-class Session extends Service {}
+class Session extends Service {
+    login(userName: string, password: string): Promise<void> {
+        return Promise.resolve();
+    }
+}
 
 declare module '@ember/service' {
     interface Registry {
@@ -27,11 +31,13 @@ declare module 'ember-data/types/registries/adapter' {
 }
 
 class Customized extends Adapter {
-    @service session: Session;
+    @service session!: Session;
 
-    someMethod() {
+    async someMethod(): Promise<void> {
         this.defaultSerializer = 'a string';
         this.defaultSerializer = 12; // $ExpectError
+
+        return await this.session.login('hi@example.com', 'password');
     }
 }
 

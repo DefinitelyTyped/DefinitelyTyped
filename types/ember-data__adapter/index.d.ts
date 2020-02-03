@@ -9,6 +9,6 @@
 
 import DS from 'ember-data';
 
-export import BuildURLMixin = DS.BuildURLMixin;
+export let BuildURLMixin: DS.BuildURLMixin;
 
 export default DS.Adapter;

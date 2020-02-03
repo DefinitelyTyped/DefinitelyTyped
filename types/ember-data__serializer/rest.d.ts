@@ -1,4 +1,4 @@
 import DS from 'ember-data';
 
-export type EmbeddedRecordsMixin = DS.EmbeddedRecordsMixin;
+export let EmbeddedRecordsMixin: DS.EmbeddedRecordsMixin;
 export default DS.RESTSerializer;
