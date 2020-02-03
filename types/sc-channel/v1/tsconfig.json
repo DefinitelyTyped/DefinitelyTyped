@@ -25,7 +25,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "sc-channel-tests.ts"
+        "index.d.ts"
     ]
 }
