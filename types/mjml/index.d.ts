@@ -26,6 +26,12 @@ interface MJMLParseResults {
     errors: MJMLParseError[];
 }
 
-declare function mjml2html(inp: string | object, opts?: MJMLParsingOpts): MJMLParseResults;
+interface MJMLJsonObject {
+    tagName: string;
+    attributes: object;
+    children: MJMLJsonObject[];
+}
+
+declare function mjml2html(inp: string | MJMLJsonObject, opts?: MJMLParsingOpts): MJMLParseResults;
 
 export = mjml2html;
