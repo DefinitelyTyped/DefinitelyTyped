@@ -43,7 +43,7 @@ export namespace GetModuleURLTest {
 export namespace GenerateSWTest {
     declare const config: GenerateSWConfig;
 
-    // $ExpectType GenerateSWResult
+    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
     generateSW(config);
 }
 
@@ -54,7 +54,7 @@ export namespace GenerateSWTest {
 export namespace GetManifestTest {
     declare const config: GetManifestConfig;
 
-    // $ExpectType GetManifestResult
+    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
     getManifest(config);
 }
 
@@ -65,6 +65,6 @@ export namespace GetManifestTest {
 export namespace InjectManifestTest {
     declare const config: InjectManifestConfig;
 
-    // $ExpectType InjectManifestResult
+    // $ExpectType Promise<{ count: number; filePaths: string[]; size: number; warnings: string[]; }>
     injectManifest(config);
 }
