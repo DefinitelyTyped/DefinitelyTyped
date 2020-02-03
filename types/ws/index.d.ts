@@ -51,7 +51,7 @@ declare class WebSocket extends events.EventEmitter {
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     send(data: any, cb?: (err?: Error) => void): void;
-    send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }, cb?: (err?: Error) => void): void;
+    send(data: any, options: WebSocket.SendOptions, cb?: (err?: Error) => void): void;
     terminate(): void;
 
     // HTML5 WebSocket events
@@ -232,7 +232,7 @@ declare namespace WebSocket {
         mask?: boolean;
     }
 
-      type ReceiverBinaryTypes = 'nodebuffer' | 'arraybuffer' | 'fragments';
+    type ReceiverBinaryTypes = 'nodebuffer' | 'arraybuffer' | 'fragments';
 
     // WebSocket Server
     class Server extends events.EventEmitter {
