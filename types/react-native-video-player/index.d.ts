@@ -8,7 +8,7 @@ import { ImageSourcePropType, StyleProp, ViewStyle, TextStyle, ImageStyle } from
 import { VideoProperties } from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-interface VideoPlayerProps {
+export interface VideoPlayerProps {
     video?: { uri?: string } | number;
     thumbnail?: ImageSourcePropType;
     endThumbnail?: ImageSourcePropType;
@@ -59,7 +59,7 @@ interface VideoPlayerProps {
     onMutePress?: () => any;
 }
 
-interface VideoPlayerState {
+export interface VideoPlayerState {
     isStarted: boolean;
     isPlaying: boolean;
     hasEnded: boolean;
@@ -95,8 +95,8 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     private onSeekRelease: () => any;
     private onSeek: (event: any) => any;
 
-    public seek: (t: number) => any;
-    public stop: () => any;
-    public pause: () => any;
-    public resume: () => any;
+    seek: (t: number) => any;
+    stop: () => any;
+    pause: () => any;
+    resume: () => any;
 }
