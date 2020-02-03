@@ -8941,7 +8941,7 @@ export function processColor(color: any): number;
 
 export const YellowBox: React.ComponentClass<any, any> & { ignoreWarnings: (warnings: string[]) => void };
                                                                   
-export function unstable_enableLogBox(): void ;                                                                  
+export function unstable_enableLogBox(): void;                                                                  
 
 //////////////////////////////////////////////////////////////////////////
 //
