@@ -1,5 +1,6 @@
 {
     "dependencies": {
         "node": "13.7.0"
-    }
+    },
+    "private": true
 }
