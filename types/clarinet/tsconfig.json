@@ -18,6 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "clarinet-tests.ts",
         "index.d.ts"
     ]
 }
