@@ -19,6 +19,9 @@
             ],
             "sc-broker-cluster": [
                 "sc-broker-cluster/v6"
+            ],
+            "sc-channel": [
+                "sc-channel/v1"
             ]
         },
         "noEmit": true,

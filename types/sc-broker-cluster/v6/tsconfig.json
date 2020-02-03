@@ -22,6 +22,9 @@
             ],
             "socketcluster-server": [
                 "socketcluster-server/v14"
+            ],
+            "sc-channel": [
+                "sc-channel/v1"
             ]
         },
         "noEmit": true,

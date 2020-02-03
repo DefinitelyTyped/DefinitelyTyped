@@ -8,12 +8,18 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "paths": {
+            "sc-channel": [
+                "sc-channel/v1"
+            ],
+            "sc-channel/*": [
+                "sc-channel/v1/*"
+            ],
             "sc-broker-cluster": [
                 "sc-broker-cluster/v6"
             ],
