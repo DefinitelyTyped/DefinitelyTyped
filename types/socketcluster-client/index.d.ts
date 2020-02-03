@@ -7,7 +7,7 @@
 import { SCAuthEngine } from "sc-auth";
 import { SCServer } from "socketcluster-server";
 
-export import SCClientSocket = require("./lib/scclientsocket");
+export import SCClientSocket = require("./lib/clientsocket");
 
 export function create(options?: SCClientSocket.ClientOptions): SCClientSocket;
 

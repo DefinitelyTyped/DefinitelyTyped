@@ -1,7 +1,7 @@
 // Adapted from README
 
 import { create, destroy } from "socketcluster-client";
-import { ClientOptions, SubscribeStateChangeData } from "socketcluster-client/lib/scclientsocket";
+import { ClientOptions, SubscribeStateChangeData } from "socketcluster-client/lib/clientsocket";
 import { SCChannelOptions } from "sc-channel";
 import WebSocket = require("ws");
 
