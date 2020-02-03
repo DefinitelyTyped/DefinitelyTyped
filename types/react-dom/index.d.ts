@@ -26,7 +26,6 @@ export function unmountComponentAtNode(container: Element): boolean;
 
 export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
 
-export const version: string;
 export const render: Renderer;
 export const hydrate: Renderer;
 
