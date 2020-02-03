@@ -16,7 +16,7 @@ export interface GenerateSWConfig {
      * A list of entries to be precached, in addition to any entries that are
      * generated as part of the build configuration.
      */
-    additionalManifestEntries?: Array<ManifestEntry>;
+    additionalManifestEntries?: ManifestEntry[];
 
     /**
      * The [targets](https://babeljs.io/docs/en/babel-preset-env#targets) to pass to
@@ -24,7 +24,7 @@ export interface GenerateSWConfig {
      *
      * @default ['chrome >= 56']
      */
-    babelPresetEnvTargets?: Array<string>;
+    babelPresetEnvTargets?: string[];
 
     /**
      * An optional ID to be prepended to cache names. This is primarily useful for
@@ -85,7 +85,7 @@ export interface GenerateSWConfig {
      *
      * @default ['node_modules/**']
      */
-    globIgnores?: Array<string>;
+    globIgnores?: string[];
 
     /**
      * Files matching any of these patterns will be included in the precache
@@ -94,7 +94,7 @@ export interface GenerateSWConfig {
      *
      * @default ['**.{js,css,html}']
      */
-    globPatterns?: Array<string>;
+    globPatterns?: string[];
 
     /**
      * If true, an error reading a directory when generating a precache manifest
@@ -114,7 +114,7 @@ export interface GenerateSWConfig {
      *
      * @default [/^utm_/]
      */
-    ignoreURLParametersMatching?: Array<RegExp>;
+    ignoreURLParametersMatching?: RegExp[];
 
     /**
      * A list of JavaScript files that should be passed to [`importScripts()`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/importScripts)
@@ -122,7 +122,7 @@ export interface GenerateSWConfig {
      * let Workbox create your top-level service worker file, but want to include
      * some additional code, such as a push event listener.
      */
-    importScripts?: Array<string>;
+    importScripts?: string[];
 
     /**
      * Whether the runtime code for the Workbox library should be included in the
@@ -139,10 +139,10 @@ export interface GenerateSWConfig {
      * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
      * also specified, their corresponding transformations will be applied first.
      */
-    manifestTransforms?: Array<ManifestTransform>;
+    manifestTransforms?: ManifestTransform[];
 
     /**
-     *This value can be used to determine the maximum size of files that will be
+     * This value can be used to determine the maximum size of files that will be
      * precached. This prevents you from inadvertently precaching very large files
      * that might have accidentally matched one of your patterns.
      *
@@ -186,7 +186,7 @@ export interface GenerateSWConfig {
      * both `navigateFallbackDenylist` and `navigateFallbackAllowlist` are
      * configured, the denylist takes precedent.
      */
-    navigateFallbackDenylist?: Array<RegExp>;
+    navigateFallbackDenylist?: RegExp[];
 
     /**
      * An optional array of regular expressions that restricts which URLs the configured
@@ -196,7 +196,7 @@ export interface GenerateSWConfig {
      * both `navigateFallbackDenylist` and `navigateFallbackAllowlist` are
      * configured, the denylist takes precedent.
      */
-    navigateFallbackAllowlist?: Array<RegExp>;
+    navigateFallbackAllowlist?: RegExp[];
 
     /**
      * Whether or not to enable [navigation preload](https://developers.google.com/web/tools/workbox/modules/workbox-navigation-preload)
@@ -217,9 +217,9 @@ export interface GenerateSWConfig {
      *
      * @default false
      */
-    offlineGoogleAnalytics?: boolean | Object;
+    offlineGoogleAnalytics?: boolean | object;
 
-    runtimeCaching?: Array<RuntimeCachingEntry>;
+    runtimeCaching?: RuntimeCachingEntry[];
 
     /**
      * Whether to add an unconditional call to [`skipWaiting()`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.skipWaiting)
@@ -246,7 +246,7 @@ export interface GenerateSWConfig {
      * it will be interpreted as unique versioning information that you've generated
      * for a given URL.
      */
-    templatedURLs?: Object;
+    templatedURLs?: object;
 }
 
 /**
@@ -258,9 +258,9 @@ export interface GenerateSWConfig {
  */
 export type GenerateSWResult = Promise<{
     count: number;
-    filePaths: Array<string>;
+    filePaths: string[];
     size: number;
-    warnings: Array<string>;
+    warnings: string[];
 }>;
 
 export function generateSW(config: GenerateSWConfig): GenerateSWResult;

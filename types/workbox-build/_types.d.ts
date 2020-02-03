@@ -23,17 +23,17 @@ export type ManifestTransform = (
     /**
      * The full array of entries, prior to the current transformation.
      */
-    manifestEntries: Array<ManifestEntry>,
+    manifestEntries: ManifestEntry[],
 
     /**
      * When used in the webpack plugins, this param
      * will be set to the current `compilation`.
      */
-    compilation?: Object,
+    compilation?: object,
 ) => Promise<ManifestTransformResult>;
 
 export interface ManifestTransformResult {
-    manifest: Array<ManifestEntry>;
+    manifest: ManifestEntry[];
     warnings: Array<string | undefined>;
 }
 
@@ -73,7 +73,7 @@ export interface RuntimeCachingEntryOptions {
          * The `options` property to use when creating the
          * [`BackgroundSyncPlugin`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-background-sync.BackgroundSyncPlugin).
          */
-        options?: Object;
+        options?: object;
     };
 
     broadcastUpdate?: {
@@ -87,7 +87,7 @@ export interface RuntimeCachingEntryOptions {
          * The `options` property to use when creating the
          * [`BroadcastCacheUpdatePlugin`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-broadcast-update.BroadcastUpdatePlugin).
          */
-        options?: Object;
+        options?: object;
     };
 
     cacheableResponse?: {
@@ -95,13 +95,13 @@ export interface RuntimeCachingEntryOptions {
          * The `headers` property to use when creating the
          * [`CacheableResponsePlugin`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-cacheable-response.CacheableResponsePlugin).
          */
-        headers?: Object;
+        headers?: object;
 
         /**
          * The `statuses` property to use when creating the
          * [`CacheableResponsePlugin`](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-cacheable-response.CacheableResponsePlugin).
          */
-        statuses?: Array<number>;
+        statuses?: number[];
     };
 
     /**
@@ -113,7 +113,7 @@ export interface RuntimeCachingEntryOptions {
      * The `fetchOptions` property value to use when constructing one of the
      * [Workbox strategy classes](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-strategies.html).
      */
-    fetchOptions?: Object;
+    fetchOptions?: object;
 
     expiration?: {
         /**
@@ -133,7 +133,7 @@ export interface RuntimeCachingEntryOptions {
      * The `matchOptions` property value to use when constructing one of the
      * [Workbox strategy classes](https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-strategies.html).
      */
-    matchOptions?: Object;
+    matchOptions?: object;
 
     /**
      * The `networkTimeoutSeconds` property value to use when creating a
@@ -146,5 +146,5 @@ export interface RuntimeCachingEntryOptions {
      * to apply to the handler. Useful when you want a plugin that doesn't have a
      * "shortcut" configuration.
      */
-    plugins?: Array<Object>;
+    plugins?: object[];
 }

@@ -10,7 +10,7 @@ export interface GetManifestConfig {
      * A list of entries to be precached, in addition to any entries that are
      * generated as part of the build configuration.
      */
-    additionalManifestEntries?: Array<ManifestEntry>;
+    additionalManifestEntries?: ManifestEntry[];
 
     /**
      * Assets that match this will be assumed to be uniquely versioned via their
@@ -38,7 +38,7 @@ export interface GetManifestConfig {
      *
      * @default ['node_modules/**']
      */
-    globIgnores?: Array<string>;
+    globIgnores?: string[];
 
     /**
      * Files matching any of these patterns will be included in the precache
@@ -47,7 +47,7 @@ export interface GetManifestConfig {
      *
      * @default ['**.{js,css,html}']
      */
-    globPatterns?: Array<string>;
+    globPatterns?: string[];
 
     /**
      * If true, an error reading a directory when generating a precache manifest
@@ -64,10 +64,10 @@ export interface GetManifestConfig {
      * generated manifest. If `modifyURLPrefix` or `dontCacheBustURLsMatching` are
      * also specified, their corresponding transformations will be applied first.
      */
-    manifestTransforms?: Array<ManifestTransform>;
+    manifestTransforms?: ManifestTransform[];
 
     /**
-     *This value can be used to determine the maximum size of files that will be
+     * This value can be used to determine the maximum size of files that will be
      * precached. This prevents you from inadvertently precaching very large files
      * that might have accidentally matched one of your patterns.
      *
@@ -103,14 +103,14 @@ export interface GetManifestConfig {
      * it will be interpreted as unique versioning information that you've generated
      * for a given URL.
      */
-    templatedURLs?: Object;
+    templatedURLs?: object;
 }
 
 export type GetManifestResult = Promise<{
     count: number;
-    filePaths: Array<string>;
+    filePaths: string[];
     size: number;
-    warnings: Array<string>;
+    warnings: string[];
 }>;
 
 export function getManifest(config: GetManifestConfig): GetManifestResult;
