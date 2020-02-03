@@ -1,9 +1,9 @@
-// Type definitions for react-native-background-downloader 2.3.4
+// Type definitions for react-native-background-downloader 2.3
 // Project: https://github.com/EkoLabs/react-native-background-downloader.git
 // Definitions by: Junseong Park <https://github.com/Kweiza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare type SetHeaders = (h: object) => any;
+type SetHeaders = (h: object) => any;
 
 interface TaskInfoObject {
     id: string;
@@ -11,12 +11,12 @@ interface TaskInfoObject {
     bytesWritten: number;
     totalBytes: number;
 }
-declare type TaskInfo = string | TaskInfoObject;
+type TaskInfo = string | TaskInfoObject;
 
-declare type BeginHandler = (expectedBytes: number) => any;
-declare type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
-declare type DoneHandler = () => any;
-declare type ErrorHandler = (error: any, errorCode: any) => any;
+type BeginHandler = (expectedBytes: number) => any;
+type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
+type DoneHandler = () => any;
+type ErrorHandler = (error: any, errorCode: any) => any;
 interface DownloadTask {
     constructor: (taskInfo: TaskInfo) => DownloadTask;
 
@@ -40,7 +40,7 @@ interface DownloadTask {
     stop: () => any;
 }
 
-declare type CheckForExistingDownloads = () => Promise<DownloadTask[]>;
+type CheckForExistingDownloads = () => Promise<DownloadTask[]>;
 
 interface DownloadOption {
     id: string;
@@ -49,7 +49,7 @@ interface DownloadOption {
     headers?: object;
 }
 
-declare type Download = (options: DownloadOption) => DownloadTask;
+type Download = (options: DownloadOption) => DownloadTask;
 
 interface Directories {
     documents: string;
@@ -73,14 +73,14 @@ export const directories: Directories;
 export const Network: Network;
 export const Priority: Priority;
 
-type RNBackgroundDownloader = {
+interface RNBackgroundDownloader {
     setHeaders: SetHeaders;
     checkForExistingDownloads: CheckForExistingDownloads;
     download: Download;
     directories: Directories;
     Network: Network;
     Priority: Priority;
-};
+}
 
 declare const RNBackgroundDownloader: RNBackgroundDownloader;
 export default RNBackgroundDownloader;
