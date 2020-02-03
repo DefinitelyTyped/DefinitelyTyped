@@ -29,7 +29,8 @@ interface MJMLParseResults {
 interface MJMLJsonObject {
     tagName: string;
     attributes: object;
-    children: MJMLJsonObject[];
+    children?: MJMLJsonObject[];
+    content?: string;
 }
 
 declare function mjml2html(inp: string | MJMLJsonObject, opts?: MJMLParsingOpts): MJMLParseResults;
