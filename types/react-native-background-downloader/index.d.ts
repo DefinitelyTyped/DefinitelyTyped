@@ -2,7 +2,6 @@
 // Project: https://github.com/EkoLabs/react-native-background-downloader.git
 // Definitions by: Junseong Park <https://github.com/Kweiza>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7.5
 
 declare type SetHeaders = (h: object) => any;
 
