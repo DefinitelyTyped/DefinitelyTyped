@@ -8,6 +8,7 @@
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
 //                 Thierry Régagnon <https://github.com/tregagnon>
+//                 Tanandara <https://github.com/Tanandara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -1367,7 +1368,11 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
+        /** Optional. A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute.  */
+        sameSite?: SameSiteStatus;
     }
+
+    export type SameSiteStatus = 'no_restriction' | 'lax' | 'strict' | 'unspecified';
 
     export interface Details {
         name: string;
