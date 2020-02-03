@@ -2,7 +2,7 @@ export type Factor = number;
 
 export type Scale = Factor[];
 
-export interface FontScalePresents {
+export interface FontScalePresets {
     majorSecond: Scale;
     minorThird: Scale;
     majorThird: Scale;
@@ -13,7 +13,7 @@ export interface FontScalePresents {
 export interface Options {
     baseFontSize: string;
     baseLineHeight: number;
-    baseFontScale: Scale | keyof FontScalePresents;
+    baseFontScale: Scale | keyof FontScalePresets;
     addMarginBottom: boolean;
     proximity: boolean;
     proximityFactor: Factor;

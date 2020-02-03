@@ -1,6 +1,6 @@
-import { FontScalePresents, Options, Heading } from '../types';
+import { FontScalePresets, Options, Heading } from '../types';
 
-export const fontScalePresets: FontScalePresents;
+export const fontScalePresets: FontScalePresets;
 
 export const defaultOptions: Options;
 
