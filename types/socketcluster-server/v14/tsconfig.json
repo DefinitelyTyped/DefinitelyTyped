@@ -8,11 +8,19 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "socketcluster-server": [
+                "socketcluster-server/v14"
+            ],
+            "socketcluster-server/*": [
+                "socketcluster-server/v14/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
