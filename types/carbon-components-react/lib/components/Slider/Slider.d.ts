@@ -5,6 +5,10 @@ interface InheritedProps extends ReactDivAttr, ThemeProps {
     name?: ReactInputAttr["name"],
 }
 
+export interface SliderOnChangeArg {
+    value: number;
+}
+
 export interface SliderProps extends InheritedProps {
     ariaLabelInput?: string,
     formatLabel?(value: SliderProps["value"], label: string): string,
@@ -19,6 +23,7 @@ export interface SliderProps extends InheritedProps {
     step?: number,
     stepMuliplier?: number, // typo exists in source
     value: number,
+    onChange: (value: SliderOnChangeArg) => void
 }
 
 declare class Slider extends React.PureComponent<SliderProps> { }
