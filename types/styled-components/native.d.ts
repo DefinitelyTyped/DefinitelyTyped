@@ -61,10 +61,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ActivityIndicatorIOS,
     T
   >;
-  ART: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ART,
-    T
-  >;
   Button: ReactNativeThemedStyledFunction<
     typeof ReactNative.Button,
     T
@@ -83,14 +79,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
   >;
   ImageBackground: ReactNativeThemedStyledFunction<
     typeof ReactNative.ImageBackground,
-    T
-  >;
-  ImageEditor: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ImageEditor,
-    T
-  >;
-  ImageStore: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ImageStore,
     T
   >;
   KeyboardAvoidingView: ReactNativeThemedStyledFunction<
@@ -141,10 +129,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.Slider,
     T
   >;
-  SliderIOS: ReactNativeThemedStyledFunction<
-    typeof ReactNative.SliderIOS,
-    T
-  >;
   SnapshotViewIOS: ReactNativeThemedStyledFunction<
     typeof ReactNative.SnapshotViewIOS,
     T
@@ -193,16 +177,8 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.TextInput,
     T
   >;
-  ToastAndroid: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ToastAndroid,
-    T
-  >;
   ToolbarAndroid: ReactNativeThemedStyledFunction<
     typeof ReactNative.ToolbarAndroid,
-    T
-  >;
-  Touchable: ReactNativeThemedStyledFunction<
-    typeof ReactNative.Touchable,
     T
   >;
   TouchableHighlight: ReactNativeThemedStyledFunction<
@@ -229,10 +205,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
-  WebView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.WebView,
-    T
-  >;
   FlatList: ReactNativeThemedStyledFunction<
     typeof ReactNative.FlatList,
     T
@@ -241,10 +213,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.SectionList,
     T
   >;
-  VirtualizedList: ReactNativeThemedStyledFunction<
-    typeof ReactNative.VirtualizedList,
-    T
-   >;
 }
 
 export interface ReactNativeThemedStyledComponentsModule<
