@@ -55,7 +55,7 @@ export type VerifyFunction = (
     refreshToken: string,
     extraParams: ExtraVerificationParams,
     profile: Profile,
-    done: (error: any, user?: any, info?: any) => void
+    done: (error: any, user?: any, info?: any) => void,
 ) => void;
 
 export type VerifyFunctionWithRequest = (
@@ -63,7 +63,7 @@ export type VerifyFunctionWithRequest = (
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    done: (error: any, user?: any, info?: any) => void
+    done: (error: any, user?: any, info?: any) => void,
 ) => void;
 
 export class Strategy extends passport.Strategy {
