@@ -211,6 +211,8 @@ declare namespace umzug {
     }
 
     interface Migration {
+        file: string;
+        
         migration(): Promise<any>;
         up(): Promise<any>;
         down(): Promise<any>;
