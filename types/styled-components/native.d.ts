@@ -125,9 +125,9 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.Slider,
     T
   >;
-  SliderIOS: ReactNativeThemedStyledFunction<	
-    typeof ReactNative.Slider,	
-    T	
+  SliderIOS: ReactNativeThemedStyledFunction<
+    typeof ReactNative.Slider,
+    T
   >;
   SnapshotViewIOS: ReactNativeThemedStyledFunction<
     typeof ReactNative.SnapshotViewIOS,
