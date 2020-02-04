@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/mkdirp": "^0.5.2"
+    }
+}
