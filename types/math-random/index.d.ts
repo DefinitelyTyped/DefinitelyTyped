@@ -5,7 +5,7 @@
 
 declare const mathRandom: {
     (): number;
-    cryptographic: boolean;
+    cryptographic: true | undefined;
 };
 
 export = mathRandom;
