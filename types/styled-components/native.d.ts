@@ -58,7 +58,11 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     T
   >;
   ActivityIndicatorIOS: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ActivityIndicator,
+    typeof ReactNative.ActivityIndicatorIOS,
+    T
+  >;
+  ART: ReactNativeThemedStyledFunction<
+    typeof ReactNative.ART,
     T
   >;
   Button: ReactNativeThemedStyledFunction<
@@ -81,12 +85,24 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ImageBackground,
     T
   >;
+  ImageEditor: ReactNativeThemedStyledFunction<
+    typeof ReactNative.ImageEditor,
+    T
+  >;
+  ImageStore: ReactNativeThemedStyledFunction<
+    typeof ReactNative.ImageStore,
+    T
+  >;
   KeyboardAvoidingView: ReactNativeThemedStyledFunction<
     typeof ReactNative.KeyboardAvoidingView,
     T
   >;
   ListView: ReactNativeThemedStyledFunction<
     typeof ReactNative.ListView,
+    T
+  >;
+  MapView: ReactNativeThemedStyledFunction<
+    typeof ReactNative.MapView,
     T
   >;
   Modal: ReactNativeThemedStyledFunction<
@@ -126,7 +142,7 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     T
   >;
   SliderIOS: ReactNativeThemedStyledFunction<
-    typeof ReactNative.Slider,
+    typeof ReactNative.SliderIOS,
     T
   >;
   SnapshotViewIOS: ReactNativeThemedStyledFunction<
@@ -158,7 +174,7 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     T
   >;
   SwitchAndroid: ReactNativeThemedStyledFunction<
-    typeof ReactNative.Switch,
+    typeof ReactNative.SwitchAndroid,
     T
   >;
   SwitchIOS: ReactNativeThemedStyledFunction<
@@ -177,8 +193,16 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.TextInput,
     T
   >;
+  ToastAndroid: ReactNativeThemedStyledFunction<
+    typeof ReactNative.ToastAndroid,
+    T
+  >;
   ToolbarAndroid: ReactNativeThemedStyledFunction<
     typeof ReactNative.ToolbarAndroid,
+    T
+  >;
+  Touchable: ReactNativeThemedStyledFunction<
+    typeof ReactNative.Touchable,
     T
   >;
   TouchableHighlight: ReactNativeThemedStyledFunction<
@@ -205,6 +229,22 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
+  WebView: ReactNativeThemedStyledFunction<
+    typeof ReactNative.WebView,
+    T
+  >;
+  FlatList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.FlatList,
+    T
+  >;
+  SectionList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.SectionList,
+    T
+  >;
+  VirtualizedList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.VirtualizedList,
+    T
+   >;
 }
 
 export interface ReactNativeThemedStyledComponentsModule<
