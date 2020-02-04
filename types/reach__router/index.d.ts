@@ -153,3 +153,11 @@ export function isRedirect(error: any): error is RedirectRequest;
 export function redirectTo(uri: string): void;
 
 export const globalHistory: History;
+
+export function useLocation(): WindowLocation;
+
+export function useNavigate(): NavigateFn;
+
+export function useParams<TParams>(): TParams;
+
+export function useMatch<TParams>(pathname: string): null | { uri: string; path: string } & TParams;
