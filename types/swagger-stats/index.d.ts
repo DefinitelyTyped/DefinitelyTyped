@@ -54,7 +54,7 @@ export function getFastifyPlugin(
   done: () => void,
 ): void;
 
-export function getMiddleware(opts: Partial<SWStats>): RequestHandler;
+export function getMiddleware(opts?: Partial<SWStats>): RequestHandler;
 
 export interface ReqResStats {
   requests: number;

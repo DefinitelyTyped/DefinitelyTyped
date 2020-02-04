@@ -2,7 +2,7 @@
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 import * as React from 'react';
 import { StyledComponent } from '@emotion/styled';
@@ -11,6 +11,8 @@ import { SxStyleProp } from 'theme-ui';
 import { SpaceProps, ColorProps, ResponsiveValue, MarginProps } from 'styled-system';
 
 export {};
+
+type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 type Assign<T, U> = {
     [P in keyof (T & U)]: P extends keyof T ? T[P] : P extends keyof U ? U[P] : never;

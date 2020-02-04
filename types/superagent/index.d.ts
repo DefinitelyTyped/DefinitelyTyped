@@ -88,10 +88,8 @@ declare namespace request {
     }
 
     interface ResponseError extends Error {
-        status: number;
-        text: string;
-        method: string;
-        path: string;
+        status?: number;
+        response?: Response;
     }
 
     interface Response extends NodeJS.ReadableStream {
@@ -133,6 +131,7 @@ declare namespace request {
         ca(cert: string | string[] | Buffer | Buffer[]): this;
         cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
+        disableTLSCerts(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;

@@ -1,4 +1,5 @@
 import * as tty from 'tty';
+import { Readable } from 'stream';
 
 const rs: tty.ReadStream = new tty.ReadStream(0);
 const ws: tty.WriteStream = new tty.WriteStream(1);
@@ -26,3 +27,8 @@ ws.getWindowSize();
 const hasCOlors: boolean = ws.hasColors();
 
 const isTTY: boolean = tty.isatty(1);
+
+const x: Readable = process.stdin;
+const stdin: tty.ReadStream = process.stdin;
+const stdout: tty.WriteStream = process.stdout;
+const stderr: tty.WriteStream = process.stderr;

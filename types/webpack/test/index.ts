@@ -445,7 +445,21 @@ plugin = new webpack.DefinePlugin({
     VERSION: JSON.stringify("5fa3b9"),
     BROWSER_SUPPORTS_HTML5: true,
     TWO: "1+1",
-    "typeof window": JSON.stringify("object")
+    "typeof window": JSON.stringify("object"),
+    RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE")
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        ({ module }) => JSON.stringify(module.context)
+    )
+});
+plugin = new webpack.DefinePlugin({
+    TEST_RUNTIME: webpack.DefinePlugin.runtimeValue(
+        () => JSON.stringify("TEST_VALUE"),
+        ["value.txt"]
+    )
 });
 plugin = new webpack.ProvidePlugin(definitions);
 plugin = new webpack.ProvidePlugin({
@@ -878,6 +892,23 @@ class BannerPlugin extends webpack.Plugin {
                 }
             });
         });
+    }
+}
+
+class DefinePlugin extends webpack.Plugin {
+    apply(compiler: webpack.Compiler) {
+        compiler.hooks.compilation.tap(
+            "DefinePlugin",
+            (compilation, { normalModuleFactory }) => {
+                normalModuleFactory.hooks.parser
+                    .for("javascript/auto")
+                    .tap("DefinePlugin", (parser) => {
+                        parser.hooks.evaluateIdentifier
+                            .for("TEST")
+                            .tap("DefinePlugin", () => {});
+                    });
+            }
+        );
     }
 }
 

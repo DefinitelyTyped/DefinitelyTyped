@@ -268,6 +268,10 @@ declare namespace P {
          */
         messageKey?: string;
         /**
+         * The string key to place any logged object under.
+         */
+        nestedKey?: string;
+        /**
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
          */
