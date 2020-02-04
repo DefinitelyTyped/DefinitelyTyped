@@ -645,6 +645,12 @@ export interface PlotData {
 	theta: Datum[];
 	r: Datum[];
 	customdata: Datum[];
+	domain: Partial<{
+		rows: number;
+		columns: number;
+		x: number[];
+		y: number[];
+	}>;
 }
 
 /**
