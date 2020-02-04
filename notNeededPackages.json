@@ -1345,6 +1345,12 @@
             "asOfVersion": "2.2.1"
         },
         {
+            "libraryName": "@types/facebook-js-sdk",
+            "typingsPackageName": "fb",
+            "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+            "asOfVersion": "0.0.28"
+        },
+        {
             "libraryName": "fecha",
             "typingsPackageName": "fecha",
             "sourceRepoURL": "https://github.com/taylorhakes/fecha",
