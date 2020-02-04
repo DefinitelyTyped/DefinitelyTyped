@@ -1,8 +1,9 @@
-// Type definitions for @reach/router 1.2
+// Type definitions for @reach/router 1.3.1
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>,
 //                 A.Mokhtar <https://github.com/xMokAx>,
 //                 Awwit <https://github.com/awwit>
+//                 wroughtec <https://github.com/wroughtec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -158,6 +159,6 @@ export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams<TParams>(): TParams;
+export function useParams(): { [key: string] : string } | null;
 
-export function useMatch<TParams>(pathname: string): null | { uri: string; path: string } & TParams;
+export function useMatch(pathname: string): null | { uri: string; path: string };
