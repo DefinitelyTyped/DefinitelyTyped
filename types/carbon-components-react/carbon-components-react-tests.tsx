@@ -7,7 +7,7 @@ import {
     Table,
     TableBatchActions,
     TableHeader,
-    TableRow,
+    TableRow, TooltipDefinition,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -202,4 +202,13 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// TooltipDefinition
+const tooltipDefHasAlign = (
+  <TooltipDefinition tooltipText="my text" align="end" />
+);
+
+const tooltipDefHasTriggerClassName = (
+    <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
 );
