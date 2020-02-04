@@ -1,4 +1,4 @@
-// Type definitions for cnpj 3.0.0
+// Type definitions for cnpj 3.0
 // Project: https://github.com/gabrielizaias/cnpj
 // Definitions by: Miguel A. Almeida <https://github.com/migueldevmt/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
