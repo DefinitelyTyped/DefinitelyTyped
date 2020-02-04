@@ -4,6 +4,7 @@ import {
     DataTable,
     DataTableHeader,
     DataTableRow,
+    Dropdown,
     Table,
     TableBatchActions,
     TableHeader,
@@ -202,4 +203,16 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// Dropdown
+const dropdownItemCanBeText = (
+    <Dropdown
+        id="dropdown-id"
+        items={[ "val1", "val2" ]}
+        itemToElement={ item => item }
+        label="my dropdown"
+        titleText="my title"
+        ariaLabel="this is a sample"
+    />
 );
