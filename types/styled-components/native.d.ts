@@ -58,7 +58,7 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     T
   >;
   ActivityIndicatorIOS: ReactNativeThemedStyledFunction<
-    typeof ReactNative.ActivityIndicatorIOS,
+    typeof ReactNative.ActivityIndicator,
     T
   >;
   Button: ReactNativeThemedStyledFunction<
@@ -87,10 +87,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
   >;
   ListView: ReactNativeThemedStyledFunction<
     typeof ReactNative.ListView,
-    T
-  >;
-  MapView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.MapView,
     T
   >;
   Modal: ReactNativeThemedStyledFunction<
@@ -129,6 +125,10 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.Slider,
     T
   >;
+  SliderIOS: ReactNativeThemedStyledFunction<	
+    typeof ReactNative.Slider,	
+    T	
+  >;
   SnapshotViewIOS: ReactNativeThemedStyledFunction<
     typeof ReactNative.SnapshotViewIOS,
     T
@@ -158,7 +158,7 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     T
   >;
   SwitchAndroid: ReactNativeThemedStyledFunction<
-    typeof ReactNative.SwitchAndroid,
+    typeof ReactNative.Switch,
     T
   >;
   SwitchIOS: ReactNativeThemedStyledFunction<
