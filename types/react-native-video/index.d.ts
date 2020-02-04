@@ -141,7 +141,9 @@ export interface VideoProperties extends ViewProps {
     hideShutterView?: boolean;
     allowsExternalPlayback?: boolean;
     audioOnly?: boolean;
-
+    hideShutterView?:boolean;
+    
+    onBuffer?(data: {isBuffering:boolean}): void;
     onLoadStart?(): void;
     onLoad?(data: OnLoadData): void;
     onBuffer?(): void;
