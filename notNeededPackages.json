@@ -607,6 +607,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "connect-mongo",
+            "typingsPackageName": "connect-mongo",
+            "sourceRepoURL": "https://github.com/jdesboeufs/connect-mongo",
+            "asOfVersion": "3.1.1"
+        },
+        {
             "libraryName": "consola",
             "typingsPackageName": "consola",
             "sourceRepoURL": "https://github.com/nuxt/consola",
