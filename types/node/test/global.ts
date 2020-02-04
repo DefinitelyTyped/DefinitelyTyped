@@ -49,6 +49,7 @@ const a: NodeJS.TypedArray = new Buffer(123);
     readable.pipe(writable);
     writableFinished = writable.writableFinished;
     writable.destroyed;
+    writable.end().destroy().destroyed;
 }
 
 {

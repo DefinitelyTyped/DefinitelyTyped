@@ -320,7 +320,7 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
     }
 
     interface AgentOptions {
