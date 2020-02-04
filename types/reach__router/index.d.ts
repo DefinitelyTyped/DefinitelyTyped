@@ -155,12 +155,10 @@ export function redirectTo(uri: string): void;
 
 export const globalHistory: History;
 
-export type ParamProps<TParams> = TParams | null;
-
 export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams<TParams>(): ParamProps<TParams>;
+export function useParams(): any;
 
 export function useMatch(pathname: string): null | { uri: string; path: string };
