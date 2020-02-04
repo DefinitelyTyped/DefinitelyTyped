@@ -1263,10 +1263,10 @@ declare namespace Cesium {
     }
 
     class GroundPolylineGeometry extends Packable {
-        public arcType: ArcType;
-        public granularity: boolean;
-        public loop: boolean;
-        public width: number;
+        arcType: ArcType;
+        granularity: boolean;
+        loop: boolean;
+        width: number;
         constructor(options: {
             positions: Cartesian3[];
             width?: number;
