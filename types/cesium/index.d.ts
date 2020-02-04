@@ -3886,7 +3886,7 @@ declare namespace Cesium {
         cull: boolean;
         debugShowBoundingVolume: boolean;
         depthFailAppearance: Appearance;
-        readonly geometryInstances: GeometryInstance[] | GeometryInstance;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         modelMatrix: Matrix4;
         readonly ready: boolean;
@@ -3896,7 +3896,7 @@ declare namespace Cesium {
         show: boolean;
         readonly vertexCacheOptimize: boolean;
         constructor(options?: {
-            geometryInstances?: any[] | GeometryInstance;
+            geometryInstances?: GeometryInstance[] | GeometryInstance;
             appearance?: Appearance;
             show?: boolean;
             modelMatrix?: Matrix4;
@@ -5536,6 +5536,7 @@ declare namespace Cesium {
         readonly allowPicking: boolean;
         readonly asynchronous: boolean;
         readonly compressVertices: boolean;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         readonly ready: boolean;
         readonly readyPromise: Promise<GroundPrimitive>;
@@ -5547,14 +5548,13 @@ declare namespace Cesium {
         classificationType: ClassificationType;
         debugShowBoundingVolume: boolean;
         debugShowShadowVolume: boolean;
-        geometryInstances: any[] | GeometryInstance;
 
         static initializeTerrainHeights(): Promise<any>;
         static isSupported(scene: Scene): boolean;
         static supportsMaterials(scene: Scene): boolean;
 
         constructor(options: {
-            geometryInstances?: any[] | GeometryInstance,
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
             appearance?: Appearance,
             show?: boolean,
             vertexCacheOptimize?: boolean,
@@ -5578,7 +5578,7 @@ declare namespace Cesium {
         readonly allowPicking: boolean;
         readonly asynchronous: boolean;
         readonly debugShowShadowVolume: boolean;
-        readonly geometryInstances: any[] | GeometryInstance | undefined;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         readonly ready: boolean;
         readonly readyPromise: Promise<GroundPolylinePrimitive>;
@@ -5593,7 +5593,7 @@ declare namespace Cesium {
         static isSupported(scene: Scene): boolean;
 
         constructor(options: {
-            geometryInstances?: any[] | GeometryInstance,
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
             appearance?: Appearance,
             show?: boolean,
             interleave?: boolean,
