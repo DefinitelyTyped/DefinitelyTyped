@@ -1248,9 +1248,33 @@ declare namespace Cesium {
     }
 
     class PolylineGeometry extends Packable {
-        constructor(options: { positions: Cartesian3[]; width?: number; colors?: Color[]; colorsPerVertex?: boolean; followSurface?: boolean; granularity?: number; ellipsoid?: Ellipsoid });
+        constructor(options: {
+            positions: Cartesian3[];
+            width?: number;
+            colors?: Color[];
+            colorsPerVertex?: boolean;
+            vertexFormat?: VertexFormat;
+            granularity?: number;
+            ellipsoid?: Ellipsoid;
+            arcType?: ArcType;
+        });
         static unpack(array: number[], startingIndex?: number, result?: PolylineGeometry): PolylineGeometry;
         static createGeometry(polylineGeometry: PolylineGeometry): Geometry;
+    }
+
+    class GroundPolylineGeometry extends Packable {
+        arcType: ArcType;
+        granularity: boolean;
+        loop: boolean;
+        width: number;
+        constructor(options: {
+            positions: Cartesian3[];
+            width?: number;
+            granularity?: number;
+            arcType?: ArcType;
+            loop?: boolean;
+        });
+        static unpack(array: number[], startingIndex?: number, result?: GroundPolylineGeometry): GroundPolylineGeometry;
     }
 
     class PolylineVolumeGeometry extends Packable {
@@ -2824,36 +2848,60 @@ declare namespace Cesium {
     }
 
     class Billboard {
-      alignedAxis: Cartesian3;
-      color: Color;
-      disableDepthTestDistance: number;
-      distanceDisplayCondition: DistanceDisplayCondition;
-      eyeOffset: Cartesian3;
-      height: number;
-      heightReference: HeightReference;
-      horizontalOrigin: HorizontalOrigin;
-      id: any;
-      image: string;
-      pixelOffset: Cartesian2;
-      pixelOffsetScaleByDistance: NearFarScalar;
-      position: Cartesian3;
-      readonly ready: boolean;
-      rotation: number;
-      scale: number;
-      scaleByDistance: NearFarScalar;
-      show: boolean;
-      sizeInMeters: boolean;
-      translucencyByDistance: NearFarScalar;
-      verticalOrigin: VerticalOrigin;
-      width: number;
-      computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
-      equals(other: Billboard): boolean;
-      setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
-      setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
+        alignedAxis: Cartesian3;
+        color: Color;
+        disableDepthTestDistance: number;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        eyeOffset: Cartesian3;
+        height: number;
+        heightReference: HeightReference;
+        horizontalOrigin: HorizontalOrigin;
+        id: any;
+        image: string;
+        pixelOffset: Cartesian2;
+        pixelOffsetScaleByDistance: NearFarScalar;
+        position: Cartesian3;
+        readonly ready: boolean;
+        rotation: number;
+        scale: number;
+        scaleByDistance: NearFarScalar;
+        show: boolean;
+        sizeInMeters: boolean;
+        translucencyByDistance: NearFarScalar;
+        verticalOrigin: VerticalOrigin;
+        width: number;
+        computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
+        equals(other: Billboard): boolean;
+        setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
+        setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
     }
 
     namespace Billboard {
         type CreateImageCallback = (id: string) => HTMLImageElement | HTMLCanvasElement | Promise<HTMLImageElement | HTMLCanvasElement>;
+    }
+
+    interface BillboardOptions {
+        alignedAxis?: Cartesian3;
+        color?: Color;
+        distanceDisplayCondition?: DistanceDisplayCondition;
+        eyeOffset?: Cartesian3;
+        height?: number;
+        heightReference?: HeightReference;
+        horizontalOrigin?: HorizontalOrigin;
+        id?: any;
+        image?: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback;
+        imageSubRegion?: BoundingRectangle;
+        pixelOffset?: Cartesian2;
+        pixelOffsetScaleByDistance?: NearFarScalar;
+        position?: Cartesian3;
+        rotation?: number;
+        scale?: number;
+        scaleByDistance?: NearFarScalar;
+        show?: boolean;
+        sizeInMeters?: boolean;
+        translucencyByDistance?: NearFarScalar;
+        verticalOrigin?: VerticalOrigin;
+        width?: number;
     }
 
     class BillboardCollection {
@@ -2861,8 +2909,13 @@ declare namespace Cesium {
         debugShowBoundingVolume: boolean;
         length: number;
         modelMatrix: Matrix4;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean; scene?: Scene; blendOption?: BlendOption });
-        add(billboard?: any): Billboard;
+        constructor(options?: {
+            modelMatrix?: Matrix4;
+            debugShowBoundingVolume?:
+            boolean; scene?: Scene;
+            blendOption?: BlendOption
+        });
+        add(billboard?: BillboardOptions): Billboard;
         contains(billboard?: Billboard): boolean;
         destroy(): void;
         get(index: number): Billboard;
@@ -3429,12 +3482,41 @@ declare namespace Cesium {
         isDestroyed(): boolean;
     }
 
+    interface LabelOptions {
+        show?: boolean;
+        position?: Cartesian3;
+        text?: string;
+        font?: string;
+        fillColor?: Color;
+        outlineColor?: Color;
+        outlineWidth?: number;
+        showBackground?: boolean;
+        backgroundColor?: Color;
+        backgroundPadding?: Cartesian2;
+        style?: LabelStyle;
+        pixelOffset?: Cartesian2;
+        eyeOffset?: Cartesian3;
+        horizontalOrigin?: HorizontalOrigin;
+        verticalOrigin?: VerticalOrigin;
+        scale?: number;
+        translucencyByDistance?: NearFarScalar;
+        pixelOffsetScaleByDistance?: NearFarScalar;
+        heightReference?: HeightReference;
+        distanceDisplayCondition?: DistanceDisplayCondition;
+    }
+
     class LabelCollection {
         modelMatrix: Matrix4;
+        blendOption: BlendOption;
         debugShowBoundingVolume: boolean;
         length: number;
-        constructor(options?: { modelMatrix?: Matrix4; debugShowBoundingVolume?: boolean });
-        add(options?: any): Label;
+        constructor(options?: {
+            modelMatrix?: Matrix4;
+            debugShowBoundingVolume?: boolean,
+            scene?: Scene,
+            blendOption?: BlendOption,
+        });
+        add(options?: LabelOptions): Label;
         remove(label: Label): boolean;
         removeAll(): void;
         contains(label: Label): boolean;
@@ -3448,7 +3530,7 @@ declare namespace Cesium {
         shaderSource: string;
         materials: any;
         uniforms: any;
-        translucent: boolean;
+        translucent: boolean | ((material: Material) => boolean);
         static DefaultImageId: string;
         static DefaultCubeMapId: string;
         static ColorType: string;
@@ -3469,7 +3551,7 @@ declare namespace Cesium {
         static PolylineArrowType: string;
         static PolylineGlowType: string;
         static PolylineOutlineType: string;
-        constructor(options?: { strict?: boolean; translucent?: boolean; fabric: any });
+        constructor(options?: { strict?: boolean; translucent?: boolean | ((material: Material) => boolean); fabric: any });
         isTranslucent(): boolean;
         isDestroyed(): boolean;
         destroy(): void;
@@ -3804,7 +3886,7 @@ declare namespace Cesium {
         cull: boolean;
         debugShowBoundingVolume: boolean;
         depthFailAppearance: Appearance;
-        readonly geometryInstances: GeometryInstance[] | GeometryInstance;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         modelMatrix: Matrix4;
         readonly ready: boolean;
@@ -3814,7 +3896,7 @@ declare namespace Cesium {
         show: boolean;
         readonly vertexCacheOptimize: boolean;
         constructor(options?: {
-            geometryInstances?: any[] | GeometryInstance;
+            geometryInstances?: GeometryInstance[] | GeometryInstance;
             appearance?: Appearance;
             show?: boolean;
             modelMatrix?: Matrix4;
@@ -5454,6 +5536,7 @@ declare namespace Cesium {
         readonly allowPicking: boolean;
         readonly asynchronous: boolean;
         readonly compressVertices: boolean;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
         readonly interleave: boolean;
         readonly ready: boolean;
         readonly readyPromise: Promise<GroundPrimitive>;
@@ -5465,14 +5548,13 @@ declare namespace Cesium {
         classificationType: ClassificationType;
         debugShowBoundingVolume: boolean;
         debugShowShadowVolume: boolean;
-        geometryInstances: any[] | GeometryInstance;
 
         static initializeTerrainHeights(): Promise<any>;
         static isSupported(scene: Scene): boolean;
         static supportsMaterials(scene: Scene): boolean;
 
         constructor(options: {
-            geometryInstances?: any[] | GeometryInstance,
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
             appearance?: Appearance,
             show?: boolean,
             vertexCacheOptimize?: boolean,
@@ -5486,7 +5568,44 @@ declare namespace Cesium {
             classificationType?: ClassificationType
         });
 
-        destroy(scene: Scene): void;
+        destroy(): void;
+        getGeometryInstanceAttributes(id: any): GeometryInstance;
+        isDestroyed(): boolean;
+        update(): void;
+    }
+
+    class GroundPolylinePrimitive {
+        readonly allowPicking: boolean;
+        readonly asynchronous: boolean;
+        readonly debugShowShadowVolume: boolean;
+        readonly geometryInstances: GeometryInstance[] | GeometryInstance | undefined;
+        readonly interleave: boolean;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<GroundPolylinePrimitive>;
+        readonly releaseGeometryInstances: boolean;
+
+        show: boolean;
+        appearance: Appearance;
+        classificationType: ClassificationType;
+        debugShowBoundingVolume: boolean;
+
+        static initializeTerrainHeights(): Promise<any>;
+        static isSupported(scene: Scene): boolean;
+
+        constructor(options: {
+            geometryInstances?: GeometryInstance[] | GeometryInstance,
+            appearance?: Appearance,
+            show?: boolean,
+            interleave?: boolean,
+            releaseGeometryInstances?: boolean,
+            allowPicking?: boolean,
+            asynchronous?: boolean,
+            debugShowBoundingVolume?: boolean,
+            debugShowShadowVolume?: boolean,
+            classificationType?: ClassificationType
+        });
+
+        destroy(): void;
         getGeometryInstanceAttributes(id: any): GeometryInstance;
         isDestroyed(): boolean;
         update(): void;
