@@ -1,4 +1,4 @@
-// Type definitions for @reach/router 1.3.1
+// Type definitions for @reach/router 1.3
 // Project: https://github.com/reach/router
 // Definitions by: Kingdaro <https://github.com/kingdaro>,
 //                 A.Mokhtar <https://github.com/xMokAx>,
@@ -159,6 +159,6 @@ export function useLocation(): WindowLocation;
 
 export function useNavigate(): NavigateFn;
 
-export function useParams(): { [key: string] : string } | null;
+export function useParams(): { [key: string]: string } | null;
 
 export function useMatch(pathname: string): null | { uri: string; path: string };
