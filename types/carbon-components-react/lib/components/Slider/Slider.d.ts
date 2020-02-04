@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactDivAttr, ReactInputAttr, ThemeProps } from "../../../typings/shared";
 
-interface InheritedProps extends ReactDivAttr, ThemeProps {
+interface InheritedProps extends Omit<ReactDivAttr, "onChange">, ThemeProps {
     name?: ReactInputAttr["name"],
 }
 
