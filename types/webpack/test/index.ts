@@ -446,6 +446,17 @@ plugin = new webpack.DefinePlugin({
     BROWSER_SUPPORTS_HTML5: true,
     TWO: "1+1",
     "typeof window": JSON.stringify("object"),
+    OBJECT: {
+        foo: "bar",
+        bar: {
+            DEEP_RUNTIME: webpack.DefinePlugin.runtimeValue(
+                () => JSON.stringify("DEEP_RUUNTIME")
+            ),
+            foofoo: {
+                barbar: false
+            }
+        }
+    },
     RUNTIME: webpack.DefinePlugin.runtimeValue(
         () => JSON.stringify("TEST_VALUE")
     )

@@ -4,10 +4,12 @@ import {
     DataTable,
     DataTableHeader,
     DataTableRow,
+    Slider,
     Table,
     TableBatchActions,
     TableHeader,
-    TableRow, TooltipDefinition,
+    TableRow, 
+    TooltipDefinition,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -211,4 +213,14 @@ const tooltipDefHasAlign = (
 
 const tooltipDefHasTriggerClassName = (
     <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
+);
+
+// Slider
+const SliderHasOnChange = (
+    <Slider
+        max={0}
+        min={10}
+        value={5}
+        onChange={(newValue) => newValue.value}
+    />
 );

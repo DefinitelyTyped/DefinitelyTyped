@@ -30391,7 +30391,7 @@ declare namespace Excel {
         readonly items: Excel.PivotTable[];
         /**
          *
-         * Add a Pivottable based on the specified source data and insert it at the top left cell of the destination range.
+         * Add a PivotTable based on the specified source data and insert it at the top-left cell of the destination range.
          *
          * [Api set: ExcelApi 1.8]
          *
