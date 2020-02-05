@@ -12,7 +12,7 @@ export as namespace wNumb;
  */
 declare function wNumb(options?: Options): Instance;
 
-interface Options {
+export interface Options {
     /** The number of decimals to include in the result. Limited to 7. */
     decimals?: number;
     /**
@@ -67,7 +67,7 @@ interface Options {
     undo?: (value: number) => number;
 }
 
-interface Instance {
+export interface Instance {
     /**
      * format to string
      */
