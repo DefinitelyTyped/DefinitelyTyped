@@ -268,7 +268,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onDoubleClickEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelectEvent?: (event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void;
     onSelecting?: (range: { start: stringOrDate; end: stringOrDate }) => boolean | undefined | null;
-    onRangeChange?: (range: Date[] | { start: stringOrDate; end: stringOrDate }) => void;
+    onRangeChange?: (range: Date[], view: View) => void;
     selected?: any;
     views?: ViewsProps;
     drilldownView?: View | null;
