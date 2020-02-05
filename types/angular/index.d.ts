@@ -5,6 +5,7 @@
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
+//                 Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2271,4 +2272,13 @@ declare namespace angular {
         $stateful?: boolean;
     }
     type FilterFactory = (...I: any[]) => IFilterFunction;
+
+    type IAriaAttribute = 'ariaHidden'|'ariaChecked'|'ariaReadonly'|'ariaDisabled'|'ariaRequired'|'ariaInvalid'|'ariaValue'|'tabindex'|'bindKeydown'|'bindRoleForClick';
+
+    /**
+     * $aria service. See https://docs.angularjs.org/api/ngAria.
+     */
+    interface IAriaService {
+        config(attribute: IAriaAttribute): boolean;
+    }
 }
