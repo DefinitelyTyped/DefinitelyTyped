@@ -4,6 +4,7 @@ import {
     DataTable,
     DataTableHeader,
     DataTableRow,
+    Slider,
     Table,
     TableBatchActions,
     TableHeader,
@@ -202,4 +203,14 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// Slider
+const SliderHasOnChange = (
+    <Slider
+        max={0}
+        min={10}
+        value={5}
+        onChange={(newValue) => newValue.value}
+    />
 );
