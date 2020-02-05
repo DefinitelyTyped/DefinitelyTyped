@@ -4,6 +4,7 @@ import {
     DataTable,
     DataTableHeader,
     DataTableRow,
+    Slider,
     Tab,
     Table,
     TableBatchActions,
@@ -214,5 +215,15 @@ const tabCanBeDisabled = (
         href="#"
         tabIndex={0}
         disabled
+    />
+);
+
+// Slider
+const SliderHasOnChange = (
+    <Slider
+        max={0}
+        min={10}
+        value={5}
+        onChange={(newValue) => newValue.value}
     />
 );

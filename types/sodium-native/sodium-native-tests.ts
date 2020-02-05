@@ -98,3 +98,11 @@ sc.fill(0xcd, 0, sodium.crypto_core_ed25519_UNIFORMBYTES);
 sc2.fill(0x42, 0, sodium.crypto_core_ed25519_UNIFORMBYTES);
 sodium.crypto_core_ed25519_scalar_add(sc, sc2, sc);
 sodium.crypto_core_ed25519_scalar_sub(sc, sc, sc2);
+
+const publicKey = sodium.sodium_malloc(sodium.crypto_box_PUBLICKEYBYTES);
+const secretKey = sodium.sodium_malloc(sodium.crypto_box_SECRETKEYBYTES);
+sodium.crypto_box_keypair(publicKey, secretKey);
+const message = sodium.sodium_malloc(4);
+const cipherText = sodium.sodium_malloc(message.length + sodium.crypto_box_SEALBYTES);
+sodium.crypto_box_seal(cipherText, message, publicKey);
+sodium.crypto_box_seal_open(message, cipherText, publicKey, secretKey);
