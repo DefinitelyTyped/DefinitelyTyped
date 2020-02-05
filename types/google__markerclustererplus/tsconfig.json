@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "markerclustererplus-tests.ts"
+        "google__markerclustererplus-tests.ts"
     ]
 }
