@@ -1,11 +1,13 @@
 import wNumb from 'wnumb';
 
-const moneyFormat = wNumb({
+const options: wNumb.Options = {
 	mark: '.',
 	thousand: ',',
 	prefix: '$ ',
 	suffix: ' p.p.'
-});
+};
+
+const moneyFormat: wNumb.Instance = wNumb(options);
 
 moneyFormat.to(301980.62);
 
