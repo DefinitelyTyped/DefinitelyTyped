@@ -2940,32 +2940,32 @@ declare namespace Cesium {
     }
 
     class Billboard {
-      alignedAxis: Cartesian3;
-      color: Color;
-      disableDepthTestDistance: number;
-      distanceDisplayCondition: DistanceDisplayCondition;
-      eyeOffset: Cartesian3;
-      height: number;
-      heightReference: HeightReference;
-      horizontalOrigin: HorizontalOrigin;
-      id: any;
-      image: string;
-      pixelOffset: Cartesian2;
-      pixelOffsetScaleByDistance: NearFarScalar;
-      position: Cartesian3;
-      readonly ready: boolean;
-      rotation: number;
-      scale: number;
-      scaleByDistance: NearFarScalar;
-      show: boolean;
-      sizeInMeters: boolean;
-      translucencyByDistance: NearFarScalar;
-      verticalOrigin: VerticalOrigin;
-      width: number;
-      computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
-      equals(other: Billboard): boolean;
-      setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
-      setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
+        alignedAxis: Cartesian3;
+        color: Color;
+        disableDepthTestDistance: number;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        eyeOffset: Cartesian3;
+        height: number;
+        heightReference: HeightReference;
+        horizontalOrigin: HorizontalOrigin;
+        id: any;
+        image: string;
+        pixelOffset: Cartesian2;
+        pixelOffsetScaleByDistance: NearFarScalar;
+        position: Cartesian3;
+        readonly ready: boolean;
+        rotation: number;
+        scale: number;
+        scaleByDistance: NearFarScalar;
+        show: boolean;
+        sizeInMeters: boolean;
+        translucencyByDistance: NearFarScalar;
+        verticalOrigin: VerticalOrigin;
+        width: number;
+        computeScreenSpacePosition(scene: Scene, result?: Cartesian2): Cartesian2;
+        equals(other: Billboard): boolean;
+        setImage(id: string, image: HTMLImageElement | HTMLCanvasElement | string | Billboard.CreateImageCallback): void;
+        setImageSubRegion(id: string, subRegion: BoundingRectangle): void;
     }
 
     namespace Billboard {
