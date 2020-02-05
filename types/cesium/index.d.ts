@@ -2588,13 +2588,19 @@ declare namespace Cesium {
     }
 
     class PolygonGraphics {
+        arcType: Property;
+        classificationType: Property;
+        closeBottom: Property;
+        closeTop: Property;
         definitionChanged: Event;
+        distanceDisplayCondition: Property;
         show: Property;
         material: MaterialProperty | Color;
-        positions: Property;
         hierarchy: Property;
         height: Property;
+        heightReference: Property;
         extrudedHeight: Property;
+        extrudedHeightReference: Property;
         granularity: Property;
         stRotation: Property;
         fill: boolean;
@@ -2602,24 +2608,34 @@ declare namespace Cesium {
         outlineColor: Color;
         outlineWidth: Property;
         perPositionHeight: Property;
+        shadows: Property;
+        zIndex: ConstantProperty;
         constructor(options?: {
             hierarchy?: Property;
-            height?: number;
+            height?: Property | number;
+            heightReference?: Property;
             extrudedHeight?: Property;
-            show?: Property;
-            fill?: boolean;
+            extrudedHeightReference?: Property;
+            show?: Property | boolean;
+            fill?: Property | boolean;
             material?: MaterialProperty | Color;
-            outline?: boolean;
-            outlineColor?: Color;
-            outlineWidth?: number;
+            outline?: Property | boolean;
+            outlineColor?: Property | Color;
+            outlineWidth?: Property | number;
             stRotation?: Property;
             granularity?: Property;
-            perPositionHeight?: Property
+            perPositionHeight?: Property;
+            closeTop?: boolean;
+            closeBottom?: boolean;
+            arcType?: Property | ArcType;
+            shadows?: Property | ShadowMode;
+            distanceDisplayCondition?: Property;
+            classificationType?: Property | ClassificationType;
+            zIndex?: ConstantProperty | number;
         });
         clone(result?: PolygonGraphics): PolygonGraphics;
         merge(source: PolygonGraphics): PolygonGraphics;
     }
-
     class PolylineArrowMaterialProperty extends MaterialProperty {
         color: Property;
         constructor(color?: Property);
@@ -5922,7 +5938,7 @@ declare namespace Cesium {
             classificationType?: ClassificationType
         });
 
-        destroy(scene: Scene): void;
+        destroy(): void;
         getGeometryInstanceAttributes(id: any): GeometryInstance;
         isDestroyed(): boolean;
         update(): void;
