@@ -465,7 +465,7 @@ declare namespace P {
         /**
          * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
          */
-        messageFormat?: boolean | string;
+        messageFormat?: false | string;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */
