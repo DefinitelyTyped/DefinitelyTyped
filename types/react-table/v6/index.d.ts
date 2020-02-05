@@ -521,9 +521,6 @@ export namespace Column {
          */
         filterMethod: FilterFunction | DefaultFilterFunction;
 
-        /** Default: false */
-        hideFilter: boolean;
-
         /** Default: ... */
         Filter: FilterRender;
     }
