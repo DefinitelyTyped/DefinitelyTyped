@@ -19,7 +19,7 @@ declare namespace charm {
 		destroy(): void;
 
 		/** Emit an "end" event downstream. */
-		end(): void;
+		end(): this;
 
 		/**
 		 * Pass along `msg` to the output stream.

@@ -266,7 +266,7 @@ declare namespace Logger {
         records: any[];
 
         write(record: any): boolean;
-        end(record?: any): void;
+        end(record?: any): this;
         destroy(): void;
         destroySoon(): void;
     }

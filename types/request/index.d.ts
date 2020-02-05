@@ -250,14 +250,14 @@ declare namespace request {
 
         write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
-        end(cb?: () => void): void;
-        end(chunk: string | Buffer, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(chunk: string | Buffer, cb?: () => void): this;
+        end(str: string, encoding?: string, cb?: () => void): this;
 
         pause(): void;
         resume(): void;
         abort(): void;
-        destroy(): void;
+        destroy(): this;
         toJSON(): RequestAsJSON;
 
         // several of the CoreOptions are copied onto the request instance

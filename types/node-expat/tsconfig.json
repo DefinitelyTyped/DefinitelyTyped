@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es5", "es2015.symbol"
+            "es5", "es2015.symbol", "es2015.Iterable", "es2015.Promise"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

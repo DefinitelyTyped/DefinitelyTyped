@@ -83,7 +83,7 @@ declare namespace SimplePeer {
         // destroy(onclose?: () => void): void;
         // https://nodejs.org/api/stream.html#stream_writable_destroy_error
         // https://nodejs.org/api/stream.html#stream_readable_destroy_error
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
 
         // methods which are not documented
         readonly bufferSize: number;

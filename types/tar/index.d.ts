@@ -61,7 +61,7 @@ export interface PackStream extends NodeJS.ReadWriteStream {
 
     addGlobal(props: HeaderProperties): void;
     add(stream: stream.Stream): boolean;
-    destroy(): void;
+    destroy(): this;
 
     _process(): void;
 }

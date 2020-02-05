@@ -204,7 +204,7 @@ declare namespace adone {
 
                 finalize(): void;
 
-                destroy(err?: any): void;
+                destroy(err?: any): this;
             }
 
             /**

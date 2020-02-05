@@ -30,8 +30,8 @@ declare namespace adone.collection {
         /**
          * Ends the stream
          */
-        end(chunk?: Buffer | string): void;
-        end(chunk?: () => void): void;
+        end(chunk?: Buffer | string): this;
+        end(chunk?: () => void): this;
 
         /**
          * Returns the byte at the specified index
@@ -80,7 +80,7 @@ declare namespace adone.collection {
         /**
          * Destroys the stream
          */
-        destroy(): void;
+        destroy(): this;
 
         then<T1 = Buffer, T2 = never>(
             onfulfilled?: ((value: Buffer) => T1 | PromiseLike<T1>) | null,

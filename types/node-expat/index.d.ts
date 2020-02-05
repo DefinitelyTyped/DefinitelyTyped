@@ -32,15 +32,15 @@ export class Parser extends Stream {
     pause(): void;
     resume(): void;
 
-    destroy(): void;
+    destroy(): this;
 
     destroySoon(): void;
 
     write(data: Buffer | string): boolean;
 
-    end(cb?: () => void): void;
-    end(chunk: any, cb?: () => void): void;
-    end(chunk: any, encoding: string, cb?: () => void): void;
+    end(cb?: () => void): this;
+    end(chunk: any, cb?: () => void): this;
+    end(chunk: any, encoding: string, cb?: () => void): this;
 
     reset(): void;
 

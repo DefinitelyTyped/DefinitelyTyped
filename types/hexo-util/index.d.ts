@@ -10,7 +10,7 @@ import { Transform } from "stream";
 import { SpawnOptions, StdioOptions } from 'child_process';
 
 export class CacheStream extends Transform {
-    destroy(): void;
+    destroy(): this;
     getCache(): Buffer;
 }
 
