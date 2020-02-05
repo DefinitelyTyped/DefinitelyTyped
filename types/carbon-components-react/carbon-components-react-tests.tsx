@@ -5,6 +5,7 @@ import {
     DataTableHeader,
     DataTableRow,
     Slider,
+    Tab,
     Table,
     TableBatchActions,
     TableHeader,
@@ -203,6 +204,18 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// Tabs
+const tabCanBeDisabled = (
+    <Tab
+        handleTabAnchorFocus={() => {}}
+        handleTabClick={() => {}}
+        handleTabKeyDown={() => {}}
+        href="#"
+        tabIndex={0}
+        disabled
+    />
 );
 
 // Slider
