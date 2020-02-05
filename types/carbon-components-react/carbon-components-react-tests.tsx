@@ -10,6 +10,7 @@ import {
     TableBatchActions,
     TableHeader,
     TableRow,
+    SideNavLink,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -227,3 +228,8 @@ const SliderHasOnChange = (
         onChange={(newValue) => newValue.value}
     />
 );
+
+const sideNav = [
+    <SideNavLink children="foobar" isActive={true} />,
+    <SideNavLink children="foobar" isActive={false} />,
+];

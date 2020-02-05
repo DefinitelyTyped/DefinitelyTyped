@@ -18,7 +18,9 @@ interface InheritedProps extends
     className?: ReactAttr["className"],
 }
 
-export interface SideNavLinkPropsBase extends InheritedProps { }
+export interface SideNavLinkPropsBase extends InheritedProps {
+    isActive?: boolean;
+}
 
 export type SideNavLinkProps<E extends object = ReactAnchorAttr> = LinkProps<E> & SideNavLinkPropsBase;
 
