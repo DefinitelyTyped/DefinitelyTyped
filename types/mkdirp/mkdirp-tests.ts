@@ -1,17 +1,11 @@
 import mkdirp = require('mkdirp');
 
-mkdirp('str', (err, made) => {
-    const str: string = made;
-});
-mkdirp('str', '0777', (err, made) => {});
-mkdirp('str', {}, (err, made) => {});
-mkdirp('str', { mode: '0777' }, (err, made) => {});
+// return value is a Promise resolving to the first directory created
+mkdirp('/tmp/foo/bar/baz').then(made => console.log(`made directories, starting with ${made}`));
+// return value is the first directory created
+const made = mkdirp.sync('/tmp/foo/bar/baz');
+console.log(`made directories, starting with ${made}`);
 
-// $ExpectType string
-mkdirp.sync('str');
-mkdirp.sync('str', '0777');
-mkdirp.sync('str', {});
-mkdirp.sync('str', { mode: '0777' });
-
-// $ExpectError
-mkdirp.sync('str', { mode: '0777', fs: {} });
+async () => {
+    await mkdirp('some dir');
+};

@@ -1,19 +1,15 @@
-// Type definitions for mkdirp 1.0
-// Project: https://github.com/isaacs/node-mkdirp#readme
+// Type definitions for mkdirp 0.5
+// Project: https://github.com/substack/node-mkdirp
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 mrmlnc <https://github.com/mrmlnc>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import fs = require('fs');
 
-/**
- * Create a new directory and any necessary subdirectories at `dir`
- * with octal permission string opts.mode
- */
-declare function mkdirp(path: string, opts?: mkdirp.Mode): Promise<string | undefined>;
+declare function mkdirp(dir: string, cb: (err: NodeJS.ErrnoException, made: mkdirp.Made) => void): void;
+declare function mkdirp(dir: string, opts: mkdirp.Mode | mkdirp.Options, cb: (err: NodeJS.ErrnoException, made: mkdirp.Made) => void): void;
 
 declare namespace mkdirp {
     type Made = string | null;
@@ -39,14 +35,6 @@ declare namespace mkdirp {
         fs?: FsImplementationSync;
     }
 
-    /**
-     * Synchronously create a new directory and any necessary subdirectories at `dir`
-     * with octal permission string `opts.mode`
-     */
     function sync(dir: string, opts?: Mode | OptionsSync): Made;
-    function native(dir: string, opts?: Mode | OptionsSync): Made;
-    function manual(dir: string, opts?: Mode | OptionsSync): Made;
-    function nativeSync(dir: string, opts?: Mode | OptionsSync): Made;
-    function manualSync(dir: string, opts?: Mode | OptionsSync): Made;
 }
 export = mkdirp;
