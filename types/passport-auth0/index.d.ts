@@ -66,7 +66,7 @@ export type VerifyFunctionWithRequest = (
     done: (error: any, user?: any, info?: any) => void,
 ) => void;
 
-declare class Strategy extends passport.Strategy {
+export class Strategy extends passport.Strategy {
     constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
     constructor(options: StrategyOption, verify: VerifyFunction);
 
@@ -74,4 +74,4 @@ declare class Strategy extends passport.Strategy {
     authenticate(req: express.Request, options?: object): void;
 }
 
-export { Strategy as default,  Strategy };
+export { Strategy as default };
