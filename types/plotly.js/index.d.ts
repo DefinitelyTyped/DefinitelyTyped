@@ -651,6 +651,11 @@ export interface PlotData {
 		x: number[];
 		y: number[];
 	}>;
+	title: Partial<{
+		text: string;
+		font: Partial<Font>;
+		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+	}>;
 }
 
 /**
