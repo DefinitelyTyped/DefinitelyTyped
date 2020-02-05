@@ -812,7 +812,7 @@ declare namespace IORedis {
         del(...keys: KeyType[]): Pipeline;
 
         unlink(...keys: KeyType[]): Pipeline;
-        
+
         exists(...keys: KeyType[]): Pipeline;
 
         setbit(key: KeyType, offset: number, value: ValueType, callback?: (err: Error, res: number) => void): Pipeline;
