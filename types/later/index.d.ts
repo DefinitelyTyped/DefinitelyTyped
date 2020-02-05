@@ -146,7 +146,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the next valid range or ranges of the current schedule,
