@@ -352,19 +352,20 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
 }
 
 export interface SchemaFieldRefDescription {
-  type: 'ref';
-  key: string;
+    type: 'ref';
+    key: string;
 }
 
-export interface SchemaFieldInnerTypeDescription extends
-  Pick<SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>> {
+export interface SchemaFieldInnerTypeDescription extends Pick<
+    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
+> {
     innerType?: SchemaFieldDescription;
 }
 
 export type SchemaFieldDescription =
-  | SchemaDescription
-  | SchemaFieldRefDescription
-  | SchemaFieldInnerTypeDescription;
+    | SchemaDescription
+    | SchemaFieldRefDescription
+    | SchemaFieldInnerTypeDescription;
 
 export interface SchemaDescription {
     type: string;
