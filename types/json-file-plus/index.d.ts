@@ -3,13 +3,15 @@
 // Definitions by: Daniel Byrne <https://github.com/danwbyrne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare function readJSON(filename: string): Promise<readJSON.JSONFile>;
 
 declare namespace readJSON {
   function sync(filename: string): JSONFile;
 
   interface Format {
-    readonly indent: number;
+    readonly indent: number | '\t';
     readonly trailing: boolean;
   }
 
@@ -17,9 +19,10 @@ declare namespace readJSON {
     format: Format;
     data: any;
     constructor(raw: string);
-    get: (key: string) => Promise<any>;
+    get: (key: PropertyKey) => Promise<any>;
     set: (data: any) => void;
-    remove: (key: string) => Promise<void>;
+    remove: (key: PropertyKey) => Promise<void>;
+    stringify: () => Buffer;
   }
 
   class JSONFile extends JSONData {

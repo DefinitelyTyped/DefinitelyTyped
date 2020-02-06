@@ -5,6 +5,7 @@ import {
     DataTableHeader,
     DataTableRow,
     Slider,
+    Tab,
     Table,
     TableBatchActions,
     TableHeader,
@@ -213,6 +214,18 @@ const tooltipDefHasAlign = (
 
 const tooltipDefHasTriggerClassName = (
     <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
+);
+
+// Tabs
+const tabCanBeDisabled = (
+    <Tab
+        handleTabAnchorFocus={() => {}}
+        handleTabClick={() => {}}
+        handleTabKeyDown={() => {}}
+        href="#"
+        tabIndex={0}
+        disabled
+    />
 );
 
 // Slider
