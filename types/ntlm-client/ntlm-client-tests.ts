@@ -1,4 +1,4 @@
-import { ntlm } from 'ntlm-client';
+import ntlm = require('ntlm-client');
 
 const type2 = {
   flags: 0,
