@@ -528,7 +528,7 @@ export interface ImportNamespaceSpecifier extends BaseModuleSpecifier {
 
 export interface ExportNamedDeclaration extends BaseModuleDeclaration {
   type: "ExportNamedDeclaration";
-  declaration?: Declaration | null;
+  declaration: Declaration | null;
   specifiers: Array<ExportSpecifier>;
   source?: Literal | null;
 }
