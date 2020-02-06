@@ -21,7 +21,7 @@ declare class NanoTimer {
      */
     setTimeout(
         task: (...args: any[]) => void,
-        args: any[],
+        args: any[] | string,
         timeout: string,
         callback?: (results: NanoTimer.TimeoutResults) => void,
     ): void;
@@ -34,7 +34,12 @@ declare class NanoTimer {
     /**
      * Call the task at the regular interval specified in interval.
      */
-    setInterval(task: (...args: any[]) => void, args: any[], interval: string, callback?: (error: Error) => void): void;
+    setInterval(
+        task: (...args: any[]) => void,
+        args: any[] | string,
+        interval: string,
+        callback?: (error: Error) => void,
+    ): void;
 
     /**
      * Clears current running interval.
