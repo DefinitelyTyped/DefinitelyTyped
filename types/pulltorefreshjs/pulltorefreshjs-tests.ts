@@ -20,20 +20,20 @@ PullToRefresh.init({
     instructionsReleaseToRefresh: 'Release to refresh',
     instructionsRefreshing: 'Refreshing',
     refreshTimeout: 500,
-    getMarkup: function() {
+    getMarkup: () => {
         return '';
     },
-    getStyles: function() {
+    getStyles: () => {
         return '';
     },
-    onInit: function() {},
-    onRefresh: function() {
-        return location.reload();
+    onInit: () => {},
+    onRefresh: () => {
+        location.reload();
     },
-    resistanceFunction: function(t) {
+    resistanceFunction: t => {
         return Math.min(1, t / 2.5);
     },
-    shouldPullToRefresh: function() {
+    shouldPullToRefresh: () => {
         return !window.scrollY;
     },
 });

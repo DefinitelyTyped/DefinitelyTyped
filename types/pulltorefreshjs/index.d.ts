@@ -1,4 +1,4 @@
-// Type definitions for pulltorefreshjs 0.1.20
+// Type definitions for pulltorefreshjs 0.1
 // Project: https://github.com/BoxFactura/pulltorefresh.js
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 //                 Tamas Kinsztler <https://github.com/humpedli>
@@ -105,12 +105,12 @@ export interface Options {
     /**
      * It returns the default HTML for the widget, __PREFIX__ is replaced.
      */
-    getMarkup?: () => string;
+    getMarkup?(): string;
 
     /**
      * It returns the default CSS for the widget, __PREFIX__ is replaced.
      */
-    getStyles?: () => string;
+    getStyles?(): string;
 
     /**
      * The initialize function.
