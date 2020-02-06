@@ -3,7 +3,7 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Worker as Interfaces} from '../index';
+import { Worker as Interfaces } from '../index';
 
 declare namespace Worker {
     export import Data = Interfaces.Data;
