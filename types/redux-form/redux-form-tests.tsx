@@ -486,3 +486,62 @@ class TestFormComponent2 extends React.Component<TestFormComponentProps & Inject
         return null;
     }
 }
+
+// Test SubmissionError with recursive error format
+interface ComplexTestFormData {
+    myField: {
+        subfield1: any;
+        subfield2: any;
+    };
+    arrayField: any[];
+    arrayField2: any[];
+}
+
+new LibSubmissionError<ComplexTestFormData>({
+    _error: 'Form-level error',
+    myField: {
+        subfield1: 'Subfield1 error',
+        subfield2: { _error: 'Subfield2 error' }
+    },
+    arrayField: ['arrayField[0] error', 'arrayField[1] error'],
+    arrayField2: { _error: 'Common error for all arrayField2 instances' }
+});
+
+new SubmissionError({
+    _error: 'Form-level error',
+    myField: {
+        subfield1: 'Subfield1 error',
+        subfield2: { _error: 'Subfield2 error' }
+    },
+    arrayField: ['arrayField[0] error', 'arrayField[1] error'],
+    arrayField2: { _error: 'Common error for all arrayField2 instances' }
+});
+
+// Test forms with recursive error format.
+const HandleSubmitTestForm3 = reduxForm<ComplexTestFormData>({
+    form: 'test',
+})((props: InjectedFormProps<ComplexTestFormData>) => <form onSubmit={props.handleSubmit} />);
+
+class HandleSubmitTest3 extends React.Component {
+    handleSubmit = (values: Partial<ComplexTestFormData>, dispatch: Dispatch<any>, props: {}) => {};
+    render() {
+        return <HandleSubmitTestForm3 onSubmit={this.handleSubmit} />;
+    }
+}
+
+type InjectedProps3 = InjectedFormProps<ComplexTestFormData, TestFormComponentProps>;
+class TestFormComponent3 extends React.Component<TestFormComponentProps & InjectedProps3> {
+    render() {
+        const { error, initialValues, handleSubmit } = this.props;
+        handleSubmit(values => ({
+            _error: 'Form-level error',
+            myField: {
+                subfield1: 'Subfield1 error',
+                subfield2: { _error: 'Subfield2 error' }
+            },
+            arrayField: ['arrayField[0] error', 'arrayField[1] error'],
+            arrayField2: { _error: 'Common error for all arrayField2 instances' }
+        }));
+        return null;
+    }
+}
