@@ -210,12 +210,14 @@ const uisLinkT5 = (
 // Dropdown
 const dropdownItemCanBeText = (
     <Dropdown
-        id="dropdown-id"
-        items={[ "val1", "val2" ]}
-        itemToElement={ item => item }
-        label="my dropdown"
-        titleText="my title"
-        ariaLabel="this is a sample"
+        id="my-dropdown"
+        items={["val1", "val2", "val3"]}
+        label="label"
+        titleText=""
+        ariaLabel=""
+        selectedItem="val2"
+        itemToElement={(item) => (<div>This is my rich content</div>)}
+        itemToString={item => "Selected: " + item}
     />
 );
 
