@@ -31,7 +31,7 @@ export interface ErrorOther<T = string> {
 
 export type FormErrors<FormData = {}, T = string> = {
     [P in keyof FormData]?: FormData[P] extends Array<infer Pi>
-        ? Array<FormErrors<Pi>> | ErrorOther<T>
+        ? Array<ReactElement | T | FormErrors<Pi>> | T[] | ErrorOther<T>
         : ReactElement | T | FormErrors<FormData[P]>;
 } & ErrorOther<T>;
 
@@ -41,7 +41,7 @@ export interface WarningOther<T = void> {
 
 export type FormWarnings<FormData = {}, T = string> = {
     [P in keyof FormData]?: FormData[P] extends Array<infer Pi>
-        ? Array<FormWarnings<Pi>> | WarningOther<T>
+        ? Array<ReactElement | T | FormWarnings<Pi>> | WarningOther<T>
         : ReactElement | T | FormWarnings<FormData[P]>;
 } & WarningOther<T>;
 
