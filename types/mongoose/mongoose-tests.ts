@@ -216,15 +216,18 @@ validatorError.stack;
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
  */
 var doc = <mongoose.Document>{};
-var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
-validationError.name;
-validationError.toString().toLowerCase();
-validationError.inspect();
-validationError.toJSON().hasOwnProperty('');
-validationError.addError('foo', validatorError)
-/* inherited properties */
-validationError.message;
-validationError.stack;
+(() => {
+  // Scope to avoid type mixing
+  var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+  validationError.name;
+  validationError.toString().toLowerCase();
+  validationError.inspect();
+  validationError.toJSON().hasOwnProperty('');
+  validationError.addError('foo', validatorError)
+  /* inherited properties */
+  validationError.message;
+  validationError.stack;
+})()
 
 /*
  * section error/parallelSave.js
@@ -794,10 +797,13 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-var validationError = doc.validateSync(['path1', 'path2']);
-if (validationError) {
-    validationError.stack
-}
+(() => {
+  // Scope to avoid type mixing
+  var validationError = doc.validateSync(['path1', 'path2']);
+  if (validationError) {
+      validationError.stack
+  }
+})()
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
