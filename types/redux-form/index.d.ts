@@ -30,16 +30,21 @@ export interface ErrorOther<T = string> {
 }
 
 export type FormErrors<FormData = {}, T = string> = {
-    [P in keyof FormData]?: ReactElement | T;
+  [P in keyof FormData]?: FormData[P] extends Array<infer Pi>
+    ? FormErrors<Pi>[] | ErrorOther<T>
+    : ReactElement | T | FormErrors<FormData[P]>;
 } & ErrorOther<T>;
 
 export interface WarningOther<T = void> {
     _warning?: T;
 }
 
-export type FormWarnings<FormData = {}, T = void> = {
-    [P in keyof FormData]?: ReactElement | string | WarningOther<T>;
-};
+export type FormWarnings<FormData = {}, T = string> = {
+  [P in keyof FormData]?: FormData[P] extends Array<infer Pi>
+    ? FormWarnings<Pi>[] | WarningOther<T>
+    : ReactElement | T | FormWarnings<FormData[P]>;
+} & WarningOther<T>;
+
 
 export interface RegisteredFieldState {
     name: string;
