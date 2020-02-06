@@ -83,7 +83,7 @@ interface EmscriptenModule {
         imports: Emscripten.WebAssemblyImports,
         successCallback: (module: WebAssembly.Module) => void
     ): Emscripten.WebAssemblyExports;
-    locateFile(url: string): string;
+    locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
 
     // USE_TYPED_ARRAYS == 1
