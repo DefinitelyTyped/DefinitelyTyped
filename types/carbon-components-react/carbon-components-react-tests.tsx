@@ -9,7 +9,7 @@ import {
     Table,
     TableBatchActions,
     TableHeader,
-    TableRow, 
+    TableRow,
     TooltipDefinition,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
