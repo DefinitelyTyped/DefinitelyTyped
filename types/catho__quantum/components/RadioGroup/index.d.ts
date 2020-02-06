@@ -1,11 +1,11 @@
 import React = require('react');
 
-export interface RadioProps {
+export interface RadioProps<T> {
     disabled?: boolean;
     error?: boolean;
     children?: string;
     label?: string;
-    onChange?: () => void;
+    onChange?: React.ChangeEventHandler<T>;
     theme?: {
         colors?: object;
         spacing?: object;
@@ -13,9 +13,9 @@ export interface RadioProps {
     value: string;
 }
 
-export type Radio = React.ComponentType<RadioProps>;
+export type Radio = React.ComponentType<RadioProps<HTMLInputElement>>;
 
-export interface RadioButtonProps {
+export interface RadioButtonProps<T> {
     checked?: boolean;
     children?: string;
     skin?: 'neutral' | 'primary' | 'success' | 'warning' | 'error';
@@ -25,7 +25,7 @@ export interface RadioButtonProps {
     id?: string;
     inline?: boolean;
     label?: string;
-    onChange?: () => void;
+    onChange?: React.ChangeEventHandler<T>;
     theme?: {
         baseFontSize?: number;
         spacing?: object;
@@ -37,9 +37,9 @@ export interface RadioButtonProps {
     value: string;
 }
 
-export type RadioButton = React.ComponentType<RadioButtonProps>;
+export type RadioButton = React.ComponentType<RadioButtonProps<HTMLInputElement>>;
 
-export interface RadioGroupProps {
+export interface RadioGroupProps<T> {
     type?: 'radio' | 'button';
     options?: Array<{
         label?: React.ReactNode;
@@ -49,7 +49,7 @@ export interface RadioGroupProps {
 
     children?: JSX.Element[] | JSX.Element;
     inline?: boolean;
-    onChange?: () => void;
+    onChange?: React.ChangeEventHandler<T>;
     value?: string;
     error?: string;
     theme?: {
@@ -59,7 +59,7 @@ export interface RadioGroupProps {
     name: string;
 }
 
-export default class RadioGroup extends React.Component<RadioGroupProps> {
+export default class RadioGroup<T = HTMLInputElement> extends React.Component<RadioGroupProps<T>> {
     static Radio: Radio;
 
     static Button: RadioButton;
