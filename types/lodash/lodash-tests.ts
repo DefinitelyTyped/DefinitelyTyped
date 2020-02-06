@@ -512,12 +512,14 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType LoDashExplicitWrapper<number
 {
     const twoDimensionalArray: string[][] | null | undefined = anything;
     const numberTupleArray: Array<[string, number]> | null | undefined = anything;
+    const readonlyTuple: ReadonlyArray<number> =  [];
 
     _.fromPairs(twoDimensionalArray); // $ExpectType Dictionary<any>
     _.fromPairs(numberTupleArray); // $ExpectType Dictionary<number>
     _(twoDimensionalArray).fromPairs(); // $ExpectType LoDashImplicitWrapper<Dictionary<any>>
     _.chain(twoDimensionalArray).fromPairs(); // $ExpectType LoDashExplicitWrapper<Dictionary<any>>
     fp.fromPairs(numberTupleArray); // $ExpectType Dictionary<number>
+    _.fromPairs(readonlyTuple);
 }
 
 // _.head
