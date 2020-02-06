@@ -33,7 +33,24 @@ import * as net from 'net';
     const timeout: number = server.timeout;
     const listening: boolean = server.listening;
     const keepAliveTimeout: number = server.keepAliveTimeout;
-    server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server
+        .setTimeout()
+        .setTimeout(1000)
+        .setTimeout(() => {})
+        .setTimeout(100, () => {});
+
+    server.on('checkContinue', (req, res) => {});
+    server.on('checkExpectation', (req, res) => {});
+    server.on('clientError', (err, socket) => {});
+    server.on('connect', (req, socket, head) => {});
+    server.on('request', (req, res) => {});
+    server.on('upgrade', (req, socket, head) => {});
+    // From net.server
+    server.on('foobar', (...args: any[]) => {});
+    server.on('close', () => {});
+    server.on('connection', socket => {});
+    server.on('error', err => {});
+    server.on('listening', () => {});
 }
 
 // http IncomingMessage
