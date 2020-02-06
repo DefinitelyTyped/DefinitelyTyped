@@ -1663,6 +1663,12 @@
             "asOfVersion": "1.3.0"
         },
         {
+            "libraryName": "gridstack",
+            "typingsPackageName": "gridstack",
+            "sourceRepoURL": "https://github.com/gridstack/gridstack.js",
+            "asOfVersion": "0.5.2"
+        },
+        {
             "libraryName": "gulp-pug",
             "typingsPackageName": "gulp-pug",
             "sourceRepoURL": "https://github.com/gulp-community/gulp-pug",
