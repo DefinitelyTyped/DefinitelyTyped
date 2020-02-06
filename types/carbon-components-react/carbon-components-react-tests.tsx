@@ -208,7 +208,7 @@ const uisLinkT5 = (
 );
 
 // Dropdown
-const dropdownItemCanBeText = (
+const dropdownItemCanBeElement = (
     <Dropdown
         id="my-dropdown"
         items={["val1", "val2", "val3"]}
