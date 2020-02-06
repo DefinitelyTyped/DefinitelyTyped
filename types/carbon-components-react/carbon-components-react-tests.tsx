@@ -279,7 +279,7 @@ const dropdownItemCanBeElement = (
         itemToString={item => "Selected: " + item}
     />
 );
-        
+
 // TooltipDefinition
 const tooltipDefHasAlign = (
   <TooltipDefinition tooltipText="my text" align="end" />
