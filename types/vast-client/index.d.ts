@@ -137,7 +137,7 @@ export class VASTTracker extends EventEmitter {
          */
         eventName: string,
         /**
-         * Indicate if the event has to be tracked onlye once.
+         * Indicate if the event has to be tracked only once.
          * Default: false
          */
         once?: boolean

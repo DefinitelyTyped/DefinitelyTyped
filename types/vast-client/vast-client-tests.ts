@@ -324,7 +324,7 @@ vastTracker.on('clickthrough', (url: string) => {
 });
 
 // Bind acceptInvitation listener to the invitation button
-const invitationButton = document.getElementById('inviationButtonId') as HTMLButtonElement;
+const invitationButton = document.getElementById('invitationButtonId') as HTMLButtonElement;
 
 // Bind click listener to the button
 invitationButton.addEventListener('click', () => {
