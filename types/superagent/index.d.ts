@@ -91,7 +91,7 @@ declare namespace request {
         status?: number;
         response?: Response;
     }
-    
+
     interface HTTPError extends Error {
         status: number;
         text: string;
