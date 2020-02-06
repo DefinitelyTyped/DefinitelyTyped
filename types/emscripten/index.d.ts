@@ -220,10 +220,6 @@ declare namespace FS {
     function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean, canOwn: boolean): FSNode;
 }
 
-interface Math {
-    imul(a: number, b: number): number;
-}
-
 declare var MEMFS: Emscripten.FileSystemType;
 declare var NODEFS: Emscripten.FileSystemType;
 declare var IDBFS: Emscripten.FileSystemType;
