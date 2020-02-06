@@ -1,6 +1,6 @@
 import appsFlyer, { EmailCryptType } from 'react-native-appsflyer';
 
-// $ExpectType Promise<any>
+// $ExpectType void | Promise<string>
 appsFlyer.initSdk({ devKey: '1A2b3C', appId: 'app_id', isDebug: true });
 
 // $ExpectType void
@@ -48,7 +48,7 @@ appsFlyer.trackAppLaunch();
 // $ExpectType void
 appsFlyer.trackCrossPromotionImpression('app_id', 'testing');
 
-// $ExpectType void
+// $ExpectType void | Promise<string>
 appsFlyer.trackEvent('af_testing', {});
 
 // $ExpectType void

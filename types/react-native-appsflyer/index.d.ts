@@ -10,6 +10,19 @@ export interface InitSdkOptions {
     appId: string;
 }
 
+export interface ConversionData {
+    status: 'success' | 'failure';
+    type: string;
+    data: {
+        is_first_launch: boolean;
+        af_status: 'Organic' | 'Non-organic';
+        af_referrer_uid?: string;
+        af_referrer_customer_id?: string;
+        media_source: string;
+        [key: string]: any;
+    };
+}
+
 export enum EmailCryptType {
     EmailCryptTypeNone = 0,
     EmailCryptTypeSHA1 = 1,
@@ -35,13 +48,9 @@ export interface InviteLinkOptions {
     };
 }
 
-interface SuccessCallback {
-    (success: any): void;
-}
+type SuccessCallback = (success: any) => void;
 
-interface ErrorCallback {
-    (error: any): void;
-}
+type ErrorCallback = (error: any) => void;
 
 interface AdditionalData {
     [key: string]: any;
@@ -52,9 +61,9 @@ interface EventValues {
 }
 
 declare namespace appsFlyer {
-    function initSdk(options: InitSdkOptions, success?: SuccessCallback, error?: ErrorCallback): Promise<any>;
+    function initSdk(options: InitSdkOptions, success?: SuccessCallback, error?: ErrorCallback): void | Promise<string>;
     function trackAppLaunch(): void;
-    function onInstallConversionData(callback: (response: any) => void): () => void;
+    function onInstallConversionData(callback: (data: ConversionData) => void): () => void;
     function onAppOpenAttribution(callback: (response: any) => void): () => void;
     function sendDeepLinkData(url: string): void;
     function stopTracking(isStopTracking: boolean, callback?: SuccessCallback): void;
@@ -72,7 +81,7 @@ declare namespace appsFlyer {
         eventValues: EventValues,
         success?: SuccessCallback,
         error?: ErrorCallback,
-    ): void;
+    ): void | Promise<string>;
     function getAppsFlyerUID(callback: (error: any, appsFlyerUID: string) => void): void;
     function setUserEmails(options: EmailOptions, success?: SuccessCallback, error?: ErrorCallback): void;
     function setAdditionalData(additionalData: AdditionalData, success?: SuccessCallback): void;
@@ -81,6 +90,7 @@ declare namespace appsFlyer {
     function setCollectAndroidID(isCollect: boolean, callback?: SuccessCallback): void;
     function setAppInviteOneLinkID(oneLinkId: string, callback?: SuccessCallback): void;
     function setCurrencyCode(currencyCode: string, callback?: SuccessCallback): void;
+    function setDeviceTrackingDisabled(isDeviceTrackingDisabled: boolean, success?: SuccessCallback): void;
 }
 
 export default appsFlyer;
