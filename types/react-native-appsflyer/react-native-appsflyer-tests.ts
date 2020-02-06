@@ -59,3 +59,6 @@ appsFlyer.updateServerUninstallToken('token');
 
 // $ExpectType void
 appsFlyer.generateInviteLink({});
+
+// $ExpectType void
+appsFlyer.setDeviceTrackingDisabled(true);
