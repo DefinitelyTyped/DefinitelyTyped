@@ -24,7 +24,6 @@ export {
 } from './lib/mutations/RelayDeclarativeMutationConfig';
 export { OptimisticMutationConfig } from './lib/mutations/applyOptimisticMutation';
 export { MutationConfig, MutationParameters } from './lib/mutations/commitMutation';
-export { RelayNetworkLog, LoggerTransactionConfig } from './lib/network/RelayNetworkLoggerTransaction';
 export {
     ExecuteFunction,
     FetchFunction,
@@ -38,7 +37,6 @@ export {
     UploadableMap,
 } from './lib/network/RelayNetworkTypes';
 export { ObservableFromValue, Observer, Subscribable, Subscription } from './lib/network/RelayObservable';
-export { GraphiQLPrinter, NetworkLogger } from './lib/network/createRelayNetworkLogger';
 export {
     GraphQLTaggedNode,
     graphql,
@@ -70,8 +68,6 @@ export {
     FragmentReference,
     FragmentSpecResolver,
     HandleFieldPayload,
-    Logger,
-    LoggerProvider,
     MissingFieldHandler,
     ModuleImportPointer,
     NormalizationSelector,
@@ -197,8 +193,6 @@ export { getRelayHandleKey } from './lib/util/getRelayHandleKey';
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
-export { RelayNetworkLoggerTransaction } from './lib/network/RelayNetworkLoggerTransaction';
-export { createRelayNetworkLogger } from './lib/network/createRelayNetworkLogger';
 export { deepFreeze } from './lib/util/deepFreeze';
 
 /**

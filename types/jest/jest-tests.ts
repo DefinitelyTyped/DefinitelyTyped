@@ -448,6 +448,13 @@ jest.spyOn(spyInterfaceImpl, 'prop', 'get');
 // $ExpectType SpyInstance<void, [boolean]>
 jest.spyOn(spyInterfaceImpl, 'method');
 
+class SpyableClass {
+    constructor(a: number, b: string) {}
+    foo() {}
+}
+// $ExpectType SpyInstance<SpyableClass, [number, string]>
+jest.spyOn({ SpyableClass }, "SpyableClass");
+
 interface Type1 {
     a: number;
 }
