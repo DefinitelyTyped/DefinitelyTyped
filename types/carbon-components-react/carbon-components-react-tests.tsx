@@ -210,13 +210,13 @@ const uisLinkT5 = (
 // TileGroup
 // Value nor name can be undefined
 let value: string|number = 5;
-let name: string = "old name";
+let name = "old name";
 const tileGroupA = (
     <TileGroup
         name="my-tile-group-name"
         onChange={(newVal, newName, e) => {
             value = newVal;
-            name = newName
+            name = newName;
         }}
     />
 );
