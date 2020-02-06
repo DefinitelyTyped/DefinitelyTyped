@@ -607,6 +607,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "connect-mongo",
+            "typingsPackageName": "connect-mongo",
+            "sourceRepoURL": "https://github.com/jdesboeufs/connect-mongo",
+            "asOfVersion": "3.1.1"
+        },
+        {
             "libraryName": "consola",
             "typingsPackageName": "consola",
             "sourceRepoURL": "https://github.com/nuxt/consola",
@@ -1343,6 +1349,12 @@
             "typingsPackageName": "fastify-static",
             "sourceRepoURL": "https://github.com/fastify/fastify-static",
             "asOfVersion": "2.2.1"
+        },
+        {
+            "libraryName": "@types/facebook-js-sdk",
+            "typingsPackageName": "fb",
+            "sourceRepoURL": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+            "asOfVersion": "0.0.28"
         },
         {
             "libraryName": "fecha",

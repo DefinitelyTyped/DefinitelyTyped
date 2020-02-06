@@ -5,6 +5,8 @@ import {
     DataTableHeader,
     DataTableRow,
     Dropdown,
+    Slider,
+    Tab,
     Table,
     TableBatchActions,
     TableHeader,
@@ -214,5 +216,27 @@ const dropdownItemCanBeText = (
         label="my dropdown"
         titleText="my title"
         ariaLabel="this is a sample"
+    />
+);
+
+// Tabs
+const tabCanBeDisabled = (
+    <Tab
+        handleTabAnchorFocus={() => {}}
+        handleTabClick={() => {}}
+        handleTabKeyDown={() => {}}
+        href="#"
+        tabIndex={0}
+        disabled
+    />
+);
+
+// Slider
+const SliderHasOnChange = (
+    <Slider
+        max={0}
+        min={10}
+        value={5}
+        onChange={(newValue) => newValue.value}
     />
 );
