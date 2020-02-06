@@ -15,6 +15,7 @@
 //                 Walter Barbagallo <https://github.com/bwlt>
 //                 Kota Marusue <https://github.com/mrsekut>
 //                 Adam Bouqdib <https://github.com/abemedia>
+//                 Allis Tauri <https://github.com/allista>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 import {
