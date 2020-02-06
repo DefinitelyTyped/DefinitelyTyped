@@ -3,35 +3,14 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as Interfaces from '../index';
+
 declare namespace ffmpeg {
-    interface Options {
-        arguments: string[];
-        MEMFS?: Video[];
-        print?(data: any): void;
-        printErr?(data: any): void;
-        onExit?(code: unknown): void;
-        stdin?(data: any): void;
-        mounts?: Mount[];
-    }
-
-    interface Opts {
-        root: string;
-    }
-
-    interface Mount {
-        type: string;
-        opts: Opts;
-        mountpoint: string;
-    }
-
-    interface Result {
-        MEMFS: Video[];
-    }
-
-    interface Video {
-        data: Uint8Array;
-        name: string;
-    }
+    export import Options = Interfaces.Options;
+    export import Opts = Interfaces.Opts;
+    export import Mount = Interfaces.Mount;
+    export import Result = Interfaces.Result;
+    export import Video = Interfaces.Video;
 }
 
 declare function ffmpeg(opts: ffmpeg.Options): ffmpeg.Result;
