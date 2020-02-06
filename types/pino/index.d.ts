@@ -11,6 +11,7 @@
 //                 Cory Donkin <https://github.com/Cooryd>
 //                 Adam Vigneaux <https://github.com/AdamVig>
 //                 Austin Beer <https://github.com/austin-beer>
+//                 Michel Nemnom <https://github.com/Pegase745>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -461,6 +462,10 @@ declare namespace P {
          * The key in the JSON object to use for timestamp display. Default: "time".
          */
         timestampKey?: string;
+        /**
+         * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
+         */
+        messageFormat?: false | string;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */

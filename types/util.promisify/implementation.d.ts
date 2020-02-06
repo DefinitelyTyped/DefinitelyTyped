@@ -1,17 +1,4 @@
-// Type definitions for util.promisify 1.0
-// Project: https://github.com/ljharb/util.promisify#readme
-// Definitions by: Adam Voss <https://github.com/adamvoss>
-//                 Piotr Roszatycki <https://github.com/dex4er>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="node" />
-
 import util = require('util');
-
-import polyfill = require('./implementation');
-import getUtilPromisify = require('./polyfill');
-import shimUtilPromisify = require('./shim');
 
 // tslint:disable-next-line: ban-types
 declare function promisify<TCustom extends Function>(fn: util.CustomPromisify<TCustom>): TCustom;
@@ -58,7 +45,7 @@ declare function promisify<T1, T2, T3, T4, T5>(
 declare function promisify(fn: Function): Function;
 
 declare namespace promisify {
-	const custom: typeof polyfill.custom;
+	const custom: typeof util.promisify.custom;
 
 	/**
 	 * @deprecated
@@ -66,11 +53,7 @@ declare namespace promisify {
 	 *
 	 * Use `util.promisify.custom` instead.
 	 */
-	const customPromisifyArgs: typeof polyfill.customPromisifyArgs | undefined;
-
-	function getPolyfill(): ReturnType<typeof getUtilPromisify>;
-	const implementation: typeof polyfill;
-	function shim(): ReturnType<typeof shimUtilPromisify>;
+	const customPromisifyArgs: unique symbol;
 }
 
 export = promisify;
