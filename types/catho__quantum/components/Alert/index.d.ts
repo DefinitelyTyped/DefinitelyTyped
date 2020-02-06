@@ -2,7 +2,7 @@ import React = require('react');
 
 export interface AlertProps<T> {
     children: React.ReactNode;
-    onClose: React.MouseEventHandler<T | void>;
+    onClose: React.MouseEventHandler<T>;
     icon?: string;
     skin?: 'primary' | 'success' | 'error' | 'neutral' | 'warning';
     theme?: {

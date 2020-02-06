@@ -36,7 +36,7 @@ export interface CheckboxButtonProps<T> {
 
 export type CheckboxButton = React.ComponentType<CheckboxButtonProps<HTMLInputElement>>;
 
-type Options = Array<{
+export type Options = Array<{
     checked?: boolean;
     disabled?: boolean;
     label?: React.ReactNode;

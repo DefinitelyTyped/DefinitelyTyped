@@ -3,7 +3,7 @@ import React = require('react');
 export interface FormProps {
     children: React.ReactNode[] | React.ReactNode;
     onSubmit?: ({ valid }?: { valid: boolean }) => void;
-    onValidSubmit?: (values?: { [name: string]: string | void }) => void;
+    onValidSubmit?: (values?: { [name: string]: string | undefined }) => void;
     noValidate?: boolean;
 }
 

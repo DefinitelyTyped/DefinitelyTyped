@@ -14,7 +14,7 @@ export interface RangeSliderProps<T> {
     valueLabelDisplay?: 'auto' | 'on' | 'off';
     track?: 'normal' | false | 'inverted';
     'aria-labelledby'?: string;
-    tipFormatter?: (value?: number, index?: number | void) => string;
+    tipFormatter?: (value?: number, index?: number) => string;
     value?: number | { from: number; to: number };
     defaultValue?: number | { from: number; to: number };
     theme?: {
