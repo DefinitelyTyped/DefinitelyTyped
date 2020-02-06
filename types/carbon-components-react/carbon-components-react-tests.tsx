@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
     AccordionItem,
     DataTable,
+    DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
     Slider,
@@ -167,6 +168,63 @@ const t4 = (
             let b = rowProps.someRandomRowProp;
             return <div />;
         }}
+    />
+);
+// RenderProps are compatible with sub-elements
+interface T5RowType extends DataTableRow {
+    col1: number;
+    col2: number;
+}
+const t5RowItems: T5RowType[] = [
+    { id: "row0", col1: 0, col2: 0},
+    { id: "row1", col1: 1, col2: 1},
+];
+const t5Headers: DataTableHeader[] = [
+    {key: 'col1', header: 'First column'},
+    {key: 'col2', header: 'Second column'}
+];
+const t5 = (
+    <DataTable
+        rows={t5RowItems}
+        headers={t5Headers}
+        render={(renderProps: DataTableCustomRenderProps<T5RowType>) => (
+            <DataTable.TableContainer>
+                <DataTable.Table {...renderProps.getTableProps()}>
+                    <DataTable.TableHead>
+                        <DataTable.TableRow>
+                            <DataTable.TableSelectAll
+                                {...renderProps.getSelectionProps()}
+                            />
+                            {renderProps.headers.map(header => (
+                                <DataTable.TableHeader
+                                    {...renderProps.getHeaderProps({ header })}
+                                >
+                                    {header.header}
+                                </DataTable.TableHeader>
+                            ))}
+                            <DataTable.TableHeader />
+                        </DataTable.TableRow>
+                    </DataTable.TableHead>
+                    <DataTable.TableBody>
+                        {renderProps.rows.map(row => (
+                            <React.Fragment key={row.id}>
+                                <DataTable.TableRow {...renderProps.getRowProps({ row })}>
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                    />
+                                    {row.cells.map(cell => (
+                                        <DataTable.TableCell key={cell.id}>
+                                            {cell.value}
+                                        </DataTable.TableCell>
+                                    ))}
+                                    <DataTable.TableCell key={`options${row.id}`} />
+                                </DataTable.TableRow>
+                            </React.Fragment>
+                        ))}
+                    </DataTable.TableBody>
+                </DataTable.Table>
+            </DataTable.TableContainer>
+        )}
     />
 );
 
