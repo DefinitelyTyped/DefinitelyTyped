@@ -182,15 +182,15 @@ declare module "net" {
         constructor(connectionListener?: (socket: Socket) => void);
         constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
 
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
-        listen(port?: number, hostname?: string, listeningListener?: () => void): this;
-        listen(port?: number, backlog?: number, listeningListener?: () => void): this;
-        listen(port?: number, listeningListener?: () => void): this;
-        listen(path: string, backlog?: number, listeningListener?: () => void): this;
-        listen(path: string, listeningListener?: () => void): this;
-        listen(options: ListenOptions, listeningListener?: () => void): this;
-        listen(handle: any, backlog?: number, listeningListener?: () => void): this;
-        listen(handle: any, listeningListener?: () => void): this;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: (err?: Error) => void): this;
+        listen(port?: number, hostname?: string, listeningListener?: (err?: Error) => void): this;
+        listen(port?: number, backlog?: number, listeningListener?: (err?: Error) => void): this;
+        listen(port?: number, listeningListener?: (err?: Error) => void): this;
+        listen(path: string, backlog?: number, listeningListener?: (err?: Error) => void): this;
+        listen(path: string, listeningListener?: (err?: Error) => void): this;
+        listen(options: ListenOptions, listeningListener?: (err?: Error) => void): this;
+        listen(handle: any, backlog?: number, listeningListener?: (err?: Error) => void): this;
+        listen(handle: any, listeningListener?: (err?: Error) => void): this;
         close(callback?: (err?: Error) => void): this;
         address(): AddressInfo | string | null;
         getConnections(cb: (error: Error | null, count: number) => void): void;
