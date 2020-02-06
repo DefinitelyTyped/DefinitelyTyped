@@ -2,12 +2,16 @@ import * as React from 'react';
 import {
     AccordionItem,
     DataTable,
+    DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    Slider,
+    Tab,
     Table,
     TableBatchActions,
     TableHeader,
     TableRow,
+    TooltipDefinition,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -166,6 +170,63 @@ const t4 = (
         }}
     />
 );
+// RenderProps are compatible with sub-elements
+interface T5RowType extends DataTableRow {
+    col1: number;
+    col2: number;
+}
+const t5RowItems: T5RowType[] = [
+    { id: "row0", col1: 0, col2: 0},
+    { id: "row1", col1: 1, col2: 1},
+];
+const t5Headers: DataTableHeader[] = [
+    {key: 'col1', header: 'First column'},
+    {key: 'col2', header: 'Second column'}
+];
+const t5 = (
+    <DataTable
+        rows={t5RowItems}
+        headers={t5Headers}
+        render={(renderProps: DataTableCustomRenderProps<T5RowType>) => (
+            <DataTable.TableContainer>
+                <DataTable.Table {...renderProps.getTableProps()}>
+                    <DataTable.TableHead>
+                        <DataTable.TableRow>
+                            <DataTable.TableSelectAll
+                                {...renderProps.getSelectionProps()}
+                            />
+                            {renderProps.headers.map(header => (
+                                <DataTable.TableHeader
+                                    {...renderProps.getHeaderProps({ header })}
+                                >
+                                    {header.header}
+                                </DataTable.TableHeader>
+                            ))}
+                            <DataTable.TableHeader />
+                        </DataTable.TableRow>
+                    </DataTable.TableHead>
+                    <DataTable.TableBody>
+                        {renderProps.rows.map(row => (
+                            <React.Fragment key={row.id}>
+                                <DataTable.TableRow {...renderProps.getRowProps({ row })}>
+                                    <DataTable.TableSelectRow
+                                        {...renderProps.getSelectionProps({ row })}
+                                    />
+                                    {row.cells.map(cell => (
+                                        <DataTable.TableCell key={cell.id}>
+                                            {cell.value}
+                                        </DataTable.TableCell>
+                                    ))}
+                                    <DataTable.TableCell key={`options${row.id}`} />
+                                </DataTable.TableRow>
+                            </React.Fragment>
+                        ))}
+                    </DataTable.TableBody>
+                </DataTable.Table>
+            </DataTable.TableContainer>
+        )}
+    />
+);
 
 // UIShell - Link
 interface TestCompProps {
@@ -202,4 +263,35 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// TooltipDefinition
+const tooltipDefHasAlign = (
+  <TooltipDefinition tooltipText="my text" align="end" />
+);
+
+const tooltipDefHasTriggerClassName = (
+    <TooltipDefinition tooltipText="my text" triggerClassName="my-class-name" />
+);
+
+// Tabs
+const tabCanBeDisabled = (
+    <Tab
+        handleTabAnchorFocus={() => {}}
+        handleTabClick={() => {}}
+        handleTabKeyDown={() => {}}
+        href="#"
+        tabIndex={0}
+        disabled
+    />
+);
+
+// Slider
+const SliderHasOnChange = (
+    <Slider
+        max={0}
+        min={10}
+        value={5}
+        onChange={(newValue) => newValue.value}
+    />
 );

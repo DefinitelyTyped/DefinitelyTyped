@@ -42,3 +42,17 @@ const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
 
 const main1: Module | undefined = customRequire1.main;
 const main2: Module | undefined = customRequire2.main;
+
+Module.syncBuiltinESMExports();
+
+const smap = new Module.SourceMap({
+    file: 'test.js',
+    mappings: 'ASDASd',
+    names: [],
+    sourceRoot: '/',
+    sources: [],
+    version: 3,
+    sourcesContent: [],
+});
+const pl: Module.SourceMapPayload = smap.payload;
+const entry: Module.SourceMapping = smap.findEntry(1, 1);

@@ -831,51 +831,95 @@ declare namespace braintree {
      * Webhooks
      */
 
-    export class SampleNotification {
+    export interface SampleNotification {
         bt_signature: string;
         bt_payload: string;
     }
 
-    export abstract class WebhookNotification {
+    export interface BaseWebhookNotification {
         kind: WebhookNotificationKind;
         timestamp: Date;
     }
 
-    export class TransactionNotification extends WebhookNotification {
+    export interface TransactionNotification extends BaseWebhookNotification {
+        kind: TransactionNotificationKind;
         transaction: Transaction;
     }
 
-    export class SubMerchantAccountApprovedNotification extends WebhookNotification {
+    export interface SubMerchantAccountApprovedNotification extends BaseWebhookNotification {
+        kind: SubMerchantAccountApprovedNotificationKind;
         merchantAccount: MerchantAccount;
     }
 
-    export class SubMerchantAccountDeclinedNotification extends WebhookNotification {
+    export interface SubMerchantAccountDeclinedNotification extends BaseWebhookNotification {
+        kind: SubMerchantAccountDeclinedNotificationKind;
         merchantAccount: MerchantAccount;
     }
 
-    export class SubscriptionNotification extends WebhookNotification {
+    export interface SubscriptionNotification extends BaseWebhookNotification {
+        kind: SubscriptionNotificationKind;
         subscription: Subscription;
     }
 
-    export class DisputeNotification extends WebhookNotification {
+    export interface DisputeNotification extends BaseWebhookNotification {
+        kind: DisputeNotificationKind;
         dispute: Dispute;
     }
 
-    export class AccountUpdaterNotification extends WebhookNotification {
+    export interface AccountUpdaterNotification extends BaseWebhookNotification {
+        kind: AccountUpdaterNotificationKind;
         reportDate: Date;
         reportUrl: string;
     }
 
+    export type WebhookNotification =
+        | TransactionNotification
+        | SubMerchantAccountApprovedNotification
+        | SubMerchantAccountDeclinedNotification
+        | SubscriptionNotification
+        | DisputeNotification
+        | AccountUpdaterNotification;
+
+    export type AccountUpdaterNotificationKind =
+        | 'account_updater_daily_report';
+
+    export type DisputeNotificationKind =
+        | 'dispute_opened'
+        | 'dispute_lost'
+        | 'dispute_won';
+
+    export type SubscriptionNotificationKind =
+        | 'subscription_canceled'
+        | 'subscription_charged_successfully'
+        | 'subscription_charged_unsuccessfully'
+        | 'subscription_expired'
+        | 'subscription_trial_ended'
+        | 'subscription_went_active'
+        | 'subscription_went_past_due';
+
+    export type SubMerchantAccountApprovedNotificationKind =
+        | 'sub_merchant_account_approved';
+
+    export type SubMerchantAccountDeclinedNotificationKind =
+        | 'sub_merchant_account_declined';
+
+    export type TransactionNotificationKind =
+        | 'transaction_disbursed'
+        | 'transaction_settled'
+        | 'transaction_settlement_declined';
+
     export type WebhookNotificationKind =
-        | 'account_updater_daily_report'
+        | AccountUpdaterNotificationKind
+        | DisputeNotificationKind
+        | SubscriptionNotificationKind
+        | SubMerchantAccountApprovedNotificationKind
+        | SubMerchantAccountDeclinedNotificationKind
+        | TransactionNotificationKind
         | 'check'
         | 'connected_merchant_paypal_status_changed'
         | 'connected_merchant_status_transitioned'
         | 'disbursement'
         | 'disbursement_exception'
-        | 'dispute_opened'
-        | 'dispute_lost'
-        | 'dispute_won'
         | 'grantor_updated_granted_payment_method'
         | 'granted_payment_method_revoked'
         | 'local_payment_completed'
@@ -884,19 +928,7 @@ declare namespace braintree {
         | 'partner_merchant_declined'
         | 'payment_method_revoked_by_customer'
         | 'oauth_access_revoked'
-        | 'recipient_updated_granted_payment_method'
-        | 'subscription_canceled'
-        | 'subscription_charged_successfully'
-        | 'subscription_charged_unsuccessfully'
-        | 'subscription_expired'
-        | 'subscription_trial_ended'
-        | 'subscription_went_active'
-        | 'subscription_went_past_due'
-        | 'sub_merchant_account_approved'
-        | 'sub_merchant_account_declined'
-        | 'transaction_disbursed'
-        | 'transaction_settled'
-        | 'transaction_settlement_declined';
+        | 'recipient_updated_granted_payment_method';
 
     /**
      * Plan

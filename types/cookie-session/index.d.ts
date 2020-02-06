@@ -49,9 +49,9 @@ declare namespace CookieSessionInterfaces {
         domain?: string;
 
         /**
-         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', or true (which maps to 'strict').
+         * a boolean or string indicating whether the cookie is a "same site" cookie (false by default). This can be set to 'strict', 'lax', 'none', or true (which maps to 'strict').
          */
-        sameSite?: "strict" | "lax" | boolean;
+        sameSite?: "strict" | "lax" | "none" | boolean;
 
         /**
          * a boolean indicating whether the cookie is only to be sent over HTTPS (false by default for HTTP, true by default for HTTPS).

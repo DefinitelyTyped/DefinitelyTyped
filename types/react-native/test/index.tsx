@@ -81,6 +81,7 @@ import {
     Modal,
     TimePickerAndroid,
     DatePickerAndroid,
+    Picker,
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
@@ -897,6 +898,13 @@ const DatePickerAndroidTest = () => {
         }
     });
 }
+
+const PickerTest = () => (
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+        <Picker.Item label="Item1" value="v1" />
+        <Picker.Item label="Item2" value="v2" />
+    </Picker>
+);
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
