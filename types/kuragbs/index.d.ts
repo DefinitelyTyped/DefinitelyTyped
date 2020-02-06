@@ -1,5 +1,5 @@
 // Type definitions for non-npm package kuragbs 1.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.
 // Definitions by: Brian Phung <https://github.com/brian-phung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
