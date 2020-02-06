@@ -5,7 +5,7 @@ interface InheritedProps extends Omit<ReactButtonAttr, "onClick"> { }
 
 export interface SwitchProps extends InheritedProps {
     index?: number,
-    onClick(event: React.MouseEvent<HTMLButtonElement>, index?: SwitchProps["index"]): void,
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>, index?: SwitchProps["index"]) => void,
     selected?: boolean,
     text: string,
 }

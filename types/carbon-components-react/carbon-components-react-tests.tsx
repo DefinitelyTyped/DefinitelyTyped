@@ -11,6 +11,8 @@ import {
     TableHeader,
     TableRow,
     SideNavLink,
+    ContentSwitcher,
+    Switch,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -229,7 +231,15 @@ const SliderHasOnChange = (
     />
 );
 
+// SideNav
 const sideNav = [
     <SideNavLink children="foobar" isActive={true} />,
     <SideNavLink children="foobar" isActive={false} />,
 ];
+
+// ContentSwicher/Switch has optional onClick
+const contentSwitcher = (
+    <ContentSwitcher onChange={() => {}}>
+        <Switch name="one" text="First section" />
+    </ContentSwitcher>
+);
