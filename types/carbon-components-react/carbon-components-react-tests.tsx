@@ -279,7 +279,7 @@ const tileGroupA = (
         }}
     />
 );
-      
+
 // TooltipDefinition
 const tooltipDefHasAlign = (
   <TooltipDefinition tooltipText="my text" align="end" />
