@@ -1,5 +1,5 @@
 function testConfig($aria: angular.aria.IAriaService): void {
-    // $ExpectType void
+    // $ExpectType boolean
     $aria.config('tabindex');
 
     // $ExpectError

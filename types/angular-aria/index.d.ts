@@ -2,6 +2,7 @@
 // Project: http://angularjs.org, https://docs.angularjs.org/api/ngAria
 // Definitions by: Chives <https://github.com/chivesrs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 
