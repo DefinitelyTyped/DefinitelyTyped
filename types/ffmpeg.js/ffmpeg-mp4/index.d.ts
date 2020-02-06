@@ -5,7 +5,7 @@
 
 import * as Interfaces from '../index';
 
-declare namespace ffmpeg {
+export declare namespace ffmpeg {
     export import Options = Interfaces.Options;
     export import Opts = Interfaces.Opts;
     export import Mount = Interfaces.Mount;
@@ -13,6 +13,4 @@ declare namespace ffmpeg {
     export import Video = Interfaces.Video;
 }
 
-declare function ffmpeg(options: ffmpeg.Options): ffmpeg.Result;
-
-export = ffmpeg;
+export declare function ffmpeg(options: ffmpeg.Options): ffmpeg.Result;
