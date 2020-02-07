@@ -12,6 +12,7 @@ import {
     TableBatchActions,
     TableHeader,
     TableRow,
+    TileGroup,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -266,6 +267,20 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// TileGroup
+// Value nor name can be undefined
+let value: string|number = 5;
+let name = "old name";
+const tileGroupA = (
+    <TileGroup
+        name="my-tile-group-name"
+        onChange={(newVal, newName, e) => {
+            value = newVal;
+            name = newName;
+        }}
+    />
 );
 
 // TooltipDefinition
