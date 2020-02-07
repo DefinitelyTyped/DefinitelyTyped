@@ -1665,7 +1665,7 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: DefinePlugin.CodeValuePrimitive});
+        constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
             fileDependencies?: string[]
@@ -1681,6 +1681,7 @@ declare namespace webpack {
             exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
         }
         type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
+        type CodeValueObject = CodeValuePrimitive | {[key: string]: CodeValueObject};
     }
 
     class DllPlugin extends Plugin {

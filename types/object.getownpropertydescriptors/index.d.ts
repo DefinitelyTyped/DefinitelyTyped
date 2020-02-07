@@ -1,6 +1,7 @@
 // Type definitions for object.getownpropertydescriptors 2.0
 // Project: https://github.com/ljharb/object.getownpropertydescriptors#readme
 // Definitions by: Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

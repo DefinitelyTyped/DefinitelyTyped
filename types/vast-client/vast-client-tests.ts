@@ -322,3 +322,12 @@ vastTracker.on('clickthrough', (url: string) => {
     // Open the resolved clickThrough url
     document.location.href = url;
 });
+
+// Bind acceptInvitation listener to the invitation button
+const invitationButton = document.getElementById('invitationButtonId') as HTMLButtonElement;
+
+// Bind click listener to the button
+invitationButton.addEventListener('click', () => {
+    vastTracker.track('acceptInvitation');
+    vastTracker.track('acceptInvitationLinear', false);
+});

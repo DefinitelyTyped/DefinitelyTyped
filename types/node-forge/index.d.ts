@@ -12,6 +12,7 @@
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
 //                 Rogier Schouten  <https://github.com/rogierschouten>
+//                 Ivan Aseev       <https://github.com/aseevia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -373,6 +374,8 @@ declare module "node-forge" {
         function privateKeyInfoToPem(key: asn1.Asn1, maxline?: number): PEM;
 
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
+
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
 
         function publicKeyFromPem(pem: PEM): PublicKey;
 
