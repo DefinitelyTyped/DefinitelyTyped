@@ -5,6 +5,7 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    NumberInput,
     Slider,
     Tab,
     Table,
@@ -16,7 +17,6 @@ import {
     TextInput,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
-import NumberInput from './lib/components/NumberInput';
 
 // AccordionItem
 const titleNode = (
