@@ -17,7 +17,6 @@ export interface TextAreaProps extends InheritedProps {
     value?: string | number,
 }
 
-interface TextArea extends React.RefForwardingComponent<HTMLTextAreaElement, TextAreaProps> {}
+declare const TextArea: React.RefForwardingComponent<HTMLTextAreaElement, TextAreaProps>;
 
-declare const TextArea: TextArea;
 export default TextArea;

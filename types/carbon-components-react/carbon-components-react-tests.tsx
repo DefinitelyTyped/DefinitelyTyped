@@ -16,6 +16,7 @@ import {
     TextInput,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
+import NumberInput from './lib/components/NumberInput';
 
 // AccordionItem
 const titleNode = (
@@ -355,5 +356,21 @@ const controlledPasswordInputWithRef = (
         id="my-id"
         ref={inputRef}
         labelText=""
+    />
+);
+
+// NumberInput
+const numberInputWithoutRef = (
+    <NumberInput
+        id="my-id"
+        value={12}
+    />
+);
+
+const numberInputWithRef = (
+    <NumberInput
+        id="my-id"
+        value={12}
+        ref={inputRef}
     />
 );

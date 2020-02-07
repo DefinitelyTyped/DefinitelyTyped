@@ -6,6 +6,6 @@ interface InheritedProps extends TextInputInheritedProps, EmbeddedTooltipProps {
 
 export interface PasswordInputProps extends InheritedProps { }
 
-interface PasswordInput extends React.RefForwardingComponent<HTMLInputElement, PasswordInputProps> {}
+declare const PasswordInput: React.RefForwardingComponent<HTMLInputElement, PasswordInputProps>;
 
 export default PasswordInput;
