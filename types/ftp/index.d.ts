@@ -1,6 +1,7 @@
 // Type definitions for ftp 0.3.9
 // Project: https://github.com/mscdex/node-ftp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
