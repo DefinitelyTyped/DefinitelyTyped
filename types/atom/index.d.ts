@@ -168,7 +168,7 @@ export interface AtomEnvironment {
 
     /** Get the current window. */
     getCurrentWindow(): object;
-"
+
     /** Move current window to the center of the screen. */
     center(): void;
 
