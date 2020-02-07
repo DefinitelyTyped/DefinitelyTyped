@@ -1,5 +1,6 @@
 import { Handler } from "../hander";
 
+// Note, responses are *not* lambda results, they are sent to the event ResponseURL.
 export type CloudFormationCustomResourceHandler = Handler<CloudFormationCustomResourceEvent, void>;
 
 export type CloudFormationCustomResourceEvent =

@@ -1,8 +1,8 @@
 // Type definitions for AWS Lambda 8.10
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>
+// Definitions by: James Darbyshire <https://github.com/darbio>
 //                 Michael Skarum <https://github.com/skarum>
-//                 Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>
+//                 Stef Heyenrath <https://github.com/StefH>
 //                 Toby Hede <https://github.com/tobyhede>
 //                 Rich Buggy <https://github.com/buggy>
 //                 Yoriki Yamaguchi <https://github.com/y13i>
@@ -35,47 +35,6 @@
 //                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-
-/**
- * @module
- * Re-exports all types in the package.
- *
- * There are basic, runtime declarations in `./handler.d.ts`, then a series of declarations
- * in `trigger/` for each trigger source, where `trigger/foo.d.ts` contains something like:
- *
- * ```ts
- * import { Callback, Handler } from "../handler";
- *
- * export type FooHandler = Handler<FooEvent, FooResult>;
- * // Only if there is a FooResult:
- * export type FooCallback = Callback<FooResult>;
- *
- * // the lambda request payload, after JSON.parse():
- * export interface FooEvent { ... }
- *
- * // the lambda response payload, before JSON.stringify():
- * export interface FooResult { ... }
- *
- * // any other types used specifically in this handler...
- * ```
- *
- * To add a handler type, add a new file under trigger named after the AWS service name
- * (lowercase, with hyphens only for spaces in the name, not including "AWS" or "Amazon"),
- * optionally followed by a trigger and/or event structure type, if its not reasonably obvious
- * what they would be. For example `api-gateway-proxy` has an obvious trigger, but
- * API Gateway can trigger lambdas with arbitrary event structures, not just the proxy structure,
- * so the name should include "proxy". On the other hand, `s3` is for an obvious trigger when
- * objects ore modified, but there is also `s3-batch` for the less common S3 batch operations.
- *
- * All exported types should be prefixed at least with the name of the service to avoid collisions
- * and confusion, but there are many pre-existing legacy type names.
- *
- * Also add type tests in `aws-lambda-tests.ts` that at least verify assignability of the event
- * and result types with some example events (the pre-existing tests still need a lot of cleanup).
- *
- * See the sections under the {@link https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html AWS Documentation}
- * for "Working with Other Services" for references. That list may be incomplete.
- */
 
 export * from "./hander";
 export * from "./common/api-gateway";

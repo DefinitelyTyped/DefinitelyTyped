@@ -1,7 +1,7 @@
 import { Callback, Handler } from "../hander";
 
-export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
 export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
+export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
 
 // Kinesis Data Firehose Event
 // https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-firehose
