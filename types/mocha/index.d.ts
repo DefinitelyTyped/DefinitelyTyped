@@ -2235,8 +2235,8 @@ declare namespace Mocha {
         /** Array of accepted globals. */
         globals?: string[];
 
-        /** timeout in milliseconds. */
-        timeout?: number;
+        /** timeout in milliseconds or time string like '1s'. */
+        timeout?: number | string;
 
         enableTimeouts?: boolean;
 

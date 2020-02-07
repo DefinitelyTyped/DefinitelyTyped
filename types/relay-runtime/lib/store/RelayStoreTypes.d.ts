@@ -15,7 +15,6 @@ import {
     ConnectionInternalEvent,
     ConnectionID,
 } from './RelayConnection';
-import { LoggerTransactionConfig } from '../network/RelayNetworkLoggerTransaction';
 import { PayloadData, Network, UploadableMap, PayloadError, GraphQLResponse } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { RelayOperationTracker } from './RelayOperationTracker';
@@ -395,14 +394,73 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     insertConnectionEdge_UNSTABLE(connectionID: ConnectionID, args: Variables, edge: RecordProxy): void;
 }
 
-export interface Logger {
-    log(message: string, ...values: unknown[]): void;
-    flushLogs(): void;
+interface OperationDescriptor {
+    readonly fragment: SingularReaderSelector;
+    readonly request: RequestDescriptor;
+    readonly root: NormalizationSelector;
 }
 
-export interface LoggerProvider {
-    getLogger(config: LoggerTransactionConfig): Logger;
+interface LogEventQueryResourceFetch {
+    readonly name: 'queryresource.fetch';
+    readonly operation: OperationDescriptor;
+    // FetchPolicy from relay-experimental
+    readonly fetchPolicy: string;
+    // RenderPolicy from relay-experimental
+    readonly renderPolicy: string;
+    readonly queryAvailability: OperationAvailability;
+    readonly shouldFetch: boolean;
 }
+
+interface LogEventExecuteInfo {
+    readonly name: 'execute.info';
+    readonly transactionID: number;
+    readonly info: unknown;
+}
+
+interface LogEventExecuteStart {
+    readonly name: 'execute.start';
+    readonly transactionID: number;
+    readonly params: {
+        // RequestParameters type
+        readonly name: string;
+        readonly operationKind: string;
+        readonly text: string;
+    };
+    readonly variables: object;
+}
+
+interface LogEventExecuteNext {
+    readonly name: 'execute.next';
+    readonly transactionID: number;
+    readonly response: unknown;
+}
+
+interface LogEventExecuteError {
+    readonly name: 'execute.error';
+    readonly transactionID: number;
+    readonly error: Error;
+}
+
+interface LogEventExecuteComplete {
+    readonly name: 'execute.complete';
+    readonly transactionID: number;
+}
+
+interface LogEventExecuteUnsubscribe {
+    readonly name: 'execute.unsubscribe';
+    readonly transactionID: number;
+}
+
+type LogEvent =
+    | LogEventQueryResourceFetch
+    | LogEventExecuteInfo
+    | LogEventExecuteStart
+    | LogEventExecuteNext
+    | LogEventExecuteError
+    | LogEventExecuteComplete
+    | LogEventExecuteUnsubscribe;
+
+export type LogFunction = (logEvent: LogEvent) => void;
 
 /**
  * The public API of Relay core. Represents an encapsulated environment with its
@@ -466,11 +524,6 @@ export interface Environment {
      * Get the environment's internal Store.
      */
     getStore(): Store;
-
-    /**
-     * Get an instance of a logger
-     */
-    getLogger(config: LoggerTransactionConfig): Logger | null | undefined;
 
     /**
      * Returns the environment specific OperationTracker.

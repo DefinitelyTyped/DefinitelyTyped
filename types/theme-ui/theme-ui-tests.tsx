@@ -50,7 +50,7 @@ const Success = () => (
 );
 
 const workingThemeColorModes: Theme = {
-    initialColorMode: 'light',
+    initialColorModeName: 'light',
     colors: {
         text: '#000',
         background: '#fff',
@@ -91,7 +91,7 @@ const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $Expe
         secondary: '#05a',
         muted: '#f6f6f6f',
     },
-    initialColorMode: 'light',
+    initialColorModeName: 'light',
 };
 
 const themeWithStyles: Theme = {

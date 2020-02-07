@@ -243,8 +243,8 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
-        datasets?: ChartDataSets[];
+        labels?: ReadonlyArray<string | ReadonlyArray<string> | number | ReadonlyArray<number> | Date | ReadonlyArray<Date> | Moment | ReadonlyArray<Moment>>;
+        datasets?: ReadonlyArray<ChartDataSets>;
     }
 
     interface RadialChartOptions extends ChartOptions {

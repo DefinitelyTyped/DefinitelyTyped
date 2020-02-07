@@ -509,6 +509,7 @@ export namespace CLIEngine {
         configFile?: string;
         cwd?: string;
         envs?: string[];
+        errorOnUnmatchedPattern?: boolean;
         extensions?: string[];
         fix?: boolean;
         globals?: string[];

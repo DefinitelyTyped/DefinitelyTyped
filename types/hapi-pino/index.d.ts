@@ -1,4 +1,4 @@
-// Type definitions for hapi-pino 6.3
+// Type definitions for hapi-pino 6.4
 // Project: https://github.com/pinojs/hapi-pino#readme
 // Definitions by: Rodrigo Saboya <https://github.com/saboya>
 //                 Todd Bealmear <https://github.com/todd>
@@ -30,7 +30,8 @@ declare namespace HapiPino {
     interface Options {
         logPayload?: boolean;
         logRouteTags?: boolean;
-        logRequestStart?: boolean;
+        logRequestStart?: boolean | ((req: Request) => boolean);
+        logRequestComplete?: boolean | ((req: Request) => boolean);
         stream?: NodeJS.WriteStream;
         prettyPrint?: boolean | pino.PrettyOptions;
         tags?: { [key in pino.Level]?: string };

@@ -1,4 +1,4 @@
-import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode } from 'rdf-js';
+import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph } from 'rdf-js';
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 
@@ -204,3 +204,8 @@ let multipleLiterals: clownface.SafeClownface<Dataset, Literal> = safeCf.literal
 multipleLiterals = clownface({ dataset }).node([ 'a', 10, false ]);
 
 const multipleMixedTerms: clownface.SafeClownface<Dataset> = clownface({ dataset }).node([ 'a', node, null ]);
+
+// .context
+const ctxTerm: Literal = fromSingleArrayLiteral._context[0].term;
+const ctxGraph: Quad_Graph | undefined = fromSingleArrayLiteral._context[0].graph;
+const ctxDataset: Dataset = fromSingleArrayLiteral._context[0].dataset;

@@ -152,7 +152,7 @@ declare namespace ReactDates {
 
         // required props for a functional interactive SingleDatePicker
         date: momentPropTypes.momentObj | null;
-        focused: boolean;
+        focused: boolean | null;
 
         onDateChange: (date: momentPropTypes.momentObj | null) => void;
         onFocusChange: (arg: { focused: boolean | null }) => void;
@@ -213,8 +213,7 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onClose?: (
             final: {
-                startDate: momentPropTypes.momentObj;
-                endDate: momentPropTypes.momentObj;
+                date: momentPropTypes.momentObj;
             }
         ) => void;
 

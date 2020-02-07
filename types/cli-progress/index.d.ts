@@ -122,7 +122,7 @@ export class SingleBar {
     getTotal(): any;
 
     /** Increases the current progress value by a specified amount (default +1). Update payload optionally */
-    increment(step: number, payload?: object): void;
+    increment(step?: number, payload?: object): void;
 
     render(): void;
 

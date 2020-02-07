@@ -510,6 +510,12 @@ export interface Delta {
 	};
 }
 
+export interface DataTitle {
+		text: string;
+		font: Partial<Font>;
+		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+}
+
 export interface PlotNumber {
 	valueformat: string;
 	font: Partial<Font>;
@@ -645,6 +651,13 @@ export interface PlotData {
 	theta: Datum[];
 	r: Datum[];
 	customdata: Datum[];
+	domain: Partial<{
+		rows: number;
+		columns: number;
+		x: number[];
+		y: number[];
+	}>;
+	title: Partial<DataTitle>;
 }
 
 /**
