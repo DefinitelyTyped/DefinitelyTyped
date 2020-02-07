@@ -19,6 +19,7 @@ export interface AppIntroProps {
     activeDotStyle?: ViewStyle;
     paginationStyle?: TextProps;
     hidePagination?: boolean;
+    scrollEnabled?: boolean;
     renderNextButton?: () => void;
     renderPrevButton?: () => void;
     renderDoneButton?: () => void;
