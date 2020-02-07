@@ -1,5 +1,5 @@
 import fs = require("fs");
-import Client = require("./");
+import Client = require("ftp");
 
 var c = new Client();
 c.on('ready', (): void => {
