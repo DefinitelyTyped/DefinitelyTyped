@@ -360,17 +360,9 @@ const controlledPasswordInputWithRef = (
 );
 
 // NumberInput
-const numberInputWithoutRef = (
+const numberInput = (
     <NumberInput
         id="my-id"
         value={12}
-    />
-);
-
-const numberInputWithRef = (
-    <NumberInput
-        id="my-id"
-        value={12}
-        ref={inputRef}
     />
 );

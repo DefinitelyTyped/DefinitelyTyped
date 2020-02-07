@@ -23,6 +23,6 @@ export interface NumberInputProps extends InheritedProps {
     isMobile?: boolean,
 }
 
-declare const NumberInput: React.RefForwardingComponent<HTMLInputElement, NumberInputProps>;
+declare class NumberInput extends React.Component<NumberInputProps> { }
 
 export default NumberInput;
