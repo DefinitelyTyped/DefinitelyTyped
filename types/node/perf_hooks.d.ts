@@ -1,5 +1,5 @@
-declare module "perf_hooks" {
-    import { AsyncResource } from "async_hooks";
+declare module 'perf_hooks' {
+    import { AsyncResource } from 'async_hooks';
 
     interface PerformanceEntry {
         /**
@@ -99,6 +99,8 @@ declare module "perf_hooks" {
         readonly v8Start: number;
     }
 
+    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
+
     interface Performance {
         /**
          * If name is not provided, removes all PerformanceFunction objects from the Performance Timeline.
@@ -133,7 +135,7 @@ declare module "perf_hooks" {
          * @param type
          * @return list of all PerformanceEntry objects
          */
-        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
 
         /**
          * Returns a list of all PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
@@ -141,7 +143,7 @@ declare module "perf_hooks" {
          * @param type
          * @return list of all PerformanceEntry objects
          */
-        getEntriesByType(type: string): PerformanceEntry[];
+        getEntriesByType(type: EntryType): PerformanceEntry[];
 
         /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
@@ -202,13 +204,13 @@ declare module "perf_hooks" {
          * @return a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
          * whose performanceEntry.name is equal to name, and optionally, whose performanceEntry.entryType is equal to type.
          */
-        getEntriesByName(name: string, type?: string): PerformanceEntry[];
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
 
         /**
          * @return Returns a list of PerformanceEntry objects in chronological order with respect to performanceEntry.startTime
          * whose performanceEntry.entryType is equal to type.
          */
-        getEntriesByType(type: string): PerformanceEntry[];
+        getEntriesByType(type: EntryType): PerformanceEntry[];
     }
 
     type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
@@ -227,7 +229,7 @@ declare module "perf_hooks" {
          * Property buffered defaults to false.
          * @param options
          */
-        observe(options: { entryTypes: string[], buffered?: boolean }): void;
+        observe(options: { entryTypes: EntryType[]; buffered?: boolean }): void;
     }
 
     namespace constants {
