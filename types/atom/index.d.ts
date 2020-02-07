@@ -126,9 +126,9 @@ export interface AtomEnvironment {
 
     /**
      *  Gets the release channel of the Atom application.
-     *  Returns the release channel, which can be 'dev', 'beta', or 'stable'.
+     *  Returns the release channel, which can be 'dev', 'nightly', 'beta', or 'stable'.
      */
-    getReleaseChannel(): "dev"|"beta"|"stable";
+    getReleaseChannel(): "dev"|"nightly"|"beta"|"stable";
 
     /** Returns a boolean that is true if the current version is an official release. */
     isReleasedVersion(): boolean;
@@ -168,7 +168,7 @@ export interface AtomEnvironment {
 
     /** Get the current window. */
     getCurrentWindow(): object;
-
+"
     /** Move current window to the center of the screen. */
     center(): void;
 
