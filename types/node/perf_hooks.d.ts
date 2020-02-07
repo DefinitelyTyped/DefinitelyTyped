@@ -1,6 +1,8 @@
 declare module 'perf_hooks' {
     import { AsyncResource } from 'async_hooks';
 
+    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
+
     interface PerformanceEntry {
         /**
          * The total number of milliseconds elapsed for this entry.
@@ -22,7 +24,7 @@ declare module 'perf_hooks' {
          * The type of the performance entry.
          * Currently it may be one of: 'node', 'mark', 'measure', 'gc', or 'function'.
          */
-        readonly entryType: string;
+        readonly entryType: EntryType;
 
         /**
          * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
@@ -98,8 +100,6 @@ declare module 'perf_hooks' {
          */
         readonly v8Start: number;
     }
-
-    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
 
     interface Performance {
         /**
