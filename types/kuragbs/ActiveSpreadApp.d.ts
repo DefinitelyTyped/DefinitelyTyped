@@ -4,16 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="google-apps-script" />
-
 declare namespace KuraGBS{
-
     namespace GSheets{
-
         type Sheet = GoogleAppsScript.Spreadsheet.Sheet;
         type Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
-
         class ActiveSpreadApp {
-
             id: string | undefined;
             spread: Spreadsheet;
             currentSheet: Sheet | undefined;            
@@ -23,7 +18,4 @@ declare namespace KuraGBS{
         }
     }
 }
-
 declare var ActiveSpreadApp: KuraGBS.GSheets.ActiveSpreadApp;
-
-
