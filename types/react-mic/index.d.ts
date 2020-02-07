@@ -1,4 +1,4 @@
-// Type definitions for react-mic 12.4
+// Type definitions for react-mic 12.4.1
 // Project: https://hackingbeauty.github.io/react-mic
 // Definitions by: mikaello <https://github.com/mikaello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,14 +14,14 @@ export class ReactMic extends React.PureComponent<ReactMicProps> {}
  * The object sent when the recording stops
  */
 export interface ReactMicStopEvent {
-    blob: Blob,
-    startTime: number,
-    stopTime: number,
+    blob: Blob;
+    startTime: number;
+    stopTime: number;
     option: {
-      audioBitsPerSecond: number,
-      mimeType: string
-    },
-    blobURL: string
+      audioBitsPerSecond: number;
+      mimeType: string;
+    };
+    blobURL: string;
   }
 
 export interface ReactMicProps {
