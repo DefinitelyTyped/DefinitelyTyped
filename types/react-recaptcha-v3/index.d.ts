@@ -7,9 +7,7 @@
 
 import { Component } from "react";
 
-export = ReCaptcha;
-
-declare namespace ReCaptcha {
+export namespace ReCaptcha {
     interface ReCaptchaProps {
         elementID?: string;
         sitekey: string;
@@ -19,10 +17,10 @@ declare namespace ReCaptcha {
     }
 }
 
-declare class ReCaptcha extends Component<ReCaptcha.ReCaptchaProps> {
+export class ReCaptcha extends Component<ReCaptcha.ReCaptchaProps> {
     static propTypes: any;
     static defaultProps: ReCaptcha.ReCaptchaProps;
     execute(): void;
 }
 
-declare function loadReCaptcha(siteKey: string): void;
+export function loadReCaptcha(siteKey: string): void;
