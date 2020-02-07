@@ -3,6 +3,7 @@
 // Definitions by: Adam Voss <https://github.com/adamvoss>
 //                 Piotr Roszatycki <https://github.com/dex4er>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
