@@ -16,6 +16,19 @@ import {
 
 const source = new RecordSource();
 const store = new Store(source);
+const storeWithNullOptions = new Store(source, {
+    gcScheduler: null,
+    operationLoader: null,
+    gcReleaseBufferSize: null,
+});
+const storeWithOptions = new Store(source, {
+    gcScheduler: () => undefined,
+    operationLoader: {
+        get: () => null,
+        load: () => Promise.resolve(null),
+    },
+    gcReleaseBufferSize: 10,
+});
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Network Layer
