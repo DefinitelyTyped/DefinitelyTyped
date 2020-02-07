@@ -96,6 +96,8 @@ namespace Parse {
     let serverAuthToken: string | undefined;
     let serverAuthType: string | undefined;
     let serverURL: string;
+    let secret: string;
+    let encryptedUser: boolean;
 
     interface BatchSizeOption {
         batchSize?: number;
@@ -1372,8 +1374,24 @@ namespace Parse {
      * Flag that indicates whether Local Datastore is enabled.
      */
     function isLocalDatastoreEnabled(): boolean;
-
+                                                          
+     /**
+      * Call this method to set your LocalDatastoreStorage engine
+      * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
+      * @param {LocalDatastoreController} controller a data storage.
+      */
     function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Enable the current user encryption.
+     * This must be called before login any user.
+     */
+    function enableEncryptedUser(): void;
+
+    /**
+     * Flag that indicates whether Encrypted User is enabled.
+     */
+    function isEncryptedUserEnabled(): boolean; 
 }
 }
 
