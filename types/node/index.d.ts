@@ -41,6 +41,7 @@
 //                 Minh Son Nguyen <https://github.com/nguymin4>
 //                 Junxiao Shi <https://github.com/yoursunny>
 //                 Ilia Baryshnikov <https://github.com/qwelias>
+//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: These definitions support NodeJS and TypeScript 3.5.
