@@ -54,8 +54,13 @@ declare module "codemirror" {
     }
 
     interface ShowHintOptions {
-        completeSingle: boolean;
+        completeSingle?: boolean;
         hint: HintFunction | AsyncHintFunction;
+        alignWithWord?: boolean;
+        closeOnUnfocus?: boolean;
+        container?: Element | null;
+        customKeys?: {[x: string]: Function};
+        extraKeys?: {[x: string]: Function};
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/
