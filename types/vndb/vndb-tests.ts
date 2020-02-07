@@ -2,7 +2,7 @@ import VNDB = require('vndb');
 
 async function connect() {
     try {
-        const vndb: VNDB.vndb = await VNDB.start();
+        const vndb = await VNDB.start();
         console.log('Connected !');
         await vndb.end();
         console.log('Ended Connection !');

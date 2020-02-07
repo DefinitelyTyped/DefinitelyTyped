@@ -17,27 +17,25 @@ interface VNDB {
      * @param host VNDB host address
      * @param port VNDB port
      */
-    start(host?: string, port?: number): Promise<VNDB.vndb>;
+    start(host?: string, port?: number): Promise<vndb>;
 }
 
-declare namespace VNDB {
+/**
+ * Object containing the socket and methods to interact with it
+ */
+interface vndb {
+    socket: TLSSocket;
+
     /**
-     * A VNDB connection object
+     * Send a message to the VNDB API, according to https://vndb.org/d11
+     * @param message message to send to the VNDB API
      */
-    interface vndb {
-        socket: TLSSocket;
+    write(message: string): Promise<string>;
 
-        /**
-         * Send a message to the VNDB API, according to https://vndb.org/d11
-         * @param message message to send to the VNDB API
-         */
-        write(message: string): Promise<string>;
-
-        /**
-         * Close the connection to the VNDB API
-         */
-        end(): Promise<void>;
-    }
+    /**
+     * Close the connection to the VNDB API
+     */
+    end(): Promise<void>;
 }
 
 declare const VNDB: VNDB;
