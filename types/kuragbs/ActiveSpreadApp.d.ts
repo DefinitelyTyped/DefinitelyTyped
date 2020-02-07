@@ -4,17 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="google-apps-script" />
-declare namespace KuraGBS{
-
-    namespace GSheets{
-
+declare namespace KuraGBS {
+    namespace GSheets {
         type Sheet = GoogleAppsScript.Spreadsheet.Sheet;
         type Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
-        class ActiveSpreadApp {
-            
+        class ActiveSpreadApp {            
             id: string | undefined;
             spread: Spreadsheet;
-            currentSheet: Sheet|undefined;            
+            currentSheet: Sheet|undefined;
             onGetActiveSpread(): Spreadsheet;
             onGetSheetValues(sheetName: string, sheetRange: string): any[][] | null;
             onGetSheetValuesAndFormulas(sheetName: string, sheetRange: string): any[][][] | null;
