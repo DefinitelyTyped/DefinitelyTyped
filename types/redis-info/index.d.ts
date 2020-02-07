@@ -72,7 +72,7 @@ export interface MemoryInfo {
     lazyfree_pending_objects: string;
 }
 
-export type PersistenceInfo = {
+export interface BasePersistenceInfo {
     rdb_changes_since_last_save: string;
     rdb_bgsave_in_progress: Flag;
     rdb_last_save_time: string;
@@ -87,7 +87,10 @@ export type PersistenceInfo = {
     aof_last_bgrewrite_status: string;
     aof_last_write_status: string;
     aof_last_cow_size: string;
-} & (PersistenceAOFOnInfo | PersistenceAOFOffInfo) &
+}
+
+export type PersistenceInfo = BasePersistenceInfo &
+    (PersistenceAOFOnInfo | PersistenceAOFOffInfo) &
     (PersistenceLoadingOnInfo | PersistenceLoadingOffInfo);
 
 export interface PersistenceAOFOnInfo {
@@ -147,7 +150,7 @@ export interface Stats {
     active_defrag_key_misses: string;
 }
 
-export type ReplicationInfo = {
+export interface BaseReplicationInfo {
     connected_slaves: string;
     master_replid: string;
     master_replid2: string;
@@ -157,13 +160,15 @@ export type ReplicationInfo = {
     repl_backlog_size: string;
     repl_backlog_first_byte_offset: string;
     repl_backlog_histlen: string;
-} & (ReplicationMasterInfo | ReplicationReplicaInfo);
+}
+
+export type ReplicationInfo = BaseReplicationInfo & (ReplicationMasterInfo | ReplicationReplicaInfo);
 
 export interface ReplicationMasterInfo {
     role: 'master';
 }
 
-export type ReplicationReplicaInfo = {
+export interface BaseReplicationReplicaInfo {
     role: 'slave';
     master_host: string;
     master_port: string;
@@ -173,7 +178,10 @@ export type ReplicationReplicaInfo = {
     slave_read_only: Flag;
     connected_slaves: string;
     min_slaves_good_slaves: string;
-} & (ReplicationReplicaSyncOnInfo | ReplicationReplicaSyncOffInfo) &
+}
+
+export type ReplicationReplicaInfo = BaseReplicationReplicaInfo &
+    (ReplicationReplicaSyncOnInfo | ReplicationReplicaSyncOffInfo) &
     (ReplicationReplicaLinkUpInfo | ReplicationReplicaLinkDownInfo);
 
 export interface ReplicationReplicaSyncOnInfo {
@@ -186,12 +194,17 @@ export interface ReplicationReplicaSyncOffInfo {
     master_sync_in_progress: Flag.OFF;
 }
 
+export enum LinkStatus {
+    UP = 'up',
+    DOWN = 'down',
+}
+
 export interface ReplicationReplicaLinkUpInfo {
-    master_link_status: 'up';
+    master_link_status: LinkStatus.UP;
 }
 
 export interface ReplicationReplicaLinkDownInfo {
-    master_link_status: 'down';
+    master_link_status: LinkStatus.DOWN;
     master_link_down_since_seconds: string;
 }
 
@@ -222,13 +235,8 @@ export interface GeneralStats {
     };
 }
 
-export type RedisInfo = GeneralStats &
-    ServerInfo &
-    ClientsInfo &
-    MemoryInfo &
-    PersistenceInfo &
-    Stats &
-    ReplicationInfo &
-    CPUInfo;
+export type RedisInfo = Readonly<
+    GeneralStats & ServerInfo & ClientsInfo & MemoryInfo & PersistenceInfo & Stats & ReplicationInfo & CPUInfo
+>;
 
 export function parse(info: string): RedisInfo;
