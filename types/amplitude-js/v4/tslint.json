@@ -7,6 +7,7 @@
         "ban-types": false,
         "callable-types": false,
         "comment-format": false,
+        "dt-header": false,
         "npm-naming": false,
         "eofline": false,
         "export-just-namespace": false,
@@ -74,7 +75,6 @@
         "typedef-whitespace": false,
         "unified-signatures": false,
         "void-return": false,
-        "whitespace": false,
-        "no-angle-bracket-type-assertion": false
+        "whitespace": false
     }
 }
