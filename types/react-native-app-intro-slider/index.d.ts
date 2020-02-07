@@ -5,9 +5,9 @@
 // TypeScript Version: 3.1
 
 import * as React from 'react';
-import { ButtonProps, TextProps, ViewStyle } from 'react-native';
+import { ButtonProps, TextProps, ViewStyle, FlatListProps } from 'react-native';
 
-export interface AppIntroProps {
+export interface AppIntroProps extends FlatListProps {
     skipLabel?: string;
     doneLabel?: string;
     nextLabel?: string;
