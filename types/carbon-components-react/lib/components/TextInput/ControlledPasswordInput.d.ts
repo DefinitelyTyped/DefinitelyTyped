@@ -1,11 +1,11 @@
 import * as React from "react";
-import { EmbeddedTooltipProps } from "../../../typings/shared";
+import { EmbeddedTooltipProps, RefForwardingProps } from "../../../typings/shared";
 import { TextInputInheritedProps } from "./props";
 
 interface InheritedProps extends TextInputInheritedProps, EmbeddedTooltipProps { }
 
 export interface ControlledPasswordInputProps extends InheritedProps { }
 
-declare const ControlledPasswordInput: React.RefForwardingComponent<HTMLInputElement, ControlledPasswordInputProps>;
+interface ControlledPasswordInput extends React.RefForwardingComponent<HTMLInputElement, ControlledPasswordInputProps> {}
 
 export default ControlledPasswordInput;

@@ -6,8 +6,8 @@ import { TextInputInheritedProps } from "./props";
 export interface TextInputProps extends TextInputInheritedProps { }
 
 interface TextInputFC extends React.RefForwardingComponent<HTMLInputElement, TextInputProps> {
-    readonly ControlledPasswordInput: typeof ControlledPasswordInput,
-    readonly PasswordInput: typeof PasswordInput,
+    readonly ControlledPasswordInput: ControlledPasswordInput,
+    readonly PasswordInput: PasswordInput,
 }
 
 declare const TextInput: TextInputFC;
