@@ -3,7 +3,9 @@
 // Definitions by: corno <https://github.com/corno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// import { Stream } from "stream";
+/// <reference types="node"/>
+
+import { Stream } from "stream";
 
 export function parser(opt?: Options): CParser;
 export function createStream(opt?: Options): CStream;
@@ -33,7 +35,7 @@ export class CParser {
     close(): void;
 }
 
-export class CStream /*extends Stream*/ {
+export class CStream extends Stream {
     _parser: CParser;
     constructor(opt?: Options);
     destroy(): void;
