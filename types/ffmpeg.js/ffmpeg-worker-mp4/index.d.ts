@@ -3,12 +3,20 @@
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Worker as Interfaces} from '../index';
-
 declare namespace Worker {
-    export import Data = Interfaces.Data;
-    export import PostMessageOptions = Interfaces.PostMessageOptions;
-    export import OnMessageOptions = Interfaces.OnMessageOptions;
+    interface Data {
+        type: string;
+        data: string;
+    }
+
+    interface PostMessageOptions {
+        type: string;
+        arguments: string[];
+    }
+
+    interface OnMessageOptions {
+        data: Data;
+    }
 }
 
 declare class Worker {
