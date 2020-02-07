@@ -14,7 +14,7 @@ declare namespace KuraGBS{
             
             id: string | undefined;
             spread: Spreadsheet;
-            currentSheet: Sheet | undefined;            
+            currentSheet: Sheet|undefined;            
             onGetActiveSpread(): Spreadsheet;
             onGetSheetValues(sheetName: string, sheetRange: string): any[][] | null;
             onGetSheetValuesAndFormulas(sheetName: string, sheetRange: string): any[][][] | null;
