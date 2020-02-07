@@ -1,6 +1,7 @@
 // Type definitions for object.getownpropertydescriptors 2.1
 // Project: https://github.com/ljharb/object.getownpropertydescriptors#readme
 // Definitions by: Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
+//                 Jordan Harband <https://github.com/ljharb>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
