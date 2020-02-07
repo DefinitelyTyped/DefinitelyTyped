@@ -13,6 +13,7 @@ import {
     TableBatchActions,
     TableHeader,
     TableRow,
+    TileGroup,
     TooltipDefinition,
     TextArea,
     TextInput,
@@ -280,6 +281,20 @@ const dropdownItemCanBeElement = (
         selectedItem="val2"
         itemToElement={(item) => (<div>This is my rich content</div>)}
         itemToString={item => "Selected: " + item}
+    />
+);
+
+// TileGroup
+// Value nor name can be undefined
+let value: string|number = 5;
+let name = "old name";
+const tileGroupA = (
+    <TileGroup
+        name="my-tile-group-name"
+        onChange={(newVal, newName, e) => {
+            value = newVal;
+            name = newName;
+        }}
     />
 );
 
