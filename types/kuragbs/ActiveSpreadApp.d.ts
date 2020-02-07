@@ -8,7 +8,7 @@ declare namespace KuraGBS {
     namespace GSheets {
         type Sheet = GoogleAppsScript.Spreadsheet.Sheet;
         type Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
-        class ActiveSpreadApp {            
+        class ActiveSpreadApp {
             id: string | undefined;
             spread: Spreadsheet;
             currentSheet: Sheet|undefined;
