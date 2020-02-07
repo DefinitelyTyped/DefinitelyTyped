@@ -40,7 +40,7 @@ export class CStream extends Stream {
     constructor(opt?: Options);
     destroy(): void;
     end(chunk: string): void;
-    on(ev: string, handler: (value?: string) => void): void;
+    on(ev: string, listener: (...args: any[]) => void): this;
 }
 
 export const MAX_BUFFER_LENGTH: number;
