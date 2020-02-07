@@ -765,6 +765,7 @@ export interface PlotMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
+	pad: Partial<Padding>;
 	width: number;
 	colorbar: Partial<ColorBar>;
 	gradient: {
