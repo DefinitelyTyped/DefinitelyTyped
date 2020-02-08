@@ -9,7 +9,7 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { MarkupData } from 'parse5';
+import { ElementLocation } from 'parse5';
 import { Context } from 'vm';
 import * as tough from 'tough-cookie';
 
@@ -39,7 +39,7 @@ declare module 'jsdom' {
 		/**
 		 * The nodeLocation() method will find where a DOM node is within the source document, returning the parse5 location info for the node.
 		 */
-		nodeLocation(node: Node): MarkupData.ElementLocation | null;
+		nodeLocation(node: Node): ElementLocation | null;
 
 		/**
 		 * The built-in `vm` module of Node.js is what underpins jsdom's script-running magic.

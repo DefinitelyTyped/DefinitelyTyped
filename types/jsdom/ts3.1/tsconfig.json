@@ -10,10 +10,7 @@
 		"typeRoots": ["../../"],
 		"types": [],
 		"noEmit": true,
-		"forceConsistentCasingInFileNames": true,
-		"paths": {
-			"parse5": ["parse5/v4"]
-		}
+		"forceConsistentCasingInFileNames": true
 	},
 	"files": [
 		"jsdom-tests.ts",

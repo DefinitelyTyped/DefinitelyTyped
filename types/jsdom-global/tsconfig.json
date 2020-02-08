@@ -13,9 +13,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "parse5": [ "parse5/v4" ]
-        },
         "esModuleInterop": true,
         "types": [],
         "noEmit": true,
