@@ -12,6 +12,7 @@
 //                 Anders Kaseorg   <https://github.com/andersk>
 //                 Sascha Zarhuber  <https://github.com/saschazar21>
 //                 Rogier Schouten  <https://github.com/rogierschouten>
+//                 Ivan Aseev       <https://github.com/aseevia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -65,6 +66,35 @@ declare module "node-forge" {
             prfAlgorithm?: 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
             legacy?: boolean;
         };
+
+        interface ByteBufferFingerprintOptions {
+            /**
+             * @description The type of fingerprint. If not specified, defaults to 'RSAPublicKey'
+             */
+            type?: 'SubjectPublicKeyInfo' | 'RSAPublicKey';
+            /**
+             * @description the delimiter to use between bytes for `hex` encoded output
+             */
+            delimiter?: string;
+            /**
+             * @description if not specified defaults to `md.md5`
+             */
+            md?: md.MessageDigest;
+        }
+
+        interface HexFingerprintOptions extends ByteBufferFingerprintOptions {
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding: 'hex';
+        }
+
+        interface BinaryFingerprintOptions extends ByteBufferFingerprintOptions {
+            /**
+             * @description if not specified, the function will return `ByteStringBuffer`
+             */
+            encoding: 'binary';
+        }
 
         interface KeyPair {
             publicKey: PublicKey;
@@ -345,6 +375,8 @@ declare module "node-forge" {
 
         function publicKeyToPem(key: PublicKey, maxline?: number): PEM;
 
+        function publicKeyToRSAPublicKeyPem(key: PublicKey, maxline?: number): PEM;
+
         function publicKeyFromPem(pem: PEM): PublicKey;
 
         function privateKeyFromPem(pem: PEM): PrivateKey;
@@ -374,6 +406,10 @@ declare module "node-forge" {
         type setRsaPublicKey = typeof rsa.setPublicKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
+
+        function getPublicKeyFingerprint(publicKey: PublicKey, options?: ByteBufferFingerprintOptions): util.ByteStringBuffer;
+        function getPublicKeyFingerprint(publicKey: PublicKey, options: HexFingerprintOptions): Hex;
+        function getPublicKeyFingerprint(publicKey: PublicKey, options: BinaryFingerprintOptions): Bytes;
     }
 
     namespace random {

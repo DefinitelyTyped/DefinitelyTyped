@@ -1879,6 +1879,14 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @default
 	 */
 	fireMiddleClick?: boolean;
+
+	/**
+	 * Keep track of the subTargets for Mouse Events
+	 * @type {Array.<fabric.Object>}
+	 * @since 3.6.0
+	 * @default
+	 */
+	targets?: Object[];
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -2229,7 +2237,7 @@ export class Ellipse {
 }
 interface IGroupOptions extends IObjectOptions {
 	/**
-	 * Indicates if click events should also check for subtargets
+	 * Indicates if click, mouseover, mouseout events & hoverCursor should also check for subtargets
 	 * @type Boolean
 	 */
 	subTargetCheck?: boolean;
@@ -3930,6 +3938,10 @@ export class Object {
 	 * @return {fabric.Object}
 	 */
 	static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
+	/**
+	 * Defines the number of fraction digits to use when serializing object values.
+	 */
+	static NUM_FRACTION_DIGITS?: number;
 }
 
 interface IPathOptions extends IObjectOptions {

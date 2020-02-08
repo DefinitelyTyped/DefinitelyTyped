@@ -6,7 +6,9 @@ declare module "stream" {
     }
 
     namespace internal {
-        class Stream extends internal { }
+        class Stream extends internal {
+            constructor(opts?: ReadableOptions);
+        }
 
         interface ReadableOptions {
             highWaterMark?: number;
@@ -265,9 +267,15 @@ declare module "stream" {
 
         class PassThrough extends Transform { }
 
+        interface FinishedOptions {
+            error?: boolean;
+            readable?: boolean;
+            writable?: boolean;
+        }
+        function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options: FinishedOptions, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         function finished(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, callback: (err?: NodeJS.ErrnoException | null) => void): () => void;
         namespace finished {
-            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream): Promise<void>;
+            function __promisify__(stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream, options?: FinishedOptions): Promise<void>;
         }
 
         function pipeline<T extends NodeJS.WritableStream>(stream1: NodeJS.ReadableStream, stream2: T, callback?: (err: NodeJS.ErrnoException | null) => void): T;

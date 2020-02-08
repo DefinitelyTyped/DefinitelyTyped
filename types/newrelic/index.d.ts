@@ -1,10 +1,11 @@
-// Type definitions for newrelic 5.11
+// Type definitions for newrelic 6.2
 // Project: http://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
 //                 Michael Bond <https://github.com/MichaelRBond>
 //                 Kyle Scully <https://github.com/zieka>
 //                 Kenneth Aasan <https://github.com/kennethaasan>
+//                 Jon Flaishans <https://github.com/funkswing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
@@ -309,6 +310,12 @@ export const instrument: Instrument;
 export const instrumentDatastore: Instrument;
 
 /**
+ * The instrumentLoadedModule method allows you to add stock instrumentation to specific modules
+ * in situations where it's impossible to have require('newrelic'); as the first line of your app's main module.
+ */
+export function instrumentLoadedModule(moduleName: string, moduleInstance: any): boolean;
+
+/**
  * Sets an instrumentation callback for a web framework module.
  *
  * This method is just like `instrument`, except it provides a web-framework-specialized  shim.
@@ -333,6 +340,19 @@ export function shutdown(
     options?: { collectPendingData?: boolean; timeout?: number },
     cb?: (error?: Error) => void,
 ): void;
+
+/**
+ * Returns key/value pairs which can be used to link traces or entities.
+ * It will only contain items with meaningful values. For instance, if distributed tracing is disabled,
+ * trace.id will not be included.
+ */
+export function getLinkingMetadata(omitSupportability?: boolean): LinkingMetadata;
+
+/**
+ * Returns and object containing the current trace ID and span ID.
+ * This API requires distributed tracing to be enabled or an empty object will be returned.
+ */
+export function getTraceMetadata(): TraceMetadata;
 
 /**
  * Wraps an AWS Lambda function with NewRelic instrumentation and returns the value of the handler
@@ -387,4 +407,52 @@ export interface TransactionHandle {
      * Parses incoming distributed trace header payload.
      */
     acceptDistributedTracePayload(payload: DistributedTracePayload): void;
+}
+
+export interface LinkingMetadata {
+    /**
+     * The current trace ID
+     */
+    'trace.id'?: string;
+
+    /**
+     * The current span ID
+     */
+    'span.id'?: string;
+
+    /**
+     * The application name specified in the connect request as
+     * app_name. If multiple application names are specified this will only be
+     * the first name
+     */
+    'entity.name': string;
+
+    /**
+     * The string "SERVICE"
+     */
+    'entity.type': string;
+
+    /**
+     * The entity ID returned in the connect reply as entity_guid
+     */
+    'entity.guid'?: string;
+
+    /**
+     * The hostname as specified in the connect request as
+     * utilization.full_hostname. If utilization.full_hostname is null or empty,
+     * this will be the hostname specified in the connect request as host.
+     */
+    hostname: string;
+}
+
+export interface TraceMetadata {
+    /**
+     * The current trace ID
+     */
+    traceId?: string;
+
+    /**
+     * The current span ID
+     */
+    spanId?: string;
 }

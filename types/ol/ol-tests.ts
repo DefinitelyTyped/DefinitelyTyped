@@ -1,7 +1,16 @@
 import { Collection, Map, MapBrowserEvent, Overlay, PluggableMap, View } from 'ol';
 import { unByKey } from 'ol/Observable';
 import { stableSort } from 'ol/array';
-import { Control, FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults as defaultControls } from 'ol/control';
+import {
+    Control,
+    FullScreen,
+    MousePosition,
+    OverviewMap,
+    ScaleLine,
+    ZoomSlider,
+    ZoomToExtent,
+    defaults as defaultControls,
+} from 'ol/control';
 import { Options as ControlOptions } from 'ol/control/Control';
 import { toStringXY } from 'ol/coordinate';
 import { EventsKey } from 'ol/events';
@@ -94,7 +103,7 @@ const styles: { [key: string]: Style } = {
     }),
 };
 
-const styleFunction: StyleFunction = feature => styles[feature.getGeometry()!.getType()];
+const styleFunction: StyleFunction = feature => styles[feature.getGeometry().getType()];
 
 /**
  * ==================================================
@@ -109,24 +118,59 @@ const geojsonObj = {
         { type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, -2000000], [8000000, 2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, -2000000],
+                    [8000000, 2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
-            geometry: { type: 'LineString', coordinates: [[4000000, 2000000], [8000000, -2000000]] },
+            geometry: {
+                type: 'LineString',
+                coordinates: [
+                    [4000000, 2000000],
+                    [8000000, -2000000],
+                ],
+            },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'Polygon',
-                coordinates: [[[-5000000, -1000000], [-4000000, 1000000], [-3000000, -1000000]]],
+                coordinates: [
+                    [
+                        [-5000000, -1000000],
+                        [-4000000, 1000000],
+                        [-3000000, -1000000],
+                    ],
+                ],
             },
         },
         {
             type: 'Feature',
             geometry: {
                 type: 'MultiLineString',
-                coordinates: [[[-1000000, -750000], [-1000000, 750000]], [[1000000, -750000], [1000000, 750000]], [[-750000, -1000000], [750000, -1000000]], [[-750000, 1000000], [750000, 1000000]]],
+                coordinates: [
+                    [
+                        [-1000000, -750000],
+                        [-1000000, 750000],
+                    ],
+                    [
+                        [1000000, -750000],
+                        [1000000, 750000],
+                    ],
+                    [
+                        [-750000, -1000000],
+                        [750000, -1000000],
+                    ],
+                    [
+                        [-750000, 1000000],
+                        [750000, 1000000],
+                    ],
+                ],
             },
         },
         {
@@ -134,9 +178,30 @@ const geojsonObj = {
             geometry: {
                 type: 'MultiPolygon',
                 coordinates: [
-                    [[[-5000000, 6000000], [-5000000, 8000000], [-3000000, 8000000], [-3000000, 6000000]]],
-                    [[[-2000000, 6000000], [-2000000, 8000000], [0, 8000000], [0, 6000000]]],
-                    [[[1000000, 6000000], [1000000, 8000000], [3000000, 8000000], [3000000, 6000000]]],
+                    [
+                        [
+                            [-5000000, 6000000],
+                            [-5000000, 8000000],
+                            [-3000000, 8000000],
+                            [-3000000, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [-2000000, 6000000],
+                            [-2000000, 8000000],
+                            [0, 8000000],
+                            [0, 6000000],
+                        ],
+                    ],
+                    [
+                        [
+                            [1000000, 6000000],
+                            [1000000, 8000000],
+                            [3000000, 8000000],
+                            [3000000, 6000000],
+                        ],
+                    ],
                 ],
             },
         },
@@ -145,9 +210,24 @@ const geojsonObj = {
             geometry: {
                 type: 'GeometryCollection',
                 geometries: [
-                    { type: 'LineString', coordinates: [[-5000000, -5000000], [0, -5000000]] },
+                    {
+                        type: 'LineString',
+                        coordinates: [
+                            [-5000000, -5000000],
+                            [0, -5000000],
+                        ],
+                    },
                     { type: 'Point', coordinates: [4000000, -5000000] },
-                    { type: 'Polygon', coordinates: [[[1000000, -6000000], [2000000, -4000000], [3000000, -6000000]]] },
+                    {
+                        type: 'Polygon',
+                        coordinates: [
+                            [
+                                [1000000, -6000000],
+                                [2000000, -4000000],
+                                [3000000, -6000000],
+                            ],
+                        ],
+                    },
                 ],
             },
         },
@@ -300,6 +380,7 @@ interface CustomControlOptions extends ControlOptions {
 }
 
 class CustomControl extends Control {
+    element: HTMLElement;
     name: string;
     mapViewport?: HTMLElement;
     private readonly _boundListener: (e: Event) => void;
@@ -331,7 +412,7 @@ class CustomControl extends Control {
         this._eventKeys.push(
             view.on('change:center', evt => {
                 console.log(evt.oldValue, view.getCenter());
-            })
+            }),
         );
     }
 

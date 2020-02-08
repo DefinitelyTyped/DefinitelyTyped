@@ -1,4 +1,4 @@
-import { BlankNode, DatasetCore, Literal, NamedNode, Quad_Graph, Term } from 'rdf-js';
+import { BlankNode, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable, DefaultGraph } from 'rdf-js';
 import {
     Clownface as ClownfaceContract,
     ClownfaceInit,
@@ -8,33 +8,52 @@ import {
     SingleOrArray,
     SingleOrArrayOfTerms,
     SingleOrArrayOfTermsOrLiterals,
-    WithValue,
-    WithTerm
+    WithValues,
+    WithSingleValue,
+    WithTerms,
+    WithSingleTerm,
+    SingleContextClownface,
+    SingleOrOneElementArray
 } from '..';
+import { Context } from './Context';
 
 declare class Clownface<D extends DatasetCore = DatasetCore, T extends Term = Term> implements ClownfaceContract<D, T> {
-    constructor(options: ClownfaceInit & Partial<WithTerm> & Partial<WithValue>);
+    constructor(options: ClownfaceInit & Partial<WithSingleTerm<T> | WithTerms<T>> & Partial<WithSingleValue | WithValues>);
     readonly term: T | undefined;
     readonly terms: T[];
     readonly value: string | undefined;
     readonly values: string[];
     readonly dataset: D;
     readonly datasets: D[];
-    readonly _context: any;
-    list(): Iterator<Term>;
+    readonly _context: Array<Context<D, T>>;
+    list(): Iterable<SingleContextClownface<D>>;
     toArray(): Array<Clownface<D, T>>;
     filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
     forEach(cb: (quad: Clownface<D, T>) => void): void;
     map<X>(cb: (quad: Clownface<D, T>, index: number) => X): X[];
 
-    // tslint:disable:no-unnecessary-generics
-    node<X extends Term = Term>(values: SingleOrArray<boolean | string | number | Term | null>, options?: NodeOptions): SafeClownface<D, X>;
-    blankNode(values?: SingleOrArray<string>): SafeClownface<D, BlankNode>;
-    literal(values: SingleOrArray<boolean | string | number | Term | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
-    namedNode(values: SingleOrArray<string | NamedNode>): SafeClownface<D, NamedNode>;
+    node(value: SingleOrOneElementArray<string | number | boolean>, options?: NodeOptions): SingleContextClownface<D, Literal>;
+    node(values: Array<string | number | boolean>, options?: NodeOptions): SafeClownface<D, Literal>;
+    node<X extends Term>(value: SingleOrOneElementArray<X>, options?: NodeOptions): SingleContextClownface<D, X>;
+    node<X extends Term>(values: X[], options?: NodeOptions): SafeClownface<D, X>;
+    node(value: null, options?: NodeOptions): SingleContextClownface<D, BlankNode>;
+    node(values: null[], options?: NodeOptions): SafeClownface<D, BlankNode>;
+    node(values: SingleOrArray<string | number | boolean | NamedNode | BlankNode | Literal | Variable | DefaultGraph | null>, options?: NodeOptions): SafeClownface<D>;
 
-    in<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
-    out<X extends Term = Term>(predicates: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    blankNode(value?: string | [string]): SingleContextClownface<D, BlankNode>;
+    blankNode(values: string[]): SafeClownface<D, BlankNode>;
+
+    literal(
+        value: SingleOrOneElementArray<string | number | boolean | NamedNode | BlankNode | Literal | Variable | DefaultGraph | null>,
+        languageOrDatatype?: string | NamedNode): SingleContextClownface<D, Literal>;
+    literal(values: Array<string | number | boolean | NamedNode | BlankNode | Literal | Variable | DefaultGraph | null>, languageOrDatatype?: string | NamedNode): SafeClownface<D, Literal>;
+
+    namedNode(value: SingleOrOneElementArray<string | NamedNode>): SingleContextClownface<D, NamedNode>;
+    namedNode(values: Array<string | NamedNode>): SafeClownface<D, NamedNode>;
+
+    // tslint:disable:no-unnecessary-generics
+    in<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
+    out<X extends Term = Term>(predicates?: SingleOrArrayOfTerms): SafeClownface<D, X>;
 
     has<X extends Term = Term>(predicates: SingleOrArrayOfTerms, objects?: SingleOrArrayOfTermsOrLiterals): SafeClownface<D, X>;
 

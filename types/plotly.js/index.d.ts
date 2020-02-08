@@ -373,6 +373,7 @@ export interface LayoutAxis extends Axis {
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
+	autotick: boolean;
 }
 
 export interface SceneAxis extends Axis {
@@ -509,6 +510,12 @@ export interface Delta {
 	};
 }
 
+export interface DataTitle {
+		text: string;
+		font: Partial<Font>;
+		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+}
+
 export interface PlotNumber {
 	valueformat: string;
 	font: Partial<Font>;
@@ -610,6 +617,7 @@ export interface PlotData {
 	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
+	showlegend: boolean;
 	legendgroup: string;
 	parents: string[];
 	name: string;
@@ -643,6 +651,13 @@ export interface PlotData {
 	theta: Datum[];
 	r: Datum[];
 	customdata: Datum[];
+	domain: Partial<{
+		rows: number;
+		columns: number;
+		x: number[];
+		y: number[];
+	}>;
+	title: Partial<DataTitle>;
 }
 
 /**
@@ -750,6 +765,7 @@ export interface PlotMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
+	pad: Partial<Padding>;
 	width: number;
 	colorbar: Partial<ColorBar>;
 	gradient: {

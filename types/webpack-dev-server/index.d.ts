@@ -1,4 +1,4 @@
-// Type definitions for webpack-dev-server 3.9
+// Type definitions for webpack-dev-server 3.10
 // Project: https://github.com/webpack/webpack-dev-server
 // Definitions by: maestroh <https://github.com/maestroh>
 //                 Dave Parslow <https://github.com/daveparslow>
@@ -9,6 +9,7 @@
 //                 Katsuya Hino <https://github.com/dobogo>
 //                 Billy Le <https://github.com/billy-le>
 //                 Chris Paterson <https://github.com/chrispaterson>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -76,6 +77,12 @@ declare namespace WebpackDevServer {
          * precedence.
          */
         contentBase?: boolean | string | string[] | number;
+        /**
+         * Tell the server at what URL to serve `devServer.contentBase`.
+         * If there was a file `assets/manifest.json`,
+         * it would be served at `/serve-content-base-at-this-url/manifest.json`
+         */
+        contentBasePublicPath?: string;
         /**
          * When set to true this option bypasses host checking.  THIS IS NOT
          * RECOMMENDED as apps that do not check the host are vulnerable to DNS

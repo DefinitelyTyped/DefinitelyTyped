@@ -94,6 +94,8 @@ function test5() {
 function test6() {
     // SingleBar
     const bar2 = new progress.SingleBar({}, progress.Presets.shades_classic);
+    bar2.increment();
+    bar2.increment(10);
 
     // MultiBar
     const multiBar = new progress.MultiBar({}, progress.Presets.shades_classic);
@@ -106,4 +108,27 @@ function test6() {
     const removed = multiBar.remove(subBar1);
 
     multiBar.stop();
+}
+
+// Options
+function test7() {
+    // defaults
+    let singleBar = new progress.SingleBar({});
+    // align
+    singleBar = new progress.SingleBar({
+        align: 'left',
+    });
+    singleBar = new progress.SingleBar({
+        align: 'center',
+    });
+    singleBar = new progress.SingleBar({
+        align: 'right',
+    });
+    // hideCursor
+    singleBar = new progress.SingleBar({
+        hideCursor: true,
+    });
+    singleBar = new progress.SingleBar({
+        hideCursor: null,
+    });
 }

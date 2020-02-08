@@ -373,6 +373,12 @@ export interface ConfigOptions {
      */
     reporters?: string[];
     /**
+     * When Karma is watching the files for changes, it will delay a new run
+     * until the current run is finished. Enabling this setting
+     * will cancel the current run and start a new run immediately when a change is detected.
+     */
+    restartOnFileChange?: boolean;
+    /**
      * @default false
      * @description Continuous Integration mode.
      * If true, Karma will start and capture all configured browsers, run tests and then exit with an exit code of 0 or 1 depending

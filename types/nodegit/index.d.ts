@@ -1,9 +1,10 @@
-// Type definitions for nodegit 0.24
+// Type definitions for nodegit 0.26
 // Project: https://github.com/nodegit/nodegit, http://nodegit.org
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>,
 //                 Tobias Nießen <https://github.com/tniessen>,
 //                 Pierre Vigier <https://github.com/pvigier>
 //                 Jibril Saffi <https://github.com/IGI-111>
+//                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';

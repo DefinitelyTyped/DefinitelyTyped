@@ -62,6 +62,11 @@ declare module "tls" {
          * SSL/TLS protocol version.
          */
         version: string;
+
+        /**
+         * IETF name for the cipher suite.
+         */
+        standardName: string;
     }
 
     interface EphemeralKeyInfo {
@@ -389,6 +394,40 @@ declare module "tls" {
          * 48-bytes of cryptographically strong pseudo-random data.
          */
         ticketKeys?: Buffer;
+
+        /**
+         *
+         * @param socket
+         * @param identity identity parameter sent from the client.
+         * @return pre-shared key that must either be
+         * a buffer or `null` to stop the negotiation process. Returned PSK must be
+         * compatible with the selected cipher's digest.
+         *
+         * When negotiating TLS-PSK (pre-shared keys), this function is called
+         * with the identity provided by the client.
+         * If the return value is `null` the negotiation process will stop and an
+         * "unknown_psk_identity" alert message will be sent to the other party.
+         * If the server wishes to hide the fact that the PSK identity was not known,
+         * the callback must provide some random data as `psk` to make the connection
+         * fail with "decrypt_error" before negotiation is finished.
+         * PSK ciphers are disabled by default, and using TLS-PSK thus
+         * requires explicitly specifying a cipher suite with the `ciphers` option.
+         * More information can be found in the RFC 4279.
+         */
+
+        pskCallback?(socket: TLSSocket, identity: string): DataView | NodeJS.TypedArray | null;
+        /**
+         * hint to send to a client to help
+         * with selecting the identity during TLS-PSK negotiation. Will be ignored
+         * in TLS 1.3. Upon failing to set pskIdentityHint `tlsClientError` will be
+         * emitted with `ERR_TLS_PSK_SET_IDENTIY_HINT_FAILED` code.
+         */
+        pskIdentityHint?: string;
+    }
+
+    interface PSKCallbackNegotation {
+        psk: DataView | NodeJS.TypedArray;
+        identitty: string;
     }
 
     interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
@@ -402,6 +441,24 @@ declare module "tls" {
         minDHSize?: number;
         lookup?: net.LookupFunction;
         timeout?: number;
+        /**
+         * When negotiating TLS-PSK (pre-shared keys), this function is called
+         * with optional identity `hint` provided by the server or `null`
+         * in case of TLS 1.3 where `hint` was removed.
+         * It will be necessary to provide a custom `tls.checkServerIdentity()`
+         * for the connection as the default one will try to check hostname/IP
+         * of the server against the certificate but that's not applicable for PSK
+         * because there won't be a certificate present.
+         * More information can be found in the RFC 4279.
+         *
+         * @param hint message sent from the server to help client
+         * decide which identity to use during negotiation.
+         * Always `null` if TLS 1.3 is used.
+         * @returns Return `null` to stop the negotiation process. `psk` must be
+         * compatible with the selected cipher's digest.
+         * `identity` must use UTF-8 encoding.
+         */
+        pskCallback?(hint: string | null): PSKCallbackNegotation | null;
     }
 
     class Server extends net.Server {

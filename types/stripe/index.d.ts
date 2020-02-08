@@ -7,7 +7,6 @@
 //                 Brannon Jones <https://github.com/brannon>
 //                 Kyle Kamperschroer <https://github.com/kkamperschroer>
 //                 Kensuke Hoshikawa <https://github.com/starhoshi>
-//                 Thomas Bruun <https://github.com/bruun>
 //                 Gal Talmor <https://github.com/galtalmor>
 //                 Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Tyler Jones <https://github.com/squirly>
@@ -10608,8 +10607,17 @@ declare namespace Stripe {
             /**
              * The tax rates that will apply to the subscription.
              */
-
             default_tax_rates?: string[];
+
+            /**
+             * ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. If not set, invoices will use the default payment method in the customer’s invoice settings.
+             */
+            default_payment_method?: string;
+
+            /**
+             * Indicates if a customer is on or off-session while an invoice payment is attempted.
+             */
+            off_session?: boolean;
         }
 
         interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {

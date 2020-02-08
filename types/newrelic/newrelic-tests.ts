@@ -89,6 +89,7 @@ newrelic.recordCustomEvent('my_event', {
 
 newrelic.instrument('foo', () => {}); // $ExpectType void
 newrelic.instrumentDatastore('foo', () => {}, (err: Error) => {});
+newrelic.instrumentLoadedModule('foo', () => {}); // $ExpectType boolean
 newrelic.instrumentWebframework({
     moduleName: 'foo',
     onRequire: () => {},
@@ -111,5 +112,9 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, err => {
 newrelic.shutdown(err => {
     const error: Error | undefined = err;
 });
+
+newrelic.getLinkingMetadata();
+newrelic.getLinkingMetadata(true);
+newrelic.getTraceMetadata();
 
 newrelic.setLambdaHandler(() => void 0); // $ExpectType undefined

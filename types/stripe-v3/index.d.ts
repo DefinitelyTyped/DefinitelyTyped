@@ -12,6 +12,7 @@
 //                 Kim Ehrenpohl <https://github.com/kimehrenpohl>
 //                 Krishna Pravin <https://github.com/KrishnaPravin>
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -24,7 +25,7 @@ declare namespace stripe {
 
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
-        createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+        createToken(element: elements.Element, options?: TokenOptions | BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'bank_account', options: BankAccountTokenOptions): Promise<TokenResponse>;
         createToken(name: 'pii', options: PiiTokenOptions): Promise<TokenResponse>;
         createSource(element: elements.Element, options?: { owner?: OwnerInfo }): Promise<SourceResponse>;
@@ -40,6 +41,9 @@ declare namespace stripe {
             type: paymentMethod.paymentMethodType,
             element: elements.Element,
             options?: CreatePaymentMethodOptions,
+        ): Promise<PaymentMethodResponse>;
+        createPaymentMethod(
+            data: PaymentMethodData
         ): Promise<PaymentMethodResponse>;
         retrievePaymentIntent(
             clientSecret: string,
@@ -456,6 +460,19 @@ declare namespace stripe {
          */
         billing_details?: BillingDetails;
         metadata?: Metadata;
+    }
+
+    interface PaymentMethodData {
+        /**
+         * Billing information associated with the PaymentMethod
+         * that may be used or required by particular types of
+         * payment methods.
+         */
+        type: string;
+        card?: elements.Element;
+        ideal?: elements.Element | { bank: string };
+        sepa_debit?: elements.Element | { iban: string };
+        billing_details?: BillingDetails;
     }
 
     interface HandleCardPaymentOptions {

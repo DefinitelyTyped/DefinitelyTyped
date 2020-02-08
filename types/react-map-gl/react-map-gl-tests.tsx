@@ -10,13 +10,23 @@ import {
     HTMLRedrawOptions,
     SVGRedrawOptions,
     StaticMap,
-    ViewportProps
+    ViewportProps,
+    Source,
+    Layer,
 } from 'react-map-gl';
 import * as MapboxGL from "mapbox-gl";
+import { FeatureCollection } from "geojson";
 
 interface State {
     viewport: ViewportProps;
 }
+
+const geojson: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [
+      {type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: [-122.4, 37.8]}}
+    ]
+  };
 
 class MyMap extends React.Component<{}, State> {
     readonly state: State = {
@@ -108,6 +118,13 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
+
+                    <Source type="geojson" data={geojson}>
+                        <Layer type="point" paint={{
+                                                    'circle-radius': 10,
+                                                    'circle-color': '#007cbf'
+                                                    }}></Layer>
+                    </Source>
                 </InteractiveMap>
                 <StaticMap
                     {...this.state.viewport}

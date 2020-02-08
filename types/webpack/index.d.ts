@@ -19,6 +19,7 @@
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
+//                 Daniel Chin <https://github.com/danielthank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -113,8 +114,6 @@ declare namespace webpack {
         /** Enter watch mode, which rebuilds on file change. */
         watch?: boolean;
         watchOptions?: Options.WatchOptions;
-        /** Switch loaders to debug mode. */
-        debug?: boolean;
         /** Include polyfills or mocks for various node stuff */
         node?: Node | false;
         /** Set the value of require.amd and define.amd. */
@@ -265,10 +264,6 @@ declare namespace webpack {
     }
 
     interface Module {
-        /** A array of applied pre loaders. */
-        preLoaders?: RuleSetRule[];
-        /** A array of applied post loaders. */
-        postLoaders?: RuleSetRule[];
         /** A RegExp or an array of RegExps. Don’t parse files matching. */
         noParse?: RegExp | RegExp[] | ((content: string) => boolean);
         unknownContextRequest?: string;
@@ -949,13 +944,55 @@ declare namespace webpack {
             createModule: SyncBailHook;
             module: SyncWaterfallHook;
             createParser: HookMap;
-            parser: HookMap;
+            parser: HookMap<normalModuleFactory.Parser>;
             createGenerator: HookMap;
             generator: HookMap;
         }
 
         class NormalModuleFactory extends Tapable {
             hooks: NormalModuleFactoryHooks;
+        }
+
+        namespace normalModuleFactory {
+            interface ParserHooks {
+                evaluateTypeof: HookMap;
+                evaluate: HookMap;
+                evaluateIdentifier: HookMap;
+                evaluateDefinedIdentifier: HookMap;
+                evaluateCallExpressionMember: HookMap;
+                statement: SyncBailHook;
+                statementIf: SyncBailHook;
+                label: HookMap;
+                import: SyncBailHook;
+                importSpecifier: SyncBailHook;
+                export: SyncBailHook;
+                exportImport: SyncBailHook;
+                exportDeclaration: SyncBailHook;
+                exportExpression: SyncBailHook;
+                exportSpecifier: SyncBailHook;
+                exportImportSpecifier: SyncBailHook;
+                varDeclaration: SyncBailHook;
+                varDeclarationLet: HookMap;
+                varDeclarationConst: HookMap;
+                varDeclarationVar: HookMap;
+                canRename: HookMap;
+                rename: HookMap;
+                assigned: HookMap;
+                typeof: HookMap;
+                importCall: SyncBailHook;
+                call: HookMap;
+                callAnyMember: HookMap;
+                new: HookMap;
+                expression: HookMap;
+                expressionAnyMember: HookMap;
+                expressionConditionalOperator: SyncBailHook;
+                expressionLogicalOperator: SyncBailHook;
+                program: SyncBailHook;
+            }
+
+            class Parser extends Tapable {
+                hooks: ParserHooks;
+            }
         }
 
         interface ContextModuleFactoryHooks {
@@ -1079,9 +1116,13 @@ declare namespace webpack {
           hooks: {
             jsonpScript?: SyncWaterfallHook<string, Chunk, string>;
             requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+            requireEnsure: SyncWaterfallHook<string, Chunk, string>;
+            localVars: SyncWaterfallHook<string, Chunk, string>;
           };
           outputOptions: Output;
           requireFn: string;
+          renderRequireFunctionForModule(hash: string, chunk: Chunk, varModuleId?: number | string): string;
+          renderAddModule(hash: string, chunk: Chunk, varModuleId: number | string | undefined, varModule: string): string;
         }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
@@ -1624,7 +1665,23 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: any });
+        constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
+        static runtimeValue(
+            fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+            fileDependencies?: string[]
+        ): DefinePlugin.RuntimeValue;
+    }
+
+    namespace DefinePlugin {
+        class RuntimeValue {
+            constructor(
+                fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
+                fileDependencies?: string[]
+            );
+            exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
+        }
+        type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
+        type CodeValueObject = CodeValuePrimitive | {[key: string]: CodeValueObject};
     }
 
     class DllPlugin extends Plugin {

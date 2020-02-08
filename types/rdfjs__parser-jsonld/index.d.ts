@@ -3,9 +3,9 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
 import { Context } from 'jsonld/jsonld-spec';
-import { DataFactory, Sink, Stream } from 'rdf-js';
+import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
+import { EventEmitter } from 'events';
 
 declare namespace Parser {
     interface ParserOptions {
@@ -15,10 +15,10 @@ declare namespace Parser {
     }
 }
 
-declare class Parser implements Sink {
+declare class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {
     constructor(options?: Parser.ParserOptions);
 
-    import(stream: Stream, options?: Parser.ParserOptions): EventEmitter;
+    import(stream: EventEmitter, options?: Parser.ParserOptions): Stream<Q>;
 }
 
 export = Parser;

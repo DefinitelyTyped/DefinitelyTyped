@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 13.1
+// Type definitions for non-npm package Node.js 13.7
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -43,23 +43,23 @@
 //                 Ilia Baryshnikov <https://github.com/qwelias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: These definitions support NodeJS and TypeScript 3.2.
+// NOTE: These definitions support NodeJS and TypeScript 3.5.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
 //          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
-//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
+//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
 
-// NOTE: Augmentations for TypeScript 3.2 and later should use individual files for overrides
-//       within the respective ~/ts3.2 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.2, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
+//       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.5, so the older definitions will be found here.
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
-// just to ensure the names are known and node typings can be sued without importing these libs.
+// just to ensure the names are known and node typings can be used without importing these libs.
 // if someone really needs these types the libs need to be added via --lib or in tsconfig.json
 interface AsyncIterable<T> { }
 interface IterableIterator<T> { }

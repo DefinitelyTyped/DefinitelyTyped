@@ -27,6 +27,7 @@ const connection2: Promise<mongoose.Mongoose> = mongoose.connect(connectUri, {
   bufferCommands: false,
   useNewUrlParser: true,
   useFindAndModify: true,
+  useUnifiedTopology: true,
   useCreateIndex: true,
   autoIndex: true,
   autoCreate: true,
@@ -147,6 +148,9 @@ conn1.config.hasOwnProperty('');
 conn1.db.bufferMaxEntries;
 conn1.collections['coll'].$format(999);
 conn1.readyState.toFixed();
+conn1.name.toLowerCase()
+conn1.host.toLowerCase()
+conn1.port.toFixed()
 conn1.useDb('myDb').useDb('');
 mongoose.Connection.STATES.hasOwnProperty('');
 mongoose.Connection.STATES.disconnected === 0;
@@ -212,7 +216,7 @@ validatorError.stack;
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
  */
 var doc = <mongoose.Document>{};
-var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+var validationError: mongoose.Error.ValidationError | undefined = new mongoose.Error.ValidationError(doc);
 validationError.name;
 validationError.toString().toLowerCase();
 validationError.inspect();
@@ -304,10 +308,10 @@ QCModel.watch().once('change', (change: any) => {
   console.log(change);
 });
 
-QCModel.watch({
-  maxAwaitTimeMS: 10
+QCModel.watch([{ $match: { author: 'dave' } }], {
+    maxAwaitTimeMS: 10,
 }).once('change', (change: any) => {
-  console.log(change);
+    console.log(change);
 });
 
 /*
@@ -619,7 +623,8 @@ new mongoose.Schema({
       isAsync: true,
       validator: (val: number, done): void => {
         setImmediate(done, true);
-      }
+      },
+      message: (props) => `${props.value} is invalid`
     }
   },
   promiseValidated: {
@@ -627,7 +632,8 @@ new mongoose.Schema({
     validate: {
       validator: async (val: number) => {
         return val === 2;
-      }
+      },
+      message: 'Number is invalid'
     }
   },
 });

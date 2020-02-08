@@ -449,7 +449,32 @@ const description: SchemaDescription = {
         { name: 'test1', params: {} },
         { name: 'test2', params: {} },
     ],
-    fields: { key: 'value' },
+    fields: {
+        refField: {
+            type: 'ref',
+            key: 'value',
+        },
+        noSubField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+        },
+        subField: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            fields: { key: { type: 'ref', key: 'value' } }
+        },
+        withInnerType: {
+            type: 'type',
+            label: 'label',
+            meta: { key: 'value' },
+            tests: [],
+            innerType: { type: 'ref', key: 'value' }
+        },
+     },
 };
 
 const testOptions: TestOptions = {
@@ -648,8 +673,7 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.number().required(),
+yup.object<MyInterface>({ stringField: yup.number().required(),
     numberField: yup.number().required(),
     subFields: yup
         .object({
@@ -667,14 +691,13 @@ yup.object<MyInterface>({
 });
 
 // $ExpectError
-yup.object<MyInterface>({
-    stringField: yup.string().required(),
-    numberField: yup.number().required(),
-    subFields: yup
+yup.object<MyInterface>({ subFields: yup
         .object({
             testField: yup.number().required(),
         })
         .required(),
+    stringField: yup.string().required(),
+    numberField: yup.number().required(),
     arrayField: yup.array(yup.string()).required(),
 });
 

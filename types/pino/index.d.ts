@@ -10,6 +10,8 @@
 //                 Raoul Jaeckel <https://github.com/raoulus>
 //                 Cory Donkin <https://github.com/Cooryd>
 //                 Adam Vigneaux <https://github.com/AdamVig>
+//                 Austin Beer <https://github.com/austin-beer>
+//                 Michel Nemnom <https://github.com/Pegase745>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
@@ -125,10 +127,18 @@ declare namespace P {
          * The default time function for Pino. Returns a string like `,"time":1493426328206`.
          */
         epochTime: TimeFn;
+        /*
+         * Returns the seconds since Unix epoch
+         */
+        unixTime: TimeFn;
         /**
          * Returns an empty string. This function is used when the `timestamp` option is set to `false`.
          */
         nullTime: TimeFn;
+        /*
+         * Returns ISO 8601-formatted time in UTC
+         */
+        isoTime: TimeFn;
     };
 
     /**
@@ -177,6 +187,7 @@ declare namespace P {
         labels: { [level: number]: string };
     }
     type TimeFn = () => string;
+    type MixinFn = () => object;
 
     interface DestinationStream {
         write(msg: string): void;
@@ -230,6 +241,13 @@ declare namespace P {
         useOnlyCustomLevels?: boolean;
 
         /**
+         * If provided, the `mixin` function is called each time one of the active logging methods
+         * is called. The function must synchronously return an object. The properties of the
+         * returned object will be added to the logged JSON.
+         */
+        mixin?: MixinFn;
+
+        /**
          * As an array, the redact option specifies paths that should have their values redacted from any log output.
          *
          * Each path must be a string using a syntax which corresponds to JavaScript dot and bracket notation.
@@ -250,6 +268,10 @@ declare namespace P {
          * The string key for the 'message' in the JSON object. Default: "msg".
          */
         messageKey?: string;
+        /**
+         * The string key to place any logged object under.
+         */
+        nestedKey?: string;
         /**
          * Enables pino.pretty. This is intended for non-production configurations. This may be set to a configuration
          * object as outlined in http://getpino.io/#/docs/API?id=pretty. Default: `false`.
@@ -310,13 +332,13 @@ declare namespace P {
             write?:
                 | WriteFn
                 | ({
-                    fatal?: WriteFn;
-                    error?: WriteFn;
-                    warn?: WriteFn;
-                    info?: WriteFn;
-                    debug?: WriteFn;
-                    trace?: WriteFn;
-                } & { [logLevel: string]: WriteFn });
+                      fatal?: WriteFn;
+                      error?: WriteFn;
+                      warn?: WriteFn;
+                      info?: WriteFn;
+                      debug?: WriteFn;
+                      trace?: WriteFn;
+                  } & { [logLevel: string]: WriteFn });
 
             /**
              * The serializers provided to `pino` are ignored by default in the browser, including the standard
@@ -405,14 +427,14 @@ declare namespace P {
                  * the `send` function will be called based on the main logging `level` (set via `options.level`,
                  * defaulting to `info`).
                  */
-                level?: Level|string;
+                level?: Level | string;
                 /**
                  * Remotely record log messages.
                  *
                  * @description Called after writing the log message.
                  */
                 send: (level: Level, logEvent: LogEvent) => void;
-            }
+            };
         };
         /**
          * key-value object added as child logger to each log line. If set to null the base child logger is not added
@@ -440,6 +462,10 @@ declare namespace P {
          * The key in the JSON object to use for timestamp display. Default: "time".
          */
         timestampKey?: string;
+        /**
+         * Format output of message, e.g. {level} - {pid} will output message: INFO - 1123 Default: `false`.
+         */
+        messageFormat?: false | string;
         /**
          * If set to true, will add color information to the formatted output message. Default: `false`.
          */

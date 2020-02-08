@@ -41,6 +41,8 @@ export interface Options {
 
     /** the length of the progress bar in chars (default: 40) */
     barsize?: number;
+    /**  position of the progress bar - 'left' (default), 'right' or 'center  */
+    align?: 'left' | 'right' | 'center';
 
     /** character to use as "complete" indicator in the bar (default: "=") */
     barCompleteString?: string;
@@ -54,8 +56,11 @@ export interface Options {
     /** character to use as "incomplete" indicator in the bar (default: "-") */
     barIncompleteChar?: string;
 
-    /** hide the cursor during progress operation; restored on complete (default: false) */
-    hideCursor?: boolean;
+    /**
+     * hide the cursor during progress operation; restored on complete (default: false)
+     * - pass `null` to keep terminal settings
+     */
+    hideCursor?: boolean | null;
 
     /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number;
@@ -117,7 +122,7 @@ export class SingleBar {
     getTotal(): any;
 
     /** Increases the current progress value by a specified amount (default +1). Update payload optionally */
-    increment(step: number, payload?: object): void;
+    increment(step?: number, payload?: object): void;
 
     render(): void;
 

@@ -155,7 +155,7 @@ num = albRes.statusCode;
 str = albRes.statusDescription;
 boolOrNumOrStr = albRes.headers!['example'];
 boolOrNumOrStr = albRes.multiValueHeaders!['example'][0];
-str = albRes.body;
+strOrUndefined = albRes.body;
 bool = albRes.isBase64Encoded;
 
 /* API Gateway CustomAuthorizer Event */
@@ -320,37 +320,19 @@ statement = {
 };
 
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: 123,
-};
+statement = { Effect: str, Action: str, Principal: 123, };
 
 // Bad Resource
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Resource: 123,
-};
+statement = { Effect: str, Action: str, Resource: 123, };
 
 // Bad Resource with valid Principal
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: { Service: str },
-    Resource: 123,
-};
+statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123, };
 
 // Bad principal with valid Resource
 // $ExpectError
-statement = {
-    Effect: str,
-    Action: str,
-    Principal: 123,
-    Resource: str,
-};
+statement = { Effect: str, Action: str, Principal: 123, Resource: str, };
 
 // No Effect
 // $ExpectError

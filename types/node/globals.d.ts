@@ -164,8 +164,8 @@ declare function clearImmediate(immediateId: NodeJS.Immediate): void;
 
 declare function queueMicrotask(callback: () => void): void;
 
-declare var require: NodeJS.Require;
-declare var module: NodeJS.Module;
+declare var require: NodeRequire;
+declare var module: NodeModule;
 
 // Same as module.exports
 declare var exports: any;

@@ -1,4 +1,4 @@
-import { Module } from 'module';
+import Module = require('module');
 import { URL } from 'url';
 require.extensions[".ts"] = () => "";
 
@@ -10,6 +10,7 @@ const m2: Module = new Module("moduleId");
 const b: string[] = Module.builtinModules;
 let paths: string[] = [];
 paths = m1.paths;
+m1 instanceof Module;
 
 Module.createRequireFromPath('./test')('test');
 
@@ -41,3 +42,17 @@ const cachedModule2: Module = customRequire2.cache['/path/to/module.js'];
 
 const main1: Module | undefined = customRequire1.main;
 const main2: Module | undefined = customRequire2.main;
+
+Module.syncBuiltinESMExports();
+
+const smap = new Module.SourceMap({
+    file: 'test.js',
+    mappings: 'ASDASd',
+    names: [],
+    sourceRoot: '/',
+    sources: [],
+    version: 3,
+    sourcesContent: [],
+});
+const pl: Module.SourceMapPayload = smap.payload;
+const entry: Module.SourceMapping = smap.findEntry(1, 1);

@@ -194,6 +194,10 @@ export interface MUIDataTableOptions {
     filter?: boolean;
     filterType?: FilterType;
     fixedHeader?: boolean;
+    fixedHeaderOptions?: {
+        xAxis: boolean;
+        yAxis: boolean;
+    };
     isRowExpandable?: (dataIndex: number, expandedRows?: MUIDataTableIsRowCheck) => boolean;
     isRowSelectable?: (dataIndex: number, selectedRows?: MUIDataTableIsRowCheck) => boolean;
     onCellClick?: (
