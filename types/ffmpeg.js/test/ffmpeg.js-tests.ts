@@ -17,6 +17,16 @@ ffmpeg({
 });
 
 ffmpeg({
+    MEMFS: [],
+    TOTAL_MEMORY: 512 * 1024 * 1024,
+    arguments: ['-framerate'],
+    stdin: () => {},
+    print: () => {},
+    printErr: () => {},
+    onExit: (c: number) => (c)
+});
+
+ffmpeg({
     MEMFS: [{name: "test.webm", data: testData}],
     arguments: ["-i", "test.webm", "-c:v", "libvpx", "-an", "out.webm"],
     stdin: () => {},

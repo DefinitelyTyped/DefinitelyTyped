@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EmbeddedTooltipProps } from "../../../typings/shared";
+import { EmbeddedTooltipProps, RefForwardingProps } from "../../../typings/shared";
 import { TextInputInheritedProps } from "./props";
 
 interface InheritedProps extends TextInputInheritedProps, EmbeddedTooltipProps { }

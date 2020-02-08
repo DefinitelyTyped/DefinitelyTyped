@@ -72,6 +72,9 @@ var client_id = '',
         // View the profile photos of people in your classes
         'https://www.googleapis.com/auth/classroom.profile.photos',
     
+        // Receive notifications about your Google Classroom data
+        'https://www.googleapis.com/auth/classroom.push-notifications',
+    
         // Manage your Google Classroom class rosters
         'https://www.googleapis.com/auth/classroom.rosters',
     
@@ -83,13 +86,19 @@ var client_id = '',
     
         // View course work and grades for students in the Google Classroom classes you teach or administer
         'https://www.googleapis.com/auth/classroom.student-submissions.students.readonly',
+    
+        // See, create, and edit topics in Google Classroom
+        'https://www.googleapis.com/auth/classroom.topics',
+    
+        // View topics in Google Classroom
+        'https://www.googleapis.com/auth/classroom.topics.readonly',
     ],
     immediate = true;
 // ...
 
 gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }, authResult => {
     if (authResult && !authResult.error) {
-        /* handle succesfull authorization */
+        /* handle successful authorization */
     } else {
         /* handle authorization error */
     }
@@ -253,7 +262,7 @@ await gapi.client.invitations.list({  });
     
 /* 
 Creates a `Registration`, causing Classroom to start sending notifications
-from the provided `feed` to the provided `destination`.
+from the provided `feed` to the destination provided in `cloudPubSubTopic`.
 
 Returns the created `Registration`. Currently, this will be the same as
 the argument, but with server-assigned fields such as `expiry_time` and
@@ -262,27 +271,27 @@ the argument, but with server-assigned fields such as `expiry_time` and
 Note that any value specified for the `expiry_time` or `id` fields will be
 ignored.
 
-While Classroom may validate the `destination` and return errors on a best
-effort basis, it is the caller's responsibility to ensure that it exists
-and that Classroom has permission to publish to it.
+While Classroom may validate the `cloudPubSubTopic` and return errors on a
+best effort basis, it is the caller's responsibility to ensure that it
+exists and that Classroom has permission to publish to it.
 
 This method may return the following error codes:
 
 * `PERMISSION_DENIED` if:
     * the authenticated user does not have permission to receive
       notifications from the requested field; or
-    * the credential provided does not include the appropriate scope for the
-      requested feed.
+    * the credential provided does not include the appropriate scope for
+      the requested feed.
     * another access error is encountered.
 * `INVALID_ARGUMENT` if:
-    * no `destination` is specified, or the specified `destination` is not
-      valid; or
+    * no `cloudPubsubTopic` is specified, or the specified
+      `cloudPubsubTopic` is not valid; or
     * no `feed` is specified, or the specified `feed` is not valid.
 * `NOT_FOUND` if:
-    * the specified `feed` cannot be located, or the requesting user does not
-      have permission to determine whether or not it exists; or
-    * the specified `destination` cannot be located, or Classroom has not
-      been granted permission to publish to it.  
+    * the specified `feed` cannot be located, or the requesting user does
+      not have permission to determine whether or not it exists; or
+    * the specified `cloudPubsubTopic` cannot be located, or Classroom has
+      not been granted permission to publish to it.  
 */
 await gapi.client.registrations.create({  }); 
     

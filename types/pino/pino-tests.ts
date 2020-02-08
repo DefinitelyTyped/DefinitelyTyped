@@ -165,9 +165,11 @@ const pretty = pino({
 		crlf: false,
 		errorLikeObjectKeys: ['err', 'error'],
 		errorProps: '',
+		messageFormat: false,
+		ignore: '',
 		levelFirst: false,
 		messageKey: 'msg',
-		timestampKey: "timestamp",
+		timestampKey: 'timestamp',
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
