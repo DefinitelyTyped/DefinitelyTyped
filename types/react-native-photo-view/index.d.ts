@@ -2,7 +2,7 @@
 // Project: https://github.com/alwx/react-native-photo-view
 // Definitions by: Christian Chown <https://github.com/christianchown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { ImageSourcePropType, ViewProps } from 'react-native';
@@ -22,9 +22,9 @@ export interface ReactNativePhotoViewProps {
     onLoad?: () => void;
     onLoadEnd?: () => void;
     onProgress?: (loaded: number, total: number) => void;
-    onTap?: (point: {x: number, y: number}, target?: React.ReactElement<any>) => void;
-    onViewTap?: (point: {x: number, y: number}, target?: React.ReactElement<any>) => void;
-    onScale?: (scale: number, target?: React.ReactElement<any>) => void;
+    onTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
+    onViewTap?: (point: {x: number, y: number}, target?: React.ReactElement) => void;
+    onScale?: (scale: number, target?: React.ReactElement) => void;
 }
 
 export default class ReactNativePhotoView extends React.Component<ReactNativePhotoViewProps & ViewProps> {}

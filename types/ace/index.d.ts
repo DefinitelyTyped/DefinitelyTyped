@@ -549,6 +549,16 @@ declare namespace AceAjax {
         getFoldsInRange(range: Range): any;
 
         highlight(text: string): void;
+        
+        
+        /**
+         * Highlight lines from `startRow` to `EndRow`.
+         * @param startRow Define the start line of the highlight
+         * @param endRow Define the end line of the highlight
+         * @param clazz Set the CSS class for the marker
+         * @param inFront Set to `true` to establish a front marker
+        **/
+        highlightLines(startRow:number, endRow: number, clazz: string, inFront: boolean): Range;
 
         /**
          * Sets the `EditSession` to point to a new `Document`. If a `BackgroundTokenizer` exists, it also points to `doc`.
@@ -1223,7 +1233,7 @@ declare namespace AceAjax {
         /**
          * Returns `true` if the current `textInput` is in focus.
         **/
-        isFocused(): void;
+        isFocused(): boolean;
 
         /**
          * Blurs the current `textInput`.

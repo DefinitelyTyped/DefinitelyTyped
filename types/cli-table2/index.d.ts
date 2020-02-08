@@ -31,7 +31,7 @@ declare namespace CliTable2 {
         rowHeights: Array<number | null>;
         colAligns: HorizontalAlignment[];
         rowAligns: VerticalAlignment[];
-        head: string[];
+        head: Cell[];
         wordWrap: boolean;
     }
 

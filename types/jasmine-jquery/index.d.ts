@@ -2,7 +2,7 @@
 // Project: https://github.com/velesin/jasmine-jquery
 // Definitions by: Gregor Stamac <https://github.com/gstamac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jasmine"/>
 /// <reference types="jquery"/>

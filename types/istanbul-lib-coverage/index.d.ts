@@ -1,14 +1,27 @@
-// Type definitions for istanbul-lib-coverage 1.1
-// Project: https://github.com/istanbuljs/istanbuljs
+// Type definitions for istanbul-lib-coverage 2.0
+// Project: https://istanbul.js.org, https://github.com/istanbuljs/istanbuljs
 // Definitions by: Jason Cheatham <https://github.com/jason0x43>
+//                 Lorenzo Rapetti <https://github.com/loryman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-export interface CoverageSummary {
+export interface CoverageSummaryData {
+    lines: Totals;
+	statements: Totals;
+	branches: Totals;
+    functions: Totals;
+}
+
+export class CoverageSummary {
+    constructor(data: CoverageSummary | CoverageSummaryData);
+    merge(obj: CoverageSummary): CoverageSummary;
+    toJSON(): CoverageSummaryData;
+    isEmpty(): boolean;
+    data: CoverageSummaryData;
 	lines: Totals;
 	statements: Totals;
 	branches: Totals;
-	functions: Totals;
+    functions: Totals;
 }
 
 export interface CoverageMapData {
@@ -16,13 +29,14 @@ export interface CoverageMapData {
 }
 
 export class CoverageMap {
-	constructor(data: CoverageMapData);
-	addFileCoverage(pathOrObject: string | FileCoverageData): void;
+	constructor(data: CoverageMapData | CoverageMap);
+	addFileCoverage(pathOrObject: string | FileCoverage | FileCoverageData): void;
 	files(): string[];
 	fileCoverageFor(filename: string): FileCoverage;
-	filter(callback: (key: string) => boolean): void;
+    filter(callback: (key: string) => boolean): void;
+    getCoverageSummary(): CoverageSummary;
 	merge(data: CoverageMapData | CoverageMap): void;
-	toJSON(): object;
+	toJSON(): CoverageMapData;
 	data: CoverageMapData;
 }
 
@@ -74,7 +88,7 @@ export interface Coverage {
 }
 
 export class FileCoverage implements FileCoverageData {
-	constructor(data: string | FileCoverageData);
+	constructor(data: string | FileCoverage | FileCoverageData);
 	merge(other: FileCoverageData): void;
 	getBranchCoverageByLine(): { [line: number]: Coverage };
 	getLineCoverage(): { [line: number]: number };
@@ -100,5 +114,5 @@ export const classes: {
 };
 
 export function createCoverageMap(data?: CoverageMap | CoverageMapData): CoverageMap;
-export function createCoverageSummary(obj?: CoverageSummary): CoverageSummary;
-export function createFileCoverage(pathOrObject: string | FileCoverageData): FileCoverage;
+export function createCoverageSummary(obj?: CoverageSummary | CoverageSummaryData): CoverageSummary;
+export function createFileCoverage(pathOrObject: string | FileCoverage | FileCoverageData): FileCoverage;

@@ -102,7 +102,7 @@ circles = select<SVGSVGElement, any>('svg')
     .selectAll()
     .data(startCircleData)
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -114,7 +114,7 @@ circles = circles
 
 const enterCircles = circles
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .classed('big', d => d.r > 10)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
@@ -421,6 +421,9 @@ if (listener) {
 // remove listener
 enterTransition = enterTransition.on('end', null); // check chaining return type by re-assigning
 
+// check end method exists
+enterTransition.end();
+
 // --------------------------------------------------------------------------
 // Test Control Flow
 // --------------------------------------------------------------------------
@@ -513,5 +516,11 @@ updateTransitionActive = d3Transition.active<SVGCircleElement, CircleDatum, SVGS
 
 // interrupt(...) ----------------------------------------------------------
 
-d3Transition.interrupt(topTransition.selection().node());
-d3Transition.interrupt(topTransition.selection().node(), 'top');
+const topSelection = topTransition.selection();
+const topNode = topSelection.node();
+
+d3Transition.interrupt(topNode);
+d3Transition.interrupt(topNode, 'top');
+
+// test selection interrupt
+topSelection.interrupt().selectAll('*').interrupt();

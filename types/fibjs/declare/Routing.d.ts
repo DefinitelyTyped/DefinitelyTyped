@@ -34,7 +34,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	constructor(map?: Object/** = v8::Object::New(isolate)*/);
+	constructor(map?: object/** = v8::Object::New(isolate)*/);
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	constructor(method: string, map: Object);
+	constructor(method: string, map: object);
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	append(map: Object): Class_Routing;
+	append(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -103,7 +103,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	all(map: Object): Class_Routing;
+	all(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -126,7 +126,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	get(map: Object): Class_Routing;
+	get(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -149,7 +149,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	post(map: Object): Class_Routing;
+	post(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -172,7 +172,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	del(map: Object): Class_Routing;
+	del(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -195,7 +195,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	put(map: Object): Class_Routing;
+	put(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -218,7 +218,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	patch(map: Object): Class_Routing;
+	patch(map: object): Class_Routing;
 
 	/**
 	 * 
@@ -241,7 +241,7 @@ declare class Class_Routing extends Class_Handler {
 	 * 
 	 * 
 	 */
-	find(map: Object): Class_Routing;
+	find(map: object): Class_Routing;
 
 	/**
 	 * 

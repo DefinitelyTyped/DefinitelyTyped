@@ -31,6 +31,11 @@ bucket.manager().createPrimaryIndex(function() {
     });
 });
 
+// Ensure bucket.upsert is composable with normal callbacks
+function composable(callback: (err?: Error) => void) {
+    bucket.upsert('key', {value: 1}, callback);
+}
+
 // From https://developer.couchbase.com/documentation/server/current/sdk/nodejs/n1ql-queries-with-sdk.html
 function n1ql_a() {
     const n1qlquery = N1qlQuery.fromString('SELECT name, email FROM users WHERE name=$1');

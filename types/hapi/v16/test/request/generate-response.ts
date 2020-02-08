@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#requestgenerateresponsesource-options
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 
 // Added in addition to code from docs
 function promiseMethod() {

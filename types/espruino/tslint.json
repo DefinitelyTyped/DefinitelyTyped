@@ -1,4 +1,4 @@
-{ 
+{
     "extends": "dtslint/dt.json",
     "rules": {
         "strict-export-declare-modifiers": false,
@@ -10,6 +10,7 @@
         "interface-name": false,
         "no-misused-new": false,
         "no-consecutive-blank-lines": false,
-        "no-var-keyword": false
+        "no-var-keyword": false,
+        "npm-naming": false
     }
 }

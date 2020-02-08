@@ -196,16 +196,8 @@ fz.filter(['Maybe', 'Me'], 'me', { key: true })
 // $ExpectError
 fz.filter(['Maybe', 'Me'], 'me', { preparedQuery: {} })
 // $ExpectError
-fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', {
-    key: 1
-})
+fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { key: 1 })
 // $ExpectError
-fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', {
-    allowErrors: 'not a boolean',
-    key: 1
-})
+fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 1 })
 // $ExpectError
-fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', {
-    allowErrors: 'not a boolean',
-    key: 'title'
-})
+fz.filter([{ title: 'Maybe' }, { title: 'Me' }], 'me', { allowErrors: 'not a boolean', key: 'title' })

@@ -219,7 +219,7 @@ declare module "timers" {
 		 * 
 		 * 
 		 */
-		export function setTimeout(callback: Function, timeout: number, ...args: any[]): Class_Timer;
+		export function setTimeout(callback: Function, timeout?: number/** = 1*/, ...args: any[]): Class_Timer;
 	
 		/**
 		 * 
@@ -312,6 +312,19 @@ declare module "timers" {
 		 * 
 		 */
 		export function clearImmediate(t: any): void;
+	
+		/**
+		 * 
+		 * @brief 调用给定的函数，并在超时时间到期时中断函数运行
+		 * @param func 指定要运行的函数
+		 * @param timeout 指定超时时间
+		 * @param args 额外的参数，传入到指定的 callback 内，可选。
+		 * @return 返回 func 的运行结果
+		 * 
+		 * 
+		 * 
+		 */
+		export function call(func: Function, timeout: number, ...args: any[]): any;
 	
 	} /** end of `module timers` */
 	export = timers

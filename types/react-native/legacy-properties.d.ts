@@ -13,9 +13,6 @@ import {
     ViewPropsAndroid,
     ToolbarAndroidProps,
     ViewPagerAndroidProps,
-    WebViewProps,
-    WebViewPropsIOS,
-    WebViewPropsAndroid,
     SegmentedControlIOSProps,
     ScrollViewProps,
     ScrollViewPropsIOS,
@@ -51,7 +48,6 @@ import {
     VirtualizedListProps,
     SectionListProps,
     ListViewProps,
-    MapViewProps,
     MaskedViewIOSProps,
     ModalProps,
     TouchableWithoutFeedbackProps,
@@ -66,10 +62,10 @@ import {
     StatusBarPropsIOS,
     StatusBarPropsAndroid,
     SwitchProps,
-    SwitchPropsIOS
-} from "react-native";
+    SwitchPropsIOS,
+} from 'react-native';
 
-declare module "react-native" {
+declare module 'react-native' {
     /*
      * Previously, props interfaces where named *Properties
      * They have been renamed to *Props to match React Native documentation
@@ -117,15 +113,6 @@ declare module "react-native" {
 
     /** @deprecated Use ViewPagerAndroidProps */
     export type ViewPagerAndroidProperties = ViewPagerAndroidProps;
-
-    /** @deprecated Use WebViewProps */
-    export type WebViewProperties = WebViewProps;
-
-    /** @deprecated Use WebViewPropsIOS */
-    export type WebViewPropertiesIOS = WebViewPropsIOS;
-
-    /** @deprecated Use WebViewPropsAndroid */
-    export type WebViewPropertiesAndroid = WebViewPropsAndroid;
 
     /** @deprecated Use SegmentedControlIOSProps */
     export type SegmentedControlIOSProperties = SegmentedControlIOSProps;
@@ -231,9 +218,6 @@ declare module "react-native" {
 
     /** @deprecated Use ListViewProps */
     export type ListViewProperties = ListViewProps;
-
-    /** @deprecated Use MapViewProps */
-    export type MapViewProperties = MapViewProps;
 
     /** @deprecated Use MaskedViewIOSProps */
     export type MaskedViewIOSProperties = MaskedViewIOSProps;

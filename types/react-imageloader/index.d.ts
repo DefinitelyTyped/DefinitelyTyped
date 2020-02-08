@@ -2,7 +2,7 @@
 // Project: https://github.com/hzdg/react-imageloader
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 /// <reference types="react" />
 
@@ -21,7 +21,7 @@ declare module "react-imageloader" {
       onLoad?: (event: any) => void;
 
       /** An optional function that returns a React element to be shown while the image loads. */
-      preloader?: (params: any) => React.ReactElement<any>;
+      preloader?: (params: any) => React.ReactElement;
 
       /** The URL of the image to be loaded. */
       src: string;
@@ -30,7 +30,7 @@ declare module "react-imageloader" {
       style?: React.CSSProperties;
 
       /** A function that takes a props argument and returns a React element to be used as the wrapper component. Defaults to React.DOM.span. */
-      wrapper?: (props: any) => React.ReactElement<any>;
+      wrapper?: (props: any) => React.ReactElement;
   }
 
   class ImageLoader extends React.Component<ImageLoaderProps> {}

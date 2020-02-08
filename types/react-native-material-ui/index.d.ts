@@ -1,11 +1,14 @@
-// Type definitions for react-native-material-ui 1.19
+// Type definitions for react-native-material-ui 1.32
 // Project: https://github.com/xotahal/react-native-material-ui
 // Definitions by: Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { ViewStyle, TextStyle, Image } from 'react-native';
+import { StyleProp, ViewStyle as ViewStyleRaw, TextStyle as TextStyleRaw, Image } from 'react-native';
+
+export type ViewStyle = StyleProp<ViewStyleRaw>;
+export type TextStyle = StyleProp<TextStyleRaw>;
 
 export interface ActionButtonProps {
     actions?: string[] | JSX.Element[] | Array<{
@@ -82,6 +85,7 @@ export interface BottomNavigationProps {
 export class BottomNavigation extends Component<BottomNavigationProps, any> {}
 
 export interface BottomNavigationAction {
+    testID?: string;
     icon: JSX.Element | string;
     label?: string;
     key?: string;
@@ -100,6 +104,7 @@ export namespace BottomNavigation {
 }
 
 export interface ButtonProps {
+    testID?: string;
     text: string;
     primary?: boolean;
     accent?: boolean;
@@ -317,6 +322,7 @@ export interface IconProps {
 export class Icon extends Component<IconProps, any> {}
 
 export interface IconToggleProps {
+    testID?: string;
     color?: string;
     underlayColor?: string;
     maxOpacity?: number;
@@ -361,6 +367,7 @@ export interface ListItemStyle {
 }
 
 export interface ListItemProps {
+    testID?: string;
     numberOfLines?: 1 | 2 | 3 | 'dynamic';
     leftElement?: JSX.Element | string;
     rightElement?: JSX.Element | string;
@@ -489,16 +496,6 @@ export interface RippleFeedbackProps {
  * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/RippleFeedback/RippleFeedback.react.js
  */
 export class RippleFeedback extends Component<RippleFeedbackProps, any> {}
-
-export interface ThemeProviderProps {
-    uiTheme: {};
-    children: JSX.Element;
-}
-
-/**
- * @see https://github.com/xotahal/react-native-material-ui/blob/master/src/styles/ThemeProvider.react.js
- */
-export class ThemeProvider extends Component<ThemeProviderProps, any> {}
 
 export interface Color {
     red50: string;
@@ -762,3 +759,23 @@ export interface Color {
 }
 
 export const COLOR: Color;
+
+export interface ThemeProps {
+    theme: {};
+}
+
+export interface ThemeProviderProps {
+    value: {};
+    children: React.ReactElement;
+}
+
+export interface ThemeConsumerProps {
+    children(props: ThemeProps): React.ReactElement;
+}
+
+export namespace ThemeContext {
+    class Provider extends Component<ThemeProviderProps> {}
+    class Consumer extends Component<ThemeConsumerProps> {}
+}
+
+export function getTheme(theme: {}): {};

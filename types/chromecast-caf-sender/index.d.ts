@@ -1,8 +1,8 @@
-// Type definitions for Cast Application Framework Sender API 1.0
+// Type definitions for non-npm package Cast Application Framework Sender API 1.0
 // Project: https://developers.google.com/cast/docs/caf_receiver_overview
 // Definitions by: Samuel Maddock <https://github.com/samuelmaddock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 /// <reference types="chrome/chrome-cast" />
 
@@ -11,6 +11,7 @@
 ////////////////////
 interface Window {
   cast: typeof cast;
+  __onGCastApiAvailable(available: boolean): void;
 }
 
 ////////////////////
@@ -74,7 +75,8 @@ declare namespace cast.framework {
     DISPLAY_STATUS_CHANGED = "displayStatusChanged",
     MEDIA_INFO_CHANGED = "mediaInfoChanged",
     IMAGE_URL_CHANGED = "imageUrlChanged",
-    PLAYER_STATE_CHANGED = "playerStateChanged"
+    PLAYER_STATE_CHANGED = "playerStateChanged",
+    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRange"
   }
 
   enum ActiveInputState {
@@ -235,6 +237,7 @@ declare namespace cast.framework {
     statusText: string;
     title: string;
     displayStatus: string;
+    liveSeekableRange?: chrome.cast.media.LiveSeekableRange;
     mediaInfo?: chrome.cast.media.MediaInfo;
     imageUrl: string | null;
     playerState: chrome.cast.media.PlayerState | null;

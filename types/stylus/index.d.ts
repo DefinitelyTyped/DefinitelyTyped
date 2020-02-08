@@ -1,10 +1,12 @@
 // Type definitions for stylus 0.48
-// Project: https://github.com/LearnBoost/stylus
+// Project: https://github.com/stylus/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
+
+import { EventEmitter } from 'events';
 
 declare var stylus: Stylus.Static;
 export = stylus;
@@ -635,7 +637,7 @@ declare namespace Stylus {
     export class Compiler {
     }
 
-    export class Renderer extends NodeJS.EventEmitter {
+    export class Renderer extends EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;

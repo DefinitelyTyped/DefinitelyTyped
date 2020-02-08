@@ -19,7 +19,6 @@
         "noUnusedLocals": true
     },
     "files": [
-        "async.d.ts",
         "index.d.ts",
         "redux-persist-transform-encrypt-tests.ts"
     ]

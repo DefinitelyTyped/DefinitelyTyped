@@ -2,7 +2,7 @@
 // Project: https://github.com/LouisBarranqueiro/reapop#readme
 // Definitions by: Barrokgl <https://github.com/Barrokgl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from 'react';
 import { Dispatch } from 'redux';

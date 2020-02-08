@@ -1,6 +1,8 @@
 // Type definitions for mjml 4.0
-// Project: https://github.com/mjmlio/mjml
+// Project: https://github.com/mjmlio/mjml, https://mjml.io
 // Definitions by: aahoughton <https://github.com/aahoughton>
+//                 marpstar   <https://github.com/marpstar>
+//                 eiskalteschatten   <https://github.com/eiskalteschatten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MJMLParsingOpts {
@@ -9,7 +11,7 @@ interface MJMLParsingOpts {
     beautify?: boolean;
     minify?: boolean;
     validationLevel?: 'strict' | 'soft' | 'skip';
-    filePath?: boolean;
+    filePath?: string;
 }
 
 interface MJMLParseError {
@@ -24,6 +26,13 @@ interface MJMLParseResults {
     errors: MJMLParseError[];
 }
 
-declare function mjml2html(inp: string, opts?: MJMLParsingOpts): MJMLParseResults;
+interface MJMLJsonObject {
+    tagName: string;
+    attributes: object;
+    children?: MJMLJsonObject[];
+    content?: string;
+}
+
+declare function mjml2html(inp: string | MJMLJsonObject, opts?: MJMLParsingOpts): MJMLParseResults;
 
 export = mjml2html;

@@ -37,7 +37,6 @@ declare namespace NPM {
     //#region Commands Interfaces
 
     export interface Commands {
-        // Commands
         install: CommandFunction;
         uninstall: CommandFunction;
         cache: CommandFunction;
@@ -68,7 +67,6 @@ declare namespace NPM {
         "help-search": CommandFunction;
         ls: CommandFunction;
         search: CommandFunction;
-        view: CommandFunction;
         init: CommandFunction;
         version: CommandFunction;
         edit: CommandFunction;
@@ -81,6 +79,16 @@ declare namespace NPM {
         prefix: CommandFunction;
         bin: CommandFunction;
         whoami: CommandFunction;
+
+        // view and its aliases
+        view(args: string[], callback: CommandCallback): void;
+        view(args: string[], silent: boolean, callback: CommandCallback): void;
+        info(args: string[], callback: CommandCallback): void;
+        info(args: string[], silent: boolean, callback: CommandCallback): void;
+        show(args: string[], callback: CommandCallback): void;
+        show(args: string[], silent: boolean, callback: CommandCallback): void;
+        v(args: string[], callback: CommandCallback): void;
+        v(args: string[], silent: boolean, callback: CommandCallback): void;
 
         test: CommandFunction;
         stop: CommandFunction;
@@ -103,8 +111,6 @@ declare namespace NPM {
         isntall: CommandFunction;          // install
         up: CommandFunction;               // update
         c: CommandFunction;                // config
-        info: CommandFunction;             // view
-        show: CommandFunction;             // view
         find: CommandFunction;             // search
         s: CommandFunction;                // search
         se: CommandFunction;               // search
@@ -119,7 +125,7 @@ declare namespace NPM {
         t: CommandFunction;                // test
         "find-dupes": CommandFunction;     // dedupe
         ddp: CommandFunction;              // dedupe
-        v: CommandFunction;                // view
+
 
         // plumbing
         build: CommandFunction;
@@ -129,11 +135,9 @@ declare namespace NPM {
         visnup: CommandFunction;
 
     }
-
     export interface CommandFunction {
         (args: string[], callback: CommandCallback): void;
     }
-
     export interface CommandCallback {
         (err?: Error, result?: any, result2?: any, result3?: any, result4?: any): void;
     }
@@ -167,8 +171,8 @@ declare namespace NPM {
         Conf: ConfigStatic;
         defs: ConfigDefs;
 
-        get(setting: string): string;
-        set(setting: string, value: string): void;
+        get(setting: string): any;
+        set(setting: string, value: any): void;
 
         loadPrefix(cb: ErrorCallback): void;
         loadCAFile(caFilePath: string, cb: ErrorCallback): void;

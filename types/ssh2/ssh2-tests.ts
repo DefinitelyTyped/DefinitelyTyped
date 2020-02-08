@@ -313,7 +313,8 @@ var buffersEqual = require('buffer-equal-constant-time'),
     //ssh2 = require('ssh2'),
     utils = ssh2.utils;
 
-var pubKey = utils.genPublicKey(<ssh2_streams.ParsedKey>utils.parseKey(fs.readFileSync('user.pub')));
+var pubKey = utils.parseKey(fs.readFileSync('user.pub')) as ssh2_streams.ParsedKey;
+var pubKeySSH = Buffer.from(pubKey.getPublicSSH());
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]
@@ -326,15 +327,14 @@ new ssh2.Server({
             && ctx.password === 'bar')
             ctx.accept();
         else if (ctx.method === 'publickey'
-            && ctx.key.algo === pubKey.fulltype
-            && buffersEqual(ctx.key.data, pubKey.public)) {
+            && ctx.key.algo === pubKey.type
+            && buffersEqual(ctx.key.data, pubKeySSH)) {
             if (ctx.signature) {
-                var verifier = crypto.createVerify(ctx.sigAlgo);
-                verifier.update(ctx.blob);
-                if (verifier.verify(pubKey.publicOrig.toString("utf8"), ctx.signature))
+                if (pubKey.verify(ctx.blob, ctx.signature)) {
                     ctx.accept();
-                else
+                } else {
                     ctx.reject();
+                }
             } else {
                 // if no signature present, that means the client is just checking
                 // the validity of the given public key
@@ -359,7 +359,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 
@@ -402,11 +402,11 @@ new ssh2.Server({
                     // the file on the disk
                     var handle = new Buffer(4);
                     openFiles.add(handleCount);
-                    handle.writeUInt32BE(handleCount++, 0, true);
+                    handle.writeUInt32BE(handleCount++, 0);
                     sftpStream.handle(reqid, handle);
                     console.log('Opening file for write')
                 }).on('WRITE', (reqid: any, handle: any, offset: any, data: any) => {
-                    if (handle.length !== 4 || !openFiles.has(handle.readUInt32BE(0, true)))
+                    if (handle.length !== 4 || !openFiles.has(handle.readUInt32BE(0)))
                         return sftpStream.status(reqid, STATUS_CODE.FAILURE);
                     // fake the write
                     sftpStream.status(reqid, STATUS_CODE.OK);
@@ -414,7 +414,7 @@ new ssh2.Server({
                     console.log('Write to file at offset %d: %s', offset, inspected);
                 }).on('CLOSE', (reqid: any, handle: any) => {
                     var fnum: any;
-                    if (handle.length !== 4 || !openFiles.has((fnum = handle.readUInt32BE(0, true))))
+                    if (handle.length !== 4 || !openFiles.has((fnum = handle.readUInt32BE(0))))
                         return sftpStream.status(reqid, STATUS_CODE.FAILURE);
                     openFiles.delete(fnum);
                     sftpStream.status(reqid, STATUS_CODE.OK);
@@ -425,7 +425,7 @@ new ssh2.Server({
     }).on('end', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', () => {
+}).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
 

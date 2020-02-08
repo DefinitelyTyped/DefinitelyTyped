@@ -14,10 +14,11 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     },
     "files": [
         "index.d.ts",
-        "hoist-non-react-statics-tests.ts"
+        "hoist-non-react-statics-tests.tsx"
     ]
 }

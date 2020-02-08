@@ -1,6 +1,6 @@
 // Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>
+// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -51,10 +51,15 @@ export interface ClientOptions {
 }
 
 export interface SearchOptions {
-	scope?: string;
+	/** Defaults to base */
+	scope?: "base" | "one" | "sub";
+	/**  Defaults to (objectclass=*) */
 	filter?: string | Filter;
-	attributes?: string[];
+	/** Defaults to the empty set, which means all attributes */
+	attributes?: string | string[];
+	/** Defaults to 0 (unlimited) */
 	sizeLimit?: number;
+	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */
 	timeLimit?: number;
 	derefAliases?: number;
 	typesOnly?: boolean;
@@ -75,8 +80,19 @@ export var Change: {
 	new(change: Change): Change;
 }
 
+export type SearchReference = any;
+
+export interface SearchCallbackResponse extends EventEmitter {
+    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
+    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
+    on(event: "page", listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (res: LDAPResult | null) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+}
+
 export interface SearchCallBack {
-	(error: Error, result: EventEmitter): void;
+    (error: Error | null, result: SearchCallbackResponse): void;
 }
 
 export type Control = any;
@@ -191,7 +207,7 @@ export interface Client extends EventEmitter {
 	 * objects or a filter string as the filter option.
 	 *
 	 * Note that this method is 'special' in that the callback 'res' param will
-	 * have two important events on it, namely 'entry' and 'end' that you can hook
+	 * have two important events on it, namely 'searchEntry' and 'end' that you can hook
 	 * to.  The former will emit a SearchEntry object for each record that comes
 	 * back, and the latter will emit a normal LDAPResult object.
 	 *
@@ -239,6 +255,109 @@ export interface Client extends EventEmitter {
 
 export function createClient(options?: ClientOptions): Client;
 
+export function createServer(options?: ServerOptions): Server;
+
+/**
+ * @param log	You can optionally pass in a bunyan instance the client will use to acquire a logger.
+ * @param certificate	A PEM-encoded X.509 certificate; will cause this server to run in TLS mode.
+ * @param key	A PEM-encoded private key that corresponds to certificate for SSL.
+ */
+export interface ServerOptions {
+	log?: any;
+	certificate?: any;
+	key?: any;
+}
+export interface Server extends EventEmitter {
+
+	/**
+	 * Set this property to reject connections when the server's connection count gets high.
+	 */
+	maxConnections: number;
+
+	/**
+	 * The number of concurrent connections on the server. (getter only)
+	 */
+	connections(): number;
+
+	/**
+	 * Returns the fully qualified URL this server is listening on. For example: ldaps://10.1.2.3:1636. If you haven't yet called listen, it will always return ldap://localhost:389.
+	 */
+	url: string;
+
+	/**
+	 * Port and Host
+	 * Begin accepting connections on the specified port and host. If the host is omitted, the server will accept connections directed to any IPv4 address (INADDR_ANY).
+	 * This function is asynchronous. The last parameter callback will be called when the server has been bound.
+	 */
+	listen(port: number): void;
+	listen(port: number, callback: any): void;
+	listen(port: number, host: string): void;
+	listen(port: number, host: string, callback: any): void;
+
+	/**
+	 * Unix Domain Socket
+	 * Start a UNIX socket server listening for connections on the given path.
+	 * This function is asynchronous. The last parameter callback will be called when the server has been bound.
+	 */
+	listen(path: string): void;
+	listen(path: string, callback: any): void;
+
+	/**
+	 * File descriptor
+	 * Start a server listening for connections on the given file descriptor.
+	 * This file descriptor must have already had the bind(2) and listen(2) system calls invoked on it. Additionally, it must be set non-blocking; try fcntl(fd, F_SETFL, O_NONBLOCK).
+	 */
+	listenFD(fileDescriptor: any): void;
+
+	bind(mount: string, ...cbHandlers: any[]): void;
+	add(mount: string, ...cbHandlers: any[]): void;
+
+	search(ditHook: string, ...cbHandlers: any[]): void;
+
+	modify(ditHook: string, ...cbHandlers: any[]): void;
+
+	del(ditHook: string, ...cbHandlers: any[]): void;
+
+	compare(ditHook: string, ...cbHandlers: any[]): void;
+
+	modifyDN(ditHook: string, ...cbHandlers: any[]): void;
+
+	exop(arbitraryHook: string, ...cbHandlers: any[]): void;
+
+	unbind(...cbHandlers: any[]): void;
+}
+export class SearchRequest {
+	baseObject: string;
+	scope: "base"|"one"|"sub";
+	derefAliases: number;
+	sizeLimit: number;
+	timeLimit: number;
+	typesOnly: boolean;
+	filter: any;
+	attributes?: any;
+}
+export class InsufficientAccessRightsError {
+	constructor(error?: string);
+}
+export class InvalidCredentialsError {
+	constructor(error?: string);
+}
+export class EntryAlreadyExistsError {
+	constructor(error?: string);
+}
+export class NoSuchObjectError {
+	constructor(error?: string);
+}
+export class NoSuchAttributeError {
+	constructor(error?: string);
+}
+export class ProtocolError {
+	constructor(error?: string);
+}
+export class OperationsError {
+	constructor(error?: string);
+}
+
 declare class Filter {
 	matches(obj: any): boolean;
 	type: string;
@@ -281,3 +400,105 @@ export class NotFilter extends Filter {
 export class ApproximateFilter extends Filter {
 	constructor(options: { attribute: string, value: string })
 }
+
+export class ExtensibleFilter extends Filter {
+    constructor(options: {
+        rule?: string;
+        matchType?: string;
+        value: string;
+        dnAttributes?: boolean;
+    })
+}
+
+export interface AttributeJson {
+    type: string;
+    vals: string[];
+}
+
+export class Attribute {
+    private type: string;
+    readonly buffers: Buffer[];
+
+    /**
+     *  Array of string values, binaries are represented in base64.
+     *  get: When reading it always returns an array of strings.
+     *  set: When assigning it accepts either an array or a single value.
+     *       `Buffer`s are assigned directly, any other value is converted to string and loaded into a `Buffer`.
+     */
+    vals: string | string[];
+
+    readonly json: AttributeJson;
+
+    /** Stringified json property */
+    toString(): string;
+
+    static isAttribute(object: any): object is Attribute;
+    static compare(a: Attribute, b: Attribute): number;
+}
+
+interface LDAPMessageJsonObject {
+    messageID: number;
+    protocolOp: string | undefined;
+    controls: Control[];
+    [k: string]: any;
+}
+
+export abstract class LDAPMessage {
+    messageID: number;
+    protocolOp: string | undefined;
+    controls: Control[];
+    log: any;
+    readonly id: number;
+    readonly dn: string;
+    readonly type: string;
+
+    /** A plain object with main properties */
+    readonly json: LDAPMessageJsonObject;
+
+    /** Stringified json property */
+    toString(): string;
+    parse(ber: Buffer): boolean;
+    toBer(): Buffer;
+}
+
+export class LDAPResult extends LDAPMessage {
+    readonly type: "LDAPResult";
+    /** Result status 0 = success */
+    status: number;
+    matchedDN: string;
+    errorMessage: string;
+    referrals: string[];
+    connection: any;
+}
+
+export interface SearchEntryObject {
+    dn: string;
+    controls: Control[];
+    [p: string]: string | string[];
+}
+
+export interface SearchEntryRaw {
+    dn: string;
+    controls: Control[];
+    [p: string]: string | Buffer | Buffer[];
+}
+
+export class SearchEntry extends LDAPMessage {
+    readonly type: "SearchEntry";
+    objectName: string | null;
+    attributes: Attribute[];
+
+    readonly json: LDAPMessageJsonObject & { objectName: string, attributes: AttributeJson[]};
+
+    /**
+     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property with their value(s)
+     */
+    readonly object: SearchEntryObject;
+
+    /**
+     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property, using raw `Buffer`(s) as attribute values.
+     */
+    readonly raw: SearchEntryRaw;
+}
+
+export function parseDN(dn: string): any;

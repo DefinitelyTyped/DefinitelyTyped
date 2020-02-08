@@ -1,6 +1,7 @@
 // Type definitions for oauth 0.9
 // Project: https://github.com/ciaranj/node-oauth#readme
 // Definitions by: nonAlgebraic <https://github.com/nonAlgebraic>
+//                 Eduardo AC <https://github.com/EduardoAC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types='node' />
@@ -25,8 +26,8 @@ export type oauth2tokenCallback = (
 
 export type dataCallback = (
   err: {statusCode: number, data?: any},
-  result: string | Buffer,
-  response: IncomingMessage
+  result?: string | Buffer,
+  response?: IncomingMessage
 ) => any;
 
 export class OAuth {
@@ -285,7 +286,7 @@ export class OAuth2 {
 
   get(url: string,
     access_token: string,
-    callback: string
+    callback: dataCallback
   ): void;
 
   protected _getAccessTokenUrl(): string;

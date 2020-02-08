@@ -19,7 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "webpack.d.ts",
         "test/index.tsx",
         "test/webpack.ts",
         "test/imports/no-default.tsx",

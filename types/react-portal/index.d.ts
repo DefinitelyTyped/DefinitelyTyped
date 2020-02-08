@@ -3,7 +3,7 @@
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
 //                 Horus Lugo <https://github.com/HorusGoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
@@ -25,7 +25,7 @@ export interface PortalWithStateProps extends React.Props<any> {
     children: (params: PortalFunctionParams) => React.ReactNode;
     node?: Element | null;
     defaultOpen?: boolean;
-    openByClickOn?: React.ReactElement<any>;
+    openByClickOn?: React.ReactElement;
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
     onOpen?(): void;

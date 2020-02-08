@@ -7,7 +7,7 @@
 import { ActionCreator, Action, Dispatch } from "redux";
 import Mousetrap = require('mousetrap');
 
-export {Mousetrap};
+export { Mousetrap };
 export const mousetrap: MousetrapInstance;
 
 export function bindShortcut(

@@ -17,12 +17,24 @@ const credentials: oauth2lib.ModuleOptions = {
 
 const oauth2 = oauth2lib.create(credentials);
 
+// Test custom `idParamName`
+{
+    const oauth2 = oauth2lib.create({ client: { id: 'x', secret: 'x', idParamName: 'foobar' }, auth: { tokenHost: 'x' } });
+    oauth2.authorizationCode.authorizeURL({ foobar: 'x' });
+}
+
 // #Authorization Code flow
 (async () => {
     // Authorization oauth2 URI
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: 'http://localhost:3000/callback',
         scope: '<scope>',
+        state: '<state>'
+    });
+
+    oauth2.authorizationCode.authorizeURL({
+        redirect_uri: 'http://localhost:3000/callback',
+        scope: ['<scope1>', '<scope2>'],
         state: '<state>'
     });
 
@@ -131,3 +143,21 @@ const oauth2 = oauth2lib.create(credentials);
 
 //     // => { "status": "401", "message": "Unauthorized" }
 // })();
+
+// #Custom Grant
+(async () => {
+    const tokenConfig = {
+        username: 'username',
+        password: 'password',
+        scope: [ '<scope1>', '<scope2>' ],
+        grant_type: 'openapi_2lo'
+    };
+
+    // Save the access token
+    try {
+        const result = await oauth2.ownerPassword.getToken(tokenConfig);
+        const accessToken = oauth2.accessToken.create(result);
+    } catch (error) {
+        console.log('Access Token Error', error.message);
+    }
+})();

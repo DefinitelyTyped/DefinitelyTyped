@@ -14,10 +14,10 @@ export interface EncoderOptions extends TransformOptions {
 
 /** Creates a transform stream for encoding data to Quoted-Printable encoding */
 export class Encoder extends Transform {
-    options: TransformOptions;
+    options: EncoderOptions;
 
     inputBytes: number;
     outputBytes: number;
 
-    constructor(options?: TransformOptions);
+    constructor(options?: EncoderOptions);
 }

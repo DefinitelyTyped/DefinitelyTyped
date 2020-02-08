@@ -139,7 +139,7 @@ new Umzug({
          * The to be used Mongo collection cursor.
          * Defaults to collection created from collectionName attribute.
          */
-        collection: mongodb.collection,
+        collection: mongodb.collection('migrations'),
 
         /**
          * The name of the collection used by the connection.

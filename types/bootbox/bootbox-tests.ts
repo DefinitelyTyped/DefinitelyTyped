@@ -12,6 +12,26 @@ bootbox.alert({
 		console.log("Callback called!");
 	}
 });
+bootbox.alert({
+	size: "extra-large",
+	message: "Are we ok with new sizes?",
+});
+bootbox.alert({
+	size: "lg",
+	message: "Are we ok with new alternative size keys?",
+});
+bootbox.alert({
+	scrollable: true,
+	message: "Are we ok with scrollable?",
+});
+bootbox.alert({
+	swapButtonOrder: true,
+	message: "Are we ok with swapButtonOrder?",
+});
+bootbox.alert({
+	centerVertical: true,
+	message: "Are we ok with centerVertical?",
+});
 
 bootbox.confirm("Click cancel to pass test", function (result) {
 	console.log(!result);
@@ -34,6 +54,18 @@ bootbox.prompt({
 });
 bootbox.prompt({
 	size: "large",
+	title: "Enter 'ok' to pass test", callback: function (result) {
+		console.log(result);
+	}
+});
+bootbox.prompt({
+	size: "xl",
+	title: "Enter 'ok' to pass test", callback: function (result) {
+		console.log(result);
+	}
+});
+bootbox.prompt({
+	scrollable: true,
 	title: "Enter 'ok' to pass test", callback: function (result) {
 		console.log(result);
 	}

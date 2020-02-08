@@ -18,6 +18,7 @@ declare namespace touch {
         mtime?: boolean | Date;
         ref?: string;
         nocreate?: boolean;
+        closeAfter?: boolean;
     }
 
     function sync(filename: string, options?: Options): void;

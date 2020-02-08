@@ -70,7 +70,7 @@ declare class Class_EventInfo extends Class__object {
 	 * @type Object
 	 */
 	
-	target: Object
+	target: object
 	
 	
 	

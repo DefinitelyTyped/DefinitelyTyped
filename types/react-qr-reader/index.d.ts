@@ -2,15 +2,11 @@
 // Project: https://github.com/JodusNodus/react-qr-reader
 // Definitions by: David Kevork <https://github.com/davidkevork>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.8
 
 import * as React from "react";
 
-export as namespace QrReader;
-
-export default QrReader;
-
-export namespace QrReader {
+declare namespace QrReader {
   interface props {
     onScan: (data: string | null) => void;
     onError: (err: any) => void;
@@ -26,5 +22,8 @@ export namespace QrReader {
   }
 }
 
-declare class QrReader extends React.Component<QrReader.props> {
-}
+export as namespace QrReader;
+
+declare class QrReader extends React.Component<QrReader.props> {}
+
+export = QrReader;

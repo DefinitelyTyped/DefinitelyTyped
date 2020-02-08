@@ -2,7 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -17,8 +18,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "addon.pdf.d.ts",
-        "dwt-tests.ts"
+        "dwt-tests.ts",
+        "index.d.ts"
     ]
 }

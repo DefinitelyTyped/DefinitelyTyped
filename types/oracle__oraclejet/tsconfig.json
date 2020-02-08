@@ -1,0 +1,39 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es5",
+            "scripthost",
+            "es2015.core",
+            "es2015.collection",
+            "es2015",
+            "esnext.asynciterable"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "target": "es5",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@oracle/oraclejet": [
+                "oracle__oraclejet"
+            ],
+            "@oracle/oraclejet/*": [
+                "oracle__oraclejet/*"
+            ]
+        }
+    },
+    "files": [
+        "oracle__oraclejet-tests.ts",
+        "index.d.ts"
+    ]
+}

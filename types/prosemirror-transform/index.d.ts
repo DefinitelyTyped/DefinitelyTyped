@@ -532,7 +532,7 @@ export function canSplit<S extends Schema = any>(
   doc: ProsemirrorNode<S>,
   pos: number,
   depth?: number,
-  typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }>
+  typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null } | null | undefined>
 ): boolean;
 /**
  * Test whether the blocks before and after a given position can be

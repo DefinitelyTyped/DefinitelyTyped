@@ -111,6 +111,7 @@ declare module 'leaflet' {
             profile?: string;
             polylinePrecision?: number;
             useHints?: boolean;
+            routingOptions?: any;
         }
 
         class Formatter {
@@ -190,6 +191,7 @@ declare module 'leaflet' {
             allowUTurns: boolean;
             geometryOnly: boolean;
             fileFormat: string;
+            simplifyGeometry: boolean;
         }
 
         // tslint:disable-next-line interface-name
