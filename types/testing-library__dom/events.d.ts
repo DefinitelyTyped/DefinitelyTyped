@@ -83,12 +83,12 @@ export type EventType =
     | 'gotPointerCapture'
     | 'lostPointerCapture';
 
-export type FireFunction = (element: Document | Element | Window, event: Event) => boolean;
+export type FireFunction = (element: Document | Element | Window | ChildNode, event: Event) => boolean;
 export type FireObject = {
-    [K in EventType]: (element: Document | Element | Window, options?: {}) => boolean;
+    [K in EventType]: (element: Document | Element | Window | ChildNode, options?: {}) => boolean;
 };
 export type CreateObject = {
-    [K in EventType]: (element: Document | Element | Window, options?: {}) => Event;
+    [K in EventType]: (element: Document | Element | Window | ChildNode, options?: {}) => Event;
 };
 
 export const createEvent: CreateObject;
