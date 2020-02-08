@@ -13,11 +13,14 @@ import { MarkupData } from 'parse5';
 import { Context } from 'vm';
 import * as tough from 'tough-cookie';
 
+// Needed to allow adding properties to `DOMWindow` that are only supported
+// in newer TypeScript versions:
+// tslint:disable-next-line: no-declare-current-package
 declare module 'jsdom' {
-	export const toughCookie: typeof tough;
-	export class CookieJar extends tough.CookieJar {}
+	const toughCookie: typeof tough;
+	class CookieJar extends tough.CookieJar {}
 
-	export class JSDOM {
+	class JSDOM {
 		constructor(html?: string | Buffer | BinaryData, options?: ConstructorOptions);
 
 		static fromURL(url: string, options?: BaseOptions): Promise<JSDOM>;
@@ -55,20 +58,20 @@ declare module 'jsdom' {
 		reconfigure(settings: ReconfigureSettings): void;
 	}
 
-	export class ResourceLoader {
+	class ResourceLoader {
 		fetch(url: string, options: FetchOptions): Promise<Buffer>;
 
 		constructor(obj?: ResourceLoaderConstructorOptions);
 	}
 
-	export class VirtualConsole extends EventEmitter {
+	class VirtualConsole extends EventEmitter {
 		on<K extends keyof Console>(method: K, callback: Console[K]): this;
 		on(event: 'jsdomError', callback: (e: Error) => void): this;
 
 		sendTo(console: Console, options?: VirtualConsoleSendToOptions): this;
 	}
 
-	export type BinaryData =
+	type BinaryData =
 		| ArrayBuffer
 		| DataView
 		| Int8Array
@@ -81,7 +84,7 @@ declare module 'jsdom' {
 		| Float32Array
 		| Float64Array;
 
-	export interface BaseOptions {
+	interface BaseOptions {
 		/**
 		 * referrer just affects the value read from document.referrer.
 		 * It defaults to no referrer (which reflects as the empty string).
@@ -117,7 +120,7 @@ declare module 'jsdom' {
 		beforeParse?(window: DOMWindow): void;
 	}
 
-	export interface FileOptions extends BaseOptions {
+	interface FileOptions extends BaseOptions {
 		/**
 		 * url sets the value returned by window.location, document.URL, and document.documentURI,
 		 * and affects things like resolution of relative URLs within the document
@@ -134,7 +137,7 @@ declare module 'jsdom' {
 		contentType?: string;
 	}
 
-	export interface ConstructorOptions extends BaseOptions {
+	interface ConstructorOptions extends BaseOptions {
 		/**
 		 * url sets the value returned by window.location, document.URL, and document.documentURI,
 		 * and affects things like resolution of relative URLs within the document
@@ -159,29 +162,29 @@ declare module 'jsdom' {
 		storageQuota?: number;
 	}
 
-	export interface VirtualConsoleSendToOptions {
+	interface VirtualConsoleSendToOptions {
 		omitJSDOMErrors: boolean;
 	}
 
-	export interface ReconfigureSettings {
+	interface ReconfigureSettings {
 		windowTop?: DOMWindow;
 		url?: string;
 	}
 
-	export interface FetchOptions {
+	interface FetchOptions {
 		cookieJar?: CookieJar;
 		referrer?: string;
 		accept?: string;
 		element?: HTMLScriptElement | HTMLLinkElement | HTMLIFrameElement | HTMLImageElement;
 	}
 
-	export interface ResourceLoaderConstructorOptions {
+	interface ResourceLoaderConstructorOptions {
 		strictSSL?: boolean;
 		proxy?: string;
 		userAgent?: string;
 	}
 
-	export interface DOMWindow extends Pick<Window, Exclude<keyof Window, 'top' | 'self' | 'window'>>, Context {
+	interface DOMWindow extends Pick<Window, Exclude<keyof Window, 'top' | 'self' | 'window'>>, Context {
 		/* node_modules/jsdom/browser/Window.js */
 		Window: typeof Window;
 		readonly top: DOMWindow;

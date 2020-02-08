@@ -1,8 +1,8 @@
-// tslint:disable-next-line: no-bad-reference
-/// <reference path="../ts3.4/index.d.ts"/>
+import '../ts3.4/index';
 
+// tslint:disable-next-line: no-declare-current-package
 declare module 'jsdom' {
-	export interface DOMWindow {
+	interface DOMWindow {
 		Atomics: typeof Atomics;
 		BigInt: typeof BigInt;
 		BigInt64Array: typeof BigInt64Array;

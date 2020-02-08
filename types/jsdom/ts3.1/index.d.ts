@@ -1,8 +1,8 @@
-// tslint:disable-next-line: no-bad-reference
-/// <reference path="../index.d.ts"/>
+import '../index';
 
+// tslint:disable-next-line: no-declare-current-package
 declare module 'jsdom' {
-	export interface DOMWindow {
+	interface DOMWindow {
 		HTMLSlotElement: typeof HTMLSlotElement;
 		AbstractRange: typeof AbstractRange;
 		StaticRange: typeof StaticRange;
