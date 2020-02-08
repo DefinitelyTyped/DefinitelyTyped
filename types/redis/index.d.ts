@@ -11,6 +11,7 @@
 //                 Stanislav Dzhus <https://github.com/blablapolicja>
 //                 Jake Ferrante <https://github.com/ferrantejake>
 //                 Adebayo Opesanya <https://github.com/OpesanyaAdebayo>
+//                 Ryo Ota <https://github.com/nwtgck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/types/npm-redis
@@ -443,8 +444,8 @@ export interface Commands<R> {
     /**
      * Get the value of a key.
      */
-    get(key: string, cb?: Callback<string>): R;
-    GET(key: string, cb?: Callback<string>): R;
+    get(key: string, cb?: Callback<string | null>): R;
+    GET(key: string, cb?: Callback<string | null>): R;
 
     /**
      * Returns the bit value at offset in the string value stored at key.
