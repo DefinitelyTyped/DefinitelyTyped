@@ -722,4 +722,4 @@ pubnub
 
 // APNS
 
-Pubnub.notificationPayload('Chat invitation', 'You have been invited to \'quiz\' chat');
+Pubnub.notificationPayload('Chat invitation', 'You have been invited to \'quiz\' chat').buildPayload(['apns2', 'fcm']);

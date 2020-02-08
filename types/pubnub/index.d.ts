@@ -954,44 +954,46 @@ declare namespace Pubnub {
     // NotificationPayloads
 
     interface BaseNotificationPayload {
-        _subtitle?: string;
-        _payload: object;
-        _badge?: number;
-        _sound?: string;
-        _title?: string;
-        _body?: string;
+        subtitle?: string;
+        payload: object;
+        badge?: number;
+        sound?: string;
+        title?: string;
+        body?: string;
     }
 
     interface APNSNotificationPayload extends BaseNotificationPayload {
-        _configurations: APNS2Configuration[];
-        _apnsPushType?: string;
-        _isSilent: boolean;
+        configurations: APNS2Configuration[];
+        apnsPushType?: string;
+        isSilent: boolean;
     }
 
     interface MPNSNotificationPayload extends BaseNotificationPayload  {
-        _backContent?: string;
-        _backTitle?: string;
-        _count?: number;
-        _type?: string;
+        backContent?: string;
+        backTitle?: string;
+        count?: number;
+        type?: string;
     }
 
     interface FCMNotificationPayload extends BaseNotificationPayload  {
-        _isSilent: boolean;
-        _icon?: string;
-        _tag?: string;
+        isSilent: boolean;
+        icon?: string;
+        tag?: string;
     }
 
     interface NotificationsPayload {
-        _payload: {apns: object, mpns: object, fcm: object};
-        _debugging: boolean;
-        _subtitle?: string;
-        _badge?: number;
-        _sound?: string;
-        _title?: string;
-        _body?: string;
+        payload: {apns: object, mpns: object, fcm: object};
+        debugging: boolean;
+        subtitle?: string;
+        badge?: number;
+        sound?: string;
+        title?: string;
+        body?: string;
         apns: APNSNotificationPayload;
         mpns: MPNSNotificationPayload;
         fcm: FCMNotificationPayload;
+
+        buildPayload(platforms: string[]): object;
     }
 
     interface Categories {
