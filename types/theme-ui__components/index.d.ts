@@ -1,6 +1,7 @@
 // Type definitions for @theme-ui/components 0.2
 // Project: https://github.com/system-ui/theme-ui
 // Definitions by: Piotr Monwid-Olechnowicz <https://github.com/hasparus>
+//                 Kristóf Poduszló <https://github.com/kripod>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
