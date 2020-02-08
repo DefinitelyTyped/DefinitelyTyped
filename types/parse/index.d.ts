@@ -1351,7 +1351,7 @@ namespace Parse {
     namespace CoreManager {
         function set(key: string, value: any): void;
         function get(key: string): void;
-      }
+    }
 
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
@@ -1374,12 +1374,12 @@ namespace Parse {
      * Flag that indicates whether Local Datastore is enabled.
      */
     function isLocalDatastoreEnabled(): boolean;
-                                                          
-     /**
-      * Call this method to set your LocalDatastoreStorage engine
-      * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
-      * @param {LocalDatastoreController} controller a data storage.
-      */
+
+    /**
+     * Call this method to set your LocalDatastoreStorage engine
+     * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
+     * @param controller a data storage.
+     */
     function setLocalDatastoreController(controller: any): void;
 
     /**
@@ -1391,7 +1391,7 @@ namespace Parse {
     /**
      * Flag that indicates whether Encrypted User is enabled.
      */
-    function isEncryptedUserEnabled(): boolean; 
+    function isEncryptedUserEnabled(): boolean;
 }
 }
 
