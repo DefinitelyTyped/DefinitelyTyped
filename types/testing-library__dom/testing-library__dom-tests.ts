@@ -51,4 +51,13 @@ function eventTest() {
         location: 'http://www.example.com/?page=1',
         state: { page: 1 },
     });
+
+    // ChildNode
+    const element = document.createElement('div');
+    const child = document.createElement('div');
+    element.appendChild(child);
+    if(!element.firstChild) { // Narrow Type
+        throw new Error(`Can't find firstChild`)
+    }
+    fireEvent.click(element.firstChild);
 }
