@@ -5,6 +5,7 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    Dropdown,
     NumberInput,
     Slider,
     Tab,
@@ -267,6 +268,20 @@ const TestComp3 = (props: TestCompPropsOverwrite) => (<div/>);
 
 const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
+);
+
+// Dropdown
+const dropdownItemCanBeElement = (
+    <Dropdown
+        id="my-dropdown"
+        items={["val1", "val2", "val3"]}
+        label="label"
+        titleText=""
+        ariaLabel=""
+        selectedItem="val2"
+        itemToElement={(item) => (<div>This is my rich content</div>)}
+        itemToString={item => "Selected: " + item}
+    />
 );
 
 // TileGroup
