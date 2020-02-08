@@ -1380,7 +1380,7 @@ namespace Parse {
     /**
      * Call this method to set your LocalDatastoreStorage engine
      * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
-     * @param {LocalDatastoreController} controller a data storage.
+     * @param controller a data storage.
      */
     function setLocalDatastoreController(controller: any): void;
 
