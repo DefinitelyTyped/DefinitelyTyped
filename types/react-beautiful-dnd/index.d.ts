@@ -561,6 +561,7 @@ export interface DragDropContextProps {
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;
     onDragUpdate?(initial: DragUpdate, provided: ResponderProvided): void;
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
+    sensors?: Sensor[];
 }
 
 export class DragDropContext extends React.Component<DragDropContextProps> {}

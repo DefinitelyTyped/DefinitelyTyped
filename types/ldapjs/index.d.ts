@@ -1,4 +1,4 @@
-// Type definitions for ldapjs
+// Type definitions for ldapjs 1.0
 // Project: http://ldapjs.org
 // Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -52,15 +52,15 @@ export interface ClientOptions {
 
 export interface SearchOptions {
 	/** Defaults to base */
-	scope?: "base" | "one" | "sub"; 
-	/**  Defaults to (objectclass=*) */ 
-	filter?: string | Filter; 
+	scope?: "base" | "one" | "sub";
+	/**  Defaults to (objectclass=*) */
+	filter?: string | Filter;
 	/** Defaults to the empty set, which means all attributes */
-	attributes?: string | string[];  
-	/** Defaults to 0 (unlimited) */ 
-	sizeLimit?: number; 
-	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */ 
-	timeLimit?: number; 
+	attributes?: string | string[];
+	/** Defaults to 0 (unlimited) */
+	sizeLimit?: number;
+	/** Timeout in seconds. Defaults to 10. Lots of servers will ignore this! */
+	timeLimit?: number;
 	derefAliases?: number;
 	typesOnly?: boolean;
 	paged?: boolean | {
@@ -297,7 +297,7 @@ export interface Server extends EventEmitter {
 	/**
 	 * Unix Domain Socket
 	 * Start a UNIX socket server listening for connections on the given path.
-	 * This function is asynchronous. The last parameter callback will be called when the server has been bound. 
+	 * This function is asynchronous. The last parameter callback will be called when the server has been bound.
 	 */
 	listen(path: string): void;
 	listen(path: string, callback: any): void;

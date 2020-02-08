@@ -3,7 +3,7 @@ import React = require('react');
 export type MaskFunction = (rawValue: string) => string[];
 export type Mask = boolean | RegExp | string | MaskFunction;
 
-export interface InputProps {
+export interface InputProps<T> {
     value?: string;
     label?: string;
     helperText?: string;
@@ -14,8 +14,8 @@ export interface InputProps {
     error?: string;
     id?: string;
     mask?: Mask | Mask[];
-    onClean?: () => void;
-    onChange?: () => void;
+    onClean?: React.MouseEventHandler<T>;
+    onChange?: React.ChangeEventHandler<T>;
     theme?: {
         spacing?: object;
         colors?: object;
@@ -23,4 +23,4 @@ export interface InputProps {
     };
 }
 
-export default class Input extends React.Component<InputProps> {}
+export default class Input<T = HTMLInputElement> extends React.Component<InputProps<T>> {}

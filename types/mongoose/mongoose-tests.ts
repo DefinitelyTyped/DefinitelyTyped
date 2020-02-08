@@ -216,7 +216,7 @@ validatorError.stack;
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
  */
 var doc = <mongoose.Document>{};
-var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
+var validationError: mongoose.Error.ValidationError | undefined = new mongoose.Error.ValidationError(doc);
 validationError.name;
 validationError.toString().toLowerCase();
 validationError.inspect();

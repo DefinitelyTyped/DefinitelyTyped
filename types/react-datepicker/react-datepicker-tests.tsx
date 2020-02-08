@@ -89,8 +89,12 @@ const defaultLocale = getDefaultLocale();
         changeMonth,
         decreaseMonth,
         increaseMonth,
+        decreaseYear,
+        increaseYear,
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
+        prevYearButtonDisabled,
+        nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
     required

@@ -1,8 +1,8 @@
 import React = require('react');
 
-export interface ModalProps {
+export interface ModalProps<T> {
     children?: React.ReactNode[] | React.ReactNode;
-    onClose?: () => void;
+    onClose?: React.MouseEventHandler<T>;
     closeButtonAriaLabel?: string;
     theme?: {
         breakpoints?: object;
@@ -14,4 +14,4 @@ export interface ModalProps {
     };
 }
 
-export default class Modal extends React.Component<ModalProps> {}
+export default class Modal<T = HTMLButtonElement> extends React.Component<ModalProps<T>> {}

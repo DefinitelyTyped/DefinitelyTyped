@@ -12,7 +12,8 @@ export interface DropdownProps {
     placeholder?: string;
     selectedItem?: ItemPropType;
     helperText?: string;
-    onChange?: () => void;
+    /** More about stateAndHelpers parameter here https://github.com/downshift-js/downshift#children-function */
+    onChange?: (selectedItem?: React.ElementType | null, stateAndHelpers?: any) => void;
     items?: ItemPropType[];
     theme?: {
         colors?: object;

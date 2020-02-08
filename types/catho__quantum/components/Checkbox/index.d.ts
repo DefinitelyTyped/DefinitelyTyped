@@ -1,6 +1,6 @@
 import React = require('react');
 
-export interface CheckboxProps {
+export interface CheckboxProps<T> {
     checked?: boolean;
     disabled?: boolean;
     children?: string;
@@ -9,7 +9,7 @@ export interface CheckboxProps {
     label?: string;
     name: string;
     value?: string;
-    onChange?: () => void;
+    onChange?: React.ChangeEventHandler<T>;
     theme?: {
         colors?: object;
         spacing?: object;
@@ -17,10 +17,10 @@ export interface CheckboxProps {
     };
 }
 
-export class Checkbox extends React.Component<CheckboxProps> {}
-export type CheckboxType = React.ComponentType<CheckboxProps>;
+export class Checkbox<T = HTMLInputElement> extends React.Component<CheckboxProps<T>> {}
+export type CheckboxType = React.ComponentType<CheckboxProps<HTMLInputElement>>;
 
-export interface CheckboxButtonProps {
+export interface CheckboxButtonProps<T> {
     children?: React.ReactNode[] | React.ReactNode;
     skin?: 'neutral' | 'primary' | 'success' | 'warning' | 'error';
     checked?: boolean;
@@ -30,24 +30,25 @@ export interface CheckboxButtonProps {
     icon?: string;
     label?: string;
     name: string;
-    onChange?: () => void;
+    onChange?: React.ChangeEventHandler<T>;
     value?: string;
 }
 
-export type CheckboxButton = React.ComponentType<CheckboxButtonProps>;
+export type CheckboxButton = React.ComponentType<CheckboxButtonProps<HTMLInputElement>>;
 
-export interface CheckboxGroupProps {
+export type Options = Array<{
+    checked?: boolean;
+    disabled?: boolean;
+    label?: React.ReactNode;
+    name: string;
+    value?: string;
+}>;
+export interface CheckboxGroupProps<T> {
     children?: JSX.Element[] | JSX.Element;
     error?: string;
     inline?: boolean;
-    onChange?: () => void;
-    options?: Array<{
-        checked?: boolean;
-        disabled?: boolean;
-        label?: React.ReactNode;
-        name: string;
-        value?: string;
-    }>;
+    onChange?: (items?: Options, event?: React.ChangeEvent<T>) => void;
+    options?: Options;
     type: 'checkbox' | 'button';
     theme?: {
         colors?: object;
@@ -55,7 +56,7 @@ export interface CheckboxGroupProps {
     };
 }
 
-export class CheckboxGroup extends React.Component<CheckboxGroupProps> {
+export class CheckboxGroup<T = HTMLInputElement> extends React.Component<CheckboxGroupProps<T>> {
     static Checkbox: CheckboxType;
     static Button: CheckboxButton;
 }
