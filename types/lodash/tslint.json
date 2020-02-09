@@ -5,6 +5,7 @@
         "max-line-length": false,
         "no-unnecessary-generics": false,
         "typedef-whitespace": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "use-default-type-parameter": false
     }
 }
