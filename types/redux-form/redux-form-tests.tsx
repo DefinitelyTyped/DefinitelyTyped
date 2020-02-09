@@ -242,7 +242,16 @@ const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComp
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
-    form : "test"
+    form : "test",
+    shouldError: ({
+        values,
+        nextProps,
+        props,
+        initialRender,
+        lastFieldValidatorKeys,
+        fieldValidatorKeys,
+        structure
+    }) => true,
 })(
     class Test extends React.Component<TestProps> {
         handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};

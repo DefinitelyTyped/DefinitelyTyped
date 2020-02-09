@@ -69,3 +69,14 @@ PNG.adjustGamma(png);
 
 PNG.bitblt(png, pngs[1]);
 PNG.bitblt(png, pngs[1], 1, 1, 1, 1, 1, 1);
+
+const pngWithMeta = PNG.sync.read(Buffer.from('foo'));
+!pngWithMeta.alpha;
+pngWithMeta.bpp === 1;
+!pngWithMeta.color;
+pngWithMeta.colorType === 0;
+pngWithMeta.depth === 1;
+pngWithMeta.height === 1;
+!pngWithMeta.interlace;
+!pngWithMeta.palette;
+pngWithMeta.width === 1;

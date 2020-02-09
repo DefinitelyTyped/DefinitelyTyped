@@ -5,6 +5,7 @@
 // TypeScript Version: 2.3
 
 import { Term, DatasetCore, Quad_Graph, NamedNode, BlankNode, Literal } from 'rdf-js';
+import { Context } from './lib/Context';
 
 declare namespace clownface {
     type TermOrClownface = Clownface | Term;
@@ -49,7 +50,7 @@ declare namespace clownface {
         readonly values: string[];
         readonly dataset: D;
         readonly datasets: D[];
-        readonly _context: any;
+        readonly _context: Array<Context<D, T>>;
         list(): Iterable<SingleContextClownface<D>>;
         toArray(): Array<Clownface<D, T>>;
         filter(cb: (quad: Clownface<D, T>) => boolean): Clownface<D, T>;
@@ -108,6 +109,7 @@ declare namespace clownface {
         readonly terms: [T];
         readonly value: string;
         readonly values: [string];
+        readonly _context: [Context<D, T>];
     }
 }
 

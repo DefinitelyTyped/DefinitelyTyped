@@ -59,6 +59,7 @@ export namespace Plaid {
         | 'EXIT'
         | 'LOADING'
         | 'MFA'
+        | 'NUMBERS'
         | 'RECAPTCHA'
         | 'SELECT_ACCOUNT'
         | 'SELECT_INSTITUTION';

@@ -26,6 +26,7 @@ export interface LibratoConfig {
     prefix?: string;
     source?: string;
     requestOptions?: LibratoRequestOptions;
+    period?: number;
     simulate?: false;
 }
 

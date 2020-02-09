@@ -37,6 +37,8 @@ export interface ValidateCallback<FormData, P, ErrorType> {
     nextProps: P & InjectedFormProps<FormData, P, ErrorType>;
     props: P & InjectedFormProps<FormData, P, ErrorType>;
     initialRender: boolean;
+    lastFieldValidatorKeys: string[];
+    fieldValidatorKeys: string[];
     structure: any;
 }
 

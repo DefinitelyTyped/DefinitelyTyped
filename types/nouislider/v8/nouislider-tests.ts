@@ -1,4 +1,5 @@
 var testHtmlElement = document.getElementById('test');
+import wNumb from 'wnumb';
 
 /**
  * Basic

@@ -359,10 +359,12 @@ declare namespace yargs {
 
     interface PositionalOptions {
         alias?: string | ReadonlyArray<string>;
+        array?: boolean;
         choices?: Choices;
         coerce?: (arg: any) => any;
         conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> };
         default?: any;
+        demandOption?: boolean | string;
         desc?: string;
         describe?: string;
         description?: string;
