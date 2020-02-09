@@ -10,11 +10,11 @@ loadDevtool(loadDevtool.VUEJS_DEVTOOLS);
 loadDevtool('another-devtools-id');
 
 loadDevtool(loadDevtool.REDUX_DEVTOOLS, {
-  enabled: false
+    enabled: false,
 });
 
 loadDevtool(loadDevtool.REDUX_DEVTOOLS, {
-  name: 'chromium',
-  profile: 'another-profile-name',
-  version: '1.2.3'
+    name: 'chromium',
+    profile: 'another-profile-name',
+    version: '1.2.3',
 });
