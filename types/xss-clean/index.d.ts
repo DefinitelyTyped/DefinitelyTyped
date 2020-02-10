@@ -1,3 +1,4 @@
 declare module 'xss-clean' {
-    export default function(): (string | RegExp)[];
+    function fn(): (string | RegExp)[];
+    export = fn;
 }
