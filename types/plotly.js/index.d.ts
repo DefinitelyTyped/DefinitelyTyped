@@ -285,6 +285,23 @@ export interface Layout {
 	bargroupgap: 0 | 1;
 	selectdirection: 'h' | 'v' | 'd' | 'any';
 	hiddenlabels: string[];
+	grid: Partial<{
+		rows: number;
+		roworder: "top to bottom" | "bottom to top";
+		columns: number;
+		subplots: string[];
+		xaxes: string[];
+		yaxes: string[];
+		pattern: "independent" | "coupled";
+		xgap: number;
+		ygap: number;
+		domain: Partial<{
+			x: number[];
+			y: number[];
+		}>;
+		xside: "bottom" | "bottom plot" | "top plot" | "top";
+		yside: "left" | "left plot" | "right plot" | "right";
+	}>;
 }
 
 export interface Legend extends Label {
@@ -396,13 +413,19 @@ export interface Shape {
 	path: string;
 	// x-reference is assigned to the x-values
 	xref: 'x' | 'paper';
+	xsizemode: "scaled" | "pixel";
+	xanchor: number | string;
 	// y-reference is assigned to the plot paper [0,1]
 	yref: 'paper' | 'y';
+	ysizemode: "scaled" | "pixel";
+	yanchor: number | string;
 	x0: Datum;
 	y0: Datum;
 	x1: Datum;
 	y1: Datum;
 	fillcolor: string;
+	name: string;
+	templateitemname: string;
 	opacity: number;
 	line: Partial<ShapeLine>;
 }
