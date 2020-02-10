@@ -24,7 +24,7 @@ const result: string = temp.render();
 
 const async_result: string | Promise<string> = temp.render(undefined, undefined, true);
 
-function twig_async_param(b: boolean){
+function twig_async_param(b: boolean) {
     const maybe_async_result: string | Promise<string> = temp.render(undefined, undefined, b);
 }
 
