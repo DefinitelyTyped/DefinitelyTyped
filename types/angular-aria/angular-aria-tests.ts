@@ -2,6 +2,9 @@ function testProvider($ariaProvider: angular.aria.IAriaProvider): void {
     // $ExpectType void
     $ariaProvider.config({ariaHidden: true});
 
+    // $ExpectType void
+    $ariaProvider.config({ariaChecked: true, ariaReadonly: false});
+
     // $ExpectError
     $ariaProvider.config({ariaDisabled: 44});
 
