@@ -2,7 +2,7 @@
 // Project: https://github.com/mooz/node-pdf-image#readme
 // Definitions by: NickLatkovich <https://github.com/nicklatkovich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 3.4
 
 export type ConvertOptionKey =
     | '-adaptive-blur'
@@ -283,8 +283,8 @@ export interface PDFInfo {
 
 export class PDFImage<CombinedImage extends boolean = false> {
     constructor(path: string, ...options: OptionalSpread<CombinedImage>);
-    combineImages(imagePaths: string[]): Promise<string>;
-    constructCombineCommandForFile(imagePaths: string[]): string;
+    combineImages(imagePaths: readonly string[]): Promise<string>;
+    constructCombineCommandForFile(imagePaths: readonly string[]): string;
     constructConvertCommandForPage(pageNumber: number): string;
     constructConvertOptions(): string;
     constructGetInfoCommand(): string;
@@ -295,6 +295,6 @@ export class PDFImage<CombinedImage extends boolean = false> {
     getOutputImagePathForPage(pageNumber: number): string;
     parseGetInfoCommandOutput(output: string): { [key: string]: string };
     setConvertExtension(convertExtension?: string): void;
-    setConvertOptions(convertOptions?: ConvertOptions): void;
+    setConvertOptions(convertOptions?: Readonly<ConvertOptions>): void;
     setPdfFileBaseName(pdfFileBaseName?: string): void;
 }
