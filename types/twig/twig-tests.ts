@@ -20,6 +20,10 @@ const params: twig.Parameters = {
 
 const temp: twig.Template = twig.twig(params);
 
+const result: string = temp.render();
+
+const async_result: string | Promise<string> = temp.render(undefined, undefined, true);
+
 const compOpts: twig.CompileOptions = {
 	filename: str,
 	settings: value
