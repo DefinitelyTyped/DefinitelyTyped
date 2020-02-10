@@ -1,4 +1,15 @@
-function testConfig($aria: angular.aria.IAriaService): void {
+function testProvider($ariaProvider: angular.aria.IAriaProvider): void {
+    // $ExpectType void
+    $ariaProvider.config({ariaHidden: true});
+
+    // $ExpectError
+    $ariaProvider.config({ariaDisabled: 44});
+
+    // $ExpectError
+    $ariaProvider.config({unknownkey: false});
+}
+
+function testService($aria: angular.aria.IAriaService): void {
     // $ExpectType boolean
     $aria.config('tabindex');
 
