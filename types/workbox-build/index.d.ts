@@ -2,7 +2,6 @@
 // Project: https://github.com/GoogleChrome/workbox/tree/master/packages/workbox-build, https://developers.google.com/web/tools/workbox/modules/workbox-build
 // Definitions by: Preston Richey <https://github.com/prichey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
 
 export * from './_types';
 export * from './lib/copy-workbox-libraries';
