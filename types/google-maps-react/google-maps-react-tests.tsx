@@ -1,4 +1,4 @@
-import { GoogleAPI, Map, Marker, MapProps, GoogleApiWrapper } from 'google-maps-react';
+import { GoogleAPI, Map, Marker, MapProps, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import * as React from 'react';
 
 interface Location {
@@ -56,7 +56,11 @@ class MapContainer extends React.Component<Props> {
         position={ hit._geoloc }
         title={ hit.title }
         key={ hit.id }
-      />;
+      >
+        <InfoWindow>
+          <p>Test</p>
+        </InfoWindow>
+      </Marker>;
     });
   }
 }

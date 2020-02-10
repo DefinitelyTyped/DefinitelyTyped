@@ -2,6 +2,7 @@
 // Project: https://github.com/liady/webpack-node-externals
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 //                 Manuel Pogge <https://github.com/MrSpoocy>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,9 +13,10 @@ export = webpackNodeExternals;
 declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalsFunctionElement;
 
 declare namespace webpackNodeExternals {
-    type WhitelistOption = string | RegExp;
+    type WhitelistOption = string | RegExp | WhitelistFunctionType;
     type ImportTypeCallback = (moduleName: string) => string;
-
+    /** a function that accepts the module name and returns whether it should be included */
+    type WhitelistFunctionType = (moduleName: string) => boolean;
     interface ModulesFromFileType {
         exclude?: string | string[];
         include?: string | string[];

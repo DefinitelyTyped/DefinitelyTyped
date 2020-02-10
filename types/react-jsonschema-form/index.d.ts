@@ -1,4 +1,4 @@
-// Type definitions for react-jsonschema-form 1.6.1
+// Type definitions for react-jsonschema-form 1.7.0
 // Project: https://github.com/mozilla-services/react-jsonschema-form
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 //                 Ivan Jiang <https://github.com/iplus26>
@@ -12,6 +12,7 @@
 //                 Chancellor Clark <https://github.com/chanceaclark>
 //                 Benoît Sepe <https://github.com/ogdentrod>
 //                 Andre Nguyen <https://github.com/andrenguyener>
+//                 Qingqi Shi <https://github.com/qingqishi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -59,6 +60,9 @@ declare module 'react-jsonschema-form' {
         autocomplete?: string;
         enctype?: string;
         acceptcharset?: string;
+        omitExtraData?: boolean;
+        liveOmit?: boolean;
+        tagName?: keyof JSX.IntrinsicElements | React.ComponentType;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
@@ -78,6 +82,9 @@ declare module 'react-jsonschema-form' {
         'ui:widget'?: Widget | string;
         'ui:options'?: { [key: string]: boolean | number | string | object | any[] | null };
         'ui:order'?: string[];
+        'ui:FieldTemplate'?: React.StatelessComponent<FieldTemplateProps>;
+        'ui:ArrayFieldTemplate'?: React.StatelessComponent<ArrayFieldTemplateProps>;
+        'ui:ObjectFieldTemplate'?: React.StatelessComponent<ObjectFieldTemplateProps>;
         [name: string]: any;
     };
 
@@ -178,6 +185,7 @@ declare module 'react-jsonschema-form' {
             onDropIndexClick: (index: number) => (event: any) => void;
             onReorderClick: (index: number, newIndex: number) => (event: any) => void;
             readonly: boolean;
+            key: string;
         }[];
         onAddClick: (event: any) => (event: any) => void;
         readonly: boolean;
@@ -272,7 +280,7 @@ declare module 'react-jsonschema-form/lib/components/fields/SchemaField' {
 
     export type SchemaFieldProps<T = any> = Pick<
         FieldProps<T>,
-        'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry'
+        'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry' | 'formContext'
     >;
 
     export default class SchemaField extends React.Component<SchemaFieldProps> {}

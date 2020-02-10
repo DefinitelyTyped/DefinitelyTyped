@@ -507,6 +507,7 @@ cli = new CLIEngine({ plugins: ['foo'] });
 cli = new CLIEngine({ rules: { 'test/example-rule': 1 } });
 cli = new CLIEngine({ rulePaths: ['foo'] });
 cli = new CLIEngine({ reportUnusedDisableDirectives: true });
+cli = new CLIEngine({ errorOnUnmatchedPattern: false });
 
 let cliReport = cli.executeOnFiles(['myfile.js', 'lib/']);
 
