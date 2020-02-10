@@ -9006,7 +9006,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
+         * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadWriteItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer
          */
@@ -9391,6 +9391,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -9420,6 +9423,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -10495,6 +10501,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -10524,6 +10533,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -12049,30 +12061,25 @@ declare namespace Office {
     /**
      * The item namespace is used to access the currently selected message, meeting request, or appointment. 
      * You can determine the type of the item by using the `itemType` property.
+     * 
+     * To see the full member list, refer to the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/reference/objectmodel/preview-requirement-set/office.context.mailbox.item | Object Model} page.
      *
      * If you want to see IntelliSense for only a specific type or mode, cast this item to one of the following:
      *
-     * - {@link Office.Appointment | Appointment}
-     * 
      * - {@link Office.AppointmentCompose | AppointmentCompose}
      * 
      * - {@link Office.AppointmentRead | AppointmentRead}
      * 
-     * - {@link Office.Message | Message}
-     * 
      * - {@link Office.MessageCompose | MessageCompose}
      * 
      * - {@link Office.MessageRead | MessageRead}
-     * 
-     * - {@link Office.ItemCompose | ItemCompose}
-     * 
-     * - {@link Office.ItemRead | ItemRead}
      *
      * @remarks
      * 
      * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: Restricted
      * 
-     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Compose or Read
+     * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Organizer, Appointment Attendee, Message Compose, Message Read
      */
     interface Item {
     }
@@ -13568,6 +13575,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -13597,6 +13607,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -14597,6 +14610,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -14626,6 +14642,9 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
+         * - AttachmentTypeNotSupported: The attachment type isn't supported. Unsupported types include embedded images in Rich Text Format,
+         *                               or item attachment types other than email or calendar items (such as a contact or task item).
+         *
          * - InvalidAttachmentId: The attachment identifier does not exist.
          * 
          * @param attachmentId - The identifier of the attachment you want to get. 
@@ -16431,7 +16450,7 @@ declare namespace Office {
          */
         emailAddress: string;
         /**
-         * Gets the user's time zone.
+         * Gets the user's time zone in Windows format.
          *
          * @remarks
          * 
@@ -17678,7 +17697,7 @@ declare namespace Excel {
     interface WorkbookAutoSaveSettingChangedEventArgs {
         /**
          *
-         * Represents the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See Excel.EventType for details.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -17743,7 +17762,7 @@ declare namespace Excel {
         changeType: Excel.DataChangeType | "Unknown" | "RangeEdited" | "RowInserted" | "RowDeleted" | "ColumnInserted" | "ColumnDeleted" | "CellInserted" | "CellDeleted";
         /**
          *
-         * Represents the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
+         * Gets the information about the change detail. This property can be retrieved when the Changed event is triggered on a single cell. If the Changed event is triggered on multiple cells, this property cannot be retrieved.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -18506,35 +18525,35 @@ declare namespace Excel {
     interface TableDeletedEventArgs {
         /**
          *
-         * Specifies the source of the event. See Excel.EventSource for details.
+         * Gets the source of the event. See Excel.EventSource for details.
          *
          * [Api set: ExcelApi 1.9]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          *
-         * Specifies the id of the table that is deleted.
+         * Gets the id of the table that is deleted.
          *
          * [Api set: ExcelApi 1.9]
          */
         tableId: string;
         /**
          *
-         * Specifies the name of the table that is deleted.
+         * Gets the name of the table that is deleted.
          *
          * [Api set: ExcelApi 1.9]
          */
         tableName: string;
         /**
          *
-         * Specifies the type of the event. See Excel.EventType for details.
+         * Gets the type of the event. See Excel.EventType for details.
          *
          * [Api set: ExcelApi 1.9]
          */
         type: "TableDeleted";
         /**
          *
-         * Specifies the id of the worksheet in which the table is deleted.
+         * Gets the id of the worksheet in which the table is deleted.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -24371,7 +24390,7 @@ declare namespace Excel {
         set(properties: Excel.RangeFormat): void;
         /**
          *
-         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters..
+         * Adjusts the indentation of the range formatting. The indent value ranges from 0 to 250 and is measured in characters.
          *
          * [Api set: ExcelApiOnline 1.1]
          *
@@ -26584,7 +26603,7 @@ declare namespace Excel {
         showDisplayUnitLabel: boolean;
         /**
          *
-         * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         * Represents the angle to which the text is oriented for the chart axis tick label. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -27031,7 +27050,7 @@ declare namespace Excel {
         showValue: boolean;
         /**
          *
-         * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         * Represents the angle to which the text is oriented for the data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -27216,7 +27235,7 @@ declare namespace Excel {
         text: string;
         /**
          *
-         * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         * Represents the angle to which the text is oriented for the chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -28090,7 +28109,7 @@ declare namespace Excel {
         text: string;
         /**
          *
-         * Represents the text orientation of chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         * Represents the angle to which the text is oriented for the chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
          *
          * [Api set: ExcelApi 1.7]
          */
@@ -29115,7 +29134,7 @@ declare namespace Excel {
         text: string;
         /**
          *
-         * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+         * Represents the angle to which the text is oriented for the chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
          *
          * [Api set: ExcelApi 1.8]
          */
@@ -30375,7 +30394,7 @@ declare namespace Excel {
         readonly items: Excel.PivotTable[];
         /**
          *
-         * Add a Pivottable based on the specified source data and insert it at the top left cell of the destination range.
+         * Add a PivotTable based on the specified source data and insert it at the top-left cell of the destination range.
          *
          * [Api set: ExcelApi 1.8]
          *
@@ -35905,7 +35924,7 @@ declare namespace Excel {
         email: string;
         /**
          *
-         * Gets or sets the id of the entity. This matches one of the ids in `CommentRichContent.richContent`.
+         * Gets or sets the id of the entity. The id matches one of the ids in `CommentRichContent.richContent`.
          *
          * [Api set: ExcelApiOnline 1.1]
          */
@@ -37580,7 +37599,7 @@ declare namespace Excel {
         leftMargin: number;
         /**
          *
-         * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
+         * Represents the angle to which the text is oriented for the text frame. See Excel.ShapeTextOrientation for details.
          *
          * [Api set: ExcelApi 1.9]
          */
@@ -46527,7 +46546,7 @@ declare namespace Excel {
             showDisplayUnitLabel?: boolean;
             /**
              *
-             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart axis tick label. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -46715,7 +46734,7 @@ declare namespace Excel {
             showValue?: boolean;
             /**
              *
-             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -46846,7 +46865,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -47133,7 +47152,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -47525,7 +47544,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -49294,7 +49313,7 @@ declare namespace Excel {
             leftMargin?: number;
             /**
              *
-             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
+             * Represents the angle to which the text is oriented for the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -51955,7 +51974,7 @@ declare namespace Excel {
             showDisplayUnitLabel?: boolean;
             /**
              *
-             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart axis tick label. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -52164,7 +52183,7 @@ declare namespace Excel {
             showValue?: boolean;
             /**
              *
-             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -52302,7 +52321,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -52645,7 +52664,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -53051,7 +53070,7 @@ declare namespace Excel {
             text?: string;
             /**
              *
-             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -55392,7 +55411,7 @@ declare namespace Excel {
             leftMargin?: number;
             /**
              *
-             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
+             * Represents the angle to which the text is oriented for the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi 1.9]
              */
@@ -59555,7 +59574,7 @@ declare namespace Excel {
             showDisplayUnitLabel?: boolean;
             /**
              *
-             * Represents the text orientation of the axis tick label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart axis tick label. The value should either be an integer from -90 to 90 or the integer 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -59800,7 +59819,7 @@ declare namespace Excel {
             showValue?: boolean;
             /**
              *
-             * Represents the text orientation of data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the data labels. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -59947,7 +59966,7 @@ declare namespace Excel {
             text?: boolean;
             /**
              *
-             * Represents the text orientation of chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart data label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -60423,7 +60442,7 @@ declare namespace Excel {
             text?: boolean;
             /**
              *
-             * Represents the text orientation of chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart title. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.7]
              */
@@ -61004,7 +61023,7 @@ declare namespace Excel {
             text?: boolean;
             /**
              *
-             * Represents the text orientation of chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
+             * Represents the angle to which the text is oriented for the chart trendline label. The value should be an integer either from -90 to 90, or 180 for vertically-oriented text.
              *
              * [Api set: ExcelApi 1.8]
              */
@@ -65432,7 +65451,7 @@ declare namespace Excel {
             leftMargin?: boolean;
             /**
              *
-             * Represents the text orientation of the text frame. See Excel.ShapeTextOrientation for details.
+             * Represents the angle to which the text is oriented for the text frame. See Excel.ShapeTextOrientation for details.
              *
              * [Api set: ExcelApi 1.9]
              */

@@ -1729,6 +1729,12 @@ export interface RouteOptionsApp {
 
 export interface CommonRouteProperties {
     /**
+     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
+     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
+     */
+    app?: RouteOptionsApp;
+
+    /**
      * @default null.
      * An object passed back to the provided handler (via this) when called. Ignored if the method is an arrow function.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsbind)
@@ -1986,12 +1992,6 @@ export interface RouteSettings extends CommonRouteProperties {
  * For context [See docs](https://github.com/hapijs/hapi/blob/master/API.md#route-options)
  */
 export interface RouteOptions extends CommonRouteProperties {
-    /**
-     * Application-specific route configuration state. Should not be used by plugins which should use options.plugins[name] instead.
-     * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsapp)
-     */
-    app?: RouteOptionsApp;
-
     /**
      * Route authentication configuration. Value can be:
      * false to disable authentication if a default strategy is set.

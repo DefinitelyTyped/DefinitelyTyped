@@ -2,8 +2,6 @@ import { BlankNode, DataFactory, Dataset, DatasetCore, DatasetCoreFactory, Datas
   NamedNode, Quad, BaseQuad, Sink, Source, Store, Stream, Triple, Term, Variable, Quad_Graph } from "rdf-js";
 import { EventEmitter } from "events";
 
-const factory: DataFactory = <any> {};
-
 function test_terms() {
     // Only types are checked in this tests,
     // so this does not have to be functional.
@@ -149,7 +147,7 @@ function test_datasetcore() {
 
     const dataset1: DatasetCore = datasetCoreFactory1.dataset();
     const dataset2: DatasetCore = datasetCoreFactory1.dataset([quad, quad]);
-    const dataset3: DatasetCore<QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
+    const dataset3: DatasetCore<QuadBnode, QuadBnode> = datasetCoreFactory2.dataset([quadBnode, quad]);
 
     const dataset2Size: number = dataset2.size;
     const dataset2Add: DatasetCore = dataset2.add(quad);
@@ -285,4 +283,46 @@ function test_dataset() {
     const dataset4Union: Dataset<QuadBnode> = dataset4.union(dataset3);
     const dataset4Iterable: Iterable<QuadBnode> = dataset4;
     const dataset4Core: DatasetCore<QuadBnode> = dataset4;
+}
+
+function test_datasetCoreFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const factory: DatasetCoreFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+}
+
+function test_datasetFactory_covariance() {
+    const quad: BaseQuad = <any> {};
+    const dataset: Dataset = <any> {};
+    const factory: DatasetFactory<Quad, BaseQuad> = <any> {};
+
+    const fromQuads = factory.dataset([quad, quad]);
+    const fromDataset = factory.dataset(dataset);
+}
+
+async function test_dataset_covariance(): Promise<Dataset> {
+    const quad: Quad = <any> {};
+    const dataset: Dataset = <any> {};
+
+    // rdf-ext-like quad
+    interface QuadExt extends Quad {
+        toCanonical(): string;
+    }
+    let datasetExt: Dataset<QuadExt, Quad> = <any> {};
+
+    // stream coming from a generic parser
+    const stream: Stream = <any> {};
+
+    datasetExt = datasetExt.add(quad);
+    datasetExt = datasetExt.delete(quad);
+    datasetExt = datasetExt.addAll([quad, quad]);
+    datasetExt = datasetExt.addAll(dataset);
+    datasetExt.contains(dataset);
+    datasetExt = datasetExt.difference(dataset);
+    datasetExt.equals(dataset);
+    datasetExt.has(quad);
+    datasetExt.intersection(dataset);
+    datasetExt.union(dataset);
+    return datasetExt.import(stream);
 }

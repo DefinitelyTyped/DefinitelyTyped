@@ -517,6 +517,11 @@ declare namespace Xrm {
              * @returns The stage object. For switching between entities, returns the previous stage object
              */
             getStage(): ProcessFlow.Stage;
+
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.
+             */
+            preventDefault(): void;
         }
 
         /**
@@ -3776,6 +3781,42 @@ declare namespace Xrm {
             getSelectedStage(): Stage;
 
             /**
+             * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called before the
+             * business process flow status changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnPreProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to add a function as an event handler for the OnPreStageChange event so that it will be called before the
+             * business process flow stage changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called when the
+             * business process flow status changes.
+             * @param handler The function will be added to the bottom of the event
+             *                handler pipeline. The execution context is automatically
+             *                set to be the first parameter passed to the event handler.
+             *                Use a reference to a named function rather than an
+             *                anonymous function if you may later want to remove the
+             *                event handler.
+             */
+            addOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
              * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
              * business process flow stage changes.
              * @param handler The function will be added to the bottom of the event
@@ -3788,18 +3829,6 @@ declare namespace Xrm {
             addOnStageChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
-             * Use this to add a function as an event handler for the OnProcessStatusChange event so that it will be called when the
-             * business process flow status changes.
-             * @param handler The function will be added to the bottom of the event
-             *                handler pipeline. The execution context is automatically
-             *                set to be the first parameter passed to the event handler.
-             *                Use a reference to a named function rather than an
-             *                anonymous function if you may later want to remove the
-             *                event handler.
-             */
-            addOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
-
-            /**
              * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
              * when a business process flow stage is selected.
              * @param handler The function will be added to the bottom of the event
@@ -3810,6 +3839,20 @@ declare namespace Xrm {
              *                event handler.
              */
             addOnStageSelected(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Use this to remove a function as an event handler for the OnPreProcessStatusChange event.
+             * @param handler If an anonymous function is set using the addOnPreProcessStatusChange method it
+             *                cannot be removed using this method.
+             */
+            removeOnPreProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
+
+            /**
+             * Use this to remove a function as an event handler for the OnPreStageChange event.
+             * @param handler If an anonymous function is set using the addOnPreStageChange method it
+             *                cannot be removed using this method.
+             */
+            removeOnPreStageChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnProcessStatusChange event.

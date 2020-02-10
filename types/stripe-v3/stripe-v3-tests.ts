@@ -130,10 +130,39 @@ describe("Stripe elements", () => {
     });
 
     it("should create an iban element", () => {
-        elements.create('iban', {
+        const ibanElement = elements.create('iban', {
             supportedCountries: ['SEPA'],
             placeholderCountry: 'AT'
         });
+        stripe.createToken(ibanElement, {
+            country: 'US',
+            currency: 'USD',
+            routing_number: '110000000',
+            account_number: '110000000',
+            account_holder_name: 'Jane Austen',
+            account_holder_type: 'individual',
+        })
+            .then((result: stripe.TokenResponse) => {
+                console.log(result.token);
+            },
+                (error: stripe.Error) => {
+                    console.error(error);
+                });
+
+        stripe.createToken('bank_account', {
+            country: 'US',
+            currency: 'USD',
+            routing_number: '110000000',
+            account_number: '110000000',
+            account_holder_name: 'Jane Austen',
+            account_holder_type: 'individual',
+        })
+            .then((result: stripe.TokenResponse) => {
+                console.log(result.token);
+            },
+                (error: stripe.Error) => {
+                    console.error(error);
+                });
     });
 
     it("should create an idealBank element", () => {
