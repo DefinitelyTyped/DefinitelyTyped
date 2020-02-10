@@ -417,13 +417,13 @@ const spy3Mock = spy3
     .mockName('name')
     .mockReturnThis()
     .mockReturnValue('value')
-    .mockReturnValueOnce('value')
+    .mockReturnValueOnce('value');
 
-var spiedPromiseTarget = {
+const spiedPromiseTarget = {
     resolvesString() {
-        return Promise.resolve('string')
+        return Promise.resolve('string');
     }
-}
+};
 jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
     .mockResolvedValueOnce('value')
