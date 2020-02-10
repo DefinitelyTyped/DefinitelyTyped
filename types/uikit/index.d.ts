@@ -4,8 +4,7 @@
 //                 Ivo Senner <https://github.com/s0x>
 //                 Weiyu Weng <https://github.com/pcdotfan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-// Minimum TypeScript Version: 3.7
+// TypeScript Version: 2.3
 
 type UIkitElement = object | HTMLElement | string;
 type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
