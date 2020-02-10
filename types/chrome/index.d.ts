@@ -6968,6 +6968,12 @@ declare namespace chrome.tabs {
          */
         url?: string;
         /**
+         * The URL the tab is navigating to, before it has committed.
+         * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
+         * @since Chrome 79.
+         */
+        pendingUrl?: string;
+        /**
          * Whether the tab is pinned.
          * @since Chrome 9.
          */
