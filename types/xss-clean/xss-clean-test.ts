@@ -1,1 +1,1 @@
-declare function fn(): (string | RegExp)[];
+import xss from 'xss-clean';
