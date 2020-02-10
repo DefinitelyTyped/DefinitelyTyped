@@ -19,7 +19,7 @@ export interface Props<OptionType extends OptionTypeBase> {
   onChange?: (value: ValueType<OptionType>, actionMeta: ActionMeta) => void;
 }
 
-type StateProps<T extends SelectProps<any>> = Pick<T, Exclude<keyof T,
+type StateProps<T extends SelectProps<any, any>> = Pick<T, Exclude<keyof T,
   | 'inputValue'
   | 'value'
   | 'menuIsOpen'
@@ -39,8 +39,9 @@ type GetOptionType<T> = T extends SelectBase<infer OT> ? OT : never;
 
 export class StateManager<
   OptionType extends OptionTypeBase = { label: string; value: string },
-  T extends SelectBase<OptionType> = SelectBase<OptionType>
-> extends Component<StateProps<SelectProps<OptionType>> & Props<OptionType> & SelectProps<OptionType>, State<OptionType>> {
+  CustomInputProps = {},
+  T extends SelectBase<OptionType, CustomInputProps> = SelectBase<OptionType, CustomInputProps>
+> extends Component<StateProps<SelectProps<OptionType, CustomInputProps>> & Props<OptionType> & SelectProps<OptionType, CustomInputProps> & CustomInputProps, State<OptionType>> {
   static defaultProps: DefaultProps<any>;
 
   select: T;

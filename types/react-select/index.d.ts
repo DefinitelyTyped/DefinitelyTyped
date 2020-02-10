@@ -6,8 +6,10 @@
 //                 Thomas Chia <https://github.com/thchia>
 //                 Daniel Del Core <https://github.com/danieldelcore>
 //                 Joonas Rouhiainen <https://github.com/rjoonas>
+//                 Lex Southin-Webb <https://github.com/lexwebb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 3.2
+// Minimum TypeScript Version: 3.2
 
 import { StateManager } from './src/stateManager';
 

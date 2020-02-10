@@ -51,9 +51,7 @@ export interface FormatOptionLabelMeta<OptionType extends OptionTypeBase> {
   selectValue: ValueType<OptionType>;
 }
 
-export type SelectComponentsProps = { [key in string]: any };
-
-export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }> extends SelectComponentsProps {
+export interface Props<OptionType extends OptionTypeBase = { label: string; value: string }, CustomInputProps = {}> {
   /* Aria label (for assistive tech) */
   'aria-label'?: string;
   /* HTML ID of an element that should be used as the label (for assistive tech) */
@@ -94,7 +92,7 @@ export interface Props<OptionType extends OptionTypeBase = { label: string; valu
     instead. For a list of the components that can be passed in, and the shape
     that will be passed to them, see [the components docs](/api#components)
   */
-  components?: SelectComponentsConfig<OptionType>;
+  components?: SelectComponentsConfig<OptionType, CustomInputProps>;
   /* Whether the value of the select, e.g. SingleValue, should be displayed in the control. */
   controlShouldRenderValue?: boolean;
   /* Delimiter used to join multiple values into a single HTML Input value */
@@ -230,7 +228,7 @@ export interface State<OptionType extends OptionTypeBase> {
 
 export type ElRef = React.Ref<any>;
 
-export default class Select<OptionType extends OptionTypeBase> extends React.Component<Props<OptionType>, State<OptionType>> {
+export default class Select<OptionType extends OptionTypeBase, CustomInputProps = {}> extends React.Component<Props<OptionType> & CustomInputProps, State<OptionType>> {
   static defaultProps: Props<any>;
 
   // Misc. Instance Properties

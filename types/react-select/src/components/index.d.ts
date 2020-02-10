@@ -52,7 +52,7 @@ export type PlaceholderOrValue<OptionType extends OptionTypeBase> =
 
 export type IndicatorComponentType<OptionType extends OptionTypeBase> = ComponentType<IndicatorProps<OptionType>>;
 
-export interface SelectComponents<OptionType extends OptionTypeBase> {
+export interface SelectComponents<OptionType extends OptionTypeBase, CustomInputProps = {}> {
   ClearIndicator: IndicatorComponentType<OptionType> | null;
   Control: ComponentType<ControlProps<OptionType>>;
   DropdownIndicator: IndicatorComponentType<OptionType> | null;
@@ -62,7 +62,7 @@ export interface SelectComponents<OptionType extends OptionTypeBase> {
   GroupHeading: ComponentType<any>;
   IndicatorsContainer: ComponentType<IndicatorContainerProps<OptionType>>;
   IndicatorSeparator: IndicatorComponentType<OptionType> | null;
-  Input: ComponentType<InputProps>;
+  Input: ComponentType<InputProps & CustomInputProps>;
   LoadingIndicator: ComponentType<LoadingIconProps<OptionType>> | null;
   Menu: ComponentType<MenuProps<OptionType>>;
   MenuList: ComponentType<MenuListComponentProps<OptionType>>;
@@ -80,7 +80,7 @@ export interface SelectComponents<OptionType extends OptionTypeBase> {
   ValueContainer: ComponentType<ValueContainerProps<OptionType>>;
 }
 
-export type SelectComponentsConfig<OptionType extends OptionTypeBase> = Partial<SelectComponents<OptionType>>;
+export type SelectComponentsConfig<OptionType extends OptionTypeBase, CustomInputProps = {}> = Partial<SelectComponents<OptionType, CustomInputProps>>;
 
 export type DeepNonNullable<T> = {
     [P in keyof T]-?: NonNullable<T[P]>;
