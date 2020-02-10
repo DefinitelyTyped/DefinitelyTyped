@@ -872,13 +872,23 @@ declare namespace braintree {
         reportUrl: string;
     }
 
+    export interface PaymentMethodNotification extends BaseWebhookNotification {
+        kind: PaymentMethodNotificationKind;
+        revokedPaymentMethodMetadata: {
+            token: string;
+            customerId: string;
+            revokedPaymentMethod: PaymentMethod;
+        };
+    }
+
     export type WebhookNotification =
         | TransactionNotification
         | SubMerchantAccountApprovedNotification
         | SubMerchantAccountDeclinedNotification
         | SubscriptionNotification
         | DisputeNotification
-        | AccountUpdaterNotification;
+        | AccountUpdaterNotification
+        | PaymentMethodNotification;
 
     export type AccountUpdaterNotificationKind =
         | 'account_updater_daily_report';
@@ -908,6 +918,9 @@ declare namespace braintree {
         | 'transaction_settled'
         | 'transaction_settlement_declined';
 
+    export type PaymentMethodNotificationKind =
+        | 'payment_method_revoked_by_customer';
+
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind
         | DisputeNotificationKind
@@ -915,6 +928,7 @@ declare namespace braintree {
         | SubMerchantAccountApprovedNotificationKind
         | SubMerchantAccountDeclinedNotificationKind
         | TransactionNotificationKind
+        | PaymentMethodNotificationKind
         | 'check'
         | 'connected_merchant_paypal_status_changed'
         | 'connected_merchant_status_transitioned'
@@ -926,7 +940,6 @@ declare namespace braintree {
         | 'partner_merchant_connected'
         | 'partner_merchant_disconnected'
         | 'partner_merchant_declined'
-        | 'payment_method_revoked_by_customer'
         | 'oauth_access_revoked'
         | 'recipient_updated_granted_payment_method';
 
