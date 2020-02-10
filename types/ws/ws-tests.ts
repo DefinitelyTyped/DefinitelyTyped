@@ -2,6 +2,7 @@ import WebSocket = require('ws');
 import * as http from 'http';
 import * as https from 'https';
 import * as net from 'net';
+import * as url from 'url';
 
 {
     const ws = new WebSocket('ws://www.host.com/path');
