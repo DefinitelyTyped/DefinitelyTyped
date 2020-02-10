@@ -1,4 +1,4 @@
-import RNBackgroundDownloader from 'react-native-background-downloader';
+import RNBackgroundDownloader, { DownloadTask } from 'react-native-background-downloader';
 
 const task = RNBackgroundDownloader.download({
     id: 'file123',
@@ -18,11 +18,15 @@ const task = RNBackgroundDownloader.download({
         console.log('Download canceled due to error: ', error);
     });
 
-// Pause the task
-task.pause();
+const taskFuncTest = (task: DownloadTask) => {
+    // Pause the task
+    task.pause();
 
-// Resume after pause
-task.resume();
+    // Resume after pause
+    task.resume();
 
-// Cancel the task
-task.stop();
+    // Cancel the task
+    task.stop();
+};
+
+taskFuncTest(task);
