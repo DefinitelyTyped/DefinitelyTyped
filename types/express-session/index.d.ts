@@ -71,6 +71,7 @@ declare namespace session {
       sameSite?: boolean | 'lax' | 'strict' | 'none';
     };
     genid?(req: express.Request): string;
+    prefix?: string;
     rolling?: boolean;
     resave?: boolean;
     proxy?: boolean;
