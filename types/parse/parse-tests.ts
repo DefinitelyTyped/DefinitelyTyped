@@ -1663,3 +1663,21 @@ function testUser() {
         new Parse.User<{ example: number }>({ example: 'hello' });
     }
 }
+
+function testEncryptingUser() {
+    function testSecretKey() {
+        Parse.secret = 'secret!';
+    }
+
+    function testEnableEncryptedUserKey() {
+        Parse.encryptedUser = true;
+    }
+
+    function testEnablingEncryptedUser() {
+        Parse.enableEncryptedUser();
+    }
+
+    function testIsEncryptedUserEnabled() {
+        Parse.isEncryptedUserEnabled();
+    }
+}
