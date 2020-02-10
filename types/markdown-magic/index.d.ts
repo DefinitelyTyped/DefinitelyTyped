@@ -2,7 +2,6 @@
 // Project: https://github.com/DavidWells/markdown-magic#readme
 // Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
 
 /**
  * @param path Path or glob pattern
@@ -10,7 +9,7 @@
  * @param callback callback to run after markdown updates
  */
 declare function markdownMagic(
-    path: string | readonly string[],
+    path: string | ReadonlyArray<string>,
     config?: markdownMagic.Configuration,
     callback?: markdownMagic.Callback,
 ): void;
@@ -52,7 +51,7 @@ declare namespace markdownMagic {
     }
 
     interface Callback {
-        (error: Error | undefined, output: readonly ProcessedConfig[]): void;
+        (error: Error | undefined, output: ReadonlyArray<ProcessedConfig>): void;
     }
 }
 
