@@ -30,6 +30,7 @@ app.use(session({
   cookie: { path: '/', httpOnly: true, secure: false, sameSite: true },
   genid: (req: express.Request): string => '',
   rolling: false,
+  prefix: 'some_testing_prefix',
   resave: true,
   proxy: true,
   saveUninitialized: true,
