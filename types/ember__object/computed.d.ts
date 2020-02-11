@@ -124,7 +124,7 @@ export function filter(
  */
 export function filter(
     dependentKey: string,
-    additionalDependentKeys: Array<string>,
+    additionalDependentKeys: string[],
     callback: (value: any, index: number, array: any[]) => boolean
 ): ComputedProperty<any[]>;
 
