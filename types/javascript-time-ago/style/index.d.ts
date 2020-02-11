@@ -1,5 +1,5 @@
-import { Gradation, Unit } from '../gradation'
-import { Locale } from '../locale'
+import { Gradation, Unit } from '../gradation';
+import { Locale } from '../locale';
 
 export type Flavour = 'tiny' | 'short-time' | 'narrow' | 'short' | 'long';
 
