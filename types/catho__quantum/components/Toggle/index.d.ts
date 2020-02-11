@@ -1,6 +1,7 @@
 import React = require('react');
 
 export interface ToggleProps {
+    id?: string;
     checked?: boolean;
     theme?: {
         colors?: object;
