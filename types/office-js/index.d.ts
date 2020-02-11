@@ -10746,9 +10746,13 @@ declare namespace Office {
          * 
          * For file attachments, the formatting is a base64-encoded string.
          * 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * For item attachments that represent messages and were attached by drag-and-drop or "Attach Item",
+         * the formatting is a string representing an .eml formatted file.
+         * **Important**: If a message item was attached by drag-and-drop in Outlook on the web, then `getAttachmentContentAsync` throws an error.
          * 
-         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * For item attachments that represent calendar items and were attached by drag-and-drop or "Attach Item",
+         * the formatting is a string representing an .icalendar file.
+         * **Important**: If a calendar item was attached by drag-and-drop in Outlook on the web, then `getAttachmentContentAsync` throws an error.
          * 
          * For cloud attachments, the formatting is a URL string.
          */
