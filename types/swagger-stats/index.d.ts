@@ -269,6 +269,8 @@ export interface RequestResponseRecord {
     tags?: string;
     params?: string;
   };
+  attrs?: Record<string, string>;
+  attrsint?: Record<string, number>;
 }
 
 export interface APIOperationDefinition {
