@@ -5,13 +5,18 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    Dropdown,
+    NumberInput,
     Slider,
     Tab,
     Table,
     TableBatchActions,
     TableHeader,
     TableRow,
+    TileGroup,
     TooltipDefinition,
+    TextArea,
+    TextInput,
 } from 'carbon-components-react';
 import Link from 'carbon-components-react/lib/components/UIShell/Link';
 
@@ -265,9 +270,37 @@ const uisLinkT5 = (
     <Link<TestCompPropsOverwrite> element={TestComp3} someProp="asdf">Testing Overwrite</Link>
 );
 
+// Dropdown
+const dropdownItemCanBeElement = (
+    <Dropdown
+        id="my-dropdown"
+        items={["val1", "val2", "val3"]}
+        label="label"
+        titleText=""
+        ariaLabel=""
+        selectedItem="val2"
+        itemToElement={(item) => (<div>This is my rich content</div>)}
+        itemToString={item => "Selected: " + item}
+    />
+);
+
+// TileGroup
+// Value nor name can be undefined
+let value: string|number = 5;
+let name = "old name";
+const tileGroupA = (
+    <TileGroup
+        name="my-tile-group-name"
+        onChange={(newVal, newName, e) => {
+            value = newVal;
+            name = newName;
+        }}
+    />
+);
+
 // TooltipDefinition
 const tooltipDefHasAlign = (
-  <TooltipDefinition tooltipText="my text" align="end" />
+    <TooltipDefinition tooltipText="my text" align="end" />
 );
 
 const tooltipDefHasTriggerClassName = (
@@ -293,5 +326,73 @@ const SliderHasOnChange = (
         min={10}
         value={5}
         onChange={(newValue) => newValue.value}
+    />
+);
+
+// TextArea
+const textAreaWithDefaultRef = (
+    <TextArea labelText=""/>
+);
+
+const HtmlTextAreaRef = React.createRef<HTMLTextAreaElement>();
+const textAreaWithRef = (
+    <TextArea
+        ref={HtmlTextAreaRef}
+        labelText=""
+    />
+);
+
+// TextInput
+const inputWithoutRef = (
+    <TextInput
+        id="my-id"
+        labelText=""
+    />
+);
+
+const passwordInputWithoutRef = (
+    <TextInput.PasswordInput
+        id="my-id"
+        labelText=""
+    />
+);
+
+const controlledPasswordInputWithoutRef = (
+    <TextInput.ControlledPasswordInput
+        id="my-id"
+        labelText=""
+    />
+);
+
+const inputRef = React.createRef<HTMLInputElement>();
+const inputWithRef = (
+    <TextInput
+        id="my-id"
+        ref={inputRef}
+        labelText=""
+    />
+);
+
+const passwordInputWithRef = (
+    <TextInput.PasswordInput
+        id="my-id"
+        ref={inputRef}
+        labelText=""
+    />
+);
+
+const controlledPasswordInputWithRef = (
+    <TextInput.ControlledPasswordInput
+        id="my-id"
+        ref={inputRef}
+        labelText=""
+    />
+);
+
+// NumberInput
+const numberInput = (
+    <NumberInput
+        id="my-id"
+        value={12}
     />
 );

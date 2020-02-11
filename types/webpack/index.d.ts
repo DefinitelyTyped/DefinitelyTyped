@@ -1583,7 +1583,7 @@ declare namespace webpack {
                 name: string;
                 size: number;
             }>;
-            assetsByChunkName?: Record<string, Record<string, string[]>>;
+            assetsByChunkName?: Record<string, string | string[]>;
             builtAt?: number;
             children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{

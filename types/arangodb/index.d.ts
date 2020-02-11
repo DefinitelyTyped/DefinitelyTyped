@@ -89,7 +89,7 @@ declare namespace ArangoDB {
         | "network authentication required";
     type EdgeDirection = "any" | "inbound" | "outbound";
     type EngineType = "mmfiles" | "rocksdb";
-    type IndexType = "hash" | "skiplist" | "fulltext" | "geo";
+    type IndexType = "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
     type KeyGeneratorType = "traditional" | "autoincrement";
     type ErrorName =
@@ -510,6 +510,7 @@ declare namespace ArangoDB {
         sparse?: boolean;
         unique?: boolean;
         deduplicate?: boolean;
+        expireAfter?: number;
     }
 
     interface Index<T extends object = any> {
@@ -520,6 +521,7 @@ declare namespace ArangoDB {
         sparse: boolean;
         unique: boolean;
         deduplicate: boolean;
+        expireAfter?: number;
         isNewlyCreated: boolean;
         selectivityEstimate: number;
         code: number;
