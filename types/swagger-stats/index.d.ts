@@ -271,6 +271,7 @@ export interface RequestResponseRecord {
   };
   attrs?: Record<string, string>;
   attrsint?: Record<string, number>;
+  [field: string]: any;
 }
 
 export interface APIOperationDefinition {
