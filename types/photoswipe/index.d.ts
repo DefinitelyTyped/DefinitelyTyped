@@ -1,4 +1,4 @@
-// Type definitions for PhotoSwipe 4.0.8
+// Type definitions for PhotoSwipe 4.1.3
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
 //                 PikachuEXE <https://github.com/PikachuEXE>
