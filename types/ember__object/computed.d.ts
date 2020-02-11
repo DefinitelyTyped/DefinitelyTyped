@@ -310,7 +310,7 @@ export function sort(
  */
 export function sort(
     itemsKey: string,
-    dependentKeys:  string[],
+    dependentKeys: string[],
     sortDefinition: string | ((itemA: any, itemB: any) => number)
 ): ComputedProperty<any[]>;
 
