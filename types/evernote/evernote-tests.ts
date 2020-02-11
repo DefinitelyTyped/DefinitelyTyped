@@ -1,3 +1,3 @@
-import { Evernote } from "evernote";
+import * as Evernote from "evernote";
 
 var client = new Evernote.Client({ token: "abcdef", sandbox: true });
