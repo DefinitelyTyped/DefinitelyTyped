@@ -129,7 +129,6 @@ locale/ms/index.d.ts
 locale/ro/index.d.ts
 locale/ka/index.d.ts
 locale/ti/index.d.ts
-gradation/canonical.d.ts
 gradation/convenient.d.ts
 gradation/helpers.d.ts
 gradation/index.d.ts
