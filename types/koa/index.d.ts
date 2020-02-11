@@ -278,10 +278,11 @@ declare interface ContextDelegatedRequest {
     is(types: string[]): string | boolean;
 
     /**
-     * Return request header.
+     * Return request header. If the header is not set, will return an empty
+     * string.
      *
-     * The `Referrer` header field is special-cased,
-     * both `Referrer` and `Referer` are interchangeable.
+     * The `Referrer` header field is special-cased, both `Referrer` and
+     * `Referer` are interchangeable.
      *
      * Examples:
      *
@@ -292,7 +293,7 @@ declare interface ContextDelegatedRequest {
      *     // => "text/plain"
      *
      *     this.get('Something');
-     *     // => undefined
+     *     // => ''
      */
     get(field: string): string;
 }
@@ -615,7 +616,11 @@ declare namespace Application {
         is(types: string[]): string;
 
         /**
-         * Return response header.
+         * Return response header. If the header is not set, will return an empty
+         * string.
+         *
+         * The `Referrer` header field is special-cased, both `Referrer` and
+         * `Referer` are interchangeable.
          *
          * Examples:
          *
@@ -624,6 +629,9 @@ declare namespace Application {
          *
          *     this.get('content-type');
          *     // => "text/plain"
+         *
+         *     this.get('Something');
+         *     // => ''
          */
         get(field: string): string;
 
