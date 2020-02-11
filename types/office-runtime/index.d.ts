@@ -20,7 +20,7 @@ Copyright (c) Microsoft Corporation
  */
 declare namespace OfficeRuntime {
     /**
-     * Encapsulates methods that interacts with the Office UI
+     * Encapsulates methods that interact with the Office UI.
      * @beta
      */
     interface UI {
@@ -30,7 +30,7 @@ declare namespace OfficeRuntime {
         getRibbon(): Promise<Ribbon>;
     }
     /**
-     * Encapsulates all the functionality provided to manage the state of the Office ribbon.
+     * Encapsulates the management of the Office ribbon state.
      * @beta
      */
     interface Ribbon {
@@ -40,17 +40,17 @@ declare namespace OfficeRuntime {
          * Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined
          * by the completion of this API.
          * @param input Represents the updates to be made to the ribbon. Note that the only changes made to the ribbon
-         * are those specified in the input parameter. In all other respects the ribbon is not changed.
+         * are those specified in the input parameter. In all other respects, the ribbon is not changed.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
     }
     /**
-     * Represents the parts of the ribbon that the call of requestUpdate will change.
+     * Represents the parts of the ribbon that the call of `requestUpdate` will change.
      * @beta
      */
     interface RibbonUpdaterData {
         /**
-         * Array of the tabs whose state is set with call of requestUpdate.
+         * Array of the tabs whose state is set with a call to `requestUpdate`.
          */
         tabs?: Tab [];
     }
@@ -64,12 +64,12 @@ declare namespace OfficeRuntime {
          */
         id: string;
         /**
-         * Represents an array of controls in the tab whose state is set with the call of requestUpdate.
+         * Represents an array of controls in the tab whose state is set with the call of `requestUpdate`.
          */
         controls?: Control[];
     }
     /**
-     * Represent an individual control or command whose state is set with the call of requestUpdate.
+     * Represent an individual control or command whose state is set with the call of `requestUpdate`.
      * @beta
      */
     interface Control {
@@ -93,7 +93,7 @@ declare namespace OfficeRuntime {
         refreshData?: {};
     }
     /**
-     * Represents an individual menu item whose state is set with the call of requestUpdate.
+     * Represents an individual menu item whose state is set with the call of `requestUpdate`.
      * @beta
      */
     interface MenuControl {
