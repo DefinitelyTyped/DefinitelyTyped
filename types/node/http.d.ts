@@ -130,6 +130,96 @@ declare module "http" {
     class Server extends NetServer {
         constructor(requestListener?: RequestListener);
         constructor(options: ServerOptions, requestListener?: RequestListener);
+
+        // From http.server
+        addListener(event: 'checkContinue', listener: RequestListener): this;
+        addListener(event: 'checkExpectation', listener: RequestListener): this;
+        addListener(event: 'clientError', listener: (err: Error, socket: Socket) => void): this;
+        addListener(event: 'connect', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(event: 'request', listener: RequestListener): this;
+        addListener(event: 'upgrade', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        // From net.server
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: 'close', listener: () => void): this;
+        addListener(event: 'connection', listener: (socket: Socket) => void): this;
+        addListener(event: 'error', listener: (err: Error) => void): this;
+        addListener(event: 'listening', listener: () => void): this;
+
+        // From http.server
+        emit(event: 'checkContinue'): boolean;
+        emit(event: 'checkExpectation'): boolean;
+        emit(event: 'clientError'): boolean;
+        emit(event: 'connect'): boolean;
+        emit(event: 'request'): boolean;
+        emit(event: 'upgrade'): boolean;
+        // From net.server
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: 'close'): boolean;
+        emit(event: 'connection', socket: Socket): boolean;
+        emit(event: 'error', err: Error): boolean;
+        emit(event: 'listening'): boolean;
+
+        // From http.server
+        on(event: 'checkContinue', listener: RequestListener): this;
+        on(event: 'checkExpectation', listener: RequestListener): this;
+        on(event: 'clientError', listener: (err: Error, socket: Socket) => void): this;
+        on(event: 'connect', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: 'request', listener: RequestListener): this;
+        on(event: 'upgrade', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        // From net.server
+        on(event: string, listener: (...args: any[]) => void): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: 'connection', listener: (socket: Socket) => void): this;
+        on(event: 'error', listener: (err: Error) => void): this;
+        on(event: 'listening', listener: () => void): this;
+
+        // From http.server
+        once(event: 'checkContinue', listener: RequestListener): this;
+        once(event: 'checkExpectation', listener: RequestListener): this;
+        once(event: 'clientError', listener: (err: Error, socket: Socket) => void): this;
+        once(event: 'connect', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: 'request', listener: RequestListener): this;
+        once(event: 'upgrade', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        // From net.server
+        once(event: string, listener: (...args: any[]) => void): this;
+        once(event: 'close', listener: () => void): this;
+        once(event: 'connection', listener: (socket: Socket) => void): this;
+        once(event: 'error', listener: (err: Error) => void): this;
+        once(event: 'listening', listener: () => void): this;
+
+        // From http.server
+        prependListener(event: 'checkContinue', listener: RequestListener): this;
+        prependListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependListener(event: 'clientError', listener: (err: Error, socket: Socket) => void): this;
+        prependListener(event: 'connect', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(event: 'request', listener: RequestListener): this;
+        prependListener(event: 'upgrade', listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        // From net.server
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: 'close', listener: () => void): this;
+        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependListener(event: 'error', listener: (err: Error) => void): this;
+        prependListener(event: 'listening', listener: () => void): this;
+
+        // From http.server
+        prependOnceListener(event: 'checkContinue', listener: RequestListener): this;
+        prependOnceListener(event: 'checkExpectation', listener: RequestListener): this;
+        prependOnceListener(event: 'clientError', listener: (err: Error, socket: Socket) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
+        prependOnceListener(event: 'request', listener: RequestListener): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (req: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
+        // From net.server
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: 'close', listener: () => void): this;
+        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+        prependOnceListener(event: 'listening', listener: () => void): this;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
