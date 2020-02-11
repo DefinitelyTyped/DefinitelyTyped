@@ -14,14 +14,8 @@
         "esModuleInterop": true
     },
     "files": [
-        "gradation/canonical.d.ts",
-        "gradation/convenient.d.ts",
-        "gradation/helpers.d.ts",
         "gradation/index.d.ts",
         "style/index.d.ts",
-        "style/default.d.ts",
-        "style/time.d.ts",
-        "style/twitter.d.ts",
         "index.d.ts",
         "javascript-time-ago-tests.ts"
     ]
