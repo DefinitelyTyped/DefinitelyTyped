@@ -296,7 +296,7 @@ export interface MongoClientOptions extends
     appname?: string;
 
     /**
-     * Authentifikation credentials
+     * Authentication credentials
      */
     auth?: {
         /**

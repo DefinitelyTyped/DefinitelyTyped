@@ -37,6 +37,22 @@ const params: Email.SendParams = {
             Subject: 'My first Mailjet Email!',
             TextPart: 'Greetings from Mailjet!',
             HTMLPart: '<h3>Welcome to <a href="https://www.mailjet.com/">Mailjet</a>!</h3>',
+            Attachments: [
+                {
+                    Base64Content: 'aGVsbG8sIHdvcmxkCg==',
+                    ContentType: 'plain/text',
+                    Filename: 'textfile.txt',
+                },
+            ],
+            InlinedAttachments: [
+                {
+                    Filename: 'test.png',
+                    Base64Content:
+                        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=', // 1px png as base64
+                    ContentType: 'image/png',
+                    ContentID: 'abc123',
+                },
+            ],
         },
     ],
     SandboxMode: true,

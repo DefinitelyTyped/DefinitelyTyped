@@ -1025,6 +1025,37 @@ describe("jasmine.objectContaining", () => {
         });
     });
 
+    it("other expected can be nested in jasmine.objectContaining", () => {
+        interface nestedFooType {
+            nested: {
+                a: number;
+                b: number;
+                bar: string;
+            };
+            other: {
+                c: number;
+                d: string;
+            };
+        }
+
+        const nestedFoo: nestedFooType = {
+            nested: {
+                a: 1,
+                b: 2,
+                bar: 's',
+            },
+            other: {
+                c: 5,
+                d: 't',
+            },
+        };
+
+        expect(nestedFoo).toEqual(jasmine.objectContaining({
+            nested: jasmine.objectContaining({ b: 2 }),
+            other: jasmine.any(Object),
+        }));
+    });
+
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
             const callback = jasmine.createSpy('callback');

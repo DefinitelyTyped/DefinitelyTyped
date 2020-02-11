@@ -3938,6 +3938,10 @@ export class Object {
 	 * @return {fabric.Object}
 	 */
 	static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
+	/**
+	 * Defines the number of fraction digits to use when serializing object values.
+	 */
+	static NUM_FRACTION_DIGITS?: number;
 }
 
 interface IPathOptions extends IObjectOptions {
