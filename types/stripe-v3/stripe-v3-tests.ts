@@ -129,8 +129,8 @@ describe("Stripe elements", () => {
         card.destroy();
     });
 
-    it("should create an iban source wit a mandate", () => {
-        stripe.createSource({
+    it("should create an iban source with a mandate", () => {
+        const options: stripe.SourceOptions = {
             type: 'sepa_debit',
             sepa_debit: {
                 iban: 'some iban',
@@ -142,7 +142,9 @@ describe("Stripe elements", () => {
                 notification_method: 'email',
             },
             currency: 'eur',
-        });
+        };
+
+        stripe.createSource(options);
     });
 
     it("should create an iban element", () => {
