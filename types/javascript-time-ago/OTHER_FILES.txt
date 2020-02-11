@@ -132,6 +132,8 @@ locale/ti/index.d.ts
 gradation/canonical.d.ts
 gradation/convenient.d.ts
 gradation/helpers.d.ts
+gradation/index.d.ts
+style/index.d.ts
 style/default.d.ts
 style/time.d.ts
 style/twitter.d.ts
