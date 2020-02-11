@@ -129,8 +129,3 @@ locale/ms/index.d.ts
 locale/ro/index.d.ts
 locale/ka/index.d.ts
 locale/ti/index.d.ts
-gradation/index.d.ts
-style/index.d.ts
-style/default.d.ts
-style/time.d.ts
-style/twitter.d.ts
