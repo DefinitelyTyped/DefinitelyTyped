@@ -21,7 +21,7 @@ Copyright (c) Microsoft Corporation
 declare namespace OfficeRuntime {
     /**
      * Encapsulates methods that interacts with the Office UI
-	 * @beta
+     * @beta
      */
     interface UI {
         /**
@@ -31,22 +31,22 @@ declare namespace OfficeRuntime {
     }
     /**
      * Encapsulates all the functionality provided to manage the state of the Office ribbon.
-	 * @beta
+     * @beta
      */
     interface Ribbon {
         /**
-         * Stages the updates to be made to the ribbon. 
-         * Note that this API only requests an update. The actual UI update to the ribbon is controlled by the 
-		 * Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined 
-		 * by the completion of this API. 
-         * @param input Represents the updates to be made to the ribbon. Note that the only changes made to the ribbon 
-		 * are those specified in the input parameter. In all other respects the ribbon is not changed.
+         * Stages the updates to be made to the ribbon.
+         * Note that this API only requests an update. The actual UI update to the ribbon is controlled by the
+         * Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined
+         * by the completion of this API.
+         * @param input Represents the updates to be made to the ribbon. Note that the only changes made to the ribbon
+         * are those specified in the input parameter. In all other respects the ribbon is not changed.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
     }
     /**
      * Represents the parts of the ribbon that the call of requestUpdate will change.
-	 * @beta
+     * @beta
      */
     interface RibbonUpdaterData {
         /**
@@ -56,7 +56,7 @@ declare namespace OfficeRuntime {
     }
     /**
      * Represents an individual tab and the state it should have.
-	 * @beta
+     * @beta
      */
     interface Tab {
         /**
@@ -64,37 +64,37 @@ declare namespace OfficeRuntime {
          */
         id: string;
         /**
-         * Represents an array of controls in the tab whose state is set with the call of requestUpdate. 
-         */ 
+         * Represents an array of controls in the tab whose state is set with the call of requestUpdate.
+         */
         controls?: Control[];
     }
     /**
      * Represent an individual control or command whose state is set with the call of requestUpdate.
-	 * @beta
+     * @beta
      */
     interface Control {
         /**
          * Identifier of the control as specified in the manifest.
-         */  
+         */
         id: string;
         /**
          * Indicates whether the control should be enabled (default) or disabled.
-         */  
+         */
         enabled?: boolean;
     }
     /**
      * Represent an individual gallery control.
-	 * @beta
+     * @beta
      */
     interface Gallery extends Control {
         /**
-         * Used to refresh a gallery control including optional data to be passed to the gallery control at the time of refresh action. 
+         * Used to refresh a gallery control including optional data to be passed to the gallery control at the time of refresh action.
          */
         refreshData?: {};
     }
     /**
      * Represents an individual menu item whose state is set with the call of requestUpdate.
-	 * @beta
+     * @beta
      */
     interface MenuControl {
         /**
@@ -107,7 +107,7 @@ declare namespace OfficeRuntime {
         position?: number;
         /**
          * Indicates whether the menu item should be enabled (default) or disabled.
-         */  
+         */
         enabled?: boolean;
     }
   /**
