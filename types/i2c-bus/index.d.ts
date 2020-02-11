@@ -44,7 +44,7 @@ export interface I2CFuncs {
     smbusWriteI2cBlock: boolean;
 }
 
-export interface Bus {
+export interface I2CBus {
     /**
      * Asynchronous close.
      *
@@ -651,10 +651,10 @@ export interface PromisifiedBus {
     /**
      * Return the Bus instance for this PromisifiedBus instance.
      *
-     * @return {Bus}
+     * @return {I2CBus}
      *     The Bus instance for this PromisifiedBus instance.
      */
-    bus(): Bus;
+    bus(): I2CBus;
 }
 
 /**
@@ -666,11 +666,11 @@ export interface PromisifiedBus {
  *     An optional options object.
  * @param  {CompletionCallback} callback
  *     Completion callback.
- * @return {Bus}
+ * @return {I2CBus}
  *     A new Bus object.
  */
-export function open(busNumber: number, callback: CompletionCallback): Bus;
-export function open(busNumber: number, options: OpenOptions, callback: CompletionCallback): Bus;
+export function open(busNumber: number, callback: CompletionCallback): I2CBus;
+export function open(busNumber: number, options: OpenOptions, callback: CompletionCallback): I2CBus;
 
 /**
  * Synchronous open.
@@ -679,10 +679,10 @@ export function open(busNumber: number, options: OpenOptions, callback: Completi
  *     The number of the I2C bus/adapter to open, 0 for /dev/i2c-0, 1 for /dev/i2c-1, ...
  * @param  {OpenOptions} [options]
  *     An optional options object.
- * @return {Bus}
+ * @return {I2CBus}
  *     A new Bus object.
  */
-export function openSync(busNumber: number, options?: OpenOptions): Bus;
+export function openSync(busNumber: number, options?: OpenOptions): I2CBus;
 
 /**
  * Asynchronous open.
