@@ -20,4 +20,5 @@ declare function scrypt(
     ) => void
 ): void;
 
+export as namespace scrypt;
 export = scrypt;
