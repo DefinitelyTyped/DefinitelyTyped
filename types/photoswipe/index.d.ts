@@ -12,19 +12,24 @@ declare namespace PhotoSwipe {
         /**
          * The url of this image.
          */
-        src: string;
+        src?: string;
         /**
          * The width of this image.
          */
-        w: number;
+        w?: number;
         /**
          * The height of this image.
          */
-        h: number;
+        h?: number;
         /**
          * The url to small image placeholder, large image will be loaded on top
          */
         msrc?: string;
+
+        /**
+         * HTML content instead of image.
+         */
+        html?: string;
 
         /**
          * Internal property added by PhotoSwipe.
