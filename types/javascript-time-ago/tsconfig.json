@@ -15,6 +15,8 @@
     },
     "files": [
         "index.d.ts",
+        "gradation/**.d.ts",
+        "style/**.d.ts",
         "javascript-time-ago-tests.ts"
     ]
 }
