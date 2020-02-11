@@ -932,6 +932,12 @@ declare namespace Dockerode {
     Promise?: typeof Promise;
   }
 
+  interface GetEventsOptions {
+    since?: number;
+    until?: number;
+    filters?: string;
+  }
+
   interface SecretVersion {
     Index: number;
   }
@@ -1274,9 +1280,9 @@ declare class Dockerode {
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;
 
-  getEvents(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  getEvents(options: Dockerode.GetEventsOptions, callback: Callback<NodeJS.ReadableStream>): void;
   getEvents(callback: Callback<NodeJS.ReadableStream>): void;
-  getEvents(options?: {}): Promise<NodeJS.ReadableStream>;
+  getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
   pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
   pull(repoTag: string, options: {}, auth?: {}): Promise<any>;

@@ -8,10 +8,10 @@ export interface PaginationProps {
     totalPages: number;
     nextButtonText?: string;
     pageAriaLabel?: string;
-    pageHref?: () => void;
+    pageHref?: (page?: number) => void;
     prevButtonText?: string;
-    onPageClick?: () => void;
-    infoFormatter?: () => void;
+    onPageClick?: (page?: number) => void;
+    infoFormatter?: (activePage?: number, lastPage?: number) => void;
     followOnlyFirstPage?: boolean;
 }
 

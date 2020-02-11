@@ -1,8 +1,8 @@
 import React = require('react');
 
-export interface AlertProps {
+export interface AlertProps<T> {
     children: React.ReactNode;
-    onClose: () => void;
+    onClose: React.MouseEventHandler<T>;
     icon?: string;
     skin?: 'primary' | 'success' | 'error' | 'neutral' | 'warning';
     theme?: {
@@ -16,4 +16,4 @@ export interface AlertProps {
     };
 }
 
-export default class Alert extends React.Component<AlertProps> {}
+export default class Alert<T = HTMLButtonElement> extends React.Component<AlertProps<T>> {}
