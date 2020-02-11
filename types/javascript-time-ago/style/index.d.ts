@@ -18,7 +18,7 @@ export interface FormatStyle {
     gradation?: Gradation[];
     flavour?: Flavour[];
     custom?: CustomFormatter;
-    format(date: Date | number, locale: Locale): string;
+    format?(date: Date | number, locale: Locale): string;
 }
 
 export { default as timeStyle } from './time';

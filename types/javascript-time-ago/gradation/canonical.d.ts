@@ -1,5 +1,5 @@
 import { Gradation } from './'
 
-type Canonical = Gradation[];
+declare const canonical: Gradation[];
 
-export default Canonical;
+export default canonical;

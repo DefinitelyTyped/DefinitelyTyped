@@ -1,5 +1,5 @@
 import { Gradation } from './'
 
-type Convenient = Gradation[];
+declare const convenient: Gradation[];
 
-export default Convenient;
+export default convenient;
