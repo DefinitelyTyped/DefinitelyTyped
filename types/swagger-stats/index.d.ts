@@ -11,7 +11,7 @@ import { Server } from '@hapi/hapi';
 import { RequestHandler } from 'express';
 import { FastifyInstance } from 'fastify';
 import * as PromClient from 'prom-client';
-import { IncomingMessage, ServerResponse } from 'http';
+import { IncomingMessage, ServerResponse, IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 
 export type SWStats = Partial<{
   /**
@@ -38,43 +38,43 @@ export type SWStats = Partial<{
    * Base path for swagger-stats APIs.
    * If specified, will be used to serve UI, stats and metrics like this:
    * /{uriPath}/ui, /{uriPath}/stats, /{uriPath}/metrics
-   * 
+   *
    * @default /swagger-stats
    */
   uriPath: string;
   /**
    * Duration of timeline bucket in milliseconds.
    * Timeline always stores 60 last time buckets, with this option you may adjust timeline granularity and length.
-   * 
+   *
    * @default 60000 (1 min) making timeline 1 hour.
    */
   timelineBucketDuration: number;
   /**
    * Buckets for duration histogram metrics, in Milliseconds.
    * The default buckets are tailored to broadly measure API response time.Most likely needs to be defined per app to account for application specifics.
-   * 
+   *
    * @default [5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
    */
   durationBuckets: number[];
   /**
    * Buckets for request size histogram metric, in Bytes.
    * The default buckets are tailored to broadly measure API request size.Most likely needs to be defined per app to account for application specifics.
-   * 
+   *
    * @default [5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
    */
   requestSizeBuckets: number[];
   /**
    * Buckets for response size histogram metric, in Bytes.
    * The default buckets are tailored to broadly measure API response size.Most likely needs to be defined per app to account for application specifics.
-   * 
-   * @default [5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000] 
+   *
+   * @default [5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
    */
   responseSizeBuckets: number[];
   /**
    * Apdex Threshold, in milliseconds. In Apdex calculation, request is considered satisfied if it is answered in less then this
    * threshold, and request is tolerating if it's answered in less than threshold * 4.
    * Make sure both threshold and threshold * 4 are buckets in durationBuckets, so Apdex calculation can be done using Prometheus metrics.
-   * 
+   *
    * @default 25
    */
   apdexThreshold: number;
@@ -90,7 +90,7 @@ export type SWStats = Partial<{
   onResponseFinish: (req: IncomingMessage, res: ServerResponse, rrr: RequestResponseRecord) => void;
   /**
    * Enable Basic authentication.
-   * 
+   *
    * @default false
    */
   authentication: boolean;
@@ -107,13 +107,13 @@ export type SWStats = Partial<{
   onAuthenticate: (req: IncomingMessage, username: string, password: string) => boolean;
   /**
    * If authentication is enabled, max age of the session, in seconds.
-   * 
+   *
    * @default 900
    */
   sessionMaxAge: number;
   /**
    * Elasticsearch URL. If specified, enables storing of request response records in Elasticsearch.
-   * 
+   *
    * @default disabled
    */
   elasticsearch: string;
@@ -131,7 +131,7 @@ export type SWStats = Partial<{
   elasticsearchPassword: string;
   /**
    * Set to true to track only requests defined in swagger spec.
-   * 
+   *
    * @default false
    */
   swaggerOnly: boolean;
@@ -141,7 +141,7 @@ export type SWStats = Partial<{
   metricsPrefix: string;
   /**
    * Enables Egress HTTP monitoring.
-   * 
+   *
    * @default false
    */
   enableEgress: boolean;
@@ -153,7 +153,7 @@ export type SWStats = Partial<{
   // pathStats: string;
   // pathMetrics: string;
   // pathLogout: string;
-}>
+}>;
 
 export namespace getHapiPlugin {
   const name: string;
@@ -241,7 +241,7 @@ export interface RequestResponseRecord {
   http: {
     request: {
       url: string;
-      headers?: Record<string, string>;
+      headers?: IncomingHttpHeaders;
       clength?: number;
       route_path?: string;
       params?: Record<string, any>;
@@ -252,7 +252,7 @@ export interface RequestResponseRecord {
       code: string;
       class: string;
       phrase: string;
-      headers?: Record<string, string>;
+      headers?: OutgoingHttpHeaders;
       clength?: number;
     };
   };
