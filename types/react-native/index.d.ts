@@ -995,7 +995,7 @@ export interface TextInputIOSProps {
      * For example, say you want to require a password with at least eight characters consisting of a mix of uppercase and lowercase letters, at least one number, and at most two consecutive characters.
      * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
      */
-    passwordRules?: string;
+    passwordRules?: string | null;
     
     /**
      * If `true`, allows TextInput to pass touch events to the parent component.
@@ -1003,7 +1003,7 @@ export interface TextInputIOSProps {
      * as is the case on Android by default.
      * If `false`, TextInput always asks to handle the input (except when disabled).
      */
-    rejectResponderTermination?: boolean;
+    rejectResponderTermination?: boolean | null;
 
     /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
@@ -1090,13 +1090,10 @@ export interface TextInputIOSProps {
     | 'newPassword'
     | 'oneTimeCode';
 
-
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
      */
     scrollEnabled?: boolean;
-
-
 }
 
 /**
