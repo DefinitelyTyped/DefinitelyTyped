@@ -9,6 +9,7 @@ const redisClient = new RedisClient({
 });
 
 app.use(rateLimit({
+    driver: 'redis',
     db: redisClient
 }));
 
