@@ -7,8 +7,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import passport = require('passport');
-import express = require('express');
+import passport from 'passport';
+import express from 'express';
 
 export interface Profile extends passport.Profile {
     id: string;
