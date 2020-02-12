@@ -2,6 +2,7 @@
 // Project: https://github.com/nodemailer/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider>
 //                 Andrey Volynkin <https://github.com/Avol-V>
+                   Fabian Terh <https://github.com/fterh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -211,7 +212,7 @@ interface ParsedMail {
 	/**
 	 * The subject line.
 	 */
-	subject: string;
+	subject?: string;
 	/**
 	 * An array of referenced Message-ID values.
 	 *
