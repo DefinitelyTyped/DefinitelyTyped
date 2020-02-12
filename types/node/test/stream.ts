@@ -6,7 +6,7 @@ import { ok as assert } from 'assert';
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
-    new Readable({
+    let _readable: Readable = new Readable({
         read(size) {
             // $ExpectType Readable
             this;
@@ -21,7 +21,23 @@ function simplified_stream_ctor_test() {
         }
     });
 
-    new Writable({
+    _readable.read(1); // $ExpectType any
+    _readable.push('smth'); // $ExpectType boolean
+    _readable.unshift('smth'); // $ExpectType void
+
+    _readable = _readable.setEncoding('utf-8');
+    _readable = _readable.pause();
+    _readable = _readable.resume();
+    _readable = _readable.unpipe();
+    _readable = _readable.wrap(_readable);
+    _readable = _readable.addListener('event', () => {});
+    _readable = _readable.prependListener('event', () => {});
+    _readable = _readable.prependOnceListener('event', () => {});
+    _readable = _readable.removeListener('event', () => {});
+    _readable = _readable.on("event", () => {});
+    _readable = _readable.once("event", () => {});
+
+    let _writable: Writable = new Writable({
         write(chunk, enc, cb) {
             // $ExpectType Writable
             this;
@@ -55,6 +71,21 @@ function simplified_stream_ctor_test() {
             cb;
         }
     });
+
+    _writable.cork(); // $ExpectType void
+    _writable.uncork(); // $ExpectType void
+    _writable.write('some'); // $ExpectType boolean
+    _writable.emit("event"); // $ExpectType boolean
+
+    _writable = _writable.setDefaultEncoding('utf-8');
+    _writable = _writable.end();
+    _writable = _writable.destroy(new Error('err'));
+    _writable = _writable.addListener('event', () => {});
+    _writable = _writable.prependListener('event', () => {});
+    _writable = _writable.prependOnceListener('event', () => {});
+    _writable = _writable.removeListener('event', () => {});
+    _writable = _writable.on("event", () => {});
+    _writable = _writable.once("event", () => {});
 
     new Duplex({
         read(size) {
