@@ -223,6 +223,13 @@ function return_a_query(): Parse.Query {
     return new Parse.Query(Game);
 }
 
+function test_each() {
+    new Parse.Query(Game).each((game) => {
+        // $ExpectType Game
+        game;
+    });
+}
+
 function test_file() {
     const base64 = 'V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=';
     let file = new Parse.File('myfile.txt', { base64 });
