@@ -1,8 +1,7 @@
 import { configureRefreshFetch, fetchJSON } from 'refresh-fetch';
-import { RequestInit, Response } from 'node-fetch';
 
-const fetchJSONWithToken = <ResponseBody>(url: string, options?: RequestInit): Promise<{ body: ResponseBody; response: Response }> => {
-  return fetchJSON<ResponseBody>(url, options);
+const fetchJSONWithToken = (url: string, options?: RequestInit): Promise<{ body: {}; response: Response }> => {
+  return fetchJSON(url, options);
 };
 
 const refreshToken = (): Promise<void> => {
