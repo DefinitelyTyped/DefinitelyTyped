@@ -315,7 +315,7 @@ function EventWrapper(props: EventWrapperProps<CalendarEvent>) {
     const { continuesEarlier, event, label, accessors = {}, style } = props;
     return (
         <div style={style}>
-            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}}</div>
+            <div>{continuesEarlier}-{label}-{accessors.title && event && accessors.title(event)}</div>
         </div>
     );
 }
@@ -325,7 +325,7 @@ class Toolbar extends React.Component<ToolbarProps> {
         const { date, label, view } = this.props;
         return (
             <div>
-                <div>{date.toJSON()}-{label}-{view}}</div>
+                <div>{date.toJSON()}-{label}-{view}</div>
             </div>
         );
     }
