@@ -12,7 +12,7 @@ const User = {
     }
 };
 
-passport.use(new auth0({
+passport.use(new auth0.default({
     clientID: process.env.PASSPORT_AUTH0_CLIENT_ID as string,
     clientSecret: process.env.PASSPORT_AUTH0_CLIENT_SECRET as string,
     callbackURL: process.env.PASSPORT_AUTH0_CALLBACK_URL as string,
