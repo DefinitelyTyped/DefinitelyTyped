@@ -13,6 +13,11 @@ app.use(rateLimit({
     db: redisClient
 }));
 
+app.use(rateLimit({
+    driver: 'memory',
+    db: new Map()
+}));
+
 app.use(async context => {
     context.body = "Hello";
 });
