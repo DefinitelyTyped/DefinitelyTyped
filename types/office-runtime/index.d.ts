@@ -6,6 +6,7 @@
 //                 David Chesnut <https://github.com/davidchesnut>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
 //                 Sudhi Ramamurthy <https://github.com/sumurthy>
+//                 Ricky Kirkham <https://github.com/rick-kirkham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4
 
@@ -18,10 +19,101 @@ Copyright (c) Microsoft Corporation
  * Office runtime namespace.
  */
 declare namespace OfficeRuntime {
+    /**
+     * Encapsulates methods that interact with the Office UI.
+     * @beta
+     */
+    interface UI {
+        /**
+         * Get the ribbon of the Office application.
+         */
+        getRibbon(): Promise<Ribbon>;
+    }
+    /**
+     * Encapsulates the management of the Office ribbon state.
+     * @beta
+     */
+    interface Ribbon {
+        /**
+         * Stages the updates to be made to the ribbon.
+         * Note that this API only requests an update. The actual UI update to the ribbon is controlled by the
+         * Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined
+         * by the completion of this API.
+         * @param input Represents the updates to be made to the ribbon. Note that the only changes made to the ribbon
+         * are those specified in the input parameter. In all other respects, the ribbon is not changed.
+         */
+        requestUpdate(input: RibbonUpdaterData): Promise<void>;
+    }
+    /**
+     * Represents the parts of the ribbon that the call to `requestUpdate` will change.
+     * @beta
+     */
+    interface RibbonUpdaterData {
+        /**
+         * Array of the tabs whose state is set with a call to `requestUpdate`.
+         */
+        tabs?: Tab [];
+    }
+    /**
+     * Represents an individual tab and the state it should have.
+     * @beta
+     */
+    interface Tab {
+        /**
+         * Identifier of the tab as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Represents an array of controls in the tab whose state is set with the call to `requestUpdate`.
+         */
+        controls?: Control[];
+    }
+    /**
+     * Represent an individual control or command whose state is set with the call to `requestUpdate`.
+     * @beta
+     */
+    interface Control {
+        /**
+         * Identifier of the control as specified in the manifest.
+         */
+        id: string;
+        /**
+         * Indicates whether the control should be enabled (default) or disabled.
+         */
+        enabled?: boolean;
+    }
+    /**
+     * Represent an individual gallery control.
+     * @beta
+     */
+    interface Gallery extends Control {
+        /**
+         * Used to refresh a gallery control including optional data to be passed to the gallery control at the time of refresh action.
+         */
+        refreshData?: {};
+    }
+    /**
+     * Represents an individual menu item whose state is set with the call to `requestUpdate`.
+     * @beta
+     */
+    interface MenuControl {
+        /**
+         * Identifier of the menu item as specified in the manifest.
+         */
+        id?: string;
+        /**
+         * The position of the item in the menu.
+         */
+        position?: number;
+        /**
+         * Indicates whether the menu item should be enabled (default) or disabled.
+         */
+        enabled?: boolean;
+    }
   /**
    * Method that enables a pop up web dialog box.
    *
-   * [Api set: CustomFunctionsRuntime 1.1]
+   * [Api set: SharedRuntime 1.1]
    *
    * @param url Must be a string.
    * @param options Optional parameter. Must be of type DisplayWebDialogOptions.
@@ -34,7 +126,7 @@ declare namespace OfficeRuntime {
   /**
    * Asynchronous, global, and persistent key-value storage.
    *
-   * [Api set: CustomFunctionsRuntime 1.1]
+   * [Api set: SharedRuntime 1.1]
    *
    * @remarks
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
@@ -44,7 +136,7 @@ declare namespace OfficeRuntime {
      * Retrieves an item from storage based on its key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -53,7 +145,7 @@ declare namespace OfficeRuntime {
      * Sets a key-value pair into storage or updates an existing key-value pair.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -63,7 +155,7 @@ declare namespace OfficeRuntime {
      * Removes an item from storage based on its key.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -72,7 +164,7 @@ declare namespace OfficeRuntime {
      * Retrieves multiple items from storage based on their key.
      * Returns a Promise. In the event the Promise does not resolve, returns null.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -81,7 +173,7 @@ declare namespace OfficeRuntime {
      * Sets multiple items into storage or updates multiple items within storage.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -90,7 +182,7 @@ declare namespace OfficeRuntime {
      * Removes multiple items from storage.
      * Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -99,7 +191,7 @@ declare namespace OfficeRuntime {
      * Retrieves an array of all keys from storage.
      *  Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     getKeys(): Promise<string[]>;
@@ -109,7 +201,7 @@ declare namespace OfficeRuntime {
     /**
      * Method to close a dialog box. Returns a Promise.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     close(): Promise<void>;
@@ -120,7 +212,7 @@ declare namespace OfficeRuntime {
      * Optional parameter that determines whether the dialog box displays as a popup (false) or within an IFrame (true).
      * This setting is only applicable to custom functions running on Excel Online.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     displayInIFrame?: boolean;
@@ -128,7 +220,7 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the height of the dialog box as a percentage of the current display.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     height?: string;
@@ -136,28 +228,28 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the width of dialog as a percentage of window.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     width?: string;
     /**
      * Optional callback that runs when the dialog box sends a message to its parent.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onMessage?: (message: string, dialog?: Dialog) => void;
     /**
      * Optional callback that runs when the dialog box is closed.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onClose?: () => void;
     /**
      * Optional callback that runs when the dialog box sends an error.
      *
-     * [Api set: CustomFunctionsRuntime 1.1]
+     * [Api set: SharedRuntime 1.1]
      *
      */
     onRuntimeError?: (error: Error, dialog?: Dialog) => void;
