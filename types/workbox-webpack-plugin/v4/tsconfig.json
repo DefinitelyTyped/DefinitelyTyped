@@ -8,11 +8,19 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "workbox-webpack-plugin": [
+                "workbox-webpack-plugin/v4"
+            ],
+            "workbox-webpack-plugin/*": [
+                "workbox-webpack-plugin/v4/*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
