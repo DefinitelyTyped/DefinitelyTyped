@@ -1351,9 +1351,8 @@ export class TargetLocator {
   defaultContent(): Promise<void>;
 
   /**
-   * Schedules a command to switch the focus of all future commands to another
-   * frame on the page. The target frame may be specified as one of the
-   * following:
+   * Changes the focus of all future commands to another frame on the page. The
+   * target frame may be specified as one of the following:
    *
    * - A number that specifies a (zero-based) index into [window.frames](
    *   https://developer.mozilla.org/en-US/docs/Web/API/Window.frames).
@@ -1369,7 +1368,17 @@ export class TargetLocator {
    * @return {!Promise<void>} A promise that will be resolved
    *     when the driver has changed focus to the specified frame.
    */
-  frame(nameOrIndex: number|WebElement): Promise<void>;
+  frame(id: number|WebElement|null): Promise<void>;
+
+  /**
+   * Changes the focus of all future commands to the parent frame of the
+   * currently selected frame. This command has no effect if the driver is
+   * already focused on the top-level browsing context.
+   *
+   * @return {!Promise<void>} A promise that will be resolved when the command
+   *     has completed.
+   */
+  parentFrame(): Promise<void>;
 
   /**
    * Schedules a command to switch the focus of all future commands to another
@@ -1385,6 +1394,19 @@ export class TargetLocator {
    *     when the driver has changed focus to the specified window.
    */
   window(nameOrHandle: string): Promise<void>;
+
+  /**
+   * Creates a new browser window and switches the focus for future
+   * commands of this driver to the new window.
+   *
+   * @param {string} typeHint 'window' or 'tab'. The created window is not
+   *     guaranteed to be of the requested type; if the driver does not support
+   *     the requested type, a new browser window will be created of whatever type
+   *     the driver does support.
+   * @return {!Promise<void>} A promise that will be resolved
+   *     when the driver has changed focus to the new window.
+   */
+  newWindow(typeHint: string): Promise<void>;
 
   /**
    * Schedules a command to change focus to the active modal dialog, such as

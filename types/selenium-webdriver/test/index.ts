@@ -361,7 +361,9 @@ function TestWebDriverTargetLocator() {
     let alert: webdriver.Alert = locator.alert();
     promise = locator.defaultContent();
     promise = locator.frame(1);
+    promise = locator.parentFrame();
     promise = locator.window('nameOrHandle');
+    promise = locator.newWindow('tab');
 }
 
 function TestWebDriverWindow() {
