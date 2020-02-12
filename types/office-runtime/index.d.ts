@@ -45,7 +45,7 @@ declare namespace OfficeRuntime {
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
     }
     /**
-     * Represents the parts of the ribbon that the call of `requestUpdate` will change.
+     * Represents the parts of the ribbon that the call to `requestUpdate` will change.
      * @beta
      */
     interface RibbonUpdaterData {
@@ -64,12 +64,12 @@ declare namespace OfficeRuntime {
          */
         id: string;
         /**
-         * Represents an array of controls in the tab whose state is set with the call of `requestUpdate`.
+         * Represents an array of controls in the tab whose state is set with the call to `requestUpdate`.
          */
         controls?: Control[];
     }
     /**
-     * Represent an individual control or command whose state is set with the call of `requestUpdate`.
+     * Represent an individual control or command whose state is set with the call to `requestUpdate`.
      * @beta
      */
     interface Control {
@@ -93,7 +93,7 @@ declare namespace OfficeRuntime {
         refreshData?: {};
     }
     /**
-     * Represents an individual menu item whose state is set with the call of `requestUpdate`.
+     * Represents an individual menu item whose state is set with the call to `requestUpdate`.
      * @beta
      */
     interface MenuControl {
