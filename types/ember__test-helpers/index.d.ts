@@ -188,7 +188,7 @@ declare module '@ember/test-helpers/setup-context' {
     import Resolver from '@ember/application/resolver';
 
     export default function<C extends object>(context: C, options?: { resolver?: Resolver }): Promise<C>;
-    export function getContext(): object;
+    export function getContext(): TestContext;
     export function setContext(context: object): void;
     export function unsetContext(): void;
     
