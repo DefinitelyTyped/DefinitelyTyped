@@ -1,5 +1,5 @@
 // Type definitions for react-typing-animation 1.6
-// Project: https://adamjking3.github.io/react-typing-animation-example/
+// Project: https://github.com/notadamking/react-typing-animation#readme
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -11,7 +11,7 @@ export interface TypingProps {
     className?: string;
     cursorClassName?: string;
     cursor?: React.ReactNode;
-    hideCurson?: boolean;
+    hideCursor?: boolean;
     speed?: number;
     startDelay?: number;
     loop?: boolean;
@@ -19,6 +19,32 @@ export interface TypingProps {
     onBeforeType?: () => {};
     onAfterType?: () => {};
     onFinishedType?: () => {};
+}
+
+declare namespace Typing {
+    interface BackspaceProperties {
+        count?: number;
+        delay?: number;
+        speed?: number;
+    }
+    class Backspace extends Component<BackspaceProperties> {}
+
+    interface DelayProperties {
+        ms: number;
+    }
+    class Delay extends Component<DelayProperties> {}
+
+    interface SpeedProperties {
+        ms: number;
+    }
+    class Speed extends Component<SpeedProperties> {}
+
+    interface ResetProperties {
+        count?: number;
+        delay?: number;
+        speed?: number;
+    }
+    class Reset extends Component<ResetProperties> {}
 }
 
 declare class Typing extends Component<TypingProps> {}
