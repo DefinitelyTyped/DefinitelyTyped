@@ -51,7 +51,7 @@ declare module '@ember/test-helpers' {
     // Test Framework APIs
 
     export { setResolver, getResolver } from '@ember/test-helpers/resolver';
-    export { default as setupContext, getContext, setContext, unsetContext } from '@ember/test-helpers/setup-context';
+    export { default as setupContext, getContext, setContext, TestContext, unsetContext } from '@ember/test-helpers/setup-context';
     export { default as teardownContext } from '@ember/test-helpers/teardown-context';
     export { default as setupRenderingContext } from '@ember/test-helpers/setup-rendering-context';
     export { default as teardownRenderingContext } from '@ember/test-helpers/teardown-rendering-context';
@@ -191,6 +191,23 @@ declare module '@ember/test-helpers/setup-context' {
     export function getContext(): object;
     export function setContext(context: object): void;
     export function unsetContext(): void;
+    
+    export interface BaseContext {
+      [key: string]: any;
+    }
+
+    // https://github.com/emberjs/ember-test-helpers/blob/5c4f7025cf530273b7fc240adec04a5a24113c57/addon-test-support/%40ember/test-helpers/setup-context.ts#L21
+    export interface TestContext extends BaseContext {
+      owner: Owner;
+
+      set(key: string, value: any): any;
+      setProperties(hash: { [key: string]: any }): { [key: string]: any };
+      get(key: string): any;
+      getProperties(...args: string[]): Pick<BaseContext, string>;
+
+      pauseTest(): Promise<void>;
+      resumeTest(): Promise<void>;
+    }
 
     export function pauseTest(): Promise<void>;
     export function resumeTest(): void;
