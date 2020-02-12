@@ -100,4 +100,13 @@ Validations.Required({ value: 'abc' });
 <TextArea />;
 <Toggle />;
 <Tooltip text="this is a tooltip!">Tooltip example</Tooltip>;
-<Input />;
+<Input validate={Validations.Date} />;
+<Input validate={({ value }: { value?: string }) => `value: ${value}`} />;
+<Input validate={{ validate: Validations.Email, error: 'Error test' }} />;
+<Input
+    validate={[
+        Validations.Required,
+        ({ value }: { value?: string }) => `value: ${value}`,
+        { validate: Validations.Date, error: 'Error test' },
+    ]}
+/>;

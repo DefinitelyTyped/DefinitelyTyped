@@ -1503,7 +1503,7 @@ export class Options {
    *     cookies visible to the current page.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookies(): Promise<IWebDriverOptionsCookie[]>;
+  getCookies(): Promise<IWebDriverCookie[]>;
 
   /**
    * Schedules a command to retrieve the cookie with the given name. Returns
@@ -1514,7 +1514,7 @@ export class Options {
    *     named cookie, or {@code null} if there is no such cookie.
    * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Cookie_JSON_Object
    */
-  getCookie(name: string): Promise<IWebDriverOptionsCookie>;
+  getCookie(name: string): Promise<IWebDriverCookie>;
 
   /**
    * @return {!Logs} The interface for managing driver

@@ -417,7 +417,14 @@ const spy3Mock = spy3
     .mockName('name')
     .mockReturnThis()
     .mockReturnValue('value')
-    .mockReturnValueOnce('value')
+    .mockReturnValueOnce('value');
+
+const spiedPromiseTarget = {
+    resolvesString() {
+        return Promise.resolve('string');
+    }
+};
+jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
     .mockResolvedValueOnce('value')
     .mockRejectedValue('value')

@@ -20,6 +20,7 @@
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Linus Unnebäck <https://github.com/LinusU>
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
+//                  Jerome De Leon <https://github.com/JeromeDeLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -96,6 +97,8 @@ namespace Parse {
     let serverAuthToken: string | undefined;
     let serverAuthType: string | undefined;
     let serverURL: string;
+    let secret: string;
+    let encryptedUser: boolean;
 
     interface BatchSizeOption {
         batchSize?: number;
@@ -630,7 +633,7 @@ namespace Parse {
             X extends Extract<keyof U['attributes'], string>>(key: K, queryKey: X, query: Query<U>): this;
         doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
         distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V>;
-        each(callback: Function, options?: Query.EachOptions): Promise<void>;
+        each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.EachOptions): Promise<void>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
@@ -1349,7 +1352,7 @@ namespace Parse {
     namespace CoreManager {
         function set(key: string, value: any): void;
         function get(key: string): void;
-      }
+    }
 
     /**
      * Additionally on React-Native / Expo environments, add AsyncStorage from 'react-native' package
@@ -1374,6 +1377,24 @@ namespace Parse {
     function isLocalDatastoreEnabled(): boolean;
 
     function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Call this method to set your LocalDatastoreStorage engine
+     * If using React-Native use {@link Parse.setAsyncStorage Parse.setAsyncStorage()}
+     * @param controller a data storage.
+     */
+    function setLocalDatastoreController(controller: any): void;
+
+    /**
+     * Enable the current user encryption.
+     * This must be called before login any user.
+     */
+    function enableEncryptedUser(): void;
+
+    /**
+     * Flag that indicates whether Encrypted User is enabled.
+     */
+    function isEncryptedUserEnabled(): boolean;
 }
 }
 

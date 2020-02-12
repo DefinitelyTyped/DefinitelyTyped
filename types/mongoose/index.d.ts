@@ -3497,13 +3497,17 @@ declare module "mongoose" {
     strict?: boolean;
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
+    /**
+     * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+     */
+    arrayFilters?: { [key: string]: any }[];
     /** other options */
     [other: string]: any;
     /**
      *  by default, mongoose only returns the first error that occurred in casting the query.
      *  Turn on this option to aggregate all the cast errors.
      */
-      multipleCastError?: boolean;
+    multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

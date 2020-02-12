@@ -117,6 +117,8 @@ export const crypto_secretstream_xchacha20poly1305_TAGBYTES: number;
 export const crypto_box_SEALBYTES: number;
 export const crypto_box_PUBLICKEYBYTES: number;
 export const crypto_box_SECRETKEYBYTES: number;
+export const crypto_box_MACBYTES: number;
+export const crypto_box_NONCEBYTES: number;
 
 /**
  * Zero out the data in `buffer`.
