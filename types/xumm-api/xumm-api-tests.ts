@@ -1,14 +1,15 @@
 import {
-    GetPayloadResponse,
-    PostPayloadBody,
-    PostPayloadResponse,
-    DeletePayloadResponse,
-    WebhookBody,
-    WebsocketBody,
-    ApiError
+    XummGetPayloadResponse,
+    XummPostPayloadBodyJson,
+    XummPostPayloadBodyBlob,
+    XummPostPayloadResponse,
+    XummDeletePayloadResponse,
+    XummWebhookBody,
+    XummWebsocketBody,
+    XummApiError
 } from 'xumm-api';
 
-const payloadBodyToPostWithJsonTx: PostPayloadBody = {
+const payloadBodyToPostWithJsonTx: XummPostPayloadBodyJson = {
     options: {
         submit: true,
         multisign: false,
@@ -35,7 +36,7 @@ const payloadBodyToPostWithJsonTx: PostPayloadBody = {
     }
 };
 
-const payloadBodyToPostWithTxBlob: PostPayloadBody = {
+const payloadBodyToPostWithTxBlob: XummPostPayloadBodyBlob = {
     options: {
         multisign: true,
         return_url: {
@@ -49,7 +50,7 @@ const payloadBodyToPostWithTxBlob: PostPayloadBody = {
     txblob: "CDDF827A37F457A25E14D862BCD74473045022100C6A699"
 };
 
-const payloadBodyToBeReturned: PostPayloadResponse = {
+const payloadBodyToBeReturned: XummPostPayloadResponse = {
     uuid: "d13f1139-a841-485d-9551-9a9dcdbcdc52",
     next: {
         always: "https://xumm.app/sign/d13f1139-a841-485d-9551-9a9dcdbcdc52",
@@ -64,7 +65,7 @@ const payloadBodyToBeReturned: PostPayloadResponse = {
     pushed: true
 };
 
-const payloadToGet_One: GetPayloadResponse = {
+const payloadToGet_One: XummGetPayloadResponse = {
     meta: {
         exists: true,
         uuid: "aad937e2-665d-400f-b067-fb883bdeff85",
@@ -116,7 +117,7 @@ const payloadToGet_One: GetPayloadResponse = {
     }
 };
 
-const payloadToGet_Two: GetPayloadResponse = {
+const payloadToGet_Two: XummGetPayloadResponse = {
     meta: {
         exists: true,
         uuid: "7fb45f4a-e73f-4d57-a06e-dd73bee51941",
@@ -172,7 +173,7 @@ const payloadToGet_Two: GetPayloadResponse = {
     }
 };
 
-const payloadDeleteBodyToBeReturned: DeletePayloadResponse = {
+const payloadDeleteBodyToBeReturned: XummDeletePayloadResponse = {
     result: {
         cancelled: false,
         reason: "ALREADY_RESOLVED"
@@ -200,7 +201,7 @@ const payloadDeleteBodyToBeReturned: DeletePayloadResponse = {
     }
 };
 
-const payloadWebhookBodyToBeSent: WebhookBody = {
+const payloadXummWebhookBodyToBeSent: XummWebhookBody = {
     meta: {
         url: "https://webhook.site/2618b30e-43f9-4846-a56e-d8a8f3e1e6dd",
         application_uuidv4: "8525e32b-1bd0-4839-af2f-f794874a80b0",
@@ -228,7 +229,7 @@ const payloadWebhookBodyToBeSent: WebhookBody = {
     }
 };
 
-const payloadWebsocketBodyToBeSent: WebsocketBody = {
+const payloadXummWebsocketBodyToBeSent: XummWebsocketBody = {
     payload_uuidv4: "73226756-0cce-42b8-b933-4ab06aa41b55",
     reference_call_uuidv4: "6661cbaa-ff48-4d1e-bc3a-7aeb9cec85eb",
     signed: true,
@@ -246,7 +247,7 @@ const payloadWebsocketBodyToBeSent: WebsocketBody = {
     }
 };
 
-const apiCallError: ApiError = {
+const apiCallError: XummApiError = {
     error: {
       reference: "233b388e-aa0b-49bc-ac62-71f3d760b587",
       code: 409

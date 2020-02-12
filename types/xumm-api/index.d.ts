@@ -3,8 +3,6 @@
 // Definitions by: Wietse Wind <https://github.com/WietseWind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type IntBool = 0 | 1;
-
 export type XummTransactionType = "SignIn";
 export type XrplTransactionType = "Payment"
     | "OfferCreate"
@@ -37,7 +35,7 @@ export interface XummJsonTransaction {
     [key: string]: any;
 }
 
-export interface CustomMeta {
+export interface XummCustomMeta {
     identifier?: string | null;
     blob?: {
         [key: string]: any;
@@ -45,7 +43,7 @@ export interface CustomMeta {
     instruction?: string | null;
 }
 
-export interface PayloadMeta {
+export interface XummPayloadMeta {
     exists: boolean;
     uuid: string;
     multisign: boolean;
@@ -62,7 +60,7 @@ export interface PayloadMeta {
     return_url_web: string | null;
 }
 
-export interface PayloadBodyBase {
+export interface XummPayloadBodyBase {
     options?: {
         submit?: boolean;
         multisign?: boolean;
@@ -72,21 +70,19 @@ export interface PayloadBodyBase {
             web?: string;
         }
     };
-    custom_meta?: CustomMeta;
+    custom_meta?: XummCustomMeta;
     user_token?: string;
 }
 
-export interface PayloadBodyJson extends PayloadBodyBase {
+export interface XummPostPayloadBodyJson extends XummPayloadBodyBase {
     txjson: XummJsonTransaction;
 }
 
-export interface PayloadBodyBlob extends PayloadBodyBase {
+export interface XummPostPayloadBodyBlob extends XummPayloadBodyBase {
     txblob: string;
 }
 
-export type PostPayloadBody = PayloadBodyJson | PayloadBodyBlob;
-
-export interface PostPayloadResponse {
+export interface XummPostPayloadResponse {
     uuid: string;
     next: {
         always: string;
@@ -101,12 +97,12 @@ export interface PostPayloadResponse {
     pushed: boolean;
 }
 
-export interface GetPayloadResponse {
-    meta: PayloadMeta;
+export interface XummGetPayloadResponse {
+    meta: XummPayloadMeta;
     application: {
         name: string;
         description: string;
-        disabled: IntBool;
+        disabled: 0 | 1;
         uuidv4: string;
         icon_url: string;
         issued_user_token: string | null;
@@ -129,25 +125,25 @@ export interface GetPayloadResponse {
         multisign_account: string | null;
         account: string | null;
     };
-    custom_meta: CustomMeta;
+    custom_meta: XummCustomMeta;
 }
 
-export interface DeletePayloadResponse {
+export interface XummDeletePayloadResponse {
     result: {
         cancelled: boolean;
         reason: XummCancelReason;
     };
-    meta: PayloadMeta;
-    custom_meta: CustomMeta;
+    meta: XummPayloadMeta;
+    custom_meta: XummCustomMeta;
 }
 
-export interface WebhookBody {
+export interface XummWebhookBody {
     meta: {
         url: string;
         application_uuidv4: string;
         payload_uuidv4: string;
     };
-    custom_meta: CustomMeta;
+    custom_meta: XummCustomMeta;
     payloadResponse: {
         payload_uuidv4: string;
         reference_call_uuidv4: string;
@@ -165,7 +161,7 @@ export interface WebhookBody {
     } | null;
 }
 
-export interface WebsocketBody {
+export interface XummWebsocketBody {
     payload_uuidv4: string;
     reference_call_uuidv4: string;
     signed: boolean;
@@ -174,10 +170,10 @@ export interface WebsocketBody {
         app: string | null;
         web: string | null;
     };
-    custom_meta: CustomMeta;
+    custom_meta: XummCustomMeta;
 }
 
-export interface ApiError {
+export interface XummApiError {
     error: {
       reference: string;
       code: number;
