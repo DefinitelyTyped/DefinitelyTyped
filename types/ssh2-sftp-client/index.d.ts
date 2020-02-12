@@ -31,7 +31,7 @@ declare class sftp {
         path: string,
         dst?: string | NodeJS.WritableStream,
         options?: ssh2Stream.TransferOptions,
-    ): Promise<string | NodeJS.WritableStream | Buffer>;
+    ): Promise<string | NodeJS.ReadableStream | Buffer>;
 
     fastGet(remoteFilePath: string, localPath: string, options?: ssh2Stream.TransferOptions): Promise<string>;
 
