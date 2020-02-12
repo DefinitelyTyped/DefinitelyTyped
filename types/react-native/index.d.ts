@@ -996,7 +996,7 @@ export interface TextInputIOSProps {
      * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
      */
     passwordRules?: string | null;
-    
+
     /**
      * If `true`, allows TextInput to pass touch events to the parent component.
      * This allows components to be swipeable from the TextInput on iOS,
