@@ -82,8 +82,8 @@ const payloadToGet_One: GetPayloadResponse = {
         return_url_web: null
     },
     application: {
-        name: "XRP TipBot for Twitter, Reddit & Discord",
-        description: "Send and receive Tips (micropayments) on Twitter, Reddit & Discord, by sending out Tweets / messages or replying at Tweets / messages.",
+        name: "Some XUMM App",
+        description: "Some App Description",
         disabled: 0,
         uuidv4: "8525e32b-1bd0-4839-af2f-f794874a80b0",
         icon_url: "https://xumm-cdn.imgix.net/app-logo/de7936fe-bb71-4aa1-8490-54cf92090f33.png",
@@ -134,8 +134,8 @@ const payloadToGet_Two: GetPayloadResponse = {
         return_url_web: null
     },
     application: {
-        name: "XRP TipBot for Twitter, Reddit & Discord",
-        description: "Send and receive Tips (micropayments) on Twitter, Reddit & Discord, by sending out Tweets / messages or replying at Tweets / messages.",
+        name: "Some XUMM App",
+        description: "Some App Description",
         disabled: 0,
         uuidv4: "8525e32b-1bd0-4839-af2f-f794874a80b0",
         icon_url: "https://xumm-cdn.imgix.net/app-logo/de7936fe-bb71-4aa1-8490-54cf92090f33.png",
