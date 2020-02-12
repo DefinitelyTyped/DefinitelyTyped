@@ -1,9 +1,9 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
-import passport = require('passport');
-import auth0 = require('passport-auth0');
-import express = require('express');
+import passport from 'passport';
+import auth0 from 'passport-auth0';
+import express from 'express';
 
 // just some test model
 const User = {
