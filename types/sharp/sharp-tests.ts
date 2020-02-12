@@ -46,6 +46,10 @@ sharp('input.jpg')
         // containing a scaled and cropped version of input.jpg
     });
 
+sharp('input.jpg')
+    .resize({width: 300})
+    .toFile('output.jpg');
+
 sharp({
     create: {
         width: 300,
@@ -244,4 +248,8 @@ sharp('input.gif')
         [0.2990, 0.5870, 0.1140],
         [0.2392, 0.4696, 0.0912],
     ])
+
+    .modulate({ brightness: 2 })
+    .modulate({ hue: 180 })
+    .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 })
 ;

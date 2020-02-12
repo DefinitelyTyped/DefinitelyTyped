@@ -95,6 +95,8 @@ function test_text_colors() {
     doc.text(20, 50, 'This is green.');
     doc.setTextColor(0, 0, 255);
     doc.text(20, 60, 'This is blue.');
+    doc.setTextColor('#FF0000');
+    doc.text(20, 60, 'This is red.');
     doc.save('Test.pdf');
 }
 
@@ -119,6 +121,15 @@ function test_font_metrics_based_line_sizing_split() {
         }
     }
     pdf.save('Test.pdf');
+}
+
+function test_simple_custom_size_document() {
+    var doc = new jsPDF('l', 'px', [500, 200]);
+    doc.text(20, 20, 'Hello world!');
+    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+    doc.addPage();
+    doc.text(20, 20, 'Do you like that?');
+    doc.save('Test.pdf');
 }
 
 function test_from_html() {
@@ -165,9 +176,9 @@ function test_rect_squares() {
     doc.setDrawColor(0);
     doc.setFillColor(255, 0, 0);
     doc.rect(120, 20, 10, 10, 'FD'); // filled red square with black borders
-    doc.setDrawColor(0);
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(140, 20, 10, 10, 3, 3, 'FD'); //  Black sqaure with rounded corners
+    doc.setDrawColor('#000');
+    doc.setFillColor('#FFFFFF');
+    doc.roundedRect(140, 20, 10, 10, 3, 3, 'FD'); //  Black square with rounded corners
     doc.save('Test.pdf');
 }
 

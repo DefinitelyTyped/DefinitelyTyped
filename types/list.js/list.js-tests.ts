@@ -12,6 +12,7 @@ list.visibleItems; // $ExpectType object[]
 list.matchingItems; // $ExpectType object[]
 list.searched; // $ExpectType boolean
 list.filtered; // $ExpectType boolean
+list.alphabet; // $ExpectType string
 
 list.add([{ // $ExpectType void
     name: "value",
@@ -26,6 +27,7 @@ list.sort("name", { // $ExpectType void
 });
 list.search("name", ["col1", "col2"]); // $ExpectType void
 list.clear(); // $ExpectType void
+list.filter(); // $ExpectType void
 list.filter((item) => {
     return true;
 });

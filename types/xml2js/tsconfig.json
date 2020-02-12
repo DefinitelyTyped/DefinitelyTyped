@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lib/processors.d.ts",
         "xml2js-tests.ts"
     ]
 }

@@ -1,8 +1,8 @@
 // Type definitions for bluebird 3.5
 // Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Leonard Hecker <https://github.com/lhecker>
+// Definitions by: Leonard Hecker <https://github.com/lhecker>, thislooksfun <https://github.com/thislooksfun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /*!
  * The code following this comment originates from:
@@ -41,6 +41,8 @@ type Resolvable<R> = R | PromiseLike<R>;
 type IterateFunction<T, R> = (item: T, index: number, arrayLength: number) => Resolvable<R>;
 
 declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
+  readonly [Symbol.toStringTag]: "Object";
+
   /**
    * Create a new promise. The passed in function will receive functions
    * `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
@@ -339,7 +341,6 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * the promise as snapshotted at the time of calling `.reflect()`.
    */
   reflect(): Bluebird<Bluebird.Inspection<R>>;
-  reflect(): Bluebird<Bluebird.Inspection<any>>;
 
   /**
    * This is a convenience method for doing:
@@ -565,7 +566,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  all(this: Bluebird<Iterable<{}>>): Bluebird<R>;
+  all<Q>(this: Bluebird<R & Iterable<Q>>): Bluebird<R>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -592,7 +593,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  some(this: Bluebird<Iterable<{}>>, count: number): Bluebird<R>;
+  some<Q>(this: Bluebird<R & Iterable<Q>>, count: number): Bluebird<R>;
 
   /**
    * Same as calling `Promise.some(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.

@@ -10,6 +10,17 @@ browser._manifest; // $ExpectError
 // browser.runtime
 const port = browser.runtime.connect();
 port.postMessage(); // $ExpectError
+port.postMessage({test: "ok"});
+
+port.onDisconnect.addListener((p) => {
+    if (p.error) {
+        console.log(`Disconnected due to an error: ${p.error.message}`);
+    }
+});
+
+port.onMessage.addListener((response) => {
+    console.log("Received: " + response);
+});
 
 browser.bookmarks.getTree();
 
@@ -34,4 +45,11 @@ browser.webNavigation.onBeforeNavigate.addListener(d => {
 
 browser.runtime.connect().onDisconnect.addListener(() => {
     console.log('ok');
+});
+
+browser.storage.onChanged.addListener((changes, area) => {
+    for (const key in changes) {
+        console.log(changes[key].oldValue);
+        console.log(changes[key].newValue);
+    }
 });

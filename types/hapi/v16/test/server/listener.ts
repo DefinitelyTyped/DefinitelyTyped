@@ -1,7 +1,7 @@
 
 // From https://hapijs.com/api/16.1.1#serverlistener
 
-import * as Hapi from '../../';
+import * as Hapi from 'hapi';
 import SocketIO = require('socket.io');
 
 const server = new Hapi.Server();

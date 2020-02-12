@@ -1,8 +1,9 @@
-// Type definitions for eslint 4.16
+// Type definitions for eslint 6.1
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
 //                 Saad Quadri <https://github.com/saadq>
+//                 Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -292,6 +293,7 @@ export namespace Rule {
         fixable?: 'code' | 'whitespace';
         schema?: JSONSchema4 | JSONSchema4[];
         deprecated?: boolean;
+        type?: 'problem' | 'suggestion' | 'layout';
     }
 
     interface RuleContext {
@@ -319,11 +321,13 @@ export namespace Rule {
 
     type ReportDescriptor = ReportDescriptorMessage & ReportDescriptorLocation & ReportDescriptorOptions;
     type ReportDescriptorMessage = { message: string } | { messageId: string };
-    type ReportDescriptorLocation = { node: ESTree.Node } | { loc: AST.SourceLocation | { line: number, column: number } };
+    type ReportDescriptorLocation =
+        | { node: ESTree.Node }
+        | { loc: AST.SourceLocation | { line: number; column: number } };
     interface ReportDescriptorOptions {
         data?: { [key: string]: string };
 
-        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>;
+        fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix> | Fix[];
     }
 
     interface RuleFixer {
@@ -379,20 +383,33 @@ export namespace Linter {
     interface RuleLevelAndOptions extends Array<any> {
         0: RuleLevel;
     }
-
-    interface Config {
+    interface HasRules {
         rules?: {
-            [name: string]: RuleLevel | RuleLevelAndOptions
+            [name: string]: RuleLevel | RuleLevelAndOptions;
         };
+    }
+
+    interface RuleOverride extends HasRules {
+        extends?: string | string[];
+        excludedFiles?: string[];
+        files?: string[];
+    }
+
+    interface Config extends HasRules {
         parser?: string;
         parserOptions?: ParserOptions;
         settings?: { [name: string]: any };
         env?: { [name: string]: boolean };
         globals?: { [name: string]: boolean };
+        extends?: string | string[];
+        overrides?: RuleOverride[];
+        processor?: string;
+        plugins?: string[];
+        root?: boolean;
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 2015 | 2016 | 2017 | 2018;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020;
         sourceType?: 'script' | 'module';
         ecmaFeatures?: {
             globalReturn?: boolean;
@@ -436,11 +453,13 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
-    type ParserModule = {
-        parse(text: string, options?: any): AST.Program;
-    } | {
-        parseForESLint(text: string, options?: any): ESLintParseResult;
-    };
+    type ParserModule =
+        | {
+              parse(text: string, options?: any): AST.Program;
+          }
+        | {
+              parseForESLint(text: string, options?: any): ESLintParseResult;
+          };
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -490,6 +509,7 @@ export namespace CLIEngine {
         configFile?: string;
         cwd?: string;
         envs?: string[];
+        errorOnUnmatchedPattern?: boolean;
         extensions?: string[];
         fix?: boolean;
         globals?: string[];
@@ -500,6 +520,7 @@ export namespace CLIEngine {
         parser?: string;
         parserOptions?: Linter.ParserOptions;
         plugins?: string[];
+        resolvePluginsRelativeTo?: string;
         rules?: {
             [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
         };
@@ -518,15 +539,27 @@ export namespace CLIEngine {
         source?: string;
     }
 
+    interface LintResultData {
+        rulesMeta: {
+            [ruleId: string]: Rule.RuleMetaData;
+        };
+    }
+
     interface LintReport {
         results: LintResult[];
         errorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
+        usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
-    type Formatter = (results: LintResult[]) => string;
+    interface DeprecatedRuleUse {
+      ruleId: string;
+      replacedBy: string[];
+    }
+
+    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion

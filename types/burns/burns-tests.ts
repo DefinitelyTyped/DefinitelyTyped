@@ -1,4 +1,4 @@
-import burns from 'burns';
+import * as burns from 'burns';
 
 interface OrderData {
     userName: string;

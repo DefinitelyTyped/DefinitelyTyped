@@ -5,6 +5,9 @@ import { EventEmitter } from 'events';
 import { Environment } from '../environment/environment';
 import { RuntimeEvent } from '../api/events/base';
 import { EventAggregator } from '../api/events/eventAggregator';
+import { View } from '../api/view/view';
+import { Frame, Window } from '../main';
+import { EntityTypeHelpers } from '../util/entity-type';
 export declare type MessageHandler = (data: any) => boolean;
 declare class Transport extends EventEmitter {
     protected wireListeners: Map<number, {
@@ -12,15 +15,16 @@ declare class Transport extends EventEmitter {
         reject: Function;
     }>;
     protected uncorrelatedListener: Function;
-    me: Identity;
-    protected wire: Wire;
+    me: (View | Window | Frame | {}) & Identity & EntityTypeHelpers;
     environment: Environment;
     topicRefMap: Map<string, number>;
     sendRaw: Wire['send'];
     eventAggregator: EventAggregator;
     protected messageHandlers: MessageHandler[];
     constructor(wireType: WireConstructor, environment: Environment);
-    connectSync: (config: ConnectConfig) => any;
+    connectSync: (config: ConnectConfig) => void;
+    getPort: () => string;
+    shutdown(): Promise<void>;
     connect(config: InternalConnectConfig): Promise<string>;
     connectByPort(config: ExistingConnectConfig): Promise<string>;
     READY_STATE: typeof READY_STATE;

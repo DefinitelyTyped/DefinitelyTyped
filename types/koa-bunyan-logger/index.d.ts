@@ -36,10 +36,17 @@ declare namespace koaBunyanLogger {
         updateResponseLogFields?: (responseData: ResponseData) => ResponseData;
         formatRequestMessage?: (requestData: RequestData) => string;
         formatResponseMessage?: (responseData: ResponseData) => string;
+        ignorePath?: string[];
+    }
+
+    interface TimeContextOptions {
+        logLevel?: string;
+        updateLogFields?: (fields: any) => any;
     }
 
     function requestLogger(opts?: RequestLoggerOptions): Middleware;
     function requestIdContext(opts?: RequestIdContextOptions): Middleware;
+    function timeContext(opts?: TimeContextOptions): Middleware;
 }
 
 // Extend the Koa context to add the logger..

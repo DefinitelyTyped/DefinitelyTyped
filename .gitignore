@@ -11,6 +11,8 @@
 *.csproj
 *.map
 *.swp
+*.code-workspace
+*.log
 .DS_Store
 
 _Resharper.DefinitelyTyped
@@ -53,3 +55,5 @@ yarn.lock
 
 # pnpm
 shrinkwrap.yaml
+pnpm-lock.yaml
+pnpm-debug.log

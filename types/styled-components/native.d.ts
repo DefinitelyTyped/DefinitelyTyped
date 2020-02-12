@@ -89,10 +89,6 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ListView,
     T
   >;
-  MapView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.MapView,
-    T
-  >;
   Modal: ReactNativeThemedStyledFunction<
     typeof ReactNative.Modal,
     T
@@ -209,8 +205,12 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
-  WebView: ReactNativeThemedStyledFunction<
-    typeof ReactNative.WebView,
+  FlatList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.FlatList,
+    T
+  >;
+  SectionList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.SectionList,
     T
   >;
 }

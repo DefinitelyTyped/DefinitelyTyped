@@ -5,6 +5,7 @@ export interface ExternalProcessRequestType {
     listener?: LaunchExternalProcessListener;
     lifetime?: string;
     certificate?: CertificationInfo;
+    uuid?: string;
 }
 export interface CertificationInfo {
     serial?: string;
@@ -33,4 +34,8 @@ export interface ExternalConnection {
 export interface ExternalProcessInfo {
     pid: number;
     listener?: LaunchExternalProcessListener;
+}
+export interface ServiceConfiguration {
+    config: object;
+    name: string;
 }

@@ -1,22 +1,30 @@
-// Type definitions for jest-when 1.1
+// Type definitions for jest-when 2.7
 // Project: https://github.com/timkindberg/jest-when#readme
 // Definitions by: Alden Taylor <https://github.com/aldentaylor>
+//                 Trung Dang <https://github.com/immanuel192>
+//                 Gregor Stamać <https://github.com/gstamac>
+//                 Valentin Stern <https://github.com/sehsyha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
 /// <reference types="jest" />
 
-export interface WhenMock<T = any, Y extends any[] = any> extends jest.Mock<T, Y> {
-  calledWith(...matchers: Y): WhenMock<T, Y>;
-  expectCalledWith(...matchers: Y): WhenMock<T, Y>;
-  mockReturnValue(value: T): WhenMock<T, Y>;
-  mockReturnValueOnce(value: T): WhenMock<T, Y>;
-  mockResolvedValue(value: jest.ResolvedValue<T>): WhenMock<T, Y>;
-  mockResolvedValueOnce(value: jest.ResolvedValue<T>): WhenMock<T, Y>;
-  mockRejectedValue(value: jest.RejectedValue<T>): WhenMock<T, Y>;
-  mockRejectedValueOnce(value: jest.RejectedValue<T>): WhenMock<T, Y>;
+export interface WhenMock<T = any, Y extends any[] = any>
+  extends jest.MockInstance<T, Y> {
+  calledWith(...matchers: Y): this;
+  expectCalledWith(...matchers: Y): this;
+  mockReturnValue(value: T): this;
+  mockReturnValueOnce(value: T): this;
+  mockResolvedValue(value: jest.ResolvedValue<T>): this;
+  mockResolvedValueOnce(value: jest.ResolvedValue<T>): this;
+  mockRejectedValue(value: jest.RejectedValue<T>): this;
+  mockRejectedValueOnce(value: jest.RejectedValue<T>): this;
+  mockImplementation(fn: (...args: Y) => T): this;
+  mockImplementationOnce(fn?: (...args: Y) => T): this;
 }
 
-export type When = <T, Y extends any[]>(fn: jest.Mock<T, Y>) => WhenMock<T, Y>;
+export type When = <T, Y extends any[]>(fn: jest.MockInstance<T, Y>) => WhenMock<T, Y>;
 
 export const when: When;
+export function resetAllWhenMocks(): void;
+export function verifyAllWhenMocksCalled(): void;

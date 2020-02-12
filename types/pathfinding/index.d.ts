@@ -1,6 +1,7 @@
 // Type definitions for pathfinding
 // Project: https://github.com/qiao/PathFinding.js
 // Definitions by: BNedry <https://github.com/BNedry>
+//                 Hartley Robertson <https://github.com/hartleyrobertson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "pathfinding" {
@@ -22,7 +23,7 @@ declare module "pathfinding" {
             Always = 1,
             Never = 2,
             IfAtMostOneObstacle = 3,
-            OnlyWhenNoObstacle = 4
+            OnlyWhenNoObstacles = 4
         }
 
         interface Node {
@@ -65,7 +66,7 @@ declare module "pathfinding" {
 
             clone(): Grid;
 
-            getNodeAt(): Pathfinding.Node;
+            getNodeAt(x: number, y: number): Pathfinding.Node;
             getNeighbors(node: Pathfinding.Node, diagonalMovement: DiagonalMovement): Pathfinding.Node[];
             isWalkableAt(x: number, y: number): boolean;
             isInside(x: number, y: number): boolean;

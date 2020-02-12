@@ -1,9 +1,22 @@
-import "file-saver";
+import { FileSaverOptions } from "file-saver";
 
 /**
  * @summary Test for "saveAs" function.
  */
 function testSaveAs() {
+    const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    const filename = 'hello world.txt';
+    const options: FileSaverOptions = {
+        autoBom: false
+    };
+
+    saveAs(data, filename, options);
+}
+
+/**
+ * @summary Test for deprecated "saveAs" function.
+ */
+function testDeprecatedSaveAs() {
     const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
     const filename = 'hello world.txt';
     const disableAutoBOM = true;
@@ -17,9 +30,11 @@ function testSaveAs() {
 function testWindowSaveAs() {
     const data: Blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
     const filename = 'hello world.txt';
-    const disableAutoBOM = true;
+    const options: FileSaverOptions = {
+        autoBom: false
+    };
 
-    window.saveAs(data, filename, disableAutoBOM);
+    window.saveAs(data, filename, options);
 }
 
 /**
@@ -28,9 +43,11 @@ function testWindowSaveAs() {
 function testUrlSaveAs() {
     const url = 'https://example.com/test.txt';
     const filename = 'hello world.txt';
-    const disableAutoBOM = true;
+    const options: FileSaverOptions = {
+        autoBom: false
+    };
 
-    window.saveAs(url, filename, disableAutoBOM);
+    window.saveAs(url, filename, options);
 }
 
 /**

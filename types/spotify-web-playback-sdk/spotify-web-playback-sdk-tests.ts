@@ -3,7 +3,7 @@
  * © 2017 Spotify AB
  */
 
-const player = new Spotify.Player({
+const player = new window.Spotify.Player({
     name: "Carly Rae Jepsen Player",
     getOAuthToken: (callback: (t: string) => void) => {
         // Run code to get a fresh access token
@@ -32,6 +32,10 @@ player.getCurrentState().then((playbackState: Spotify.PlaybackState | null) => {
     if (playbackState) {
         const { current_track, next_tracks } = playbackState.track_window;
         const repeatMode: 0 | 1 | 2 = playbackState.repeat_mode;
+        const images = current_track.album.images;
+        if (images.length) {
+            const { 0: { height, width } } = images;
+        }
 
         console.log("Currently Playing", current_track);
         console.log("Playing Next", next_tracks[0]);

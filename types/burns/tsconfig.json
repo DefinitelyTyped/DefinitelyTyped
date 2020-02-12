@@ -9,6 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "allowSyntheticDefaultImports": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

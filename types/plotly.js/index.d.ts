@@ -10,7 +10,11 @@
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
+//                 Josh Miles <https://github.com/milesjos>
+//                 Pramod Mathai  <https://github.com/skippercool>
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
+//                 Michael Adams <https://github.com/mtadams007>
+//                 Michael Arnett <https://github.com/marnett-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -246,7 +250,7 @@ export interface Layout {
 	height: number;
 	width: number;
 	hovermode: 'closest' | 'x' | 'y' | false;
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
 	calendar: Calendar;
 	'xaxis.range': [Datum, Datum];
 	'xaxis.range[0]': Datum;
@@ -258,13 +262,14 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
+	'xaxis.title': string;
+	'yaxis.title': string;
 	ternary: {}; // TODO
 	geo: {}; // TODO
 	mapbox: {}; // TODO
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
-	direction: 'clockwise' | 'counterclockwise';
-	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable';
+	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
 	orientation: number;
 	annotations: Array<Partial<Annotations>>;
 	shapes: Array<Partial<Shape>>;
@@ -274,9 +279,29 @@ export interface Layout {
 	legend: Partial<Legend>;
 	font: Partial<Font>;
 	scene: Partial<Scene>;
-	barmode: "stack" | "group" | "overlay" | "relative";
-	bargap: number;
-	bargroupgap: number;
+	barmode: 'stack' | 'group' | 'overlay' | 'relative';
+	barnorm: '' | 'fraction' | 'percent';
+	bargap: 0 | 1;
+	bargroupgap: 0 | 1;
+	selectdirection: 'h' | 'v' | 'd' | 'any';
+	hiddenlabels: string[];
+	grid: Partial<{
+		rows: number;
+		roworder: "top to bottom" | "bottom to top";
+		columns: number;
+		subplots: string[];
+		xaxes: string[];
+		yaxes: string[];
+		pattern: "independent" | "coupled";
+		xgap: number;
+		ygap: number;
+		domain: Partial<{
+			x: number[];
+			y: number[];
+		}>;
+		xside: "bottom" | "bottom plot" | "top plot" | "top";
+		yside: "left" | "left plot" | "right plot" | "right";
+	}>;
 }
 
 export interface Legend extends Label {
@@ -365,6 +390,7 @@ export interface LayoutAxis extends Axis {
 	rangeslider: Partial<RangeSlider>;
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
+	autotick: boolean;
 }
 
 export interface SceneAxis extends Axis {
@@ -387,13 +413,19 @@ export interface Shape {
 	path: string;
 	// x-reference is assigned to the x-values
 	xref: 'x' | 'paper';
+	xsizemode: "scaled" | "pixel";
+	xanchor: number | string;
 	// y-reference is assigned to the plot paper [0,1]
 	yref: 'paper' | 'y';
+	ysizemode: "scaled" | "pixel";
+	yanchor: number | string;
 	x0: Datum;
 	y0: Datum;
 	x1: Datum;
 	y1: Datum;
 	fillcolor: string;
+	name: string;
+	templateitemname: string;
 	opacity: number;
 	line: Partial<ShapeLine>;
 }
@@ -403,6 +435,7 @@ export interface Margin {
 	b: number;
 	l: number;
 	r: number;
+	pad: number;
 }
 
 export type ModeBarDefaultButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoScale2d' |
@@ -417,8 +450,8 @@ export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 export interface Icon {
 	width: number;
 	path: string;
-	ascent: number;
-	descent: number;
+	ascent?: number;
+	descent?: number;
 }
 
 export interface ModeBarButton {
@@ -460,6 +493,59 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface Gauge {
+	shape: 'angular' | 'bullet';
+	bar: {
+		color: Color
+		line: {
+			color: Color
+			width: number
+		};
+		thickness: number
+	};
+	bgcolor: Color;
+	bordercolor: Color;
+	borderwidth: number;
+	axis: Partial<Axis>;
+	steps: Array<{range: number[], color: Color}>;
+	threshold: {
+		line: {
+			color: Color
+			width: number
+		};
+		value: number
+		thickness: number
+		};
+}
+
+export interface Delta {
+	reference: number;
+	position: 'top' | 'bottom' | 'left' | 'right';
+	relative: boolean;
+	valueformat: string;
+	increasing: {
+		symbol: string;
+		color: Color;
+	};
+	decreasing: {
+		symbol: string;
+		color: Color;
+	};
+}
+
+export interface DataTitle {
+		text: string;
+		font: Partial<Font>;
+		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+}
+
+export interface PlotNumber {
+	valueformat: string;
+	font: Partial<Font>;
+	prefix: string;
+	suffix: string;
+}
+
 // Data
 
 export type Datum = string | number | Date | null;
@@ -487,14 +573,15 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
-export type Color = string | Array<string | undefined | null> | Array<Array<string | undefined | null>>;
+export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
+export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
 // Bar Scatter
 export interface PlotData {
-	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'mesh3d' |
-		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-		'scatterpolar' | 'scatterternary' | 'surface';
+	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
+	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -512,10 +599,11 @@ export interface PlotData {
 	'line.smoothing': number;
 	'line.simplify': boolean;
 	marker: Partial<PlotMarker>;
-	'marker.symbol': string | string[]; // Drawing.symbolList
+	'marker.symbol': MarkerSymbol | MarkerSymbol[];
 	'marker.color': Color;
+	'marker.colorscale': ColorScale | ColorScale[];
 	'marker.opacity': number | number[];
-	'marker.size': number | number[];
+	'marker.size': number | number[] | number[][];
 	'marker.maxdisplayed': number;
 	'marker.sizeref': number;
 	'marker.sizemax': number;
@@ -523,20 +611,28 @@ export interface PlotData {
 	'marker.sizemode': 'diameter' | 'area';
 	'marker.showscale': boolean;
 	'marker.line': Partial<ScatterMarkerLine>;
+	'marker.line.color': Color;
+	'marker.line.colorscale': ColorScale | ColorScale[];
 	'marker.colorbar': {}; // TODO
-	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none';
+	'marker.pad.t': number;
+	'marker.pad.b': number;
+	'marker.pad.l': number;
+	'marker.pad.r': number;
+	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
+	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
 	'x' | 'x+text' | 'x+name' |
 	'x+y' | 'x+y+text' | 'x+y+name' |
 	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+x' | 'y+x+text' | 'y+x+name' |
+	'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
 	'y+z' | 'y+z+text' | 'y+z+name' |
 	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
 	'z+x' | 'z+x+text' | 'z+x+name' |
 	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
 	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
+	hovertemplate: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
 	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
 	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
@@ -544,14 +640,21 @@ export interface PlotData {
 	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
+	showlegend: boolean;
 	legendgroup: string;
+	parents: string[];
 	name: string;
+	stackgroup: string;
 	connectgaps: boolean;
 	visible: boolean | 'legendonly';
+	delta: Partial<Delta>;
+	gauge: Partial<Gauge>;
+	number: Partial<PlotNumber>;
 	transforms: DataTransform[];
 	orientation: 'v' | 'h';
+	width: number | number[];
 	boxmean: boolean | 'sd';
-	colorscale: string | Array<[number, string]>;
+	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
 	xgap: number;
@@ -562,12 +665,22 @@ export interface PlotData {
 		end: number | string;
 		size: number | string;
 	};
+	value: number;
 	values: Datum[];
 	labels: Datum[];
+	direction: 'clockwise' | 'counterclockwise';
 	hole: number;
 	rotation: number;
 	theta: Datum[];
 	r: Datum[];
+	customdata: Datum[];
+	domain: Partial<{
+		rows: number;
+		columns: number;
+		x: number[];
+		y: number[];
+	}>;
+	title: Partial<DataTitle>;
 }
 
 /**
@@ -648,16 +761,19 @@ export interface ColorBar {
 	tickvalssrc: any;
 	ticktextsrc: any;
 }
+
+export type MarkerSymbol = string | number | Array<(string | number)>;
+
 /**
  * Any combination of "x", "y", "z", "text", "name" joined with a "+" OR "all" or "none" or "skip".
  * examples: "x", "y", "x+y", "x+y+z", "all"
  * default: "all"
  */
 export interface PlotMarker {
-	symbol: string | string[]; // Drawing.symbolList
+	symbol: MarkerSymbol;
 	color: Color | Color[];
 	colors: Color[];
-	colorscale: string | string[] | Array<Array<(string | number)>>;
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;
@@ -672,6 +788,7 @@ export interface PlotMarker {
 	sizemode: 'diameter' | 'area';
 	showscale: boolean;
 	line: Partial<ScatterMarkerLine>;
+	pad: Partial<Padding>;
 	width: number;
 	colorbar: Partial<ColorBar>;
 	gradient: {
@@ -687,7 +804,7 @@ export type ScatterMarker = PlotMarker;
 export interface ScatterMarkerLine {
 	width: number | number[];
 	color: Color;
-	colorscale: string | string[];
+	colorscale: ColorScale;
 	cauto: boolean;
 	cmax: number;
 	cmin: number;
@@ -735,6 +852,15 @@ export interface Edits {
 }
 
 export interface Config {
+	/** override the defaults for the toImageButton */
+	toImageButtonOptions: Partial<{
+		filename: string;
+		scale: number;
+		format: 'png' | 'svg' | 'jpeg' | 'webp';
+		height: number;
+		width: number;
+	}>;
+
 	/** no interactivity, for export or image generation */
 	staticPlot: boolean;
 
@@ -872,9 +998,26 @@ export interface Camera {
 }
 
 export interface Label {
+	/** Sets the background color of all hover labels on graph. */
 	bgcolor: string;
+
+	/** Sets the border color of all hover labels on graph. */
 	bordercolor: string;
+
+	/** Sets the default hover label font used by all traces on the graph. */
 	font: Partial<Font>;
+}
+
+export interface HoverLabel extends Label {
+	/** Sets the horizontal alignment of the text content within hover label box. */
+	align: "left" | "right" | "auto";
+
+	/**
+	 * Sets the default length (in number of characters) (default 15) of the trace name
+	 * in the hover labels for all traces.
+	 * -1 shows the whole name regardless of length.
+	 */
+	namelength: number;
 }
 
 export interface Annotations extends Label {
@@ -1122,7 +1265,7 @@ export interface Annotations extends Label {
 	 */
 	hovertext: string;
 
-	hoverlabel: Partial<Label>;
+	hoverlabel: Partial<HoverLabel>;
 
 	/**
 	 * Determines whether the annotation text box captures mouse move and click events,

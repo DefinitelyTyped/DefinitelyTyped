@@ -1,3 +1,11 @@
+// NOTE: Disabled to preserve existing tests file:
+// tslint:disable:no-namespace
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-var-keyword
+// tslint:disable:no-inferrable-types
+// tslint:disable:prefer-const
+// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -835,8 +843,10 @@ namespace util_tests {
         const foo = () => {};
         // $ExpectType () => void
         util.deprecate(foo, 'foo() is deprecated, use bar() instead');
-        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
         util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string, code?: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead', 'DEP0001');
 
         // util.TextDecoder()
         var td = new util.TextDecoder();
@@ -2096,6 +2106,21 @@ namespace child_process_tests {
         childProcess.execFile("npm", ["-v"], { windowsHide: true, encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
         childProcess.execFile("npm", { encoding: 'utf-8' }, (stdout, stderr) => { assert(stdout instanceof String); });
         childProcess.execFile("npm", { encoding: 'buffer' }, (stdout, stderr) => { assert(stdout instanceof Buffer); });
+    }
+
+    {
+        const forked = childProcess.fork('./', ['asd'], {
+            windowsVerbatimArguments: true,
+            silent: false,
+            stdio: ["inherit"],
+            execPath: '',
+            execArgv: ['asda']
+        });
+        const ipc: stream.Pipe = forked.channel;
+        const hasRef: boolean = ipc.hasRef();
+        ipc.close();
+        ipc.unref();
+        ipc.ref();
     }
 
     async function testPromisify() {
@@ -4033,7 +4058,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

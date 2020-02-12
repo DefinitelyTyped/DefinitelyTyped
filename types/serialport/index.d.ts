@@ -1,8 +1,9 @@
-// Type definitions for serialport 7.0
-// Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
+// Type definitions for serialport 8.0
+// Project: https://github.com/node-serialport/node-serialport
 // Definitions by: Jeremy Foster <https://github.com/codefoster>
 //                 Andrew Pearson <https://github.com/apearson>
 //                 Cameron Tacklind <https://github.com/cinderblock>
+//                 Doug Brunner <https://github.com/doug-a-brunner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -21,12 +22,12 @@ declare class SerialPort extends Stream.Duplex {
 	open(callback?: SerialPort.ErrorCallback): void;
 	update(options: SerialPort.UpdateOptions, callback?: SerialPort.ErrorCallback): void;
 
-	write(data: string| number[] | Buffer, callback?: (error: any, bytesWritten: number) => void): boolean;
-	write(buffer: string| number[] | Buffer, encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex', callback?: (error: any, bytesWritten: number) => void): boolean;
+	write(data: string| number[] | Buffer, callback?: (error: Error | null | undefined, bytesWritten: number) => void): boolean;
+	write(buffer: string| number[] | Buffer, encoding?: 'ascii'|'utf8'|'utf16le'|'ucs2'|'base64'|'binary'|'hex', callback?: (error: Error | null | undefined, bytesWritten: number) => void): boolean;
 
 	read(size?: number): string | Buffer | null;
 
-	close(callback?: (error: Error) => void): void;
+	close(callback?: (error?: Error | null) => void): void;
 
 	set(options: SerialPort.SetOptions, callback?: SerialPort.ErrorCallback): void;
 	get(callback?: SerialPort.ModemBitsCallback): void;
@@ -41,14 +42,13 @@ declare class SerialPort extends Stream.Duplex {
 
 	static Binding: SerialPort.BaseBinding;
 
-	static list(callback?: SerialPort.ListCallback): Promise<SerialPort.PortInfo[]>;
+	static list(): Promise<SerialPort.PortInfo[]>;
 }
 
 declare namespace SerialPort {
 	// Callbacks Type Defs
-	type ErrorCallback = (error: Error) => void;
-	type ModemBitsCallback = (error: Error, status: {cts: boolean, dsr: boolean, dcd: boolean }) => void;
-	type ListCallback = (error: Error, port: any[]) => void;
+	type ErrorCallback = (error?: Error | null) => void;
+	type ModemBitsCallback = (error: Error | null | undefined, status: {cts: boolean, dsr: boolean, dcd: boolean }) => void;
 
 	// Options Type Defs
 	interface OpenOptions {
@@ -81,7 +81,7 @@ declare namespace SerialPort {
     }
 
 	interface PortInfo {
-		comName: string;
+		path: string;
 		manufacturer?: string;
 		serialNumber?: string;
 		pnpId?: string;

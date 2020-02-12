@@ -35,11 +35,13 @@ export class CommandExecutor {}
  */
 export class Options extends webdriver.Capabilities {
   /**
-   * Sets the logging preferences for the new session.
-   * @param {!./lib/logging.Preferences} prefs The logging preferences.
+   * Instruct the SafariDriver to use the Safari Technology Preview if true.
+   * Otherwise, use the release version of Safari. Defaults to using the release version of Safari.
+   *
+   * @param {boolean} useTechnologyPreview
    * @return {!Options} A self reference.
    */
-  setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+  setTechnologyPreview(useTechnologyPreview: boolean): Options;
 }
 
 /**

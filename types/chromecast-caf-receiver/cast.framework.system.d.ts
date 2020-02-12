@@ -1,47 +1,76 @@
-import { EventType } from "./cast.framework.events";
+import * as events from './cast.framework.events';
 
-export as namespace system
-export type EventType =
-    // Fired when the system is ready.
-    | "READY"
-    // Fired when the application is terminated
-    | "SHUTDOWN"
-    // Fired when a new sender has connected.
-    | "SENDER_CONNECTED"
-    // Fired when a sender has disconnected.
-    | "SENDER_DISCONNECTED"
+export as namespace system;
+export enum EventType {
+    ALLOW_GROUP_CHANGE = 'allowgroupchange',
     // Fired when there is a system error.
-    | "ERROR"
-    // Fired when the system volume has changed.
-    | "SYSTEM_VOLUME_CHANGED"
-    // Fired when the visibility of the application has changed
-    // (for example after a HDMI Input change or when the TV is turned
-    // off/on and the cast device is externally powered).
-    // Note that this API has the same effect as the webkitvisibilitychange event raised
-    // by your document, we provided it as CastReceiverManager API for convenience and
-    // to avoid a dependency on a webkit-prefixed event.
-    | "VISIBILITY_CHANGED"
+    ERROR = 'error',
+    // Fired when system starts to create feedback report.
+    FEEDBACK_STARTED = 'feedbackstarted',
+    GROUP_CAPABILITIES = 'groupcapabilities',
+    MAX_VIDEO_RESOLUTION_CHANGED = 'maxvideoresolutionchanged',
+    PROXIMITY_CHANGED = 'proximitychanged',
+    // Fired when the system is ready.
+    READY = 'ready',
+    // Fired when a new sender has connected.
+    SENDER_CONNECTED = 'senderconnected',
+    // Fired when a sender has disconnected.
+    SENDER_DISCONNECTED = 'senderdisconnected',
+    // Fired when the application is terminated
+    SHUTDOWN = 'shutdown',
     // Fired when the standby state of the TV has changed.
     // This event is related to the visibility chnaged event, as if the TV is in standby
     // the visibility will be false, the visibility is more granular
     // (as it also detects that the TV has selected a different channel)
     // but it is not reliably detected in all TVs,
     // standby can be used in those cases as most TVs implement it.
-    | "STANDBY_CHANGED"
-    | "MAX_VIDEO_RESOLUTION_CHANGED"
-    | "FEEDBACK_STARTED";
+    STANDBY_CHANGED = 'standbychanged',
+    // Fired when the system volume has changed.
+    SYSTEM_VOLUME_CHANGED = 'systemvolumechanged',
+    // Fired when the visibility of the application has changed
+    // (for example after a HDMI Input change or when the TV is turned
+    // off/on and the cast device is externally powered).
+    // Note that this API has the same effect as the webkitvisibilitychange event raised
+    // by your document, we provided it as CastReceiverManager API for convenience and
+    // to avoid a dependency on a webkit-prefixed event.
+    VISIBILITY_CHANGED = 'visibilitychanged',
+}
 
-export type SystemState =
-    | "NOT_STARTED"
-    | "STARTING_IN_BACKGROUND"
-    | "STARTING"
-    | "READY"
-    | "STOPPING_IN_BACKGROUND"
-    | "STOPPING";
+// Represents the current system state.
+export enum SystemState {
+    // The application has not been requested to start yet.
+    NOT_STARTED = 'notstarted',
+    // Application is ready to send and receive messages and it is in foreground.
+    READY = 'ready',
+    // Application is starting.
+    STARTING = 'starting',
+    // Application is starting but it is in background.
+    STARTING_IN_BACKGROUND = 'startinginbackground',
+    // Application is stopping.
+    STOPPING = 'stopping',
+    // Application is stopping but it is in background.
+    STOPPING_IN_BACKGROUND = 'stoppinginbackground',
+}
 
-export type StandbyState = "STANDBY" | "NOT_STANDBY" | "UNKNOWN";
+// Represents the current standby state reported by the platform. It may be UNKNOWN
+// if the cast platform was unable to determine the state yet.
+export enum StandbyState {
+    NOT_STANDBY = 'notstandby',
+    STANDBY = 'standby',
+    UNKNOWN = 'unknown',
+}
 
-export type DisconnectReason = "REQUESTED_BY_SENDER" | "ERROR" | "UNKNOWN";
+// Represents the disconnect reason.
+export enum DisconnectReason {
+    // There was a protocol error.
+    ERROR = 'error',
+    // Connection close was actively requested by the sender application (usually triggered by the user).
+    REQUESTED_BY_SENDER = 'requested_by_sender',
+    // It is unknown if the sender requested to disconnect gracefully calling close (most likely it didn't,
+    // but the close message could have been lost). This normally happens when there is a network timeout
+    // or if the sender application crashes or if the sender OS closes the socket.
+    UNKNOWN = 'unknown',
+}
 
 /**
  * Event dispatched by @see{@link CastReceiverManager} when the visibility of the application changes (HDMI input change; TV is turned off).

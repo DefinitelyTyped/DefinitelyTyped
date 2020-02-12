@@ -64,7 +64,7 @@ export interface Collection<N>
             i: number,
             paths: Array<ASTPath<N>>
         ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-        type: recast.Type<any>
+        type?: recast.Type<any>
     ): Collection<T>;
 
     /** Returns the number of elements in this collection. */

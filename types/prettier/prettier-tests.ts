@@ -50,6 +50,20 @@ if (options !== null) {
     const formatted = prettier.format('hello world', options);
 }
 
+prettier.resolveConfigFile().then(filePath => {
+    if (filePath !== null) {
+        prettier.resolveConfig(filePath);
+    }
+});
+prettier.resolveConfigFile('/path').then(filePath => {
+    if (filePath !== null) {
+        prettier.resolveConfig(filePath);
+    }
+});
+
+const configFilePathInCurrentDir = prettier.resolveConfigFile.sync();
+const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
+
 prettier.clearConfigCache();
 
 const currentSupportInfo = prettier.getSupportInfo();
@@ -67,3 +81,5 @@ htmlParser.parsers.html.parse; // $ExpectType (text: string, parsers: { [parserN
 markdownParser.parsers.markdown.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 postcssParser.parsers.postcss.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
 yamlParser.parsers.yaml.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser; }, options: ParserOptions) => any
+
+prettier.format('hello world', {plugins: [typescriptParser, graphqlParser, babylonParser, htmlParser, markdownParser, postcssParser, yamlParser]});

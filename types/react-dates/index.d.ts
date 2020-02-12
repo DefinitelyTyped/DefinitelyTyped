@@ -75,6 +75,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -109,6 +110,8 @@ declare namespace ReactDates {
         renderCalendarDay?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         renderDayContents?: (day: momentPropTypes.momentObj) => string | JSX.Element;
         minimumNights?: number;
+        minDate?: momentPropTypes.momentObj;
+        maxDate?: momentPropTypes.momentObj;
         enableOutsideDays?: boolean;
         isDayBlocked?: (day: any) => boolean;
         isOutsideRange?: (day: any) => boolean;
@@ -149,7 +152,7 @@ declare namespace ReactDates {
 
         // required props for a functional interactive SingleDatePicker
         date: momentPropTypes.momentObj | null;
-        focused: boolean;
+        focused: boolean | null;
 
         onDateChange: (date: momentPropTypes.momentObj | null) => void;
         onFocusChange: (arg: { focused: boolean | null }) => void;
@@ -179,6 +182,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -209,8 +213,7 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onClose?: (
             final: {
-                startDate: momentPropTypes.momentObj;
-                endDate: momentPropTypes.momentObj;
+                date: momentPropTypes.momentObj;
             }
         ) => void;
 
@@ -420,6 +423,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         enableOutsideDays?: boolean;

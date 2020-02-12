@@ -1,4 +1,4 @@
-// Type definitions for node-geocoder 3.19
+// Type definitions for node-geocoder 3.24
 // Project: https://github.com/nchaulet/node-geocoder#readme
 // Definitions by: Krzysztof Rosinski <https://github.com/rosek86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,36 +7,76 @@
 
 declare namespace node_geocoder {
     type Providers =
-        'google' | 'here' | 'freegeoip' |
-        'datasciencetoolkit' | 'openstreetmap' |
+        'freegeoip' | 'datasciencetoolkit' |
         'locationiq' | 'mapquest' | 'openmapquest' |
-        'agol' | 'tomtom' | 'nominatimmapquest' |
-        'opencage' | 'smartyStreet' | 'geocodio' |
-        'yandex' | 'teleport' | 'opendatafrance' |
-        'pickpoint';
+        'tomtom' | 'nominatimmapquest' |
+        'opencage' | 'geocodio' |
+        'yandex' | 'teleport' | 'pickpoint';
 
-    interface Options {
-        provider: Providers;
+    interface BaseOptions {
+        provider: string;
         httpAdapter?: 'https' | 'http' | 'request';
-        clientId?: string;
-        apiKey?: string;
-        language?: string;
-        region?: string;
-        appId?: string;
-        appCode?: string;
-        politicalView?: string;
-        country?: string;
-        state?: string;
-        host?: string;
-        email?: string;
-        client_id?: string;
-        client_secret?: string;
-        auth_id?: string;
-        auth_token?: string;
         timeout?: number;
         formatterPattern?: string;
         formatter?: any;
     }
+
+    interface HereOptions {
+        provider: 'here';
+        appId: string;
+        appCode: string;
+        language?: string;
+        politicalView?: string;
+        country?: string;
+        state?: string;
+        production?: boolean;
+    }
+
+    interface OpenStreetMapOptions {
+        provider: 'openstreetmap';
+        language?: string;
+        email?: string;
+        apiKey?: string;
+        osmServer?: string;
+    }
+
+    interface OpenDataFranceOptions {
+        provider: 'opendatafrance';
+        language?: string;
+        email?: string;
+        apiKey?: string;
+    }
+
+    interface AgolOptions {
+        provider: 'agol';
+        client_id?: string;
+        client_secret?: string;
+    }
+
+    interface SmartyStreetsOptions {
+        provider: 'smartyStreet';
+        auth_id: string;
+        auth_token: string;
+    }
+
+    interface GoogleOptions {
+        provider: 'google';
+        clientId?: string;
+        apiKey?: string;
+        language?: string;
+        region?: string;
+        excludePartialMatches?: boolean;
+        channel?: string;
+    }
+
+    interface GenericOptions {
+        provider: Providers;
+        apiKey?: string;
+        language?: string;
+        host?: string;
+    }
+
+    type Options = BaseOptions & (GenericOptions | HereOptions | OpenStreetMapOptions | OpenDataFranceOptions | AgolOptions | SmartyStreetsOptions | GoogleOptions);
 
     interface Location {
         lat: number;
@@ -64,6 +104,11 @@ declare namespace node_geocoder {
         countryCode?: string;
         zipcode?: string;
         provider?: string;
+        state?: string;
+        stateCode?: string;
+        county?: string;
+        district?: string;
+        building?: string;
     }
 
     interface Query {

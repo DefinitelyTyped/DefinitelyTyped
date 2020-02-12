@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+
 import {
-	closeMenu,
-	openMenu,
-	Wrapper,
 	Button,
 	Menu,
-	MenuItem
+	MenuItem,
+	Wrapper,
+	closeMenu,
+	openMenu
 } from "react-aria-menubutton";
 
 const menuItemWords = ["foo", "bar", "baz"];
@@ -117,7 +118,7 @@ class DemoOne extends React.Component<{}, DemoOneState> {
 ReactDOM.render(<DemoOne />, document.getElementById("demo-one"));
 
 closeMenu("");
-closeMenu("", { focusMenu: true });
+closeMenu("", { focusButton: true });
 
 openMenu("");
 openMenu("", { focusMenu: true });
@@ -136,3 +137,17 @@ class ObjectMenuItem extends React.Component {
 }
 
 ReactDOM.render(<ObjectMenuItem />, document.body);
+
+class MenuWithRenderProp extends React.Component {
+	render() {
+		return (
+			<Menu>
+				{({ isOpen }) => (
+					<ul>
+						<li><MenuItem>Foo</MenuItem></li>
+					</ul>
+				)}
+			</Menu>
+		);
+	}
+}

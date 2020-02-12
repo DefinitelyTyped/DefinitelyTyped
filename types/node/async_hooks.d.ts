@@ -20,7 +20,7 @@ declare module "async_hooks" {
          * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
@@ -100,18 +100,6 @@ declare module "async_hooks" {
          *   AsyncResourceOptions object (since 9.3)
          */
         constructor(type: string, triggerAsyncId?: number|AsyncResourceOptions);
-
-        /**
-         * Call AsyncHooks before callbacks.
-         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
-         */
-        emitBefore(): void;
-
-        /**
-         * Call AsyncHooks after callbacks.
-         * @deprecated since 9.6 - Use asyncResource.runInAsyncScope() instead.
-         */
-        emitAfter(): void;
 
         /**
          * Call the provided function with the provided arguments in the

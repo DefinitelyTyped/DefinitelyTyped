@@ -1,4 +1,4 @@
 import * as parser from 'svg-parser';
 
-// $ExpectType Node
+// $ExpectType RootNode
 parser.parse('<svg></svg>');

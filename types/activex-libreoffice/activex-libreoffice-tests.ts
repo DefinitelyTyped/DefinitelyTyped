@@ -128,8 +128,8 @@
     }
 
     function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K): LibreOffice.StructNameMap[K] {
-        const classSize = coreReflection.forName(strTypeName);
-        const aStruct: [LibreOffice.InstantiableNameMap[K]] = [] as any;
+        const classSize = coreReflection.forName(strTypeName) as com.sun.star.reflection.XIdlClass<LibreOffice.StructNameMap[K]>;
+        const aStruct: [LibreOffice.StructNameMap[K]] = [] as any;
         classSize.createObject(aStruct);
         return aStruct[0];
     }

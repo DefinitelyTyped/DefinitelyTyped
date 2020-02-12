@@ -1,10 +1,11 @@
-// Type definitions for react-grid-layout 0.16
+// Type definitions for react-grid-layout 0.17
 // Project: https://github.com/STRML/react-grid-layout
 // Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
 //                 Ali Taheri <https://github.com/alitaheri>,
 //                 Zheyang Song <https://github.com/ZheyangSong>,
 //                 Andrew Hathaway <https://github.com/andrewhathaway>
 //                 Manav Mishra <https://github.com/manav-m>
+//                 Alexey Fyodorov <https://github.com/al-fyodorov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -23,7 +24,7 @@ declare namespace ReactGridLayout {
          * A string corresponding to the component key.
          * Uses the index of components instead if not provided.
          */
-        i?: string;
+        i: string;
 
         /**
          * X position in grid units.
@@ -150,19 +151,19 @@ declare namespace ReactGridLayout {
         width?: number;
 
         /**
-         * Margin between items `[x, y]` in px.
-         */
-        margin?: [number, number];
-
-        /**
-         * Padding inside the container `[x, y]` in px.
-         */
-        containerPadding?: [number, number];
-
-        /**
          * Rows have a static height, but you can change this based on breakpoints if you like.
          */
         rowHeight?: number;
+
+        /**
+         * Configuration of a dropping element. Dropping element is a "virtual" element
+         * which appears when you drag over some element from outside.
+         */
+        droppingItem?: {
+            i: string
+            w: number
+            h: number
+        };
 
         /**
          * If set to false it will disable dragging on all children.
@@ -175,9 +176,9 @@ declare namespace ReactGridLayout {
         isResizable?: boolean;
 
         /**
-         * Enable or disable grid rearrangement when dragging/resizing an element.
+         * If set to false it will not call `onDrop()` callback.
          */
-        isRearrangeable?: boolean;
+        isDroppable?: boolean;
 
         /**
          * If true, grid items won't change position when being dragged over.
@@ -198,6 +199,11 @@ declare namespace ReactGridLayout {
          * Intentionally not documented for this reason.
          */
         maxRows?: number;
+
+        /**
+         * Scale coefficient for CSS3 `transform: scale()`
+         */
+        transformScale?: number;
 
         /**
          * Calls when drag starts.
@@ -228,6 +234,11 @@ declare namespace ReactGridLayout {
          * Calls when resize is complete.
          */
         onResizeStop?: ItemCallback;
+
+        /**
+         * Calls when some element has been dropped
+         */
+        onDrop?(elemParams: { x: number, y: number, e: Event }): void;
     }
 
     interface ReactGridLayoutProps extends CoreProps {
@@ -235,6 +246,16 @@ declare namespace ReactGridLayout {
          * Number of columns in this layout.
          */
         cols?: number;
+
+        /**
+         * Margin between items `[x, y]` in px.
+         */
+        margin?: [number, number];
+
+        /**
+         * Padding inside the container `[x, y]` in px.
+         */
+        containerPadding?: [number, number];
 
         /**
          * Layout is an array of object with the format:
@@ -270,6 +291,16 @@ declare namespace ReactGridLayout {
          * Number of cols. This is a breakpoint -> cols map, e.g. `{lg: 12, md: 10, ...}`.
          */
         cols?: { [P: string]: number };
+
+        /**
+         * Margin between items in px and formatt [x, y] or { breakpoint: [x, y] }.
+         */
+        margin?: [number, number] | { [P: string]: [number, number] };
+
+        /**
+         * Padding inside the container in px and formatt [x, y] or { breakpoint: [x, y] }.
+         */
+        containerPadding?: [number, number] | { [P: string]: [number, number] };
 
         /**
          * layouts is an object mapping breakpoints to layouts.

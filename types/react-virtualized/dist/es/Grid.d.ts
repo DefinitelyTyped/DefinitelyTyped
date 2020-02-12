@@ -1,8 +1,8 @@
-import { Validator, Requireable, PureComponent } from "react";
-import { List } from "./List";
-import { Table } from "./Table";
-import { CellMeasurerCache, MeasuredCellParent } from "./CellMeasurer";
-import { Index, Map, Alignment } from "../../index";
+import { Validator, Requireable, PureComponent, Component } from 'react';
+import { List } from './List';
+import { Table } from './Table';
+import { CellMeasurerCache, MeasuredCellParent } from './CellMeasurer';
+import { Index, Map, Alignment } from '../../index';
 
 export type RenderedSection = {
     columnOverscanStartIndex: number;
@@ -20,7 +20,7 @@ export type GridCellProps = {
     isScrolling: boolean;
     isVisible: boolean;
     key: string;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     rowIndex: number;
     style: React.CSSProperties;
 };
@@ -60,8 +60,8 @@ export type ScrollbarPresenceParams = {
     vertical: boolean;
 };
 export type SectionRenderedParams = RenderedSection;
-export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
-export type SCROLL_DIRECTION_VERTICAL = "vertical";
+export type SCROLL_DIRECTION_HORIZONTAL = 'horizontal';
+export type SCROLL_DIRECTION_VERTICAL = 'vertical';
 export type OverscanIndicesGetterParams = {
     direction?: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
     cellCount: number;
@@ -74,9 +74,7 @@ export type OverscanIndices = {
     overscanStartIndex: number;
     overscanStopIndex: number;
 };
-export type OverscanIndicesGetter = (
-    params: OverscanIndicesGetterParams
-) => OverscanIndices;
+export type OverscanIndicesGetter = (params: OverscanIndicesGetterParams) => OverscanIndices;
 
 export type ScrollOffset = {
     scrollLeft: number;
@@ -89,10 +87,7 @@ export type CellSizeAndPositionManager = {
     getCellCount(): number;
     getEstimatedCellSize(): number;
     getLastMeasuredIndex(): number;
-    getOffsetAdjustment({
-        containerSize,
-        offset /*safe*/
-    }: ContainerSizeAndOffset): number;
+    getOffsetAdjustment({ containerSize, offset /*safe*/ }: ContainerSizeAndOffset): number;
     /**
      * This method returns the size and position for the cell at the specified index.
      * It just-in-time calculates (or used cached values) for cells leading up to the index.
@@ -138,6 +133,7 @@ export type GridCellRangeProps = {
     columnStartIndex: number;
     columnStopIndex: number;
     isScrolling: boolean;
+    isScrollingOptOut: boolean;
     rowSizeAndPositionManager: CellSizeAndPositionManager;
     rowStartIndex: number;
     rowStopIndex: number;
@@ -145,19 +141,17 @@ export type GridCellRangeProps = {
     scrollTop: number;
     deferredMeasurementCache: CellMeasurerCache;
     horizontalOffsetAdjustment: number;
-    parent: MeasuredCellParent;
+    parent: React.Component<GridCoreProps> & MeasuredCellParent;
     styleCache: Map<React.CSSProperties>;
     verticalOffsetAdjustment: number;
     visibleColumnIndices: VisibleCellRange;
     visibleRowIndices: VisibleCellRange;
 };
-export type GridCellRangeRenderer = (
-    params: GridCellRangeProps
-) => React.ReactNode[];
+export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
 export type GridCoreProps = {
-    "aria-label"?: string;
-    "aria-readonly"?: boolean;
+    'aria-label'?: string;
+    'aria-readonly'?: boolean;
     /**
      * Set the width of the inner scrollable container to 'auto'.
      * This is useful for single-column Grids to ensure that the column doesn't extend below a vertical scrollbar.
@@ -342,7 +336,7 @@ export type GridProps = GridCoreProps & {
     columnWidth: number | ((params: Index) => number);
 };
 
-export type ScrollDirection = "horizontal" | "vertical";
+export type ScrollDirection = 'horizontal' | 'vertical';
 
 export type GridState = {
     isScrolling: boolean;
@@ -364,13 +358,13 @@ export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
  */
 export class Grid extends PureComponent<GridProps, GridState> {
     static defaultProps: {
-        "aria-label": "grid";
-        "aria-readonly": true;
+        'aria-label': 'grid';
+        'aria-readonly': true;
         autoContainerWidth: false;
         autoHeight: false;
         autoWidth: false;
         cellRangeRenderer: GridCellRangeRenderer;
-        containerRole: "rowgroup";
+        containerRole: 'rowgroup';
         containerStyle: {};
         estimatedColumnSize: 100;
         estimatedRowSize: 30;
@@ -382,9 +376,9 @@ export class Grid extends PureComponent<GridProps, GridState> {
         overscanColumnCount: 0;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;
-        role: "grid";
+        role: 'grid';
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL;
-        scrollToAlignment: "auto";
+        scrollToAlignment: 'auto';
         scrollToColumn: -1;
         scrollToRow: -1;
         style: {};
@@ -394,11 +388,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
     /**
      * Gets offsets for a given cell and alignment.
      */
-    getOffsetForCell(params?: {
-        alignment?: Alignment;
-        columnIndex?: number;
-        rowIndex?: number;
-    }): ScrollOffset;
+    getOffsetForCell(params?: { alignment?: Alignment; columnIndex?: number; rowIndex?: number }): ScrollOffset;
 
     /**
      * This method handles a scroll event originating from an external scroll control.
@@ -413,10 +403,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
      * This method is intended for advanced use-cases like CellMeasurer.
      */
     // @TODO (bvaughn) Add automated test coverage for this.
-    invalidateCellSizeAfterRender(params: {
-        columnIndex: number;
-        rowIndex: number;
-    }): void;
+    invalidateCellSizeAfterRender(params: { columnIndex: number; rowIndex: number }): void;
 
     /**
      * Pre-measure all columns and rows in a Grid.
@@ -430,10 +417,7 @@ export class Grid extends PureComponent<GridProps, GridState> {
      * This function should be called if dynamic column or row sizes have changed but nothing else has.
      * Since Grid only receives :columnCount and :rowCount it has no way of detecting when the underlying data changes.
      */
-    recomputeGridSize(params?: {
-        columnIndex?: number;
-        rowIndex?: number;
-    }): void;
+    recomputeGridSize(params?: { columnIndex?: number; rowIndex?: number }): void;
 
     /**
      * Ensure column and row are visible.

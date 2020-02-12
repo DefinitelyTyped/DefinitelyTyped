@@ -115,7 +115,7 @@ t.TSTypeParameterDeclaration([param]);
 t.TSTypeParameterInstantiation([any]);
 t.TSTypePredicate(id, t.TSTypeAnnotation(any));
 t.TSTypeQuery(id);
-t.TSTypeReference(id);
+t.TSTypeReference(id, t.TSTypeParameterInstantiation([any]));
 t.TSUndefinedKeyword();
 t.TSUnionType([any]);
 t.TSVoidKeyword();

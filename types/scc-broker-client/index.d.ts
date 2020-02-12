@@ -1,12 +1,12 @@
-// Type definitions for scc-broker-client 6.1
+// Type definitions for scc-broker-client 7.0
 // Project: https://github.com/SocketCluster/scc-broker-client
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
 import SCBroker = require("sc-broker/scbroker");
-import ClusterBrokerClient = require("./cluster-broker-client");
 import { Secret } from "jsonwebtoken";
+
+import ClusterBrokerClient = require("./cluster-broker-client");
 
 export interface MappingEngine {
     setSites(sites: string[]): void;
@@ -26,8 +26,15 @@ export interface SCCBrokerClientOptions {
     stateServerConnectTimeout?: number;
     stateServerAckTimeout?: number;
 
+    instancePort?: number;
+    instanceId?: string;
+    instanceIp?: string;
+    instanceIpFamily?: string;
+
     noErrorLogging?: boolean;
     brokerRetryDelay?: number;
+
+    pubSubBatchDuration?: number;
 }
 
 export function attach(broker: SCBroker, options: SCCBrokerClientOptions): ClusterBrokerClient;

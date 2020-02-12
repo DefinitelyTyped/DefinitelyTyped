@@ -26,6 +26,7 @@ export {
 export type Node = t.Node;
 export type ParseResult = t.File | t.Program;
 export const version: string;
+export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
 
 export interface TransformOptions {
     /**
@@ -542,6 +543,9 @@ export type PluginOptions = object | undefined | false;
 export type PluginTarget = string | object | ((...args: any[]) => any);
 
 export type PluginItem = ConfigItem | PluginObj<any> | PluginTarget | [PluginTarget, PluginOptions] | [PluginTarget, PluginOptions, string | undefined];
+
+export function resolvePlugin(name: string, dirname: string): string | null;
+export function resolvePreset(name: string, dirname: string): string | null;
 
 export interface CreateConfigItemOptions {
     dirname?: string;

@@ -53,7 +53,7 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 
     return `
 // Type definitions for ${fullName} ${majorMinor}
-// Project: http://lodash.com/
+// Project: https://lodash.com
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
@@ -310,6 +310,7 @@ function allModuleNames(): string[] {
         "min",
         "minBy",
         "mixin",
+        "multiply",
         "negate",
         "noConflict",
         "noop",

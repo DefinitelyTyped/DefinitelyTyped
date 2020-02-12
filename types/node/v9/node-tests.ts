@@ -1,3 +1,11 @@
+// NOTE: Disabled to preserve existing tests file:
+// tslint:disable:no-namespace
+// tslint:disable:no-duplicate-variable
+// tslint:disable:no-duplicate-imports
+// tslint:disable:no-var-keyword
+// tslint:disable:no-inferrable-types
+// tslint:disable:prefer-const
+// tslint:disable:max-line-length
 import assert = require("assert");
 import * as fs from "fs";
 import * as events from "events";
@@ -4098,7 +4106,7 @@ namespace inspector_tests {
         inspector.open(0, 'localhost');
         inspector.open(0, 'localhost', true);
         inspector.close();
-        const inspectorUrl: string = inspector.url();
+        const inspectorUrl: string | undefined = inspector.url();
 
         const session = new inspector.Session();
         session.connect();

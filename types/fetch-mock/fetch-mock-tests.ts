@@ -11,6 +11,16 @@ fetchMock.mock("http//test.com", 200, {
         searchValue: "apples"
     }
 });
+fetchMock.mock("express:/users/:user", 200, {
+    params: {
+        user: "someone"
+    }
+});
+fetchMock.mock("http://test.com", 200, {
+    functionMatcher: (url, opts) => {
+        return url.includes("test.com");
+    }
+});
 fetchMock.mock("http://test.com", 200, {
     repeat: 2
 });
@@ -101,6 +111,9 @@ fetchMock.get("http://test.com", 200, {method: "GET"});
 fetchMock.get("http://test.com", 200, {method: "GET", overwriteRoutes: true});
 fetchMock.get("http://test.com", 200, {overwriteRoutes: true});
 fetchMock.post("http://test.com", 200, {method: "POST"});
+fetchMock.post("http://test.com", 200, {method: "POST", body: "abc"});
+fetchMock.post("http://test.com", 200, {method: "POST", body: {foo: "bar"}});
+fetchMock.post("http://test.com", 200, {method: "POST", body: ["foo", "bar"]});
 fetchMock.put("http://test.com", 200, {method: "PUT"});
 fetchMock.delete("http://test.com", 200, {method: "DELETE"});
 fetchMock.head("http://test.com", 200, {method: "HEAD"});

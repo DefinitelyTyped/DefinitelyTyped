@@ -1,5 +1,5 @@
-// Type definitions for istanbul-lib-hook 1.0
-// Project: https://github.com/istanbuljs/istanbuljs
+// Type definitions for istanbul-lib-hook 2.0
+// Project: https://istanbul.js.org, https://github.com/istanbuljs/istanbuljs
 // Definitions by: Jason Cheatham <https://github.com/jason0x43>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -35,7 +35,23 @@ export function hookRunInThisContext(
 
 export function unhookRunInThisContext(): void;
 
+export function hookRunInContext(
+	matcher: Matcher,
+	transformer: Transformer,
+	options?: Partial<HookRunInContextOptions>
+): void;
+
+export function unhookRunInContext(): void;
+
 export function unloadRequireCache(matcher: Matcher): void;
 
 export type Matcher = (filename: string) => boolean;
-export type Transformer = (code: string, filepath: string) => string;
+export type Transformer = (code: string, options: TransformerOptions) => string;
+
+export interface TransformerOptions {
+	filename: string;
+}
+
+export interface HookRunInContextOptions extends Options {
+	coverageVariable: string;
+}

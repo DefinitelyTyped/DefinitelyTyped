@@ -2,7 +2,7 @@
 // Project: https://github.com/typicode/json-server
 // Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { NextHandleFunction } from 'connect';
 import { Application, RequestHandler, Router } from 'express';
@@ -57,6 +57,12 @@ export interface MiddlewaresOptions {
      * @default true
      */
     bodyParser?: boolean;
+
+    /**
+     * Disable compression
+     * @default false
+     */
+    noGzip?: boolean;
 
     /**
      * Disable CORS

@@ -17,13 +17,13 @@ declare module "v8-profiler" {
         type Profiler = {
             /**
              * returns new HEAP Snapshot instance.
-             * name is optional argument, by default snapshot name will be constructed from his uid.
+             * name is optional argument, by default snapshot name will be constructed from its uid.
              */
             takeSnapshot: (name?: string) => Snapshot;
             deleteAllSnapshots: () => void;
             /**
              * start CPU profiling.
-             * name is optional argument, by default profile name will be constructed from his uid.
+             * name is optional argument, by default profile name will be constructed from its uid.
              * recsamples is true by default.
              */
             startProfiling: (name?: string, recsamples?: boolean) => void;

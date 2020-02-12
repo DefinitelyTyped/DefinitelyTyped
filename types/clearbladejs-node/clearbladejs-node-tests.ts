@@ -3,7 +3,7 @@
 // Definitions by: Jim Bouquet <https://github.com/ClearBlade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ClearBlade, Resp, QuerySortDirections, QueryConditions } from ".";
+import { ClearBlade, Resp, QuerySortDirections, QueryConditions } from "clearbladejs-node";
 
 // Sample code for clearbladejs Node SDK v1.0.0 used to test typescript definitions
 

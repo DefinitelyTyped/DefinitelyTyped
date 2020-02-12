@@ -47,4 +47,8 @@ app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateS
     x = $filter('translate')('something');
     x = $filter('translate')('something', {});
     x = $filter('translate')('something', {}, '');
+    var o = $filter('translate')(['a', 'b', 'c']);
+    o.a;
+    o.b;
+    o.c;
 });

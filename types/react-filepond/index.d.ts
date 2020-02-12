@@ -30,13 +30,15 @@ export interface FileProps {
     metadata?: {[key: string]: any};
 }
 
+// Note that this duplicates the JS File type declaration, but is necessary
+// to avoid duplicating the name 'File' in this module
+// see: https://developer.mozilla.org/en-US/docs/Web/API/File
+// see: https://github.com/Microsoft/dtslint/issues/173
+// see: https://stackoverflow.com/q/53876793/2517147
+type ActualFileObject = Blob & {readonly lastModified: number; readonly name: string};
+
 export class File extends React.Component<FileProps> {
-    // Note that this duplicates the JS File type declaration, but is necessary
-    // to avoid duplicating the name 'File' in this module
-    // see: https://developer.mozilla.org/en-US/docs/Web/API/File
-    // see: https://github.com/Microsoft/dtslint/issues/173
-    // see: https://stackoverflow.com/q/53876793/2517147
-    file: Blob & {readonly lastModified: number; readonly name: string};
+    file: ActualFileObject;
     fileSize: number;
     fileType: string;
     filename: string;
@@ -85,18 +87,124 @@ interface ServerUrl {
     ondata?: (data: any) => any;
 }
 
-interface FilePondServerConfigProps {
+type ProgressServerConfigFunction = (
+    /**
+     * Flag indicating if the resource has a length that can be calculated.
+     * If not, the totalDataAmount has no significant value.  Setting this to
+     * false switches the FilePond loading indicator to infinite mode.
+     */
+    isLengthComputable: boolean,
+    /** The amount of data currently transferred */
+    loadedDataAmount: number,
+    /** The total amount of data to be transferred */
+    totalDataAmount: number,
+) => void;
+
+type ProcessServerConfigFunction = (
+    /** The name of the input field */
+    fieldName: string,
+    /** The actual file object to send */
+    file: ActualFileObject,
+    metadata: {[key: string]: any},
+    /**
+     * Should call the load method when done and pass the returned server file id.
+     * This server file id is then used later on when reverting or restoring a file
+     * so that your server knows which file to return without exposing that info
+     * to the client.
+     */
+    load: (p: string | {[key: string]: any}) => void,
+    /** Can call the error method is something went wrong, should exit after */
+    error: (errorText: string) => void,
+    /**
+     * Should call the progress method to update the progress to 100% before calling load()
+     * Setting computable to false switches the loading indicator to infinite mode
+     */
+    progress: ProgressServerConfigFunction,
+    /** Let FilePond know the request has been cancelled */
+    abort: () => void
+) => void;
+
+type RevertServerConfigFunction = (
+    /** Server file id of the file to restore */
+    uniqueFieldId: any,
+    /** Should call the load method when done */
+    load: () => void,
+    /** Can call the error method is something went wrong, should exit after */
+    error: (errorText: string) => void,
+) => void;
+
+type RestoreServerConfigFunction = (
+    uniqueFileId: any,
+    /** Should call the load method with a file object or blob when done */
+    load: (file: ActualFileObject) => void,
+    /** Can call the error method is something went wrong, should exit after */
+    error: (errorText: string) => void,
+    /**
+     * Should call the progress method to update the progress to 100% before calling load()
+     * Setting computable to false switches the loading indicator to infinite mode
+     */
+    progress: ProgressServerConfigFunction,
+    /** Let FilePond know the request has been cancelled */
+    abort: () => void,
+    /*
+     * Can call the headers method to supply FilePond with early response header string
+     * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
+     */
+    headers: (headersString: string) => void,
+) => void;
+
+type LoadServerConfigFunction = (
+    source: any,
+    /** Should call the load method with a file object or blob when done */
+    load: (file: ActualFileObject) => void,
+    /** Can call the error method is something went wrong, should exit after */
+    error: (errorText: string) => void,
+    /**
+     * Should call the progress method to update the progress to 100% before calling load()
+     * Setting computable to false switches the loading indicator to infinite mode
+     */
+    progress: ProgressServerConfigFunction,
+    /** Let FilePond know the request has been cancelled */
+    abort: () => void,
+    /*
+     * Can call the headers method to supply FilePond with early response header string
+     * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
+     */
+    headers: (headersString: string) => void,
+) => void;
+
+type FetchServerConfigFunction = (
+    url: string,
+    /** Should call the load method with a file object or blob when done */
+    load: (file: ActualFileObject) => void,
+    /** Can call the error method is something went wrong, should exit after */
+    error: (errorText: string) => void,
+    /**
+     * Should call the progress method to update the progress to 100% before calling load()
+     * Setting computable to false switches the loading indicator to infinite mode
+     */
+    progress: ProgressServerConfigFunction,
+    /** Let FilePond know the request has been cancelled */
+    abort: () => void,
+    /*
+     * Can call the headers method to supply FilePond with early response header string
+     * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
+     */
+    headers: (headersString: string) => void,
+) => void;
+
+export interface FilePondServerConfigProps {
     instantUpload?: boolean;
     server?: string | {
-        process: string | ServerUrl;
-        revert: string | ServerUrl;
-        restore: string | ServerUrl;
-        load: string | ServerUrl;
-        fetch: string | ServerUrl;
+        process?: string | ServerUrl | ProcessServerConfigFunction;
+        revert?: string | ServerUrl | RevertServerConfigFunction;
+        restore?: string | ServerUrl | RestoreServerConfigFunction;
+        load?: string | ServerUrl | LoadServerConfigFunction;
+        fetch?: string | ServerUrl | FetchServerConfigFunction;
     };
 }
 
-interface FilePondDragDropProps {
+export interface FilePondDragDropProps {
     /** FilePond will catch all files dropped on the webpage */
     dropOnPage?: boolean;
     /** Require drop on the FilePond element itself to catch the file. */
@@ -113,7 +221,7 @@ interface FilePondDragDropProps {
     ignoredFiles?: string[];
 }
 
-interface FilePondLabelProps {
+export interface FilePondLabelProps {
     /**
      * The decimal separator used to render numbers.
      * By default this is determined automatically.
@@ -168,7 +276,7 @@ interface FilePondLabelProps {
     labelButtonProcessItem?: string;
 }
 
-interface FilePondSvgIconProps {
+export interface FilePondSvgIconProps {
     iconRemove?: string;
     iconProcess?: string;
     iconRetry?: string;
@@ -180,12 +288,7 @@ interface FilePondErrorDescription {
     sub: string;
 }
 
-/**
- * Note that in my testing, callbacks that include an error prop
- * always give the error as the second prop, with the file as
- * the first prop.    This is contradictory to the current docs.
- */
-interface FilePondCallbackProps {
+export interface FilePondCallbackProps {
     /** FilePond instance has been created and is ready. */
     oninit?: () => void;
     /**
@@ -199,13 +302,13 @@ interface FilePondCallbackProps {
      * FilePond instance throws an error. Optionally receives
      * file if error is related to a file object.
      */
-    onerror?: (file?: File, error?: FilePondErrorDescription, status?: any) => void;
+    onerror?: (error: FilePondErrorDescription, file?: File, status?: any) => void;
     /** Started file load */
     onaddfilestart?: (file: File) => void;
     /** Made progress loading a file */
     onaddfileprogress?: (file: File, progress: number) => void;
     /** If no error, file has been successfully loaded */
-    onaddfile?: (file: File, error: FilePondErrorDescription) => void;
+    onaddfile?: (error: FilePondErrorDescription, file: File) => void;
     /** Started processing a file */
     onprocessfilestart?: (file: File) => void;
     /** Made progress processing a file */
@@ -215,7 +318,7 @@ interface FilePondCallbackProps {
     /** Processing of a file has been undone */
     onprocessfileundo?: (file: File) => void;
     /** If no error, Processing of a file has been completed */
-    onprocessfile?: (file: File, error: FilePondErrorDescription) => void;
+    onprocessfile?: (error: FilePondErrorDescription, file: File) => void;
     /** File has been removed. */
     onremovefile?: (file: File) => void;
     /**
@@ -228,11 +331,11 @@ interface FilePondCallbackProps {
     onupdatefiles?: (fileItems: File[]) => void;
 }
 
-interface FilePondHookProps {
+export interface FilePondHookProps {
     beforeRemoveFile?: (file: File) => boolean;
 }
 
-interface FilePondBaseProps {
+export interface FilePondBaseProps {
     children?: React.ReactElement<File> | Array<React.ReactElement<File>>;
     id?: string;
     name?: string;
@@ -260,6 +363,8 @@ interface FilePondBaseProps {
     maxFiles?: number;
     /** The maximum number of files that can be uploaded in parallel */
     maxParallelUploads?: number;
+    /** List of files for controlled usage */
+    files?: File[];
     acceptedFileTypes?: string[];
     metadata?: {[key: string]: any};
 }

@@ -62,6 +62,24 @@ async function foo() {
   }
 }
 
+docker.getEvents(
+  {
+    since: new Date().getTime() / 1000,
+    filters: `{ "event": ["pull"] }`,
+  },
+  (err, stream) => {
+    // NOOP
+  },
+);
+
+docker.getEvents((err, stream) => {
+  // NOOP
+});
+
+docker.getEvents().then(stream => {
+  // NOOP
+});
+
 const container = docker.getContainer('container-id');
 container.inspect((err, data) => {
   // NOOP

@@ -125,8 +125,11 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * (indicated by an `{{outlet}}`). `render` is used both during the entry
      * phase of routing (via the `renderTemplate` hook) and later in response to
      * user interaction.
+     * Not all options need to be passed to render. Default values will be used
+     * based on the name of the route specified in the router or the Route's
+     * controllerName and templateName properties.
      */
-    render(name: string, options?: RenderOptions): void;
+    render(name?: string, options?: RenderOptions): void;
 
     /**
      * A hook you can use to render the template for the current route.
