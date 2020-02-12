@@ -1,6 +1,3 @@
 {
-    "private": true,
-    "dependencies": {
-        "@types/workbox-build": "^5.0.0"
-    }
+    "private": true
 }
