@@ -1012,11 +1012,18 @@ const Joi3 = Joi.extend({
         asd: {
             args: [
                 {
-                    name: 'allowFalse'
+                    name: 'allowFalse',
+                    ref: true,
+                    assert: Joi.boolean(),
                 }
             ],
-            method(allowFalse) {
-                this.$_createError(str, {}, {}, {}, {});
+            method(allowFalse: boolean) {
+                return this.$_addRule({
+                    name: 'asd',
+                    args: {
+                        allowFalse,
+                    }
+                });
             },
             validate(value: boolean, helpers, params, options) {
                 if (value || params.allowFalse && !value) {
