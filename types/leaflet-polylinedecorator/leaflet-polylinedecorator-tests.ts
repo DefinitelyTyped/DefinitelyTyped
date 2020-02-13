@@ -53,3 +53,44 @@ L.polylineDecorator(polyline, {
             })}
     ]
 }).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            offset: "10%",
+            repeat: 0,
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
+            })}
+    ]
+}).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            endOffset: "20%",
+            repeat: 0,
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
+            })}
+    ]
+}).addTo(map);
+
+L.polylineDecorator(polyline, {
+    patterns: [
+        {
+            repeat: "5%",
+            symbol: L.Symbol.arrowHead({
+                polygon: true,
+                headAngle: 45,
+                pixelSize: 12,
+                pathOptions: {}
+            })}
+    ]
+}).addTo(map);

@@ -1,7 +1,9 @@
-// Type definitions for simple-peer 6.1
+// Type definitions for simple-peer 9.6
 // Project: https://github.com/feross/simple-peer
 // Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 xWiiLLz <https://github.com/xWiiLLz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -35,11 +37,21 @@ declare namespace SimplePeer {
         readonly WEBRTC_SUPPORT: boolean;
     }
 
-    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Float32Array
+        | Float64Array;
 
     type SimplePeerData = string | Buffer | TypedArray | ArrayBuffer | Blob;
 
     interface SignalData {
+        type?: 'offer' | 'pranswer' | 'answer' | 'rollback';
         sdp?: any;
         candidate?: any;
     }
@@ -51,6 +63,21 @@ declare namespace SimplePeer {
         // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
         send(data: SimplePeerData): void;
 
+        // https://github.com/feross/simple-peer/tree/v9.6.1#peeraddstreamstream
+        addStream(stream: MediaStream): void;
+
+        // https://github.com/feross/simple-peer/tree/v9.6.1#peerremovestreamstream
+        removeStream(stream: MediaStream): void;
+
+        // https://github.com/feross/simple-peer/tree/v9.6.1#peeraddtracktrack-stream
+        addTrack(track: MediaStreamTrack, stream: MediaStream): void;
+
+        // https://github.com/feross/simple-peer/tree/v9.6.1#peerremovetracktrack-stream
+        removeTrack(track: MediaStreamTrack, stream: MediaStream): void;
+
+        // https://github.com/feross/simple-peer/blob/v9.6.1/index.js#L306
+        replaceTrack(oldTrack: MediaStreamTrack, newTrack: MediaStreamTrack, stream: MediaStream): void;
+
         // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
         // TODO: https://github.com/feross/simple-peer/issues/187
         // destroy(onclose?: () => void): void;
@@ -60,7 +87,10 @@ declare namespace SimplePeer {
 
         // methods which are not documented
         readonly bufferSize: number;
-        address(): { port: string, family: string, address: string, };
+        address(): { port: string; family: string; address: string };
+
+        // used for debug logging
+        _debug(message?: any, ...optionalParams: any[]): void;
     }
 }
 

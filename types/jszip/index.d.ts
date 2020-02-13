@@ -1,6 +1,8 @@
 // Type definitions for JSZip 3.1
-// Project: http://stuk.github.com/jszip/
-// Definitions by: mzeiher <https://github.com/mzeiher>, forabi <https://github.com/forabi>
+// Project: http://stuk.github.com/jszip/, https://github.com/stuk/jszip
+// Definitions by: mzeiher <https://github.com/mzeiher>
+//                 forabi <https://github.com/forabi>
+//                 Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -15,7 +17,7 @@ interface JSZipSupport {
 
 type Compression = 'STORE' | 'DEFLATE';
 
-interface Metadata  {
+interface Metadata {
     percent: number;
     currentFile: string;
 }
@@ -31,11 +33,13 @@ interface InputByType {
     uint8array: Uint8Array;
     arraybuffer: ArrayBuffer;
     blob: Blob;
+    stream: NodeJS.ReadableStream;
 }
 
 interface OutputByType {
     base64: string;
     text: string;
+    string: string;
     binarystring: string;
     array: number[];
     uint8array: Uint8Array;
@@ -44,7 +48,7 @@ interface OutputByType {
     nodebuffer: Buffer;
 }
 
-type InputFileFormat = InputByType[keyof InputByType] | NodeJS.ReadableStream;
+type InputFileFormat = InputByType[keyof InputByType];
 
 declare namespace JSZip {
     type InputType = keyof InputByType;
@@ -131,6 +135,7 @@ declare namespace JSZip {
         checkCRC32?: boolean;
         optimizedBinaryString?: boolean;
         createFolders?: boolean;
+        decodeFileName?(filenameBytes: Uint8Array): string;
     }
 }
 
@@ -219,7 +224,7 @@ interface JSZip {
      * @param onUpdate The optional function called on each internal update with the metadata.
      * @return A Node.js `ReadableStream`
      */
-    generateNodeStream(options?: JSZip.JSZipGeneratorOptions<'nodebuffer'>, onUpdate?: OnUpdateCallback): NodeJS.ReadStream;
+    generateNodeStream(options?: JSZip.JSZipGeneratorOptions<'nodebuffer'>, onUpdate?: OnUpdateCallback): NodeJS.ReadableStream;
 
     /**
      * Deserialize zip file asynchronously

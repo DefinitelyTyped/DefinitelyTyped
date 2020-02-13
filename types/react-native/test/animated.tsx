@@ -1,6 +1,6 @@
-import * as React from "react-native";
+import * as React from "react";
 
-import { Animated, View } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
 
 function TestAnimatedAPI() {
     // Value
@@ -25,6 +25,7 @@ function TestAnimatedAPI() {
     const spring1 = Animated.spring(v1, {
         toValue: 0.5,
         tension: 10,
+        delay: 100,
     });
 
     const springXY = Animated.spring(position, {
@@ -53,6 +54,7 @@ function TestAnimatedAPI() {
     });
 
     Animated.add(v1, v2);
+    Animated.subtract(v1, v2);
     Animated.divide(v1, v2);
     Animated.multiply(v1, v2);
     Animated.modulo(v1, 2);
@@ -62,6 +64,14 @@ function TestAnimatedAPI() {
     Animated.sequence([spring1, springXY]);
 
     Animated.stagger(100, [spring1, springXY]);
+
+    const listener = (e?: NativeSyntheticEvent<NativeScrollEvent>) => {
+        if (e) {
+            console.warn(e.nativeEvent.contentOffset.y);
+        }
+    };
+
+    Animated.event([{ nativeEvent: { contentOffset: { y: v1 } } }], { useNativeDriver: true, listener });
 
     return (
         <View>
@@ -74,7 +84,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} />
+            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
         </View>
     );
 }

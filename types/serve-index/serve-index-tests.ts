@@ -1,6 +1,5 @@
-
-import * as express from 'express';
-import * as serveIndex from 'serve-index';
+import express = require('express');
+import serveIndex = require('serve-index');
 import * as fs from 'fs';
 
 const app = express();

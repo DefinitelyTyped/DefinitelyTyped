@@ -1,4 +1,4 @@
-import * as strftime from "ultra-strftime";
+import strftime = require("ultra-strftime");
 
 const it_IT = {
     days: ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'],

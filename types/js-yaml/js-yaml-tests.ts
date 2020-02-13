@@ -6,9 +6,9 @@ import SchemaDefinition = yaml.SchemaDefinition;
 
 const bool = true;
 const num = 0;
-const str = "";
+const str = '';
 const obj: object = {};
-const map: { [x: string]: any; } = {};
+const map: { [x: string]: any } = {};
 const array: any[] = [];
 const fn: (...args: any[]) => any = () => {};
 const type = new yaml.Type(str);
@@ -16,17 +16,17 @@ const type = new yaml.Type(str);
 const schemaDefinition: SchemaDefinition = {
 	implicit: array,
 	explicit: array,
-	include: array
+	include: array,
 };
 const typeConstructorOptions: TypeConstructorOptions = {
-	kind: "scalar",
+	kind: 'scalar',
 	resolve: fn,
 	construct: fn,
 	instanceOf: obj,
-	predicate: str,
+	predicate: obj => false,
 	represent: fn,
 	defaultStyle: str,
-	styleAliases: map
+	styleAliases: map,
 };
 
 const schema: yaml.Schema = new yaml.Schema(schemaDefinition);
@@ -55,34 +55,42 @@ yaml.SAFE_SCHEMA;
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 loadOpts = {
-	filename: str
+	filename: str,
 };
 loadOpts = {
-	strict: bool
+	onWarning(e) {
+		e.stack;
+	},
 };
 loadOpts = {
-	schema: bool
+	json: bool,
 };
 loadOpts = {
-	json: bool
+	schema: yaml.DEFAULT_SAFE_SCHEMA,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 dumpOpts = {
-	indent: num
+	indent: num,
 };
 dumpOpts = {
-	skipInvalid: bool
+	noArrayIndent: bool,
 };
 dumpOpts = {
-	flowLevel: num
+	skipInvalid: bool,
 };
 dumpOpts = {
-	styles: obj
+	flowLevel: num,
 };
 dumpOpts = {
-	schema: value
+	styles: obj,
+};
+dumpOpts = {
+	schema: value,
+};
+dumpOpts = {
+	schema: yaml.DEFAULT_FULL_SCHEMA,
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -98,7 +106,7 @@ type.resolve;
 type.construct;
 // $ExpectType object | null
 type.instanceOf;
-// $ExpectType string | null
+// $ExpectType ((data: object) => boolean) | null
 type.predicate;
 // $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
 type.represent;
@@ -121,29 +129,45 @@ yaml.load(str, loadOpts);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-// $ExpectType any
+// $ExpectType any[]
 yaml.safeLoadAll(str);
-// $ExpectType any
-yaml.safeLoadAll(str, (doc) => {
-	value = doc;
-});
-// $ExpectType any
-yaml.safeLoadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
+// $ExpectType any[]
+value = yaml.safeLoadAll(str, null, loadOpts);
+// $ExpectType any[]
 value = yaml.safeLoadAll(str, undefined, loadOpts);
 
-// $ExpectType any
-value = yaml.loadAll(str);
-// $ExpectType any
-yaml.loadAll(str, (doc) => {
+// $ExpectType void
+yaml.safeLoadAll(str, doc => {
 	value = doc;
 });
-// $ExpectType any
-yaml.loadAll(str, (doc) => {
-	value = doc;
-}, loadOpts);
+// $ExpectType void
+yaml.safeLoadAll(
+	str,
+	doc => {
+		value = doc;
+	},
+	loadOpts,
+);
+
+// $ExpectType any[]
+value = yaml.loadAll(str);
+// $ExpectType any[]
+value = yaml.loadAll(str, null, loadOpts);
+// $ExpectType any[]
 value = yaml.loadAll(str, undefined, loadOpts);
+
+// $ExpectType void
+yaml.loadAll(str, doc => {
+	value = doc;
+});
+// $ExpectType void
+yaml.loadAll(
+	str,
+	doc => {
+		value = doc;
+	},
+	loadOpts,
+);
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

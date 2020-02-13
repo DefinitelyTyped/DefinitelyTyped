@@ -1,4 +1,4 @@
-
+import {Path} from "pathjs";
 
 Path.map("/test/:id")
 .to(()=>{ });

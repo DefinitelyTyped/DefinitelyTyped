@@ -1,5 +1,4 @@
-import * as jq from 'jquery/dist/jquery.slim';
+import jq = require('jquery/dist/jquery.slim');
 
 const $window = jq(window);
-// $ExpectType JQuery<HTMLElement>
-$window;
+const forced: JQuery<Window> = $window;

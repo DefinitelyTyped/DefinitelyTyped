@@ -1,5 +1,5 @@
 // Type definitions for SlimerJS 0.10
-// Project: https://docs.slimerjs.org/current/index.html#api-reference
+// Project: https://docs.slimerjs.org/current/index.html#api-reference, https://github.com/laurentj/slimerjs
 // Definitions by: Alex Wall <https://github.com/alexwall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -110,7 +110,6 @@ interface WebPage {
     childFramesCount(): number;  // DEPRECATED
     childFramesName(): string;  // DEPRECATED
     clearCookies(): void;
-    close(): Promise<void>;
     close(): void;
     currentFrameName(): string;  // DEPRECATED
     deleteCookie(cookieName: string): boolean;

@@ -40,11 +40,18 @@ app.use(cors({
 app.use(cors({
     origin: (requestOrigin, cb) => {
         try {
-            const allow = requestOrigin.indexOf('.edu') !== -1;
+            const allow = !requestOrigin || requestOrigin.indexOf('.edu') !== -1;
             cb(null, allow);
         } catch (err) {
             cb(err);
         }
     }
 }));
+app.use(cors((req, cb) => {
+    if (req.query.trusted) {
+        cb(null, {origin: 'http://example.com', credentials: true});
+    } else {
+        cb(new Error('Not trusted'));
+    }
+}))
 

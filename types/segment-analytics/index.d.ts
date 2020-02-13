@@ -1,6 +1,7 @@
 // Type definitions for Segment's analytics.js
 // Project: https://segment.com/docs/libraries/analytics.js/
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
+//                 Miroslav Petrik <https://github.com/MiroslavPetrik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,13 +13,88 @@ declare namespace SegmentAnalytics {
   interface SegmentOpts {
     integrations?: any;
     anonymousId?: string;
+    context?: object;
+  }
+
+  interface CookieOptions {
+    maxage?: number;
+    domain?: string;
+    path?: string;
+    secure?: boolean;
+  }
+
+  interface MetricsOptions {
+    host?: string;
+    sampleRate?: number;
+    flushTimer?: number;
+    maxQueueSize?: number;
+  }
+
+  interface StoreOptions {
+    enabled?: boolean;
+  }
+
+  interface UserOptions {
+    cookie?: {
+      key: string;
+      oldKey: string;
+    };
+    localStorage?: {
+      key: string;
+    };
+    persist?: boolean;
+  }
+
+  interface GroupOptions {
+    cookie?: {
+      key: string;
+    };
+    localStorage?: {
+      key: string;
+    };
+    persist?: boolean;
+  }
+
+  interface InitOptions {
+    cookie?: CookieOptions;
+    metrics?: MetricsOptions;
+    localStorage?: StoreOptions;
+    user?: UserOptions;
+    group?: GroupOptions;
+    integrations?: {
+      All?: boolean;
+      [integration: string]: boolean | undefined;
+    };
+  }
+
+  interface IntegrationsSettings {
+    [key: string]: any;
   }
 
   // The actual analytics.js object
   interface AnalyticsJS {
+    /* Use a plugin */
+    use(plugin: (analytics: AnalyticsJS) => void): this;
+
+    /* Initialize with the given integration `settings` and `options`. */
+    init(settings?: IntegrationsSettings, options?: InitOptions): this;
+
+    /* Define a new integration */
+    addIntegration(integration: (options: any) => void): this;
+
+    /*  Set the user's `id`. */
+    setAnonymousId(id: string): this;
 
     /* Configure Segment with write key */
     load(writeKey: string): void;
+
+    /* Configure Segment with write key & integration management.
+
+       The load method can also be modified to take a second argument,
+       an object with an integrations dictionary, which used to load
+       only the integrations that are marked as enabled with the boolean value true.
+       works in version 4.1.0 or higher */
+   load(writeKey: string, options?: SegmentOpts): void;
 
     /* The identify method is how you tie one of your users and their actions
        to a recognizable userId and traits. */
@@ -40,7 +116,7 @@ declare namespace SegmentAnalytics {
 
     /* The page method lets you record page views on your website, along with
        optional extra information about the page being viewed. */
-    page(category: string, name: string, properties?: Object,
+    page(category?: string, name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;
     page(name?: string, properties?: Object,
          options?: SegmentOpts, callback?: () => void): void;
@@ -131,3 +207,8 @@ declare namespace SegmentAnalytics {
 }
 
 declare var analytics: SegmentAnalytics.AnalyticsJS;
+
+declare module '@segment/analytics.js-core' {
+  var analytics: SegmentAnalytics.AnalyticsJS;
+  export default analytics;
+}

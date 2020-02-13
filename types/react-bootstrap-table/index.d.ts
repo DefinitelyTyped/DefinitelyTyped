@@ -1,11 +1,12 @@
-// Type definitions for react-bootstrap-table 4.1
+// Type definitions for react-bootstrap-table 4.3
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>,
 //                 Aleksander Lode <https://github.com/alelode>,
 //                 Josué Us <https://github.com/UJosue10>
 //                 Janeene Beeforth <https://github.com/dawnmist>
+//                 Oscar Andersson <https://github.com/Ogglas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html
 
@@ -327,7 +328,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * expandComponent is always used with expandableRow, both of props are enable
 	 * the expand row functionality on table.
 	 */
-	expandComponent?(row: any): string | ReactElement<any>;
+	expandComponent?(row: any): string | ReactElement;
 	/**
 	 * Assign some alternative options for expand row feature, expandColumnOptions
 	 * only have four available property currently.
@@ -376,9 +377,9 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 		search?: boolean;
 	};
 	/**
-	 * Set a style to be used for the table rows.
+	 * Set a style to be used for the table rows. Example: https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/style/tr-style-table.js
 	 */
-	trStyle?: CSSProperties;
+	trStyle?: CSSProperties | ((rowData: any, rowIndex: number) => CSSProperties);
 	/**
 	 * Disable the automatic tabIndex for navigating between cells. This can be useful if you have a page with multiple
 	 * tables on the page, to stop the tab moving to another table. Default is false.
@@ -400,6 +401,10 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	 * Table footer custom class
 	 */
 	tableFooterClass?: string;
+	/**
+	 * Render react-s-alert notifications
+	 */
+	renderAlert?: boolean;
 }
 
 /**
@@ -425,7 +430,7 @@ export interface FooterData {
 	 * The output value from the formatter function will be used instead of the label if the formatter function is
 	 * defined.
 	 */
-	formatter?(tableData: any[]): string | number | ReactElement<any>;
+	formatter?(tableData: any[]): string | number | ReactElement;
 }
 
 export interface SelectRow<TRow extends object = any> {
@@ -505,7 +510,7 @@ export interface SelectRow<TRow extends object = any> {
 	/**
 	 * Function that returns a component to customize the display of the selection checkbox or radio button with.
 	 */
-	customComponent?(props: CustomSelectProps): string | ReactElement<any>;
+	customComponent?(props: CustomSelectProps): string | ReactElement;
 	/**
 	 * Only unselect visible rows.
 	 */
@@ -544,17 +549,33 @@ export interface CellEdit<TRow extends object = any> {
 	 *   `cellName`: the column dataField cell name that has been modified.
 	 *   `cellValue`: the new cell value.
 	 *   `done`: a callback function to use if this is an async operation, to indicate if the save data is valid.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 * If your validation is async, for example: you want to pop a confirm dialog for user to confim in this case,
 	 * react-bootstrap-table pass a callback function to you. You are supposed to call this callback function with a
 	 * bool value to perfom if it is valid or not in addition, you should return 1 from the main function to tell
 	 * react-bootstrap-table that this is a async operation.
 	 */
-	beforeSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K], done: (isValid: boolean) => void): boolean | 1;
+	beforeSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		done: (isValid: boolean) => void,
+		props: { rowIndex: number; colIndex: number }
+	): boolean | 1;
 	/**
 	 * Accept a custom callback function, after cell saving, this function will be called.
 	 * This callback function takes three arguments: row, cellName and cellValue
+	 *   `row`: the row data that was saved.
+	 *   `cellName`: the column dataField cell name that has been modified.
+	 *   `cellValue`: the new cell value.
+	 *   `props`: an object containing the current cell's rowIndex and colIndex values.
 	 */
-	afterSaveCell?<K extends keyof TRow>(row: TRow, cellName: K, cellValue: TRow[K]): void;
+	afterSaveCell?<K extends keyof TRow>(
+		row: TRow,
+		cellName: K,
+		cellValue: TRow[K],
+		props: { rowIndex: number; colIndex: number }
+	): void;
 }
 
 /**
@@ -564,11 +585,13 @@ export interface Options<TRow extends object = any> {
 	/**
 	 * Provide the name of the column that should be sorted by.
 	 * If multi-column sort is active, this is an array of columns.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortName?: keyof TRow | Array<keyof TRow>;
 	/**
 	 * Specify whether the sort should be ascending or descending.
 	 * If multi-column sort is active, this is an array of sortOrder items.
+	 * If there should be no active sort, both sortName and sortOrder should be undefined.
 	 */
 	sortOrder?: SortOrder | SortOrder[];
 	/**
@@ -597,7 +620,7 @@ export interface Options<TRow extends object = any> {
 	/**
 	 * Change the text displayed on the table if data is empty.
 	 */
-	noDataText?: string | ReactElement<any>;
+	noDataText?: string | ReactElement;
 	/**
 	 * If true, this hides the noDataText on the table when the tableis empty. Default is false.
 	 */
@@ -691,17 +714,20 @@ export interface Options<TRow extends object = any> {
 	onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
 	/**
 	 * Assign a callback function which will be called after a row click.
-	 * This function takes three arguments:
+	 * This function takes four arguments:
 	 *   `row`: which is the row data that was clicked on.
 	 *   `columnIndex`: index of the column that was clicked on.
 	 *   `rowIndex`: index of the row that was clicked on.
+	 *   `event`: the click event.
 	 */
-	onRowClick?(row: TRow, columnIndex: number, rowIndex: number): void;
+	onRowClick?(row: TRow, columnIndex: number, rowIndex: number, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called after a row double click.
-	 * This function takes one argument: row which is the row data that was double clicked on.
+	 * This function takes two arguments:
+	 *   `row`: which is the row data that was double clicked on.
+	 *   `event`: the double click event.
 	 */
-	onRowDoubleClick?(row: TRow): void;
+	onRowDoubleClick?(row: TRow, event: React.MouseEvent<any>): void;
 	/**
 	 * Assign a callback function which will be called when mouse enters the table.
 	 */
@@ -786,7 +812,7 @@ export interface Options<TRow extends object = any> {
 	 *  `to`: Current end index
 	 *  `total`: The total data volume.
 	 */
-	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement<any>);
+	paginationShowsTotal?: boolean | ((start: number, to: number, total: number) => string | ReactElement);
 	/**
 	 * Allows you to modify where to start counting the pages, e.g. to set the first page number to 0.
 	 * Default is 1.
@@ -814,6 +840,10 @@ export interface Options<TRow extends object = any> {
 	 * Background color on expanded rows (css color value).
 	 */
 	expandRowBgColor?: string;
+	/**
+	 * Expand all rows
+	 */
+	expandAll?: boolean;
 	/**
 	 * Tell react-bootstrap-table how to trigger expanding by clicking on 'row' or 'column' level.
 	 * If the value is 'column', by default all the columns are expandable. If you want to specify some columns as
@@ -857,14 +887,14 @@ export interface Options<TRow extends object = any> {
 	 * After v3.0.0, you can custom all the components in the ToolBar also itself too.
 	 * Give a toolBar in options props and toolBar only accept a function and a JSX returned value is necessary.
 	 */
-	toolBar?(props: ToolBarProps): ReactElement<any>;
+	toolBar?(props: ToolBarProps): ReactElement;
 	/**
 	 * Button group which contain the insert, drop, show only select and export CSV buttons, these button all
 	 * grouped as btn-group class in bootstrap. This is a chance that you can custom this button group.
 	 * Give a btnGroup in options props and btnGroup only accept a function and a JSX returned value is necessary.
 	 * This lets you customize just the left-hand-side of the toolbar if desired.
 	 */
-	btnGroup?(props: ButtonGroupProps): ReactElement<any>;
+	btnGroup?(props: ButtonGroupProps): ReactElement;
 	/**
 	 * It's available to customize the insert button by configuring insertBtn in options props, insertBtn only
 	 * accept a function and a JSX returned value is necessary. This function will take one argument: onClick.
@@ -872,7 +902,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `InsertButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	insertBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	insertBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement;
 	/**
 	 * It's available to customize delete button by configuring deleteBtn in options props, deleteBtn onl<y
 	 * accept a function and a JSX returned value is necessary. This function will take one argument: onClick.
@@ -880,7 +910,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `DeleteButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	deleteBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	deleteBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement;
 	/**
 	 * It's available to customize the export csv button by configuring exportCSVBtn in options props, exportCSVBtn only
 	 * accept a function and a JSX returned value is necessary. This function will take one argument: onClick.
@@ -888,7 +918,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ExportCSVButton` component is also exported as a component, so that you can use it as the base
 	 * for your custom component.
 	 */
-	exportCSVBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	exportCSVBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement;
 	/**
 	 * It's available to custom select only toggle button by configuring showSelectedOnlyBtn in options props.
 	 * showSelectedOnlyBtn only accept a function and a JSX returned value is necessary.
@@ -897,7 +927,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ShowSelectedOnlyButton` component is also exported as a component, so that you can use it as
 	 * the base for your custom component.
 	 */
-	showSelectedOnlyBtn?(onClick: (e: React.MouseEvent<any>) => void, showSelected: boolean): ReactElement<any>;
+	showSelectedOnlyBtn?(onClick: (e: React.MouseEvent<any>) => void, showSelected: boolean): ReactElement;
 	/**
 	 * You can custom the whole search panel(right side) by searchPanel in options props. searchPanel only accept
 	 * a function and a JSX returned value is necessary. This function will take one argument: props, that contains:
@@ -908,7 +938,7 @@ export interface Options<TRow extends object = any> {
 	 *   `clearBtnClick`: the callback function to use when the clear search button is clicked
 	 *   `search`: the callback function for triggering the search, which takes the search text as an input.
 	 */
-	searchPanel?(props: SearchPanelProps): ReactElement<any>;
+	searchPanel?(props: SearchPanelProps): ReactElement;
 	/**
 	 * You can custom the search input field only by searchField in options props. searchField only accept a
 	 * function and a JSX returned value is necessary.
@@ -924,7 +954,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `ClearSearchButton` component is also exported as a component, so that you can use it as the
 	 * base for your own custom component.
 	 */
-	clearSearchBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement<any>;
+	clearSearchBtn?(onClick: (e: React.MouseEvent<any>) => void): ReactElement;
 	/**
 	 * You can customize everything in the insert modal via options.insertModal and we give you the event
 	 * callback, props and some informations: onModalClose, onSave, columns, validateState, ignoreEditable
@@ -936,7 +966,7 @@ export interface Options<TRow extends object = any> {
 		columns: ReadonlyArray<InsertModalColumnDescription<TRow>>,
 		validateState: { [dataField: string]: string },
 		ignoreEditable: boolean
-	): ReactElement<any>;
+	): ReactElement;
 	/**
 	 * You can customize the body of the insert modal via options.insertModalBody and we give you the following
 	 * arguments: columns, validateState {[fieldname]: errorMsg}, ignoreEditable
@@ -959,7 +989,7 @@ export interface Options<TRow extends object = any> {
 	 * The default `InsertModalHeader` component is also exported as a component, so that you can use it as the base
 	 * for your own custom component.
 	 */
-	insertModalHeader?(closeModal: () => void, save: () => void): ReactElement<any>;
+	insertModalHeader?(closeModal: () => void, save: () => void): ReactElement;
 	/**
 	 * It's available to custom the footer of insert modal by configuring options.insertModalFooter. It only accepts
 	 * a function and a JSX returned value is necessary. This function will take two arguments: closeModal and save.
@@ -969,16 +999,16 @@ export interface Options<TRow extends object = any> {
 	 * The default `InsertModalFooter` component is also exported as a component, so that you can use it as the base
 	 * for your own custom component.
 	 */
-	insertModalFooter?(closeModal: () => void, save: () => void): ReactElement<any>;
+	insertModalFooter?(closeModal: () => void, save: () => void): ReactElement;
 	/**
 	 * Function to customize all of components for pagination, including the sizePerPage dropdown and the
 	 * pagination list.
 	 */
-	paginationPanel?(props: PaginationPanelProps): ReactElement<any>;
+	paginationPanel?(props: PaginationPanelProps): ReactElement;
 	/**
 	 * Function to customize the sizePerPage dropdown.
 	 */
-	sizePerPageDropDown?(props: SizePerPageFunctionProps): ReactElement<any>;
+	sizePerPageDropDown?(props: SizePerPageFunctionProps): ReactElement;
 	/**
 	 * Location for the pagination panel to be displayed. Options are 'top' (above the table), 'bottom'
 	 * (below the table) and 'both' (above and below the table).
@@ -992,7 +1022,7 @@ export interface Options<TRow extends object = any> {
 	 * The function allows you to make further modifications to the cell value prior to it being saved. You need to
 	 * return the final cell value to use.
 	 */
-	onCellEdit?<K extends keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
+	onCellEdit?<K extends string & keyof TRow>(row: TRow, fieldName: K, value: TRow[K]): TRow[K];
 	/**
 	 * Custom message to show when the InsertModal save fails validation.
 	 * Default message is 'Form validate errors, please checking!'
@@ -1029,12 +1059,12 @@ export interface Options<TRow extends object = any> {
 	 */
 	exportCSVSeparator?: string;
 	/**
-	 * Set a function to be called when expanding or collapsing a row. This function takes two arguments: rowKey
-	 * and isExpand.
+	 * Set a function to be called when expanding or collapsing a row. This function takes three arguments:
 	 *   `rowKey`: dataField key for the row that is expanding or collapsing.
 	 *   `isExpand`: True if the row is expanding, false if it is collapsing.
+	 *   `event`: The click event.
 	 */
-	onExpand?(rowKey: number | string, isExpand: boolean): void;
+	onExpand?(rowKey: number | string, isExpand: boolean, event: React.MouseEvent<any>): void;
 	/**
 	 * Specify that only one row should be able to be expanded at the same time.
 	 */
@@ -1176,13 +1206,13 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 *   `direction`: the current sort order.
 	 *   `fieldName`: the dataField name of the field currently being sorted.
 	 */
-	caretRender?(direction: SortOrder | null, fieldName: string): string | ReactElement<any>;
+	caretRender?(direction: SortOrder | null, fieldName: string): string | ReactElement;
 	/**
 	 * To customize the column. This callback function should return a String or a React Component.
 	 * In addition, this function taking four argument: cell, row, formatExtraData, rowIdx.
 	 * The formatExtraData will be the value which you assign it on <TableHeaderColumn>
 	 */
-	dataFormat?(cell: any, row: any, formatExtraData: any, rowIndex: number): string | ReactElement<any>;
+	dataFormat?(cell: any, row: any, formatExtraData: any, rowIndex: number): string | ReactElement;
 	/**
 	 * It's useful with dataFormat, you can give any data you want to be passed to the formatter.
 	 */
@@ -1261,7 +1291,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 * generated automatically after a row insertion. If a function given, you can customize the value by yourself and
 	 * remember to return the value for the cell from the function.
 	 */
-	autovalue?: boolean | (() => any);
+	autoValue?: boolean | (() => any);
 	/**
 	 * False to disable search functionality on column, default is true.
 	 */
@@ -1382,7 +1412,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 			editorClass: string,
 			ignoreEditable: boolean,
 			defaultValue: any
-		): ReactElement<any> | boolean;
+		): ReactElement | boolean;
 	};
 	/**
 	 * Support specifying that the column should start sorting with the 'asc' option.
@@ -1485,11 +1515,6 @@ export interface Editable<TRow extends object, K extends keyof TRow> {
 	 * Additional attributes for the editor component.
 	 */
 	attrs?: EditableAttrs;
-}
-
-export type SetFilterCallback = (targetValue: any) => boolean;
-export interface ApplyFilterParameter {
-	callback: SetFilterCallback;
 }
 
 /**
@@ -1684,9 +1709,24 @@ export interface DateFilter {
 }
 
 /**
+ * Custom Filter Parameters
+ */
+export interface CustomFilterParameters<Params extends object = any> {
+	callback(cell: any, params: Params): boolean;
+	callbackParameters: Params;
+}
+
+/**
+ * Custom filter element type.
+ */
+export class CustomFilterElement extends Component<any> {
+	cleanFiltered: () => void;
+}
+
+/**
  * Custom filter type.
  */
-export interface CustomFilter {
+export interface CustomFilter<FParams extends object = any, FElement extends CustomFilterElement = any> {
 	/**
 	 * Type must be 'CustomFilter'
 	 */
@@ -1695,13 +1735,13 @@ export interface CustomFilter {
 	 * Function to generate the filter component
 	 */
 	getElement(
-		filterHandler: (parameters?: ApplyFilterParameter) => void,
-		customFilterParameters: object
-	): ReactElement<any>;
+		filterHandler: (value?: CustomFilterParameters<FParams>, type?: 'CustomFilter') => void,
+		customFilterParameters: CustomFilterParameters<FParams>
+	): ReactElement<FElement>;
 	/**
 	 * Custom filter parameters to be passed to the generator function
 	 */
-	customFilterParameters: object;
+	customFilterParameters: CustomFilterParameters<FParams>;
 }
 
 /**
@@ -1713,7 +1753,7 @@ export type Filter = TextFilter | SelectFilter | RegexFilter | NumberFilter | Da
  * The "value" type for a number filter
  */
 export interface NumberFilterValue {
-	number: number;
+	number: number | string;
 	comparator: FilterComparator;
 }
 
@@ -1792,8 +1832,8 @@ export type FilterValue =
 /**
  * Filter object that can be passed to BootstrapTableFilter.handleFilterData function.
  */
-export interface FilterData {
-	[dataField: string]: FilterValue;
+export interface FilterData<CustomFilterValue extends object = any> {
+	[dataField: string]: FilterValue | CustomFilterValue;
 }
 
 /**
@@ -1817,7 +1857,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the navigating cell.
 	 */
-	customStyle?: CSSProperties;
+	customStyle?(cell: any, row: any): CSSProperties;
 	/**
 	 * Set to false to disable click to navigate, usually user wants to click to select row instead of navigation.
 	 */
@@ -1825,7 +1865,7 @@ export interface KeyboardNavigation {
 	/**
 	 * Return a style object which will be applied on the both of navigating and editing cell.
 	 */
-	customStyleOnEditCell?: CSSProperties;
+	customStyleOnEditCell?(cell: any, row: any): CSSProperties;
 	/**
 	 * When set to true, pressing ENTER will begin to edit the cell if cellEdit is also enabled.
 	 */
@@ -1834,6 +1874,10 @@ export interface KeyboardNavigation {
 	 * When set to true, pressing ENTER will expand or collapse the current row.
 	 */
 	enterToExpand?: boolean;
+	/**
+	 * When set to true, pressing ENTER will select or unselect the current row.
+	 */
+	enterToSelect?: boolean;
 }
 
 /**
@@ -1851,6 +1895,13 @@ export interface ExpandColumnComponentProps {
 }
 
 /**
+ * Input properties for the expandedColumnHeaderComponent function.
+ */
+export interface ExpandedColumnHeaderProps {
+	anyExpand: boolean;
+}
+
+/**
  * Customize the options for expand row feature.
  */
 export interface ExpandColumnOptions {
@@ -1861,7 +1912,7 @@ export interface ExpandColumnOptions {
 	/**
 	 * a callback function to customize the appearance of the indicator column.
 	 */
-	expandColumnComponent?(props: ExpandColumnComponentProps): string | ReactElement<any>;
+	expandColumnComponent?(props: ExpandColumnComponentProps): string | ReactElement;
 	/**
 	 * set the width of indicator column.
 	 */
@@ -1871,6 +1922,10 @@ export interface ExpandColumnOptions {
 	 * should be shown first. Default is true, false will move the expand indicator column after selection column.
 	 */
 	expandColumnBeforeSelectColumn?: boolean;
+	/**
+	 * a callback function to customise the header column
+	 */
+	expandedColumnHeaderComponent?(props: ExpandedColumnHeaderProps): string | ReactElement;
 }
 
 /**
@@ -1935,7 +1990,7 @@ export interface ColumnDescription<TRow extends object = any> {
 	 * Column data format function.
 	 * Comes from TableHeader.dataFormat property.
 	 */
-	format(cell: any, row: TRow, formatExtraData: any, rowIndex: number): string | ReactElement<any>;
+	format(cell: any, row: TRow, formatExtraData: any, rowIndex: number): string | ReactElement;
 	/**
 	 * The formatExtraData setting for the column.
 	 * Comes from TableHeader.formatExtraData property.
@@ -2005,7 +2060,7 @@ export interface ColumnDescription<TRow extends object = any> {
 	 * Custom header value/component/children to use for this column.
 	 * Comes from TableHeader.headerText || TableHeader.children properties.
 	 */
-	text: string | number | boolean | ReactElement<any>;
+	text: string | number | boolean | ReactElement;
 	/**
 	 * Custom sort function to use for this column.
 	 * Comes from TableHeader.sortFunc property.
@@ -2054,19 +2109,19 @@ export interface ToolBarProps {
 		/**
 		 * Search panel component.
 		 */
-		searchPanel: ReactElement<any>;
+		searchPanel: ReactElement;
 		/**
 		 * Button group components.
 		 */
-		btnGroup: ReactElement<any>; // button groups JSX
+		btnGroup: ReactElement; // button groups JSX
 		/**
 		 * The individual search field.
 		 */
-		searchField: ReactElement<any>; // search field JSX
+		searchField: ReactElement; // search field JSX
 		/**
 		 * The button to clear the search field.
 		 */
-		clearBtn: ReactElement<any>; // clear search field JSX
+		clearBtn: ReactElement; // clear search field JSX
 	};
 	/**
 	 * Event callbacks to use with a custom toolbar.
@@ -2106,19 +2161,19 @@ export interface ButtonGroupProps {
 	/**
 	 * Export to CSV button.
 	 */
-	exportCSVBtn: ReactElement<any>;
+	exportCSVBtn: ReactElement;
 	/**
 	 * Insert button (to add a row).
 	 */
-	insertBtn: ReactElement<any>;
+	insertBtn: ReactElement;
 	/**
 	 * Delete button.
 	 */
-	deleteBtn: ReactElement<any>;
+	deleteBtn: ReactElement;
 	/**
 	 * Toggle button to switch between showing all rows and showing selected rows only.
 	 */
-	showSelectedOnlyBtn: ReactElement<any>;
+	showSelectedOnlyBtn: ReactElement;
 }
 
 /**
@@ -2128,11 +2183,11 @@ export interface SearchPanelProps {
 	/**
 	 * Default search field component.
 	 */
-	searchField: ReactElement<any>;
+	searchField: ReactElement;
 	/**
 	 * Default clear search field button component.
 	 */
-	clearBtn: ReactElement<any>;
+	clearBtn: ReactElement;
 	/**
 	 * The default search text.
 	 */
@@ -2192,7 +2247,7 @@ export interface PaginationPanelProps {
 		/**
 		 * Text/element to display when displaying the total number of rows.
 		 */
-		totalText: string | ReactElement<any>;
+		totalText: string | ReactElement;
 		/**
 		 * Default sizePerPageDropdown component.
 		 */
@@ -2263,7 +2318,7 @@ export interface CustomEditor<TRow extends object, K extends keyof TRow> {
 	 *   `onUpdate`: callback function to call to update the value inside the cell.
 	 *   `props`:
 	 */
-	getElement(onUpdate: (updatedCell: TRow[K]) => void, props: CustomEditorProps<TRow, K>): ReactElement<any>;
+	getElement(onUpdate: (updatedCell: TRow[K]) => void, props: CustomEditorProps<TRow, K>): ReactElement;
 	/**
 	 * Additional parameters to pass to the getElement function inside the props argument.
 	 */
@@ -2404,7 +2459,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
 	 * Header text/element for the column.
 	 * Comes from TableHeader.headerText or TableHeader.children.
 	 */
-	name: string | ReactElement<any>;
+	name: string | ReactElement;
 	/**
 	 * Field name for the column data.
 	 * Comes from TableHeader.dataField.
@@ -2425,7 +2480,7 @@ export interface InsertModalColumnDescription<TRow extends object = any> {
 		editorClass: string,
 		ignoreEditable: boolean,
 		defaultValue: TRow[keyof TRow]
-	): ReactElement<any> | boolean;
+	): ReactElement | boolean;
 	/**
 	 * Flag to indicate whether this column should be hidden on the Insert Modal page.
 	 * Comes from TableHeader.hiddenOnInsert.

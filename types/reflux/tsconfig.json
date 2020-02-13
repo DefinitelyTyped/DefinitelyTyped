@@ -6,10 +6,11 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -19,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "reflux-tests.ts"
+        "reflux-tests.tsx"
     ]
 }

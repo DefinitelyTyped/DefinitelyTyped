@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import * as PassportFacebookToken from 'passport-facebook-token';
+import PassportFacebookToken = require('passport-facebook-token');
 
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
@@ -11,6 +11,12 @@ const User = {
 const options: PassportFacebookToken.StrategyOptions = {
     clientID: 'TEST_CLIENT_ID',
     clientSecret: 'TEST_CLIENT_SECRET'
+};
+
+const optionsWithFbGraphVersion: PassportFacebookToken.StrategyOptions = {
+    clientID: 'TEST_CLIENT_ID',
+    clientSecret: 'TEST_CLIENT_SECRET',
+    fbGraphVersion: 'v3'
 };
 
 const optionsWithRequest: PassportFacebookToken.StrategyOptionsWithRequest = {
@@ -40,4 +46,5 @@ const verifyWithRequest: PassportFacebookToken.VerifyFunctionWithRequest =
 };
 
 passport.use(new PassportFacebookToken(options, verify));
+passport.use(new PassportFacebookToken(optionsWithFbGraphVersion, verify));
 passport.use(new PassportFacebookToken(optionsWithRequest, verifyWithRequest));

@@ -16,12 +16,18 @@
 /// <reference types="node" />
 /// <reference types="koa" />
 
-declare module "koa-compress" {
+import * as Koa from "koa";
+import * as zlib from "zlib";
 
-    import * as Koa from "koa";
-    import * as zlib from "zlib";
+/**
+ * Compress middleware for Koa
+ */
+declare function koaCompress(options?: koaCompress.CompressOptions): Koa.Middleware;
 
-    interface CompressOptions extends zlib.ZlibOptions {
+export = koaCompress;
+
+declare namespace koaCompress {
+    export interface CompressOptions extends zlib.ZlibOptions {
         /**
          * An optional function that checks the response content type to decide whether to compress. By default, it uses compressible.
          */
@@ -32,12 +38,4 @@ declare module "koa-compress" {
          */
         threshold?: number
     }
-
-    /**
-     * Compress middleware for Koa
-     */
-    function compress(options?: CompressOptions): Koa.Middleware;
-
-    namespace compress {}
-    export = compress;
 }

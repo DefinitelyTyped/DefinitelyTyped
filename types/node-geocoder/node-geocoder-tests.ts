@@ -1,4 +1,4 @@
-import * as NodeGeocoder from 'node-geocoder';
+import NodeGeocoder = require('node-geocoder');
 
 const geocoder = NodeGeocoder({
     provider: 'google',
@@ -26,6 +26,10 @@ geocoder.geocode(query).then((entries) => {
 });
 
 geocoder.geocode(query, (err: any, entries: NodeGeocoder.Entry[]) => {
+    console.log(JSON.stringify(entries, null, 2));
+});
+
+geocoder.geocode('Austin, TX, USA', (err: any, entries: NodeGeocoder.Entry[]) => {
     console.log(JSON.stringify(entries, null, 2));
 });
 

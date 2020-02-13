@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@ember/object": [
+                "ember__object"
+            ],
+            "@ember/object/*": [
+                "ember__object/*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/access-modifier.ts",
+        "test/core.ts",
+        "test/computed.ts",
+        "test/create.ts",
+        "test/create-negative.ts",
+        "test/detect.ts",
+        "test/detect-instance.ts",
+        "test/event.ts",
+        "test/extend.ts",
+        "test/object.ts",
+        "test/observable.ts",
+        "test/octane.ts",
+        "test/proxy.ts",
+        "test/reopen.ts"
+    ]
+}

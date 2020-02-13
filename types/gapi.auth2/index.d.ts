@@ -1,4 +1,4 @@
-// Type definitions for Google Sign-In API 0.0
+// Type definitions for non-npm package Google Sign-In API 0.0
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -21,7 +21,7 @@ declare namespace gapi.auth2 {
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
      * initialization fails.
      */
-    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
+    then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: {error: string, details: string}) => any): any;
 
     /**
      * Signs in the user using the specified options.
@@ -101,6 +101,24 @@ declare namespace gapi.auth2 {
      * Optional if fetch_basic_profile is not set to false.
      */
     scope?: string;
+    /**
+     * The UX mode to use for the sign-in flow.
+     * By default, it will open the consent flow in a popup.
+     */
+    ux_mode?: "popup" | "redirect";
+    /**
+     * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
+     * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
+     */
+    redirect_uri?: string;
+    /**
+     * When your app knows which user it is trying to authenticate, it can provide this parameter as a hint to the authentication server.
+     * Passing this hint suppresses the account chooser and either pre-fill the email box on the sign-in form, or select the proper session (if the user is using multiple sign-in),
+     * which can help you avoid problems that occur if your app logs in the wrong user account. The value can be either an email address or the sub string,
+     * which is equivalent to the user's Google ID.
+     * https://developers.google.com/identity/protocols/OpenIDConnect?hl=en#authenticationuriparameters
+     */
+    login_hint?: string;
   }
 
   /**
@@ -171,6 +189,7 @@ declare namespace gapi.auth2 {
     setFetchBasicProfile(fetch: boolean): any;
     setPrompt(prompt: string): any;
     setScope(scope: string): any;
+    setLoginHint(hint: string): any;
   }
 
   interface BasicProfile {
@@ -349,7 +368,7 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?(): void;
+    onfailure?(reason: { error: string }): void;
 
     /**
      * The package name of the Android app to install over the air. See

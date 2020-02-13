@@ -1,6 +1,7 @@
 // Type definitions for connect v3.4.0
 // Project: https://github.com/senchalabs/connect
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+//                 Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,9 +18,15 @@ declare function createServer(): createServer.Server;
 declare namespace createServer {
     export type ServerHandle = HandleFunction | http.Server;
 
-    export type SimpleHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse) => void;
-    export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
-    export type ErrorHandleFunction = (err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
+    export class IncomingMessage extends http.IncomingMessage {
+        originalUrl?: http.IncomingMessage["url"];
+    }
+
+    type NextFunction = (err?: any) => void;
+
+    export type SimpleHandleFunction = (req: IncomingMessage, res: http.ServerResponse) => void;
+    export type NextHandleFunction = (req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
+    export type ErrorHandleFunction = (err: any, req: IncomingMessage, res: http.ServerResponse, next: NextFunction) => void;
     export type HandleFunction = SimpleHandleFunction | NextHandleFunction | ErrorHandleFunction;
 
     export interface ServerStackItem {

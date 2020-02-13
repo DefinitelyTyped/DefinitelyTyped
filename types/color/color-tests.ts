@@ -1,7 +1,7 @@
 import Color = require('color');
 
-const color: Color = new Color("white");
-const colorOther: Color = new Color("black");
+const color: Color<"white"> = new Color("white");
+const colorOther: Color<"black"> = new Color("black");
 const colorRGB: Color = new Color({ r: 0, g: 0, b: 0 }, "rgb");
 const colorInt: Color = new Color(0x000000);
 const colorWithoutNew: Color = Color(0x000000);
@@ -25,8 +25,8 @@ const yellow: number = color.yellow();
 const black: number = color.black();
 const luminosity: number = color.luminosity();
 const contrast: number = color.contrast(colorOther);
-const dark: boolean = color.dark();
-const light: boolean = color.light();
+const isDark: boolean = color.isDark();
+const isLight: boolean = color.isLight();
 const level: string = color.level(colorOther);
 
 const x: number = color.x();

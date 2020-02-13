@@ -1,7 +1,8 @@
 // Type definitions for webcomponents.js 0.6
-// Project: https://github.com/webcomponents/webcomponentsjs
+// Project: https://github.com/webcomponents/webcomponentsjs, http://webcomponents.org
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.1
 
 export interface CustomElementInit {
     prototype: HTMLElement;
@@ -36,7 +37,7 @@ export interface Polyfill {
 declare global {
     // This contains duplicates of some types in lib.dom.d.ts in order to support typescript 2.0
     interface ElementDefinitionOptions {
-        extends: string;
+        extends?: string;
     }
 
     interface ShadowRoot extends DocumentFragment {

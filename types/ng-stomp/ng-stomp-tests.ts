@@ -1,5 +1,5 @@
 class test {
-	constructor(private ngstomp: ngStomp) {
+	constructor(private readonly ngstomp: ngStomp) {
 		const connectHeaders = {
 			Auth: "user",
 			Accept: "lol"

@@ -1,20 +1,23 @@
-// Type definitions for wordcloud
-// Project: https://github.com/timdream/wordcloud2.js
+// Type definitions for wordcloud 1.1
+// Project: https://github.com/timdream/wordcloud2.js, http://timdream.org/wordcloud2.js
 // Definitions by: Joe Skeen <https://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export = WordCloud;
+export as namespace WordCloud;
 
 declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordCloud.Options): void;
 
 declare namespace WordCloud {
-	var isSupported: boolean;
-	var miniumFontSize: number;
+	const isSupported: boolean;
+	let miniumFontSize: number;
 
 	interface Options {
 		/**
 		 * List of words/text to paint on the canvas in a 2-d array, in the form of [word, size],
 		 * e.g. [['foo', 12] , ['bar', 6]].
 		 */
-		list?: Array<ListEntry> | any[];
+		list?: ListEntry[] | any[];
 		/** font to use. */
 		fontFamily?: string;
 		/** font weight to use, e.g. normal, bold or 600 */
@@ -28,8 +31,9 @@ declare namespace WordCloud {
 		/**
 		 * for DOM clouds, allows the user to define the class of the span elements.Can be a normal class
 		 * string, applying the same class to every span or a callback(word, weight, fontSize, distance, theta)
-		 * for per-span class definition. In canvas clouds or if equals null, this option has no effect. */
-		classes?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string); 
+		 * for per-span class definition. In canvas clouds or if equals null, this option has no effect.
+		 */
+		classes?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string);
 		/** minimum font size to draw on the canvas. */
 		minSize?: number;
 		/** function to call or number to multiply for size of each word in the list. */

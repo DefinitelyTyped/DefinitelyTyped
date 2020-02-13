@@ -2,14 +2,14 @@ import * as React from 'react';
 import {
   TextStyle,
   ViewStyle,
-  TextProperties,
-  TouchableHighlightProperties,
-  TouchableNativeFeedbackProperties,
-  TabBarItemProperties,
-  ToolbarAndroidProperties
+  TextProps,
+  TouchableHighlightProps,
+  TouchableNativeFeedbackProps,
+  TabBarIOSItemProps,
+  ToolbarAndroidProps as ReactNativeToolbarAndroidProps
 } from 'react-native';
 
-export interface IconProps extends TextProperties {
+export interface IconProps extends TextProps {
   /**
    * Size of the icon, can also be passed as fontSize in the style object.
    *
@@ -32,7 +32,7 @@ export interface IconProps extends TextProperties {
   color?: string;
 }
 
-export interface IconButtonProps extends IconProps, TouchableHighlightProperties, TouchableNativeFeedbackProperties {
+export interface IconButtonProps extends IconProps, TouchableHighlightProps, TouchableNativeFeedbackProps {
   /**
    * Text and icon color
    * Use iconStyle or nest a Text component if you need different colors.
@@ -55,10 +55,10 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
    *
    * @default {marginRight: 10}
    */
-  iconStyle?: ViewStyle;
+  iconStyle?: TextStyle;
 
   /**
-   * Style prop inherited from TextProperties and TouchableWithoutFeedbackProperties
+   * Style prop inherited from TextProps and TouchableWithoutFeedbackProperties
    * Only exist here so we can have ViewStyle or TextStyle
    *
    */
@@ -74,7 +74,7 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
 
 export type ImageSource = any;
 
-export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
+export interface ToolbarAndroidProps extends ReactNativeToolbarAndroidProps {
   /**
    * Name of the navigation logo icon
    * (similar to ToolbarAndroid logo)
@@ -111,7 +111,7 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
   iconColor: string;
 }
 
-export interface TabBarItemIOSProps extends TabBarItemProperties {
+export interface TabBarItemIOSProps extends TabBarIOSItemProps {
   /**
    * Name of the default icon (similar to TabBarIOS.Item icon)
    *
@@ -154,14 +154,18 @@ export class Icon extends React.Component<IconProps, any> {
     size?: number,
     color?: string,
   ): Promise<ImageSource>;
+  static getRawGlyphMap(): { [name: string]: number };
   static loadFont(
     file?: string
   ): Promise<void>;
+  static hasIcon(
+    name: string,
+  ): boolean;
 }
 
 export namespace Icon {
   class ToolbarAndroid extends React.Component<ToolbarAndroidProps, any> {}
-  class TabBarItem extends React.Component<TabBarItemProperties, any> {}
+  class TabBarItem extends React.Component<TabBarItemIOSProps, any> {}
   class TabBarItemIOS extends React.Component<TabBarItemIOSProps, any> {}
   class Button extends React.Component<IconButtonProps, any> {}
 }

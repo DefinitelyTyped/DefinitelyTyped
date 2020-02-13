@@ -1,6 +1,7 @@
 // Type definitions for numjs 0.14
 // Project: https://github.com/nicolaspanel/numjs#readme
 // Definitions by: taoqf <https://github.com/taoqf>
+//                 matt <https://github.com/mattmm3d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,7 +13,7 @@ export type NdType<T> = BaseNdArray.DataType | BaseNdArray.Data<T>;
 export interface NdArray<T = number> extends BaseNdArray<T> {
 	ndim: number;
 	T: NdArray<T>;
-	slice(...args: number[]): NdArray<T>;
+	slice(...args: Array<number|number[]>): NdArray<T>;
 
 	/**
 	 * Return a copy of the array collapsed into one dimension using row-major order (C-style)

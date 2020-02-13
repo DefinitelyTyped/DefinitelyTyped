@@ -1,9 +1,11 @@
-// Type definitions for Mongoose 3.8.5
+// Type definitions for mongoose 3.8
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
+
+import { EventEmitter } from 'events';
 
 declare module "mongoose" {
   function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
@@ -14,7 +16,8 @@ declare module "mongoose" {
 
   function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
   function modelNames(): string[];
-  function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
+  function plugin(plugin: (schema: Schema) => void): Mongoose;
+  function plugin<T>(plugin: (schema: Schema, options: T) => void, options: T): Mongoose;
 
   function get(key: string): any;
   function set(key: string, value: any): void;
@@ -33,7 +36,8 @@ declare module "mongoose" {
     get(key: string): any;
     model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
     modelNames(): string[];
-    plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
+    plugin(plugin: (schema: Schema) => void): Mongoose;
+    plugin<T>(plugin: (schema: Schema, options: T) => void, options: T): Mongoose;
     set(key: string, value: any): void;
 
     mongo: any;
@@ -43,8 +47,8 @@ declare module "mongoose" {
     Promise: any;
   }
 
-  export interface Connection extends NodeJS.EventEmitter {
-    constructor(base: Mongoose): Connection;
+  export class Connection extends EventEmitter {
+    constructor(base: Mongoose);
 
     close(callback?: (err: any) => void): Connection;
     collection(name: string, options?: Object): Collection;
@@ -273,7 +277,8 @@ declare module "mongoose" {
     path(path: string): any;
     path(path: string, constructor: any): Schema;
     pathType(path: string): string;
-    plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Schema;
+    plugin(plugin: (schema: Schema) => void): Schema;
+    plugin<T>(plugin: (schema: Schema, options: T) => void, options: T): Schema;
 
     pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
     pre(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
@@ -377,8 +382,8 @@ declare module "mongoose" {
     mapReduce<K, V>(options: MapReduceOption2<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
     model<U extends Document>(name: string): Model<U>;
 
-    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     populate<U>(doc: U[], options: Object, callback?: (err: any, res: U[]) => void): Promise<U[]>;
+    populate<U>(doc: U, options: Object, callback?: (err: any, res: U) => void): Promise<U>;
     update(cond: Object, update: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     update(cond: Object, update: Object, options: Object, callback?: (err: any, affectedRows: number, raw: any) => void): Query<T>;
     remove(cond: Object, callback?: (err: any) => void): Query<{}>;

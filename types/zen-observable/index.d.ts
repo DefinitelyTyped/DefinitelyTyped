@@ -1,11 +1,13 @@
-// Type definitions for zen-observable 0.5
+// Type definitions for zen-observable 0.8
 // Project: https://github.com/zenparsing/zen-observable
 // Definitions by: Kombu <https://github.com/aicest>
+//                 JounQin <https://github.com/JounQin>
+//                 Thomas <https://github.com/itomtom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
     interface SymbolConstructor {
-        observable: symbol;
+        readonly observable: symbol;
     }
 
     namespace ZenObservable {
@@ -51,6 +53,7 @@ declare class Observable<T> {
     reduce(callback: (previousValue: T, currentValue: T) => T, initialValue?: T): Observable<T>;
     reduce<R>(callback: (previousValue: R, currentValue: T) => R, initialValue?: R): Observable<R>;
     flatMap<R>(callback: (value: T) => ZenObservable.ObservableLike<R>): Observable<R>;
+    concat<R>(...observable: Array<Observable<R>>): Observable<R>;
 
     static from<R>(observable: Observable<R> | ZenObservable.ObservableLike<R> | ArrayLike<R>): Observable<R>;
     static of<R>(...items: R[]): Observable<R>;

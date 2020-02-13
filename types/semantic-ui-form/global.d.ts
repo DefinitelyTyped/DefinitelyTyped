@@ -15,6 +15,10 @@ declare namespace SemanticUI {
          */
         (behavior: 'is valid'): boolean;
         /**
+         * Returns true/false whether a field passes its validation rules
+         */
+        (behavior: 'is valid', field: string): boolean;
+        /**
          * Adds rule to existing rules for field
          * @since 2.2.11
          */
@@ -208,7 +212,7 @@ declare namespace SemanticUI {
             /**
              * Callback if a form is all valid
              */
-            onSuccess(this: JQuery, event: JQuery.Event<HTMLElement>, fields: any): void;
+            onSuccess(this: JQuery, event: JQuery.TriggeredEvent<HTMLElement>, fields: any): void;
             /**
              * Callback if any form field is invalid
              */

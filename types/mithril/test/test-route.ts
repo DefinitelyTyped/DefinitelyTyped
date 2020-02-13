@@ -1,16 +1,14 @@
-import { Vnode, Component, Comp, ClassComponent, FactoryComponent, RouteResolver } from 'mithril';
-import * as h from 'mithril/hyperscript';
-import * as route from 'mithril/route';
+import * as m from 'mithril';
 
 const component1 = {
 	view() {
-		return h('h1', 'Test');
+		return m('h1', 'Test');
 	}
 };
 
-const component2: Component<{title: string}> = {
+const component2: m.Component<{title: string}> = {
 	view({attrs: {title}}) {
-		return h('h1', title);
+		return m('h1', title);
 	}
 };
 
@@ -23,26 +21,26 @@ interface State {
 }
 
 // Test various component types with router
-const component3: Comp<Attrs, State> = {
+const component3: m.Comp<Attrs, State> = {
 	text: "Uninitialized",
 	oninit({state}) {
 		state.text = "Initialized";
 	},
 	view({attrs}) {
-		return h('p', 'id: ' + attrs.id);
+		return m('p', 'id: ' + attrs.id);
 	}
 };
 
-class Component4 implements ClassComponent<Attrs> {
-	view({attrs}: Vnode<Attrs>) {
-		return h('p', 'id: ' + attrs.id);
+class Component4 implements m.ClassComponent<Attrs> {
+	view({attrs}: m.Vnode<Attrs>) {
+		return m('p', 'id: ' + attrs.id);
 	}
 }
 
-const component5: FactoryComponent<Attrs> = () => {
+const component5: m.FactoryComponent<Attrs> = () => {
 	return {
 		view({attrs}) {
-			return h('p', 'id: ' + attrs.id);
+			return m('p', 'id: ' + attrs.id);
 		}
 	};
 };
@@ -52,7 +50,7 @@ interface RRState {
 }
 
 // Stateful RouteResolver example using Attrs type and this context
-const routeResolver: RouteResolver<Attrs, RRState> & RRState = {
+const routeResolver: m.RouteResolver<Attrs, RRState> & RRState = {
 	message: "",
 	onmatch(attrs, path) {
 		this.message = "Match";
@@ -66,7 +64,7 @@ const routeResolver: RouteResolver<Attrs, RRState> & RRState = {
 	}
 };
 
-route(document.body, '/', {
+m.route(document.body, '/', {
 	'/': component1,
 	'/test1': {
 		onmatch(args, path) {
@@ -75,7 +73,7 @@ route(document.body, '/', {
 	},
 	'/test2': {
 		render(vnode) {
-			return h(component1);
+			return m(component1);
 		}
 	},
 	test3: {
@@ -83,13 +81,13 @@ route(document.body, '/', {
 			return component2;
 		},
 		render(vnode) {
-			return ['abc', 123, null, h(component2), ['nested', h('p', 123)]];
+			return ['abc', 123, null, m(component2), ['nested', m('p', 123)]];
 		}
 	},
 	test4: {
 		onmatch(args, path) {
 			// Must provide a Promise type if we want type checking
-			return new Promise<Component<{title: string}, {}>>((resolve, reject) => {
+			return new Promise<m.Component<{title: string}>>((resolve, reject) => {
 				resolve(component2);
 			});
 		}
@@ -112,17 +110,26 @@ route(document.body, '/', {
 	test9: component5
 });
 
-route.prefix('/app');
-route.set('/test1');
+m.route.prefix = '/app';
+m.route.set('/test1');
 
-route.set('/test/:id', {id: 1});
+m.route.set('/test/:id', {id: 1});
 
-route.set('/test2', undefined, {
+m.route.set('/test2', undefined, {
 	replace: true,
 	state: {abc: 123},
 	title: "Title"
 });
 
-const path: string = route.get();
+const path: string = m.route.get();
 
-const fn = route.link(h('div', 'test'));
+const ex1 = m(m.route.Link, {selector: 'a', href: '/url'});
+
+const ex2 = m(m.route.Link, {
+	selector: 'a', href: '/url',
+	options: {
+		replace: true,
+		state: {abc: 123},
+		title: "Title"
+	}
+});

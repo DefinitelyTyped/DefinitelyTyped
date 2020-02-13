@@ -1,4 +1,4 @@
-// Type definitions for jsqrcode 1.0
+// Type definitions for non-npm package jsqrcode 1.0
 // Project: https://github.com/LazarSoft/jsqrcode
 // Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -480,7 +480,7 @@ declare const qrcode: {
 	readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]],
 
 	// tslint:disable-next-line:prefer-method-signature
-	callback: () => void,
+	callback: (result: string) => void,
 
 	orderBestPatterns(patterns: AlignmentPattern[]): void,
 

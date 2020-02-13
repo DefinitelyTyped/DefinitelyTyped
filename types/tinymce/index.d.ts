@@ -1,6 +1,10 @@
 // Type definitions for TinyMCE 4.5
-// Project: https://github.com/tinymce/tinymce
-// Definitions by: Martin Duparc <https://github.com/martinduparc>, Poul Poulsen <https://github.com/ipoul>
+// Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
+// Definitions by: Martin Duparc <https://github.com/martinduparc>
+//                 Poul Poulsen <https://github.com/ipoul>
+//                 Nico Hartto <https://github.com/nicohartto>
+//                 Tyler Romeo <https://github.com/Parent5446>
+//                 Ashley Workman <https://github.com/CymruKakashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -52,8 +56,36 @@ export function walk(o: {}, f: () => void, n?: string, s?: string): void;
 
 export function init(settings: Settings): void;
 
+export function triggerSave(): void;
+
+export function get(id: string | number): Editor;
+
 export interface Settings {
-  table_toolbar?: boolean;
+  table_toolbar?: string;
+
+  table_appearance_options?: boolean;
+
+  table_clone_elements?: string;
+
+  table_grid?: boolean;
+
+  table_tab_navigation?: boolean;
+
+  table_default_attributes?: object | string;
+
+  table_default_styles?: object | string;
+
+  table_class_list?: object[];
+
+  table_cell_class_list?: object[];
+
+  table_row_class_list?: object[];
+
+  table_advtab?: boolean;
+
+  table_cell_advtab?: boolean;
+
+  table_row_advtab?: boolean;
 
   auto_focus?: string;
 
@@ -121,7 +153,7 @@ export interface Settings {
 
   skin_url?: string;
 
-  skin?: string;
+  skin?: false | string;
 
   statusbar?: boolean;
 
@@ -294,17 +326,31 @@ export interface Settings {
   imagetools_toolbar?: string;
 
   imagetools_api_key?: string;
+
+  spellchecker_rpc_url?: string;
+
+  spellchecker_language?: string;
+
+  spellchecker_languages?: string;
+
+  spellchecker_dialog?: boolean;
+
+  spellchecker_whitelist?: string[];
+
+  spellchecker_on_load?: boolean;
+
+  spellchecker_active?: boolean;
 }
 
 export namespace settings {
   interface Menu {
-    file: MenuItem;
-    edit: MenuItem;
-    insert: MenuItem;
-    view: MenuItem;
-    format: MenuItem;
-    table: MenuItem;
-    tools: MenuItem;
+    file?: MenuItem;
+    edit?: MenuItem;
+    insert?: MenuItem;
+    view?: MenuItem;
+    format?: MenuItem;
+    table?: MenuItem;
+    tools?: MenuItem;
   }
 
   interface MenuItem {
@@ -368,7 +414,7 @@ export class Editor extends util.Observable {
 
   addCommand(name: string, callback: (ui: boolean, value: {}) => boolean, scope?: {}): void;
 
-  addContextToolbar(predicate: () => void, items: string): void;
+  addContextToolbar(predicate: ((el: Node) => boolean) | string, items: string): void;
 
   addMenuItem(name: string, settings: {}): void;
 
@@ -388,7 +434,7 @@ export class Editor extends util.Observable {
 
   execCallback(name: string): {};
 
-  execCommand(cmd: string, ui: boolean, value?: any, args?: {}): void;
+  execCommand(cmd: string, ui?: boolean, value?: any, args?: {}): void;
 
   focus(skipFocus: boolean): void;
 
@@ -812,7 +858,7 @@ export namespace dom {
 
     insertAfter<T>(node: Element, referenceNode: Element): Element | T[];
 
-    is(elm: Node, selector: string): void;
+    is(elm: Node, selector: string): boolean;
 
     isBlock(node: Node): boolean;
 
@@ -1046,7 +1092,7 @@ export namespace dom {
 
     setContent(content: string, args?: {}): void;
 
-    setCursorLocation(node?: html.Node, offset?: number): void;
+    setCursorLocation(node?: Node, offset?: number): void;
 
     setNode(elm: Element): Element;
 
@@ -1182,35 +1228,35 @@ export namespace html {
 
     addValidElements(valid_elements: string): void;
 
-    getBlockElements(): {};
+    getBlockElements(): {[name: string]: {}};
 
-    getBoolAttrs(): {};
+    getBoolAttrs(): {[name: string]: {}};
 
-    getCustomElements(): {};
+    getCustomElements(): {[name: string]: {}};
 
     getElementRule(name: string): {};
 
     getInvalidStyles(): void;
 
-    getMoveCaretBeforeOnEnterElements(): {};
+    getMoveCaretBeforeOnEnterElements(): {[name: string]: {}};
 
-    getNonEmptyElements(): {};
+    getNonEmptyElements(): {[name: string]: {}};
 
-    getSelfClosingElements(): {};
+    getSelfClosingElements(): {[name: string]: {}};
 
-    getShortEndedElements(): {};
+    getShortEndedElements(): {[name: string]: {}};
 
-    getSpecialElements(): {};
+    getSpecialElements(): {[name: string]: {}};
 
-    getTextBlockElements(): {};
+    getTextBlockElements(): {[name: string]: {}};
 
-    getTextInlineElements(): {};
+    getTextInlineElements(): {[name: string]: {}};
 
     getValidClasses(): void;
 
     getValidStyles(): void;
 
-    getWhiteSpaceElements(): {};
+    getWhiteSpaceElements(): {[name: string]: {}};
 
     isValid(name: string, attr?: string): boolean;
 

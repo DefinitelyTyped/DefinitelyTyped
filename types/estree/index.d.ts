@@ -62,8 +62,14 @@ export interface Position {
 export interface Program extends BaseNode {
   type: "Program";
   sourceType: "script" | "module";
-  body: Array<Statement | ModuleDeclaration>;
+  body: Array<Directive | Statement | ModuleDeclaration>;
   comments?: Array<Comment>;
+}
+
+export interface Directive extends BaseNode {
+  type: "ExpressionStatement";
+  expression: Literal;
+  directive: string;
 }
 
 interface BaseFunction extends BaseNode {
@@ -196,7 +202,8 @@ interface BaseDeclaration extends BaseStatement { }
 
 export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
   type: "FunctionDeclaration";
-  id: Identifier;
+  /** It is null when a function declaration is a part of the `export default function` statement */
+  id: Identifier | null;
   body: BlockStatement;
 }
 
@@ -335,7 +342,7 @@ export interface SwitchCase extends BaseNode {
 
 export interface CatchClause extends BaseNode {
   type: "CatchClause";
-  param: Pattern;
+  param: Pattern | null;
   body: BlockStatement;
 }
 
@@ -473,7 +480,8 @@ export interface MethodDefinition extends BaseNode {
 
 export interface ClassDeclaration extends BaseClass, BaseDeclaration {
   type: "ClassDeclaration";
-  id: Identifier;
+  /** It is null when a class declaration is a part of the `export default class` statement */
+  id: Identifier | null;
 }
 
 export interface ClassExpression extends BaseClass, BaseExpression {

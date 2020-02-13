@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "target": "es6",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@testing-library/jest-dom": ["testing-library__jest-dom"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/testing-library__jest-dom-global-tests.ts"
+    ]
+}

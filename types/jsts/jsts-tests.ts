@@ -14,6 +14,27 @@ var lr: jsts.geom.LinearRing = new jsts.geom.LinearRing([c]);
 var ls: jsts.geom.LineString = new jsts.geom.LineString([c]);
 var p: jsts.geom.Point = new jsts.geom.Point(c);
 var poly: jsts.geom.Polygon = new jsts.geom.Polygon(lr);
+var precisionModel = new jsts.geom.PrecisionModel();
+var factory = new jsts.geom.GeometryFactory(precisionModel);
+var wktWriter = new jsts.io.WKTWriter(factory);
+const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
+const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
+
+let im0: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix();
+const im1: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix(['1', '2']);
+const im2: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix(im0);
+
+let at0: jsts.geom.util.AffineTransformation = new jsts.geom.util.AffineTransformation(n, n, n, n, n, n);
+const at1: jsts.geom.util.AffineTransformation = new jsts.geom.util.AffineTransformation(c, c, c, c, c, c);
+const at2: jsts.geom.util.AffineTransformation = new jsts.geom.util.AffineTransformation(at0);
+let seq: jsts.geom.CoordinateSequence = new jsts.geom.CoordinateSequence();
+
+const ggo0: jsts.operation.GeometryGraphOperation = new jsts.operation.GeometryGraphOperation(g);
+const ggo1: jsts.operation.GeometryGraphOperation = new jsts.operation.GeometryGraphOperation(g, g);
+const ggo2: jsts.operation.GeometryGraphOperation = new jsts.operation.GeometryGraphOperation(g, g, bnr);
+
+const ro0: jsts.operation.relate.RelateOp = new jsts.operation.relate.RelateOp(g, g);
+const ro1: jsts.operation.relate.RelateOp = new jsts.operation.relate.RelateOp(g, g, bnr);
 
 str = jsts.version;
 
@@ -146,3 +167,90 @@ obj = gjw.write(g);
 var wr: jsts.io.WKTReader = new jsts.io.WKTReader();
 g = wr.read(str);
 wr.reducePrecision(g);
+
+n = jsts.algorithm.Orientation.index(p, p, p);
+bool = jsts.algorithm.Orientation.isCCW([c]);
+
+bool = jsts.geom.IntersectionMatrix.matches(n, str);
+bool = jsts.geom.IntersectionMatrix.matches(str, str);
+bool = jsts.geom.IntersectionMatrix.isTrue(n);
+bool = im0.isIntersects();
+bool = im0.isCovers();
+bool = im0.isCoveredBy();
+im0.set([str, str, str]);
+im0.set(n, n, n);
+bool = im0.isContains();
+im0.setAtLeast([str, str, str]);
+im0.setAtLeast(n, n, n);
+im0.setAtLeastIfValid(n, n, n);
+bool = im0.isWithin();
+bool = im0.isTouches(n, n);
+bool = im0.isOverlaps(n, n);
+bool = im0.isEquals(n, n);
+str = im0.toString();
+im0.setAll(n);
+n = im0.get(n, n);
+im0 = im0.transpose();
+bool = im0.matches([str, str, str, str, str, str ,str, str, str]);
+im0.add(im1);
+bool = im0.isDisjoint();
+bool = im0.isCrosses(n, n);
+
+at0 = jsts.geom.util.AffineTransformation.translationInstance(n, n);
+at0 = jsts.geom.util.AffineTransformation.shearInstance(n, n);
+at0 = jsts.geom.util.AffineTransformation.reflectionInstance(n, n, n, n);
+at0 = jsts.geom.util.AffineTransformation.rotationInstance(n);
+at0 = jsts.geom.util.AffineTransformation.reflectionInstance(n, n);
+at0 = jsts.geom.util.AffineTransformation.reflectionInstance(n, n, n);
+at0 = jsts.geom.util.AffineTransformation.reflectionInstance(n, n, n, n);
+at0 = jsts.geom.util.AffineTransformation.scaleInstance(n, n, n, n);
+at0 = at0.setToReflectionBasic(n, n, n, n);
+at0 = at0.getInverse();
+at0 = at0.compose(at1);
+bool = at0.equals(at1);
+at0 = at0.setToScale(n, n);
+bool = at0.isIdentity();
+at0 = at1.setToIdentity();
+bool = at0.isGeometryChanged();
+at0 = at0.setTransformation(at1);
+at0 = at0.setTransformation(n, n, n, n, n, n);
+at0 = at0.setToRotation(n);
+at0 = at0.setToRotation(n, n);
+at0 = at0.setToRotation(n, n, n);
+at0 = at0.setToRotation(n, n, n, n);
+const nArray: [number, number, number, number, number, number] = at0.getMatrixEntries();
+at0.filter(seq, n);
+at0 = at0.rotate(n);
+at0 = at0.rotate(n, n);
+at0 = at0.rotate(n, n, n);
+at0 = at0.rotate(n, n, n, n);
+n = at0.getDeterminant();
+at0 = at0.composeBefore(at1);
+at0 = at0.setToShear(n, n);
+bool = at0.isDone();
+at0 = at0.clone();
+at0 = at0.translate(n, n);
+at0 = at0.setToReflection(n, n);
+at0 = at0.setToReflection(n, n, n, n);
+str = at0.toString();
+at0 = at0.setToTranslation(n, n);
+at0 = at0.shear(n, n);
+p = at0.transform(p);
+c = at0.transform(c, c);
+at0.transform(seq, n);
+at0 = at0.reflect(n, n);
+at0 = at0.reflect(n, n, n, n);
+
+g = ggo0.getArgGeometry(n);
+ggo0.setComputationPrecision(precisionModel);
+
+bool = jsts.operation.relate.RelateOp.covers(g, g);
+bool = jsts.operation.relate.RelateOp.intersects(g, g);
+bool = jsts.operation.relate.RelateOp.touches(g, g);
+bool = jsts.operation.relate.RelateOp.equalsTopo(g, g);
+im0 = jsts.operation.relate.RelateOp.relate(g, g);
+im0 = jsts.operation.relate.RelateOp.relate(g, g, bnr);
+bool = jsts.operation.relate.RelateOp.overlaps(g, g);
+bool = jsts.operation.relate.RelateOp.crosses(g, g);
+bool = jsts.operation.relate.RelateOp.contains(g, g);
+im0 = ro0.getIntersectionMatrix();

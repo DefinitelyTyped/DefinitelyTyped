@@ -2,14 +2,12 @@
 // Project: http://hexo.io/
 // Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
 
 import bunyan = require('hexo-bunyan');
 import streams = require('stream');
 
 declare class HexoLogger extends bunyan {
-    /* tslint:disable:unified-signatures */
-
     /**
      * Returns a boolean: is the `debug` level enabled?
      *
@@ -154,8 +152,6 @@ declare class HexoLogger extends bunyan {
      * Uses `util.format` for msg formatting.
      */
     log(format: any, ...params: any[]): void;
-
-    /* tslint:enable:unified-signatures */
 }
 
 declare function createLogger(options?: { name?: string; silent?: boolean; debug?: boolean; }): HexoLogger;

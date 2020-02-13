@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "dom",
             "es6"
         ],
         "noImplicitAny": true,
@@ -20,18 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "Icon.d.ts",
-        "Entypo.d.ts",
-        "EvilIcons.d.ts",
-        "Feather.d.ts",
-        "FontAwesome.d.ts",
-        "Foundation.d.ts",
-        "Ionicons.d.ts",
-        "MaterialCommunityIcons.d.ts",
-        "MaterialIcons.d.ts",
-        "Octicons.d.ts",
-        "SimpleLineIcons.d.ts",
-        "Zocial.d.ts",
         "react-native-vector-icons-tests.tsx"
     ]
 }

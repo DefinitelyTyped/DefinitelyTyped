@@ -1,8 +1,8 @@
-import * as Cookies from 'cookies';
+import Cookies = require('cookies');
 import * as http from 'http';
-import * as Keygrip from 'keygrip';
-import * as express from 'express';
-import * as connect from 'connect';
+import Keygrip = require('keygrip');
+import express = require('express');
+import connect = require('connect');
 
 const server = http.createServer((req, res) => {
     const cookies = new Cookies(req, res);
@@ -10,9 +10,9 @@ const server = http.createServer((req, res) => {
     new Cookies(req, res, {keys: new Keygrip([])});
     new Cookies(req, res, {secure: true});
 
-    let unsigned: string;
-    let signed: string;
-    let tampered: string;
+    let unsigned: string | undefined;
+    let signed: string | undefined;
+    let tampered: string | undefined;
 
     if (req.url === "/set") {
         cookies
@@ -25,6 +25,9 @@ const server = http.createServer((req, res) => {
             // mimic a signed cookie, but with a bogus signature
             .set("tampered", "baz")
             .set("tampered.sig", "bogus")
+
+            // delete cookie but pass options
+            .set("removed", { signed: true })
 
             // sameSite option
             .set("samesite", "same", {sameSite: 'lax'})

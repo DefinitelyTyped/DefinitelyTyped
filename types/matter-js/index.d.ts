@@ -1,13 +1,25 @@
-// Type definitions for Matter.js - 0.9.1
+// Type definitions for Matter.js - 0.10.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
-//                 David Asmuth <https://github.com/piranha771>
+//                 David Asmuth <https://github.com/piranha771>,
+//                 Piotr Pietrzak <https://github.com/hasparus>,
+//                 Dale Whinham <https://github.com/dwhinham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
 export as namespace Matter;
 
 declare namespace Matter {
+    /**
+     * Installs the given plugins on the `Matter` namespace.
+     * This is a short-hand for `Plugin.use`, see it for more information.
+     * Call this function once at the start of your code, with all of the plugins you wish to install as arguments.
+     * Avoid calling this function multiple times unless you intend to manually control installation order.
+     * @method use
+     * @param ...plugin {Function} The plugin(s) to install on `base` (multi-argument).
+     */
+    export function use(...plugins: (Plugin | string)[]): void;
+
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
     *
@@ -313,6 +325,13 @@ declare namespace Matter {
         * @default 0
         */
         motion?: number;
+        /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         * @type {}
+         */
+        plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
@@ -657,6 +676,18 @@ declare namespace Matter {
          */
         static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
+         * Set the centre of mass of the body.
+         * The `centre` is a vector in world-space unless `relative` is set, in which case it is a translation.
+         * The centre of mass is the point the body rotates about and can be used to simulate non-uniform density.
+         * This is equal to moving `body.position` but not the `body.vertices`.
+         * Invalid if the `centre` falls outside the body's convex hull.
+         * @method setCentre
+         * @param body
+         * @param centre
+         * @param relative
+         */
+        static setCentre(body: Body, centre: Vector, relative?: boolean): void;
+        /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
          * @param {body} body
@@ -776,6 +807,14 @@ declare namespace Matter {
         */
         bounds: Bounds;
         /**
+         * A `Number` that is set to the radius of the object if the body was constructed using `Bodies.circle`.
+         * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
+         *
+         * @property circleRadius
+         * @default 0
+         */
+        circleRadius?: number;
+        /**
          * A `Number` that defines the density of the body, that is its mass per unit area.
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
@@ -871,6 +910,14 @@ declare namespace Matter {
         * @default false
         */
         isStatic: boolean;
+        /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+        * @property isSensor
+        * @type boolean
+        * @default false
+        */
+        isSensor: boolean;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
@@ -1024,6 +1071,12 @@ declare namespace Matter {
         */
         parent: Body;
         /**
+         * An object reserved for storing plugin-specific properties.
+         *
+         * @property plugin
+         */
+        plugin: any;
+        /**
          * A `Number` that defines the static friction of the body (in the Coulomb friction model).
          * A value of `0` means the body will never 'stick' when it is nearly stationary and only dynamic `friction` is used.
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
@@ -1063,17 +1116,16 @@ declare namespace Matter {
 
     }
 
-    export interface IBound {
-        min: { x: number, y: number }
-        max: { x: number, y: number }
-    }
-
     /**
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
+
+        min: Vector;
+        max: Vector;
+
         /**
          * Creates a new axis-aligned bounding box (AABB) for the given vertices.
          * @method create
@@ -1619,6 +1671,19 @@ declare namespace Matter {
         stiffness?: number;
 
         /**
+         * A `Number` that specifies the damping of the constraint,
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping?: number;
+
+        /**
          * A `String` denoting the type of object.
          *
         * @property type
@@ -1760,6 +1825,19 @@ declare namespace Matter {
         * @default 1
         */
         stiffness: number;
+
+        /**
+         * A `Number` that specifies the damping of the constraint,
+         * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
+         * Damping will only be apparent when the constraint also has a very low `stiffness`.
+         * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
+         * A value of `0` means the constraint will apply no damping.
+         *
+         * @property damping
+         * @type number
+         * @default 0
+         */
+        damping: number;
 
         /**
          * A `String` denoting the type of object.
@@ -2351,9 +2429,16 @@ declare namespace Matter {
         /**
          * Render wireframes only
          * @type boolean
-         * @default true 
+         * @default true
          */
         wireframes?: boolean;
+
+        /**
+         * Sets scene background
+         * @type string
+         * default undefined
+         */
+        background?: string
     }
 
     /**
@@ -2485,6 +2570,14 @@ declare namespace Matter {
         * @default 1000 / 60
         */
         delta?: number;
+
+        /**
+         * A flag that specifies whether the runner is running or not.
+         * @property enabled
+         * @type boolean
+         * @default true
+         */
+        enabled?: boolean;
     }
 
     /**
@@ -2505,7 +2598,7 @@ declare namespace Matter {
          * @method create
          * @param {} options
          */
-        static create(options:IRunnerOptions): Runner;
+        static create(options?: IRunnerOptions): Runner;
         /**
          * Continuously ticks a `Matter.Engine` by calling `Runner.tick` on the `requestAnimationFrame` event.
          * @method run
@@ -2843,8 +2936,9 @@ declare namespace Matter {
          * @param {number} quality
          * @param {number} qualityMin
          * @param {number} qualityMax
+         * @return {vertices} vertices
          */
-        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
+        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): Array<Vector>;
 
 
         /**
@@ -2870,8 +2964,9 @@ declare namespace Matter {
         * @method create
         * @param {vector[]} points
         * @param {body} body
+        * @return {vertices} vertices
         */
-        static create(points: Array<Vector>, body: Body): void;
+        static create(points: Array<Vector>, body: Body): Array<Vector>;
 
         /**
          * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
@@ -2899,8 +2994,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {number} angle
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static rotate(vertices: Array<Vector>, angle: number, point: Vector): void;
+        static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -2909,8 +3005,9 @@ declare namespace Matter {
          * @param {number} scaleX
          * @param {number} scaleY
          * @param {vector} point
+         * @return {vertices} vertices
          */
-        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): void;
+        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
 
         /**
          * Translates the set of vertices in-place.
@@ -2918,8 +3015,9 @@ declare namespace Matter {
          * @param {vertices} vertices
          * @param {vector} vector
          * @param {number} scalar
+         * @return {vertices} vertices
          */
-        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): void;
+        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
     }
 
     interface IWorldDefinition extends ICompositeDefinition {
@@ -3003,9 +3101,9 @@ declare namespace Matter {
     }
 
     export interface ICollisionFilter {
-        category: number;
-        mask: number;
-        group: number;
+        category?: number;
+        mask?: number;
+        group?: number;
     }
 
     export interface IMousePoint {
@@ -3313,6 +3411,144 @@ declare namespace Matter {
         * @param event
         */
         static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
+
+    }
+
+    type Dependency = {name: string, range: string}
+                    | {name: string, version: string}
+                    | string;
+
+    export class Plugin {
+        name: string;
+        version: string;
+        install: () => void;
+        for?: string;
+
+        /**
+         * Registers a plugin object so it can be resolved later by name.
+         * @method register
+         * @param plugin {} The plugin to register.
+         * @return {object} The plugin.
+         */
+        static register(plugin: Plugin): Plugin;
+
+        /**
+         * Resolves a dependency to a plugin object from the registry if it exists.
+         * The `dependency` may contain a version, but only the name matters when resolving.
+         * @method resolve
+         * @param dependency {string} The dependency.
+         * @return {object} The plugin if resolved, otherwise `undefined`.
+         */
+        static resolve(dependency: string): Plugin | undefined;
+
+        /**
+         * Returns `true` if the object meets the minimum standard to be considered a plugin.
+         * This means it must define the following properties:
+         * - `name`
+         * - `version`
+         * - `install`
+         * @method isPlugin
+         * @param obj {} The obj to test.
+         * @return {boolean} `true` if the object can be considered a plugin otherwise `false`.
+         */
+        static isPlugin(obj: {}): boolean;
+
+        /**
+         * Returns a pretty printed plugin name and version.
+         * @method toString
+         * @param plugin {} The plugin.
+         * @return {string} Pretty printed plugin name and version.
+         */
+        static toString(plugin: string | Plugin): string;
+
+        /**
+         * Returns `true` if `plugin.for` is applicable to `module` by comparing against `module.name` and `module.version`.
+         * If `plugin.for` is not specified then it is assumed to be applicable.
+         * The value of `plugin.for` is a string of the format `'module-name'` or `'module-name@version'`.
+         * @method isFor
+         * @param plugin {} The plugin.
+         * @param module {} The module.
+         * @return {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
+         */
+        static isFor(plugin: Plugin, module: {name?: string, [_: string]: any}): boolean;
+
+        /**
+         * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
+         * For installing plugins on `Matter` see the convenience function `Matter.use`.
+         * Plugins may be specified either by their name or a reference to the plugin object.
+         * Plugins themselves may specify further dependencies, but each plugin is installed only once.
+         * Order is important, a topological sort is performed to find the best resulting order of installation.
+         * This sorting attempts to satisfy every dependency's requested ordering, but may not be exact in all cases.
+         * This function logs the resulting status of each dependency in the console, along with any warnings.
+         * - A green tick ✅ indicates a dependency was resolved and installed.
+         * - An orange diamond 🔶 indicates a dependency was resolved but a warning was thrown for it or one if its dependencies.
+         * - A red cross ❌ indicates a dependency could not be resolved.
+         * Avoid calling this function multiple times on the same module unless you intend to manually control installation order.
+         * @method use
+         * @param module {} The module install plugins on.
+         * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
+         */
+        static use(
+            module: {uses?: (Plugin | string)[]; [_: string]: any},
+            plugins: (Plugin | string)[]
+        ): void;
+
+        /**
+         * Recursively finds all of a module's dependencies and returns a flat dependency graph.
+         * @method dependencies
+         * @param module {} The module.
+         * @return {object} A dependency graph.
+         */
+        static dependencies(
+            module: Dependency,
+            tracked?: {[_: string]: string[]}
+        ): {[_: string]: string[]} | string | undefined
+
+        /**
+         * Parses a dependency string into its components.
+         * The `dependency` is a string of the format `'module-name'` or `'module-name@version'`.
+         * See documentation for `Plugin.versionParse` for a description of the format.
+         * This function can also handle dependencies that are already resolved (e.g. a module object).
+         * @method dependencyParse
+         * @param dependency {string} The dependency of the format `'module-name'` or `'module-name@version'`.
+         * @return {object} The dependency parsed into its components.
+         */
+        static dependencyParse(dependency: Dependency) : {name: string, range: string};
+
+        /**
+         * Parses a version string into its components.
+         * Versions are strictly of the format `x.y.z` (as in [semver](http://semver.org/)).
+         * Versions may optionally have a prerelease tag in the format `x.y.z-alpha`.
+         * Ranges are a strict subset of [npm ranges](https://docs.npmjs.com/misc/semver#advanced-range-syntax).
+         * Only the following range types are supported:
+         * - Tilde ranges e.g. `~1.2.3`
+         * - Caret ranges e.g. `^1.2.3`
+         * - Exact version e.g. `1.2.3`
+         * - Any version `*`
+         * @method versionParse
+         * @param range {string} The version string.
+         * @return {object} The version range parsed into its components.
+         */
+        static versionParse(range: string) : {
+            isRange: boolean,
+            version: string,
+            range: string,
+            operator: string
+            parts: number[],
+            prerelease: string,
+            number: number
+        };
+
+        /**
+         * Returns `true` if `version` satisfies the given `range`.
+         * See documentation for `Plugin.versionParse` for a description of the format.
+         * If a version or range is not specified, then any version (`*`) is assumed to satisfy.
+         * @method versionSatisfies
+         * @param version {string} The version string.
+         * @param range {string} The range string.
+         * @return {boolean} `true` if `version` satisfies `range`, otherwise `false`.
+         */
+        static versionSatisfies(version: string, range: string): boolean;
 
     }
 }

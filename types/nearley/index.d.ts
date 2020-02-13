@@ -83,7 +83,7 @@ export interface ParserRule {
     postprocess?: Postprocessor;
 }
 
-export type Postprocessor = (data: any[], reference: number, wantedBy: {}) => void;
+export type Postprocessor = (data: any[], reference?: number, wantedBy?: {}) => void;
 
 export interface Lexer {
     /**

@@ -1,11 +1,45 @@
-var clientWidth: any;
-var clientHeight: any;
-var render: any;
+let scroller: Scroller = new Scroller((left, top, zoom) => { });
+scroller = new Scroller((left, top, zoom) => { }, {
+  scrollingX: true,
+  scrollingY: true,
+  animating: true,
+  animationDuration: 400,
+  bouncing: false,
+  locking: false,
+  paging: false,
+  snapping: true,
+  zooming: 10,
+  minZoom: 1,
+  maxZoom: 2
+});
 
-var Tiling: any;
+scroller.setDimensions(10, 10, 10, 10);
+scroller.setPosition(200, 300);
+scroller.setSnapSize(300, 300);
+scroller.activatePullToRefresh(200, () => { }, () => { }, () => { });
+scroller.finishPullToRefresh();
+const data: {
+  left: number;
+  top: number;
+  zoom: number
+} = scroller.getValues();
+scroller.zoomTo(10);
+scroller.zoomBy(10);
+scroller.doMouseZoom(10, 10, 10, 10);
+scroller.doTouchStart([{
+  pageX: 10,
+  pageY: 20
+}], 200);
+scroller.doTouchEnd(300);
+
+declare const clientWidth: number;
+declare const clientHeight: number;
+declare function render(left: number, top: number, zoom: number): void;
+
+declare const Tiling: any; // TODO: What is this?
 
 function test_basic() {
-    var scrollerObj = new Scroller(function (left, top, zoom) {
+    const scrollerObj = new Scroller((left, top, zoom) => {
     }, {
         scrollingY: false
     });
@@ -13,106 +47,106 @@ function test_basic() {
 }
 
 function test_canvas() {
-    var contentWidth = 2000;
-    var contentHeight = 2000;
-    var cellWidth = 100;
-    var cellHeight = 100;
-    var content = <HTMLCanvasElement>document.getElementById('content');
-    var context = content.getContext('2d');
-    var tiling = new Tiling();
-    var render = function (left, top, zoom) {
+    const contentWidth = 2000;
+    const contentHeight = 2000;
+    const cellWidth = 100;
+    const cellHeight = 100;
+    const content = document.getElementById('content') as HTMLCanvasElement;
+    const context = content.getContext('2d');
+    const tiling = new Tiling();
+    function render(left: number, top: number, zoom: number) {
         content.width = clientWidth;
         content.height = clientHeight;
         context.clearRect(0, 0, clientWidth, clientHeight);
         tiling.setup(clientWidth, clientHeight, contentWidth, contentHeight, cellWidth, cellHeight);
         tiling.render(left, top, zoom, paint);
-    };
-    var paint = function (row, col, left, top, width, height, zoom) {
+    }
+    function paint(row: number, col: number, left: number, top: number, width: number, height: number, zoom: number) {
         context.fillStyle = row % 2 + col % 2 > 0 ? "#ddd" : "#fff";
         context.fillRect(left, top, width, height);
         context.fillStyle = "black";
         context.font = (14 * zoom).toFixed(2) + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
-        context.fillText(row + "," + col, left + (6 * zoom), top + (18 * zoom));
-    };
+        context.fillText(`${row},${col}`, left + (6 * zoom), top + (18 * zoom));
+    }
 }
 
 function test_domlist() {
-    var container = document.getElementById("container");
-    var content = document.getElementById("content");
-    var refreshElem = <HTMLElement>content.getElementsByTagName("div")[0];
-    var scroller = new Scroller(render, {
+    const container = document.getElementById("container");
+    const content = document.getElementById("content");
+    const refreshElem = content.getElementsByTagName("div")[0];
+    const scroller = new Scroller(render, {
         scrollingX: false
     });
-    scroller.activatePullToRefresh(50, function () {
+    scroller.activatePullToRefresh(50, () => {
         refreshElem.className += " active";
         refreshElem.innerHTML = "Release to Refresh";
-    }, function () {
+    }, () => {
         refreshElem.className = refreshElem.className.replace(" active", "");
         refreshElem.innerHTML = "Pull to Refresh";
-    }, function () {
+    }, () => {
         refreshElem.className += " running";
         refreshElem.innerHTML = "Refreshing...";
-        setTimeout(function () {
+        setTimeout(() => {
             refreshElem.className = refreshElem.className.replace(" running", "");
             insertItems();
             scroller.finishPullToRefresh();
         }, 2000);
     });
-    var rect = container.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clientTop);
-    var insertItems = function () {
-        for (var i = 0; i < 15; i++) {
-            var row = document.createElement("div");
+    const insertItems = () => {
+        for (let i = 0; i < 15; i++) {
+            const row = document.createElement("div");
             row.className = "row";
             row.style.backgroundColor = i % 2 > 0 ? "#ddd" : "";
-            row.innerHTML = <any>Math.random();
-            if (content.firstChild == content.lastChild) {
+            row.innerHTML = Math.random().toString();
+            if (content.firstChild === content.lastChild) {
                 content.appendChild(row);
             } else {
-                content.insertBefore(row, content.childNodes[1])
+                content.insertBefore(row, content.childNodes[1]);
             }
         }
         scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight - 50);
     };
     insertItems();
     if ('ontouchstart' in window) {
-        container.addEventListener("touchstart", function (e) {
+        container.addEventListener("touchstart", e => {
             // Don't react if initial down happens on a form element
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart((<any>e).touches, e.timeStamp);
+            scroller.doTouchStart((e as any).touches, e.timeStamp);
             e.preventDefault();
         }, false);
-        document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove((<any>e).touches, e.timeStamp);
+        document.addEventListener("touchmove", e => {
+            scroller.doTouchMove((e as any).touches, e.timeStamp);
         }, false);
-        document.addEventListener("touchend", function (e) {
+        document.addEventListener("touchend", e => {
             scroller.doTouchEnd(e.timeStamp);
         }, false);
     } else {
-        var mousedown = false;
-        container.addEventListener("mousedown", function (e) {
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+        let mousedown = false;
+        container.addEventListener("mousedown", e => {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
-        document.addEventListener("mousemove", function (e) {
+        document.addEventListener("mousemove", e => {
             if (!mousedown) {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
-        document.addEventListener("mouseup", function (e) {
+        document.addEventListener("mouseup", e => {
             if (!mousedown) {
                 return;
             }
@@ -123,63 +157,63 @@ function test_domlist() {
 }
 
 function test_dompaging() {
-    var container = document.getElementById("container");
-    var content = document.getElementById("content");
-    var size = 400;
-    var frag = document.createDocumentFragment();
-    for (var cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
-        var elem = document.createElement("div");
+    const container = document.getElementById("container");
+    const content = document.getElementById("content");
+    const size = 400;
+    const frag = document.createDocumentFragment();
+    for (let cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
+        const elem = document.createElement("div");
         elem.className = "cell";
         elem.style.backgroundColor = cell % 2 > 0 ? "#ddd" : "";
-        elem.innerHTML = <any>cell;
+        elem.innerHTML = cell.toString();
         frag.appendChild(elem);
     }
     content.appendChild(frag);
-    var scroller = new Scroller(render, {
+    const scroller = new Scroller(render, {
         scrollingY: false,
         paging: true
     });
-    var rect = container.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clientTop);
     scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
     if ('ontouchstart' in window) {
-        container.addEventListener("touchstart", function (e) {
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+        container.addEventListener("touchstart", e => {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart((<any>e).touches, e.timeStamp);
+            scroller.doTouchStart((e as any).touches, e.timeStamp);
             e.preventDefault();
         }, false);
-        document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove((<any>e).touches, e.timeStamp);
+        document.addEventListener("touchmove", e => {
+            scroller.doTouchMove((e as any).touches, e.timeStamp);
         }, false);
-        document.addEventListener("touchend", function (e) {
+        document.addEventListener("touchend", e => {
             scroller.doTouchEnd(e.timeStamp);
         }, false);
     } else {
-        var mousedown = false;
-        container.addEventListener("mousedown", function (e) {
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+        let mousedown = false;
+        container.addEventListener("mousedown", e => {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
-        document.addEventListener("mousemove", function (e) {
+        document.addEventListener("mousemove", e => {
             if (!mousedown) {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
 
-        document.addEventListener("mouseup", function (e) {
+        document.addEventListener("mouseup", e => {
             if (!mousedown) {
                 return;
             }
@@ -190,64 +224,64 @@ function test_dompaging() {
 }
 
 function test_domsnapping() {
-    var container = document.getElementById("container");
-    var content = document.getElementById("content");
-    var size = 100;
-    var frag = document.createDocumentFragment();
-    for (var row = 0, rl = content.clientHeight / size; row < rl; row++) {
-        for (var cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
-            var elem = document.createElement("div");
+    const container = document.getElementById("container");
+    const content = document.getElementById("content");
+    const size = 100;
+    const frag = document.createDocumentFragment();
+    for (let row = 0, rl = content.clientHeight / size; row < rl; row++) {
+        for (let cell = 0, cl = content.clientWidth / size; cell < cl; cell++) {
+            const elem = document.createElement("div");
             elem.className = "cell";
             elem.style.backgroundColor = row % 2 + cell % 2 > 0 ? "#ddd" : "";
-            elem.innerHTML = row + "," + cell;
+            elem.innerHTML = `${row},${cell}`;
             frag.appendChild(elem);
         }
     }
     content.appendChild(frag);
-    var scroller = new Scroller(render, {
+    const scroller = new Scroller(render, {
         snapping: true
     });
-    var rect = container.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     scroller.setPosition(rect.left + container.clientLeft, rect.top + container.clientTop);
     scroller.setDimensions(container.clientWidth, container.clientHeight, content.offsetWidth, content.offsetHeight);
     scroller.setSnapSize(100, 100);
     if ('ontouchstart' in window) {
-        container.addEventListener("touchstart", function (e) {
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+        container.addEventListener("touchstart", e => {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
-            scroller.doTouchStart((<any>e).touches, e.timeStamp);
+            scroller.doTouchStart((e as any).touches, e.timeStamp);
             e.preventDefault();
         }, false);
-        document.addEventListener("touchmove", function (e) {
-            scroller.doTouchMove((<any>e).touches, e.timeStamp);
+        document.addEventListener("touchmove", e => {
+            scroller.doTouchMove((e as any).touches, e.timeStamp);
         }, false);
-        document.addEventListener("touchend", function (e) {
+        document.addEventListener("touchend", e => {
             scroller.doTouchEnd(e.timeStamp);
         }, false);
     } else {
-        var mousedown = false;
-        container.addEventListener("mousedown", function (e) {
-            if ((<any>e.target).tagName.match(/input|textarea|select/i)) {
+        let mousedown = false;
+        container.addEventListener("mousedown", e => {
+            if ((e.target as any).tagName.match(/input|textarea|select/i)) {
                 return;
             }
             scroller.doTouchStart([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
-        document.addEventListener("mousemove", function (e) {
+        document.addEventListener("mousemove", e => {
             if (!mousedown) {
                 return;
             }
             scroller.doTouchMove([{
-                pageX: (<any>e).pageX,
-                pageY: (<any>e).pageY
+                pageX: (e as any).pageX,
+                pageY: (e as any).pageY
             }], e.timeStamp);
             mousedown = true;
         }, false);
-        document.addEventListener("mouseup", function (e) {
+        document.addEventListener("mouseup", e => {
             if (!mousedown) {
                 return;
             }

@@ -1,19 +1,443 @@
 // Type definitions for blessed 0.1
 // Project: https://github.com/chjj/blessed
-// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>, Steve Kellock <https://github.com/skellock>
+// Definitions by: Bryn Austin Bellomy <https://github.com/brynbellomy>
+//                 Steve Kellock <https://github.com/skellock>
+//                 Max Brauer <https://github.com/mamachanko>
+//                 Nathan Rajlich <https://github.com/TooTallNate>
+//                 Daniel Berlanga <https://github.com/danikaze>
+//                 Jeff Huijsmans <https://github.com/jeffhuys>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // TypeScript Version: 2.1
 
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
-import * as stream from "stream";
+import { Writable, Readable } from "stream";
 import * as child_process from "child_process";
 
-export class BlessedProgram {
-    hideCursor: () => void;
-    move: any;
-    showCursor: any;
+export interface IBlessedProgramOptions {
+  input?: Readable;
+  output?: Writable;
+  log?: string;
+  dump?: boolean;
+  zero?: boolean;
+  buffer?: boolean;
+  terminal?: string;
+  term?: string;
+  tput?: string;
+  debug?: boolean;
+  resizeTimeout?: boolean;
+}
+
+export class BlessedProgram extends EventEmitter {
+    type: string;
+    options: IBlessedProgramOptions;
+    input: Readable;
+    output: Writable;
+    zero: boolean;
+    useBuffer: boolean;
+    x: number;
+    y: number;
+    savedX: number;
+    savedY: number;
+    cols: number;
+    rows: number;
+    scrollTop: number;
+    scrollBottom: number;
+    isOSXTerm: boolean;
+    isiTerm2: boolean;
+    isXFCE: boolean;
+    isTerminator: boolean;
+    isLXDE: boolean;
+    isVTE: boolean;
+    isRxvt: boolean;
+    isXterm: boolean;
+    tmux: boolean;
+    tmuxVersion: number;
+
+    constructor(options?: IBlessedProgramOptions);
+
+    log(): boolean;
+    debug(): boolean;
+    setupDump(): void;
+    setupTput(): void;
+    setTerminal(terminal: string): void;
+    has(name: string): boolean;
+    term(is: string): boolean;
+
+    listen(): void;
+    destroy(): void;
+
+    key(key: string|string[], listener: Function): void;
+    onceKey(key: string|string[], listener: Function): void;
+
+    unKey(key: string|string[], listener: Function): void;
+    removeKey(key: string|string[], listener: Function): void;
+
+    bindMouse(): void;
+    enableGpm(): void;
+    disableGpm(): void;
+    bindResponse(): void;
+
+    response(name: string, text: string, callback: Function, noBypass?: boolean): boolean;
+    response(name: string, callback?: Function): boolean;
+
+    write(text: string): boolean;
+    flush(): void;
+    print(text: string, attr?: boolean): boolean;
+    echo(text: string, attr?: boolean): boolean;
+
+    setx(x: number): boolean;
+    sety(y: number): boolean;
+    move(x: number, y: number): boolean;
+    omove(x: number, y: number): void;
+    rsetx(x: number): boolean;
+    rsety(y: number): boolean;
+    rmove(x: number, y: number): void;
+
+    simpleInsert(ch: string, i?: number, attr?: boolean): boolean;
+    repeat(ch: string, i?: number): string;
+    copyToClipboard(text: string): boolean;
+
+    cursorShape(shape: string, blink?: boolean): boolean;
+    cursorColor(color: string): boolean;
+    cursorReset(): boolean;
+    resetCursor(): boolean;
+
+    getTextParams(param: string, callback: Function): boolean;
+    getCursorColor(callback: Function): boolean;
+
+    nul(): boolean;
+
+    bell(): boolean;
+    bel(): boolean;
+
+    vtab(): boolean;
+
+    form(): boolean;
+    ff(): boolean;
+
+    backspace(): boolean;
+    kbs(): boolean;
+
+    tab(): boolean;
+    ht(): boolean;
+
+    shiftOut(): boolean;
+    shiftIn(): boolean;
+
+    return(): boolean;
+    cr(): boolean;
+
+    feed(): boolean;
+    newline(): boolean;
+    nl(): boolean;
+
+    index(): boolean;
+    ind(): boolean;
+
+    reverseIndex(): boolean;
+    reverse(): boolean;
+    ri(): boolean;
+
+    nextLine(): boolean;
+    reset(): boolean;
+    tabSet(): boolean;
+
+    saveCursor(key: string): boolean;
+    sc(key: string): boolean;
+
+    restoreCursor(key?: string, hide?: boolean): boolean;
+    rc(key?: string, hide?: boolean): boolean;
+
+    lsaveCursor(key?: string): void;
+    lrestoreCursor(key?: string, hide?: boolean): void;
+
+    lineHeight(): boolean;
+
+    charset(val?: string, level?: number): boolean;
+
+    enter_alt_charset_mode(): boolean;
+    as(): boolean;
+    smacs(): boolean;
+
+    exit_alt_charset_mode(): boolean;
+    ae(): boolean;
+    rmacs(): boolean;
+
+    setG(val: number): boolean;
+
+    setTitle(title: string): boolean;
+
+    resetColors(param?: string): boolean;
+
+    dynamicColors(param?: string): boolean;
+
+    selData(a: string, b: string): boolean;
+
+    cursorUp(param?: number): boolean;
+    cuu(param?: number): boolean;
+    up(param?: number): boolean;
+
+    cursorDown(param?: number): boolean;
+    cud(param?: number): boolean;
+    down(param?: number): boolean;
+
+    cursorForward(param?: number): boolean;
+    cuf(param?: number): boolean;
+    right(param?: number): boolean;
+    forward(param?: number): boolean;
+
+    cursorBackward(param?: number): boolean;
+    cub(param?: number): boolean;
+    left(param?: number): boolean;
+    back(param?: number): boolean;
+
+    cursorPos(row?: number, col?: number): boolean;
+    cup(row?: number, col?: number): boolean;
+    pos(row?: number, col?: number): boolean;
+
+    eraseInDisplay(param?: string): boolean;
+    ed(param?: string): boolean;
+
+    clear(): boolean;
+
+    eraseInLine(param?: string): boolean;
+    el(param?: string): boolean;
+
+    charAttributes(param: string, val?: boolean): boolean;
+    charAttributes(param: string[], val?: boolean): boolean;
+
+    setForeground(color: string, val?: boolean): boolean;
+    fg(color: string, val?: boolean): boolean;
+
+    setBackground(color: string, val?: boolean): boolean;
+    bg(color: string, val?: boolean): boolean;
+
+    deviceStatuses(param?: string, callback?: Function, dec?: boolean, noBypass?: boolean): boolean;
+    dsr(param?: string, callback?: Function, dec?: boolean, noBypass?: boolean): boolean;
+
+    getCursor(callback: Function): boolean;
+    saveReportedCursor(callback: Function): void;
+
+    restoreReportedCursor: () => boolean;
+
+    insertChars(param?: number): boolean;
+    ich(param?: number): boolean;
+
+    cursorNextLine(param?: number): boolean;
+    cnl(param?: number): boolean;
+
+    cursorPrecedingLine(param?: number): boolean;
+    cpl(param?: number): boolean;
+
+    cursorCharAbsolute(param?: number): boolean;
+    cha(param?: number): boolean;
+
+    insertLines(param?: number): boolean;
+    il(param?: number): boolean;
+
+    deleteLines(param?: number): boolean;
+    dl(param?: number): boolean;
+
+    deleteChars(param?: number): boolean;
+    dch(param?: number): boolean;
+
+    eraseChars(param?: number): boolean;
+    ech(param?: number): boolean;
+
+    charPosAbsolute(param?: number): boolean;
+    hpa(param?: number): boolean;
+
+    HPositionRelative(param?: number): boolean;
+
+    sendDeviceAttributes(param?: number, callback?: Function): boolean;
+    da(param?: number, callback?: Function): boolean;
+
+    linePosAbsolute(param?: number): boolean;
+    vpa(param?: number): boolean;
+
+    VPositionRelative(param?: number): boolean;
+    vpr(param?: number): boolean;
+
+    HVPosition(row?: number, col?: number): boolean;
+    hvp(row?: number, col?: number): boolean;
+
+    setMode(...args: string[]): boolean;
+    sm(...args: string[]): boolean;
+
+    decset(...args: string[]): boolean;
+
+    showCursor(): boolean;
+
+    alternateBuffer(): boolean;
+    smcup(): boolean;
+    alternate(): boolean;
+
+    resetMode(...args: string[]): boolean;
+    rm(...args: string[]): boolean;
+
+    decrst(...args: string[]): boolean;
+
+    hideCursor(): boolean;
+    civis(): boolean;
+    vi(): boolean;
+    cursor_invisible(): boolean;
+    dectcemh(): boolean;
+
+    normalBuffer(): boolean;
+    rmcup(): boolean;
+
+    enableMouse(): void;
+    disableMouse(): void;
+
+    setMouse(opt?: {}, enable?: boolean): void;
+
+    setScrollRegion(top: number, bottom: number): boolean;
+    csr(top: number, bottom: number): boolean;
+    decstbm(top: number, bottom: number): boolean;
+
+    saveCursorA(): boolean;
+    scA(): boolean;
+
+    restoreCursorA(): boolean;
+    rcA(): boolean;
+
+    cursorForwardTab(param?: number): boolean;
+    cht(param?: number): boolean;
+
+    scrollUp(param?: number): boolean;
+    su(param?: number): boolean;
+
+    scrollDown(param?: number): boolean;
+    sd(param?: number): boolean;
+
+    initMouseTracking(...args: string[]): boolean;
+
+    resetTitleModes(...args: string[]): boolean;
+
+    cursorBackwardTab(param?: number): boolean;
+    cbt(param?: number): boolean;
+
+    repeatPrecedingCharacter(param?: number): boolean;
+    rep(param?: number): boolean;
+
+    tabClear(param?: number): boolean;
+    tbc(param?: number): boolean;
+
+    mediaCopy(...args: string[]): boolean;
+    mc(...args: string[]): boolean;
+
+    mc0(): boolean;
+    print_screen(): boolean;
+    ps(): boolean;
+
+    mc5(): boolean;
+    prtr_on(): boolean;
+    po(): boolean;
+
+    mc4(): boolean;
+    prtr_off(): boolean;
+    pf(): boolean;
+
+    mc5p(): boolean;
+    prtr_non(): boolean;
+    p0(): boolean;
+
+    setResources(...args: string[]): boolean;
+
+    disableModifieres(...args: string[]): boolean;
+
+    setPointerMode(...args: string[]): boolean;
+
+    softReset(): boolean;
+    rs2(): boolean;
+    decstr(): boolean;
+
+    requestAnsiMode(param?: number): boolean;
+    decrqm(param?: number): boolean;
+
+    requestPrivateMode(param?: number): boolean;
+    decrqmp(param?: number): boolean;
+
+    setConformanceLevel(...args: string[]): boolean;
+    decscl(...args: string[]): boolean;
+
+    loadLEDs(param?: number): boolean;
+    decll(param?: number): boolean;
+
+    setCursorStyle(param?: string): boolean;
+    decscursr(param?: string): boolean;
+
+    setCharProtectionAttr(param?: number): boolean;
+    decsca(param?: number): boolean;
+
+    restorePrivateValues(...args: string[]): boolean;
+
+    setAttrInRectangle(...args: string[]): boolean;
+    deccara(...args: string[]): boolean;
+
+    savePrivateValues(...args: string[]): boolean;
+
+    manipulateWindow(...args: any[]): boolean;
+
+    getWindowSize(callback?: Function): boolean;
+
+    reverseAttrInRectangle(...args: string[]): boolean;
+    decrara(...args: string[]): boolean;
+
+    setTitleModeFeature(...args: string[]): boolean;
+
+    setWarningBellVolume(param?: number): boolean;
+    decswbv(param?: number): boolean;
+
+    setMarginBellVolume(param?: number): boolean;
+
+    copyRectangle(...args: string[]): boolean;
+    deccra(...args: string[]): boolean;
+
+    enableFilterRectangle(...args: string[]): boolean;
+    decefr(...args: string[]): boolean;
+
+    requestParameters(param?: number): boolean;
+    decreqtparm(param: number): boolean;
+
+    selectChangeExtent(param?: number): boolean;
+    decsace(param?: number): boolean;
+
+    fillRectangle(...args: string[]): boolean;
+    decfra(...args: string[]): boolean;
+
+    enableLocatorReporting(...args: string[]): boolean;
+    decelr(...args: string[]): boolean;
+
+    eraseRectangle(...args: string[]): boolean;
+    decera(...args: string[]): boolean;
+
+    setLocatorEvents(...args: string[]): boolean;
+    decsle(...args: string[]): boolean;
+
+    selectiveEraseRectangle(...args: string[]): boolean;
+    decsera(...args: string[]): boolean;
+
+    requestLocatorPosition(param?: string, callback?: Function): boolean;
+    reqmp(param?: string, callback?: Function): boolean;
+    req_mouse_pos(param?: string, callback?: Function): boolean;
+    decrqlp(param?: string, callback?: Function): boolean;
+
+    insertColumns(...args: string[]): boolean;
+    decic(...args: string[]): boolean;
+
+    deleteColumns(...args: string[]): boolean;
+    decdc(...args: string[]): boolean;
+
+    out(param: string, ...args: any[]): boolean;
+
+    sigtstp(callback?: Function): boolean;
+
+    pause(callback?: Function): Function;
+
+    resume: () => void;
 }
 
 export namespace Widgets {
@@ -173,7 +597,9 @@ export namespace Widgets {
         destroy(): void;
     }
 
-    interface IOptions {}
+    interface IOptions {
+        [name: string]: any;
+    }
 
     interface IHasOptions<T extends IOptions> {
         options: T;
@@ -505,24 +931,24 @@ export namespace Widgets {
         /**
          * Create a log file. See log method.
          */
-        log?(...msg: any[]): void;
+        log?: string;
 
         /**
          * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
          */
-        dump?: string;
+        dump?: string | boolean;
 
         /**
          * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
          * pressing F12. It will display all log and debug messages.
          */
-        debug?(...msg: string[]): void;
+        debug?: boolean;
 
         /**
          * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
          * for creating a key that will always exit no matter whether the keys are locked.
          */
-        ignoreLocked?: boolean;
+        ignoreLocked?: string[];
 
         /**
          * Automatically "dock" borders with other elements instead of overlapping, depending on position
@@ -566,13 +992,13 @@ export namespace Widgets {
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        input?: stream.Writable;
+        input?: Writable;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        output?: stream.Readable;
+        output?: Readable;
 
         /**
          * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
@@ -647,7 +1073,7 @@ export namespace Widgets {
         /**
          * Whether the focused element grabs all keypresses.
          */
-        grabKeys?: any;
+        grabKeys?: boolean;
 
         /**
          * Prevent keypresses from being received by any element.
@@ -672,8 +1098,6 @@ export namespace Widgets {
 
     class Screen extends NodeWithEvents implements IHasOptions<IScreenOptions> {
         constructor(opts: IScreenOptions);
-
-        cleanSides: any;
 
         /**
          * Original options object.
@@ -777,13 +1201,13 @@ export namespace Widgets {
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        input: stream.Writable;
+        input: Writable;
 
         /**
          * Input and output streams. process.stdin/process.stdout by default, however, it could be a
          * net.Socket if you want to make a program that runs over telnet or something of that nature.
          */
-        output: stream.Readable;
+        output: Readable;
 
         /**
          * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
@@ -858,7 +1282,7 @@ export namespace Widgets {
         /**
          * Whether the focused element grabs all keypresses.
          */
-        grabKeys: any;
+        grabKeys: boolean;
 
         /**
          * Prevent keypresses from being received by any element.
@@ -868,7 +1292,7 @@ export namespace Widgets {
         /**
          * The currently hovered element. Only set if mouse events are bound.
          */
-        hover: any;
+        hover: Widgets.BlessedElement;
 
         /**
          * Set or get terminal name. Set calls screen.setTerminal() internally.
@@ -879,6 +1303,22 @@ export namespace Widgets {
          * Set or get window title.
          */
         title: string;
+
+        /**
+         * Array of `Element` instances that may receive click/mouse events.
+         */
+        clickable: Widgets.BlessedElement[];
+
+        /**
+         * Array of `Element` instances that may receive key events.
+         */
+        keyable: Widgets.BlessedElement[];
+
+        /**
+         * Parse the sides of an element to determine whether an element has uniform cells on both sides.
+         * If it does, we can use CSR to optimize scrolling on a scrollable element.
+         */
+        cleanSides(el: Widgets.BlessedElement): boolean;
 
         /**
          * Write string to the log file if one was created.
@@ -923,7 +1363,7 @@ export namespace Widgets {
         /**
          * Focus element by offset of focusable elements.
          */
-        focusOffset(offset: number): any;
+        focusOffset(offset: number): void;
 
         /**
          * Focus previous element in the index.
@@ -963,7 +1403,7 @@ export namespace Widgets {
         /**
          * Spawn a process in the foreground, return to blessed app after exit.
          */
-        spawn(file: string, args: string[], options: NodeChildProcessExecOptions): child_process.ChildProcess;
+        spawn(file: string, args?: string[], options?: NodeChildProcessExecOptions): child_process.ChildProcess;
 
         /**
          * Spawn a process in the foreground, return to blessed app after exit. Executes callback on error or exit.
@@ -984,7 +1424,7 @@ export namespace Widgets {
         /**
          * Set effects based on two events and attributes.
          */
-        setEffects(el: BlessedElement, fel: BlessedElement, over: any, out: any, effects: any, temp: any): void;
+        setEffects(el: BlessedElement, fel: BlessedElement, over: string, out: string, effects: any, temp: any): void;
 
         /**
          * Insert a line into the screen (using csr: this bypasses the output buffer).
@@ -1470,7 +1910,7 @@ export namespace Widgets {
         enableKeys(): void;
 
         /**
-         * Enable key and mouse events. Calls bot enableMouse and enableKeys.
+         * Enable key and mouse events. Calls both `enableMouse()` and `enableKeys()`.
          */
         enableInput(): void;
 
@@ -1896,7 +2336,7 @@ export namespace Widgets {
         /**
          * Removes an item from the list. Child can be an element, index, or string.
          */
-        removeItem(child: BlessedElement): BlessedElement;
+        removeItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Push an item onto the list.
@@ -1921,12 +2361,12 @@ export namespace Widgets {
         /**
          * Inserts an item to the list. Child can be an element, index, or string.
          */
-        insertItem(i: number, child: BlessedElement): void;
+        insertItem(i: number, child: BlessedElement | number | string): void;
 
         /**
          * Returns the item element. Child can be an element, index, or string.
          */
-        getItem(child: BlessedElement): BlessedElement;
+        getItem(child: BlessedElement | number | string): BlessedElement;
 
         /**
          * Set item to content.
@@ -1951,7 +2391,7 @@ export namespace Widgets {
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
          */
-        getItemIndex(child: BlessedElement): number;
+        getItemIndex(child: BlessedElement | number | string): number;
 
         /**
          * Select an index of an item.
@@ -2549,32 +2989,32 @@ export namespace Widgets {
         /**
          * can be `horizontal` or `vertical`.
          */
-        orientation: string;
+        orientation?: string;
 
         /**
          * the character to fill the bar with (default is space).
          */
-        pch: string;
+        pch?: string;
 
         /**
          * the amount filled (0 - 100).
          */
-        filled: number;
+        filled?: number;
 
         /**
          * same as `filled`.
          */
-        value: number;
+        value?: number;
 
         /**
          * enable key support.
          */
-        keys: boolean;
+        keys?: boolean;
 
         /**
          * enable mouse support.
          */
-        mouse: boolean;
+        mouse?: boolean;
     }
 
     /**
@@ -3024,9 +3464,14 @@ export function message(options?: Widgets.MessageOptions): Widgets.MessageElemen
 export function loading(options?: Widgets.LoadingOptions): Widgets.LoadingElement;
 export function log(options?: Widgets.LogOptions): Widgets.Log;
 export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.ProgressBarElement;
+export function program(options?: Widgets.IScreenOptions): BlessedProgram;
 export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
-export function escape(item: any): any;
+export function escape(text: string): string;
+export function stripTags(text: string): string;
+export function cleanTags(text: string): string;
+export function generateTags(style: any, text: string): string;
+export function parseTags(text: string, screen?: Widgets.Screen): string;
 
 export const colors: {
     match(hexColor: string): string;

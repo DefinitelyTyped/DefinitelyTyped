@@ -14,8 +14,7 @@ function getDriveService() {
         .setScope('https://www.googleapis.com/auth/drive')
         .setParam('login_hint', Session.getActiveUser().getEmail())
         .setParam('access_type', 'offline')
-        .setParam('approval_prompt', 'force')
-    ;
+        .setParam('approval_prompt', 'force');
 }
 
 /**
@@ -24,9 +23,5 @@ function getDriveService() {
 function authCallback(request: any) {
     const driveService = getDriveService();
     const isAuthorized = driveService.handleCallback(request);
-    if (isAuthorized) {
-        Logger.log('success');
-    } else {
-        Logger.log('denied');
-    }
+    Logger.log(isAuthorized ? 'success' : 'denied');
 }

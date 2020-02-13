@@ -1,4 +1,4 @@
-import * as move from 'move-concurrently';
+import move = require('move-concurrently');
 
 move('/path/to/thing', '/new/path/thing').then(() => {
   // thing is now moved!
@@ -6,7 +6,7 @@ move('/path/to/thing', '/new/path/thing').then(() => {
   // oh no!
 });
 
-import * as Bluebird from 'bluebird';
+import Bluebird = require('bluebird');
 
 // tsc version: 2.7.0-dev.20171024
 // required type arguments!

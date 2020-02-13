@@ -2,12 +2,11 @@
 // Project: https://github.com/jkphl/svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
-/// <reference types="vinyl" />
-
 import File = require('vinyl');
-import winston = require('winston');
+import { Logger } from 'winston';
 
 declare namespace sprite {
     interface SVGSpriterConstructor extends NodeJS.EventEmitter {
@@ -59,7 +58,7 @@ declare namespace sprite {
         /**
          * Logging verbosity or custom logger
          */
-        log?: string | winston.LoggerInstance;
+        log?: string | Logger;
         /**
          * SVG shape configuration
          */

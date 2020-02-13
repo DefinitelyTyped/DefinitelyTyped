@@ -13,4 +13,3 @@ interface Props {
 
 declare var Card: React.StatelessComponent<Props>;
 export default Card;
-

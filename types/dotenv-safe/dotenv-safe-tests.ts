@@ -1,6 +1,6 @@
 import env = require("dotenv-safe")
 
-env.load({
+env.config({
   allowEmptyValues: true,
   path: "/foo/bar/baz.env",
   sample: "/foo/bar/qux.env"

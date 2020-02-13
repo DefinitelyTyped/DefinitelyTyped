@@ -28,6 +28,7 @@ export class Remote {
     static addPush(repo: Repository, remote: string, refspec: string): number;
     static create(repo: Repository, name: string, url: string): Remote;
     static createAnonymous(repo: Repository, url: string): Promise<Remote>;
+    static createDetached(url: string): Promise<Remote>;
     static createWithFetchspec(repo: Repository, name: string, url: string, fetch: string): Promise<Remote>;
     static delete(repo: Repository, name: string): Promise<number>;
     static initCallbacks(opts: RemoteCallbacks, version: number): number;
@@ -62,7 +63,7 @@ export class Remote {
 
     stop(): void;
     updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
-    upload(refspecs: Strarray, opts?: PushOptions): number;
+    upload(refspecs: Strarray | string | string[], opts?: PushOptions): number;
     url(): string;
     /**
      * Lists advertised references from a remote. You must connect to the remote before using referenceList.

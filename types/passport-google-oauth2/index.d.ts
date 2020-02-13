@@ -1,6 +1,7 @@
 // Type definitions for passport-google-oauth2 0.1
 // Project: https://github.com/mstade/passport-google-oauth2
 // Definitions by: Elliot Blackburn <https://github.com/bluehatbrit>
+//                 Mike Francis <https://github.com/mikefrancis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,6 +13,7 @@ export interface StrategyOptions {
   callbackURL: string;
   passReqToCallback?: true;
   scope?: string[];
+  proxy?: boolean;
 }
 
 export interface StrategyOptionsWithRequest {
@@ -28,6 +30,21 @@ export interface VerifyOptions {
 
 export type VerifyCallback = (error: any, user?: any, options?: VerifyOptions) => void;
 
+export type VerifyFunctionWithRequestAndParams = (
+  req: Request,
+  accessToken: string,
+  refreshToken: string,
+  params: {
+    access_token: string;
+    expires_in: number;
+    scope: string;
+    token_type: 'Bearer';
+    id_token: string;
+  },
+  profile: any,
+  done: VerifyCallback,
+) => void;
+
 export type VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
@@ -42,7 +59,7 @@ export class Strategy implements Strategy {
   name: string;
   authenticate: (req: Request, options?: object) => void;
 
-  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+  constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest | VerifyFunctionWithRequestAndParams);
   constructor(options: StrategyOptions, verify: VerifyFunction);
   constructor(verify: VerifyFunction);
 }

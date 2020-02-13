@@ -1,49 +1,57 @@
-// Type definitions for topojson 3.0
+// Type definitions for topojson 3.2
 // Project: https://github.com/topojson/topojson
 // Definitions by: Ricardo Mello <https://github.com/ricardo-mello>
-//                 Zhutian Chen  <https://github.com/chenzhutian>
+//                 Zhutian Chen <https://github.com/chenzhutian>
+//                 denisname <https://github.com/denisname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.5
 
-export function bbox(topology: any): any;
+import * as GeoJSON from "geojson";
+import * as TopoJSON from "topojson-specification";
 
-export function feature(topology: any, o: any): { features: any[]; type: string };
+export as namespace topojson;
 
-export function filter(topology: any, filter: any): any;
+// ---------------------------------------------------------------
+// TopoJSON Server
+// ---------------------------------------------------------------
 
-export function filterAttached(topology: any): any;
+export * from 'topojson-server';
 
-export function filterAttachedWeight(topology: any, minWeight: any, weight: any): any;
+// ---------------------------------------------------------------
+// TopoJSON Simplify
+// ---------------------------------------------------------------
 
-export function filterWeight(topology: any, minWeight: any, weight: any): any;
+export * from 'topojson-simplify';
 
-export function merge(topology: any, ...args: any[]): { type: any, coordinates: any[] };
+// ---------------------------------------------------------------
+// TopoJSON Client
+// ---------------------------------------------------------------
 
-export function mergeArcs(topology: any, objects: any): any;
+export * from 'topojson-client';
 
-export function mesh(topology: any, ...args: any[]): { type: any; coordinates: any[]; };
+// ---------------------------------------------------------------
+// U.S. Atlas TopoJSON
+// ---------------------------------------------------------------
 
-export function meshArcs(topology: any, object$$1: any, filter: any, ...args: any[]): { type: any; coordinates: any[]; };
+export interface UsAtlas extends TopoJSON.Topology {
+    objects: {
+        counties: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+        states: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+        nation: TopoJSON.GeometryCollection;
+    };
+    bbox: [number, number, number, number];
+    transform: TopoJSON.Transform;
+}
 
-export function neighbors(objects: any): any[];
+// ---------------------------------------------------------------
+// World Atlas TopoJSON
+// ---------------------------------------------------------------
 
-export function planarRingArea(ring: any): any;
-
-export function planarTriangleArea(triangle: any): any;
-
-export function presimplify(topology: any, weight: any): any[];
-
-export function quantile(topology: any, p: any): any;
-
-export function quantize(topology: any, transform: any): any;
-
-export function simplify(topology: any, minWeight: any): any;
-
-export function sphericalRingArea(ring: any, interior: any): any;
-
-export function sphericalTriangleArea(t: any): any;
-
-export function topology(objects: any, quantization: any): any;
-
-export function transform(transform: any): any;
-
-export function untransform(transform: any): any;
+export interface WorldAtlas extends TopoJSON.Topology {
+    objects: {
+        countries: {type: "GeometryCollection", geometries: Array<TopoJSON.Polygon | TopoJSON.MultiPolygon>};
+        land: TopoJSON.GeometryCollection;
+    };
+    bbox: [number, number, number, number];
+    transform: TopoJSON.Transform;
+}

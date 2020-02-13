@@ -1,6 +1,7 @@
 // Type definitions for WebGL 2, Editor's Draft Fri Feb 24 16:10:18 2017 -0800
 // Project: https://www.khronos.org/registry/webgl/specs/latest/2.0/
 // Definitions by: Nico Kemnitz <https://github.com/nkemnitz>
+//                 Adrian Blumer <https://github.com/karhu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HTMLCanvasElement extends HTMLElement {
@@ -286,12 +287,16 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
 
     /* Buffer objects */
     // WebGL1:
-    bufferData(target: number, size: number, usage: number): void;
-    bufferData(target: number, srcData: ArrayBuffer | ArrayBufferView | null, usage: number): void;
-    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBuffer | ArrayBufferView): void;
+    bufferData(target: number, sizeOrData: number | Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array |
+        Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, usage: number): void;
+    bufferSubData(target: number, dstByteOffset: number, srcData: Int8Array | Int16Array | Int32Array | Uint8Array |
+        Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null): void;
+    // For compatibility with WebGL 1 context in older Typescript versions.
+    bufferData(target: number, data: ArrayBufferView, usage: number): void;
+    bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBufferView): void;
     // WebGL2:
-    bufferData(target: number, srcData: ArrayBufferView, usage: number, srcOffset: number,
-        length?: number): void;
+    bufferData(target: number, srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array |
+        Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer | null, usage: number, srcOffset: number, length?: number): void;
     bufferSubData(target: number, dstByteOffset: number, srcData: ArrayBufferView,
         srcOffset: number, length?: number): void;
 
@@ -387,6 +392,10 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
         height: number, border: number, imageSize: number, offset: number): void;
     compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
+        height: number, border: number, srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array |
+        Uint8ClampedArray | Float32Array | Float64Array | DataView | null, srcOffset?: number, srcLengthOverride?: number): void;
+    // For compatibility with WebGL 1 context in older Typescript versions.
+    compressedTexImage2D(target: number, level: number, internalformat: number, width: number,
         height: number, border: number, srcData: ArrayBufferView,
         srcOffset?: number, srcLengthOverride?: number): void;
 
@@ -400,7 +409,12 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
         width: number, height: number, format: number, imageSize: number, offset: number): void;
     compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number, format: number,
-        srcData: ArrayBufferView,
+        srcData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array |
+        Uint8ClampedArray | Float32Array | Float64Array | DataView | null, srcOffset?: number, srcLengthOverride?: number): void;
+    // For compatibility with WebGL 1 context in older Typescript versions.
+    compressedTexSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
+        width: number, height: number, format: number,
+        srcData: ArrayBufferView | null,
         srcOffset?: number,
         srcLengthOverride?: number): void;
 
@@ -422,59 +436,59 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     uniform3ui(location: WebGLUniformLocation | null, v0: number, v1: number, v2: number): void;
     uniform4ui(location: WebGLUniformLocation | null, v0: number, v1: number, v2: number, v3: number): void;
 
-    uniform1fv(location: WebGLUniformLocation | null, data: Float32Array | number[], srcOffset?: number,
+    uniform1fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform2fv(location: WebGLUniformLocation | null, data: Float32Array | number[], srcOffset?: number,
+    uniform2fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform3fv(location: WebGLUniformLocation | null, data: Float32Array | number[], srcOffset?: number,
+    uniform3fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform4fv(location: WebGLUniformLocation | null, data: Float32Array | number[], srcOffset?: number,
-        srcLength?: number): void;
-
-    uniform1iv(location: WebGLUniformLocation | null, data: Int32Array | number[], srcOffset?: number,
-        srcLength?: number): void;
-    uniform2iv(location: WebGLUniformLocation | null, data: Int32Array | number[], srcOffset?: number,
-        srcLength?: number): void;
-    uniform3iv(location: WebGLUniformLocation | null, data: Int32Array | number[], srcOffset?: number,
-        srcLength?: number): void;
-    uniform4iv(location: WebGLUniformLocation | null, data: Int32Array | number[], srcOffset?: number,
+    uniform4fv(location: WebGLUniformLocation | null, data: Float32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
 
-    uniform1uiv(location: WebGLUniformLocation | null, data: Uint32Array | number[], srcOffset?: number,
+    uniform1iv(location: WebGLUniformLocation | null, data: Int32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform2uiv(location: WebGLUniformLocation | null, data: Uint32Array | number[], srcOffset?: number,
+    uniform2iv(location: WebGLUniformLocation | null, data: Int32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform3uiv(location: WebGLUniformLocation | null, data: Uint32Array | number[], srcOffset?: number,
+    uniform3iv(location: WebGLUniformLocation | null, data: Int32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
-    uniform4uiv(location: WebGLUniformLocation | null, data: Uint32Array | number[], srcOffset?: number,
+    uniform4iv(location: WebGLUniformLocation | null, data: Int32Array | ArrayLike<number>, srcOffset?: number,
         srcLength?: number): void;
 
-    uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniform1uiv(location: WebGLUniformLocation | null, data: Uint32Array | ArrayLike<number>, srcOffset?: number,
+        srcLength?: number): void;
+    uniform2uiv(location: WebGLUniformLocation | null, data: Uint32Array | ArrayLike<number>, srcOffset?: number,
+        srcLength?: number): void;
+    uniform3uiv(location: WebGLUniformLocation | null, data: Uint32Array | ArrayLike<number>, srcOffset?: number,
+        srcLength?: number): void;
+    uniform4uiv(location: WebGLUniformLocation | null, data: Uint32Array | ArrayLike<number>, srcOffset?: number,
+        srcLength?: number): void;
+
+    uniformMatrix2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix3x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix3x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix4x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix4x2fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
 
-    uniformMatrix2x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix2x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix4x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix4x3fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
 
-    uniformMatrix2x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix2x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix3x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix3x4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
-    uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | number[],
+    uniformMatrix4fv(location: WebGLUniformLocation | null, transpose: boolean, data: Float32Array | ArrayLike<number>,
         srcOffset?: number, srcLength?: number): void;
 
     /* Vertex attribs */
     vertexAttribI4i(index: number, x: number, y: number, z: number, w: number): void;
-    vertexAttribI4iv(index: number, values: Int32Array | number[]): void;
+    vertexAttribI4iv(index: number, values: Int32Array | ArrayLike<number>): void;
     vertexAttribI4ui(index: number, x: number, y: number, z: number, w: number): void;
-    vertexAttribI4uiv(index: number, values: Uint32Array | number[]): void;
+    vertexAttribI4uiv(index: number, values: Uint32Array | ArrayLike<number>): void;
     vertexAttribIPointer(index: number, size: number, type: number, stride: number, offset: number): void;
 
     /* Writing to the drawing buffer */
@@ -486,6 +500,10 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     /* Reading back pixels */
     // WebGL1:
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
+        dstData: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray |
+        Float32Array | Float64Array | DataView | null): void;
+    // For compatibility with WebGL 1 context in older Typescript versions.
+    readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
         dstData: ArrayBufferView | null): void;
     // WebGL2:
     readPixels(x: number, y: number, width: number, height: number, format: number, type: number,
@@ -496,11 +514,11 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     /* Multiple Render Targets */
     drawBuffers(buffers: number[]): void;
 
-    clearBufferfv(buffer: number, drawbuffer: number, values: Float32Array | number[],
+    clearBufferfv(buffer: number, drawbuffer: number, values: Float32Array | ArrayLike<number>,
         srcOffset?: number): void;
-    clearBufferiv(buffer: number, drawbuffer: number, values: Int32Array | number[],
+    clearBufferiv(buffer: number, drawbuffer: number, values: Int32Array | ArrayLike<number>,
         srcOffset?: number): void;
-    clearBufferuiv(buffer: number, drawbuffer: number, values: Uint32Array | number[],
+    clearBufferuiv(buffer: number, drawbuffer: number, values: Uint32Array | ArrayLike<number>,
         srcOffset?: number): void;
 
     clearBufferfi(buffer: number, drawbuffer: number, depth: number, stencil: number): void;
@@ -780,7 +798,6 @@ declare var WebGL2RenderingContext: {
     readonly STENCIL_CLEAR_VALUE: number;
     readonly STENCIL_FAIL: number;
     readonly STENCIL_FUNC: number;
-    readonly STENCIL_INDEX: number;
     readonly STENCIL_INDEX8: number;
     readonly STENCIL_PASS_DEPTH_FAIL: number;
     readonly STENCIL_PASS_DEPTH_PASS: number;

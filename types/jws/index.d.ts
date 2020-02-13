@@ -1,4 +1,4 @@
-// Type definitions for jws 3.1
+// Type definitions for jws 3.2
 // Project: https://github.com/brianloveswords/node-jws
 // Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -145,8 +145,32 @@ export interface VerifyOptions {
 
 export type Algorithm = 'HS256' | 'HS384' | 'HS512' | 'RS256' |
                         'RS384' | 'RS512' | 'ES256' | 'ES384' |
-                        'ES512' | 'none';
+                        'ES512' | 'PS256' | 'PS384' | 'PS512' |
+                        'none';
 
-export interface Header {
+export interface Header extends CertificateProperties {
     alg: Algorithm;
+    jwk?: JWK;
+    typ?: string;
+    cty?: string;
+    crit?: ReadonlyArray<string>;
+}
+
+export interface JWK extends CertificateProperties {
+    alg?: Algorithm;
+    kty: string;
+    use?: string;
+    key_ops?: ReadonlyArray<string>;
+}
+
+export interface CertificateProperties extends PrivateProperties {
+    kid?: string;
+    x5u?: string;
+    x5c?: ReadonlyArray<string>;
+    x5t?: string;
+    'x5t#S256'?: string;
+}
+
+export interface PrivateProperties {
+    [name: string]: any;
 }

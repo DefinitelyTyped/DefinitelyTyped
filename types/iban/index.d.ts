@@ -42,17 +42,17 @@ interface IBANStatic {
     /** 
      * @summary Returns the IBAN in a print format.
      * @param {string} iban The IBAN to convert.
-     * @param {string} The IBAN in print format.
+     * @param {string} separator The separator to use between IBAN blocks, defaults to ' '.
      */
-    printFormat(iban: string, separator: string[]): string;
+    printFormat(iban: string, separator?: string): string;
 
     /**
      * @summary Convert the passed IBAN to a country-specific BBAN.
      * @param {string} iban The IBAN to convert.
-     * @param {string[]} Separator the separator to use between BBAN blocks.
+     * @param {string} separator The separator to use between BBAN blocks, defaults to ' '.
      * @returns {string} The BBAN
      */
-    toBBAN(iban: string, separator: string[]): string;
+    toBBAN(iban: string, separator?: string): string;
 }
 
 declare var IBAN: IBANStatic;

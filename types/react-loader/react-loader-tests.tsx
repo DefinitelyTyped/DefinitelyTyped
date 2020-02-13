@@ -1,4 +1,4 @@
-import * as Loader from 'react-loader';
+import Loader = require('react-loader');
 import * as React from 'react';
 
 const options = {

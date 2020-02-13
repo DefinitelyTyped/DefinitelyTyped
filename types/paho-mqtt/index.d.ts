@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference path="module.d.ts"/>
+export = Paho.MQTT;
 
-declare namespace Paho {
+declare global {
     /**
      * Send and receive messages using web browsers.
      * <p>
@@ -40,7 +40,7 @@ declare namespace Paho {
      * an error with any parameter.
      * <p>
      */
-    namespace MQTT {
+    namespace Paho.MQTT {
         /**
          * The Quality of Service used to deliver a message.
          * <dl>
@@ -279,16 +279,13 @@ declare namespace Paho {
              */
             onMessageArrived: OnMessageHandler;
 
-            /* tslint:disable:unified-signatures */
-            /* these cannot actually be neatly unified */
-
             /**
              * @param host - the address of the messaging server as a DNS name or dotted decimal IP address.
              * @param port - the port number to connect to
              * @param path - the path on the host to connect to - only used if host is not a URI. Default: '/mqtt'.
              * @param clientId - the Messaging client identifier, between 1 and 23 characters in length.
              */
-            constructor(host: string, port: number, path: string, clientId: string);
+            constructor(host: string, port: number, path: string, clientId: string); // tslint:disable-line unified-signatures (these cannot actually be neatly unified)
 
             /**
              * @param host - the address of the messaging server as a DNS name or dotted decimal IP address.
@@ -302,8 +299,6 @@ declare namespace Paho {
              * @param clientId - the Messaging client identifier, between 1 and 23 characters in length.
              */
             constructor(hostUri: string, clientId: string);
-
-            /* tslint:enable:unified-signatures */
 
             /**
              * Connect this Messaging client to its server.

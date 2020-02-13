@@ -5,7 +5,7 @@
 
 /** A parser and formatter for DSV (CSV and TSV) files. Extracted from D3. */
 declare function loader(
-    /** the symbol used to seperate cells in the row. */
+    /** the symbol used to separate cells in the row. */
     delimiter: string,
     /** example: "text/plain" */
     encoding?: string): D3Dsv;

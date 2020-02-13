@@ -1,4 +1,4 @@
-import * as pageIcon from "page-icon";
+import pageIcon = require("page-icon");
 
 const siteUrl = "https://www.facebook.com/";
 pageIcon(siteUrl)

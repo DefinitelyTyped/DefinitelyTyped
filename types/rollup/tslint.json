@@ -1,6 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "semicolon": [true, "never"]
-    }
-}

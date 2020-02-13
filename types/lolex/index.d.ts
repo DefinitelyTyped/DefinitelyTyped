@@ -1,9 +1,89 @@
-// Type definitions for lolex 2.1
+// Type definitions for lolex 5.1
 // Project: https://github.com/sinonjs/lolex
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
 //                 Rogier Schouten <https://github.com/rogierschouten>
+//                 Yishai Zehavi <https://github.com/zyishai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+/**
+ * Names of clock methods that may be faked by install.
+ */
+type FakeMethod =
+    | 'setTimeout'
+    | 'clearTimeout'
+    | 'setImmediate'
+    | 'clearImmediate'
+    | 'setInterval'
+    | 'clearInterval'
+    | 'Date'
+    | 'nextTick'
+    | 'hrtime'
+    | 'requestAnimationFrame'
+    | 'cancelAnimationFrame'
+    | 'requestIdleCallback'
+    | 'cancelIdleCallback';
+
+/**
+ * Global methods avaliable to every clock and also as standalone methods (inside `timers` global object).
+ */
+export interface GlobalTimers<TTimerId extends TimerId> {
+    /**
+     * Schedules a callback to be fired once timeout milliseconds have ticked by.
+     *
+     * @param callback   Callback to be fired.
+     * @param timeout   How many ticks to wait to run the callback.
+     * @param args   Any extra arguments to pass to the callback.
+     * @returns Time identifier for cancellation.
+     */
+    setTimeout: (callback: () => void, timeout: number, ...args: any[]) => TTimerId;
+
+    /**
+     * Clears a timer, as long as it was created using setTimeout.
+     *
+     * @param id   Timer ID or object.
+     */
+    clearTimeout: (id: TimerId) => void;
+
+    /**
+     * Schedules a callback to be fired every time timeout milliseconds have ticked by.
+     *
+     * @param callback   Callback to be fired.
+     * @param timeout   How many ticks to wait between callbacks.
+     * @param args   Any extra arguments to pass to the callback.
+     * @returns Time identifier for cancellation.
+     */
+    setInterval: (callback: () => void, timeout: number, ...args: any[]) => TTimerId;
+
+    /**
+     * Clears a timer, as long as it was created using setInterval.
+     *
+     * @param id   Timer ID or object.
+     */
+    clearInterval: (id: TTimerId) => void;
+
+    /**
+     * Schedules the callback to be fired once 0 milliseconds have ticked by.
+     *
+     * @param callback   Callback to be fired.
+     * @remarks You'll still have to call clock.tick() for the callback to fire.
+     * @remarks If called during a tick the callback won't fire until 1 millisecond has ticked by.
+     */
+    setImmediate: (callback: () => void) => TTimerId;
+
+    /**
+     * Clears a timer, as long as it was created using setImmediate.
+     *
+     * @param id   Timer ID or object.
+     */
+    clearImmediate: (id: TTimerId) => void;
+
+    /**
+     * Implements the Date object but using this clock to provide the correct time.
+     */
+    Date: typeof Date;
+}
 
 /**
  * Timer object used in node.
@@ -26,9 +106,151 @@ export interface NodeTimer {
 export type TimerId = number | NodeTimer;
 
 /**
+ * Controls the flow of time.
+ */
+export interface LolexClock<TTimerId extends TimerId> extends GlobalTimers<TTimerId> {
+    /**
+     * Current clock time.
+     */
+    now: number;
+
+    /**
+     * Don't know what this prop is for, but it was included in the clocks that `createClock` or
+     * `install` return (it is never used in the code, for now).
+     */
+    timeouts: {};
+
+    /**
+     * Maximum number of timers that will be run when calling runAll().
+     */
+    loopLimit: number;
+
+    /**
+     * Schedule callback to run in the next animation frame.
+     *
+     * @param callback   Callback to be fired.
+     * @returns Request id.
+     */
+    requestAnimationFrame: (callback: (time: number) => void) => TTimerId;
+
+    /**
+     * Cancel animation frame request.
+     *
+     * @param id   The id returned from requestAnimationFrame method.
+     */
+    cancelAnimationFrame: (id: TTimerId) => void;
+
+    /**
+     * Queues the callback to be fired during idle periods to perform background and low priority work on the main event loop.
+     *
+     * @param callback   Callback to be fired.
+     * @param timeout   The maximum number of ticks before the callback must be fired.
+     * @remarks Callbacks which have a timeout option will be fired no later than time in milliseconds.
+     */
+    requestIdleCallback: (callback: () => void, timeout?: number) => TTimerId;
+
+    /**
+     * Clears a timer, as long as it was created using requestIdleCallback.
+     *
+     * @param id   Timer ID or object.
+     */
+    cancelIdleCallback: (id: TTimerId) => void;
+
+    /**
+     * Get the number of waiting timers.
+     *
+     * @returns number of waiting timers.
+     */
+    countTimers: () => number;
+
+    /**
+     * Advances the clock to the the moment of the first scheduled timer, firing it.
+     */
+    next: () => void;
+
+    /**
+     * Advances the clock to the the moment of the first scheduled timer, firing it.
+     *
+     * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     */
+    nextAsync: () => Promise<void>;
+
+    /**
+     * Advance the clock, firing callbacks if necessary.
+     *
+     * @param time   How many ticks to advance by.
+     */
+    tick: (time: number | string) => void;
+
+    /**
+     * Advance the clock, firing callbacks if necessary.
+     *
+     * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @param time   How many ticks to advance by.
+     */
+    tickAsync: (time: number | string) => Promise<void>;
+
+    /**
+     * Removes all timers and tick without firing them and restore now to its original value.
+     */
+    reset: () => void;
+
+    /**
+     * Runs all pending timers until there are none remaining.
+     *
+     * @remarks  If new timers are added while it is executing they will be run as well.
+     */
+    runAll: () => void;
+
+    /**
+     * Runs all pending timers until there are none remaining.
+     *
+     * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     *
+     * @remarks  If new timers are added while it is executing they will be run as well.
+     */
+    runAllAsync: () => Promise<void>;
+
+    /**
+     * Advanced the clock to the next animation frame while firing all scheduled callbacks.
+     */
+    runToFrame: () => void;
+
+    /**
+     * Takes note of the last scheduled timer when it is run, and advances the clock to
+     * that time firing callbacks as necessary.
+     */
+    runToLast: () => void;
+
+    /**
+     * Takes note of the last scheduled timer when it is run, and advances the clock to
+     * that time firing callbacks as necessary.
+     *
+     * Also breaks the event loop, allowing any scheduled promise callbacks to execute _before_ running the timers.
+     */
+    runToLastAsync: () => Promise<void>;
+
+    /**
+     * Simulates a user changing the system clock.
+     *
+     * @param now   New system time.
+     * @remarks This affects the current time but it does not in itself cause timers to fire.
+     */
+    setSystemTime: (now?: number | Date) => void;
+}
+
+/**
  * Lolex clock for a browser environment.
  */
-type BrowserClock = LolexClock<number>;
+type BrowserClock = LolexClock<number> & {
+    /**
+     * Mimics performance.now().
+     */
+    performance: {
+        now: () => number;
+    };
+};
 
 /**
  * Lolex clock for a Node environment.
@@ -41,6 +263,21 @@ type NodeClock = LolexClock<NodeTimer> & {
      * @returns High resolution real time as [seconds, nanoseconds].
      */
     hrtime(prevTime?: [number, number]): [number, number];
+
+    /**
+     * Mimics process.nextTick() explicitly dropping additional arguments.
+     */
+    queueMicrotask: (callback: () => void) => void;
+
+    /**
+     * Simulates process.nextTick().
+     */
+    nextTick: (callback: () => void) => void;
+
+    /**
+     * Run all pending microtasks scheduled with nextTick.
+     */
+    runMicrotasks: () => void;
 };
 
 /**
@@ -49,118 +286,24 @@ type NodeClock = LolexClock<NodeTimer> & {
 type Clock = BrowserClock | NodeClock;
 
 /**
- * Names of clock methods that may be faked by install.
+ * Additional methods that installed clock have.
  */
-type FakeMethod = "setTimeout" | "clearTimeout" | "setImmediate" | "clearImmediate" | "setInterval" | "clearInterval" | "Date" | "nextTick" | "hrtime";
-
-/**
- * Controls the flow of time.
- */
-export interface LolexClock<TTimerId extends TimerId> {
-    /**
-     * Current clock time.
-     */
-    now: number;
-
-    /**
-     * Implements the Date object but using this clock to provide the correct time.
-     */
-    Date: typeof Date;
-
-    /**
-     * Schedules a callback to be fired once timeout milliseconds have ticked by.
-     *
-     * @param callback   Callback to be fired.
-     * @param timeout   How many ticks to wait to run the callback.
-     * @param args   Any extra arguments to pass to the callback.
-     * @returns Time identifier for cancellation.
-     */
-    setTimeout(callback: () => any, timeout: number, ...args: any[]): TTimerId;
-
-    /**
-     * Clears a timer, as long as it was created using setTimeout.
-     *
-     * @param id   Timer ID or object.
-     */
-    clearTimeout(id: TTimerId): void;
-
-    /**
-     * Schedules a callback to be fired every time timeout milliseconds have ticked by.
-     *
-     * @param callback   Callback to be fired.
-     * @param timeout   How many ticks to wait between callbacks.
-     * @param args   Any extra arguments to pass to the callback.
-     * @returns Time identifier for cancellation.
-     */
-    setInterval(callback: () => any, timeout: number, ...args: any[]): TTimerId;
-
-    /**
-     * Clears a timer, as long as it was created using setInterval.
-     *
-     * @param id   Timer ID or object.
-     */
-    clearInterval(id: TTimerId): void;
-
-    /**
-     * Schedules the callback to be fired once 0 milliseconds have ticked by.
-     *
-     * @param callback   Callback to be fired.
-     * @remarks You'll still have to call clock.tick() for the callback to fire.
-     * @remarks If called during a tick the callback won't fire until 1 millisecond has ticked by.
-     */
-    setImmediate(callback: () => any): TTimerId;
-
-    /**
-     * Clears a timer, as long as it was created using setImmediate.
-     *
-     * @param id   Timer ID or object.
-     */
-    clearImmediate(id: TTimerId): void;
-
-    /**
-     * Simulates process.nextTick();
-     */
-    nextTick(callback: () => void): void;
-
-    /**
-     * Advances the clock to the the moment of the first scheduled timer, firing it.
-     */
-    next(): void;
-
-    /**
-     * Advance the clock, firing callbacks if necessary.
-     *
-     * @param time   How many ticks to advance by.
-     */
-    tick(time: number | string): void;
-
-    /**
-     * Runs all pending timers until there are none remaining.
-     *
-     * @remarks  If new timers are added while it is executing they will be run as well.
-     */
-    runAll(): void;
-
-    /**
-     * Takes note of the last scheduled timer when it is run, and advances the clock to
-     * that time firing callbacks as necessary.
-     */
-    runToLast(): void;
-
-    /**
-     * Simulates a user changing the system clock.
-     *
-     * @param now   New system time.
-     * @remarks This affects the current time but it does not in itself cause timers to fire.
-     */
-    setSystemTime(now?: number | Date): void;
-
+type InstalledMethods = {
     /**
      * Restores the original methods on the context that was passed to lolex.install,
      * or the native timers if no context was given.
      */
-    uninstall(): void;
-}
+    uninstall: () => void;
+
+    methods: FakeMethod[];
+};
+
+/**
+ * Clock object created by calling `install();`.
+ *
+ * @type TClock   type of base clock (e.g BrowserClock).
+ */
+type InstalledClock<TClock extends Clock = Clock> = TClock & InstalledMethods;
 
 /**
  * Creates a clock.
@@ -172,8 +315,7 @@ export interface LolexClock<TTimerId extends TimerId> {
  * @type TClock   Type of clock to create.
  * @remarks The default epoch is 0.
  */
-export declare function createClock<TClock extends Clock>(now?: number | Date, loopLimit?: number): TClock;
-
+export declare function createClock<TClock extends Clock = Clock>(now?: number | Date, loopLimit?: number): TClock;
 
 export interface LolexInstallOpts {
     /**
@@ -184,7 +326,7 @@ export interface LolexInstallOpts {
     /**
      * Installs lolex with the specified unix epoch (default: 0)
      */
-    now?: number;
+    now?: number | Date;
 
     /**
      * An array with explicit function names to hijack. When not set, lolex will automatically fake all methods except nextTick
@@ -217,4 +359,20 @@ export interface LolexInstallOpts {
  * @param toFake   Names of methods that should be faked.
  * @type TClock   Type of clock to create.
  */
-export declare function install<TClock extends Clock>(opts?: LolexInstallOpts): TClock;
+export declare function install<TClock extends Clock = Clock>(opts?: LolexInstallOpts): InstalledClock<TClock>;
+
+export interface LolexWithContext {
+    timers: GlobalTimers<TimerId>;
+    createClock: <TClock extends Clock = Clock>(now?: number | Date, loopLimit?: number) => TClock;
+    install: <TClock extends Clock = Clock>(opts?: LolexInstallOpts) => InstalledClock<TClock>;
+    withGlobal: (global: Object) => LolexWithContext;
+}
+
+/**
+ * Apply new context to lolex.
+ *
+ * @param global   New context to apply like `window` (in browsers) or `global` (in node).
+ */
+export declare function withGlobal(global: Object): LolexWithContext;
+
+export declare const timers: GlobalTimers<TimerId>;

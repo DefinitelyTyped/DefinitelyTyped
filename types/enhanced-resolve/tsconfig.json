@@ -14,43 +14,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "tapable": [
+                "tapable/v0"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "lib/AliasFieldPlugin.d.ts",
-        "lib/AliasPlugin.d.ts",
-        "lib/AppendPlugin.d.ts",
-        "lib/CloneBasenamePlugin.d.ts",
-        "lib/common-types.d.ts",
-        "lib/concord.d.ts",
-        "lib/ConcordExtensionsPlugin.d.ts",
-        "lib/ConcordMainPlugin.d.ts",
-        "lib/ConcordModulesPlugin.d.ts",
-        "lib/DescriptionFilePlugin.d.ts",
-        "lib/DescriptionFileUtils.d.ts",
-        "lib/DirectoryExistsPlugin.d.ts",
-        "lib/FileExistsPlugin.d.ts",
-        "lib/FileKindPlugin.d.ts",
-        "lib/getPaths.d.ts",
-        "lib/globToRegExp.d.ts",
-        "lib/JoinRequestPlugin.d.ts",
-        "lib/LogInfoPlugin.d.ts",
-        "lib/MainFieldPlugin.d.ts",
-        "lib/ModuleAppendPlugin.d.ts",
-        "lib/ModuleKindPlugin.d.ts",
-        "lib/ModulesInHierachicDirectoriesPlugin.d.ts",
-        "lib/ModulesInRootPlugin.d.ts",
-        "lib/NextPlugin.d.ts",
-        "lib/ParsePlugin.d.ts",
-        "lib/Resolver.d.ts",
-        "lib/ResultPlugin.d.ts",
-        "lib/Storage.d.ts",
-        "lib/SymlinkPlugin.d.ts",
-        "lib/SyncAsyncFileSystemDecorator.d.ts",
-        "lib/TryNextPlugin.d.ts",
-        "lib/UnsafeCachePlugin.d.ts",
-        "lib/UseFilePlugin.d.ts",
         "test/index.ts",
         "test/lib.ts"
     ]

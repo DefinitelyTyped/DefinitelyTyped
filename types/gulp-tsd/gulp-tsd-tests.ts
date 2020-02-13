@@ -1,8 +1,5 @@
-
-
-
 import * as gulp from "gulp";
-import * as tsd from "gulp-tsd";
+import tsd = require("gulp-tsd");
 
 gulp.task("tsd", () => {
     gulp.src("gulp_tsd.json")

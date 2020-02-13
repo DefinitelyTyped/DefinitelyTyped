@@ -2,9 +2,9 @@ import { Action } from "redux";
 import { FormErrors, FormWarnings, FieldType } from "../index";
 
 export interface FormAction extends Action {
-    meta: {
-        form: string;
-    };
+    meta?: any;
+    payload?: any;
+    error?: any;
 }
 
 /**
@@ -66,12 +66,12 @@ export function autofill(form: string, field: string, value: any): FormAction;
 /**
  * Saves the value to the field
  */
-export function blur(form: string, field: string, value: any): FormAction;
+export function blur(form: string, field: string, value: any, touch?: boolean): FormAction;
 
 /**
  * Saves the value to the field
  */
-export function change(form: string, field: string, value: any): FormAction;
+export function change(form: string, field: string, value: any, touch?: boolean, persistentSubmitErrors?: boolean): FormAction;
 
 /**
  * Destroys the form, removing all it's state
@@ -90,7 +90,7 @@ export function focus(form: string, field: string): FormAction;
  * user edits.
  */
 interface InitializeOptions {
-    keepDirty : boolean;
+    keepDirty: boolean;
     keepSubmitSucceeded: boolean;
 }
 

@@ -1,6 +1,6 @@
 import ExpressOAuthServer = require("express-oauth-server");
 import * as OAuth2Server from "oauth2-server";
-import * as express from "express";
+import express = require("express");
 
 const oauth2Model: OAuth2Server.AuthorizationCodeModel = {
     getClient: async (clientId: string, clientSecret: string): Promise<OAuth2Server.Client | OAuth2Server.Falsey> => {

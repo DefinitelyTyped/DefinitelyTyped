@@ -19,9 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "chrome-app.d.ts",
-        "chrome-cast.d.ts",
-        "test/index.ts",
-        "test/chrome-app.ts"
+        "test/index.ts"
     ]
 }

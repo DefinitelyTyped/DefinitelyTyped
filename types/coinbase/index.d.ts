@@ -294,6 +294,33 @@ export interface MoneyHash {
     currency: string;
 }
 
+/**
+ * Price response
+ */
+export interface Price {
+    data: {
+        /**
+         * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+         */
+        base: string;
+        /**
+         * Amount as floating-point in a string
+         */
+        amount: string;
+        /**
+         * Currency e.g. "EUR" (see Client#getCurrencies() for available strings)
+         */
+        currency: string;
+    };
+    warnings?: [
+        {
+            id: string
+            message: string
+            url: string
+        }
+    ];
+}
+
 export type ResourceType = "account" | "transaction" | "address" | "user" | "buy" | "sell" | "deposit" | "withdrawal" | "payment_method";
 
 /**
@@ -391,13 +418,13 @@ export class User implements Resource {
      * Get current user’s authorization information including granted scopes and send limits when using OAuth2 authentication
      * No permission required
      */
-    showAuth(cb: (error: Error, result: Auth) => void): void;
+    showAuth(cb: (error: Error | null, result: Auth) => void): void;
 
     /**
      * Change user properties
      * Scope: wallet:user:update
      */
-    update(opts: UpdateUserOpts, cb: (error: Error, result: User) => void): void;
+    update(opts: UpdateUserOpts, cb: (error: Error | null, result: User) => void): void;
 }
 
 export interface Auth {
@@ -447,7 +474,7 @@ export class Address implements Resource {
      * List transactions that have been sent to a specific address.
      * Scope: wallet:transactions:read
      */
-    getTransactions(opts: {}, cb: (error: Error, result: Transaction[]) => void): void;
+    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
 }
 
 export type AccountType = "wallet" | "fiat" | "multisig" | "vault" | "multisig_vault";
@@ -510,16 +537,31 @@ export class Account implements Resource {
     balance: MoneyHash;
 
     /**
+     * Allow deposits
+     */
+    allow_deposits: boolean;
+
+    /**
+     * Allow withdrawls
+     */
+    allow_withdrawals: boolean;
+
+    /**
+     * Account worth in fiat.
+     */
+    native_balance: MoneyHash;
+
+    /**
      * Promote an account as primary account.
      * Scope: wallet:accounts:update
      */
-    setPrimary(cb: (error: Error, result: Account) => void): void;
+    setPrimary(cb: (error: Error | null, result: Account) => void): void;
 
     /**
      * Modifies user’s account.
      * Scope: wallet:accounts:update
      */
-    update(opts: UpdateAccountOpts, cb: (error: Error, result: Account) => void): void;
+    update(opts: UpdateAccountOpts, cb: (error: Error | null, result: Account) => void): void;
 
     /**
      * Removes user’s account. In order to remove an account it can’t be:
@@ -529,13 +571,13 @@ export class Account implements Resource {
      * - Vault with a pending withdrawal
      * Scope: wallet:accounts:delete
      */
-    delete(cb: (error: Error) => void): void;
+    delete(cb: (error: Error | null) => void): void;
 
     /**
      * Lists addresses for an account. Important: Addresses should be considered one time use only. Create new addresses.
      * Scope: wallet:addresses:read
      */
-    getAddresses(cb: (error: Error, result: Address[]) => void): void;
+    getAddresses(cb: (error: Error | null, result: Address[]) => void): void;
 
     /**
      * Show an individual address for an account. A regular bitcoin, litecoin or ethereum address can be used in place of `id` but the
@@ -543,7 +585,7 @@ export class Account implements Resource {
      * Scope: wallet:addresses:read
      * @param id resource id or a regular bitcoin, litecoin or ethereum address
      */
-    getAddress(id: string, cb: (error: Error, result: Address) => void): void;
+    getAddress(id: string, cb: (error: Error | null, result: Address) => void): void;
 
     /**
      * Creates a new address for an account. As all the arguments are optinal, it’s possible just to do a empty POST which will create a new
@@ -552,20 +594,20 @@ export class Account implements Resource {
      * Scope: wallet:addresses:create
      * @param opts can be null, optional address name
      */
-    createAddress(opts: CreateAddressOpts | null, cb: (error: Error, result: Address) => void): void;
+    createAddress(opts: CreateAddressOpts | null, cb: (error: Error | null, result: Address) => void): void;
 
     /**
      * Lists account’s transactions.
      * Scope: wallet:transactions:read
      */
-    getTransactions(cb: (error: Error, result: Transaction[]) => void): void;
+    getTransactions(opts: {}, cb: (error: Error | null, result: Transaction[]) => void): void;
 
     /**
      * Show an individual transaction for an account
      * Scope: wallet:transactions:read
      * @param id resource id
      */
-    getTransaction(id: string, cb: (error: Error, result: Transaction) => void): void;
+    getTransaction(id: string, cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Send funds to a bitcoin address, litecoin address, ethereum address, or email address. No transaction fees are required for off
@@ -583,7 +625,7 @@ export class Account implements Resource {
      *
      * Scope: wallet:transactions:send, wallet:transactions:send:bypass-2fa
      */
-    sendMoney(opts: SendMoneyOpts, cb: (error: Error, result: Transaction) => void): void;
+    sendMoney(opts: SendMoneyOpts, cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Transfer bitcoin, litecoin or ethereum between two of a user’s accounts. Following transfers are allowed:
@@ -591,26 +633,26 @@ export class Account implements Resource {
      * - wallet to vault
      * Scope: wallet:transactions:transfer
      */
-    transferMoney(opts: TransferMoneyOpts, cb: (error: Error, result: Transaction) => void): void;
+    transferMoney(opts: TransferMoneyOpts, cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Requests money from an email address.
      * Scope: wallet:transactions:request
      */
-    requestMoney(opts: RequestMoneyOpts, cb: (error: Error, result: Transaction) => void): void;
+    requestMoney(opts: RequestMoneyOpts, cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Lists buys for an account.
      * Scope: wallet:buys:read
      */
-    getBuys(cb: (error: Error, result: Buy[]) => void): void;
+    getBuys(opts: null, cb: (error: Error | null, result: Buy[]) => void): void;
 
     /**
      * Show an individual buy.
      * Scope: wallet:buys:read
      * @param id resource id
      */
-    getBuy(id: string, cb: (error: Error, result: Buy) => void): void;
+    getBuy(id: string, cb: (error: Error | null, result: Buy) => void): void;
 
     /**
      * Buys a user-defined amount of bitcoin, litecoin or ethereum.
@@ -630,20 +672,20 @@ export class Account implements Resource {
      * @param opts indicates what to buy
      * @param cb receives transaction that you can use to commit the buy
      */
-    buy(opts: BuyOpts, cb: (error: Error, result: Buy) => void): void;
+    buy(opts: BuyOpts, cb: (error: Error | null, result: Buy) => void): void;
 
     /**
      * Lists sells for an account.
      * Scope: wallet:sells:read
      */
-    getSells(cb: (error: Error, result: Sell[]) => void): void;
+    getSells(opts: null, cb: (error: Error | null, result: Sell[]) => void): void;
 
     /**
      * Show an individual sell.
      * Scope: wallet:sells:read
      * @param id resource id
      */
-    getSell(id: string, cb: (error: Error, result: Sell) => void): void;
+    getSell(id: string, cb: (error: Error | null, result: Sell) => void): void;
 
     /**
      * Sells a user-defined amount of bitcoin, litecoin or ethereum.
@@ -663,45 +705,45 @@ export class Account implements Resource {
      * the user when they are filling a form or similar situation.
      * Scope: wallet:sells:create
      */
-    sell(opts: SellOpts, cb: (error: Error, result: Sell) => void): void;
+    sell(opts: SellOpts, cb: (error: Error | null, result: Sell) => void): void;
 
     /**
      * Lists deposits for an account.
      * Scope: wallet:deposits:read
      */
-    getDeposits(cb: (error: Error, result: Deposit[]) => void): void;
+    getDeposits(cb: (error: Error | null, result: Deposit[]) => void): void;
 
     /**
      * Show an individual deposit.
      * Scope: wallet:deposits:read
      * @param id resource id
      */
-    getDeposit(id: string, cb: (error: Error, result: Deposit) => void): void;
+    getDeposit(id: string, cb: (error: Error | null, result: Deposit) => void): void;
 
     /**
      * Deposits user-defined amount of funds to a fiat account.
      * Scope: wallet:deposits:create
      */
-    deposit(opts: DepositOpts, cb: (error: Error, result: Deposit) => void): void;
+    deposit(opts: DepositOpts, cb: (error: Error | null, result: Deposit) => void): void;
 
     /**
      * Lists withdrawals for an account.
      * Scope: wallet:withdrawals:read
      */
-    getWithdrawals(cb: (error: Error, result: Withdrawal[]) => void): void;
+    getWithdrawals(cb: (error: Error | null, result: Withdrawal[]) => void): void;
 
     /**
      * Show an individual withdrawal.
      * Scope: wallet:withdrawals:read
      * @param id resource id
      */
-    getWithdrawal(id: string, cb: (error: Error, result: Withdrawal) => void): void;
+    getWithdrawal(id: string, cb: (error: Error | null, result: Withdrawal) => void): void;
 
     /**
      * Withdraws user-defined amount of funds from a fiat account.
      * Scope: wallet:withdrawals:create
      */
-    withdraw(opts: WithdrawOpts, cb: (error: Error, result: Withdrawal) => void): void;
+    withdraw(opts: WithdrawOpts, cb: (error: Error | null, result: Withdrawal) => void): void;
 }
 
 /**
@@ -797,19 +839,19 @@ export class Transaction implements Resource {
      * This can only be completed by the user to whom the request was made, not the user who sent the request.
      * Scope: wallet:transactions:request
      */
-    complete(cb: (error: Error, result: Transaction) => void): void;
+    complete(cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Lets the user resend a money request. This will notify recipient with a new email.
      * Scope: wallet:transactions:request
      */
-    resend(cb: (error: Error, result: Transaction) => void): void;
+    resend(cb: (error: Error | null, result: Transaction) => void): void;
 
     /**
      * Lets a user cancel a money request. Money requests can be canceled by the sender or the recipient.
      * Scope: wallet:transactions:request
      */
-    cancel(cb: (error: Error, result: Transaction) => void): void;
+    cancel(cb: (error: Error | null, result: Transaction) => void): void;
 }
 
 export type BuyStatus = "created" | "completed" | "canceled";
@@ -836,7 +878,7 @@ export class Buy implements Resource {
     /**
      * Associated transaction (e.g. a bank, fiat account)
      */
-    transaction: ResourceRef;
+    transaction: ResourceRef | null;
 
     /**
      * Amount in bitcoin, litecoin or ethereum
@@ -854,9 +896,9 @@ export class Buy implements Resource {
     subtotal: MoneyHash;
 
     /**
-     * Fee associated to this buy
+     * Fees associated to this buy
      */
-    fee: MoneyHash;
+    fees: Fee[];
 
     /**
      * Has this buy been committed?
@@ -874,13 +916,79 @@ export class Buy implements Resource {
     payout_at?: string;
 
     /**
+     * Unit price of the base currency.
+     */
+    unit_price: UnitPrice;
+
+    /**
+     * Hold period for transfer.
+     */
+    hold_business_days: number;
+
+    /**
+     * Is it the first buy for this symbol?
+     */
+    is_first_buy: boolean;
+
+    /**
+     * Is there another action required to make the transfer pass?
+     */
+    requires_completion_step: boolean;
+
+    /**
+     * Transfer identifier
+     */
+    id: string;
+
+    /**
+     * Reference code shown in user's dashboard.
+     */
+    user_reference: string;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
+
+    /**
      * Completes a buy that is created in commit: false state.
      * If the exchange rate has changed since the buy was created, this call will fail with the error “The exchange rate updated while you
      * were waiting. The new total is shown below”. The buy’s total will also be updated. You can repeat the `commit` call to accept the new
      * values and start the buy at the new rates.
      * Scope: wallet:buys:create
      */
-    commit(cb: (error: Error, transaction: Buy) => void): void;
+    commit(cb: (error: Error | null, result: Buy) => void): void;
+}
+
+export interface Fee {
+    /**
+     * Amount associated to this fee
+     */
+    amount: MoneyHash;
+    /**
+     * Fee beneficiary ("bank", "coinbase", ...)
+     */
+    type: string;
+}
+
+export interface UnitPrice {
+    /**
+     * Amount as floating-point in a string
+     */
+    amount: string;
+    /**
+     * Currency e.g. "BTC" (see Client#getCurrencies() for available strings)
+     */
+    currency: string;
+    /**
+     * Type of price
+     */
+    scale: number;
 }
 
 export type SellStatus = "created" | "completed" | "canceled";
@@ -907,7 +1015,7 @@ export class Sell implements Resource {
     /**
      * Associated transaction (e.g. a bank, fiat account)
      */
-    transaction: ResourceRef;
+    transaction: ResourceRef | null;
 
     /**
      * Amount in bitcoin, litecoin or ethereum
@@ -925,9 +1033,9 @@ export class Sell implements Resource {
     subtotal: MoneyHash;
 
     /**
-     * Fee associated to this sell
+     * Fees associated to this sell
      */
-    fee: MoneyHash;
+    fees: MoneyHash[];
 
     /**
      * Has this sell been committed?
@@ -945,13 +1053,33 @@ export class Sell implements Resource {
     payout_at?: string;
 
     /**
+     * Transfer identifier
+     */
+    id: string;
+
+    /**
+     * Reference code shown in user's dashboard.
+     */
+    user_reference: string;
+
+    /**
+     * ISO timestamp
+     */
+    created_at: string;
+
+    /**
+     * ISO timestamp
+     */
+    updated_at: string;
+
+    /**
      * Completes a sell that is created in commit: false state.
      * If the exchange rate has changed since the sell was created, this call will fail with the error “The exchange rate updated while you
      * were waiting. The new total is shown below”. The buy’s total will also be updated. You can repeat the `commit` call to accept the new
      * values and start the buy at the new rates.
      * Scope: wallet:sells:create
      */
-    commit(cb: (error: Error, transaction: Sell) => void): void;
+    commit(cb: (error: Error | null, result: Sell) => void): void;
 }
 
 export type DepositStatus = "created" | "completed" | "canceled";
@@ -1028,7 +1156,7 @@ export class Deposit implements Resource {
      * Completes a deposit that is created in commit: false state.
      * Scope: wallet:deposits:create
      */
-    commit(cb: (error: Error, result: Deposit) => void): void;
+    commit(cb: (error: Error | null, result: Deposit) => void): void;
 }
 
 export type WithdrawalStatus = "created" | "completed" | "canceled";
@@ -1106,7 +1234,7 @@ export class Withdrawal implements Resource {
      * Completes a withdrawal that is created in commit: false state.
      * Scope: wallet:withdrawals:create
      */
-    commit(cb: (error: Error, result: Withdrawal) => void): void;
+    commit(cb: (error: Error | null, result: Withdrawal) => void): void;
 }
 
 export type PaymentMethodType = "ach_bank_account" | "sepa_bank_account" | "ideal_bank_account" | "fiat_account" | "bank_wire"
@@ -1209,35 +1337,41 @@ export interface PaymentMethodLimit {
  * Information about one supported currency.  Currency codes will conform to the ISO 4217 standard where possible.
  * Currencies which have or had no representation in ISO 4217 may use a custom code (e.g. BTC).
  */
-export interface Currency {
-    /**
-     * Abbreviation e.g. "USD" or "BTC"
-     */
-    id: string;
-    /**
-     * Full name e.g. "United Arab Emirates Dirham"
-     */
-    name: string;
-    /**
-     * Floating-point number in a string
-     */
-    min_size: string;
+export interface Currencies {
+    data: [{
+        /**
+         * Abbreviation e.g. "USD" or "BTC"
+         */
+        id: string;
+        /**
+         * Full name e.g. "United Arab Emirates Dirham"
+         */
+        name: string;
+        /**
+         * Floating-point number in a string
+         */
+        min_size: string;
+    }];
 }
 
 export interface ExchangeRate {
-    /**
-     * Base currency
-     */
-    currency: string;
-    /**
-     * Rates as floating points in strings; indexed by currency id
-     */
-    rates: { [index: string]: string };
+    data: {
+        /**
+         * Base currency
+         */
+        currency: string;
+        /**
+         * Rates as floating points in strings; indexed by currency id
+         */
+        rates: { [index: string]: string };
+    };
 }
 
 export interface Time {
-    iso: string;
-    epoch: number;
+    data: {
+        iso: string;
+        epoch: number;
+    };
 }
 
 export class Client {
@@ -1248,59 +1382,59 @@ export class Client {
      * Scopes: none
      * @param id resource id
      */
-    getUser(id: string, cb: (error: Error, result: User) => void): void;
+    getUser(id: string, cb: (error: Error | null, result: User) => void): void;
 
     /**
      * Get the current user. To get user’s email or private information, use permissions wallet:user:email and wallet:user:read. If current
      * request has a wallet:transactions:send scope, then the response will contain a boolean sends_disabled field that indicates
      * if the user’s send functionality has been disabled.
      */
-    getCurrentUser(cb: (error: Error, result: User) => void): void;
+    getCurrentUser(cb: (error: Error | null, result: User) => void): void;
 
     /**
      * Returns all accounts for the current user
      * Scope: wallet:accounts:read
      */
-    getAccounts(opts: {}, cb: (error: Error, result: Account[]) => void): void;
+    getAccounts(opts: {}, cb: (error: Error | null, result: Account[]) => void): void;
 
     /**
      * Get one account by its Resource ID
      * Scope: wallet:accounts:read
      * @param id resource ID or "primary"
      */
-    getAccount(id: string, cb: (error: Error, result: Account) => void): void;
+    getAccount(id: string, cb: (error: Error | null, result: Account) => void): void;
 
     /**
      * Creates a new account for user.
      * Scopes: wallet:accounts:create
      */
-    createAccount(opts: CreateAccountOpts, cb: (error: Error, result: Account) => void): void;
+    createAccount(opts: CreateAccountOpts, cb: (error: Error | null, result: Account) => void): void;
 
     /**
      * Lists current user’s payment methods
      * Scope: wallet:payment-methods:read
      */
-    getPaymentMethods(cb: (error: Error, result: PaymentMethod[]) => void): void;
+    getPaymentMethods(cb: (error: Error | null, result: PaymentMethod[]) => void): void;
 
     /**
      * Show current user’s payment method.
      * Scope: wallet:payment-methods:read
      */
-    getPaymentMethod(id: string, cb: (error: Error, result: PaymentMethod) => void): void;
+    getPaymentMethod(id: string, cb: (error: Error | null, result: PaymentMethod) => void): void;
 
     /**
      * List known currencies. Currency codes will conform to the ISO 4217 standard where possible. Currencies which have or had no
      * representation in ISO 4217 may use a custom code (e.g. BTC).
      * Scope: none
      */
-    getCurrencies(cb: (error: Error, result: Currency[]) => void): void;
+    getCurrencies(cb: (error: Error | null, result: Currencies) => void): void;
 
     /**
      * Get current exchange rates. Default base currency is USD but it can be defined as any supported currency.
      * Returned rates will define the exchange rate for one unit of the base currency.
      * Scope: none
      */
-    getExchangeRates(opts: GetExchangeRateOpts, cb: (error: Error, result: ExchangeRate) => void): void;
+    getExchangeRates(opts: GetExchangeRateOpts, cb: (error: Error | null, result: ExchangeRate) => void): void;
 
     /**
      * Get the total price to buy one bitcoin or ether. Note that exchange rates fluctuates so the price is only correct for seconds at the time.
@@ -1308,7 +1442,7 @@ export class Client {
      * If you need more accurate price estimate for a specific payment method or amount, @see Account#buy() and `quote: true` option.
      * Scope: none
      */
-    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getBuyPrice(opts: GetBuyPriceOpts, cb: (error: Error | null, result: Price) => void): void;
 
     /**
      * Get the total price to sell one bitcoin or ether. Note that exchange rates fluctuates so the price is only correct for seconds at the time.
@@ -1316,7 +1450,7 @@ export class Client {
      * estimate for a specific payment method or amount, see sell bitcoin endpoint and quote: true option.
      * Scope: none
      */
-    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSellPrice(opts: GetSellPriceOpts, cb: (error: Error | null, result: Price) => void): void;
 
     /**
      * Get the current market price for bitcoin. This is usually somewhere in between the buy and sell price.
@@ -1324,10 +1458,10 @@ export class Client {
      * You can also get historic prices with date parameter.
      * Scope: none
      */
-    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error, result: MoneyHash) => void): void;
+    getSpotPrice(opts: GetSpotPriceOpts, cb: (error: Error | null, result: Price) => void): void;
 
     /**
      * Get the API server time.
      */
-    getTime(cb: (error: Error, result: Time) => void): void;
+    getTime(cb: (error: Error | null, result: Time) => void): void;
 }

@@ -7,6 +7,7 @@ declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
 declare var blockStatement: ESTree.BlockStatement;
 declare var expressionStatement: ESTree.ExpressionStatement;
+declare var directive: ESTree.Directive;
 declare var ifStatement: ESTree.IfStatement;
 declare var labeledStatement: ESTree.LabeledStatement;
 declare var breakStatement: ESTree.BreakStatement;
@@ -120,6 +121,15 @@ statement = blockStatement.body[0];
 var expressionStatement: ESTree.ExpressionStatement;
 expression = expressionStatement.expression;
 
+// Directive
+literal = directive.expression;
+// $ExpectType string
+directive.directive;
+
+// pattern
+var pattern: ESTree.Pattern;
+var patternOrNull: ESTree.Pattern | null;
+
 // IfStatement
 var ifStatement: ESTree.IfStatement;
 expression = ifStatement.test;
@@ -223,7 +233,8 @@ boolean = memberExpression.computed;
 
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
-identifier = functionDeclaration.id;
+var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+functionDeclaration.id = null;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
@@ -237,6 +248,10 @@ var variableDeclarator: ESTree.VariableDeclarator;
 pattern = variableDeclarator.id; // Pattern
 expressionMaybe = variableDeclarator.init;
 
+var classDeclaration: ESTree.ClassDeclaration;
+identifierOrNull = classDeclaration.id;
+classDeclaration.id = null;
+
 // Clauses
 // SwitchCase
 string = switchCase.type;
@@ -245,7 +260,7 @@ statement = switchCase.consequent[0];
 
 // CatchClause
 string = catchClause.type;
-pattern = catchClause.param;
+patternOrNull = catchClause.param;
 blockStatement = catchClause.body;
 
 // Misc
@@ -272,9 +287,6 @@ switch (node.type) {
     break;
   case 'Program':
     program = node;
-    break;
-  case 'FunctionDeclaration':
-    functionDeclaration = node
     break;
   case 'FunctionExpression':
     functionExpression = node
@@ -367,17 +379,11 @@ switch (node.type) {
   case 'ObjectExpression':
     objectExpression = node;
     break;
-  case 'FunctionExpression':
-    functionExpression = node;
-    break;
   case 'ArrowFunctionExpression':
     arrowFunctionExpression = node;
     break;
   case 'YieldExpression':
     yieldExpression = node;
-    break;
-  case 'Literal':
-    literal = node;
     break;
   case 'UnaryExpression':
     unaryExpression = node;
@@ -421,9 +427,6 @@ switch (node.type) {
   case 'MetaProperty':
     metaProperty = node;
     break;
-  case 'Identifier':
-    identifier = node;
-    break;
   case 'AwaitExpression':
     awaitExpression = node;
     break;
@@ -443,9 +446,6 @@ switch (node.type) {
     break;
 
   // narrowing of Pattern
-  case 'Identifier':
-    identifier = node;
-    break;
   case 'ObjectPattern':
     objectPattern = node;
     break;
@@ -458,19 +458,10 @@ switch (node.type) {
   case 'AssignmentPattern':
     assignmentPattern = node;
     break;
-  case 'MemberExpression':
-    memberExpression = node;
-    break;
   // end narrowing of Pattern
 
   case 'ClassBody':
     classBody = node
-    break;
-  case 'ClassDeclaration':
-    classDeclaration = node
-    break;
-  case 'ClassExpression':
-    classExpression = node
     break;
   case 'MethodDefinition':
     methodDefinition = node

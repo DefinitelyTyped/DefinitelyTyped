@@ -1,6 +1,3 @@
-/// <reference types="knockout.postbox" />
-/// <reference types="knockout.mapping" />
-
 declare var $;
 
 function test_creatingVMs() {
@@ -90,13 +87,26 @@ function test_computed() {
 }
 
 class GetterViewModel {
-    private _selectedRange: KnockoutObservable<any>;
+    private readonly _selectedRange: KnockoutObservable<any>;
 
     constructor() {
         this._selectedRange = ko.observable();
     }
 
     public range: KnockoutObservable<any>;
+}
+
+function testToJs() {
+    var objKo = {
+        prop: ko.observable("prop"),
+        subKo: ko.observable({
+            prop: ko.observable("prop")
+        })
+    };
+
+    var objJs = ko.toJS(objKo);
+    objJs.prop; // $ExpectType any
+    objJs.subKo.prop; // $ExpectType any
 }
 
 function testGetter() {
@@ -163,7 +173,7 @@ function test_bindings() {
 
     ko.bindingHandlers.yourBindingName = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        	return { "controlsDescendantBindings": true };
+            return { "controlsDescendantBindings": true };
         },
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         }
@@ -182,7 +192,7 @@ function test_bindings() {
             var value = ko.utils.unwrapObservable(valueAccessor());
             $(element).toggle(value);
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean> | boolean>;
     ko.bindingHandlers.hasFocus = {
         init: function (element, valueAccessor) {
             $(element).focus(function () {
@@ -201,7 +211,7 @@ function test_bindings() {
             else
                 element.blur();
         }
-    };
+    } as KnockoutBindingHandler<HTMLElement, KnockoutObservable<boolean>>;
     ko.bindingHandlers.allowBindings = {
         init: function (elem, valueAccessor) {
             var shouldAllowBindings = ko.utils.unwrapObservable(valueAccessor());
@@ -356,7 +366,7 @@ function test_more() {
     function AppViewModel3() {
         this.instantaneousValue = ko.observable();
         this.throttledValue = ko.computed(this.instantaneousValue)
-                                .extend({ throttle: 400 });
+            .extend({ throttle: 400 });
 
         this.loggedValues = ko.observableArray([]);
         this.throttledValue.subscribe(function (val) {
@@ -438,64 +448,12 @@ function test_more() {
 
     ko.applyBindings(new AppViewModel4());
     this.doneTasks = ko.computed(function () {
-    var all = this.tasks(), done: string[] = [];
+        var all = this.tasks(), done: string[] = [];
         for (var i = 0; i < all.length; i++)
             if (all[i].done())
                 done.push(all[i]);
         return done;
     }, this);
-}
-
-function test_mappingplugin() {
-    var viewModel0 = {
-        serverTime: ko.observable(),
-        numUsers: ko.observable()
-    }
-    var data = {
-        serverTime: '2010-01-07',
-        numUsers: 3
-    };
-    viewModel0.serverTime(data.serverTime);
-    viewModel0.numUsers(data.numUsers);
-
-    var viewModel = ko.mapping.fromJS(data);
-    ko.mapping.fromJS(data, viewModel);
-    var unmapped = ko.mapping.toJS(viewModel);
-
-    var viewModel = ko.mapping.fromJS(data);
-    ko.mapping.fromJS(data, viewModel);
-
-    var myChildModel = function (data) {
-        ko.mapping.fromJS(data, {}, this);
-
-        this.nameLength = ko.computed(function () {
-            return this.name().length;
-        }, this);
-    }
-
-    var oldOptions = ko.mapping.defaultOptions().include;
-    ko.mapping.defaultOptions().include = ["alwaysIncludeThis"];
-
-    var oldOptions = ko.mapping.defaultOptions().copy;
-    ko.mapping.defaultOptions().copy = ["alwaysCopyThis"];
-
-    var someObject;
-    ko.mapping.fromJS(data, {}, someObject);
-    ko.mapping.fromJS(data, {}, this);
-
-    var alice, aliceMappingOptions, bob, bobMappingOptions;
-    var aliceViewModel = ko.mapping.fromJS(alice, aliceMappingOptions);
-    ko.mapping.fromJS(bob, bobMappingOptions, aliceViewModel);
-
-    var obj;
-    var result = ko.mapping.fromJS(obj, {
-        key: function (item) {
-            return ko.utils.unwrapObservable(item.id);
-        }
-    });
-
-    result.mappedRemove({ id: 2 });
-    var newItem = result.mappedCreate({ id: 3 });
 }
 
 // Define your own functions
@@ -579,17 +537,24 @@ function test_misc() {
         $(element).datepicker("destroy");
     });
 
-	this.observableFactory = function(flag = true): KnockoutObservable<number>{
-	    if (flag) {
-			return ko.computed({
-				read:function(){
-					return 3;
-				}
-			});
-		} else {
-			return ko.observable(3);
-		}
-	}
+    this.observableFactory = function (flag = true): KnockoutObservable<number> {
+        if (flag) {
+            return ko.computed({
+                read: function () {
+                    return 3;
+                }
+            });
+        } else {
+            return ko.observable(3);
+        }
+    }
+
+    ko.observable("foo").equalityComparer = (a, b) => {
+        return a.toLowerCase() === b.toLowerCase();
+    };
+    ko.computed(() => "foo").equalityComparer = (a, b) => {
+        return (a !== undefined) && a.toLowerCase() === b.toLowerCase();
+    };
 
 }
 
@@ -667,7 +632,7 @@ function testUnwrapUnion() {
 
 function test_tasks() {
     // Schedule an empty task
-    ko.tasks.schedule(function() {
+    ko.tasks.schedule(function () {
     });
 
     // Schedule a task with arguments and return type
@@ -739,4 +704,8 @@ interface MyObservableArray extends KnockoutObservableArray<any> {
 
 interface MyComputed extends KnockoutComputed<any> {
     isBeautiful?: boolean;
+}
+
+function observableAny() {
+    ko.observable<number>(5 as any); // $ExpectType KnockoutObservable<number>
 }

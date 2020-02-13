@@ -3,9 +3,11 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>
 //                 Boris Yankov <https://github.com/borisyankov>
 //                 Matthias Jobst <https://github.com/MatthiasJobst>
+//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
+//                 Mihai Cherej <https://github.com/cronco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Latest patch version of module validated against: 3.5.17
+// Latest patch version of module validated against: 3.5.18
 
 export = d3;
 export as namespace d3;
@@ -235,7 +237,7 @@ declare namespace d3 {
              * @param name the element name to append. May be prefixed (see d3.ns.prefix).
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert 
+            // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
             insert(name: string, before?: string): Update<Datum>;
 
             /**
@@ -2576,8 +2578,8 @@ declare namespace d3 {
             tickPadding(): number;
             tickPadding(padding: number): Axis;
 
-            tickFormat(): (t: any) => string;
-            tickFormat(format: (t: any) => string): Axis;
+            tickFormat(): (t: any , index : number) => string;
+            tickFormat(format: (t: any , index : number) => string): Axis;
             tickFormat(format: string): Axis;
         }
 
@@ -3075,7 +3077,7 @@ declare namespace d3 {
 
             interface Node {
                 parent?: Node;
-                children?: number;
+                children?: Node[];
                 value?: number;
                 depth?: number;
                 x?: number;
@@ -3277,7 +3279,7 @@ declare namespace d3 {
             round(round: boolean): Treemap<T>;
 
             sticky(): boolean;
-            sticky(sticky: boolean): boolean;
+            sticky(sticky: boolean): Treemap<T>;
 
             mode(): string;
             mode(mode: "squarify"): Treemap<T>;

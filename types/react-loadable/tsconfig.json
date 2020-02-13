@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "test/index.tsx",
+        "test/webpack.ts",
         "test/imports/no-default.tsx",
         "test/imports/with-default.tsx"
     ]

@@ -4,9 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-///<reference types="jquery" /> 
-///<reference types="bootstrap" /> 
-///<reference types="knockout" /> 
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 interface KnockoutUtils {
     uniqueId(prefix: string): string;

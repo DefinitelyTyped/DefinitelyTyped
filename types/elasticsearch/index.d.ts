@@ -1,5 +1,5 @@
 // Type definitions for elasticsearch 5.0
-// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
+// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/16.x/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt>
 //                 Blake Smith <https://github.com/bfsmith>
 //                 Dave Dunkin <https://github.com/ddunkin>
@@ -7,8 +7,14 @@
 //                 Margus Lamp <https://github.com/mlamp>
 //                 Ahmad Ferdous Bin Alam <https://github.com/ahmadferdous>
 //                 Simon Schick <https://github.com/SimonSchick>
+//                 Paul Brabban <https://github.com/brabster>
+//                 Budi Irawan <https://github.com/deerawan>
+//                 Yonatan Kiron <https://github.com/YonatanKiron>
+//                 Jani Šumak <https://github.com/dasdachs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
+import HttpConnector = require("./src/lib/connectors/http");
 
 export class Client {
     constructor(params: ConfigOptions);
@@ -19,76 +25,76 @@ export class Client {
     nodes: Nodes;
     snapshot: Snapshot;
     tasks: Tasks;
-    bulk(params: BulkIndexDocumentsParams): Promise<any>;
     bulk(params: BulkIndexDocumentsParams, callback: (error: any, response: any) => void): void;
+    bulk(params: BulkIndexDocumentsParams): Promise<any>;
     clearScroll(params: ClearScrollParams, callback: (error: any, response: any) => void): void;
     clearScroll(params: ClearScrollParams): Promise<any>;
     count(params: CountParams, callback: (error: any, response: CountResponse) => void): void;
     count(params: CountParams): Promise<CountResponse>;
-    create(params: CreateDocumentParams): Promise<CreateDocumentResponse>;
     create(params: CreateDocumentParams, callback: (err: any, response: CreateDocumentResponse, status: any) => void): void;
-    delete(params: DeleteDocumentParams): Promise<DeleteDocumentResponse>;
+    create(params: CreateDocumentParams): Promise<CreateDocumentResponse>;
     delete(params: DeleteDocumentParams, callback: (error: any, response: DeleteDocumentResponse) => void): void;
-    deleteByQuery(params: DeleteDocumentByQueryParams): Promise<DeleteDocumentByQueryResponse>;
+    delete(params: DeleteDocumentParams): Promise<DeleteDocumentResponse>;
     deleteByQuery(params: DeleteDocumentByQueryParams, callback: (error: any, response: DeleteDocumentByQueryResponse) => void): void;
-    deleteScript(params: DeleteScriptParams): Promise<any>;
+    deleteByQuery(params: DeleteDocumentByQueryParams): Promise<DeleteDocumentByQueryResponse>;
     deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
-    deleteTemplate(params: DeleteTemplateParams): Promise<any>;
+    deleteScript(params: DeleteScriptParams): Promise<any>;
     deleteTemplate(params: DeleteTemplateParams, callback: (error: any, response: any) => void): void;
-    exists(params: ExistsParams): Promise<any>;
-    exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
-    explain(params: ExplainParams): Promise<ExplainResponse>;
+    deleteTemplate(params: DeleteTemplateParams): Promise<any>;
+    exists(params: ExistsParams, callback: (error: any, response: boolean, status?: any) => void): void;
+    exists(params: ExistsParams): Promise<boolean>;
     explain(params: ExplainParams, callback: (error: any, response: ExplainResponse) => void): void;
-    fieldStats(params: FieldStatsParams): Promise<FieldStatsResponse>;
+    explain(params: ExplainParams): Promise<ExplainResponse>;
     fieldStats(params: FieldStatsParams, callback: (error: any, response: FieldStatsResponse) => void): void;
+    fieldStats(params: FieldStatsParams): Promise<FieldStatsResponse>;
     get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
     get<T>(params: GetParams): Promise<GetResponse<T>>;
-    getScript(params: GetScriptParams): Promise<any>;
     getScript(params: GetScriptParams, callback: (error: any, response: any) => void): void;
-    getSource(params: GetSourceParams): Promise<any>;
+    getScript(params: GetScriptParams): Promise<any>;
     getSource(params: GetSourceParams, callback: (error: any, response: any) => void): void;
-    getTemplate(params: GetTemplateParams): Promise<any>;
+    getSource(params: GetSourceParams): Promise<any>;
     getTemplate(params: GetTemplateParams, callback: (error: any, response: any) => void): void;
-    index<T>(params: IndexDocumentParams<T>): Promise<any>;
+    getTemplate(params: GetTemplateParams): Promise<any>;
     index<T>(params: IndexDocumentParams<T>, callback: (error: any, response: any) => void): void;
-    info(params: InfoParams): Promise<any>;
+    index<T>(params: IndexDocumentParams<T>): Promise<any>;
     info(params: InfoParams, callback: (error: any, response: any) => void): void;
+    info(params: InfoParams): Promise<any>;
     mget<T>(params: MGetParams, callback: (error: any, response: MGetResponse<T>) => void): void;
     mget<T>(params: MGetParams): Promise<MGetResponse<T>>;
     msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
     msearch<T>(params: MSearchParams): Promise<MSearchResponse<T>>;
     msearchTemplate<T>(params: MSearchTemplateParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
     msearchTemplate<T>(params: MSearchTemplateParams): Promise<MSearchResponse<T>>;
-    mtermvectors(params: MTermVectorsParams): Promise<any>;
     mtermvectors(params: MTermVectorsParams, callback: (error: any, response: any) => void): void;
-    ping(params: PingParams): Promise<any>;
+    mtermvectors(params: MTermVectorsParams): Promise<any>;
     ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
-    putScript(params: PutScriptParams): Promise<any>;
+    ping(params: PingParams): Promise<any>;
     putScript(params: PutScriptParams, callback: (err: any, response: any, status: any) => void): void;
-    putTemplate(params: PutTemplateParams): Promise<any>;
+    putScript(params: PutScriptParams): Promise<any>;
     putTemplate(params: PutTemplateParams, callback: (err: any, response: any, status: any) => void): void;
-    reindex(params: ReindexParams): Promise<ReindexResponse>;
+    putTemplate(params: PutTemplateParams): Promise<any>;
     reindex(params: ReindexParams, callback: (error: any, response: ReindexResponse) => void): void;
-    reindexRethrottle(params: ReindexRethrottleParams): Promise<any>;
+    reindex(params: ReindexParams): Promise<ReindexResponse>;
     reindexRethrottle(params: ReindexRethrottleParams, callback: (error: any, response: any) => void): void;
-    renderSearchTemplate(params: RenderSearchTemplateParams): Promise<any>;
+    reindexRethrottle(params: ReindexRethrottleParams): Promise<any>;
     renderSearchTemplate(params: RenderSearchTemplateParams, callback: (error: any, response: any) => void): void;
-    scroll<T>(params: ScrollParams): Promise<SearchResponse<T>>;
+    renderSearchTemplate(params: RenderSearchTemplateParams): Promise<any>;
     scroll<T>(params: ScrollParams, callback: (error: any, response: SearchResponse<T>) => void): void;
-    search<T>(params: SearchParams): Promise<SearchResponse<T>>;
+    scroll<T>(params: ScrollParams): Promise<SearchResponse<T>>;
     search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
-    searchShards(params: SearchShardsParams): Promise<SearchShardsResponse>;
+    search<T>(params: SearchParams): Promise<SearchResponse<T>>;
     searchShards(params: SearchShardsParams, callback: (error: any, response: SearchShardsResponse) => void): void;
-    searchTemplate(params: SearchTemplateParams): Promise<any>;
+    searchShards(params: SearchShardsParams): Promise<SearchShardsResponse>;
     searchTemplate(params: SearchTemplateParams, callback: (error: any, response: any) => void): void;
-    suggest(params: SuggestParams): Promise<any>;
+    searchTemplate(params: SearchTemplateParams): Promise<any>;
     suggest(params: SuggestParams, callback: (error: any, response: any) => void): void;
-    termvectors(params: TermvectorsParams): Promise<any>;
+    suggest(params: SuggestParams): Promise<any>;
     termvectors(params: TermvectorsParams, callback: (error: any, response: any) => void): void;
-    update(params: UpdateDocumentParams): Promise<any>;
+    termvectors(params: TermvectorsParams): Promise<any>;
     update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
-    updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
-    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+    update(params: UpdateDocumentParams): Promise<any>;
+    updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: UpdateDocumentByQueryResponse) => void): void;
+    updateByQuery(params: UpdateDocumentByQueryParams): Promise<UpdateDocumentByQueryResponse>;
     close(): void;
 }
 
@@ -109,7 +115,7 @@ export interface ConfigOptions {
     keepAlive?: boolean;
     maxSockets?: number;
     suggestCompression?: boolean;
-    connectionClass?: string;
+    connectionClass?: string | typeof HttpConnector;
     sniffedNodesProtocol?: string;
     ssl?: object;
     selector?: any;
@@ -199,6 +205,7 @@ export interface CreateDocumentParams extends GenericParams {
     waitForActiveShards?: string;
     parent?: string;
     refresh?: Refresh;
+    routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
     ttl?: TimeSpan;
@@ -276,26 +283,13 @@ export interface DeleteDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index?: string;
     type?: string;
 }
 
-export interface DeleteDocumentByQueryResponse {
-    took: number;
-    timed_out: boolean;
-    deleted: number;
-    batches: number;
-    version_conflicts: number;
-    noops: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    requests_per_second: number;
-    throttled_until_millis: number;
-    total: number;
-    failures: any[];
+export interface DeleteDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
 }
 
 export interface DeleteScriptParams extends GenericParams {
@@ -405,6 +399,7 @@ export interface GetResponse<T> {
     _type: string;
     _id: string;
     _version: number;
+    _routing?: string;
     found: boolean;
     _source: T;
 }
@@ -437,7 +432,7 @@ export interface IndexDocumentParams<T> extends GenericParams {
     waitForActiveShards?: string;
     opType?: "index" | "create";
     parent?: string;
-    refresh?: string;
+    refresh?: Refresh;
     routing?: string;
     timeout?: TimeSpan;
     timestamp?: Date | number;
@@ -459,7 +454,8 @@ export interface MGetParams extends GenericParams {
     preference?: string;
     realtime?: boolean;
     refresh?: boolean;
-    source?: NameList;
+    routing?: string;
+    _source?: NameList;
     _sourceExclude?: NameList;
     _sourceInclude?: NameList;
     index?: string;
@@ -525,6 +521,7 @@ export interface ReindexParams extends GenericParams {
     waitForActiveShards?: string;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     body: {
         conflicts?: string;
         source: {
@@ -551,20 +548,6 @@ export interface ReindexParams extends GenericParams {
             lang: string;
         }
     };
-}
-
-export interface ReindexResponse {
-    took: number;
-    updated: number;
-    created: number;
-    batches: number;
-    version_conflicts: number;
-    retries: {
-        bulk: number;
-        search: number;
-    };
-    throttled_millis: number;
-    failures: any[];
 }
 
 export interface ReindexRethrottleParams extends GenericParams {
@@ -639,6 +622,7 @@ export interface SearchResponse<T> {
             fields?: any;
             highlight?: any;
             inner_hits?: any;
+            matched_queries?: string[];
             sort?: string[];
         }>;
     };
@@ -777,8 +761,40 @@ export interface UpdateDocumentByQueryParams extends GenericParams {
     scrollSize?: number;
     waitForCompletion?: boolean;
     requestsPerSecond?: number;
+    slices?: number;
     index: NameList;
     type: NameList;
+}
+
+export interface UpdateDocumentByQueryResponse extends ReindexResponse {
+    // DeleteDocumentByQueryResponse, UpdateDocumentByQueryResponse and ReindexResponse are identical
+}
+
+export interface ReindexResponse extends ReindexResponseBase {
+    took: number;
+    timed_out: boolean;
+    failures: any[];
+    slices?: ReindexOrByQueryResponseSlice[];
+}
+
+export interface ReindexOrByQueryResponseSlice extends ReindexResponseBase {
+    slice_id: number;
+}
+
+export interface ReindexResponseBase {
+    total: number;
+    updated: number;
+    deleted: number;
+    batches: number;
+    version_conflicts: number;
+    noops: number;
+    retries: {
+        bulk: number;
+        search: number;
+    };
+    throttled_millis: number;
+    requests_per_second: number;
+    throttled_until_millis: number;
 }
 
 export interface Cat {
@@ -885,6 +901,7 @@ export interface CatSegmentsParams extends GenericParams {
 
 export interface CatShardsParams extends CatCommonParams {
     index?: NameList;
+    bytes?: CatBytes;
 }
 
 export interface CatSnapshotsParams extends GenericParams {
@@ -1010,14 +1027,14 @@ export class Indices {
     deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
     deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
     deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
-    exists(params: IndicesExistsParams, callback: (error: any, response: any, status: any) => void): void;
-    exists(params: IndicesExistsParams): Promise<any>;
-    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: any, status: any) => void): void;
-    existsAlias(params: IndicesExistsAliasParams): Promise<any>;
-    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-    existsTemplate(params: IndicesExistsTemplateParams): Promise<any>;
-    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: any, status: any) => void): void;
-    existsType(params: IndicesExistsTypeParams): Promise<any>;
+    exists(params: IndicesExistsParams, callback: (error: any, response: boolean, status: any) => void): void;
+    exists(params: IndicesExistsParams): Promise<boolean>;
+    existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsAlias(params: IndicesExistsAliasParams): Promise<boolean>;
+    existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsTemplate(params: IndicesExistsTemplateParams): Promise<boolean>;
+    existsType(params: IndicesExistsTypeParams, callback: (error: any, response: boolean, status: any) => void): void;
+    existsType(params: IndicesExistsTypeParams): Promise<boolean>;
     flush(params: IndicesFlushParams, callback: (error: any, response: any, status: any) => void): void;
     flush(params: IndicesFlushParams): Promise<any>;
     flushSynced(params: IndicesFlushSyncedParams, callback: (error: any, response: any, status: any) => void): void;
@@ -1118,6 +1135,7 @@ export interface IndicesDeleteParams extends GenericParams {
     timeout?: TimeSpan;
     masterTimeout?: TimeSpan;
     index: NameList;
+    ignoreUnavailable?: boolean;
 }
 
 export interface IndicesDeleteAliasParams extends GenericParams {
@@ -1268,15 +1286,16 @@ export interface IndicesPutAliasParams extends GenericParams {
 }
 
 export interface IndicesPutMappingParams extends GenericParams {
-    timeout?: TimeSpan;
-    masterTimeout?: TimeSpan;
-    ignoreUnavailable?: boolean;
-    allowNoIndices?: boolean;
-    expandWildcards?: ExpandWildcards;
-    updateAllTypes?: boolean;
-    index: NameList;
-    type: string;
-    body: any;
+  timeout?: TimeSpan;
+  masterTimeout?: TimeSpan;
+  ignoreUnavailable?: boolean;
+  allowNoIndices?: boolean;
+  expandWildcards?: ExpandWildcards;
+  updateAllTypes?: boolean;
+  index: NameList;
+  type: string;
+  includeTypeName?: boolean;
+  body: any;
 }
 
 export interface IndicesPutSettingsParams extends GenericParams {
@@ -1386,6 +1405,8 @@ export interface IndicesUpdateAliasesParamsAction {
         index?: string;
         indices?: string[];
         alias: string;
+        routing?: string;
+        filter?: object;
     };
     remove?: {
         index?: string;
@@ -1626,6 +1647,7 @@ export namespace errors {
     class ClientClosedRequest extends _Abstract {}
     class Conflict extends _Abstract {}
     class ExpectationFailed extends _Abstract {}
+    class Forbidden extends _Abstract {}
     class GatewayTimeout extends _Abstract {}
     class HTTPToHTTPS extends _Abstract {}
     class HTTPVersionNotSupported extends _Abstract {}

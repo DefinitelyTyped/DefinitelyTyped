@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as jsnox from "jsnox";
+import jsnox = require("jsnox");
 const $ = jsnox(React);
 
 interface PersonProps {
@@ -9,7 +9,7 @@ interface PersonProps {
 }
 
 class Person extends React.Component<PersonProps> {
-    render(): React.ReactElement<any> { return null; }
+    render(): React.ReactElement { return null; }
 }
 
 const PersonTag = React.createFactory(Person);

@@ -1,4 +1,4 @@
-// Type definitions for Google Drive API v3 3.0
+// Type definitions for non-npm package Google Drive API v3 3.0
 // Project: https://developers.google.com/drive/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,28 +16,12 @@ declare namespace gapi.client {
     function load(name: "drive", version: "v3"): PromiseLike<void>;
     function load(name: "drive", version: "v3", callback: () => any): void;
 
-    const about: drive.AboutResource;
-
-    const changes: drive.ChangesResource;
-
-    const channels: drive.ChannelsResource;
-
-    const comments: drive.CommentsResource;
-
-    const files: drive.FilesResource;
-
-    const permissions: drive.PermissionsResource;
-
-    const replies: drive.RepliesResource;
-
-    const revisions: drive.RevisionsResource;
-
-    const teamdrives: drive.TeamdrivesResource;
-
     namespace drive {
         interface About {
             /** Whether the user has installed the requesting app. */
             appInstalled?: boolean;
+            /** Whether the user can create Team Drives. */
+            canCreateTeamDrives?: boolean;
             /** A map of source MIME type to possible targets for all supported exports. */
             exportFormats?: Record<string, string[]>;
             /** The currently supported folder colors as RGB hex strings. */
@@ -363,8 +347,9 @@ declare namespace gapi.client {
             owners?: User[];
             /**
              * The IDs of the parent folders which contain the file.
-             * If not specified as part of a create request, the file will be placed directly in the My Drive folder. Update requests must use the addParents and
-             * removeParents parameters to modify the values.
+             * If not specified as part of a create request, the file will be placed directly in the user's My Drive folder. If not specified as part of a copy
+             * request, the file will inherit any discoverable parents of the source file. Update requests must use the addParents and removeParents parameters to
+             * modify the parents list.
              */
             parents?: string[];
             /** List of permission IDs for users with access to this file. */
@@ -683,6 +668,8 @@ declare namespace gapi.client {
             };
             /** The color of this Team Drive as an RGB hex string. It can only be set on a drive.teamdrives.update request that does not set themeId. */
             colorRgb?: string;
+            /** The time at which the Team Drive was created (RFC 3339 date-time). */
+            createdTime?: string;
             /** The ID of this Team Drive which is also the ID of the top level folder for this Team Drive. */
             id?: string;
             /** Identifies what kind of resource this is. Value: the fixed string "drive#teamDrive". */
@@ -1055,6 +1042,8 @@ declare namespace gapi.client {
             }): Request<File>;
             /** Creates a new file. */
             create(request: {
+                /** Resource Parameter for folder creation */
+                resource?: any;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1270,6 +1259,12 @@ declare namespace gapi.client {
                 keepRevisionForever?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**
+                 * The name of the file. This is not necessarily unique within a folder.
+                 * Note that for immutable items such as the top level folders of shared drives,
+                 * My Drive root folder, and Application Data folder the name is constant.
+                 */
+                name?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */
@@ -1322,7 +1317,7 @@ declare namespace gapi.client {
             create(request: {
                 /** Data format for the response. */
                 alt?: string;
-                /** A custom message to include in the notification email. */
+                /** A plain text custom message to include in the notification email. */
                 emailMessage?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
@@ -1351,6 +1346,11 @@ declare namespace gapi.client {
                  * the side effect.
                  */
                 transferOwnership?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1377,6 +1377,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<void>;
@@ -1403,6 +1408,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1434,6 +1444,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<PermissionList>;
@@ -1467,6 +1482,11 @@ declare namespace gapi.client {
                  * the side effect.
                  */
                 transferOwnership?: boolean;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the item belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<Permission>;
@@ -1777,6 +1797,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then the requester will be granted access if they
+                 * are an administrator of the domain to which the Team Drive belongs.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<TeamDrive>;
@@ -1796,11 +1821,18 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query string for searching Team Drives. */
+                q?: string;
                 /**
                  * Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
                  * Overrides userIp if both are provided.
                  */
                 quotaUser?: string;
+                /**
+                 * Whether the request should be treated as if it was issued by a domain administrator; if set to true, then all Team Drives of the domain in which the
+                 * requester is an administrator are returned.
+                 */
+                useDomainAdminAccess?: boolean;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
             }): Request<TeamDriveList>;
@@ -1827,5 +1859,23 @@ declare namespace gapi.client {
                 userIp?: string;
             }): Request<TeamDrive>;
         }
+
+        const about: AboutResource;
+
+        const changes: ChangesResource;
+
+        const channels: ChannelsResource;
+
+        const comments: CommentsResource;
+
+        const files: FilesResource;
+
+        const permissions: PermissionsResource;
+
+        const replies: RepliesResource;
+
+        const revisions: RevisionsResource;
+
+        const teamdrives: TeamdrivesResource;
     }
 }

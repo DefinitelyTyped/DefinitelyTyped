@@ -1,8 +1,20 @@
 import * as elasticsearch from "elasticsearch";
+import HttpConnector = require("elasticsearch/src/lib/connectors/http");
+
+class MyHttpConnector extends HttpConnector {
+  constructor(host: any, config: any) {
+    super(host, config);
+  }
+}
 
 let client = new elasticsearch.Client({
   host: 'localhost:9200',
   log: 'trace'
+});
+
+client = new elasticsearch.Client({
+  host: 'localhost:9200',
+  connectionClass: MyHttpConnector
 });
 
 client = new elasticsearch.Client({
@@ -25,9 +37,31 @@ client.search({
 }, (error) => {
 });
 
+client.search({
+  body: {
+    query: {
+      match_all: {
+        _name: 'test'
+      }
+    }
+  }
+}
+).then((body) => {
+  const hit = body.hits.hits[0];
+  const names = hit && hit.matched_queries;
+}, (error) => {
+});
+
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
+}).then((body) => {
+}, (error) => {
+});
+
+client.indices.delete({
+  index: 'test_index',
+  ignoreUnavailable: true
 }).then((body) => {
 }, (error) => {
 });
@@ -58,6 +92,14 @@ client.create({
   id: '123',
   index: 'index',
   type: 'type'
+}, (err, repsonse, status) => {
+});
+
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type',
+  routing: 'parent_123',
 }, (err, repsonse, status) => {
 });
 
@@ -161,6 +203,15 @@ client.index({
 }, (error, response) => {
 });
 
+client.get({
+  index: 'myindex',
+  type: 'mytype',
+  id: '1',
+  routing: '1'
+}, (error, response) => {
+  const routing = response._routing;
+});
+
 client.mget({
   body: {
     docs: [
@@ -176,6 +227,16 @@ client.mget({
 client.mget({
   index: 'myindex',
   type: 'mytype',
+  body: {
+    ids: [1, 2, 3],
+    _source: ['test']
+  }
+}, (error, response) => {
+  // ...
+});
+
+client.mget({
+  routing: "myroute",
   body: {
     ids: [1, 2, 3]
   }
@@ -249,6 +310,30 @@ client.search({
   }
 });
 
+client.updateByQuery({
+  index: 'myIndex',
+  type: 'mytype',
+}, (error, response) => {
+  const {
+    took,
+    timed_out,
+    updated,
+    deleted,
+    batches,
+    version_conflicts,
+    noops,
+    retries,
+    throttled_millis,
+    throttled_until_millis,
+    total,
+    failures
+  } = response;
+
+  const { bulk, search } = retries;
+
+  // ...
+});
+
 client.indices.updateAliases({
   body: {
     actions: [
@@ -262,7 +347,43 @@ client.indices.updateAliases({
   // ...
 });
 
+client.indices.updateAliases({
+  body: {
+    actions: [
+      {
+        add: {
+          index: 'logstash-2018.11', alias: 'logstash-filtered', filter: {
+            query: {
+              exists: { field: 'id' }
+            }
+          },
+          routing: 'id'
+        }
+      }
+    ]
+  }
+}).then((response) => {
+  // ...
+}, (error) => {
+  // ...
+});
+
+client.reindex({
+  body: {
+    source: {
+      index: "twitter"
+    },
+    dest: {
+      index: "new_twitter"
+    }
+  }
+})
+  .then(response => {
+    const { took, timed_out } = response;
+    // ...
+  });
+
 // Errors
 function testErrors() {
-    throw new elasticsearch.errors.AuthenticationException();
+  throw new elasticsearch.errors.AuthenticationException();
 }

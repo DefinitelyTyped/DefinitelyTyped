@@ -1,5 +1,4 @@
-import urljoin = require("url-join");
-import * as urljoin2 from "url-join";
+import urljoin = require('url-join');
 
-const s: string = urljoin("foo", "bar", "baz");
-const s2: string = urljoin2("foo", "bar", "baz");
+urljoin('http://www.google.com', 'a', '/b/cd', '?foo=123'); // $ExpectType string
+urljoin(['http://www.google.com', 'a', '/b/cd', '?foo=123']); // $ExpectType string

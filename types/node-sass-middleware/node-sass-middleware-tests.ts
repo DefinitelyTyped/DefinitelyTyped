@@ -1,6 +1,5 @@
-
-import * as express from "express";
-import * as sassMiddleware from "node-sass-middleware";
+import express = require("express");
+import sassMiddleware = require("node-sass-middleware");
 import * as path from "path";
 var app = express();
 app.use(sassMiddleware({

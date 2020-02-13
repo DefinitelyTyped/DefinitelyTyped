@@ -1,34 +1,38 @@
-// Type definitions for Google Apps Script 2017-05-12
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Calendar {
+  namespace Calendar {
     /**
      * Represents a calendar that the user owns or is subscribed to.
      */
-    export interface Calendar {
-      createAllDayEvent(title: string, date: Date): CalendarEvent;
-      createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
-      createEvent(title: string, startTime: Date, endTime: Date): CalendarEvent;
-      createEvent(title: string, startTime: Date, endTime: Date, options: Object): CalendarEvent;
+    interface Calendar {
+      createAllDayEvent(title: string, date: Base.Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEvent(title: string, date: Base.Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEventSeries(title: string, startDate: Base.Date, recurrence: EventRecurrence): CalendarEventSeries;
+      createAllDayEventSeries(title: string, startDate: Base.Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
+      createEvent(title: string, startTime: Base.Date, endTime: Base.Date): CalendarEvent;
+      createEvent(title: string, startTime: Base.Date, endTime: Base.Date, options: { [key: string]: any }): CalendarEvent;
       createEventFromDescription(description: string): CalendarEvent;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Base.Date, endTime: Base.Date, recurrence: EventRecurrence): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Base.Date, endTime: Base.Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       deleteCalendar(): void;
       getColor(): string;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
-      getEvents(startTime: Date, endTime: Date): CalendarEvent[];
-      getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
-      getEventsForDay(date: Date): CalendarEvent[];
-      getEventsForDay(date: Date, options: Object): CalendarEvent[];
+      getEvents(startTime: Base.Date, endTime: Base.Date): CalendarEvent[];
+      getEvents(startTime: Base.Date, endTime: Base.Date, options: { [key: string]: any }): CalendarEvent[];
+      getEventsForDay(date: Base.Date): CalendarEvent[];
+      getEventsForDay(date: Base.Date, options: { [key: string]: any }): CalendarEvent[];
       getId(): string;
       getName(): string;
       getTimeZone(): string;
@@ -44,30 +48,31 @@ declare namespace GoogleAppsScript {
       setTimeZone(timeZone: string): Calendar;
       unsubscribeFromCalendar(): void;
     }
-
     /**
-     * Allows a script to read and update the user's Google Calendar. This class provides direct
-     *  access to the user's default calendar, as well as the ability to retrieve additional calendars
-     *  that the user owns or is subscribed to.
+     * Allows a script to read and update the user's Google Calendar. This class provides direct access
+     * to the user's default calendar, as well as the ability to retrieve additional calendars that the
+     * user owns or is subscribed to.
      */
-    export interface CalendarApp {
+    interface CalendarApp {
       Color: typeof Color;
       EventColor: typeof EventColor;
       GuestStatus: typeof GuestStatus;
       Month: typeof Base.Month;
       Visibility: typeof Visibility;
       Weekday: typeof Base.Weekday;
-      createAllDayEvent(title: string, date: Date): CalendarEvent;
-      createAllDayEvent(title: string, date: Date, options: Object): CalendarEvent;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createAllDayEventSeries(title: string, startDate: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createAllDayEvent(title: string, date: Base.Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date): CalendarEvent;
+      createAllDayEvent(title: string, startDate: Base.Date, endDate: Base.Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEvent(title: string, date: Base.Date, options: { [key: string]: any }): CalendarEvent;
+      createAllDayEventSeries(title: string, startDate: Base.Date, recurrence: EventRecurrence): CalendarEventSeries;
+      createAllDayEventSeries(title: string, startDate: Base.Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       createCalendar(name: string): Calendar;
-      createCalendar(name: string, options: Object): Calendar;
-      createEvent(title: string, startTime: Date, endTime: Date): CalendarEvent;
-      createEvent(title: string, startTime: Date, endTime: Date, options: Object): CalendarEvent;
+      createCalendar(name: string, options: { [key: string]: any }): Calendar;
+      createEvent(title: string, startTime: Base.Date, endTime: Base.Date): CalendarEvent;
+      createEvent(title: string, startTime: Base.Date, endTime: Base.Date, options: { [key: string]: any }): CalendarEvent;
       createEventFromDescription(description: string): CalendarEvent;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence): CalendarEventSeries;
-      createEventSeries(title: string, startTime: Date, endTime: Date, recurrence: EventRecurrence, options: Object): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Base.Date, endTime: Base.Date, recurrence: EventRecurrence): CalendarEventSeries;
+      createEventSeries(title: string, startTime: Base.Date, endTime: Base.Date, recurrence: EventRecurrence, options: { [key: string]: any }): CalendarEventSeries;
       getAllCalendars(): Calendar[];
       getAllOwnedCalendars(): Calendar[];
       getCalendarById(id: string): Calendar;
@@ -75,11 +80,12 @@ declare namespace GoogleAppsScript {
       getColor(): string;
       getDefaultCalendar(): Calendar;
       getDescription(): string;
+      getEventById(iCalId: string): CalendarEvent;
       getEventSeriesById(iCalId: string): CalendarEventSeries;
-      getEvents(startTime: Date, endTime: Date): CalendarEvent[];
-      getEvents(startTime: Date, endTime: Date, options: Object): CalendarEvent[];
-      getEventsForDay(date: Date): CalendarEvent[];
-      getEventsForDay(date: Date, options: Object): CalendarEvent[];
+      getEvents(startTime: Base.Date, endTime: Base.Date): CalendarEvent[];
+      getEvents(startTime: Base.Date, endTime: Base.Date, options: { [key: string]: any }): CalendarEvent[];
+      getEventsForDay(date: Base.Date): CalendarEvent[];
+      getEventsForDay(date: Base.Date, options: { [key: string]: any }): CalendarEvent[];
       getId(): string;
       getName(): string;
       getOwnedCalendarById(id: string): Calendar;
@@ -97,13 +103,12 @@ declare namespace GoogleAppsScript {
       setSelected(selected: boolean): Calendar;
       setTimeZone(timeZone: string): Calendar;
       subscribeToCalendar(id: string): Calendar;
-      subscribeToCalendar(id: string, options: Object): Calendar;
+      subscribeToCalendar(id: string, options: { [key: string]: any }): Calendar;
     }
-
     /**
      * Represents a single calendar event.
      */
-    export interface CalendarEvent {
+    interface CalendarEvent {
       addEmailReminder(minutesBefore: Integer): CalendarEvent;
       addGuest(email: string): CalendarEvent;
       addPopupReminder(minutesBefore: Integer): CalendarEvent;
@@ -111,27 +116,27 @@ declare namespace GoogleAppsScript {
       anyoneCanAddSelf(): boolean;
       deleteEvent(): void;
       deleteTag(key: string): CalendarEvent;
-      getAllDayEndDate(): Date;
-      getAllDayStartDate(): Date;
+      getAllDayEndDate(): Base.Date;
+      getAllDayStartDate(): Base.Date;
       getAllTagKeys(): string[];
       getColor(): string;
       getCreators(): string[];
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
-      getEndTime(): Date;
+      getEndTime(): Base.Date;
       getEventSeries(): CalendarEventSeries;
       getGuestByEmail(email: string): EventGuest;
       getGuestList(): EventGuest[];
       getGuestList(includeOwner: boolean): EventGuest[];
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getLocation(): string;
       getMyStatus(): GuestStatus;
       getOriginalCalendarId(): string;
       getPopupReminders(): Integer[];
       getSmsReminders(): Integer[];
-      getStartTime(): Date;
+      getStartTime(): Base.Date;
       getTag(key: string): string;
       getTitle(): string;
       getVisibility(): Visibility;
@@ -144,7 +149,8 @@ declare namespace GoogleAppsScript {
       removeAllReminders(): CalendarEvent;
       removeGuest(email: string): CalendarEvent;
       resetRemindersToDefault(): CalendarEvent;
-      setAllDayDate(date: Date): CalendarEvent;
+      setAllDayDate(date: Base.Date): CalendarEvent;
+      setAllDayDates(startDate: Base.Date, endDate: Base.Date): CalendarEvent;
       setAnyoneCanAddSelf(anyoneCanAddSelf: boolean): CalendarEvent;
       setColor(color: string): CalendarEvent;
       setDescription(description: string): CalendarEvent;
@@ -154,15 +160,14 @@ declare namespace GoogleAppsScript {
       setLocation(location: string): CalendarEvent;
       setMyStatus(status: GuestStatus): CalendarEvent;
       setTag(key: string, value: string): CalendarEvent;
-      setTime(startTime: Date, endTime: Date): CalendarEvent;
+      setTime(startTime: Base.Date, endTime: Base.Date): CalendarEvent;
       setTitle(title: string): CalendarEvent;
       setVisibility(visibility: Visibility): CalendarEvent;
     }
-
     /**
      * Represents a series of events (a recurring event).
      */
-    export interface CalendarEventSeries {
+    interface CalendarEventSeries {
       addEmailReminder(minutesBefore: Integer): CalendarEventSeries;
       addGuest(email: string): CalendarEventSeries;
       addPopupReminder(minutesBefore: Integer): CalendarEventSeries;
@@ -173,14 +178,14 @@ declare namespace GoogleAppsScript {
       getAllTagKeys(): string[];
       getColor(): string;
       getCreators(): string[];
-      getDateCreated(): Date;
+      getDateCreated(): Base.Date;
       getDescription(): string;
       getEmailReminders(): Integer[];
       getGuestByEmail(email: string): EventGuest;
       getGuestList(): EventGuest[];
       getGuestList(includeOwner: boolean): EventGuest[];
       getId(): string;
-      getLastUpdated(): Date;
+      getLastUpdated(): Base.Date;
       getLocation(): string;
       getMyStatus(): GuestStatus;
       getOriginalCalendarId(): string;
@@ -204,42 +209,38 @@ declare namespace GoogleAppsScript {
       setGuestsCanSeeGuests(guestsCanSeeGuests: boolean): CalendarEventSeries;
       setLocation(location: string): CalendarEventSeries;
       setMyStatus(status: GuestStatus): CalendarEventSeries;
-      setRecurrence(recurrence: EventRecurrence, startDate: Date): CalendarEventSeries;
-      setRecurrence(recurrence: EventRecurrence, startTime: Date, endTime: Date): CalendarEventSeries;
+      setRecurrence(recurrence: EventRecurrence, startDate: Base.Date): CalendarEventSeries;
+      setRecurrence(recurrence: EventRecurrence, startTime: Base.Date, endTime: Base.Date): CalendarEventSeries;
       setTag(key: string, value: string): CalendarEventSeries;
       setTitle(title: string): CalendarEventSeries;
       setVisibility(visibility: Visibility): CalendarEventSeries;
     }
-
     /**
      * An enum representing the named colors available in the Calendar service.
      */
-    export enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
-
+    enum Color { BLUE, BROWN, CHARCOAL, CHESTNUT, GRAY, GREEN, INDIGO, LIME, MUSTARD, OLIVE, ORANGE, PINK, PLUM, PURPLE, RED, RED_ORANGE, SEA_BLUE, SLATE, TEAL, TURQOISE, YELLOW }
     /**
      * An enum representing the named event colors available in the Calendar service.
      */
-    export enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
-
+    enum EventColor { PALE_BLUE, PALE_GREEN, MAUVE, PALE_RED, YELLOW, ORANGE, CYAN, GRAY, BLUE, GREEN, RED }
     /**
      * Represents a guest of an event.
      */
-    export interface EventGuest {
+    interface EventGuest {
       getAdditionalGuests(): Integer;
       getEmail(): string;
       getGuestStatus(): GuestStatus;
       getName(): string;
-      getStatus(): string;
+      /** @deprecated DO NOT USE */ getStatus(): string;
     }
-
     /**
      * Represents the recurrence settings for an event series.
      */
-    export interface EventRecurrence {
+    interface EventRecurrence {
       addDailyExclusion(): RecurrenceRule;
       addDailyRule(): RecurrenceRule;
-      addDate(date: Date): EventRecurrence;
-      addDateExclusion(date: Date): EventRecurrence;
+      addDate(date: Base.Date): EventRecurrence;
+      addDateExclusion(date: Base.Date): EventRecurrence;
       addMonthlyExclusion(): RecurrenceRule;
       addMonthlyRule(): RecurrenceRule;
       addWeeklyExclusion(): RecurrenceRule;
@@ -248,28 +249,26 @@ declare namespace GoogleAppsScript {
       addYearlyRule(): RecurrenceRule;
       setTimeZone(timeZone: string): EventRecurrence;
     }
-
     /**
      * An enum representing the statuses a guest can have for an event.
      */
-    export enum GuestStatus { INVITED, MAYBE, NO, OWNER, YES }
-
+    enum GuestStatus { INVITED, MAYBE, NO, OWNER, YES }
     /**
      * Represents a recurrence rule for an event series.
      *
-     * Note that this class also behaves like the EventRecurrence that it belongs
-     *  to, allowing you to chain rule creation together like so:
+     * Note that this class also behaves like the EventRecurrence that it belongs to,
+     * allowing you to chain rule creation together like so:
      *
-     *      recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
+     *     recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
      *
      * times(times)
      * interval(interval)
      */
-    export interface RecurrenceRule {
+    interface RecurrenceRule {
       addDailyExclusion(): RecurrenceRule;
       addDailyRule(): RecurrenceRule;
-      addDate(date: Date): EventRecurrence;
-      addDateExclusion(date: Date): EventRecurrence;
+      addDate(date: Base.Date): EventRecurrence;
+      addDateExclusion(date: Base.Date): EventRecurrence;
       addMonthlyExclusion(): RecurrenceRule;
       addMonthlyRule(): RecurrenceRule;
       addWeeklyExclusion(): RecurrenceRule;
@@ -289,15 +288,13 @@ declare namespace GoogleAppsScript {
       onlyOnYearDays(days: Integer[]): RecurrenceRule;
       setTimeZone(timeZone: string): EventRecurrence;
       times(times: Integer): RecurrenceRule;
-      until(endDate: Date): RecurrenceRule;
+      until(endDate: Base.Date): RecurrenceRule;
       weekStartsOn(day: Base.Weekday): RecurrenceRule;
     }
-
     /**
      * An enum representing the visibility of an event.
      */
-    export enum Visibility { CONFIDENTIAL, DEFAULT, PRIVATE, PUBLIC }
-
+    enum Visibility { CONFIDENTIAL, DEFAULT, PRIVATE, PUBLIC }
   }
 }
 

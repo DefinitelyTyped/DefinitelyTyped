@@ -1,4 +1,4 @@
-// Type definitions for Chroma.js 1.3
+// Type definitions for Chroma.js 2.0
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,6 +20,8 @@ declare namespace chroma {
         cmyk: [number, number, number, number];
         gl: [number, number, number, number];
     }
+
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "lch" | "hcl" | "lrgb";
 
     interface ChromaStatic {
         /**
@@ -59,6 +61,8 @@ declare namespace chroma {
          * @return the color object.
          */
         hex(color: string): Color;
+
+        valid(color: any, mode?: string): boolean;
 
         hsl(h: number, s: number, l: number): Color;
 
@@ -124,7 +128,7 @@ declare namespace chroma {
          * Computes the eucledian distance between two colors in a given color space (default is 'lab').
          * {@link https://en.wikipedia.org/wiki/Euclidean_distance#Three_dimensions}
          */
-        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): Color;
+        distance(color1: string | Color, color2: string | Color, colorSpace?: keyof ColorSpaces): number;
 
         /**
          * Computes color difference {@link https://en.wikipedia.org/wiki/Color_difference#CMC_l:c_.281984.29} as
@@ -133,7 +137,7 @@ declare namespace chroma {
          * {@link https://web.archive.org/web/20160306044036/http://www.brucelindbloom.com/javascript/ColorDiff.js}
          * The parameters L (default 1) and C (default 1) are weighting factors for lightness and chromacity.
          */
-        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): Color;
+        deltaE(color1: string | Color, color2: string | Color, L?: number, C?: number): number;
 
         /**
          * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience.
@@ -209,11 +213,12 @@ declare namespace chroma {
         css(col: string): Color;
     }
 
-    type Color = {
+    interface Color {
         /**
          * Get and set the color opacity.
          */
-        alpha(a?: number): Color;
+        alpha(a: number): Color;
+        alpha(): number;
 
         darken(f?: number): Color;
 
@@ -260,9 +265,18 @@ declare namespace chroma {
         luminance(l: number, colorSpace?: keyof ColorSpaces): Color;
 
         /**
-         * Get color as hexadecimal string. E.g. '#ffa500'
+         * Get color as hexadecimal string.
+         *
+         * @param mode `auto` - string will include alpha channel only if it's less than 1.
+         *             `rgb`  - string will not include alpha channel.
+         *             `rgba` - string will include alpha channel.
+         *
+         * @example
+         * chroma('orange').hex() === '#ffa500'
+         * chroma('orange').alpha(0.5).hex() === '#ffa50080'
+         * chroma('orange').alpha(0.5).hex('rgb') === '#ffa500'
          */
-        hex(): string;
+        hex(mode?: 'auto' | 'rgb' | 'rgba'): string;
 
         /**
          * Returns the named color. Falls back to hexadecimal RGB string, if the color isn't present.
@@ -280,9 +294,120 @@ declare namespace chroma {
          * [temperature gradient]{@link ChromaStatic.temperature} above.
          */
         temperature(): number;
-    } & {
-        [K in keyof ColorSpaces]: () => ColorSpaces[K];
-    };
+
+        /**
+         * Returns the numeric representation of the hexadecimal RGB color.
+         *
+         * @example
+         * chroma('#000000').num() === 0
+         * chroma('#0000ff').num() === 255
+         * chroma('#00ff00').num() === 65280
+         * chroma('#ff0000').num() === 16711680
+         */
+        num(): number;
+
+        /**
+         * Returns an array with the red, green, and blue component, each as
+         * number within the range 0..255. Chroma internally stores RGB
+         * channels as floats but rounds the numbers before returning them.
+         * You can pass false to prevent the rounding.
+         *
+         * @example
+         * chroma('orange').rgb() === [255,165,0]
+         * chroma('orange').darken().rgb() === [198,118,0]
+         * chroma('orange').darken().rgb(false) === [198.05,118.11,0]
+         */
+        rgb: (round?: boolean) => ColorSpaces['rgb'];
+
+        /**
+         * Just like color.rgb but adds the alpha channel to the returned array.
+         *
+         * @example
+         * chroma('orange').rgba() === [255,165,0,1]
+         * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
+         */
+        rgba: (round?: boolean) => ColorSpaces['rgba'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `lightness`
+         * component. Hue is the color angle in degree (`0..360`), saturation
+         * and lightness are within `0..1`. Note that for hue-less colors
+         * (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsl() === [38.82,1,0.5,1]
+         * chroma('white').hsl() === [NaN,0,1,1]
+         */
+        hsl: () => ColorSpaces['hsl'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `value`
+         * components. Hue is the color angle in degree (`0..360`),
+         * saturation and value are within `0..1`. Note that for hue-less
+         * colors (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsv() === [38.82,1,1]
+         * chroma('white').hsv() === [NaN,0,1]
+         */
+        hsv: () => ColorSpaces['hsv'];
+
+        /**
+         * Returns an array with the `hue`, `saturation`, and `intensity`
+         * components, each as number between 0 and 255. Note that for hue-less
+         *  colors (black, white, and grays), the hue component will be NaN.
+         *
+         * @example
+         * chroma('orange').hsi() === [39.64,1,0.55]
+         * chroma('white').hsi() === [NaN,0,1]
+         */
+        hsi: () => ColorSpaces['hsi'];
+
+        /**
+         * Returns an array with the **L**, **a**, and **b** components.
+         *
+         * @example
+         * chroma('orange').lab() === [74.94,23.93,78.95]
+         */
+        lab: () => ColorSpaces['lab'];
+
+        /**
+         * Returns an array with the **Lightness**, **chroma**, and **hue**
+         * components.
+         *
+         * @example
+         * chroma('skyblue').lch() === [79.21,25.94,235.11]
+         */
+        lch: () => ColorSpaces['lch'];
+
+        /**
+         * Alias of [lch](#color-lch), but with the components in reverse
+         * order.
+         *
+         * @example
+         * chroma('skyblue').hcl() === [235.11,25.94,79.21]
+         */
+        hcl: () => ColorSpaces['hcl'];
+
+        /**
+         * Just like color.rgb but adds the alpha channel to the returned
+         * array.
+         *
+         * @example
+         * chroma('orange').rgba() === [255,165,0,1]
+         * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
+         */
+        cmyk: () => ColorSpaces['cmyk'];
+
+        /**
+         * Returns an array with the cyan, magenta, yellow, and key (black)
+         * components, each as a normalized value between 0 and 1.
+         *
+         * @example
+         * chroma('33cc00').gl() === [0.2,0.8,0,1]
+         */
+        gl: () => ColorSpaces['gl'];
+    }
 
     interface Scale<OutType = Color> {
         (c: string[]): Scale;
@@ -291,7 +416,9 @@ declare namespace chroma {
 
         domain(d?: number[], n?: number, mode?: string): this;
 
-        mode(mode: keyof ColorSpaces): this;
+        mode(mode: InterpolationMode): this;
+
+        gamma(g: number): this;
 
         cache(use: boolean): boolean;
 
@@ -303,10 +430,10 @@ declare namespace chroma {
          * You can call scale.colors(n) to quickly grab `c` equi-distant colors from a color scale. If called with no
          * arguments, scale.colors returns the original array of colors used to create the scale.
          */
-        colors(c?: number, format?: 'hex' | 'name'): string[];
-        colors(c?: number, format?: null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
-        colors(c?: number, format?: 'luminance' | 'temperature'): number[];
-        colors<K extends keyof ColorSpaces>(c?: number, format?: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate'): Color[];
+        colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
+        colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
+        colors(c: number | undefined, format?: 'hex' | 'name'): string[];
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
@@ -320,6 +447,7 @@ declare namespace chroma {
          */
         out(format: null): Scale;
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
+        out(format: 'hex'): Scale<string>;
     }
 
     interface Cubehelix {

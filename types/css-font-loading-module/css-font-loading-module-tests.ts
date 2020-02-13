@@ -6,9 +6,16 @@ font.load();
 font.loaded.then((fontFace: FontFace) => {
     fontFace.status;
     fontFace.family;
+    fontFace.variationSettings;
+    fontFace.display;
 }, (fontFace: FontFace) => {});
 
-const a: boolean = document.fonts.check("12px Example");
-const b: boolean = document.fonts.check("12px Example", "ß");
-const c: Promise<FontFace[]> = document.fonts.load("12px MyFont", "ß").then();
-const d: Promise<typeof document.fonts> = document.fonts.ready.then();
+const workerContext: WorkerGlobalScope = undefined;
+
+const contexts = [document, workerContext];
+contexts.forEach(context => {
+    const a: boolean = context.fonts.check("12px Example");
+    const b: boolean = context.fonts.check("12px Example", "ß");
+    const c: Promise<FontFace[]> = context.fonts.load("12px MyFont", "ß").then();
+    const d: Promise<typeof context.fonts> = context.fonts.ready.then();
+});

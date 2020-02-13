@@ -1,16 +1,13 @@
 // Type definitions for cors 2.8
 // Project: https://github.com/troygoode/node-cors/
-// Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin/>
+// Definitions by: Alan Plum <https://github.com/pluma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-
-
+// TypeScript Version: 2.3
 
 import express = require('express');
 
 type CustomOrigin = (
-    requestOrigin: string,
+    requestOrigin: string | undefined,
     callback: (err: Error | null, allow?: boolean) => void
 ) => void;
 
@@ -25,7 +22,13 @@ declare namespace e {
         preflightContinue?: boolean;
         optionsSuccessStatus?: number;
     }
+    type CorsOptionsDelegate = (
+        req: express.Request,
+        callback: (err: Error | null, options?: CorsOptions) => void
+    ) => void;
 }
 
-declare function e(options?: e.CorsOptions): express.RequestHandler;
+declare function e(
+    options?: e.CorsOptions | e.CorsOptionsDelegate
+): express.RequestHandler;
 export = e;

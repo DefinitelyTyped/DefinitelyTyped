@@ -1,4 +1,4 @@
-import { PureComponent, Validator, Requireable } from 'react'
+import { PureComponent, Validator, Requireable } from 'react';
 import {
     Alignment,
     Index,
@@ -6,23 +6,29 @@ import {
     ScrollPosition,
     SectionRenderedParams,
     SizeInfo,
-    SizeAndPositionInfo
+    SizeAndPositionInfo,
 } from '../../index';
 
-export type CollectionCellSizeAndPosition = { height: number, width: number, x: number, y: number };
+export type CollectionCellSizeAndPosition = {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+};
 export type CollectionCellSizeAndPositionGetter = (params: Index) => CollectionCellSizeAndPosition;
 
 export type CollectionCellGroupRendererParams = {
-    cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter,
-    indices: number[],
-    cellRenderer: CollectionCellRenderer
-}
+    cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter;
+    indices: number[];
+    cellRenderer: CollectionCellRenderer;
+};
 export type CollectionCellGroupRenderer = (params: CollectionCellGroupRendererParams) => React.ReactNode[];
 export type CollectionCellRendererParams = {
-    index: number,
-    key: string,
-    style?: React.CSSProperties
-}
+    index: number;
+    isScrolling: boolean;
+    key: number;
+    style: React.CSSProperties;
+};
 export type CollectionCellRenderer = (params: CollectionCellRendererParams) => React.ReactNode;
 export type CollectionProps = {
     'aria-label'?: string;
@@ -43,17 +49,17 @@ export type CollectionProps = {
      *   cellRenderer: Function
      * }): Array<PropTypes.node>
      */
-    cellGroupRenderer?: CollectionCellGroupRenderer,
+    cellGroupRenderer?: CollectionCellGroupRenderer;
     /**
      * Responsible for rendering a cell given an row and column index.
      * Should implement the following interface: ({ index: number, key: string, style: object }): PropTypes.element
      */
-    cellRenderer: CollectionCellRenderer,
+    cellRenderer: CollectionCellRenderer;
     /**
      * Callback responsible for returning size and offset/position information for a given cell (index).
      * ({ index: number }): { height: number, width: number, x: number, y: number }
      */
-    cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter,
+    cellSizeAndPositionGetter: CollectionCellSizeAndPositionGetter;
     /**
      * Optional custom CSS class name to attach to root Collection element.
      */
@@ -122,29 +128,23 @@ export type CollectionProps = {
  */
 export class Collection extends PureComponent<CollectionProps> {
     static propTypes: {
-        'aria-label': Requireable<string>,
-        cellCount: Validator<number>,
-        cellGroupRenderer: Validator<CollectionCellGroupRenderer>,
-        cellRenderer: Validator<CollectionCellRenderer>,
-        cellSizeAndPositionGetter: Validator<CollectionCellSizeAndPositionGetter>,
-        sectionSize: Requireable<number>
+        'aria-label': Requireable<string>;
+        cellCount: Validator<number>;
+        cellGroupRenderer: Validator<CollectionCellGroupRenderer>;
+        cellRenderer: Validator<CollectionCellRenderer>;
+        cellSizeAndPositionGetter: Validator<CollectionCellSizeAndPositionGetter>;
+        sectionSize: Requireable<number>;
     };
 
     static defaultProps: {
-        'aria-label': 'grid',
-        cellGroupRenderer: CollectionCellGroupRenderer
+        'aria-label': 'grid';
+        cellGroupRenderer: CollectionCellGroupRenderer;
     };
-
-    constructor(props: CollectionProps, context: any);
 
     forceUpdate(): void;
 
     /** See Collection#recomputeCellSizesAndPositions */
     recomputeCellSizesAndPositions(): void;
-
-    /** React lifecycle methods */
-
-    render(): JSX.Element;
 
     /** CellLayoutManager interface */
 
@@ -159,17 +159,19 @@ export class Collection extends PureComponent<CollectionProps> {
      * Calculates the minimum amount of change from the current scroll position to ensure the specified cell is (fully) visible.
      */
     getScrollPositionForCell(params: {
-        align: 'auto' | 'start' | 'end' | 'center',
-        cellIndex: number,
-        height: number,
-        scrollLeft: number,
-        scrollTop: number,
-        width: number
+        align: 'auto' | 'start' | 'end' | 'center';
+        cellIndex: number;
+        height: number;
+        scrollLeft: number;
+        scrollTop: number;
+        width: number;
     }): ScrollPosition;
 
     getTotalSize(): SizeInfo;
 
-    cellRenderers(params: {
-        isScrolling: boolean,
-    } & SizeInfo): React.ReactNode[];
+    cellRenderers(
+        params: {
+            isScrolling: boolean;
+        } & SizeInfo
+    ): React.ReactNode[];
 }

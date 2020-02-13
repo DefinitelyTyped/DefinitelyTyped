@@ -1,8 +1,8 @@
-/* tslint:disable:no-namespace prefer-template */
 import * as nodemailer from 'nodemailer';
 
 import addressparser = require('nodemailer/lib/addressparser');
 import base64 = require('nodemailer/lib/base64');
+import DKIM = require('nodemailer/lib/dkim');
 import fetch = require('nodemailer/lib/fetch');
 import Cookies = require('nodemailer/lib/fetch/cookies');
 import JSONTransport = require('nodemailer/lib/json-transport');
@@ -11,6 +11,7 @@ import MailComposer = require('nodemailer/lib/mail-composer');
 import MailMessage = require('nodemailer/lib/mailer/mail-message');
 import mimeFuncs = require('nodemailer/lib/mime-funcs');
 import mimeTypes = require('nodemailer/lib/mime-funcs/mime-types');
+import MimeNode = require('nodemailer/lib/mime-node');
 import qp = require('nodemailer/lib/qp');
 import SendmailTransport = require('nodemailer/lib/sendmail-transport');
 import SESTransport = require('nodemailer/lib/ses-transport');
@@ -21,6 +22,8 @@ import SMTPTransport = require('nodemailer/lib/smtp-transport');
 import StreamTransport = require('nodemailer/lib/stream-transport');
 import wellKnown = require('nodemailer/lib/well-known');
 import XOAuth2 = require('nodemailer/lib/xoauth2');
+import LeWindows = require('nodemailer/lib/sendmail-transport/le-windows');
+import LeUnix = require('nodemailer/lib/sendmail-transport/le-unix');
 
 import * as fs from 'fs';
 import * as stream from 'stream';
@@ -37,7 +40,7 @@ const aws = {
 
 // 1. Nodemailer
 
-namespace nodemailer_test {
+function nodemailer_test() {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
     nodemailer.createTestAccount((err, account) => {
@@ -85,7 +88,7 @@ namespace nodemailer_test {
 
 // Commmon fields
 
-namespace message_common_fields_test {
+function message_common_fields_test() {
     const message: Mail.Options = {
         from: 'sender@server.com',
         to: 'receiver@sender.com',
@@ -97,7 +100,7 @@ namespace message_common_fields_test {
 
 // More advanced fields
 
-namespace message_more_advanced_fields_test {
+function message_more_advanced_fields_test() {
     const message: Mail.Options = {
         headers: {
             'My-Custom-Header': 'header value'
@@ -116,12 +119,12 @@ namespace message_more_advanced_fields_test {
 
 // 3. Attachments
 
-namespace message_attachments_test {
+function message_attachments_test() {
     const message: Mail.Options = {
         attachments: [
             {   // utf-8 string as an attachment
                 filename: 'text1.txt',
-                content: 'hello world!'
+                content: 'hello world!',
             },
             {   // binary buffer as an attachment
                 filename: 'text2.txt',
@@ -136,12 +139,15 @@ namespace message_attachments_test {
             },
             {   // stream as an attachment
                 filename: 'text4.txt',
-                content: fs.createReadStream('file.txt')
+                content: fs.createReadStream('file.txt'),
+                contentTransferEncoding: 'quoted-printable'
             },
             {   // define custom content type for the attachment
                 filename: 'text.bin',
                 content: 'hello world!',
-                contentType: 'text/plain'
+                contentType: 'text/plain',
+                contentTransferEncoding: '7bit',
+                contentDisposition: 'attachment'
             },
             {   // use URL as an attachment
                 filename: 'license.txt',
@@ -150,14 +156,17 @@ namespace message_attachments_test {
             {   // encoded string as an attachment
                 filename: 'text1.txt',
                 content: 'aGVsbG8gd29ybGQh',
-                encoding: 'base64'
+                encoding: 'base64',
+                contentTransferEncoding: 'base64'
             },
             {   // data uri as an attachment
-                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ='
+                path: 'data:text/plain;base64,aGVsbG8gd29ybGQ=',
+                contentDisposition: 'inline',
+                contentTransferEncoding: false
             },
             {
                 // use pregenerated MIME node
-                raw: 'Content-Type: text/plain\r\n' +
+                raw: 'Content-Type: text/plain\r\n' + // tslint:disable-line prefer-template
                 'Content-Disposition: attachment;\r\n' +
                 '\r\n' +
                 'Hello world!'
@@ -168,7 +177,7 @@ namespace message_attachments_test {
 
 // 3. Alternatives
 
-namespace message_alternatives_test {
+function message_alternatives_test() {
     const message: Mail.Options = {
         html: '<b>Hello world!</b>',
         alternatives: [
@@ -182,7 +191,7 @@ namespace message_alternatives_test {
 
 // 3. Address object
 
-namespace message_address_object_test {
+function message_address_object_test() {
     const message: Mail.Options = {
         to: 'foobar@blurdybloop.com, "Ноде Майлер" <bar@blurdybloop.com>, "Name, User" <baz@blurdybloop.com>',
         cc: [
@@ -204,7 +213,7 @@ namespace message_address_object_test {
 
 // Send a REQUEST event as a string
 
-namespace message_calendar_request_test {
+function message_calendar_request_test() {
     const content = 'BEGIN:VCALENDAR\r\nPRODID:-//ACME/DesktopCalendar//EN\r\nMETHOD:REQUEST\r\n...';
 
     const message: Mail.Options = {
@@ -222,7 +231,7 @@ namespace message_calendar_request_test {
 
 // Send a PUBLISH event from a file
 
-namespace message_calendar_publish_test {
+function message_calendar_publish_test() {
     const message: Mail.Options = {
         from: 'sender@example.com',
         to: 'recipient@example.com',
@@ -237,7 +246,7 @@ namespace message_calendar_publish_test {
 
 // Send a CANCEL event from an URL
 
-namespace message_calendar_cancel_test {
+function message_calendar_cancel_test() {
     const message: Mail.Options = {
         from: 'sender@example.com',
         to: 'recipient@example.com',
@@ -252,7 +261,7 @@ namespace message_calendar_cancel_test {
 
 // 3. Embedded images
 
-namespace message_embedded_images_test {
+function message_embedded_images_test() {
     const message: Mail.Options = {
         html: 'Embedded image: <img src="cid:unique@nodemailer.com"/>',
         attachments: [{
@@ -267,7 +276,7 @@ namespace message_embedded_images_test {
 
 // Setup different List-* headers
 
-namespace message_list_headers_test {
+function message_list_headers_test() {
     const message: Mail.Options = {
         from: 'sender@example.com',
         to: 'recipient@example.com',
@@ -308,7 +317,7 @@ namespace message_list_headers_test {
 
 // Set custom headers
 
-namespace message_custom_headers_test {
+function message_custom_headers_test() {
     const message: Mail.Options = {
         headers: {
             'x-my-key': 'header value',
@@ -319,7 +328,7 @@ namespace message_custom_headers_test {
 
 // Multiple rows with the same key
 
-namespace message_multiple_rows_with_the_same_key_test {
+function message_multiple_rows_with_the_same_key_test() {
     const message: Mail.Options = {
         headers: {
             'x-my-key': [
@@ -333,7 +342,7 @@ namespace message_multiple_rows_with_the_same_key_test {
 
 // Prepared headers
 
-namespace message_prepared_headers_test {
+function message_prepared_headers_test() {
     const message: Mail.Options = {
         headers: {
             'x-processed': 'a really long header or value with non-ascii characters 👮',
@@ -349,7 +358,7 @@ namespace message_prepared_headers_test {
 
 // Use string as a message body
 
-namespace message_string_body_test {
+function message_string_body_test() {
     const message: Mail.Options = {
         envelope: {
             from: 'sender@example.com',
@@ -365,7 +374,7 @@ Hello world!`
 
 // Set EML file as message body
 
-namespace message_eml_file_test {
+function message_eml_file_test() {
     const message: Mail.Options = {
         envelope: {
             from: 'sender@example.com',
@@ -379,7 +388,7 @@ namespace message_eml_file_test {
 
 // Set string as attachment body
 
-namespace message_string_attachment_test {
+function message_string_attachment_test() {
     const message: Mail.Options = {
         from: 'sender@example.com',
         to: 'recipient@example.com',
@@ -396,7 +405,7 @@ Attached text file`}]
 
 // Single connection
 
-namespace smtp_single_connection_test {
+function smtp_single_connection_test() {
     const smtpConfig: SMTPTransport.Options = {
         host: 'smtp.example.com',
         port: 587,
@@ -411,7 +420,7 @@ namespace smtp_single_connection_test {
 
 // Pooled connection
 
-namespace smtp_pooled_connection_test {
+function smtp_pooled_connection_test() {
     const smtpConfig: SMTPPool.Options = {
         pool: true,
         host: 'smtp.example.com',
@@ -427,7 +436,7 @@ namespace smtp_pooled_connection_test {
 
 // Allow self-signed certificates
 
-namespace smtp_self_signed_test {
+function smtp_self_signed_test() {
     const smtpConfig: SMTPTransport.Options = {
         host: 'my.smtp.host',
         port: 465,
@@ -446,7 +455,7 @@ namespace smtp_self_signed_test {
 
 // Verify SMTP connection configuration
 
-namespace smtp_verify_test {
+function smtp_verify_test() {
     const transporter = nodemailer.createTransport();
     transporter.verify((error, success) => {
         if (error) {
@@ -459,7 +468,7 @@ namespace smtp_verify_test {
 
 // 4. SMTP envelope
 
-namespace smtp_envelope_test {
+function smtp_envelope_test() {
     const message: Mail.Options = {
         from: 'mailer@nodemailer.com', // listed in rfc822 message header
         to: 'daemon@nodemailer.com', // listed in rfc822 message header
@@ -474,14 +483,14 @@ namespace smtp_envelope_test {
 
 // transporter.close()
 
-namespace smtp_pool_close_test {
+function smtp_pool_close_test() {
     const transporter = nodemailer.createTransport({ pool: true });
     transporter.close();
 }
 
 // Event:‘idle’
 
-namespace smtp_pool_idle_test {
+function smtp_pool_idle_test() {
     const messages = [{ raw: 'list of messages' }];
     const transporter = nodemailer.createTransport({ pool: true });
     transporter.on('idle', () => {
@@ -496,7 +505,7 @@ namespace smtp_pool_idle_test {
 
 // Create a testing account on the fly
 
-namespace smtp_test_account_test {
+function smtp_test_account_test() {
     nodemailer.createTestAccount((err, account) => {
         if (!err) {
             // create reusable transporter object using the default SMTP transport
@@ -515,7 +524,7 @@ namespace smtp_test_account_test {
 
 // Use environment specific SMTP settings
 
-namespace smtp_info_test {
+function smtp_info_test() {
     const transporter = nodemailer.createTransport();
     transporter.sendMail({}).then((info: SMTPTransport.SentMessageInfo) => {
         console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info));
@@ -526,7 +535,7 @@ namespace smtp_info_test {
 
 // Using custom token handling
 
-namespace oauth2_token_handling_test {
+function oauth2_token_handling_test() {
     const transporter = nodemailer.createTransport();
     const userTokens: { [key: string]: string; } = {};
     transporter.set('oauth2_provision_cb', (user, renew, callback) => {
@@ -541,7 +550,7 @@ namespace oauth2_token_handling_test {
 
 // Token update notifications
 
-namespace oauth2_token_update_test {
+function oauth2_token_update_test() {
     const transporter = nodemailer.createTransport();
     transporter.on('token', token => {
         console.log('A new access token was generated');
@@ -553,7 +562,7 @@ namespace oauth2_token_update_test {
 
 // Authenticate using existing token
 
-namespace oauth2_existing_token_test {
+function oauth2_existing_token_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -568,7 +577,7 @@ namespace oauth2_existing_token_test {
 
 // Custom handler
 
-namespace oauth2_custom_handler_test {
+function oauth2_custom_handler_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -593,7 +602,7 @@ namespace oauth2_custom_handler_test {
 
 // Set up 3LO authentication
 
-namespace oauth2_3lo_test {
+function oauth2_3lo_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -612,7 +621,7 @@ namespace oauth2_3lo_test {
 
 // Set up 2LO authentication
 
-namespace oauth2_2lo_test {
+function oauth2_2lo_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -620,8 +629,8 @@ namespace oauth2_2lo_test {
         auth: {
             type: 'OAuth2',
             user: 'user@example.com',
-            serviceClient: '113600000000000000000',
-            privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
+            clientId: '113600000000000000000',
+            clientSecret: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...',
             accessToken: 'ya29.Xx_XX0xxxxx-xX0X0XxXXxXxXXXxX0x',
             expires: 1484314697598
         }
@@ -630,7 +639,7 @@ namespace oauth2_2lo_test {
 
 // Provide authentication details with message options
 
-namespace oauth2_message_options_test {
+function oauth2_message_options_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -665,7 +674,7 @@ namespace oauth2_message_options_test {
     transporter.sendMail(options);
 }
 
-namespace oauth2_privision_cb_test {
+function oauth2_privision_cb_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -699,11 +708,199 @@ namespace oauth2_privision_cb_test {
     transporter.sendMail(options);
 }
 
+// Set up XOAuth2 authentication
+
+function oauth2_xoauth2_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        clientId: '{Client ID}',
+        clientSecret: '{Client Secret}',
+        refreshToken: 'saladus',
+        accessUrl: 'http://localhost:8993/',
+        accessToken: 'abc',
+        timeout: 3600
+    });
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            type: 'OAUTH2',
+            user: 'user@example.com',
+            oauth2: xoauth2,
+            method: 'XOAUTH2'
+        }
+    });
+}
+
+// Set up custom authentication
+
+async function custom_auth_async_test() {
+    const account = await nodemailer.createTestAccount();
+
+    const transporter = nodemailer.createTransport(
+        {
+            host: account.smtp.host,
+            port: account.smtp.port,
+            secure: account.smtp.secure,
+            auth: {
+                type: 'custom',
+
+                user: account.user,
+                pass: account.pass,
+
+                method: 'x-login'
+            },
+            logger: false,
+            debug: false,
+
+            customAuth: {
+                // can create multiple handlers
+                'x-login': async (ctx) => {
+                    // This custom method implements AUTH LOGIN even though Nodemailer supports it natively.
+                    // AUTH LOGIN mechanism includes multiple steps, so it's great for a demo nevertheless
+
+                    console.log('Performing custom authentication for %s', ctx.auth.credentials.user);
+                    console.log('Supported extensions: %s', ctx.extensions.join(', '));
+                    console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
+
+                    if (!ctx.authMethods.includes('LOGIN')) {
+                        console.log('Server does not support AUTH LOGIN');
+                        throw new Error('Can not log in');
+                    }
+                    console.log('AUTH LOGIN is supported, proceeding with login...');
+
+                    let cmd;
+
+                    cmd = await ctx.sendCommand('AUTH LOGIN');
+                    if (cmd.status !== 334) {
+                        // expecting '334 VXNlcm5hbWU6'
+                        throw new Error('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
+                    }
+
+                    console.log('Sending username: %s', ctx.auth.credentials.user);
+                    cmd = await ctx.sendCommand(Buffer.from(ctx.auth.credentials.user, 'utf-8').toString('base64'));
+                    if (cmd.status !== 334) {
+                        // expecting '334 UGFzc3dvcmQ6'
+                        throw new Error('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
+                    }
+
+                    console.log('Sending password: %s', '*'.repeat(ctx.auth.credentials.pass.length));
+                    cmd = await ctx.sendCommand(Buffer.from(ctx.auth.credentials.pass, 'utf-8').toString('base64'));
+                    if (cmd.status < 200 || cmd.status >= 300) {
+                        // expecting a 235 response, just in case allow everything in 2xx range
+                        throw new Error('User failed to authenticate');
+                    }
+
+                    console.log('User authenticated! (%s)', cmd.response);
+
+                    // all checks passed
+                    return true;
+                }
+            }
+        },
+        {
+            // default message fields
+
+            // sender info
+            from: 'Pangalink <no-reply@pangalink.net>',
+            headers: {
+                'X-Laziness-level': '1000' // just an example header, no need to use this
+            }
+        }
+    );
+}
+
+async function custom_auth_cb_test() {
+    const account = await nodemailer.createTestAccount();
+
+    const transporter = nodemailer.createTransport(
+        {
+            host: account.smtp.host,
+            port: account.smtp.port,
+            secure: account.smtp.secure,
+            auth: {
+                type: 'custom',
+
+                user: account.user,
+                pass: account.pass,
+
+                method: 'x-login'
+            },
+            logger: false,
+            debug: false,
+
+            customAuth: {
+                // can create multiple handlers
+                'x-login': ctx => {
+                    // This custom method implements AUTH LOGIN even though Nodemailer supports it natively.
+                    // AUTH LOGIN mechanism includes multiple steps, so it's great for a demo nevertheless
+
+                    console.log('Performing custom authentication for %s', ctx.auth.credentials.user);
+                    console.log('Supported extensions: %s', ctx.extensions.join(', '));
+                    console.log('Supported auth methods: %s', ctx.authMethods.join(', '));
+
+                    if (!ctx.authMethods.includes('LOGIN')) {
+                        console.log('Server does not support AUTH LOGIN');
+                        return ctx.reject(new Error('Can not log in'));
+                    }
+                    console.log('AUTH LOGIN is supported, proceeding with login...');
+
+                    ctx.sendCommand('AUTH LOGIN', (err, cmd) => {
+                        if (err) {
+                            return ctx.reject(err);
+                        }
+
+                        if (cmd.status !== 334) {
+                            // expecting '334 VXNlcm5hbWU6'
+                            return ctx.reject('Invalid login sequence while waiting for "334 VXNlcm5hbWU6"');
+                        }
+
+                        console.log('Sending username: %s', ctx.auth.credentials.user);
+                        ctx.sendCommand(Buffer.from(ctx.auth.credentials.user, 'utf-8').toString('base64'), (err, cmd) => {
+                            if (err) {
+                                return ctx.reject(err);
+                            }
+                            if (cmd.status !== 334) {
+                                // expecting '334 UGFzc3dvcmQ6'
+                                return ctx.reject('Invalid login sequence while waiting for "334 UGFzc3dvcmQ6"');
+                            }
+
+                            console.log('Sending password: %s', '*'.repeat(ctx.auth.credentials.pass.length));
+                            ctx.sendCommand(Buffer.from(ctx.auth.credentials.pass, 'utf-8').toString('base64'), (err, cmd) => {
+                                if (err) {
+                                    return ctx.reject(err);
+                                }
+                                if (cmd.status < 200 || cmd.status >= 300) {
+                                    // expecting a 235 response, just in case allow everything in 2xx range
+                                    return ctx.reject('User failed to authenticate');
+                                }
+
+                                console.log('User authenticated! (%s)', cmd.response);
+
+                                // all checks passed
+                                return ctx.resolve();
+                            });
+                        });
+                    });
+                }
+            }
+        },
+        {
+            // default message fields
+
+            // sender info
+            from: 'Pangalink <no-reply@pangalink.net>',
+            headers: {
+                'X-Laziness-level': '1000' // just an example header, no need to use this
+            }
+        }
+    );
+}
+
 // 5. Sendmail transport
 
 // Send a message using specific binary
 
-namespace sendmail_test {
+function sendmail_test() {
     const transporter = nodemailer.createTransport({
         sendmail: true,
         newline: 'unix',
@@ -722,11 +919,29 @@ namespace sendmail_test {
     });
 }
 
+// line ending transforms using windows-style newlines
+
+function sendmail_line_endings_windows_test() {
+    function process_le(mail: MailMessage) {
+        const input = mail.message.createReadStream();
+        input.pipe(new LeWindows());
+    }
+}
+
+// line ending transforms using unix-style newlines
+
+function sendmail_line_endings_unix_test() {
+    function process_le(mail: MailMessage) {
+        const input = mail.message.createReadStream();
+        input.pipe(new LeUnix());
+    }
+}
+
 // 5. SES transport
 
 // Send a message using SES transport
 
-namespace ses_test {
+function ses_test() {
     // configure AWS SDK
     aws.config.loadFromPath('config.json');
 
@@ -763,7 +978,7 @@ namespace ses_test {
 
 // Stream a message with windows-style newlines
 
-namespace stream_test {
+function stream_test() {
     const transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: 'windows'
@@ -787,11 +1002,12 @@ namespace stream_test {
 
 // Create a buffer with unix-style newlines
 
-namespace stream_buffer_unix_newlines_test {
+function stream_buffer_unix_newlines_test() {
     const transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: 'unix',
-        buffer: true
+        buffer: true,
+        normalizeHeaderKey: (key) => key.toUpperCase()
     });
     transporter.sendMail({
         from: 'sender@example.com',
@@ -809,9 +1025,10 @@ namespace stream_buffer_unix_newlines_test {
 
 // Create a JSON encoded message object
 
-namespace json_test {
+function json_test() {
     const transporter = nodemailer.createTransport({
-        jsonTransport: true
+        jsonTransport: true,
+        skipEncoding: true
     });
     transporter.sendMail({
         from: 'sender@example.com',
@@ -831,7 +1048,7 @@ namespace json_test {
 
 // 'compile'
 
-namespace plugin_compile_test {
+function plugin_compile_test() {
     const transporter = nodemailer.createTransport();
 
     function plugin(mail: typeof transporter.MailMessage, callback: (err?: Error | null) => void) {
@@ -856,7 +1073,7 @@ namespace plugin_compile_test {
 
 // 'stream'
 
-namespace plugin_stream_test {
+function plugin_stream_test() {
     const transformer: stream.Transform = new (require('stream').Transform)();
 
     transformer._transform = function(chunk: Buffer, encoding, done) {
@@ -890,7 +1107,7 @@ namespace plugin_stream_test {
 
 // Transport Example
 
-namespace plugin_transport_example_test {
+function plugin_transport_example_test() {
     interface MailOptions extends Mail.Options {
         mailOption?: 'foo';
     }
@@ -933,7 +1150,7 @@ namespace plugin_transport_example_test {
 
 // Sign all messages
 
-namespace dkim_sign_all_test {
+function dkim_sign_all_test() {
     const opts: SMTPTransport.Options = {
         host: 'smtp.example.com',
         port: 465,
@@ -948,7 +1165,7 @@ namespace dkim_sign_all_test {
 
 // Sign all messages with multiple keys
 
-namespace dkim_sign_multiple_keys_test {
+function dkim_sign_multiple_keys_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.example.com',
         port: 465,
@@ -973,7 +1190,7 @@ namespace dkim_sign_multiple_keys_test {
 
 // Sign a specific message
 
-namespace dkim_sign_specific_message_test {
+function dkim_sign_specific_message_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.example.com',
         port: 465,
@@ -994,7 +1211,7 @@ namespace dkim_sign_specific_message_test {
 
 // Cache large messages for signing
 
-namespace dkim_cache_large_messages_test {
+function dkim_cache_large_messages_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.example.com',
         port: 465,
@@ -1011,7 +1228,7 @@ namespace dkim_cache_large_messages_test {
 
 // Do not sign specific header keys
 
-namespace dkim_specific_header_key_test {
+function dkim_specific_header_key_test() {
     const transporter = nodemailer.createTransport({
         host: 'smtp.example.com',
         port: 465,
@@ -1029,9 +1246,10 @@ namespace dkim_specific_header_key_test {
 
 // SMTP Connection
 
-namespace smtp_connection_test {
+function smtp_connection_test() {
     const connection = new SMTPConnection();
-    connection.connect(() => {
+    connection.connect((err) => {
+        if (err) throw err;
         connection.login({ user: 'user', pass: 'pass' }, (err) => {
             if (err) throw err;
             connection.send({ from: 'a@example.com', to: 'b@example.net' }, 'message', (err, info) => {
@@ -1056,7 +1274,7 @@ namespace smtp_connection_test {
 
 // createReadStream
 
-namespace mailcomposer_createReadStream_test {
+function mailcomposer_createReadStream_test() {
     const mail = new MailComposer({ from: '...' });
     const stream = mail.compile().createReadStream();
     stream.pipe(process.stdout);
@@ -1064,34 +1282,88 @@ namespace mailcomposer_createReadStream_test {
 
 // build
 
-namespace mailcomposer_build_test {
+function mailcomposer_build_callback_test() {
     const mail = new MailComposer({ from: '...' });
     mail.compile().build((err, message) => {
         process.stdout.write(message);
     });
 }
 
+async function mailcomposer_build_promise_test() {
+    const mail = new MailComposer({ from: '...' });
+    const message = await mail.compile().build();
+    process.stdout.write(message);
+}
+
 // addressparser
 
-namespace addressparser_test {
+function isAddress(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Address {
+    return (addressOrGroup as addressparser.Address).address !== undefined;
+}
+
+function isGroup(addressOrGroup: addressparser.AddressOrGroup): addressOrGroup is addressparser.Group {
+    return (addressOrGroup as addressparser.Group).group !== undefined;
+}
+
+function addressparser_test() {
     const input = 'andris@tr.ee';
-    const result = addressparser(input);
-    const address: string = result[0].address;
-    const name: string = result[0].name;
+    const results: addressparser.AddressOrGroup[] = addressparser(input);
+    const firstResult = results[0];
+    if (isAddress(firstResult)) {
+        const address: string = firstResult.address;
+        const name: string = firstResult.name;
+    } else if (isGroup(firstResult)) {
+        const group: addressparser.AddressOrGroup[] = firstResult.group;
+        const name: string = firstResult.name;
+    }
+}
+
+function addressparser_flatten_test() {
+    const input = 'andris@tr.ee';
+    const results = addressparser(input, { flatten: true });
+    const firstResult = results[0];
+    const address: string = firstResult.address;
+    const name: string = firstResult.name;
 }
 
 // base64
 
-namespace base64_test {
+function base64_test() {
     base64.encode('abcd= ÕÄÖÜ');
 
     base64.encode(new Buffer([0x00, 0x01, 0x02, 0x20, 0x03]));
 }
 
+// dkim
+
+function dkim_test_options() {
+    const dkim = new DKIM({
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    const stream = dkim.sign('Message');
+    stream.pipe(process.stdout);
+}
+
+function dkim_test_extra_options() {
+    const dkim = new DKIM();
+    const stream = dkim.sign('Message', {
+        domainName: 'example.com',
+        keySelector: '2017',
+        privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBg...'
+    });
+    stream.pipe(process.stdout);
+}
+
 // fetch
 
-namespace fetch_test {
-    fetch('http://localhost/');
+function fetch_test() {
+    const stream = fetch('http://localhost/');
+
+    const statusCode: number = stream.statusCode;
+    const headers = stream.headers;
+    const contentType: string | undefined = headers['content-type'];
 
     fetch('http://localhost:/', {
         allowErrorResponse: true,
@@ -1110,7 +1382,7 @@ namespace fetch_test {
 
 // fetch/cookies
 
-namespace fetch_cookies_test {
+function fetch_cookies_test() {
     const biskviit = new Cookies();
 
     biskviit.getPath('/');
@@ -1171,7 +1443,7 @@ namespace fetch_cookies_test {
 
 // mime-funcs
 
-namespace mime_funcs_test {
+function mime_funcs_test() {
     mimeFuncs.isPlainText('abc');
 
     mimeFuncs.hasLongerLines('abc\ndef', 5);
@@ -1202,9 +1474,53 @@ namespace mime_funcs_test {
     mimeFuncs.foldLines('Testin command line', 76);
 }
 
+// mime-node
+
+function mime_node_test() {
+    const mb = new MimeNode('text/plain', {
+        normalizeHeaderKey: (key) => key.toUpperCase()
+    });
+
+    const child = mb.createChild('multipart/mixed');
+    mb.appendChild(child);
+    child.replace(child);
+
+    mb.setHeader('key', 'value');
+    const value: string = mb.getHeader('key');
+
+    mb.addHeader({
+        key: 'value4',
+        key2: 'value5'
+    });
+
+    mb.setHeader([
+        {
+            key: 'key',
+            value: 'value2'
+        },
+        {
+            key: 'key2',
+            value: 'value3'
+        }
+    ]);
+
+    mb.setHeader('key', ['value1', 'value2', 'value3']);
+
+    mb.setContent('abc');
+
+    mb.build((err, msg) => {
+        const msgAsString: string = msg.toString();
+    });
+
+    mb.processFunc((input) => {
+        const isReadable: boolean = input.readable;
+        return input;
+    });
+}
+
 // mime-types
 
-namespace mime_types_test {
+function mime_types_test() {
     mimeTypes.detectExtension(false);
     mimeTypes.detectExtension('unknown');
 
@@ -1214,7 +1530,7 @@ namespace mime_types_test {
 
 // qp
 
-namespace qp_test {
+function qp_test() {
     qp.encode('abcd= ÕÄÖÜ');
 
     qp.encode(new Buffer([0x00, 0x01, 0x02, 0x20, 0x03]));
@@ -1222,7 +1538,7 @@ namespace qp_test {
 
 // shared
 
-namespace shared_getLogger_test {
+function shared_getLogger_test() {
     shared.getLogger({
         logger: false
     });
@@ -1233,7 +1549,7 @@ namespace shared_getLogger_test {
     console.log(options.secure, options.auth!.user, options.tls!.rejectUnauthorized);
 }
 
-namespace shared_resolveContent_string_test {
+function shared_resolveContent_string_test() {
     const mail = {
         data: {
             html: '<p>Tere, tere</p><p>vana kere!</p>\n'
@@ -1249,7 +1565,7 @@ namespace shared_resolveContent_string_test {
     shared.resolveContent(mail.data, 'html').then((value) => console.log(value));
 }
 
-namespace shared_resolveContent_buffer_test {
+function shared_resolveContent_buffer_test() {
     const mail = {
         data: {
             html: new Buffer('<p>Tere, tere</p><p>vana kere!</p>\n')
@@ -1265,7 +1581,7 @@ namespace shared_resolveContent_buffer_test {
     shared.resolveContent(mail.data, 'html').then((value) => console.log(value));
 }
 
-namespace shared_assing_test {
+function shared_assign_test() {
     const target = {
         a: 1,
         b: 2,
@@ -1285,15 +1601,46 @@ namespace shared_assing_test {
     shared.assign(target, arg1, arg2);
 }
 
-namespace shared_encodeXText_test {
+function shared_encodeXText_test() {
     shared.encodeXText('teretere');
 }
 
 // well-known
 
-namespace well_known_test {
+function well_known_test() {
     const options = wellKnown('Gmail');
     if (options) {
         console.log(options.host, options.port, options.secure);
     }
+}
+
+// xoauth2
+
+function xoauth2_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        clientId: '{Client ID}',
+        clientSecret: '{Client Secret}',
+        refreshToken: 'saladus',
+        accessUrl: 'http://localhost:8993/',
+        accessToken: 'abc',
+        timeout: 3600
+    });
+    xoauth2.getToken(false, (err, accessToken) => {
+        if (err) throw err;
+        const token: string = xoauth2.buildXOAuth2Token(accessToken);
+    });
+}
+
+function xoauth2_sign_payload_test() {
+    const xoauth2 = new XOAuth2({
+        user: 'test@example.com',
+        serviceClient: '{Client ID}',
+        accessUrl: 'http://localhost:8497/',
+        timeout: 3600,
+        privateKey: '-----BEGIN RSA PRIVATE KEY-----\n...'
+    });
+    xoauth2.jwtSignRS256({
+        some: 'payload'
+    });
 }

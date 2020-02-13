@@ -1,40 +1,39 @@
-import { JID } from '@xmpp/jid';
+import jid = require('@xmpp/jid');
 
-/*
- * All return an instance of JID.JID, the new operator is optional.
- */
-let addr = new JID('alice@wonderland.net/rabbithole');          // OK
-addr = new JID('alice', 'wonderland.net', 'rabbithole');    // BEST; see section on escaping below
+let addr: jid.JID;
+let str: string;
+let bool: boolean;
 
-/*
- * local
- */
+addr = jid('alice@wonderland.net/rabbithole');
+addr = jid('alice', 'wonderland.net', 'rabbithole');
+
 addr.local = 'alice';
-addr.local;      // alice
-// same as
+str = addr.local;
 addr.setLocal('alice');
-addr.getLocal(); // alice
+addr.setLocal('alice', true);
+str = addr.getLocal();
 
-/*
- * domain
- */
 addr.domain = 'wonderland.net';
-addr.domain;      // wonderland.net
-// same as
+str = addr.domain;
 addr.setDomain('wonderland.net');
-addr.getDomain(); // wonderland.net
+str = addr.getDomain();
 
-/*
- * resource
- */
 addr.resource = 'rabbithole';
-addr.resource;      // rabbithole
-// same as
+str = addr.resource;
 addr.setResource('rabbithole');
-addr.getResource(); // rabbithole
+str = addr.getResource();
 
-addr.toString(); // alice@wonderland.net/rabbithole
-addr.bare();     // returns a JID without resource
+str = addr.toString();
+str = addr.toString(true);
+addr = addr.bare();
 
-const some_jid = new JID('is', 'a', 'test');
-addr.equals(some_jid); // returns true if the two JIDs are equal, false otherwise
+bool = addr.equals(addr);
+
+bool = jid.equal(addr, addr);
+
+addr = jid.createJID('my', 'homies');
+bool = jid.equal(addr, addr);
+bool = jid.detectEscape('homies');
+str = jid.escapeLocal('homies');
+str = jid.unescapeLocal('homies');
+addr = jid.parse('homies');

@@ -6,6 +6,7 @@ var val: Long;
 var n: number = 42;
 var b: boolean = true;
 var s: string = "1337";
+var bytes: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 
 val = new Long(0xFFFFFFFF, 0x7FFFFFFF, true);
 val = new Long(0xFFFFFFFF, 0x7FFFFFFF);
@@ -27,6 +28,7 @@ n = val.compare(val);
 n = val.compare(n);
 n = val.compare(s);
 
+val = Long.ONE;
 val = val.div(val);
 val = val.div(n);
 val = val.div(s);
@@ -63,6 +65,7 @@ b = val.lessThanOrEqual(val);
 b = val.lessThanOrEqual(n);
 b = val.lessThanOrEqual(s);
 
+val = Long.fromValue(10);
 val = val.modulo(val);
 val = val.modulo(n);
 val = val.modulo(s);
@@ -100,7 +103,7 @@ n = val.toNumber();
 val = val.toSigned();
 
 s = val.toString();
-s = val.toString(n);
+s = val.toString(16);
 
 val = val.toUnsigned();
 
@@ -115,3 +118,33 @@ val = Long.NEG_ONE;
 val = Long.ONE;
 val = Long.UZERO;
 val = Long.ZERO;
+
+val = Long.fromBytes(bytes);
+val = Long.fromBytes(bytes, true);
+val = Long.fromBytes(bytes, true, true);
+bytes = val.toBytes();
+val = Long.fromBytes(bytes)
+bytes = val.toBytesLE()
+val = Long.fromBytesLE(bytes)
+bytes = val.toBytesBE()
+val = Long.fromBytesBE(bytes)
+
+
+// Testing module augmentation
+declare module 'long' {
+    interface Long {
+        to42(): number;
+    }
+  
+    interface LongConstructor {
+        from42(input: number): Long;
+    }
+}
+
+Long.prototype.to42 = function() {
+    return 42
+}
+
+Long.from42 = function(input: number): Long {
+    return Long.fromNumber(42)
+}

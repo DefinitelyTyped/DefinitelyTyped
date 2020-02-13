@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-shorthand
 /**
  * Typescript definition tests for d3/d3-selection-multi module
  *
@@ -28,7 +27,7 @@ selection = selection.attrs({
     foo: () => 1,
     bar: (d) => d,
     baz: (d, i) => i !== 0,
-    bat: function() {
+    bat() {
         return this.href;
     },
 });

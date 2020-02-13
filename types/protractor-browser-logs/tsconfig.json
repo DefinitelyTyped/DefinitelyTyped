@@ -13,6 +13,14 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "selenium-webdriver": [
+                "selenium-webdriver/v3"
+            ],
+            "selenium-webdriver/*": [
+                "selenium-webdriver/v3/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

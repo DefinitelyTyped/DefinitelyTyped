@@ -1,11 +1,15 @@
 // Type definitions for rosie
 // Project: https://github.com/rosiejs/rosie
-// Definitions by: Abner Oliveira <https://github.com/abner>, Chris Grigg <https://github.com/subvertallchris>
+// Definitions by: Abner Oliveira <https://github.com/abner>,
+//                 Chris Grigg <https://github.com/subvertallchris>,
+//                 Alex Bukurov <https://github.com/abukurov>
+//                 Adam Misiorny <https://github.com/adam187>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 declare namespace rosie {
   interface IFactoryStatic {
+    new<T = any>(): IFactory<T>;
     /**
      * Defines a factory by name and constructor function. Call #attr and #option
      * on the result to define the properties of this factory.
@@ -112,7 +116,7 @@ declare namespace rosie {
       * @param {object} attributes
       * @return {Factory}
       */
-    attrs(attributes: { [K in keyof T]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
+    attrs<Keys extends keyof T>(attributes: { [K in Keys]: T[K] | ((opts?: any) => T[K]) }): IFactory<T>;
 
     /**
      * Define an option for this factory. Options are values that may inform
@@ -161,7 +165,8 @@ declare namespace rosie {
      * @param {function(number): *=} builder
      * @return {Factory}
      */
-    sequence(name: keyof T, dependenciesOrBuilder?: () => any | keyof T[], builder?: Function) : IFactory<T>;
+    sequence<K extends keyof T>(name: K, builder?: (i: number) => any): IFactory<T>;
+    sequence<K extends keyof T, D extends keyof T>(name: K, dependencies: D[], builder: (i: number, ...args: any[]) => any): IFactory<T>;
 
     /**
      * Sets a post-processor callback that will receive built objects and the
@@ -191,7 +196,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {object}
      */
-    attributes(attributes: string, options?: { [k in keyof T]: T[k] }): T;
+    attributes(attributes?: { [k in keyof T]?: T[k] }, options?: any): T;
 
     /**
      * Generates values for all the registered options using the values given.

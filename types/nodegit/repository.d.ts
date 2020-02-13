@@ -47,6 +47,7 @@ export class Repository {
     static wrapOdb(odb: Odb): Promise<Repository>;
 
     cleanup(): void;
+    commondir(): string;
     config(): Promise<Config>;
     configSnapshot(): Promise<Config>;
     detachHead(): number;
@@ -78,7 +79,7 @@ export class Repository {
     /**
      * Creates a branch with the passed in name pointing to the commit
      */
-    createBranch(name: string, commit: Commit | string | Oid, force: boolean, signature: Signature, logMessage: string): Promise<Reference>;
+    createBranch(name: string, commit: Commit | string | Oid, force?: boolean): Promise<Reference>;
     /**
      * Look up a refs's commit.
      */
@@ -102,7 +103,7 @@ export class Repository {
     /**
      * Lookup references for a repository.
      */
-    getReferences(type: Reference.TYPE): Promise<Reference[]>;
+    getReferences(): Promise<Reference[]>;
     /**
      * Lookup reference names for a repository.
      */
@@ -136,7 +137,7 @@ export class Repository {
     /**
      * Instantiate a new revision walker for browsing the Repository"s history. See also Commit.prototype.history()
      */
-    createRevWalk(string: string | Oid): Revwalk;
+    createRevWalk(): Revwalk;
     /**
      * Retrieve the master branch commit.
      */
@@ -153,7 +154,7 @@ export class Repository {
     /**
      * Create a blob from a buffer
      */
-    createBlobFromBuffer(buffer: Buffer): Oid;
+    createBlobFromBuffer(buffer: Buffer): Promise<Oid>;
     treeBuilder(tree: Tree): Promise<Treebuilder>;
     /**
      * Gets the default signature for the default user and now timestamp
@@ -175,7 +176,7 @@ export class Repository {
      * Fetches from all remotes. This is done in series due to deadlocking issues with fetching from many remotes that can happen.
      */
     fetchAll(fetchOptions?: FetchOptions, callback?: Function): Promise<void>;
-    mergeBranches(to: string | Reference, from: string | Reference, signature: Signature, mergePreference: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
+    mergeBranches(to: string | Reference, from: string | Reference, signature?: Signature, mergePreference?: Merge.PREFERENCE, mergeOptions?: MergeOptions): Promise<Oid>;
     /**
      * Rebases a branch onto another branch
      */

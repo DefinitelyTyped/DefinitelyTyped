@@ -1,13 +1,17 @@
 // Type definitions for remote-redux-devtools 0.5
 // Project: https://github.com/zalmoxisus/remote-redux-devtools
-// Definitions by: Colin Eberhardt <https://github.com/ColinEberhardt>, Daniel Perez Alvarez <https://github.com/unindented>
+// Definitions by: Colin Eberhardt <https://github.com/ColinEberhardt>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
+//                 Maximo Dominguez <https://github.com/mamodom>
+//                 Colin Dekker <https://github.com/colindekker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import {
   Action,
   ActionCreator,
   ActionCreatorsMapObject,
-  GenericStoreEnhancer
+  StoreEnhancer
 } from "redux";
 
 export interface RemoteReduxDevToolsOptions {
@@ -108,5 +112,6 @@ export interface RemoteReduxDevToolsOptions {
   id?: string;
 }
 
-export function composeWithDevTools(options?: RemoteReduxDevToolsOptions): (...funcs: GenericStoreEnhancer[]) => GenericStoreEnhancer;
-export function composeWithDevTools(...funcs: GenericStoreEnhancer[]): GenericStoreEnhancer;
+export default function devToolsEnhancer(options?: RemoteReduxDevToolsOptions): StoreEnhancer;
+export function composeWithDevTools(options?: RemoteReduxDevToolsOptions): (...funcs: StoreEnhancer[]) => StoreEnhancer;
+export function composeWithDevTools(...funcs: StoreEnhancer[]): StoreEnhancer;

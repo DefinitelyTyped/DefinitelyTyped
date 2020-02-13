@@ -102,7 +102,7 @@ circles = select<SVGSVGElement, any>('svg')
     .selectAll()
     .data(startCircleData)
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
     .attr('r', d => d.r)
@@ -114,7 +114,7 @@ circles = circles
 
 const enterCircles = circles
     .enter()
-    .append<SVGCircleElement>('circle')
+    .append('circle')
     .classed('big', d => d.r > 10)
     .attr('cx', d => d.cx)
     .attr('cy', d => d.cy)
@@ -142,13 +142,13 @@ let newEnterTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, S
 newEnterTransition = enterCircles.transition(enterTransition);
 
 let differentElementTypeTransition: d3Transition.Transition<SVGSVGElement, CircleDatum, HTMLBodyElement, any>;
-let differentDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { differrent: string }, SVGSVGElement, any>;
+let differentDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { different: string }, SVGSVGElement, any>;
 
 // Comparable use cases arise e.g. when using an existing transition to generate a new transition
 // on a different selection to synchronize them (see e.g. Mike Bostock's Brush & Zoom II Example https://bl.ocks.org/mbostock/f48fcdb929a620ed97877e4678ab15e6)
 differentElementTypeTransition = select<HTMLBodyElement, any>('body').selectAll<SVGSVGElement, CircleDatum>('svg').transition();
 newEnterTransition = enterCircles.transition(differentElementTypeTransition);
-differentDatumTypeTransition = select<SVGSVGElement, any>('svg').selectAll<SVGCircleElement, { differrent: string }>('circle').transition();
+differentDatumTypeTransition = select<SVGSVGElement, any>('svg').selectAll<SVGCircleElement, { different: string }>('circle').transition();
 newEnterTransition = enterCircles.transition(differentDatumTypeTransition);
 
 // --------------------------------------------------------------------------
@@ -234,18 +234,18 @@ exitTransition = exitTransition.filter(function(d, i, g) {
     const index: number = i;
     const group: SVGCircleElement[] | ArrayLike<SVGCircleElement> = g;
     // console.log(this.x) // fails, x property not defined on SVGCircleElement
-    return this.r.baseVal.value < i * d.r; // this-type SVGCircleElement, datum tpye CircleDatum
+    return this.r.baseVal.value < i * d.r; // this-type SVGCircleElement, datum type CircleDatum
 });
 
 // Scenario 2: Filtering narrows the type of selected elements in a known way
 
 // assume the class ".any-svg-type" can only be assigned to SVGElements in the DOM
-let filterdGElements2: d3Transition.Transition<SVGGElement, any, HTMLElement, any>;
+let filteredGElements2: d3Transition.Transition<SVGGElement, any, HTMLElement, any>;
 
-filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>('g');
-// filterdGElements2 = selectAll('.any-type').transition().filter('g'); // fails without using narrowing generic on filter method
+filteredGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>('g');
+// filteredGElements2 = selectAll('.any-type').transition().filter('g'); // fails without using narrowing generic on filter method
 
-filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>(function(d, i, g) {
+filteredGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter<SVGGElement>(function(d, i, g) {
     const that: SVGElement = this;
     // const that2: HTMLElement  = this; // fails, type mismatch
     const datum: CircleDatum = d;
@@ -253,7 +253,7 @@ filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().fil
     const group: SVGElement[] | ArrayLike<SVGElement> = g;
     return that.tagName === 'g' || that.tagName === 'G';
 });
-// filterdGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter(function(){
+// filteredGElements2 = selectAll<SVGElement, any>('.any-svg-type').transition().filter(function(){
 //     const that: SVGElement = this;
 //     return that.tagName === 'g'|| that.tagName === 'G';
 // }); // fails without using narrowing generic on filter method
@@ -421,6 +421,9 @@ if (listener) {
 // remove listener
 enterTransition = enterTransition.on('end', null); // check chaining return type by re-assigning
 
+// check end method exists
+enterTransition.end();
+
 // --------------------------------------------------------------------------
 // Test Control Flow
 // --------------------------------------------------------------------------
@@ -513,5 +516,11 @@ updateTransitionActive = d3Transition.active<SVGCircleElement, CircleDatum, SVGS
 
 // interrupt(...) ----------------------------------------------------------
 
-d3Transition.interrupt(topTransition.selection().node());
-d3Transition.interrupt(topTransition.selection().node(), 'top');
+const topSelection = topTransition.selection();
+const topNode = topSelection.node();
+
+d3Transition.interrupt(topNode);
+d3Transition.interrupt(topNode, 'top');
+
+// test selection interrupt
+topSelection.interrupt().selectAll('*').interrupt();

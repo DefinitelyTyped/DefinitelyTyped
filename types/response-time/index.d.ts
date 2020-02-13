@@ -1,8 +1,9 @@
 // Type definitions for response-time 2.3.2
 // Project: https://github.com/expressjs/response-time
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik>, TonyYang <https://github.com/TonyPythoneer>
+//                 Dan Manastireanu <https://github.com/danmana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 
 /* =================== USAGE ===================
@@ -17,6 +18,7 @@
 
 
 import http = require("http");
+import express = require("express");
 
 
 export = responseTime;
@@ -29,6 +31,8 @@ declare function responseTime(options?: responseTime.ResponseTimeOptions):
     (request: http.IncomingMessage, response: http.ServerResponse, callback: (err: any) => void) => any;
 declare function responseTime(fn: responseTime.ResponseTimeFunction):
     (request: http.IncomingMessage, response: http.ServerResponse, callback: (err: any) => void) => any;
+declare function responseTime(fn: (request: express.Request, response: express.Response, time: number) => any):
+    express.RequestHandler;
 
 
 declare namespace responseTime {

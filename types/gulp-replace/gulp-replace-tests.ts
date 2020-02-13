@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as replace from "gulp-replace";
+import replace = require("gulp-replace");
 
 gulp.task('templates', function(){
     gulp.src(['file.txt'])

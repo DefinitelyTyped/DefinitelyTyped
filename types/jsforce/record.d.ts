@@ -1,10 +1,12 @@
+import { Stream } from 'stream';
+
 import { RecordResult } from './record-result';
 import { Connection } from './connection';
 import { SalesforceId } from './salesforce-id';
-import { Stream } from 'stream';
 
-export class RecordReference<T> {
+export class RecordReference<T = any> {
     constructor(conn: Connection, type: string, id: SalesforceId);
+
     blob(fieldName: string): Stream;
     del(options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;
     delete(options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;
@@ -13,4 +15,4 @@ export class RecordReference<T> {
     update(record: Partial<T>, options?: Object, callback?: (err: Error, result: RecordResult) => void): Promise<RecordResult>;
 }
 
-export type Record<T> = {Id: SalesforceId } & T;
+export type Record<T = any> = { Id?: SalesforceId } & T;

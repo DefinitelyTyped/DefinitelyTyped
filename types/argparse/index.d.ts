@@ -2,6 +2,9 @@
 // Project: https://github.com/nodeca/argparse
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
+//                 Sebastian Silbermann <https://github.com/eps1lon>
+//                 Kannan Goundan <https://github.com/cakoose>
+//                 Halvor Holsten Strand <https://github.com/ondkloss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -34,7 +37,7 @@ export class SubParser {
 }
 
 export class ArgumentGroup {
-    addArgument(args: string[], options?: ArgumentOptions): void;
+    addArgument(args: string[] | string, options?: ArgumentOptions): void;
     addArgumentGroup(options?: ArgumentGroupOptions): ArgumentGroup;
     addMutuallyExclusiveGroup(options?: { required: boolean }): ArgumentGroup;
     setDefaults(options?: {}): void;
@@ -68,6 +71,7 @@ export interface ArgumentParserOptions {
     prog?: string;
     usage?: string;
     version?: string;
+    debug?: boolean;
 }
 
 export interface ArgumentGroupOptions {
@@ -77,13 +81,24 @@ export interface ArgumentGroupOptions {
     description?: string;
 }
 
+export abstract class Action {
+    protected dest: string;
+    constructor(options: ActionConstructorOptions);
+    abstract call(parser: ArgumentParser, namespace: Namespace, values: string | string[], optionString: string | null): void;
+}
+
+// Passed to the Action constructor.  Subclasses are just expected to relay this to
+// the super() constructor, so using an "opaque type" pattern is probably fine.
+// Someone may want to fill this out in the future.
+export type ActionConstructorOptions = number & {_: 'ActionConstructorOptions'};
+
 export class HelpFormatter { }
 export class ArgumentDefaultsHelpFormatter { }
 export class RawDescriptionHelpFormatter { }
 export class RawTextHelpFormatter { }
 
 export interface ArgumentOptions {
-    action?: string;
+    action?: string | { new(options: ActionConstructorOptions): Action };
     optionStrings?: string[];
     dest?: string;
     nargs?: string | number;
@@ -94,5 +109,13 @@ export interface ArgumentOptions {
     choices?: string | string[];
     required?: boolean;
     help?: string;
-    metavar?: string;
+    metavar?: string | string[];
+}
+
+export namespace Const {
+    const SUPPRESS: string;
+    const OPTIONAL: string;
+    const ZERO_OR_MORE: string;
+    const ONE_OR_MORE: string;
+    const REMAINDER: string;
 }

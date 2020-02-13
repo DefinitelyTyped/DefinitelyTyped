@@ -154,7 +154,7 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
     _name: string;
     replacements: any[][];
 
-    constructor(source: Source, name: string);
+    constructor(source: Source, name?: string);
 
     replace(start: number, end: number, newValue: string): void;
 
@@ -190,7 +190,8 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
         name: string,
         sourceMap: SourceMapGenerator | RawSourceMap,
         originalSource?: string,
-        innerSourceMap?: RawSourceMap
+        innerSourceMap?: RawSourceMap,
+        removeOriginalSource?: boolean,
     );
 
     source(): string;

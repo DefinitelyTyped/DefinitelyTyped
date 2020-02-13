@@ -1,5 +1,5 @@
 import * as http from "http";
-import * as HttpProxy from "http-proxy";
+import HttpProxy = require("http-proxy");
 
 const proxy = new HttpProxy({
   changeOrigin: true
@@ -23,4 +23,33 @@ proxy.on("start", (req, res, target) => {
 
 http.createServer((req, res) => {
   proxy.web(req, res);
+});
+
+const newProxyDefault = HttpProxy.createProxyServer({
+    target: {
+        host: 'localhost',
+        port: '9015'
+    },
+    ws: true
+});
+
+const newProxyUrl = HttpProxy.createProxyServer({
+  target: 'http://localhost:9015'
+});
+
+const newProxyComplete = HttpProxy.createProxyServer({
+  target: {
+    protocol: 'http:',
+    host: 'localhost',
+    port: 9015,
+    pfx: Buffer.from('foobar'),
+    hostname: 'localhost.com',
+    socketPath: '/foo',
+    passphrase: 'password',
+    key: 'my-key',
+    cert: 'my-cert',
+    ca: 'my-ca',
+    ciphers: 'my-ciphers',
+    secureProtocol: 'my-secure-protocol'
+  }
 });

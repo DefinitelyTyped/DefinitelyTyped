@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.11
+// Type definitions for jQueryUI 1.12
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,7 +28,7 @@ declare namespace JQueryUI {
     }
 
     interface AccordionEvent {
-        (event: Event, ui: AccordionUIParams): void;
+        (event: JQueryEventObject, ui: AccordionUIParams): void;
     }
 
     interface AccordionEvents {
@@ -51,6 +51,12 @@ declare namespace JQueryUI {
         minLength?: number;
         position?: any; // object
         source?: any; // [], string or ()
+        classes?: AutocompleteClasses;
+    }
+
+    interface AutocompleteClasses {
+        "ui-autocomplete"?: string;
+        "ui-autocomplete-input"?: string;
     }
 
     interface AutocompleteUIParams {
@@ -58,10 +64,11 @@ declare namespace JQueryUI {
          * The item selected from the menu, if any. Otherwise the property is null
          */
         item?: any;
+        content?: any;
     }
 
     interface AutocompleteEvent {
-        (event: Event, ui: AutocompleteUIParams): void;
+        (event: JQueryEventObject, ui: AutocompleteUIParams): void;
     }
 
     interface AutocompleteEvents {
@@ -377,7 +384,7 @@ declare namespace JQueryUI {
 		open?: DialogEvent;
         close?: DialogEvent;
     }
-    
+
     interface DialogClasses {
         "ui-dialog"?: string;
         "ui-dialog-content"?: string;
@@ -411,7 +418,7 @@ declare namespace JQueryUI {
     }
 
     interface DialogEvent {
-        (event: Event, ui: DialogUIParams): void;
+        (event: JQueryEventObject, ui: DialogUIParams): void;
     }
 
     interface DialogEvents {
@@ -441,7 +448,7 @@ declare namespace JQueryUI {
     }
 
     interface DraggableEvent {
-        (event: Event, ui: DraggableEventUIParams): void;
+        (event: JQueryEventObject, ui: DraggableEventUIParams): void;
     }
 
     interface DraggableOptions extends DraggableEvents {
@@ -450,6 +457,7 @@ declare namespace JQueryUI {
         appendTo?: any;
         axis?: string;
         cancel?: string;
+        classes?: DraggableClasses;
         connectToSortable?: Element | Element[] | JQuery | string;
         containment?: any;
         cursor?: string;
@@ -475,6 +483,13 @@ declare namespace JQueryUI {
         zIndex?: number;
     }
 
+    interface DraggableClasses {
+        "ui-draggable"?: string;
+        "ui-draggable-disabled"?: string;
+        "ui-draggable-dragging"?: string;
+        "ui-draggable-handle"?: string;
+    }
+
     interface DraggableEvents {
         create?: DraggableEvent;
         start?: DraggableEvent;
@@ -496,7 +511,7 @@ declare namespace JQueryUI {
     }
 
     interface DroppableEvent {
-        (event: Event, ui: DroppableEventUIParam): void;
+        (event: JQueryEventObject, ui: DroppableEventUIParam): void;
     }
 
     interface DroppableOptions extends DroppableEvents {
@@ -537,7 +552,7 @@ declare namespace JQueryUI {
     }
 
     interface MenuEvent {
-        (event: Event, ui: MenuUIParams): void;
+        (event: JQueryEventObject, ui: MenuUIParams): void;
     }
 
     interface MenuEvents {
@@ -563,7 +578,7 @@ declare namespace JQueryUI {
     }
 
     interface ProgressbarEvent {
-        (event: Event, ui: ProgressbarUIParams): void;
+        (event: JQueryEventObject, ui: ProgressbarUIParams): void;
     }
 
     interface ProgressbarEvents {
@@ -611,7 +626,7 @@ declare namespace JQueryUI {
     }
 
     interface ResizableEvent {
-        (event: Event, ui: ResizableUIParams): void;
+        (event: JQueryEventObject, ui: ResizableUIParams): void;
     }
 
     interface ResizableEvents {
@@ -638,12 +653,12 @@ declare namespace JQueryUI {
     }
 
     interface SelectableEvents {
-        selected? (event: Event, ui: { selected?: Element; }): void;
-        selecting? (event: Event, ui: { selecting?: Element; }): void;
-        start? (event: Event, ui: any): void;
-        stop? (event: Event, ui: any): void;
-        unselected? (event: Event, ui: { unselected: Element; }): void;
-        unselecting? (event: Event, ui: { unselecting: Element; }): void;
+        selected? (event: JQueryEventObject, ui: { selected?: Element; }): void;
+        selecting? (event: JQueryEventObject, ui: { selecting?: Element; }): void;
+        start? (event: JQueryEventObject, ui: any): void;
+        stop? (event: JQueryEventObject, ui: any): void;
+        unselected? (event: JQueryEventObject, ui: { unselected: Element; }): void;
+        unselecting? (event: JQueryEventObject, ui: { unselecting: Element; }): void;
     }
 
     interface Selectable extends Widget, SelectableOptions {
@@ -664,7 +679,7 @@ declare namespace JQueryUI {
     }
 
     interface SelectMenuEvent {
-        (event: Event, ui: SelectMenuUIParams): void;
+        (event: JQueryEventObject, ui: SelectMenuUIParams): void;
     }
 
     interface SelectMenuEvents {
@@ -692,6 +707,17 @@ declare namespace JQueryUI {
         value?: number;
         values?: number[];
         highlight?: boolean;
+        classes? : SliderClasses;
+    }
+
+    interface SliderClasses {
+        "ui-slider"?: string;
+        "ui-slider-horizontal"?: string;
+        "ui-slider-vertical"?: string;
+        "ui-slider-handle"?: string;
+        "ui-slider-range"?: string;
+        "ui-slider-range-min"?: string;
+        "ui-slider-range-max"?: string;
     }
 
     interface SliderUIParams {
@@ -701,7 +727,7 @@ declare namespace JQueryUI {
     }
 
     interface SliderEvent {
-        (event: Event, ui: SliderUIParams): void;
+        (event: JQueryEventObject, ui: SliderUIParams): void;
     }
 
     interface SliderEvents {
@@ -720,6 +746,7 @@ declare namespace JQueryUI {
 
     interface SortableOptions extends SortableEvents {
         appendTo?: any; // jQuery, Element, Selector or string
+        attribute?: string;
         axis?: string;
         cancel?: any; // Selector
         connectWith?: any; // Selector
@@ -733,7 +760,7 @@ declare namespace JQueryUI {
         forceHelperSize?: boolean;
         forcePlaceholderSize?: boolean;
         grid?: number[];
-        helper?: string | ((event: Event, element: Sortable) => Element);
+        helper?: string | ((event: JQueryEventObject, element: Sortable) => Element);
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number;
@@ -798,7 +825,7 @@ declare namespace JQueryUI {
     }
 
     interface SpinnerEvent<T> {
-        (event: Event, ui: T): void;
+        (event: JQueryEventObject, ui: T): void;
     }
 
     interface SpinnerEvents {
@@ -857,7 +884,7 @@ declare namespace JQueryUI {
     }
 
     interface TabsEvent<UI> {
-        (event: Event, ui: UI): void;
+        (event: JQueryEventObject, ui: UI): void;
     }
 
     interface TabsEvents {
@@ -889,7 +916,7 @@ declare namespace JQueryUI {
     }
 
     interface TooltipEvent {
-        (event: Event, ui: TooltipUIParams): void;
+        (event: JQueryEventObject, ui: TooltipUIParams): void;
     }
 
     interface TooltipEvents {
@@ -1037,6 +1064,7 @@ declare namespace JQueryUI {
         keyCode: KeyCode;
         menu: Menu;
         progressbar: Progressbar;
+        selectmenu: SelectMenu;
         slider: Slider;
         spinner: Spinner;
         tabs: Tabs;
@@ -1053,6 +1081,17 @@ declare namespace JQueryUI {
         show?: any;
     }
 
+    interface WidgetCommonProperties {
+        element: JQuery;
+        defaultElement : string;
+        document: Document;
+        namespace: string;
+        uuid: string;
+        widgetEventPrefix: string;
+        widgetFullName: string;
+        window: Window;
+    }
+
     interface Widget {
         (methodName: string): JQuery;
         (options: WidgetOptions): JQuery;
@@ -1061,8 +1100,8 @@ declare namespace JQueryUI {
         (optionLiteral: string, options: WidgetOptions): any;
         (optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
-        (name: string, prototype: any): JQuery;
-        (name: string, base: Function, prototype: any): JQuery;
+        <T>(name: string, prototype: T & ThisType<T & WidgetCommonProperties>): JQuery;
+        <T>(name: string, base: Function, prototype: T & ThisType<T & WidgetCommonProperties> ): JQuery;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1384,8 +1423,8 @@ interface JQuery {
       * @param optionName 'autohide'
       */
       datepicker(methodName: 'option', optionName: 'autohide'): boolean;
-    
-   
+
+
       /**
       * Get the endDate after initialization
       *
@@ -1799,7 +1838,7 @@ interface JQuery {
     sortable(methodName: 'disable'): void;
     sortable(methodName: 'enable'): void;
     sortable(methodName: 'widget'): JQuery;
-    sortable(methodName: 'toArray'): string[];
+    sortable(methodName: 'toArray', options?: { attribute?: string; }): string[];
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
@@ -1827,7 +1866,9 @@ interface JQuery {
     tabs(): JQuery;
     tabs(methodName: 'destroy'): void;
     tabs(methodName: 'disable'): void;
+    tabs(methodName: 'disable', index: number): void;
     tabs(methodName: 'enable'): void;
+    tabs(methodName: 'enable', index: number): void;
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;

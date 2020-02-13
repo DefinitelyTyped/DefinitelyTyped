@@ -1,6 +1,7 @@
 // Type definitions for math3d 0.2
 // Project: https://github.com/adragonite/math3d
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab>
+//                 Jim Smart <https://github.com/jimsmart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export class Vector3 {
@@ -148,7 +149,7 @@ export class Transform {
     position: Vector3;
     right: Vector3;
     root: Transform;
-    rotation: Vector3;
+    rotation: Quaternion;
     up: Vector3;
     worldToLocalMatrix: Matrix4x4;
 

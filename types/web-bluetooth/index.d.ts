@@ -1,6 +1,8 @@
 // Type definitions for Web Bluetooth
 // Project: https://webbluetoothcg.github.io/web-bluetooth/
 // Definitions by: Uri Shaked <https://github.com/urish>
+//					Xavier Lozinguez <http://github.com/xlozinguez>
+//					Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type BluetoothServiceUUID = number | string;
@@ -15,11 +17,13 @@ interface BluetoothRequestDeviceFilter {
 	serviceDataUUID?: BluetoothServiceUUID;
 }
 
-interface RequestDeviceOptions {
+type RequestDeviceOptions = {
 	filters: BluetoothRequestDeviceFilter[];
 	optionalServices?: BluetoothServiceUUID[];
-	acceptAllDevices?: boolean;
-}
+} | {
+	acceptAllDevices: boolean;
+	optionalServices?: BluetoothServiceUUID[];
+};
 
 interface BluetoothRemoteGATTDescriptor {
 	readonly characteristic: BluetoothRemoteGATTCharacteristic;
@@ -80,7 +84,7 @@ interface BluetoothRemoteGATTService extends EventTarget, CharacteristicEventHan
 	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-interface BluetoothRemoteGATTServer extends EventTarget {
+interface BluetoothRemoteGATTServer {
 	readonly device: BluetoothDevice;
 	readonly connected: boolean;
 	connect(): Promise<BluetoothRemoteGATTServer>;
@@ -90,6 +94,7 @@ interface BluetoothRemoteGATTServer extends EventTarget {
 }
 
 interface BluetoothDeviceEventHandlers {
+	onadvertisementreceived: (this: this, ev: Event) => any;
 	ongattserverdisconnected: (this: this, ev: Event) => any;
 }
 
@@ -98,11 +103,9 @@ interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, Cha
 	readonly name?: string;
 	readonly gatt?: BluetoothRemoteGATTServer;
 	readonly uuids?: string[];
-
 	watchAdvertisements(): Promise<void>;
 	unwatchAdvertisements(): void;
 	readonly watchingAdvertisements: boolean;
-
 	addEventListener(type: "gattserverdisconnected", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: "advertisementreceived", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
@@ -113,7 +116,6 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
 	onavailabilitychanged: (this: this, ev: Event) => any;
 	readonly referringDevice?: BluetoothDevice;
 	requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
-
 	addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
 	addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }

@@ -11,6 +11,7 @@ import {
     GraphQLInputFieldConfigMap,
     GraphQLNonNull,
     GraphQLID,
+    GraphQLInt
 } from "graphql";
 import {
     // Connections
@@ -30,21 +31,22 @@ import {
     // Mutations
     mutationWithClientMutationId,
 } from "graphql-relay";
+
 // Connections
 // connectionArgs returns the arguments that fields should provide when they return a connection type that supports bidirectional pagination.
-connectionArgs.first = 10;
-connectionArgs.after = "a";
-connectionArgs.before = "b";
-connectionArgs.last = 10;
+connectionArgs.first = { type: GraphQLInt };
+connectionArgs.after = { type: GraphQLString };
+connectionArgs.before = { type: GraphQLString };
+connectionArgs.last = { type: GraphQLInt };
 // forwardConnectionArgs returns the arguments that fields should provide when they return a connection type that only supports forward pagination.
-forwardConnectionArgs.after = "a";
-forwardConnectionArgs.first = 10;
+forwardConnectionArgs.after = { type: GraphQLString };
+forwardConnectionArgs.first = { type: GraphQLInt };
 // backwardConnectionArgs returns the arguments that fields should provide when they return a connection type that only supports backward pagination.
-backwardConnectionArgs.before = "b";
-backwardConnectionArgs.last = 10;
+backwardConnectionArgs.before = { type: GraphQLString };
+backwardConnectionArgs.last = { type: GraphQLInt };
 // connectionDefinitions returns a connectionType and its associated edgeType, given a node type.
 const resolve: GraphQLFieldResolver<any, any> = (source, args, context, info) => {
-    info.fieldName = "f";
+    context.flag = "f";
 };
 const fields: GraphQLFieldConfigMap<any, any> = {};
 let t: GraphQLObjectType;
@@ -118,11 +120,12 @@ const resolver: GraphQLTypeResolver<any, any> = () => {
         fields: {},
     });
 };
-const idFetcher = (id: string, context: number, info: GraphQLResolveInfo) => {
-    info.fieldName = "f";
+const idFetcher = (id: string, context: any, info: GraphQLResolveInfo) => {
+    context.flag = "f";
 };
-const nodeDef = nodeDefinitions<number>(idFetcher, resolver);
-const fieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodeDef = nodeDefinitions<any>(idFetcher, resolver);
+const nodeFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodeField;
+const nodesFieldConfig: GraphQLFieldConfig<any, any> = nodeDef.nodesField;
 const interfaceType: GraphQLInterfaceType = nodeDef.nodeInterface;
 // toGlobalId takes a type name and an ID specific to that type name, and returns a "global ID" that is unique among all types.
 toGlobalId("t", "i").toLowerCase();
@@ -182,10 +185,10 @@ mutationWithClientMutationId({
     inputFields: gifcm,
     mutateAndGetPayload: (
         object: any,
-        ctx: any,
+        context: any,
         info: GraphQLResolveInfo) => {
         return new Promise<string>((resolve) => {
-            resolve(info.fieldName);
+            resolve(context.flag);
         });
     },
     outputFields: gfcm,

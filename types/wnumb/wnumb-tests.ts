@@ -1,18 +1,19 @@
+import wNumb from 'wnumb';
 
-
-
-var moneyFormat = wNumb({
+const options: wNumb.Options = {
 	mark: '.',
 	thousand: ',',
 	prefix: '$ ',
-	postfix: ' p.p.'
-});
+	suffix: ' p.p.'
+};
 
-moneyFormat.to( 301980.62 );
+const moneyFormat: wNumb.Instance = wNumb(options);
 
-moneyFormat.from( '$ 301,980.62 p.p.' );
+moneyFormat.to(301980.62);
 
-var Format = wNumb({
+moneyFormat.from('$ 301,980.62 p.p.');
+
+let Format = wNumb({
 	prefix: '$ ',
 	decimals: 3,
 	thousand: ','
@@ -20,23 +21,17 @@ var Format = wNumb({
 
 Format = wNumb({
 	thousand: '.',
-	encoder: function( a ){
-		return a * 1E7;
-	},
-	decoder: function( a ){
-		return a / 1E7;
-	}
+	encoder: a => a * 1E7,
+	decoder: a => a / 1E7,
 });
 
 Format = wNumb({
 	prefix: '$',
-	postfix: ',-',
+	suffix: ',-',
 	thousand: ','
 });
-
 
 Format = wNumb({
 	prefix: '$',
 	negativeBefore: '[NEGATIVE] '
 });
-

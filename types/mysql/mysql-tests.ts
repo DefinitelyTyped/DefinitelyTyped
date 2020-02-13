@@ -121,13 +121,16 @@ sql = mysql.format(sql, inserts);
 
 connection.config.queryFormat = function(query, values) {
     if (!values) return query;
-    return query.replace(/\:(\w+)/g, function(txt: string, key: string) {
+    return query.replace(/\:(\w+)/g, (txt: string, key: string) => {
         if (values.hasOwnProperty(key)) {
             return this.escape(values[key]);
         }
         return txt;
-    }.bind(this));
+    });
 };
+
+// $ExpectType string
+connection.config.queryFormat("UPDATE posts SET title = :title", {title: "Hello MySQL"});
 
 connection.query("UPDATE posts SET title = :title", {title: "Hello MySQL"});
 
@@ -423,6 +426,13 @@ connection.query({
     }
 });
 
+connection.query({sql: '...', values: ['test']}, (err: Error, results: any) => {
+});
+
 connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
 connection = mysql.createConnection({debug: true});
 connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
+connection = mysql.createConnection({dateStrings: ['DATE']});
+connection = mysql.createConnection({dateStrings: true});
+connection = mysql.createConnection({flags: '-FOUND_ROWS'});
+connection = mysql.createConnection({flags: ['-FOUND_ROWS']});

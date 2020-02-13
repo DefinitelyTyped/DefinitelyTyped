@@ -1,6 +1,5 @@
-
-import * as connect from "connect";
-import * as livereload from "connect-livereload";
+import connect = require("connect");
+import livereload = require("connect-livereload");
 
 const app = connect();
 
@@ -28,13 +27,13 @@ app.use(livereload({
 
 	// include all urls by default
 	include: [/.*/],
-	
+
 	// this function is used to determine if the content of `res.write` or `res.end` is html.
 	html: function (str) {
 		if (!str) return false;
 		return /<[:_-\w\s\!\/\=\"\']+>/i.test(str);
 	},
-	
+
 	// rules are provided to find the place where the snippet should be inserted.
 	// the main problem is that on the server side it can be tricky to determine if a string will be valid html on the client.
 	// the function `fn` of the first `match` is executed like this `body.replace(rule.match, rule.fn);`
@@ -49,13 +48,13 @@ app.use(livereload({
 		match: /<\!DOCTYPE.+?>/i,
 		fn: append
 	}],
-	
+
 	// port where the script is loaded
 	port: 35729,
-	
+
 	// location where the script is provided (not by connect-livereload). Change this e.g. when serving livereload with a proxy.
 	src: "http://localhost:35729/livereload.js?snipver=1",
-	
+
 	// Set this option to `true` to set `req.headers['accept-encoding']` to 'identity' (disabling compression)
 	disableCompression: false
 }));

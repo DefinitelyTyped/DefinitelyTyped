@@ -14,6 +14,9 @@ export = (RED: nodered.Red) => {
     RED.nodes.registerType('my-fantastic-node', function(this: MyFantasticNode, props: MyFantasticProps) {
         RED.nodes.createNode(this, props);
         const config = RED.nodes.getNode(props.config);
+        RED.nodes.eachNode(node => {
+            RED.nodes.getNode(node.id);
+        });
         this.log('Something fantastic happened.');
         this.warn('Something exceptional happened.');
         this.error('Something disastrous happened when I tried to process this.', { payload: 'Cookies' });

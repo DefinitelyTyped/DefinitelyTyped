@@ -1,52 +1,44 @@
-import { PureComponent, Validator, Requireable } from 'react'
-import { CellMeasurerCache, KeyMapper } from './CellMeasurer';
+import { PureComponent, Validator, Requireable } from 'react';
+import { CellMeasurerCacheInterface, KeyMapper, MeasuredCellParent } from './CellMeasurer';
 import { GridCellRenderer } from './Grid';
 /**
  * Specifies the number of miliseconds during which to disable pointer events while a scroll is in progress.
  * This improves performance and makes scrolling smoother.
  */
-export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150
+export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
 
-export type OnCellsRenderedCallback = (params: {
-    startIndex: number,
-    stopIndex: number
-}) => void;
+export type OnCellsRenderedCallback = (params: { startIndex: number; stopIndex: number }) => void;
 
-export type OnScrollCallback = (params: {
-    clientHeight: number,
-    scrollHeight: number,
-    scrollTop: number
-}) => void;
+export type OnScrollCallback = (params: { clientHeight: number; scrollHeight: number; scrollTop: number }) => void;
 
 export type MasonryCellProps = {
-    index: number,
-    isScrolling: boolean,
-    key: React.Key,
-    parent: React.ReactType,
-    style?: React.CSSProperties
-}
+    index: number;
+    isScrolling: boolean;
+    key: React.Key;
+    parent: MeasuredCellParent;
+    style?: React.CSSProperties;
+};
 
-export type CellRenderer = (props: MasonryCellProps) => React.ReactNode
+export type CellRenderer = (props: MasonryCellProps) => React.ReactNode;
 
 export type MasonryProps = {
-    autoHeight: boolean,
-    cellCount: number,
-    cellMeasurerCache: CellMeasurerCache,
-    cellPositioner: Positioner,
-    cellRenderer: CellRenderer,
-    className?: string,
-    height: number,
-    id?: string,
-    keyMapper?: KeyMapper,
-    onCellsRendered?: OnCellsRenderedCallback,
-    onScroll?: OnScrollCallback,
-    overscanByPixels?: number,
-    role?: string,
-    scrollingResetTimeInterval?: number,
-    scrollTop?: number,
-    style?: React.CSSProperties,
-    tabIndex?: number,
-    width: number,
+    autoHeight: boolean;
+    cellCount: number;
+    cellMeasurerCache: CellMeasurerCacheInterface;
+    cellPositioner: Positioner;
+    cellRenderer: CellRenderer;
+    className?: string;
+    height: number;
+    id?: string;
+    keyMapper?: KeyMapper;
+    onCellsRendered?: OnCellsRenderedCallback;
+    onScroll?: OnScrollCallback;
+    overscanByPixels?: number;
+    role?: string;
+    scrollingResetTimeInterval?: number;
+    style?: React.CSSProperties;
+    tabIndex?: number | null;
+    width: number;
     /**
      * PLEASE NOTE
      * The [key: string]: any; line is here on purpose
@@ -55,12 +47,12 @@ export type MasonryProps = {
      * https://github.com/bvaughn/react-virtualized#pass-thru-props
      */
     [key: string]: any;
-}
+};
 
 export type MasonryState = {
-    isScrolling: boolean,
-    scrollTop: number
-}
+    isScrolling: boolean;
+    scrollTop: number;
+};
 
 /**
  * This component efficiently displays arbitrarily positioned cells using windowing techniques.
@@ -92,61 +84,53 @@ export type MasonryState = {
  */
 export class Masonry extends PureComponent<MasonryProps, MasonryState> {
     static defaultProps: {
-        autoHeight: false,
-        keyMapper: identity,
-        onCellsRendered: noop,
-        onScroll: noop,
-        overscanByPixels: 20,
-        role: 'grid',
-        scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL,
-        style: emptyObject,
-        tabIndex: 0
-    }
-
-    constructor(props: MasonryProps, context: any);
+        autoHeight: false;
+        keyMapper: identity;
+        onCellsRendered: noop;
+        onScroll: noop;
+        overscanByPixels: 20;
+        role: 'grid';
+        scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL;
+        style: emptyObject;
+        tabIndex: 0;
+    };
 
     clearCellPositions(): void;
 
     // HACK This method signature was intended for Grid
-    invalidateCellSizeAfterRender(params: { rowIndex: number }): void
+    invalidateCellSizeAfterRender(params: { rowIndex: number }): void;
 
     recomputeCellPositions(): void;
 
-    componentDidMount(): void;
-
-    componentDidUpdate(prevProps: MasonryProps, prevState: MasonryState): void;
-
-    componentWillUnmount(): void;
-
-    componentWillReceiveProps(nextProps: MasonryProps): void;
-
-    render(): JSX.Element;
+    static getDerivedStateFromProps(nextProps: MasonryProps, prevState: MasonryState): MasonryState | null;
 }
 
-export type emptyObject = {}
+export type emptyObject = {};
 
 export type identity = <T>(value: T) => T;
 
 export type noop = () => void;
 
 export type Position = {
-    left: number,
-    top: number
+    left: number;
+    top: number;
 };
 
 export type createCellPositionerParams = {
-    cellMeasurerCache: CellMeasurerCache,
-    columnCount: number,
-    columnWidth: number,
-    spacer?: number
+    cellMeasurerCache: CellMeasurerCacheInterface;
+    columnCount: number;
+    columnWidth: number;
+    spacer?: number;
 };
 
 export type resetParams = {
-    columnCount: number,
-    columnWidth: number,
-    spacer?: number
+    columnCount: number;
+    columnWidth: number;
+    spacer?: number;
 };
 
-export type Positioner = ((index: number) => Position) & { reset: (params: resetParams) => void };
+export type Positioner = ((index: number) => Position) & {
+    reset: (params: resetParams) => void;
+};
 
 export const createCellPositioner: (params: createCellPositionerParams) => Positioner;

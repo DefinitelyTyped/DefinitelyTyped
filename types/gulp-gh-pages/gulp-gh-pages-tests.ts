@@ -1,5 +1,5 @@
 import * as gulp from "gulp";
-import * as ghPages from "gulp-gh-pages";
+import ghPages = require("gulp-gh-pages");
 
 gulp.src("test.css")
     .pipe(ghPages());
@@ -18,6 +18,9 @@ gulp.src("test.css")
 
 gulp.src("test.css")
     .pipe(ghPages({push: false}));
+
+gulp.src("test.css")
+    .pipe(ghPages({ force: true }));
 
 gulp.src("test.css")
     .pipe(ghPages({message: "master"}));

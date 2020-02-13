@@ -2,17 +2,12 @@
 // Project: https://github.com/nodets/socket.io.users
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-/// <reference types="node" />
-
-/// <reference types="express-session" />
-/// <reference types="socket.io" />
-
+// TypeScript Version: 2.3
 
 import { EventEmitter } from 'events';
 import { Application } from "express";
 import { SessionOptions } from "express-session";
+import SocketIO = require("socket.io");
 
 declare var CONNECTION_EVENTS: string[];
 declare var Middleware: () => (socket: SocketIO.Socket, next: () => any) => void;

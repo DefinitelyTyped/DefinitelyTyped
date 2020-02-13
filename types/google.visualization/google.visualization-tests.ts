@@ -363,6 +363,7 @@ function test_formatter_ArrowFormat() {
         ['Electronics', { v: -2.1, f: '-2.1%' }],
         ['Food', { v: 22, f: '22.0%' }]
     ]);
+    data.setFormattedValue(2, 1, null);
 
     var table = new google.visualization.Table(document.getElementById('arrowformat_div'));
 

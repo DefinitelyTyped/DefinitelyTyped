@@ -1,6 +1,7 @@
 // Type definitions for bootstrap-datepicker
 // Project: https://github.com/eternicode/bootstrap-datepicker
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
+//                 Jannik Keye <https://github.com/jannikkeye>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,7 +11,20 @@ type DatepickerEvents = "show"|"hide"|"clearDate"|"changeDate"|"changeMonth"|"ch
 
 type DatepickerViewModes = 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
 
-type DatepickerOrientations = "auto"|"left top"|"left bottom"|"right top"|"right bottom";
+type DatepickerOrientations =
+    "auto"
+    | "left top"
+    | "left bottom"
+    | "right top"
+    | "right bottom"
+    | "top auto"
+    | "bottom auto"
+    | "auto left"
+    | "top left"
+    | "bottom left"
+    | "auto right"
+    | "top right"
+    | "bottom right"
 
 /**
  * All options that take a “Date” can handle a Date object; a String
@@ -22,42 +36,45 @@ type DatepickerOrientations = "auto"|"left top"|"left bottom"|"right top"|"right
  *  https://bootstrap-datepicker.readthedocs.io/en/latest/options.html
  */
 interface DatepickerOptions {
-    format?: string | DatepickerCustomFormatOptions;
-    weekStart?: number;
-    startDate?: Date|string;
-    endDate?: Date|string;
     autoclose?: boolean;
-    startView?: number;
-    todayBtn?: boolean|"linked";
-    todayHighlight?: boolean;
-    keyboardNavigation?: boolean;
-    language?: string;
-    beforeShowDay?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowDayResponse;
-    beforeShowYear?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
-    beforeShowDecade?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
-    beforeShowCentury?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
+    assumeNearbyYear?: boolean | number;
+    beforeShowDay?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowDayResponse;
+    beforeShowMonth?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
+    beforeShowYear?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
+    beforeShowDecade?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
+    beforeShowCentury?: (date: Date) => undefined | string | boolean | DatepickerBeforeShowResponse;
     calendarWeeks?: boolean;
     clearBtn?: boolean;
-    daysOfWeekDisabled?: number[];
+    container?: string;
+    datesDisabled?: string | string[];
+    daysOfWeekDisabled?: string | number[];
+    daysOfWeekHighlighted?: string | number[];
+    defaultViewDate?: Date | string | DatepickerViewDate;
+    enableOnReadonly?: boolean;
+    endDate?: Date | string;
     forceParse?: boolean;
+    format?: string | DatepickerCustomFormatOptions;
+    immediateUpdates?: boolean;
     inputs?: any[];
-    minViewMode?: DatepickerViewModes;
+    keepEmptyValues?: boolean;
+    keyboardNavigation?: boolean;
+    language?: string;
     maxViewMode?: DatepickerViewModes;
-    multidate?: boolean|number;
+    minViewMode?: DatepickerViewModes;
+    multidate?: boolean | number;
     multidateSeparator?: string;
     orientation?: DatepickerOrientations;
-    assumeNearbyYear?: boolean|number;
-    viewMode?: string;
-    templates?: any;
-    zIndexOffset?: number;
     showOnFocus?: boolean;
-    immediateUpdates?: boolean;
+    startDate?: Date | string;
+    startView?: DatepickerViewModes;
+    templates?: any;
+    showWeekDays?: boolean;
     title?: string;
-    container?: string;
-    datesDisabled?:string|string[];
-    daysOfWeekHighlighted?:string|number[];
-    defaultViewDate?:Date|string|DatepickerViewDate;
-    updateViewDate?:boolean;
+    todayBtn?: boolean | "linked";
+    todayHighlight?: boolean;
+    updateViewDate?: boolean;
+    weekStart?: number;
+    zIndexOffset?: number;
 }
 
 interface DatepickerViewDate {

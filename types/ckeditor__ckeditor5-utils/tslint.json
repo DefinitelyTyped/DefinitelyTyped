@@ -1,0 +1,20 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": {
+            "options": [
+                ["Object", "Avoid using the `Object` type. Did you mean `object`?"],
+                ["Boolean", "Avoid using the `Boolean` type. Did you mean `boolean`?"],
+                ["Number", "Avoid using the `Number` type. Did you mean `number`?"],
+                ["String", "Avoid using the `String` type. Did you mean `string`?"],
+                ["Symbol", "Avoid using the `Symbol` type. Did you mean `symbol`?"]
+            ]
+        },
+        "quotemark": [
+            true,
+            "double",
+            "avoid-escape",
+            "avoid-template"
+        ]
+    }
+}

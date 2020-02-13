@@ -462,7 +462,7 @@ describe('FakeRequest', () => {
 
 	it('ticks the jasmine clock on timeout', () => {
 		const clock = { tick: jasmine.createSpy('tick') };
-		spyOn(jasmine, 'clock').and.returnValue(clock);
+		spyOn(jasmine, 'clock').and.returnValue(clock as any);
 
 		const request = new this.FakeRequest();
 		request.open();
@@ -523,9 +523,9 @@ describe('FakeRequest', () => {
 		request.open();
 		request.send('foo=bar&baz=quux');
 
-		this.parserInstance.and.returnValue('parsed');
+		this.parserInstance.and.returnValue({data: 'parsed'});
 
-		expect(request.data()).toBe('parsed');
+		expect(request.data()).toEqual({data: 'parsed'});
 	});
 
 	it('skips parsing if no data was sent', () => {
@@ -751,13 +751,12 @@ describe('FakeRequest', () => {
 });
 
 describe("Jasmine Mock Ajax (for toplevel)", () => {
-	// tslint:disable one-variable-per-declaration
-	let request, anotherRequest, response;
-	let success, error, complete;
-	let client, onreadystatechange;
+	// TODO: these are all `any`!
+	let request, anotherRequest, response; // tslint:disable-line one-variable-per-declaration
+	let success, error, complete; // tslint:disable-line one-variable-per-declaration
+	let client, onreadystatechange; // tslint:disable-line one-variable-per-declaration
 	const sharedContext: any = {};
-	let fakeGlobal, mockAjax;
-	// tslint:enable
+	let fakeGlobal, mockAjax; // tslint:disable-line one-variable-per-declaration
 
 	beforeEach(() => {
 		const fakeXMLHttpRequest = jasmine.createSpy('realFakeXMLHttpRequest');
@@ -773,7 +772,7 @@ describe("Jasmine Mock Ajax (for toplevel)", () => {
 		error = jasmine.createSpy("onFailure");
 		complete = jasmine.createSpy("onComplete");
 
-		onreadystatechange = () => {
+		onreadystatechange = function() {
 			if (this.readyState === (this.DONE || 4)) { // IE 8 doesn't support DONE
 				if (this.status === 200) {
 					success(this.responseText, this.textStatus, this);
@@ -1432,6 +1431,42 @@ describe('RequestStub', () => {
 		expect(stub)['toMatchRequest']('/foo', 'baz=quux&foo=bar');
 		expect(stub).not['toMatchRequest']('/foo', 'foo=bar');
 	});
+
+	it('has methods', () => {
+		jasmine.Ajax.stubRequest('/foo').andReturn({
+			status: 200,
+			contentType: 'application/json',
+			responseText: '{"success": true}',
+			responseHeaders: { 'X-Example': 'a value' },
+		});
+		jasmine.Ajax.stubRequest('/bar').andReturn({});
+		jasmine.Ajax.stubRequest('/baz').andError({
+			status: 400,
+			statusText: 'Invalid',
+		});
+		jasmine.Ajax.stubRequest('/foobar').andError({});
+		jasmine.Ajax.stubRequest('/foobaz').andTimeout();
+		jasmine.Ajax.stubRequest('/barbaz').andCallFunction((xhr) => {
+			xhr.url === '/barbaz';
+			xhr.method === 'POST';
+			xhr.params === {};
+			xhr.username === 'jane_coder';
+			xhr.password === '12345';
+			xhr.requestHeaders === {Accept: 'application/json'};
+			xhr.data() === {query: 'bananas'};
+			xhr.respondWith({
+				status: 200,
+				contentType: 'application/json',
+				responseText: '{"success": true}',
+				responseHeaders: { 'X-Example': 'a value' },
+			});
+			xhr.responseTimeout();
+			xhr.responseError({
+				status: 400,
+				statusText: 'Invalid',
+			});
+		});
+	});
 });
 
 describe('RequestTracker', () => {
@@ -1797,7 +1832,7 @@ describe("mockAjax", () => {
 		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		const request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (fakeGlobal.XMLHttpRequest as any)();
 
 		expect(mockAjax.requests.count()).toBe(1);
 		expect(mockAjax.requests.mostRecent()).toBe(request);
@@ -1809,7 +1844,7 @@ describe("mockAjax", () => {
 		const mockAjax = new MockAjax(fakeGlobal);
 
 		mockAjax.install();
-		const request = new (<any> fakeGlobal.XMLHttpRequest)();
+		const request = new (fakeGlobal.XMLHttpRequest as any)();
 
 		expect(mockAjax.requests.mostRecent()).toBe(request);
 		mockAjax.requests.reset();

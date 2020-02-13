@@ -2,7 +2,7 @@
 // Project: https://github.com/Urigo/angular-meteor
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// Minimum TypeScript Version: 3.7
 
 /// <reference types="meteor" />
 
@@ -101,7 +101,7 @@ declare module 'angular' {
              * @param [autoClientSave=true] - By default, changes in the Angular object will automatically update the Meteor object.
              *                              - However if set to false, changes in the client won't be automatically propagated back to the Meteor object.
              */
-            object<T>(collection: Mongo.Collection<T>, selector: Mongo.Selector|Mongo.ObjectID|string, autoClientSave?: boolean): AngularMeteorObject<T>;
+            object<T>(collection: Mongo.Collection<T>, selector: Mongo.Selector<T>|Mongo.ObjectID|string, autoClientSave?: boolean): AngularMeteorObject<T>;
 
             /**
              * A service which is a wrapper for Meteor.subscribe. It subscribes to a Meteor.publish method in the client and returns a AngularJS promise when ready.

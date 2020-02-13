@@ -244,8 +244,8 @@ declare namespace Rx {
         merge(maxConcurrent: number): T;
         merge(other: Observable<T>): Observable<T>;
         merge(other: IPromise<T>): Observable<T>;
-        mergeAll(): Observable<T>;
-        mergeObservable(): Observable<T>;    // alias for mergeAll
+        mergeAll(): T;
+        mergeObservable(): T;    // alias for mergeAll
         skipUntil<T2>(other: Observable<T2>): Observable<T>;
         skipUntil<T2>(other: IPromise<T2>): Observable<T>;
         switch(): T;

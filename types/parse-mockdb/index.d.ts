@@ -1,10 +1,8 @@
-// Type definitions for parse-mockdb v0.1.14
+// Type definitions for parse-mockdb 0.1
 // Project: https://github.com/HustleInc/parse-mockdb
 // Definitions by: David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-/// <reference types="parse" />
+// TypeScript Version: 2.8
 
 declare namespace ParseMockDB {
     function mockDB(): void;
@@ -18,5 +16,6 @@ declare namespace ParseMockDB {
 }
 
 declare module "parse-mockdb" {
+    import * as Parse from 'parse'
     export = ParseMockDB;
 }

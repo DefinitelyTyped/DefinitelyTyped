@@ -1,4 +1,4 @@
-import * as bwipjs from 'bwip-js';
+import bwipjs = require('bwip-js');
 import * as http from 'http';
 import * as fs from 'fs';
 
@@ -35,5 +35,18 @@ bwipjs.toBuffer({
         // png.length           : PNG file length
         // png.readUInt32BE(16) : PNG image width
         // png.readUInt32BE(20) : PNG image height
+    }
+});
+
+// Browser canvas implementation
+const canvas = document.createElement('canvas') as HTMLCanvasElement;
+bwipjs(canvas, {
+    bcid: 'qrcode',
+    text: 'example',
+}, (err?: string | Error, cvs?: HTMLCanvasElement): void => {
+    if (err) {
+        err; // $ExpectType string | Error
+    } else if (cvs) {
+        cvs; // $ExpectType HTMLCanvasElement
     }
 });

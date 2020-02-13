@@ -1,10 +1,12 @@
-// Tests for Video.js API
-
-import * as videojs from 'video.js';
+import videojs from 'video.js';
 
 videojs("example_video_1").ready(function() {
 	// EXAMPLE: Start playing the video.
-	this.play();
+	const playPromise = this.play();
+
+	if (playPromise) {
+		playPromise.then(() => {});
+	}
 
 	this.pause();
 
@@ -16,9 +18,9 @@ videojs("example_video_1").ready(function() {
 	this.src({ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" });
 
 	this.src([
-	  { type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
-	  { type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
-	  { type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
+		{ type: "video/mp4", src: "http://www.example.com/path/to/video.mp4" },
+		{ type: "video/webm", src: "http://www.example.com/path/to/video.webm" },
+		{ type: "video/ogg", src: "http://www.example.com/path/to/video.ogv" }
 	]);
 
 	const whereYouAt: number = this.currentTime();
@@ -55,29 +57,72 @@ videojs("example_video_1").ready(function() {
 
 	this.height(480);
 
-	this.size(640, 480);
+	const readyState: videojs.ReadyState = this.readyState();
 
-	this.requestFullScreen();
+	this.requestFullscreen();
+
+	const networkState: videojs.NetworkState = this.networkState();
 
 	testEvents(this);
+
+	testComponents(this);
+
+	testPlugin(this, {});
+
+	testLogger();
 });
 
-function testEvents(myPlayer: videojs.Player) {
+function testEvents(player: videojs.Player) {
 	const myFunc = function(this: videojs.Player) {
 		// Do something when the event is fired
 	};
-	myPlayer.on("error", myFunc);
+	player.on("error", myFunc);
 	// Removes the specified listener only.
-	myPlayer.off("error", myFunc);
+	player.off("error", myFunc);
 
 	const myFuncWithArg = function(this: videojs.Player, e: Event) {
 		// Do something when the event is fired
 	};
-	myPlayer.on("volumechange", myFuncWithArg);
+	player.on("volumechange", myFuncWithArg);
 	// Removes all listeners for the given event type.
-	myPlayer.off("volumechange");
+	player.off("volumechange");
 
-	myPlayer.on("loadeddata", () => { /* Some handler. */ });
+	player.on("loadeddata", () => { /* Some handler. */ });
 	// Removes all listeners.
-	myPlayer.off();
+	player.off();
+}
+
+function testComponents(player: videojs.Player) {
+	class MyWindow extends videojs.getComponent('ModalDialog') {
+		myFunction() {
+			this.player().play();
+		}
+	}
+
+	const myWindow = new MyWindow(player, {});
+	myWindow.controlText('My text');
+	myWindow.open();
+	myWindow.close();
+	myWindow.myFunction();
+}
+
+function testPlugin(player: videojs.Player, options: {}) {
+	if (player.usingPlugin('uloztoExample')) { return; }
+
+	videojs.registerPlugin('uloztoExample', function({}: typeof options) {
+		this.play();
+		this.one('ended', () => {
+			// do something
+		});
+	});
+	(player as any).uloztoExample(options);
+}
+
+function testLogger() {
+	const mylogger = videojs.log.createLogger('mylogger');
+	const anotherlogger = mylogger.createLogger('anotherlogger');
+
+	videojs.log('hello');
+	mylogger('how are you');
+	anotherlogger('today');
 }

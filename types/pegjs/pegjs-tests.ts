@@ -26,6 +26,11 @@ import * as pegjs from 'pegjs';
     })
 }
 
+{
+    let parser: pegjs.Parser = pegjs.generate('start = "a" { return options; }');
+    let parsed: any = parser.parse("a", {a: 42});
+}
+
 try {
     let source: string = pegjs.generate("A = 'test'", {output: "source"});
 } catch (error) {

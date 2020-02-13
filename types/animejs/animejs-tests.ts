@@ -1,4 +1,4 @@
-import * as anime from 'animejs';
+import anime from 'animejs';
 
 const test1 = anime({
 	targets: 'div',
@@ -17,9 +17,9 @@ const test2 = anime({
 	},
 	translateY: '40px',
 	color: [
-		{value: '#FF0000', duration: 2000},
-		{value: '#00FF00', duration: 2000},
-		{value: '#0000FF', duration: 2000},
+		{ value: '#FF0000', duration: 2000 },
+		{ value: '#00FF00', duration: 2000 },
+		{ value: '#0000FF', duration: 2000 },
 	],
 	duration: () => {
 		return 1000000000000;
@@ -69,3 +69,40 @@ const bezier = anime.bezier(0, 0, 100, 100);
 anime.easings['hello'] = anime.bezier(0, 0, 1900, 3020);
 const runningAnims = anime.running;
 anime.remove(".tiny-divvy-div");
+
+anime.timeline().add({
+	targets: [],
+	duration: 1000,
+	easing: "linear",
+}, 0);
+
+anime({
+	targets: ".mizi",
+	keyframes: [
+    {translateY: -40, delay: 123},
+    {translateX: 250},
+    {translateY: 40},
+    {translateX: 0},
+		{translateY: 0}
+	],
+	delay: anime.stagger(200, {grid: [14, 5], from: 'center'}),
+	endDelay: -1.12742e-12,
+	loop: true,
+	easing: (el, i, total) => {
+		return (t) => {
+			return Math.pow(Math.sin(t * (i + 1)), total);
+		};
+	},
+	loopBegin: () => {
+		console.log("Hello, MMM");
+	},
+	changeComplete: () => {
+		console.log("It surely had been read.");
+	}
+});
+anime.set(
+	".test-div",
+	{
+		height: "1000px"
+	}
+);

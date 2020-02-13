@@ -32,12 +32,12 @@ declare namespace JqueryBootpag {
         leaps?: boolean;
 
         /**
-         * next button text (default "�")
+         * next button text (default ???)
          */
         next?: string;
 
         /**
-         * prev button text (default "�")
+         * prev button text (default ???)
          */
         prev?: string;
 

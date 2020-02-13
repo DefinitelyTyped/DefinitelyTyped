@@ -1,13 +1,19 @@
-// Type definitions for nouislider v1.0.0
+// Type definitions for wnumb 1.2
 // Project: https://github.com/leongersen/wnumb
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
+//                 Jamie Neubert Pedersen <https://github.com/eikooc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare var wNumb: wNumb;
 
-interface wNumbOptions {
-    /**
-     *     decimals	The number of decimals to include in the result. Limited to 7.
-     */
+export default wNumb;
+export as namespace wNumb;
+
+/**
+ * Create a wNumb
+ */
+declare function wNumb(options?: Options): Instance;
+
+export interface Options {
+    /** The number of decimals to include in the result. Limited to 7. */
     decimals?: number;
     /**
      * The decimal separator.
@@ -25,7 +31,7 @@ interface wNumbOptions {
     /**
      * A number to append to a number. For example: ',-'.
      */
-    postfix?: string;
+    suffix?: string;
     /**
      * The prefix for negative values. Defaults to '-' if negativeBefore isn't set.
      */
@@ -34,9 +40,9 @@ interface wNumbOptions {
      * The prefix for a negative number. Inserted before prefix.
      */
     negativeBefore?: string;
-    /**This is a powerful option to manually modify the slider output.
-     *
-     *For example, to show a number in another currency:
+    /**
+     * This is a powerful option to manually modify the slider output.
+     * For example, to show a number in another currency:
      * function( value ){
      *  return value * 1.32;
      * }
@@ -46,7 +52,7 @@ interface wNumbOptions {
      * Reverse the operations set in encoder.
      * Use this option to undo modifications made while encoding the value.
      * function( value ){
-     * return value / 1.32;
+     *   return value / 1.32;
      * }
      */
     decoder?: (value: number) => number;
@@ -61,20 +67,7 @@ interface wNumbOptions {
     undo?: (value: number) => number;
 }
 
-
-interface wNumb {
-    /**
-     * Create a wNumb
-     *
-     * @param options - the options
-     */
-    (options?: wNumbOptions): wNumbInstance;
-}
-
-interface wNumbInstance {
-
-
-
+export interface Instance {
     /**
      * format to string
      */

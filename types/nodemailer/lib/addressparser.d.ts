@@ -3,6 +3,13 @@ declare namespace addressparser {
         name: string;
         address: string;
     }
+
+    interface Group {
+        name: string;
+        group: AddressOrGroup[];
+    }
+
+    type AddressOrGroup = Address | Group;
 }
 
 /**
@@ -16,9 +23,9 @@ declare namespace addressparser {
  *
  *     [{name: 'Name', address: 'address@domain'}]
  *
- * @param str Address field
  * @return An array of address objects
  */
-declare function addressparser(address: string): addressparser.Address[];
+declare function addressparser(address: string, options: { flatten: true }): addressparser.Address[];
+declare function addressparser(address: string, options?: { flatten: false }): addressparser.AddressOrGroup[];
 
 export = addressparser;

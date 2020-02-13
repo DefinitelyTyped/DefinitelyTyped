@@ -9,13 +9,9 @@ interface TabTestState {
 const tabBarImage = 'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png';
 
 class TabTest extends React.Component<any, TabTestState> {
-    constructor() {
-        super({});
-
-        this.state = {
-            selectedTab: 'home'
-        };
-    }
+    state = {
+        selectedTab: 'home'
+    };
 
     render() {
         return (

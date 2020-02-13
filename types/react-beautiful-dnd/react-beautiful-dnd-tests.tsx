@@ -1,103 +1,117 @@
 import * as React from 'react';
+import { DragDropContext, Draggable, DragStart, DragUpdate, Droppable, DroppableStateSnapshot, DropResult, resetServerContext, ResponderProvided } from 'react-beautiful-dnd';
 import * as ReactDOM from 'react-dom';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface Item {
-  id: string;
-  content: string;
+    id: string;
+    content: string;
 }
 
 const getItems = (count: number): Item[] => {
-  return Array
-    .from({length: count}, (v, k) => k)
-    .map(k => ({
-      id: `item-${k}`,
-      content: `item ${k}`
+    return Array.from({ length: count }, (v, k) => k).map(k => ({
+        id: `item-${k}`,
+        content: `item ${k}`,
     }));
 };
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-  return result;
+    return result;
 };
 
-const getItemStyle = (draggableStyle: any, isDragging: any) => ({
-  userSelect: 'none',
-  background: isDragging ? 'lightgreen' : 'grey',
-  ...draggableStyle
+const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+    userSelect: 'none',
+    background: isDragging ? 'lightgreen' : 'grey',
+    ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver: any) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  width: 250
+const getListStyle = (snapshot: DroppableStateSnapshot) => ({
+    background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+    width: 250,
 });
 
 interface AppState {
-  items: Item[];
+    items: Item[];
 }
 
 class App extends React.Component<{}, AppState> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      items: getItems(10)
+    state = {
+        items: getItems(10),
     };
-    this.onDragEnd = this.onDragEnd.bind(this);
-  }
-
-  onDragEnd(result: DropResult) {
-    if (!result.destination) {
-      return;
+    constructor(props: any) {
+        super(props);
+        this.onDragEnd = this.onDragEnd.bind(this);
     }
 
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
+    onBeforeDragStart(dragStart: DragStart) {
+        //
+    }
 
-    this.setState({items});
-  }
+    onDragStart(dragStart: DragStart, provided: ResponderProvided) {
+        //
+    }
 
-  render() {
-    return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
+    onDragUpdate(dragUpdate: DragUpdate, provided: ResponderProvided) {
+        //
+    }
+
+    onDragEnd(result: DropResult, provided: ResponderProvided) {
+        if (result.combine) {
+            // super simple: just removing the dragging item
+            const items: Item[] = [...this.state.items];
+            items.splice(result.source.index, 1);
+            this.setState({ items });
+            return;
+        }
+
+        if (!result.destination) {
+            return;
+        }
+
+        const items = reorder(this.state.items, result.source.index, result.destination.index);
+
+        this.setState({ items });
+    }
+
+    render() {
+        return (
+            <DragDropContext
+                onBeforeDragStart={this.onBeforeDragStart}
+                onDragStart={this.onDragStart}
+                onDragUpdate={this.onDragUpdate}
+                onDragEnd={this.onDragEnd}
             >
-              {this.state.items.map(item => (
-                <Draggable key={item.id} draggableId={item.id} disableInteractiveElementBlocking={true}>
-                  {(provided, snapshot) => (
-                    <div>
-                      <div
-                        ref={provided.innerRef}
-                        style={getItemStyle(
-                          provided.draggableStyle,
-                          snapshot.isDragging
-                        )}
-                        {...provided.dragHandleProps}
-                      >
-                        {item.content}
-                      </div>
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    );
-  }
+                <Droppable droppableId="droppable" ignoreContainerClipping={false} isCombineEnabled={true}>
+                    {(provided, snapshot) => (
+                        <div ref={provided.innerRef} style={getListStyle(snapshot)} {...provided.droppableProps}>
+                            {this.state.items.map((item, index) => (
+                                <Draggable key={item.id} draggableId={item.id} index={index} shouldRespectForcePress>
+                                    {(provided, snapshot) => (
+                                        <div>
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                                            >
+                                                {item.content}
+                                            </div>
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        );
+    }
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+resetServerContext();

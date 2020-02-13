@@ -1,8 +1,8 @@
-// Type definitions for webpack-manifest-plugin 1.3
+// Type definitions for webpack-manifest-plugin 2.1
 // Project: https://github.com/danethurber/webpack-manifest-plugin
-// Definitions by: Andrew Makarov <https://github.com/r3nya>
+// Definitions by: Andrew Makarov <https://github.com/r3nya>, Jeremy Monson <https://github.com/monsonjeremy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import { Plugin } from 'webpack';
 
@@ -19,13 +19,16 @@ declare namespace WebpackManifestPlugin {
         [propName: string]: any;
     }
 
-    interface HooksOptions {
+    interface FileDescriptor {
         path: string;
-        chunk: Chunk;
         name: string | null;
-        isChunk: boolean;
+        /** Is required to run you app. Cannot be true if isChunk is false. */
         isInitial: boolean;
+        isChunk: boolean;
+        /** Only available is isChunk is true. */
+        chunk?: Chunk;
         isAsset: boolean;
+        /** Is required by a module. Cannot be true if isAsset is false. */
         isModuleAsset: boolean;
     }
 
@@ -37,14 +40,15 @@ declare namespace WebpackManifestPlugin {
         fileName?: string;
 
         /**
-         * A path prefix for all file references. Useful for including your output path in the manifest.
-         */
-        basePath?: string;
-
-        /**
-         * A path prefix used only on output files, similar to Webpack's output.publicPath. Ignored if basePath was also provided.
+         * A path prefix that will be added to values of the manifest.
+         * Default: output.publicPath
          */
         publicPath?: string;
+
+        /**
+         * A path prefix for all keys. Useful for including your output path in the manifest.
+         */
+        basePath?: string;
 
         /**
          * If set to true will emit to build folder and memory in combination with webpack-dev-server
@@ -63,17 +67,26 @@ declare namespace WebpackManifestPlugin {
         /**
          * Filter out files.
          */
-        filter?: (options: HooksOptions) => void;
+        filter?: (file: FileDescriptor) => boolean;
 
         /**
          * Modify files details before the manifest is created.
          */
-        map?: (options: HooksOptions) => void;
+        map?: (file: FileDescriptor) => FileDescriptor;
 
         /**
-         * Create the manifest. It can return anything as long as it's serialisable by JSON.stringify. Use the seed options to populate manifest.
-         * Default: (manifest, {name, path}) => ({...manifest, [name]: path})
+         * Sort files before they are passed to generate.
          */
-        reduce?: (manifest: any, options: HooksOptions) => void;
+        sort?: (a: FileDescriptor, b: FileDescriptor) => number;
+
+        /**
+         * Create the manifest. It can return anything as long as it's serialisable by JSON.stringify.
+         */
+        generate?: (seed: object, files: FileDescriptor[], entrypoints: { [key: string]: string[] }) => object;
+
+        /**
+         * Output manifest file in different format then json (i.e. yaml).
+         */
+        serialize?: (manifest: object) => string;
     }
 }

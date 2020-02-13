@@ -1,11 +1,13 @@
-// Type definitions for firmata.js 0.15
-// Project: https://github.com/firmata/firmata.js
+// Type definitions for firmata.js 0.19
+// Project: http://www.github.com/firmata/firmata.js
 // Definitions by: Troy W. <https://github.com/troywweber7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import * as SerialPort from 'serialport';
+
+import { EventEmitter } from 'events';
 
 export = Board;
 
@@ -15,8 +17,8 @@ export = Board;
  * This is a starting point that appeared to work fine for months within a project of my company, but I give no
  * guarantee that it cannot be improved.
  */
-declare class Board extends NodeJS.EventEmitter {
-	constructor(serialPort: string, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
+declare class Board extends EventEmitter {
+	constructor(serialPort: any, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
 	MODES: Board.PinModes;
 	STEPPER: Board.StepperConstants;
 	I2C_MODES: Board.I2cModes;
@@ -153,9 +155,12 @@ declare class Board extends NodeJS.EventEmitter {
 declare namespace Board {
 	// https://github.com/firmata/firmata.js/blob/master/lib/firmata.js#L429-L451
 	interface Options {
+		skipCapabilities?: boolean;
 		reportVersionTimeout?: number;
 		samplingInterval?: number;
 		serialport?: SerialPort.Options;
+		pins?: Pins[];
+		analogPins?: number[];
 	}
 
 	interface PinModes {

@@ -1,14 +1,20 @@
-// Type definitions for tapable v0.2.5
+// Type definitions for tapable v1.0.0
 // Project: https://github.com/webpack/tapable.git
 // Definitions by: e-cloud <https://github.com/e-cloud>
+//                 John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-declare abstract class Tapable {
+export declare abstract class Tapable {
     private _plugins: {
         [propName: string]: Tapable.Handler[]
     }
 
+    /** @deprecated Private internals. Do not use directly */
+    _pluginCompat: Hook;
+
     /**
+     * @deprecated Tapable.plugin is deprecated. Use new API on `.hooks` instead
      * Register plugin(s)
      * This acts as the same as on() of EventEmitter, for registering a handler/listener to do something when the
      * signal/event happens.
@@ -18,9 +24,11 @@ declare abstract class Tapable {
      */
     plugin(names: string, handler: (this: this, ...args: any[]) => void): void;
 
+    /** @deprecated Tapable.plugin is deprecated. Use new API on `.hooks` instead */
     plugin(names: string[], handler: (this: this, ...args: any[]) => void): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * invoke all plugins with this attached.
      * This method is just to "apply" plugins' definition, so that the real event listeners can be registered into
      * registry. Mostly the `apply` method of a plugin is the main place to place extension logic.
@@ -28,6 +36,7 @@ declare abstract class Tapable {
     apply(...plugins: (((this: this) => any) | Tapable.Plugin)[]): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments.
@@ -44,6 +53,7 @@ declare abstract class Tapable {
     applyPlugins2(name: string, param1: any, param2: any): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with the return value of the previous handler and all the rest arguments.
@@ -55,6 +65,7 @@ declare abstract class Tapable {
     applyPluginsWaterfall(name: string, init: any, ...args: any[]): any;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called ONLY with the return value of the previous handler.
@@ -66,6 +77,7 @@ declare abstract class Tapable {
     applyPluginsWaterfall0(name: string, init: any): any;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments.
@@ -75,6 +87,7 @@ declare abstract class Tapable {
     applyPluginsBailResult(name: string, ...args: any[]): any;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * synchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with target param
@@ -88,6 +101,7 @@ declare abstract class Tapable {
     applyPluginsBailResult1(name: string, param: any): any;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments
@@ -101,6 +115,7 @@ declare abstract class Tapable {
     applyPluginsAsync(name: string, ...args: any[]): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * same as `applyPluginsAsync`
      * @see applyPluginsAsync
      * @alias Tapable.applyPluginsAsync
@@ -112,6 +127,7 @@ declare abstract class Tapable {
     applyPluginsAsyncSeries1(name: string, param: any, callback: Tapable.CallbackFunction): void
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with all the rest arguments
@@ -127,6 +143,7 @@ declare abstract class Tapable {
     applyPluginsAsyncSeriesBailResult(name: string, ...args: any[]): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * asynchronously applies all registered handlers for target name(event id).
      *
      * @see applyPluginsAsyncSeriesBailResult
@@ -139,6 +156,7 @@ declare abstract class Tapable {
     applyPluginsAsyncSeriesBailResult1(name: string, param: any, callback: Tapable.CallbackFunction): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * Asynchronously applies all registered handlers for target name(event id).
      *
      * The handlers are called with the current value and a callback function with the signature (err: Error,
@@ -155,6 +173,7 @@ declare abstract class Tapable {
     applyPluginsAsyncWaterfall(name: string, init: any, callback: Tapable.CallbackFunction): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * The handlers are called with all the rest arguments
@@ -168,6 +187,7 @@ declare abstract class Tapable {
     applyPluginsParallel(name: string, ...args: any[]): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * The handlers are called with all the rest arguments
@@ -182,6 +202,7 @@ declare abstract class Tapable {
     applyPluginsParallelBailResult(name: string, ...args: any[]): void;
 
     /**
+     * @deprecated Tapable.apply is deprecated. Call apply on the plugin directly instead
      * applies all registered handlers for target name(event id) in parallel.
      *
      * @see applyPluginsParallelBailResult
@@ -210,4 +231,80 @@ declare namespace Tapable {
     }
 }
 
-export = Tapable
+type TapType = "sync" | "async" | "promise";
+
+export interface HookCompileOptions {
+    type: TapType;
+}
+
+export interface Tap {
+    name: string;
+    type: TapType;
+    fn: Function;
+    stage: number;
+    context: boolean;
+}
+
+export class Hook<TArg1 = any, TArg2 = any, TArg3 = any, TTabResult = any, THookResult = any> {
+    constructor(tapArgumentNames?: string[]);
+    taps: any[];
+    interceptors: HookInterceptor[];
+
+    isUsed: () => boolean;
+    call: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => THookResult;
+    promise: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => Promise<THookResult>;
+    callAsync: (arg1?: TArg1, arg2?: TArg2, arg3?: TArg3, ...args: any[]) => THookResult;
+
+    compile(options: HookCompileOptions): Function;
+    tap: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => TTabResult) => void;
+    tapAsync: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => void) => void;
+    tapPromise: (name: string | Tap, fn: (arg1: TArg1, arg2: TArg2, arg3: TArg3, ...args: any[]) => Promise<TTabResult>) => void;
+    intercept: (interceptor: HookInterceptor) => void;
+}
+
+export class SyncHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
+export class SyncBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class SyncLoopHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
+export class SyncWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
+
+export class AsyncParallelHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
+export class AsyncParallelBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncSeriesHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, any, undefined> {}
+export class AsyncSeriesBailHook<T1 = any, T2 = any, T3 = any, THookResult = any> extends Hook<T1, T2, T3, undefined | THookResult, undefined | THookResult> {}
+export class AsyncSeriesWaterfallHook<T1 = any, T2 = any, T3 = any> extends Hook<T1, T2, T3, T1, T1> {}
+
+export class HookInterceptor {
+    call?: (...args: any[]) => void;
+    loop?: (...args: any[]) => void;
+    tap?: (tap: Tap) => void;
+    register?: (tap: Tap) => Tap | undefined;
+    context?: boolean;
+}
+
+/** A HookMap is a helper class for a Map with Hooks */
+export class HookMap<T1 = any, T2 = any, T3 = any> {
+    constructor(fn: () => Hook);
+    get: (key: any) => Hook<T1, T2, T3> | undefined;
+    for: (key: any) => Hook<T1, T2, T3>;
+    tap: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => any) => void;
+    tapAsync: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => void) => void;
+    tapPromise: (key: any, name: string | Tap, fn: (arg1: T1, arg2: T2, arg3: T3, ...args: any[]) => Promise<any>) => void;
+    intercept: (interceptor: HookMapInterceptor<T1, T2, T3>) => void;
+}
+
+export class HookMapInterceptor<T1 = any, T2 = any, T3 = any> {
+    factory: (key: any, hook: Hook<T1, T2, T3>) => Hook<T1, T2, T3>;
+}
+
+/**
+ *  A helper Hook-like class to redirect taps to multiple other hooks
+ *
+ * ```
+ * const { MultiHook } = require("tapable");
+ *
+ * this.hooks.allHooks = new MultiHook([this.hooks.hookA, this.hooks.hookB]);
+ * ```
+ */
+export class MultiHook {
+    constructor(hooks: Hook[])
+}

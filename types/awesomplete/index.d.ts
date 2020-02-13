@@ -1,15 +1,18 @@
 // Type definitions for Awesomplete 1.1
 // Project: https://leaverou.github.io/awesomplete/
-// Definitions by: webbiesdk <https://github.com/webbiesdk>, Ben Dixon <https://github.com/bmdixon>, Trevor Bekolay <https://github.com/tbekolay>
+// Definitions by: webbiesdk <https://github.com/webbiesdk>
+//                 Ben Dixon <https://github.com/bmdixon>
+//                 Trevor Bekolay <https://github.com/tbekolay>
+//                 Chris LoPresto <https://github.com/chrislopresto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
     static all: any[];
-    static $$(expr: string | NodeSelector, con?: any): NodeList;
+    static $$(expr: string | ParentNode, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
-        (expr: string|Element, con?: NodeSelector): string | Element;
+        (expr: string|Element, con?: ParentNode): string | Element;
         regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
         create(tag: string, o: any): HTMLElement;
         fire(target: EventTarget, type: string, properties: any): any;
@@ -35,10 +38,12 @@ declare class Awesomplete {
     selected: boolean;
     open: () => void;
     status: HTMLElement;
+    destroy: () => void;
 }
 
 declare namespace Awesomplete {
-    type Suggestion = string | {label: string | any, value: string | any} | [string, string];
+    type Suggestion = string | { label: string | any, value: string | any } | [string, string];
+    type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
         list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]>;
@@ -47,9 +52,9 @@ declare namespace Awesomplete {
         autoFirst?: boolean;
         data?(item: Suggestion, input: string): string;
         filter?(text: string, input: string): boolean;
-        sort?(left: number | any[], right: number | any[]): number;
+        sort?: boolean | SortFunction;
         item?(text: string, input: string): HTMLElement;
-        replace?(text: string): void;
+        replace?(suggestion: string | Suggestion): void;
     }
 }
 

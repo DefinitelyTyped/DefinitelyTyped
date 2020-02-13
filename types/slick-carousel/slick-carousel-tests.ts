@@ -202,6 +202,7 @@ $("#diaporama").slick({
     dotsClass: 'slick-dots',
     draggable: true,
     fade: false,
+    focusOnChange: false,
     focusOnSelect: false,
     easing: "linear",
     edgeFriction: 0.15,
@@ -232,4 +233,30 @@ $("#diaporama").slick({
     rtl: false,
     waitForAnimate: true,
     zIndex: 1000
+});
+
+// --------------------------------------------------------
+// ------------- TEST ACCESSING SLICK INSTANCE ------------
+// --------------------------------------------------------
+
+// $ExpectedType: JQuerySlick
+$("#diaporama").slick("getSlick");
+
+$("#diaporama").on('beforeChange', function(event, slick: JQuerySlick, currentSlide: number, nextSlide: number) {
+   slick.defaults; // $ExpectedType JQuerySlickOptions
+   slick.options; // $ExpectedType JQuerySlickOptions
+   slick.originalSettings; // $ExpectedType JQuerySlickOptions
+   slick.initials; // $ExpectedType JQuerySlickInitials
+
+   // Some properties of `initials` object (that are merged to the Slick instance)
+   slick.animating; // $ExpectedType boolean
+   slick.initials.animating; // $ExpectedType boolean
+   slick.dragging; // $ExpectedType boolean
+   slick.initials.dragging; // $ExpectedType boolean
+   slick.scrolling; // $ExpectedType boolean
+   slick.initials.scrolling; // $ExpectedType boolean
+   slick.sliding; // $ExpectedType boolean
+   slick.initials.sliding; // $ExpectedType boolean
+   slick.swiping; // $ExpectedType boolean
+   slick.initials.swiping; // $ExpectedType boolean
 });

@@ -4,7 +4,7 @@
         "lib": [
             "es6"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
@@ -18,6 +18,18 @@
     },
     "files": [
         "index.d.ts",
-        "mongodb-tests.ts"
+        "test/index.ts",
+        "test/transaction.ts",
+        "test/stats.ts",
+        "test/cursor.ts",
+        "test/createIndex.ts",
+        "test/collection/filterQuery.ts",
+        "test/collection/findX.ts",
+        "test/collection/insertX.ts",
+        "test/collection/updateX.ts",
+        "test/collection/mapReduce.ts",
+        "test/collection/aggregate.ts",
+        "test/collection/count.ts",
+        "test/collection/distinct.ts"
     ]
 }

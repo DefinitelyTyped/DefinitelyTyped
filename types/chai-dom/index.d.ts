@@ -2,6 +2,7 @@
 // Project: https://github.com/nathanboktae/chai-dom
 // Definitions by: Matt Lewis <https://github.com/mattlewis92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 
@@ -23,6 +24,20 @@ declare namespace Chai {
 
         value(text: string): Assertion;
 
+        empty: Assertion;
+
+        // exist, length, and contain are already defined in @types/chai and have the
+        // same type or a more general type, so don't need to be re-declared even though
+        // the implementation is different
+
+        descendant(element: string|HTMLElement): Assertion;
+
+        descendants(selector: string): Assertion;
+
+        displayed: Assertion;
+
+        trimmed: Assertion;
+
     }
 
     interface Include {
@@ -33,14 +48,15 @@ declare namespace Chai {
 
     }
 
+    interface Match {
+
+        (selector: string): Assertion;
+
+    }
+
 }
 
 declare module "chai-dom" {
-
-    function chaiDom(chai: any, utils: any): void;
-
-    namespace chaiDom {
-    }
-
+    const chaiDom: Chai.ChaiPlugin;
     export = chaiDom;
 }

@@ -5,7 +5,10 @@ nunjucks.configure({ autoescape: false });
 let rendered = nunjucks.render("./noexists.html");
 
 nunjucks.render('foo.html', { username: 'James' });
-nunjucks.render('async.html', (err: any, res: string) => {});
+nunjucks.render(
+  'async.html',
+  (err: nunjucks.lib.TemplateError | null, res: string | null) => {},
+);
 
 const ctx = { items: ["Hello", "this", "is", "for", "testing"] };
 const src = "{% for item in items %}{{item}}{% endfor %}";
@@ -32,12 +35,22 @@ nunjucks.configure('views', {
 });
 rendered = env.renderString(src, ctx);
 
-env.addExtension("SpawnGlitter", {
-    tags: ["glitter", "star wars", "Age of Empires"],
-    parse(parser, nodes, lexer) {
-        return "The parser api is complicated";
-    }
-});
+let extension: nunjucks.Extension = {
+  tags: ["glitter", "star wars", "Age of Empires"],
+  parse(parser, nodes, lexer) {
+      return "The parser api is complicated";
+  }
+};
+env = env.addExtension("SpawnGlitter", extension);
+const hasExtension: boolean = env.hasExtension('SpawnGlitter');
+extension = env.getExtension('SpawnGlitter');
+env.removeExtension('SpawnGlitter');
+
+env = env.addGlobal('key', 'value');
+const value = env.getGlobal('key');
+
+env = env.addFilter('testFilter', arg => arg, false);
+const testFilter: ((arg: any) => any) = env.getFilter('testFilter');
 
 nunjucks.installJinjaCompat();
 
@@ -52,3 +65,5 @@ class MyLoader extends nunjucks.Loader implements nunjucks.ILoader {
 }
 
 env = new nunjucks.Environment(new MyLoader());
+
+new nunjucks.runtime.SafeString("an unsafe string");

@@ -1,6 +1,7 @@
-// Type definitions for flatbuffers 1.6
+// Type definitions for flatbuffers 1.10
 // Project: http://google.github.io/flatbuffers/index.html
 // Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
+//                 Robin Giese <robin@grumpycorp.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { flatbuffers };
@@ -10,13 +11,14 @@ declare global {
     type Offset = number;
 
     interface Table {
-      bb: ByteBuffer;
+      bb: ByteBuffer|null;
       bb_pos: number;
     }
 
     const SIZEOF_SHORT: number;
     const SIZEOF_INT: number;
     const FILE_IDENTIFIER_LENGTH: number;
+    const SIZE_PREFIX_LENGTH: number;
 
     enum Encoding { UTF8_BYTES, UTF16_STRING }
 
@@ -41,6 +43,12 @@ declare global {
 
     class Builder {
       constructor(initial_size?: number);
+
+      /**
+       * Reset all the state in this FlatBufferBuilder
+       * so it can be reused to construct another buffer.
+       */
+      clear(): void;
 
       /**
        * In order to save space, fields that are set to their default value
@@ -161,7 +169,8 @@ declare global {
        */
       endObject(): Offset;
 
-      finish(root_table: Offset, file_identifier?: string): void;
+      finish(root_table: Offset, file_identifier?: string, size_prefix?: boolean): void;
+      finishSizePrefixed(root_table: Offset, file_identifier?: string): void;
 
       /**
        * This checks a required field has been set in a given table that has
@@ -199,7 +208,7 @@ declare global {
       createString(s: string|Uint8Array): Offset;
 
       /**
-       * Conveniance function for creating Long objects.
+       * Convenience function for creating Long objects.
        */
       createLong(low: number, high: number): Long;
     }
@@ -210,6 +219,8 @@ declare global {
       constructor(bytes: Uint8Array);
 
       static allocate(byte_size: number): ByteBuffer;
+
+      clear(): void;
 
       bytes(): Uint8Array;
 
@@ -240,6 +251,8 @@ declare global {
       writeUint64(offset: number, value: Long): void;
       writeFloat32(offset: number, value: number): void;
       writeFloat64(offset: number, value: number): void;
+
+      getBufferIdentifier(): string;
 
       /**
        * Look up a field in the vtable, return an offset into the object, or 0 if the
@@ -283,7 +296,7 @@ declare global {
       __has_identifier(ident: string): boolean;
 
       /**
-       * Conveniance function for creating Long objects.
+       * Convenience function for creating Long objects.
        */
       createLong(low: number, high: number): Long;
     }

@@ -222,15 +222,13 @@ describe("wu.has", () => {
 });
 describe("wu.invoke", () => {
   it("should yield the method invokation on each item", () => {
-    function Greeter(name: string) {
-      this.name = name;
+    class Greeter {
+      constructor(readonly name: string) {}
+      greet(tail: string) { return `hello ${this.name}${tail}`; }
     }
-    Greeter.prototype.greet = function(tail: string) {
-      return `hello ${this.name}${tail}`;
-    };
     assert.eqArray(["hello world!", "hello test!"],
                    wu.invoke("greet", "!",
-                             [Greeter("world"), Greeter("test")]));
+                             [new Greeter("world"), new Greeter("test")]));
   });
 });
 describe("wu.keys", () => {
@@ -355,6 +353,18 @@ describe("wu.tee", () => {
     assert.equal(i2.next().value, 2);
     assert.equal(i2.next().value, 6);
     assert.equal(i2.next().value, 24);
+  });
+});
+describe("wu.toArray", () => {
+  it("should return array from the iterable", () => {
+    assert.eqArray(
+      wu.count(0).take(3).toArray(),
+      [0, 1, 2],
+    );
+    assert.eqArray(
+      wu([0, 1, 2]).toArray(),
+      [0, 1, 2]
+    );
   });
 });
 describe("wu.unique", () => {

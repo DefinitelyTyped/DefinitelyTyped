@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-  - 8
-
-sudo: false
+  - 10
 
 notifications:
   email: false
+
+script:
+ - npm run test
+ - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then npm run update-codeowners || travis_terminate 1; fi

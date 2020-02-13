@@ -1,15 +1,21 @@
-// Type definitions for socket.io 1.4.4
+// Type definitions for socket.io 2.1
 // Project: http://socket.io/
-// Definitions by: PROGRE <https://github.com/progre>, Damian Connolly <https://github.com/divillysausages>, Florent Poujol <https://github.com/florentpoujol>, KentarouTakeda <https://github.com/KentarouTakeda>, Alexey Snigirev <https://github.com/gigi>
+// Definitions by: PROGRE <https://github.com/progre>
+//                 Damian Connolly <https://github.com/divillysausages>
+//                 Florent Poujol <https://github.com/florentpoujol>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Alexey Snigirev <https://github.com/gigi>
+//                 Ezinwa Okpoechi <https://github.com/BrainMaestro>
+//                 Marek Urbanowicz <https://github.com/murbanowicz>
+//                 Kevin Kam <https://github.com/kevinkam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="node" />
 
-declare module 'socket.io' {
-	var server: SocketIOStatic;
-
-	export = server;
-}
+declare const SocketIO: SocketIOStatic;
+export = SocketIO;
+/** @deprecated Available as a global for backwards-compatibility. */
+export as namespace SocketIO;
 
 interface SocketIOStatic {
 	/**
@@ -45,7 +51,6 @@ interface SocketIOStatic {
 }
 
 declare namespace SocketIO {
-
 	interface Server {
 		engine: { ws: any };
 
@@ -129,7 +134,7 @@ declare namespace SocketIO {
 		 * Gets the allowed origins for requests
 		 * @default "*:*"
 		 */
-		origins(): string;
+		origins(): string|string[];
 
 		/**
 		 * Sets the allowed origins for requests
@@ -137,7 +142,18 @@ declare namespace SocketIO {
 		 * @default "*:*"
 		 * return This Server
 		 */
-		origins( v: string ): Server;
+		origins( v: string|string[] ): Server;
+
+		/**
+		 * Provides a function taking two arguments origin:String
+		 * and callback(error, success), where success is a boolean
+		 * value indicating whether origin is allowed or not. If
+		 * success is set to false, error must be provided as a string
+		 * value that will be appended to the server response, e.g. “Origin not allowed”.
+		 * @param fn The function that will be called to check the origin
+		 * return This Server
+		 */
+		origins( fn: ( origin: string, callback: ( error: string | null, success: boolean ) => void ) => void ): Server;
 
 		/**
 		 * Attaches socket.io to a server
@@ -166,7 +182,7 @@ declare namespace SocketIO {
 		listen( port: number, opts?: ServerOptions ): Server;
 
 		/**
-		 * Binds socket.io to an engine.io intsance
+		 * Binds socket.io to an engine.io instance
 		 * @param src The Engine.io (or compatible) server to bind to
 		 * @return This Server
 		 */
@@ -185,7 +201,7 @@ declare namespace SocketIO {
 		 * with a '/'
 		 * @return The Namespace
 		 */
-		of( nsp: string ): Namespace;
+		of( nsp: string | RegExp | Function ): Namespace;
 
 		/**
 		 * Closes the server connection
@@ -301,7 +317,7 @@ declare namespace SocketIO {
 		 * Accepted origins
 		 * @default '*:*'
 		 */
-		origins?: string;
+		origins?: string|string[];
 
 		/**
 		 * How many milliseconds without a pong packed to consider the connection closed (engine.io)
@@ -364,6 +380,13 @@ declare namespace SocketIO {
 		 * @default "io"
 		 */
 		cookie?: string|boolean;
+
+        /**
+         * Whether to let engine.io handle the OPTIONS requests.
+         * You can also pass a custom function to handle the requests
+         * @default true
+         */
+        handlePreflightRequest?: ((req: any, res: any) => void) | boolean;
 	}
 
 	/**
@@ -476,6 +499,21 @@ declare namespace SocketIO {
 		compress( compress: boolean ): Namespace;
 	}
 
+	interface Packet extends Array<any> {
+		/**
+		 * Event name
+		 */
+		[0]: string;
+		/**
+		 * Packet data
+		 */
+		[1]: any;
+		/**
+		 * Ack function
+		 */
+		[2]: (...args: any[]) => void;
+	}
+
 	/**
 	 * The socket, which handles our connection for a namespace. NOTE: while
 	 * we technically extend NodeJS.EventEmitter, we're not putting it here
@@ -540,49 +578,7 @@ declare namespace SocketIO {
 		/**
 		 * The object used when negociating the handshake
 		 */
-		handshake: {
-			/**
-			 * The headers passed along with the request. e.g. 'host',
-			 * 'connection', 'accept', 'referer', 'cookie'
-			 */
-			headers: any;
-
-			/**
-			 * The current time, as a string
-			 */
-			time: string;
-
-			/**
-			 * The remote address of the connection request
-			 */
-			address: string;
-
-			/**
-			 * Is this a cross-domain request?
-			 */
-			xdomain: boolean;
-
-			/**
-			 * Is this a secure request?
-			 */
-			secure: boolean;
-
-			/**
-			 * The timestamp for when this was issued
-			 */
-			issued: number;
-
-			/**
-			 * The request url
-			 */
-			url: string;
-
-			/**
-			 * Any query string parameters in the request url
-			 */
-			query: any;
-		};
-
+		handshake: Handshake;
 		/**
 		 * Sets the 'json' flag when emitting an event
 		 */
@@ -615,6 +611,13 @@ declare namespace SocketIO {
 		in( room: string ): Socket;
 
 		/**
+		 * Registers a middleware, which is a function that gets executed for every incoming Packet and receives as parameter the packet and a function to optionally defer execution to the next registered middleware.
+		 *
+		 * Errors passed to middleware callbacks are sent as special error packets to clients.
+		 */
+		use( fn: ( packet: Packet, next: (err?: any) => void ) => void ): Socket;
+
+		/**
 		 * Sends a 'message' event
 		 * @see emit( event, ...args )
 		 */
@@ -633,7 +636,7 @@ declare namespace SocketIO {
 		 * take an optional parameter, err, of a possible error
 		 * @return This Socket
 		 */
-		join( name: string, fn?: ( err?: any ) => void ): Socket;
+		join( name: string|string[], fn?: ( err?: any ) => void ): Socket;
 
 		/**
 		 * Leaves a room
@@ -668,7 +671,73 @@ declare namespace SocketIO {
 		 * @return This Socket
 		 */
 		compress( compress: boolean ): Socket;
+
+        /**
+         * Emits the error
+         * @param err Error message=
+         */
+        error(err: any): void;
 	}
+
+	interface Handshake {
+		/**
+		 * The headers passed along with the request. e.g. 'host',
+		 * 'connection', 'accept', 'referer', 'cookie'
+		 */
+		headers: any;
+
+		/**
+		 * The current time, as a string
+		 */
+		time: string;
+
+		/**
+		 * The remote address of the connection request
+		 */
+		address: string;
+
+		/**
+		 * Is this a cross-domain request?
+		 */
+		xdomain: boolean;
+
+		/**
+		 * Is this a secure request?
+		 */
+		secure: boolean;
+
+		/**
+		 * The timestamp for when this was issued
+		 */
+		issued: number;
+
+		/**
+		 * The request url
+		 */
+		url: string;
+
+		/**
+		 * Any query string parameters in the request url
+		 */
+		query: any;
+	}
+
+	/**
+	 * The interface describing a room
+	 */
+	interface Room {
+		sockets: {[id: string]: boolean };
+		length: number;
+	}
+
+	/**
+	 * The interface describing a dictionary of rooms
+	 * Where room is the name of the room
+	 */
+
+	 interface Rooms {
+		[room: string]: Room;
+	 }
 
 	/**
 	 * The interface used when dealing with rooms etc
@@ -682,9 +751,8 @@ declare namespace SocketIO {
 
 		/**
 		 * A dictionary of all the rooms that we have in this namespace
-		 * The rooms are made of a `sockets` key which is the dictionary of sockets per ID
 		 */
-		rooms: {[room: string]: {sockets: {[id: string]: boolean }, length: number }};
+		rooms: Rooms;
 
 		/**
 		 * A dictionary of all the socket ids that we're dealing with, and all

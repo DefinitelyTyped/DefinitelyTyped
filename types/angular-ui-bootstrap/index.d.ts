@@ -1,6 +1,9 @@
-// Type definitions for Angular UI Bootstrap 0.13.3
+// Type definitions for Angular UI Bootstrap 1.0.0
 // Project: https://github.com/angular-ui/bootstrap
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
+// Definitions by:  Brian Surowiec <https://github.com/xt0rted>,
+//                  Ryan Southgate <https://github.com/ry8806>
+//                  Alfie Johnson <https://github.com/alfiej>
+//                  Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,30 +11,8 @@
 
 import * as angular from 'angular';
 
-export type IAccordionConfig = angular.ui.bootstrap.IAccordionConfig;
-export type IButtonConfig = angular.ui.bootstrap.IButtonConfig;
-export type IDatepickerConfig = angular.ui.bootstrap.IDatepickerConfig;
-export type IDatepickerPopupConfig = angular.ui.bootstrap.IDatepickerPopupConfig;
-export type IDropdownConfig = angular.ui.bootstrap.IDropdownConfig;
-export type IModalProvider = angular.ui.bootstrap.IModalProvider;
-export type IModalService = angular.ui.bootstrap.IModalService;
-export type IModalServiceInstance = angular.ui.bootstrap.IModalServiceInstance;
-export type IModalInstanceService = angular.ui.bootstrap.IModalInstanceService;
-export type IModalScope = angular.ui.bootstrap.IModalScope;
-export type IModalSettings = angular.ui.bootstrap.IModalSettings;
-export type IModalStackService = angular.ui.bootstrap.IModalStackService;
-export type IModalStackedMapKeyValuePair = angular.ui.bootstrap.IModalStackedMapKeyValuePair;
-export type IPaginationConfig = angular.ui.bootstrap.IPaginationConfig;
-export type IPagerConfig = angular.ui.bootstrap.IPagerConfig;
-export type IPositionCoordinates = angular.ui.bootstrap.IPositionCoordinates;
-export type IPositionService = angular.ui.bootstrap.IPositionService;
-export type IProgressConfig = angular.ui.bootstrap.IProgressConfig;
-export type IRatingConfig = angular.ui.bootstrap.IRatingConfig;
-export type ITimepickerConfig = angular.ui.bootstrap.ITimepickerConfig;
-export type ITooltipOptions = angular.ui.bootstrap.ITooltipOptions;
-export type ITooltipProvider = angular.ui.bootstrap.ITooltipProvider;
-export type ITransitionService = angular.ui.bootstrap.ITransitionService;
-export type ITransitionServiceOptions = angular.ui.bootstrap.ITransitionServiceOptions;
+declare const moduleName: 'ui.bootstrap';
+export = moduleName;
 
 declare module 'angular' {
     export namespace ui.bootstrap {
@@ -227,7 +208,7 @@ declare module 'angular' {
             customClass?: DatepickerCallback<string>;
         }
 
-        interface IDatepickerPopupConfig {
+        interface IDatepickerPopupConfig extends IDatepickerConfig {
 
             /**
              * A list of alternate formats acceptable for manual entry.

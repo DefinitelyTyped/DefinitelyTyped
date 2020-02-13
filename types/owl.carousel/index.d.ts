@@ -1,4 +1,4 @@
-// Type definitions for owl.carousel 2.2
+// Type definitions for owl.carousel 2.3
 // Project: https://github.com/OwlCarousel2/OwlCarousel2
 // Definitions by: Ismael Gorissen <https://github.com/igorissen>
 //                 Kenneth Ceyer <https://github.com/KennethanCeyer>
@@ -31,9 +31,9 @@ declare namespace OwlCarousel {
         slideBy?: number | string;
         dots?: boolean;
         dotsEach?: number | boolean;
-        dotData?: boolean;
+        dotsData?: boolean;
         lazyLoad?: boolean;
-        lazyContent?: boolean;
+        lazyLoadEager?: number;
         autoplay?: boolean;
         autoplayTimeout?: number;
         autoplayHoverPause?: boolean;
@@ -59,6 +59,9 @@ declare namespace OwlCarousel {
         stageElement?: string;
         navContainer?: string | boolean;
         dotsContainer?: string | boolean;
+        checkVisible?: boolean;
+        slideTransition?: string;
+        autoHeight?: boolean;
         // CLASSES
         refreshClass?: string;
         loadingClass?: string;

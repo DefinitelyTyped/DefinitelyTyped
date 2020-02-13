@@ -1,22 +1,19 @@
+import * as React from 'react';
 import { CSSModule } from '../index';
+import { FadeProps } from './Fade';
 
-export interface UncontrolledProps {
-  className?: string;
-  cssModule?: CSSModule;
-  color?: string;
-  tag?: React.ReactType;
-  transitionAppearTimeout?: number;
-  transitionEnterTimeout?: number;
-  transitionLeaveTimeout?: number;
+export interface UncontrolledAlertProps extends React.HTMLAttributes<HTMLElement> {
+    [key: string]: any;
+    className?: string;
+    cssModule?: CSSModule;
+    color?: string;
+    tag?: string | React.ReactType;
+    transition?: FadeProps;
 }
-export interface UncontrolledAlertProps extends UncontrolledProps {
-  /* intentionally blank */
-}
-
 export interface AlertProps extends UncontrolledAlertProps {
-  isOpen?: boolean;
-  toggle?: () => void;
+    isOpen?: boolean;
+    toggle?: React.MouseEventHandler<any>;
 }
 
-declare const Alert: React.StatelessComponent<AlertProps>;
+declare class Alert<T = {[key: string]: any}> extends React.Component<AlertProps> {}
 export default Alert;

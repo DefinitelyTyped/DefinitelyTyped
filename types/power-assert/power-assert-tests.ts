@@ -1,5 +1,3 @@
-
-
 import assert = require("power-assert");
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
@@ -16,13 +14,13 @@ assert.notDeepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
 
 assert.throws(() => {
     throw "a hammer at your face";
-}, undefined, "DODGED IT");
+}, "DODGED IT");
 
 assert.doesNotThrow(() => {
     if (!!false) {
         throw "a hammer at your face";
     }
-}, undefined, "What the...*crunch*");
+}, "What the...*crunch*");
 
 
 var customizedAssert1 = assert.customize({
@@ -41,13 +39,13 @@ customizedAssert1.notStrictEqual(2, "2", "uses === comparator");
 
 customizedAssert1.throws(() => {
     throw "a hammer at your face";
-}, undefined, "DODGED IT");
+}, "DODGED IT");
 
 customizedAssert1.doesNotThrow(() => {
     if (!!false) {
         throw "a hammer at your face";
     }
-}, undefined, "What the...*crunch*");
+}, "What the...*crunch*");
 
 
 var customizedAssert2 = assert.customize({
@@ -85,3 +83,10 @@ var customizedAssert2 = assert.customize({
         ]
     }
 });
+
+(): typeof assert => assert.strict;
+
+declare const set: Set<0>;
+assert(set.size === 0);
+set.add(0);
+assert(set.size === 1);

@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as merge2 from 'merge2';
+import merge2 = require('merge2');
 
 gulp.task('app-js', () =>
   merge2(
@@ -65,3 +65,6 @@ streamA.add(stream6);
 stream.on('readable', () => {
     console.log('Stream has data!!');
 });
+
+// should have PassThrough methods
+stream.destroy();

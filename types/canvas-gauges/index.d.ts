@@ -119,6 +119,8 @@ declare namespace CanvasGauges {
         barShadow?: number
     }
 
+    export const GenericOptions: GenericOptions;
+
     export interface RadialGaugeOptions extends GenericOptions {
         ticksAngle?: number,
         startAngle?: number,
@@ -245,6 +247,22 @@ declare namespace CanvasGauges {
 
         constructor(options: GenericOptions);
 
+        public on(event: 'init', listeners: () => void): void;
+        public on(event: 'render', listeners: () => void): void;
+        public on(event: 'destroy', listeners: () => void): void;
+        public on(event: 'animationStart', listeners: () => void): void;
+        public on(event: 'animate', listeners: (percent: number, value: number) => void): void;
+        public on(event: 'animationEnd', listeners: () => void): void;
+        public on(event: 'beforePlate', listeners: () => void): void;
+        public on(event: 'beforeHighlights', listeners: () => void): void;
+        public on(event: 'beforeMinorTicks', listeners: () => void): void;
+        public on(event: 'beforeMajorTicks', listeners: () => void): void;
+        public on(event: 'beforeNumbers', listeners: () => void): void;
+        public on(event: 'beforeTitle', listeners: () => void): void;
+        public on(event: 'beforeUnits', listeners: () => void): void;
+        public on(event: 'beforeProgressBar', listeners: () => void): void;
+        public on(event: 'beforeValueBox', listeners: () => void): void;
+        public on(event: 'beforeNeedle', listeners: () => void): void;
         public update(options: GenericOptions): BaseGauge;
         public destroy(): any;
         public abstract draw(): BaseGauge;

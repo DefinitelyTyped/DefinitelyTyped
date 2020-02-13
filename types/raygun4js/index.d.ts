@@ -1,7 +1,8 @@
-// Type definitions for raygun4js 2.6.0
+// Type definitions for raygun4js 2.13
 // Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>
+// Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>, Taylor Lodge <https://github.com/UberMouse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 interface TracekitStackTrace {
     message: string;
@@ -19,7 +20,6 @@ interface TracekitStack {
     line: number;
     url: string;
 }
-
 
 interface RaygunStackTrace {
     LineNumber: number;
@@ -61,14 +61,17 @@ interface RaygunOptions {
     disablePulse?: boolean;
 
     /**
-     * Prevents errors from being sent from certain hostnames (domains) by providing an array of strings or RegExp objects (for partial matches). Each should match the hostname or TLD that you want to exclude. Note that protocols are not tested.
+     * Prevents errors from being sent from certain hostnames (domains) by providing an array of strings or RegExp objects (for partial matches).
+     * Each should match the hostname or TLD that you want to exclude. Note that protocols are not tested.
      */
-    excludedHostnames?: (string|RegExp)[];
+    excludedHostnames?: ReadonlyArray<string | RegExp>;
 
     /**
-     * Prevents errors from being sent from certain user agents by providing an array of strings. This is very helpful to exclude errors reported by certain browsers or test automation with CasperJS, PhantomJS or any other testing utility that sends a custom user agent. If a part of the client's navigator.userAgent matches one of the given strings in the array, then the client will be excluded from error reporting.
+     * Prevents errors from being sent from certain user agents by providing an array of strings.
+     * This is very helpful to exclude errors reported by certain browsers or test automation with CasperJS, PhantomJS or any other testing utility that sends a custom user agent.
+     * If a part of the client's navigator.userAgent matches one of the given strings in the array, then the client will be excluded from error reporting.
      */
-    excludedUserAgents?: (string|RegExp)[];
+    excludedUserAgents?: ReadonlyArray<string | RegExp>;
 
     /**
      * The maximum time a virtual page can be considered viewed, in milliseconds (defaults to 30 minutes).
@@ -81,11 +84,6 @@ interface RaygunOptions {
     pulseIgnoreUrlCasing?: boolean;
 
     /**
-     * A string URI containing the protocol, domain and port (optional) where all payloads will be sent to. This can be used to proxy payloads to the Raygun API through your own server. When not set this defaults internally to the Raygun API, and for most usages you won't need to set this.
-     */
-    apiUrl?: string;
-
-    /**
      * If false, async callback functions triggered by setTimeout/setInterval will not be wrapped when attach() is called. Defaults to true
      */
     wrapAsynchronousCallbacks?: boolean;
@@ -95,20 +93,25 @@ interface RaygunOptions {
      */
     debugMode?: boolean;
 
+    captureUnhandledRejections?: boolean;
+    setCookieAsSecure?: boolean;
+
     /**
-     * Ignores any errors that have no stack trace information. This will discard any errors that occur completely within 3rd party scripts - if code loaded from the current domain called the 3rd party function, it will have at least one stack line and will still be sent.
+     * Ignores any errors that have no stack trace information. This will discard any errors that occur completely within 3rd party scripts -
+     * if code loaded from the current domain called the 3rd party function, it will have at least one stack line and will still be sent.
      */
     ignore3rdPartyErrors?: boolean;
 
     /**
-     * A string URI containing the protocol, domain and port (optional) where all payloads will be sent to. This can be used to proxy payloads to the Raygun API through your own server. When not set this defaults internally to the Raygun API, and for most usages you won't need to set this.
+     * A string URI containing the protocol, domain and port (optional) where all payloads will be sent to.
+     * This can be used to proxy payloads to the Raygun API through your own server. When not set this defaults internally to the Raygun API, and for most usages you won't need to set this.
      */
     apiEndpoint?: string;
 
     /**
      * String which can be optionally set "onLoad" which will then boot the RealUserMonitoring side instead of waiting for the `load` event.
      */
-    from?: string|"onLoad";
+    from?: string | "onLoad";
 }
 
 interface RaygunPayload {
@@ -121,16 +124,16 @@ interface RaygunPayload {
         };
         Environment: {
             UtcOffset: number;
-            'User-Language': string;
-            'Document-Mode': number;
-            'Browser-Width': number;
-            'Browser-Height': number;
-            'Screen-Width': number;
-            'Screen-Height': number;
-            'Color-Depth': number;
+            "User-Language": string;
+            "Document-Mode": number;
+            "Browser-Width": number;
+            "Browser-Height": number;
+            "Screen-Width": number;
+            "Screen-Height": number;
+            "Color-Depth": number;
             Browser: string;
-            'Browser-Name': string;
-            'Browser-Version': string;
+            "Browser-Name": string;
+            "Browser-Version": string;
             Platform: string;
         };
         Client: {
@@ -143,7 +146,7 @@ interface RaygunPayload {
             Url: string;
             QueryString: string;
             Headers: {
-                'User-Agent': string;
+                "User-Agent": string;
                 Referer: string;
                 Host: string;
             };
@@ -162,7 +165,6 @@ interface RaygunPayload {
 }
 
 interface RaygunStatic {
-
     /**
      * Prevents Raygun from overwriting anything bound to `window.Raygun`.
      */
@@ -176,7 +178,11 @@ interface RaygunStatic {
     /**
      * Configures the Raygun provider.
      */
-    init(apiKey: string, options?: RaygunOptions, customdata?: any): RaygunStatic;
+    init(
+        apiKey: string,
+        options?: RaygunOptions,
+        customdata?: any
+    ): RaygunStatic;
 
     /**
      * Attaches custom data to any errors sent to Raygun.
@@ -206,7 +212,14 @@ interface RaygunStatic {
     /**
      * Provides additional information about the current user.
      */
-    setUser(user: string, isAnonymous?: boolean, email?: string, fullName?: string, firstName?: string, uuid?: string): RaygunStatic;
+    setUser(
+        user: string,
+        isAnonymous?: boolean,
+        email?: string,
+        fullName?: string,
+        firstName?: string,
+        uuid?: string
+    ): RaygunStatic;
 
     /**
      * Resets the information about the current user.
@@ -226,12 +239,14 @@ interface RaygunStatic {
     /**
      * Blacklist keys to prevent their values from being sent to Raygun.
      */
-    filterSensitiveData(filteredKeys: (string|RegExp)[]): RaygunStatic;
+    filterSensitiveData(
+        filteredKeys: ReadonlyArray<string | RegExp>
+    ): RaygunStatic;
 
     /**
      * Change the scope at which filters are applied. Defaults to `customData` by default.
      */
-    setFilterScope(scope: "all"|"customData"): RaygunStatic;
+    setFilterScope(scope: "all" | "customData"): RaygunStatic;
 
     /**
      * Whitelist damains which should transmit errors to Raygun.
@@ -241,12 +256,20 @@ interface RaygunStatic {
     /**
      * Executed before the payload is sent. If a truthy object is returned, Raygun will attempt to use that as the payload. Raygun will abort the send if `false` is returned.
      */
-    onBeforeSend(callback: (payload: RaygunPayload) => RaygunPayload|boolean): RaygunStatic;
+    onBeforeSend(
+        callback: (payload: RaygunPayload) => RaygunPayload | boolean
+    ): RaygunStatic;
 
     /**
      * Overrides the default automatic grouping and instead group errors together by the string returned by the callback.
      */
-    groupingKey(callback: (payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string|void): RaygunStatic;
+    groupingKey(
+        callback: (
+            payload: RaygunPayload,
+            stackTrace: TracekitStackTrace,
+            options: any
+        ) => string | void
+    ): RaygunStatic;
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
     onAfterSend(callback: (response: XMLHttpRequest) => void): RaygunStatic;
     endSession(): void;
@@ -259,22 +282,29 @@ interface RaygunStatic {
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
      */
-    recordBreadcrumb(message:string,metadata?:any): void;
+    recordBreadcrumb(message: string, metadata?: any): void;
 
     /**
      * Enables all breadcrumbs level or a type can be passed which will enable only that passed one.
      */
-    enableAutoBreadcrumbs(type?:"XHR"|"Clicks"|"Console"|"Navigation"): void;
+    enableAutoBreadcrumbs(
+        type?: "XHR" | "Clicks" | "Console" | "Navigation"
+    ): void;
 
     /**
      * Disables all breadcrumbs or a type can be passed to disable only that one.
      */
-    disableAutoBreadcrumbs(type?:"XHR"|"Clicks"|"Console"|"Navigation"): void;
+    disableAutoBreadcrumbs(
+        type?: "XHR" | "Clicks" | "Console" | "Navigation"
+    ): void;
 
     /**
      * Pass "breadcrumbsLevel" alongside a valid breadcrumbs level to set the current level. Passing options other than "breadcrumbsLevel" will set xhr hosts to ignore being
      */
-    setBreadcrumbOption(option?:string|"breadcrumbsLevel", value?:string|"debug"|"info"|"warning"|"error"): void;
+    setBreadcrumbOption(
+        option?: string | "breadcrumbsLevel",
+        value?: string | "debug" | "info" | "warning" | "error"
+    ): void;
 }
 
 interface RaygunV2UserDetails {
@@ -286,7 +316,7 @@ interface RaygunV2UserDetails {
     /**
      * Indicates whether the user is anonymous or has a user account. Even if this is set to true, you should still give the user a unique identifier of some kind.
      */
-    isAnonymous?: string;
+    isAnonymous?: boolean;
 
     /**
      * The user's email address.
@@ -309,42 +339,80 @@ interface RaygunV2UserDetails {
     uuid?: string;
 }
 
-
+type BreadcrumbLevel = "debug" | "error" | "warning" | "info";
 interface RaygunV2 {
-    (key: "options", value:RaygunOptions):void;
-    (key: "setUser", value: RaygunV2UserDetails):void;
-    (key: "onBeforeSend", callback: (payload: RaygunPayload) => RaygunPayload|boolean):void;
-    (key: "onBeforeXHR"|"onAfterSend", callback: (xhr: XMLHttpRequest) => void): void;
-    (key: "groupingKey", value:(payload: RaygunPayload, stackTrace: TracekitStackTrace, options: any) => string|void):void;
-    (key: "trackEvent", value: { type: string, path: string }): void;
-    (key: "apiKey"|"setVersion"|"setFilterScope", value:string):void;
-    (key: "attach"|"enableCrashReporting"|"enablePulse"|"noConflict"|"saveIfOffline", value: boolean):void;
-    (key: "filterSensitiveData"|"whitelistCrossOriginDomains"|"withTags", values: string[]): void;
-    (key: "send"|"withCustomData", value: any): void;
-    (key: "getRaygunInstance"):RaygunStatic;
-    (key: "detach"): void;
-    (key: "disableAutoBreadcrumbs"): void;
-    (key: "enableAutoBreadcrumbs"): void;
-    (key: "disableAutoBreadcrumbsConsole"): void;
-    (key: "enableAutoBreadcrumbsConsole"): void;
-    (key: "disableAutoBreadcrumbsNavigation"): void;
-    (key: "enableAutoBreadcrumbsNavigation"): void;
-    (key: "disableAutoBreadcrumbsClicks"): void;
-    (key: "enableAutoBreadcrumbsClicks"): void;
-    (key: "disableAutoBreadcrumbsXHR"): void;
-    (key: "enableAutoBreadcrumbsXHR"): void;
-    (key: "setAutoBreadcrumbsXHRIgnoredHosts"): void;
-    (key: "setBreadcrumbLevel"): void;
-    (key: "recordBreadcrumb", message:string|{message:string,metadata:any,level:string|"debug"|"info"|"warning"|"error",location:string}, metadata:any): void;
-    (key: string):void;
+    (key: "options", value: RaygunOptions): void;
+    (key: "setUser", value: RaygunV2UserDetails): void;
+    (
+        key: "onBeforeSend",
+        callback: (payload: RaygunPayload) => RaygunPayload | boolean
+    ): void;
+    (
+        key: "onBeforeXHR" | "onAfterSend",
+        callback: (xhr: XMLHttpRequest) => void
+    ): void;
+    (
+        key: "groupingKey",
+        value: (
+            payload: RaygunPayload,
+            stackTrace: TracekitStackTrace,
+            options: any
+        ) => string | void
+    ): void;
+    (key: "trackEvent", value: { type: string; path: string }): void;
+    (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
+    (
+        key:
+            | "attach"
+            | "enableCrashReporting"
+            | "enablePulse"
+            | "noConflict"
+            | "saveIfOffline",
+        value: boolean
+    ): void;
+	(key: "filterSensitiveData", values: Array<string | RegExp>): void;
+    (
+        key: "whitelistCrossOriginDomains" | "withTags",
+        values: string[]
+    ): void;
+    (key: "send" | "withCustomData", value: any): void;
+    (key: "getRaygunInstance"): RaygunStatic;
+    (
+        key:
+            | "detach"
+            | "disableAutoBreadcrumbs"
+            | "enableAutoBreadcrumbs"
+            | "disableAutoBreadcrumbsConsole"
+            | "enableAutoBreadcrumbsConsole"
+            | "disableAutoBreadcrumbsNavigation"
+            | "enableAutoBreadcrumbsNavigation"
+            | "disableAutoBreadcrumbsClicks"
+            | "enableAutoBreadcrumbsClicks"
+            | "disableAutoBreadcrumbsXHR"
+            | "enableAutoBreadcrumbsXHR"
+            | "setAutoBreadcrumbsXHRIgnoredHosts"
+    ): void;
+    (key: "setBreadcrumbLevel", level: BreadcrumbLevel): void;
+    (
+        key: "recordBreadcrumb",
+        message:
+            | string
+            | {
+                  message: string;
+                  metadata: any;
+                  level: BreadcrumbLevel;
+                  location: string;
+              },
+        metadata: object
+    ): void;
 }
+
+declare const rg4js: RaygunV2;
 
 interface Window {
     Raygun: RaygunStatic;
 }
 
-declare var Raygun: RaygunStatic;
+export { RaygunStatic, RaygunV2, RaygunV2UserDetails, RaygunOptions };
 
-declare module 'raygun4js' {
-    export = Raygun;
-}
+export default rg4js;

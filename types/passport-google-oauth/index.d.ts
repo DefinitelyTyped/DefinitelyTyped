@@ -44,7 +44,7 @@ declare class OAuthStrategy implements passport.Strategy {
         ) => void
     );
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate(req: express.Request, options?: Object): void;
 }
 
 interface IOAuth2StrategyOption {
@@ -53,6 +53,7 @@ interface IOAuth2StrategyOption {
     callbackURL: string;
     authorizationURL?: string;
     tokenURL?: string;
+    userProfileURL?: string;
     accessType?: string;
     approval_prompt?: string;
     prompt?: string;
@@ -75,7 +76,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
     constructor(
@@ -85,7 +86,7 @@ declare class OAuth2Strategy implements passport.Strategy {
             accessToken: string,
             refreshToken: string,
             profile: Profile,
-            done: (error: any, user?: any) => void
+            done: VerifyFunction
         ) => void
     );
 

@@ -1,9 +1,10 @@
-import * as Koa from "koa";
-import * as views from "koa-views";
+import Koa = require("koa");
+import views = require("koa-views");
 
 const app = new Koa();
 
 app.use(views('/views', {
+    autoRender: true,
     map: {
         html: 'underscore'
     },

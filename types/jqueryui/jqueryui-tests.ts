@@ -51,6 +51,7 @@ function test_droppable() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         drop: (event, ui) => {
+            console.log(`${event.screenX}, ${event.screenY}`);
             $(this)
                 .addClass("ui-state-highlight")
                 .find("p")
@@ -911,7 +912,12 @@ function test_autocomplete() {
                 "Nothing selected, input was " + this.value);
         }
     });
-
+    $("#birds").autocomplete({
+        classes: {
+            'ui-autocomplete': 'foo',
+            'ui-autocomplete-input': 'bar'
+        }
+    })
 }
 
 
@@ -1594,6 +1600,7 @@ function test_slider() {
     $(".selector").slider({ step: 5 });
     $(".selector").slider({ value: 10 });
     $(".selector").slider({ values: [10, 25] });
+    $(".selector").slider({ classes: { "ui-slider": "custom", "ui-slider-handle": "custom-handle" } } );
 }
 
 
@@ -1856,6 +1863,7 @@ function test_ui() {
     $("aDialog").keypress(function (e) {
         return (e.keyCode == $.ui.keyCode.ENTER);
     });
+    $(".selector").jQuery.ui.selectmenu({ disabled: true });
 }
 
 function test_widget() {

@@ -1,6 +1,6 @@
 import * as m from 'mithril';
 import { Vnode } from 'mithril';
-import * as h from 'mithril/hyperscript';
+import h = require('mithril/hyperscript');
 
 const vnode = m.fragment({id: 'abc'}, ['test']);
 

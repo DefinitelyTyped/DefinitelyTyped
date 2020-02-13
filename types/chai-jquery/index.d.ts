@@ -2,7 +2,7 @@
 // Project: https://github.com/chaijs/chai-jquery
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="chai" />
 /// <reference types="jquery" />
@@ -10,21 +10,26 @@
 declare namespace Chai {
 
     interface Assertion {
-        attr: (name: string, value?: string) => Assertion;
-        prop: (name: string, value?: any) => Assertion;
-        css: (name: string, value?: string) => Assertion;
-        data: (name: string, value?: string) => Assertion;
+        attr(name: string, value?: string): Assertion;
+        prop(name: string, value?: any): Assertion;
+        css(name: string, value?: string): Assertion;
+        data(name: string, value?: string): Assertion;
         class(className: string): Assertion;
         id(id: string): Assertion;
         html(html: string): Assertion;
         text(text: string): Assertion;
         value(text: string): Assertion;
         descendants(selector: string): Assertion;
-        visible: Assertion;
-        hidden: Assertion;
-        selected: Assertion;
-        checked: Assertion;
-        disabled: Assertion;
+        visible(): Assertion;
+        hidden(): Assertion;
+        selected(): Assertion;
+        checked(): Assertion;
+        disabled(): Assertion;
+        enabled(): Assertion;
+        (selector: string): Assertion;
+    }
+
+    interface Match {
         (selector: string): Assertion;
     }
 }
@@ -423,7 +428,7 @@ interface ChaiJQueryStatic {
      *
      * @param value The value to search for.
      * @param array An array through which to search.
-     * @param fromIndex he index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
      */
     inArray<T>(value: T, array: T[], fromIndex?: number): number;
 
@@ -466,7 +471,7 @@ interface ChaiJQueryStatic {
     /**
      * Check to see if a DOM node is within an XML document (or is an XML document).
      *
-     * @param node he DOM node that will be checked to see if it's in an XML document.
+     * @param node The DOM node that will be checked to see if it's in an XML document.
      */
     isXMLDoc(node: Node): boolean;
 

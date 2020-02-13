@@ -2,7 +2,7 @@
 // Project: https://github.com/wardbell/bardjs
 // Definitions by: Andrew Archibald <https://github.com/TepigMC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="angular" />
 /// <reference types="chai" />

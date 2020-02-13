@@ -2,8 +2,9 @@
 // Project: https://github.com/JaKXz/stylelint-webpack-plugin
 // Definitions by: Arne Bahlo <https://github.com/bahlo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import { Plugin } from "webpack";
+import { Plugin } from 'webpack';
 
 export = StylelintWebpackPlugin;
 
@@ -22,15 +23,26 @@ declare namespace StylelintWebpackPlugin {
 
     type Formatter = (messages: Message[], source: string) => string;
 
+    interface Config {
+        rules?: object;
+        extends?: string | string[];
+        plugins?: string[];
+        processors?: string[];
+        ignoreFiles?: string | string[];
+        defaultSeverity?: "warning" | "error";
+    }
+
     interface Options {
+        config?: Config;
         configFile?: string;
         context?: string;
         emitErrors?: boolean;
         failOnError?: boolean;
-        files?: string[];
+        files?: string|string[];
         formatter?: Formatter;
         lintDirtyModulesOnly?: boolean;
         syntax?: string;
         quiet?: boolean;
+        fix?: boolean;
     }
 }

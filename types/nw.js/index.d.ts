@@ -4,41 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
+declare global {
 /**
  * Helpers class and interfaces defined here, to make `nw` module cleaner.
  */
-declare module NWJS_Helpers {
-
-    /**
-     * Node.js v6.x EventEmitter Class
-     */
-    class EventEmitter extends NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
-
-        static listenerCount( emitter: EventEmitter, event: string ): number; // deprecated
-        static defaultMaxListeners: number;
-
-        addListener( event: string, listener: Function ): this;
-
-        on( event: string, listener: Function ): this;
-
-        once( event: string, listener: Function ): this;
-
-        removeListener( event: string, listener: Function ): this;
-
-        removeAllListeners( event?: string ): this;
-
-        setMaxListeners( n: number ): this;
-
-        getMaxListeners(): number;
-
-        listeners( event: string ): Function[];
-
-        emit( event: string, ...args: any[] ): boolean;
-
-        listenerCount( type: string ): number;
-    }
+module NWJS_Helpers {
 
     /**
      * The clipboard object.
@@ -372,7 +344,7 @@ declare module NWJS_Helpers {
          * The paper size spec
          * example: 'mediaSize':{'name': 'CUSTOM', 'width_microns': 279400, 'height_microns': 215900, 'custom_display_name':'Letter', 'is_default': true}
          */
-        mediaSize: JSON;
+        mediaSize: any;
 
         /**
          * Whether to print CSS backgrounds
@@ -1072,9 +1044,9 @@ declare module NWJS_Helpers {
          * Enumerate the printers in the system.
          *
          * @param callback {function(dev_win?)} callback with the native window of the DevTools window.
-         * - (optional) printers {JSON[]} An array of JSON objects for the printer information.
+         * - (optional) printers {any[]} An array of json objects for the printer information.
          */
-        getPrinters( callback: ( printers?: JSON[] ) => void ): void;
+        getPrinters( callback: ( printers?: any[] ) => void ): void;
 
         /**
          * Query the status of devtools window.
@@ -1084,9 +1056,9 @@ declare module NWJS_Helpers {
         /**
          * Print the web contents in the window without the need for user’s interaction.
          *
-         * @param options {Object} Specify whether to close the window forcely and bypass close event.
+         * @param options {any | PrintOption} Specify whether to close the window forcely and bypass close event.
          */
-        print( options: JSON | PrintOption ): void;
+        print( options: any | PrintOption ): void;
 
         /**
          * Set window's maximum size.
@@ -1352,7 +1324,7 @@ declare module NWJS_Helpers {
     }
 }
 
-declare namespace nw {
+namespace nw {
 
     /* Reference: http://docs.nwjs.io/en/latest/References/App/ */
     /**
@@ -1381,9 +1353,9 @@ declare namespace nw {
         dataPath: string;
 
         /**
-         * Get the JSON object of the manifest file.
+         * Get the json object of the manifest file.
          */
-        manifest: JSON;
+        manifest: any;
 
         /**
          * Clear the HTTP cache in memory and the one on disk. This method call is synchronized.
@@ -1565,7 +1537,7 @@ declare namespace nw {
     /**
      * `MenuItem` represents an item in a menu.
      */
-    class MenuItem extends NWJS_Helpers.EventEmitter {
+    class MenuItem extends EventEmitter {
 
         /**
          * Create a new MenuItem.
@@ -1645,7 +1617,7 @@ declare namespace nw {
      * Screen is an instance of EventEmitter object, and you"re able to use Screen.on(...) to respond to native screen"s events.
      * Screen is a singleton object, need to be initiated once by calling nw.Screen.Init().
      */
-    interface Screen extends NWJS_Helpers.EventEmitter {
+    interface Screen extends EventEmitter {
 
         /**
          * Init the Screen singleton object, you only need to call this once.
@@ -1732,7 +1704,7 @@ declare namespace nw {
     /**
      * `Shortcut` represents a global keyboard shortcut, also known as system-wide hotkey.
      */
-    export class Shortcut extends NWJS_Helpers.EventEmitter {
+    export class Shortcut extends EventEmitter {
 
         /**
          * Create new Shortcut.
@@ -1782,7 +1754,7 @@ declare namespace nw {
     /**
      * `Tray` is an abstraction of different controls on different platforms, usually it"s a small icon shown on the OS"s notification area. On Mac OS X it"s called Status Item, on GTK it"s Status Icon, and on Windows it"s System Tray Icon.
      */
-    export class Tray extends NWJS_Helpers.EventEmitter {
+    export class Tray extends EventEmitter {
         /**
          * Create a new Tray.
          * @param option {Object} Contains initial settings for the Tray.
@@ -1839,7 +1811,7 @@ declare namespace nw {
     /**
      * Window is a wrapper of the DOM's window object. It has extended operations and can receive various window events.
      */
-    interface Window extends NWJS_Helpers.EventEmitter {
+    interface Window extends EventEmitter {
 
         /**
          * Get the native Window Object.
@@ -1864,6 +1836,7 @@ declare namespace nw {
     export var Screen: Screen;
     export var Shell: Shell;
     export var Window: Window;
+}
 }
 
 declare module "nw.gui" {
