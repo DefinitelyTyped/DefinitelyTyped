@@ -13,7 +13,7 @@ import express = require('express');
 import passportAuth0 = Strategy;
 
 declare namespace Strategy {
-    export interface Profile extends passport.Profile {
+    interface Profile extends passport.Profile {
         id: string;
         displayName: string;
         gender?: string;
@@ -29,11 +29,11 @@ declare namespace Strategy {
         _json: any;
     }
 
-    export interface AuthenticateOptions extends passport.AuthenticateOptions {
+    interface AuthenticateOptions extends passport.AuthenticateOptions {
         authType?: string;
     }
 
-    export interface StrategyOption {
+    interface StrategyOption {
         clientID: string;
         clientSecret: string;
         callbackURL: string;
@@ -44,16 +44,16 @@ declare namespace Strategy {
         state?: boolean;
     }
 
-    export interface StrategyOptionWithRequest extends StrategyOption {
+    interface StrategyOptionWithRequest extends StrategyOption {
         passReqToCallback: true;
     }
-    export interface ExtraVerificationParams {
+    interface ExtraVerificationParams {
         audience?: string;
         connection?: string;
         prompt?: string;
     }
 
-    export type VerifyFunction = (
+    type VerifyFunction = (
         accessToken: string,
         refreshToken: string,
         extraParams: ExtraVerificationParams,
@@ -61,7 +61,7 @@ declare namespace Strategy {
         done: (error: any, user?: any, info?: any) => void,
     ) => void;
 
-    export type VerifyFunctionWithRequest = (
+    type VerifyFunctionWithRequest = (
         req: express.Request,
         accessToken: string,
         refreshToken: string,
@@ -69,7 +69,7 @@ declare namespace Strategy {
         done: (error: any, user?: any, info?: any) => void,
     ) => void;
 
-    export class Strategy extends passport.Strategy {
+    class Strategy extends passport.Strategy {
         constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
         constructor(options: StrategyOption, verify: VerifyFunction);
 
@@ -77,7 +77,10 @@ declare namespace Strategy {
         authenticate(req: express.Request, options?: object): void;
     }
 
-    export import StrategyInternal = passportAuth0.Strategy;
+    // NOTE: not true for `export import` statements
+    // tslint:disable-next-line:strict-export-declare-modifiers
+    export import StrategyInternal = Strategy;
 }
 
+// tslint:disable-next-line:export-just-namespace
 export = Strategy;
