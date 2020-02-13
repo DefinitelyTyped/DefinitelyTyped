@@ -15,6 +15,9 @@ const theme = {
     fontWeights: {
         bold: 600,
     },
+    zIndicies: {
+        base: 100,
+    }
 };
 
 export const themeWithVariants: Theme = {
@@ -238,3 +241,8 @@ css({
 })({
     breakpoints: ['32em', '40em'],
 });
+
+// handles theme string values for zIndex
+css({
+    zIndex: 'base',
+})(theme);
