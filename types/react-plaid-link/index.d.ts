@@ -34,9 +34,9 @@ export interface PlaidLinkProps {
         | 'income'
         | 'transactions'
         | 'assets'
-        | 'holdings'
         | 'liabilities'
         | 'investments'
+        | 'payment_initiation'
     >;
 
     // Specify an existing user's public token to launch Link in update mode.
