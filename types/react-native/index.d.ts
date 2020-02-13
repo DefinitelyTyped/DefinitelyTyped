@@ -32,6 +32,7 @@
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
+//                 Ryan Pfister <https://github.com/puhfista>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8940,7 +8941,7 @@ export const PixelRatio: PixelRatioStatic;
  * `any` because TypeScript assumes anonymous JSX intrinsics (`string` instead of `"div", for
  * example) not to have any props.
  */
-export function requireNativeComponent(viewName: string): any;
+export function requireNativeComponent(viewName: string, component?: React.ReactNode): any;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
