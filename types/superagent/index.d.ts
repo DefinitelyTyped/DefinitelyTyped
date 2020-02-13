@@ -163,6 +163,7 @@ declare namespace request {
         set(field: string, val: string): this;
         set(field: 'Cookie', val: string[]): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
+        trustLocalhost(t?: boolean): this;
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
