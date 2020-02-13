@@ -206,9 +206,9 @@ declare module 'angular' {
       method: string,
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for DELETE requests.
@@ -220,9 +220,9 @@ declare module 'angular' {
      */
     expectDELETE(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for GET requests.
@@ -234,9 +234,9 @@ declare module 'angular' {
      */
     expectGET(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for HEAD requests.
@@ -249,9 +249,9 @@ declare module 'angular' {
 
     expectHEAD(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for JSONP requests.
@@ -263,7 +263,7 @@ declare module 'angular' {
     expectJSONP(
       url: string | RegExp | ((url: string) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for PATCH requests.
@@ -277,9 +277,9 @@ declare module 'angular' {
     expectPATCH(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for POST requests.
@@ -293,9 +293,9 @@ declare module 'angular' {
     expectPOST(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation for PUT requests.
@@ -309,9 +309,9 @@ declare module 'angular' {
     expectPUT(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new request expectation that compares only with the requested route.
@@ -321,7 +321,7 @@ declare module 'angular' {
      * @param method HTTP method
      * @param url HTTP url string that supports colon param matching
      */
-    expectRoute(method: string, url: string): mock.IRequestHandler;
+    expectRoute(method: string, url: string): http.IRequestHandler;
 
     /**
      * Creates a new backend definition.
@@ -336,9 +336,9 @@ declare module 'angular' {
       method: string,
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for DELETE requests.
@@ -349,9 +349,9 @@ declare module 'angular' {
      */
     whenDELETE(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for GET requests.
@@ -363,9 +363,9 @@ declare module 'angular' {
      */
     whenGET(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for HEAD requests.
@@ -376,9 +376,9 @@ declare module 'angular' {
      */
     whenHEAD(
       url: string | RegExp | ((url: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for JSONP requests.
@@ -390,7 +390,7 @@ declare module 'angular' {
     whenJSONP(
       url: string | RegExp | ((url: string) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for PATCH requests.
@@ -403,9 +403,9 @@ declare module 'angular' {
     whenPATCH(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for POST requests.
@@ -419,9 +419,9 @@ declare module 'angular' {
     whenPOST(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition for PUT requests.
@@ -437,9 +437,9 @@ declare module 'angular' {
     whenPUT(
       url: string | RegExp | ((url: string) => boolean),
       data?: string | RegExp | object | ((data: string) => boolean),
-      headers?: mock.IHttpHeaders | ((headers: mock.IHttpHeaders) => boolean),
+      headers?: http.IHttpHeaders | ((headers: http.IHttpHeaders) => boolean),
       keys?: string[]
-    ): mock.IRequestHandler;
+    ): http.IRequestHandler;
 
     /**
      * Creates a new backend definition that compares only with the requested route.
@@ -449,7 +449,7 @@ declare module 'angular' {
      * @param method HTTP method.
      * @param url HTTP url string that supports colon param matching.
      */
-    whenRoute(method: string, url: string): mock.IRequestHandler;
+    whenRoute(method: string, url: string): http.IRequestHandler;
   }
 
   ///////////////////////////////////////////////////////////////////////////
@@ -532,7 +532,7 @@ declare module 'angular' {
     }
   }
 
-  namespace mock {
+  namespace http {
     /** Object returned by the the mocked HttpBackendService expect/when methods */
     interface IRequestHandler {
       /**
@@ -591,7 +591,9 @@ declare module 'angular' {
     interface IHttpHeaders {
       [headerName: string]: any;
     }
+  }
 
+  namespace browser {
     /**
      * Contains additional event data used by the `browserTrigger` function when creating an event.
      */
@@ -678,6 +680,6 @@ declare global {
   function browserTrigger(
     element: JQuery | Element,
     eventType?: string,
-    eventData?: angular.mock.IBrowserTriggerEventData
+    eventData?: angular.browser.IBrowserTriggerEventData
   ): void;
 }

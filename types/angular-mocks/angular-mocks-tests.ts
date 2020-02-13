@@ -134,7 +134,7 @@ $componentController<{}, { test: { name: string } }>('Test controller', {
 // IHttpBackendService
 ///////////////////////////////////////
 let httpBackendService: ng.IHttpBackendService;
-let requestHandler: ng.mock.IRequestHandler;
+let requestHandler: ng.http.IRequestHandler;
 
 httpBackendService.flush();
 httpBackendService.flush(1234);
