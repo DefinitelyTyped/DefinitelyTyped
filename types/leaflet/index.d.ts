@@ -1841,7 +1841,10 @@ export namespace Icon {
 
     class Default extends Icon<DefaultIconOptions> {
         static imagePath?: string;
-        _getIconUrl: (name: string) => string; // Intended to be a private property but is required to be exposed for this bugfix by vue2-leaflet to work: https://vue2-leaflet.netlify.com/quickstart/#marker-icons-are-missing
+
+        // Intended to be a private property but is required to be exposed for this bugfix by vue2-leaflet to work: https://vue2-leaflet.netlify.com/quickstart/#marker-icons-are-missing
+        _getIconUrl: (name: string) => string;
+
         constructor(options?: DefaultIconOptions);
     }
 }
