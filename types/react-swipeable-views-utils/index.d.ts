@@ -28,13 +28,14 @@ export interface WithVirtualize {
     onChangeIndex: OnChangeIndexCallback;
     slideRenderer: (render: SlideRendererCallback) => React.ReactNode;
 }
-export interface WithVirtualizeProps extends React.Props<> {
+export interface WithVirtualizeProps {
     index: number;
     onChangeIndex: OnChangeIndexCallback;
     onTransitionEnd?: OnTransitionEndCallback;
     overscanSlideAfter?: number;
     overscanSliedBefore?: number;
     slideCount?: number;
+    children?: React.ReactNode;
     slideRenderer: SlideRendererCallback;
 }
 export interface SlideRenderProps {
