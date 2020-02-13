@@ -10,9 +10,18 @@
 import passport = require('passport');
 import express = require('express');
 
-import passportAuth0 = Strategy;
+declare class StrategyInternal extends passport.Strategy {
+    constructor(
+        options: StrategyInternal.StrategyOptionWithRequest,
+        verify: StrategyInternal.VerifyFunctionWithRequest,
+    );
+    constructor(options: StrategyInternal.StrategyOption, verify: StrategyInternal.VerifyFunction);
 
-declare namespace Strategy {
+    name: string;
+    authenticate(req: express.Request, options?: object): void;
+}
+
+declare namespace StrategyInternal {
     interface Profile extends passport.Profile {
         id: string;
         displayName: string;
@@ -69,18 +78,9 @@ declare namespace Strategy {
         done: (error: any, user?: any, info?: any) => void,
     ) => void;
 
-    class Strategy extends passport.Strategy {
-        constructor(options: StrategyOptionWithRequest, verify: VerifyFunctionWithRequest);
-        constructor(options: StrategyOption, verify: VerifyFunction);
-
-        name: string;
-        authenticate(req: express.Request, options?: object): void;
-    }
-
     // NOTE: not true for `export import` statements
     // tslint:disable-next-line:strict-export-declare-modifiers
-    export import StrategyInternal = Strategy;
+    export import Strategy = StrategyInternal;
 }
 
-// tslint:disable-next-line:export-just-namespace
-export = Strategy;
+export = StrategyInternal;
