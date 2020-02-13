@@ -163,20 +163,20 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
-map.on('zoomanim', (_e: L.ZoomAnimEvent) => {});
+map.on('zoomanim', (_e: L.ZoomAnimEvent) => { });
 
 map.once({
-    dragend: (_e: L.DragEndEvent) => {},
-    locationfound: (_e: L.LocationEvent) => {},
+	dragend: (_e: L.DragEndEvent) => { },
+	locationfound: (_e: L.LocationEvent) => { },
 });
 
 map.off('moveend');
-map.off('resize', (_e: L.ResizeEvent) => {});
-map.off('baselayerchange', (_e: L.LayersControlEvent) => {}, {});
+map.off('resize', (_e: L.ResizeEvent) => { });
+map.off('baselayerchange', (_e: L.LayersControlEvent) => { }, {});
 
 map.removeEventListener('loading');
-map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
-map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
+map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => { });
+map.removeEventListener('locationerror', (_e: L.ErrorEvent) => { }, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
 
@@ -467,14 +467,14 @@ map = map
 	.flyToBounds(latLngBoundsLiteral, fitBoundsOptions)
 	.addHandler('Hello World', L.Handler)
 	.remove()
-	.whenReady(() => {})
-	.whenReady(() => {}, {});
+	.whenReady(() => { })
+	.whenReady(() => { }, {});
 
 const elementToDrag = document.createElement('div');
 const draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
-draggable.on('drag', () => {});
+draggable.on('drag', () => { });
 
 let twoCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
@@ -525,6 +525,7 @@ const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
 const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
+defaultIcon._getIconUrl('icon');
 
 const myControlClass = L.Control.extend({});
 const myControl = new myControlClass();
@@ -533,7 +534,7 @@ const myOtherControl = new myOtherControlClass();
 
 L.Control.include({});
 L.Control.mergeOptions({});
-L.Control.addInitHook(() => {});
+L.Control.addInitHook(() => { });
 L.Control.addInitHook('method1', 'hello', 1);
 
 export class MyNewControl extends L.Control {
@@ -648,9 +649,9 @@ const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof 
 L.Util.create({});
 L.Util.create(null, { foo: { writable: true, value: 'bar' } });
 
-L.Util.bind(() => {}, {});
+L.Util.bind(() => { }, {});
 L.Util.stamp({});
-L.Util.throttle(() => {}, 123, {});
+L.Util.throttle(() => { }, 123, {});
 L.Util.wrapNum(123, []);
 L.Util.wrapNum(123, [], true);
 L.Util.falseFn();
@@ -665,9 +666,9 @@ L.Util.getParamString({}, '', true);
 L.Util.template('template', {});
 L.Util.isArray({});
 L.Util.indexOf([], {});
-L.Util.requestAnimFrame(() => {});
+L.Util.requestAnimFrame(() => { });
 L.Util.requestAnimFrame(timestamp => console.log(timestamp), {});
-L.Util.requestAnimFrame(() => {}, {}, true);
+L.Util.requestAnimFrame(() => { }, {}, true);
 L.Util.cancelAnimFrame(1);
 L.Util.emptyImageUrl;
 

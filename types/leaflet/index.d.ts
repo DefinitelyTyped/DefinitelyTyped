@@ -16,7 +16,7 @@ export as namespace L;
 import * as geojson from 'geojson';
 
 export class Class {
-    static extend(props: any): { new(...args: any[]): any } & typeof Class;
+    static extend(props: any): {new(...args: any[]): any} & typeof Class;
     static include(props: any): any & typeof Class;
     static mergeOptions(props: any): any & typeof Class;
 
@@ -136,7 +136,7 @@ export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
 export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
-export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | { lat: number, lng: number, alt?: number }): LatLng;
+export function latLng(coords: LatLngTuple | [number, number, number] | LatLngLiteral | {lat: number, lng: number, alt?: number}): LatLng;
 
 export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
@@ -198,7 +198,7 @@ export type PointExpression = Point | PointTuple;
 
 export function point(x: number, y: number, round?: boolean): Point;
 
-export function point(coords: PointTuple | { x: number, y: number }): Point;
+export function point(coords: PointTuple | {x: number, y: number}): Point;
 
 export type BoundsLiteral = [PointTuple, PointTuple];
 
@@ -725,7 +725,7 @@ export class Layer extends Evented {
     // Extension methods
     onAdd(map: Map): this;
     onRemove(map: Map): this;
-    getEvents?(): { [name: string]: LeafletEventHandlerFn };
+    getEvents?(): {[name: string]: LeafletEventHandlerFn};
     getAttribution?(): string | null;
     beforeAdd?(map: Map): this;
 
@@ -1048,7 +1048,7 @@ export class Renderer extends Layer {
     options: RendererOptions;
 }
 
-export class SVG extends Renderer { }
+export class SVG extends Renderer {}
 
 export namespace SVG {
     function create(name: string): SVGElement;
@@ -1058,7 +1058,7 @@ export namespace SVG {
 
 export function svg(options?: RendererOptions): SVG;
 
-export class Canvas extends Renderer { }
+export class Canvas extends Renderer {}
 
 export function canvas(options?: RendererOptions): Canvas;
 
@@ -1372,7 +1372,7 @@ export interface ControlOptions {
 }
 
 export class Control extends Class {
-    static extend<T extends object>(props: T): { new(...args: any[]): T } & typeof Control;
+    static extend<T extends object>(props: T): {new(...args: any[]): T} & typeof Control;
     constructor(options?: ControlOptions);
     getPosition(): ControlPosition;
     setPosition(position: ControlPosition): this;
@@ -1536,7 +1536,7 @@ export interface PanOptions {
 }
 
 // This is not empty, it extends two interfaces into one...
-export interface ZoomPanOptions extends ZoomOptions, PanOptions { }
+export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
 
 export interface FitBoundsOptions extends ZoomOptions, PanOptions {
     paddingTopLeft?: PointExpression;
@@ -1663,11 +1663,11 @@ export namespace DomEvent {
 
     function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-    function on(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
+    function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
     function off(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-    function off(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
+    function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
     function stopPropagation(ev: PropagableEvent): typeof DomEvent;
 
@@ -1685,11 +1685,11 @@ export namespace DomEvent {
 
     function addListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-    function addListener(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
+    function addListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
     function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
-    function removeListener(el: HTMLElement, eventMap: { [eventName: string]: EventHandlerFn }, context?: any): typeof DomEvent;
+    function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 }
 
 export interface DefaultMapPanes {
@@ -1751,7 +1751,7 @@ export class Map extends Evented {
      * Name of the pane or the pane as HTML-Element
      */
     getPane(pane: string | HTMLElement): HTMLElement | undefined;
-    getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
+    getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
     getContainer(): HTMLElement;
     whenReady(fn: () => void, context?: any): this;
 
@@ -1841,7 +1841,7 @@ export namespace Icon {
 
     class Default extends Icon<DefaultIconOptions> {
         static imagePath?: string;
-        _getIconUrl: (name: string) => string;
+        _getIconUrl: (name: string) => string; // Intended to be a private property but is required to be exposed for this bugfix by vue2-leaflet to work: https://vue2-leaflet.netlify.com/quickstart/#marker-icons-are-missing
         constructor(options?: DefaultIconOptions);
     }
 }
