@@ -1,7 +1,7 @@
 import React = require('react');
 import IconButton from './IconButton';
 
-export interface ButtonProps {
+export interface ButtonProps<T> {
     center?: boolean;
     disabled?: boolean;
     stroked?: boolean;
@@ -12,7 +12,7 @@ export interface ButtonProps {
     type?: 'button' | 'reset' | 'submit';
     children?: React.ReactNode[] | React.ReactNode;
     $as?: JSX.Element | string;
-    onClick?: () => void;
+    onClick?: React.MouseEventHandler<T>;
     theme?: {
         baseFontSize?: number;
         colors?: object;
@@ -22,8 +22,9 @@ export interface ButtonProps {
             button: object;
         };
     };
+    id?: string;
 }
 
-export default class Button extends React.Component<ButtonProps> {
+export default class Button<T = HTMLButtonElement> extends React.Component<ButtonProps<T>> {
     static Icon: IconButton;
 }

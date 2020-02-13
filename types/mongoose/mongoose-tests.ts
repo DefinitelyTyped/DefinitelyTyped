@@ -216,15 +216,18 @@ validatorError.stack;
  * https://mongoosejs.com/docs/api.html#mongooseerror_MongooseError.ValidationError
  */
 var doc = <mongoose.Document>{};
-var validationError: mongoose.Error.ValidationError = new mongoose.Error.ValidationError(doc);
-validationError.name;
-validationError.toString().toLowerCase();
-validationError.inspect();
-validationError.toJSON().hasOwnProperty('');
-validationError.addError('foo', validatorError)
-/* inherited properties */
-validationError.message;
-validationError.stack;
+(() => {
+  // Scope to avoid type mixing
+  var validationError: mongoose.Error.ValidationError | undefined = new mongoose.Error.ValidationError(doc);
+  validationError.name;
+  validationError.toString().toLowerCase();
+  validationError.inspect();
+  validationError.toJSON().hasOwnProperty('');
+  validationError.addError('foo', validatorError)
+  /* inherited properties */
+  validationError.message;
+  validationError.stack;
+})()
 
 /*
  * section error/parallelSave.js
@@ -794,10 +797,13 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-var validationError = doc.validateSync(['path1', 'path2']);
-if (validationError) {
-    validationError.stack
-}
+(() => {
+  // Scope to avoid type mixing
+  var validationError = doc.validateSync(['path1', 'path2']);
+  if (validationError) {
+      validationError.stack
+  }
+})()
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
@@ -1902,7 +1908,7 @@ MongoModel.deleteOne({_id: '999'}).exec().then(res=>console.log(res.ok));
 MongoModel.deleteMany({_id: '999'}).then(res=>console.log('Success?',!!res.ok, 'deleted count', res.n));
 MongoModel.deleteMany({_id: '999'}).exec().then(res=>console.log(res.ok));
 MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
-MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
+MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true,  arrayFilters: [{ element: { $gte: 100 } }] }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();

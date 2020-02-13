@@ -3003,7 +3003,7 @@ export interface PlaceAutocompleteRequest {
      * [session](https://developers.google.com/places/web-service/autocomplete#session_tokens) for billing purposes.
      * If this parameter is omitted from an autocomplete request, the request is billed independently
      */
-    sessiontoken: string;
+    sessiontoken?: string;
     /**
      * The position, in the input term, of the last character that the service uses to match predictions.
      * For example, if the input is 'Google' and the `offset` is 3, the service will match on 'Goo'.

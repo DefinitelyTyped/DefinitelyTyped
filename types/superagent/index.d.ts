@@ -92,13 +92,20 @@ declare namespace request {
         response?: Response;
     }
 
+    interface HTTPError extends Error {
+        status: number;
+        text: string;
+        method: string;
+        path: string;
+    }
+
     interface Response extends NodeJS.ReadableStream {
         accepted: boolean;
         badRequest: boolean;
         body: any;
         charset: string;
         clientError: boolean;
-        error: ResponseError;
+        error: false | HTTPError;
         files: any;
         forbidden: boolean;
         get(header: string): string;

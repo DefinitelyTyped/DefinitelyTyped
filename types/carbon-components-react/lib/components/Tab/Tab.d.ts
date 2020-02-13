@@ -24,6 +24,7 @@ export interface TabProps extends InheritedProps {
     renderAnchor?: React.FC<TabCustomAnchorProvidedProps>,
     role?: string, // marked as required, but render code overwrites it currently
     selected?: boolean, // required but has default value
+    disabled?: boolean;
 }
 
 declare class Tab extends React.Component<TabProps> { }

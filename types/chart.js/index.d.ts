@@ -23,6 +23,7 @@
 //                 Ray Nicholus <https://github.com/rnicholus>
 //                 Oscar Cabrera <https://github.com/mrjack88>
 //                 Carlos Anoceto <https://github.com/canoceto>
+//                 Nobuhiko Futagami <https://github.com/nobu222>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -243,8 +244,8 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: ReadonlyArray<string | ReadonlyArray<string> | number | ReadonlyArray<number> | Date | ReadonlyArray<Date> | Moment | ReadonlyArray<Moment>>;
-        datasets?: ReadonlyArray<ChartDataSets>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
+        datasets?: ChartDataSets[];
     }
 
     interface RadialChartOptions extends ChartOptions {
@@ -651,6 +652,7 @@ declare namespace Chart {
         maxBarThickness?: number;
         minBarLength?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
+        order?: number;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBorderWidth?: number | number[] | Scriptable<number>;

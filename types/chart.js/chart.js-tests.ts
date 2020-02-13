@@ -411,15 +411,6 @@ if (doughnutChart.getDatasetMeta(0).data.length > 0) {
     console.log(doughnutChartView.y);
 }
 
-// Passing readonly data as ChartData
-const readonlyDataInput: {
-    labels: ReadonlyArray<string>;
-    datasets: ReadonlyArray<{
-        data: number[];
-    }>;
-} = { labels: [], datasets: [] };
-const readonlyData: Chart.ChartData = readonlyDataInput;
-
 // Time Cartesian Axis
 const timeAxisChartData: Chart.ChartData = {
     datasets: [{
