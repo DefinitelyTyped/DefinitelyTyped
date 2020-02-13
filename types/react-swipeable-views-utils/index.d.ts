@@ -1,4 +1,4 @@
-// Type definitions for react-swipeable-views-utils 0.13.9
+// Type definitions for react-swipeable-views-utils 0.13
 // Project: https://github.com/oliviertassinari/react-swipeable-views#react-swipeable-views
 // Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
 //                 Robert Nisipeanu <https://github.com/robertnisipeanu>
@@ -55,6 +55,6 @@ export interface WithBindKeyboardProps {
 }
 
 export const autoPlay: PropInjector<WithAutoPlay, WithAutoPlayProps>;
-export type SlideRendererCallback = ({index: number, key: number}) => React.ReactNode;
+export type SlideRendererCallback = (render: SlideRenderProps) => React.ReactNode;
 export const virtualize: PropInjector<WithVirtualize, WithVirtualizeProps>;
 export const bindKeyboard: PropInjector<WithBindKeyboard, WithBindKeyboardProps>;
