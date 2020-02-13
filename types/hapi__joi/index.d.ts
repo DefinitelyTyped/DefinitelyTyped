@@ -614,7 +614,7 @@ declare namespace Joi {
         context?: Context;
     }
 
-    type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
+    type ValidationErrorFunction = (errors: ErrorReport[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult {
         error?: ValidationError;
@@ -664,7 +664,8 @@ declare namespace Joi {
         [key in keyof TSchema]?: SchemaLike | SchemaLike[];
     };
 
-    type Schema = AnySchema
+    type Schema =
+        | AnySchema
         | ArraySchema
         | AlternativesSchema
         | BinarySchema
@@ -703,7 +704,14 @@ declare namespace Joi {
         /**
          * Creates a joi error object.
          */
-        $_createError(code: string, value: any, context: Context, state: State, prefs: ValidationOptions, options?: CreateErrorOptions): Err;
+        $_createError(
+            code: string,
+            value: any,
+            context: Context,
+            state: State,
+            prefs: ValidationOptions,
+            options?: CreateErrorOptions,
+        ): Err;
 
         /**
          * Get value from given flag.
