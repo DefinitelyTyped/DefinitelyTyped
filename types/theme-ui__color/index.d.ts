@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export * from "polished";
+export * from 'polished';
 // A few polished functions have been renamed in theme-ui
 // If these are updated in polished, then the code below can be deleted
 import {
-  adjustHue as rotate,
-  rgba as alpha,
-  setHue as hue,
-  setLightness as lightness,
-  setSaturation as saturation,
+    adjustHue as rotate,
+    rgba as alpha,
+    setHue as hue,
+    setLightness as lightness,
+    setSaturation as saturation,
 } from 'polished';
 export { alpha, hue, lightness, rotate, saturation };
