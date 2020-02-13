@@ -3,6 +3,7 @@ export interface Config {
     asyncWrapper(cb: (...args: any[]) => any): Promise<any>;
     asyncUtilTimeout: number;
     defaultHidden: boolean;
+    showLogOnFail: boolean;
 }
 
 export interface ConfigFn {
