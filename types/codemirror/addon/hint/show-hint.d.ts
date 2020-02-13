@@ -60,7 +60,7 @@ declare module "codemirror" {
         closeCharacters?: RegExp;
         closeOnUnfocus?: boolean;
         completeOnSingleClick?: boolean;
-        container?: Element | null;
+        container?: HTMLElement | null;
         customKeys?: {[x: string]: () => void} | null;
         extraKeys?: {[x: string]: () => void} | null;
     }
