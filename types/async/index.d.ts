@@ -159,7 +159,7 @@ export const mapValuesSeries: typeof mapValues;
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 export function filter<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>): Promise<T[]>;
 export const filterSeries: typeof filter;
-export function filterLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncResultArrayCallback<T, E>): void;
+export function filterLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback: AsyncResultArrayCallback<T, E>): void;
 export function filterLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>): Promise<T[]>;
 export const select: typeof filter;
 export const selectSeries: typeof filter;
