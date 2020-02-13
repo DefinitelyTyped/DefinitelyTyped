@@ -13,7 +13,7 @@ interface Options {
     minLength?: number;
     whitelist?: ISO6393[];
     blacklist?: ISO6393[];
-    only?: Array<string>;
+    only?: string[];
 }
 
 declare function detect(text: string, options?: Options): ISO6393;
