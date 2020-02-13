@@ -1,4 +1,4 @@
-// Type definitions for cesium 1.65
+// Type definitions for cesium 1.66
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
@@ -3867,7 +3867,7 @@ declare namespace Cesium {
         static PolylineOutlineType: string;
         constructor(options?: {
             strict?: boolean;
-            translucent?: boolean;
+            translucent?: boolean | ((material: Material) => boolean);
             fabric: any;
             minificationFilter?: TextureMinificationFilter;
             magnificationFilter?: TextureMagnificationFilter;
