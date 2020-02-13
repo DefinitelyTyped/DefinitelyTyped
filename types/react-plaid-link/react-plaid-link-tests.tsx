@@ -23,6 +23,7 @@ const AllProps = () => {
                 'assets',
                 'holdings',
                 'liabilities',
+                'investments',
             ]}
             token="test"
             user={{ legalName: 'Keevan', emailAddress: 'testuser@gmail.com' }}
