@@ -57,10 +57,12 @@ declare module "codemirror" {
         completeSingle?: boolean;
         hint: HintFunction | AsyncHintFunction;
         alignWithWord?: boolean;
+        closeCharacters?: RegExp;
         closeOnUnfocus?: boolean;
+        completeOnSingleClick?: boolean;
         container?: Element | null;
-        customKeys?: {[x: string]: Function};
-        extraKeys?: {[x: string]: Function};
+        customKeys?: {[x: string]: () => void} | null;
+        extraKeys?: {[x: string]: () => void} | null;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/
