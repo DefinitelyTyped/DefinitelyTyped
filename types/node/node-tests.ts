@@ -131,7 +131,7 @@ import * as trace_events from "trace_events";
         timers.clearTimeout(timeout);
     }
     async function testPromisify(doSomething: {
-        (foo: any, onSuccessCallback: (result: any) => void, onErrorCallback: (reason: any) => void): void;
+        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
         [util.promisify.custom](foo: any): Promise<string>;
     }) {
         const setTimeout = util.promisify(timers.setTimeout);
