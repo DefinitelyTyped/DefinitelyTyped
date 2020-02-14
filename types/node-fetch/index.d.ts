@@ -204,7 +204,8 @@ export type BodyInit =
     | ArrayBufferView
     | NodeJS.ReadableStream
     | string
-    | URLSearchParams;
+    | URLSearchParams
+    | FormData;
 export type RequestInfo = string | URLLike | Request;
 
 declare function fetch(
