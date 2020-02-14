@@ -20220,8 +20220,11 @@ declare namespace Excel {
         /**
          *
          * Renders the range as a base64-encoded png image.
+         * 
+         * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
          *
          * [Api set: ExcelApi 1.7]
+         * 
          */
         getImage(): OfficeExtension.ClientResult<string>;
         /**
