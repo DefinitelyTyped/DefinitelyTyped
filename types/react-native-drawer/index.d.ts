@@ -2,6 +2,7 @@
 // Project: https://github.com/root-two/react-native-drawer, https://github.com/rt2zz/react-native-drawer
 // Definitions by: jnbt <https://github.com/jnbt>
 //                 suniahk <https://github.com/suniahk>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -187,4 +188,10 @@ export interface DrawerProperties {
     elevation?: number;
 }
 
-export default class Drawer extends React.Component<DrawerProperties> { }
+export default class Drawer extends React.Component<DrawerProperties> {
+    /** Close the drawer programmatically. */
+    close(): void;
+
+    /** Open the drawer programmatically. */
+    open(): void;
+}
