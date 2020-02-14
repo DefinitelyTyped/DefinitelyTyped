@@ -500,6 +500,53 @@ describe("A spy, when configured to fake a series of return values", () => {
     });
 });
 
+describe("A spy, when configured to fake a promised return value", () => {
+    const bar = 10;
+    const foo = {
+        getAsyncBar: () => {
+            return Promise.resolve(bar);
+        }
+    };
+
+    it("verifies return value type", () => {
+        spyOn(foo, "getAsyncBar").and.resolveTo(745);
+        spyOn(foo, "getAsyncBar").and.resolveTo("42"); // $ExpectError
+    });
+
+    it("tracks that the spy was called", async () => {
+        await foo.getAsyncBar();
+        expect(foo.getAsyncBar).toHaveBeenCalled();
+    });
+
+    it("when called returns the requested value", async () => {
+        spyOn(foo, "getAsyncBar").and.resolveTo(745);
+        await expectAsync(foo.getAsyncBar()).toBeResolvedTo(745);
+    });
+});
+
+describe("A spy, when configured to fake a promised rejection", () => {
+    const bar = 10;
+    const foo = {
+        getAsyncBar: () => {
+            return Promise.resolve(bar);
+        },
+        getBar: () => {
+            return bar;
+        }
+    };
+
+    it("verifies rejection value type", () => {
+        spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+        spyOn(foo, "getBar").and.rejectWith("42"); // $ExpectError
+    });
+
+    it("when called, it is rejected with the requested value", async () => {
+        spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+
+        await expectAsync(foo.getAsyncBar()).toBeRejectedWith("Error message");
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", () => {
     var foo: any, bar: any, fetchedBar: any;
 
