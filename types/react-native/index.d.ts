@@ -32,6 +32,7 @@
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
+//                 Dominique Richard <https://github.com/doumart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1208,14 +1209,18 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardType =
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
-    | 'number-pad'
     | 'name-phone-pad'
-    | 'decimal-pad'
     | 'twitter'
     | 'web-search';
 export type KeyboardTypeAndroid = 'visible-password';
