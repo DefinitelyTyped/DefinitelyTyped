@@ -8,6 +8,7 @@
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
 //                 Justin Powell <https://github.com/jpowell>
 //                 Juwan Wheatley <https://github.com/fiberjw>
+//                 Nitzan Mousan <https://github.com/nitzanmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
