@@ -64,6 +64,7 @@ class ExampleOfUsingReactModal extends React.Component {
     };
     return (
       <ReactModal
+        id={"test-id"}
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
         onAfterClose={onAfterCloseFn}
