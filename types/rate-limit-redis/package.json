@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "express-rate-limit": ">=3.4.0"
+        "express-rate-limit": ">=3.4.0",
+        "rate-limit-redis": "^1.7.0",
+        "redis": "^3.0.2"
     }
 }

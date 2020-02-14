@@ -26,3 +26,8 @@ store = RedisStore({
 store = RedisStore({
     client: new RedisClient({}),
 });
+
+// $ExpectType Store
+store = RedisStore({
+    redisURL: 'redis://localhost:6379',
+});

@@ -1,6 +1,7 @@
 // Type definitions for rate-limit-redis 1.6
 // Project: https://github.com/wyattjoh/rate-limit-redis#readme
 // Definitions by: Chris Suich <https://github.com/csuich2>
+//                 Nicolas Torres <https://github.com/noclat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
