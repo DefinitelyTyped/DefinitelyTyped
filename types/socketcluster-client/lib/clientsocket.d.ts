@@ -412,8 +412,8 @@ declare namespace AGClientSocket {
     }
 
     interface SubscribeStateChangeData extends SubscribeData {
-        oldState: AGChannel.ChannelState;
-        newState: AGChannel.ChannelState;
+        oldChannelState: AGChannel.ChannelState;
+        newChannelState: AGChannel.ChannelState;
     }
 
     interface SubscribeData {
