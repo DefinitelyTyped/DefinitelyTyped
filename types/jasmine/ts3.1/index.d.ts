@@ -210,7 +210,7 @@ declare namespace jasmine {
     type SpyObjPropertyNames<T = undefined> =
         T extends undefined ?
                 (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T>);
+                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
