@@ -1386,7 +1386,7 @@ export type Condition<T> = MongoAltQuery<T> | QuerySelector<MongoAltQuery<T>>;
 
 export type FilterQuery<T> = {
     [P in keyof T]?: Condition<T[P]>;
-} &
+} |
     RootQuerySelector<T>;
 
 /** http://docs.mongodb.org/manual/reference/command/collStats/ */
