@@ -41,3 +41,5 @@ agServer = socketClusterServer.attach(httpServer, {
     protocolVersion: 1,
     path: '/socketcluster/',
 });
+
+agServer = socketClusterServer.attach(httpServer, {});
