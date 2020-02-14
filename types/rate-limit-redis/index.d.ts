@@ -12,6 +12,7 @@ interface RedisStoreOptions {
     prefix?: string;
     resetExpiryOnChange?: boolean;
     client?: RedisClient;
+    redisURL?: string;
 }
 
 declare function RedisStore(options?: RedisStoreOptions): Store;
