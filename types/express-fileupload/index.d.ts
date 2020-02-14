@@ -74,7 +74,7 @@ declare namespace fileUpload {
         /**
          * Response which will be send to client if file size limit exceeded when `abortOnLimit` set to `true`.
          */
-        responseOnLimit?: boolean;
+        responseOnLimit?: string;
         /**
          * User defined limit handler which will be invoked if the file is bigger than configured limits.
          */
