@@ -69,10 +69,10 @@ export class CondVariable {
     set(value: any): void;
 }
 
-declare function createCondVariable(initialValue: any): CondVariable;
+export function createCondVariable(initialValue: any): CondVariable;
 
-declare function createSemaphore(initialValue: number): Semaphore;
+export function createSemaphore(initialValue: number): Semaphore;
 
-declare function createMutex(): Mutex;
+export function createMutex(): Mutex;
 
-declare function createReadWriteLock(): ReadWriteLock;
+export function createReadWriteLock(): ReadWriteLock;
