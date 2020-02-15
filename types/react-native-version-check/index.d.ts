@@ -1,6 +1,7 @@
-// Type definitions for react-native-version-check 3.2
+// Type definitions for react-native-version-check 3.4
 // Project: https://github.com/kimxogus/react-native-version-check
 // Definitions by: DELACOURT Vincent <https://github.com/vdelacou>
+//                 Krishan V <https://github.com/KrishyV>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { RequestInit } from 'node-fetch';
@@ -74,7 +75,7 @@ declare namespace VersionCheck {
       /**
        * provider name or function that returns promise or value of the latest version
        */
-      provider?: () => string | string;
+      provider?: (() => string) | string;
       /**
        * isomorphic-fetch options (https://github.github.io/fetch/)
        */
@@ -83,12 +84,20 @@ declare namespace VersionCheck {
        * @default true
        */
       ignoreErrors?: boolean;
+      /**
+       * Package name or function that returns promise or value of package name
+       */
+      packageName?: string | (() => string)
     }): Promise<string>;
     /**
      * Returns an object contains with boolean value whether update needed, current version and latest version.
      * Current and the latest app versions are first split by delimiter, and check each split numbers into depth.
      */
     function needUpdate(option?: {
+      /**
+       * app's Package Name 
+      */
+      packageName? : string
       /**
        * app's current version from getCurrentVersion()
        */
@@ -108,7 +117,7 @@ declare namespace VersionCheck {
       /**
        * provider name or function that returns promise or value of the latest version
        */
-      provider?: () => string | string;
+      provider?: (() => string) | string;
       /**
        * isomorphic-fetch options (https://github.github.io/fetch/)
        */
@@ -121,6 +130,7 @@ declare namespace VersionCheck {
       isNeeded: boolean;
       currentVersion: string;
       latestVersion: string;
+      storeUrl : string;
     }>;
 }
 
