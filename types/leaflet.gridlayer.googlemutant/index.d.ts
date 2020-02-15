@@ -10,6 +10,26 @@ declare module 'leaflet' {
     namespace gridLayer {
         interface GoogleMutant extends GridLayer {
             setElementSize(e: HTMLElement, size: Point): void ;
+
+            /**
+             * Add additional Google Maps layer.
+             *
+             * https://developers.google.com/maps/documentation/javascript/trafficlayer
+             *
+             * @param googleLayerName such as BicyclingLayer, TrafficLayer, or TransitLayer.
+             * @param options? constructor arguments to pass through to the google layer.
+             * @returns Promise for the native Google Maps Layer instance.
+             */
+            addGoogleLayer(googleLayerName: string, options?: object): Promise<object>;
+
+            /**
+             * Removes Google Maps layer.
+             *
+             *  https://developers.google.com/maps/documentation/javascript/trafficlayer
+             *
+             * @param googleLayerName such as BicyclingLayer, TrafficLayer, or TransitLayer.
+             */
+            removeGoogleLayer(googleLayerName: string): void;
         }
 
         type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';

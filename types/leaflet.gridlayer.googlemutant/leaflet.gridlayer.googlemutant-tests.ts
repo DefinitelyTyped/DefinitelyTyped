@@ -14,3 +14,8 @@ const styled = L.gridLayer.googleMutant({
         { featureType: 'water' , stylers: [ { color: '#444444'  } ] }
     ]
 }).addTo(map);
+
+styled.addGoogleLayer('TrafficLayer')
+    .then(nativeTrafficLayer => {
+        styled.removeGoogleLayer('TrafficLayer');
+    });
