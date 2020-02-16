@@ -446,7 +446,7 @@ const description: SchemaDescription = {
     label: 'label',
     meta: { key: 'value' },
     tests: [
-        { name: 'test1', params: {} },
+        { name: 'test1', params: {param1: 'param1'} },
         { name: 'test2', params: {} },
     ],
     fields: {
@@ -476,6 +476,8 @@ const description: SchemaDescription = {
         },
      },
 };
+
+description.tests[0].params.param1
 
 const testOptions: TestOptions = {
     name: 'name',
