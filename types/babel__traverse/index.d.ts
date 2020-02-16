@@ -272,7 +272,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple(nodes: Node[]): void;
+    replaceWithMultiple<NodeType extends Node>(nodes: NodeType[]): Array<NodePath<NodeType>>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -433,7 +433,7 @@ export class NodePath<T = Node> {
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    unshiftContainer(listKey: string, nodes: Node | Node[]): void;
+    unshiftContainer<NodeType extends Node>(listKey: string, nodes: NodeType | NodeType[]): Array<NodePath<NodeType>>;
 
     /**
      * Insert child nodes at the end of the current node.
