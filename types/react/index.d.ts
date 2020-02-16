@@ -522,6 +522,17 @@ declare namespace React {
         displayName?: string;
     }
 
+    interface ForwardRefRenderingFunction<T, P = {}> {
+        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        displayName?: string;
+    }
+
+    /**
+     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     *             "real" component.
+     */
+    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderingFunction<T, P> {}
+
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: WeakValidationMap<P>;
@@ -741,16 +752,6 @@ declare namespace React {
         defaultProps?: Partial<P>;
         propTypes?: WeakValidationMap<P>;
     }
-
-    interface ForwardRefRenderingFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
-        displayName?: string;
-    }
-    /**
-     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
-     *             "real" component.
-     */
-    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderingFunction<T, P> {}
 
     function forwardRef<T, P = {}>(render: ForwardRefRenderingFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
