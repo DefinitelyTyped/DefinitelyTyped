@@ -522,14 +522,6 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface RefForwardingComponent<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
-        propTypes?: WeakValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
-        defaultProps?: Partial<P>;
-        displayName?: string;
-    }
-
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
         propTypes?: WeakValidationMap<P>;
@@ -750,7 +742,12 @@ declare namespace React {
         propTypes?: WeakValidationMap<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    interface ForwardRefRenderingFunction<T, P = {}> {
+        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        displayName?: string;
+    }
+
+    function forwardRef<T, P = {}>(render: ForwardRefRenderingFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
