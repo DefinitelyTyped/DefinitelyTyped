@@ -412,18 +412,13 @@ const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComp
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
 // render function tests
-function ForwardRefRenderFunctionWithPropTypes() {
-    return null;
-}
-ForwardRefRenderFunctionWithPropTypes.propTypes = {};
+// need the explicit type declaration for typescript < 3.1
+const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
 
-function ForwardRefRenderFunctionWithDefaultProps() {
-    return null;
-}
-ForwardRefRenderFunctionWithDefaultProps.defaultProps = {};
+const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // $ExpectError
 React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);

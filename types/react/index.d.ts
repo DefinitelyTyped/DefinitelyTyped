@@ -525,6 +525,14 @@ declare namespace React {
     interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
         displayName?: string;
+        /**
+         * defaultProps are not supported on render functions
+         */
+        defaultProps?: never;
+        /**
+         * propTypes are not supported on render functions
+         */
+        propTypes?: never;
     }
 
     /**
