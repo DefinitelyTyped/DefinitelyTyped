@@ -246,6 +246,9 @@ export interface ObjectSchemaConstructor {
 }
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+    fields: {
+      [k in keyof T]: Schema<T[k]>
+    };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>,
