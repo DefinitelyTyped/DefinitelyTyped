@@ -365,7 +365,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         usePagination,
         useRowSelect,
         (hooks: Hooks<Data>) => {
-            hooks.flatColumns.push(columns => [
+            hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
                     // Make this column a groupByBoundary. This ensures that groupBy columns
@@ -430,7 +430,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                         <td {...cell.getCellProps()}>
                                             {cell.isGrouped ? (
                                                 <>
-                                                    <span {...row.getExpandedToggleProps()}>
+                                                    <span {...row.getToggleRowExpandedProps()}>
                                                         {row.isExpanded ? '👇' : '👉'}
                                                     </span>{' '}
                                                     {cell.render('Cell', { editable: false })} ({row.subRows.length})
@@ -439,7 +439,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isRepeatedValue ? null : (// For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : (// For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
@@ -597,7 +597,7 @@ const Component = (props: {}) => {
                         // count the total rows being aggregated,
                         // then sum any of those counts if they are
                         // aggregated further
-                        aggregate: ['sum', 'count'],
+                        aggregate: 'count',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Names`,
                     },
                     {
@@ -609,7 +609,7 @@ const Component = (props: {}) => {
                         // first count the UNIQUE values from the rows
                         // being aggregated, then sum those counts if
                         // they are aggregated further
-                        aggregate: ['sum', 'uniqueCount'],
+                        aggregate: 'uniqueCount',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} Unique Names`,
                     },
                 ],
