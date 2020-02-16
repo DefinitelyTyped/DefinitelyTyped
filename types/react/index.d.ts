@@ -746,6 +746,11 @@ declare namespace React {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
         displayName?: string;
     }
+    /**
+     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     *             "real" component.
+     */
+    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderingFunction<T, P> {}
 
     function forwardRef<T, P = {}>(render: ForwardRefRenderingFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
