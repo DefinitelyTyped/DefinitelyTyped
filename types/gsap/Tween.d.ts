@@ -14,6 +14,9 @@ declare namespace gsap {
 
         /** Target object (or array of objects) whose properties the tween affects. */
         readonly target: any;
+        
+        /** return the version of TweenLite | TweenMax */
+        readonly version: string;
 
         /**
          * The object that dispatches a "tick" event each time the engine updates, making it easy for you to add your own listener(s) to run custom logic after each update
