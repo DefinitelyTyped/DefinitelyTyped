@@ -477,7 +477,7 @@ const description: SchemaDescription = {
      },
 };
 
-description.tests[0].params.param1
+const param1: any = description.tests[0].params.param1;
 
 const testOptions: TestOptions = {
     name: 'name',
