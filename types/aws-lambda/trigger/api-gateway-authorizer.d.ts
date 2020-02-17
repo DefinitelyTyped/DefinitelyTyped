@@ -1,10 +1,54 @@
 import { APIGatewayEventRequestContext, AuthResponseContext } from "../common/api-gateway";
 import { Callback, Handler } from "../hander";
 
+export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
+
+export type APIGatewayTokenAuthorizerHandler = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
+
+export interface APIGatewayTokenAuthorizerEvent {
+    type: "TOKEN";
+    methodArn: string;
+    authorizationToken: string;
+}
+
+export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
+
+// Note, when invoked by the tester in the AWS web console, the map values can be null,
+// but they will be empty objects in the real object.
+// Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
+export interface APIGatewayRequestAuthorizerEvent {
+    type: "REQUEST";
+    resource: string;
+    path: string;
+    httpMethod: string;
+    headers: { [name: string]: string } | null;
+    multiValueHeaders: { [name: string]: string[] } | null;
+    pathParameters: { [name: string]: string } | null;
+    queryStringParameters: { [name: string]: string } | null;
+    multiValueQueryStringParameters: { [name: string]: string[] } | null;
+    stageVariables: { [name: string]: string } | null;
+    requestContext: APIGatewayEventRequestContext;
+    domainName: string;
+    apiId: string;
+}
+
+export interface APIGatewayAuthorizerResult {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context?: AuthResponseContext | null;
+    usageIdentifierKey?: string | null;
+}
+
+// Legacy event / names
+
+/** @deprecated Use APIGatewayAuthorizerHandler or a subtype */
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
+
+// This one is actually fine.
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
 
-// API Gateway CustomAuthorizer "event"
+/** @deprecated Use APIGatewayAuthorizerEvent or a subtype */
 export interface CustomAuthorizerEvent {
     type: string;
     methodArn: string;
@@ -23,17 +67,8 @@ export interface CustomAuthorizerEvent {
     apiId?: string;
 }
 
-/**
- * API Gateway CustomAuthorizer AuthResponse.
- * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
- */
-export interface CustomAuthorizerResult {
-    principalId: string;
-    policyDocument: PolicyDocument;
-    context?: AuthResponseContext;
-    usageIdentifierKey?: string;
-}
-export type AuthResponse = CustomAuthorizerResult;
+export type CustomAuthorizerResult = APIGatewayAuthorizerResult;
+export type AuthResponse = APIGatewayAuthorizerResult;
 
 /**
  * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.

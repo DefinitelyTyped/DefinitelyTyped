@@ -11,6 +11,10 @@ import {
     ProxyHandler,
     ProxyCallback,
     Statement,
+    APIGatewayTokenAuthorizerHandler,
+    APIGatewayRequestAuthorizerHandler,
+    APIGatewayAuthorizerHandler,
+    APIGatewayAuthorizerResult,
 } from "aws-lambda";
 
 let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
@@ -84,7 +88,73 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     return result;
 };
 
-const authorizerHandler: CustomAuthorizerHandler = async (event, context, callback) => {
+const authorizer: APIGatewayAuthorizerHandler = async (event, context, callback) => {
+    if (event.type === "TOKEN") {
+        str = event.methodArn;
+        str = event.authorizationToken;
+        str = event.resource; // $ExpectError
+    } else {
+        event.type; // $ExpectType "REQUEST"
+        str = event.methodArn; // $ExpectError
+        str = event.resource;
+    }
+
+    const result = createAuthorizerResult();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
+const tokenAuthorizer: APIGatewayTokenAuthorizerHandler = async (event, context, callback) => {
+    event.type; // $ExpectType "TOKEN"
+
+    str = event.type;
+    str = event.methodArn;
+    str = event.authorizationToken;
+    strOrUndefined = event.resource; // $ExpectError
+    // etc...
+
+    const result = createAuthorizerResult();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
+const requestAuthorizer: APIGatewayRequestAuthorizerHandler = async (event, context, callback) => {
+    event.type; // $ExpectType "REQUEST"
+
+    str = event.type;
+    str = event.methodArn; // $ExpectError
+    str = event.authorizationToken; // $ExpectError
+    str = event.resource;
+    str = event.path;
+    str = event.httpMethod;
+    if (event.headers !== null)
+        str = event.headers[str];
+    if (event.multiValueHeaders !== null)
+        str = event.multiValueHeaders[str][num];
+    if (event.pathParameters !== null)
+        str = event.pathParameters[str];
+    if (event.queryStringParameters !== null)
+        str = event.queryStringParameters[str];
+    if (event.multiValueQueryStringParameters !== null)
+        str = event.multiValueQueryStringParameters[str][num];
+    if (event.stageVariables !== null)
+        str = event.stageVariables[str];
+    const requestContext: APIGatewayEventRequestContext = event.requestContext;
+    str = event.domainName;
+    str = event.apiId;
+
+    const result = createAuthorizerResult();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
+const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, callback) => {
     str = event.type;
     str = event.methodArn;
     strOrUndefined = event.authorizationToken;
@@ -102,6 +172,14 @@ const authorizerHandler: CustomAuthorizerHandler = async (event, context, callba
     strOrUndefined = event.domainName;
     strOrUndefined = event.apiId;
 
+    const result = createAuthorizerResult();
+
+    callback(new Error());
+    callback(null, result);
+    return result;
+};
+
+function createAuthorizerResult(): APIGatewayAuthorizerResult {
     let statement: Statement = {
         Action: str,
         Effect: str,
@@ -175,10 +253,8 @@ const authorizerHandler: CustomAuthorizerHandler = async (event, context, callba
         policyDocument,
     };
 
-    callback(new Error());
-    callback(null, result);
     return result;
-};
+}
 
 // Test old names
 const oldNameProxyHandler: ProxyHandler = (event: APIGatewayEvent, context: Context, cb: ProxyCallback) => {};
