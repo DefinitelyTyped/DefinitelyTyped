@@ -417,7 +417,7 @@ export interface Options {
 	localsName?: string;
 
     /** Set to a string (e.g., 'echo' or 'print') for a function to print output inside scriptlet tags. */
-    outputFunctionName ?: string;
+	outputFunctionName?: string;
 }
 
 export interface Cache {
