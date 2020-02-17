@@ -1,4 +1,4 @@
-// Type definitions for styled-components 4.4
+// Type definitions for styled-components 5.0
 // Project: https://github.com/styled-components/styled-components, https://styled-components.com
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 //                 Ihor Chulinda <https://github.com/Igmat>
@@ -9,6 +9,7 @@
 //                 David Ruisinger <https://github.com/flavordaaave>
 //                 Matthew Wagerfield <https://github.com/wagerfield>
 //                 Yuki Ito <https://github.com/Lazyuki>
+//                 Maciej Goszczycki <https://github.com/mgoszcz2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -118,9 +119,6 @@ export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 type Attrs<P, A extends Partial<P>, T> =
     | ((props: ThemedStyledProps<P, T>) => A)
     | A;
-type DeprecatedAttrs<P, A extends Partial<P>, T> = {
-    [K in keyof A]: ((props: ThemedStyledProps<P, T>) => A[K]) | A[K]
-};
 
 export type ThemedGlobalStyledClassProps<P, T> = WithOptionalTheme<P, T> & {
     suppressMultiMountWarning?: boolean;
@@ -260,18 +258,6 @@ export interface ThemedStyledFunction<
     >(
         attrs: Attrs<StyledComponentPropsWithRef<C> & U, NewA, T>
     ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // Only this overload is deprecated
-    // tslint:disable:unified-signatures
-    /** @deprecated Prefer using the new single function style, to be removed in v5 */
-    attrs<
-        U,
-        NewA extends Partial<StyledComponentPropsWithRef<C> & U> & {
-            [others: string]: any;
-        } = {}
-    >(
-        attrs: DeprecatedAttrs<StyledComponentPropsWithRef<C> & U, NewA, T>
-    ): ThemedStyledFunction<C, T, O & NewA, A | keyof NewA>;
-    // tslint:enable:unified-signatures
 }
 
 export type StyledFunction<
