@@ -1,8 +1,9 @@
 // Type definitions for @lingui/core 2.7
 // Project: https://lingui.github.io/js-lingui/, https://github.com/lingui/js-lingui
 // Definitions by: Jeow Li Huan <https://github.com/huan086>
-// Definitions by: Igor Dolzhenkov <https://github.com/igorDolzh>
 // Definitions: https://github.com/huan086/lingui-typings
+// Definitions by: Igor Dolzhenkov <https://github.com/igorDolzh>
+// Definitions: https://github.com/igorDolzh/DefinitelyTyped
 // TypeScript Version: 2.2
 
 export {
