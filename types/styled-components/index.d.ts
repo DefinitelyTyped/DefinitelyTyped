@@ -468,15 +468,23 @@ export class ServerStyleSheet {
     seal(): void;
 }
 
-type StyleSheetManagerProps =
-    | {
-          sheet: ServerStyleSheet;
-          target?: never;
-      }
-    | {
-          sheet?: never;
-          target: HTMLElement;
-      };
+export type StylisPlugin = (
+    context: number,
+    selector: string[],
+    parent: string[],
+    content: string,
+    line: number,
+    column: number,
+    length: number,
+) => string | void;
+
+export interface StyleSheetManagerProps {
+    disableCSSOMInjection?: boolean;
+    disableVendorPrefixes?: boolean;
+    stylisPlugins?: StylisPlugin[];
+    sheet?: ServerStyleSheet;
+    target?: HTMLElement;
+}
 
 export class StyleSheetManager extends React.Component<
     StyleSheetManagerProps
