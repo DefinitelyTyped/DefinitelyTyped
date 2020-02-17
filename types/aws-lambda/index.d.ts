@@ -33,6 +33,7 @@
 //                 Alex Bolenok <https://github.com/alex-bolenok-centralreach>
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
+//                 Cassidy Bandy <https://github.com/c-bandy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
