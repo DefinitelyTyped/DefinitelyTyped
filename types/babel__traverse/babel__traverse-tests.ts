@@ -106,47 +106,47 @@ const v1: Visitor = {
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false)
             ]);
-            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
-            stringPath
-            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
-            booleanPath
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
         }
         {
             const [stringPath, booleanPath] = path.replaceWithMultiple<[t.StringLiteral, t.BooleanLiteral]>([
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false)
             ]);
-            // $ExpectType NodePath<t.StringLiteral>
-            stringPath
-            // $ExpectType NodePath<t.BooleanLiteral>
-            booleanPath
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
         }
     },
     Program(path) {
         {
             const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
-            // $ExpectType NodePath<t.StringLiteral>
-            newPath
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
         }
         {
             const [stringPath, booleanPath] = path.unshiftContainer('body', [
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false)
             ]);
-            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
-            stringPath
-            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
-            booleanPath
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
         }
         {
             const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
                 t.stringLiteral('hello'),
                 t.booleanLiteral(false)
             ]);
-            // $ExpectType NodePath<t.StringLiteral>
-            stringPath
-            // $ExpectType NodePath<t.BooleanLiteral>
-            booleanPath
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
         }
     }
 };

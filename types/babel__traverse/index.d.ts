@@ -6,7 +6,7 @@
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
 //                 Dean L. <https://github.com/dlgrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
 
 import * as t from "@babel/types";
 
@@ -171,7 +171,7 @@ export interface VisitNodeObject<S, P> {
     exit?: VisitNodeFunction<S, P>;
 }
 
-type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>]
+export type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
 
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
