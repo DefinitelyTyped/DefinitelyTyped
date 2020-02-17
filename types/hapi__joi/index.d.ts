@@ -197,8 +197,6 @@ declare namespace Joi {
     interface LanguageMessageTemplate {
         source: string;
         rendered: string;
-        _template: null | any[];
-        _settings: any;
     }
 
     interface ErrorValidationOptions extends BaseValidationOptions {
