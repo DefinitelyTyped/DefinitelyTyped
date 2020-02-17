@@ -25,6 +25,8 @@ const service: KapShareService<Config> = {
         // $ExpectType string
         const name = context.config.get('name');
 
+        context.config.get('accessToken');
+
         // $ExpectError
         context.config.get('unknown');
 
