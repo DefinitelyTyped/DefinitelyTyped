@@ -7,17 +7,26 @@
 import * as got from 'got';
 import { JSONSchema7 } from 'json-schema';
 
+export interface BuiltInConfig {
+    accessToken?: string;
+}
+
+export interface ConfigStore<T> {
+    get<K extends keyof T>(key: K): T[K];
+}
+
 export interface KapContext<T> {
     format: string;
     defaultFileName: string;
     filePath(): Promise<string>;
-    config: { get<K extends keyof T>(key: K): T[K] };
+    config: ConfigStore<T & BuiltInConfig>;
     request: typeof got;
     copyToClipboard(text: string): void;
-    notify(text: string): void;
+    notify(text: string, action?: () => void): void;
     setProgress(text: string, percentage: number): void;
     openConfigFile(): void;
     cancel(): void;
+    waitForDeepLink(): Promise<string>;
 }
 
 export type Format = 'gif' | 'mp4' | 'webm' | 'apng';
