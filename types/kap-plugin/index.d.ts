@@ -79,7 +79,7 @@ export interface KapContext<T> {
      * Returns a Promise that resolves when a deep link for this plugin is
      * opened. The link should be in the format `kap://plugins/{pluginName}/{rest}`,
      * where pluginName is the npm package name and rest is the string the
-     * Promise will resolve with. This is useful for OAuth flows.
+     * Promise will resolve with. This is useful for [OAuth flows](https://github.com/wulkano/kap/blob/master/docs/plugins.md#oauth).
      */
     waitForDeepLink(): Promise<string>;
 }
