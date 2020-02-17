@@ -597,7 +597,7 @@ declare namespace Joi {
         code: string;
         flags: Record<string, ExtensionFlag>;
         path: string[];
-        prefs: ValidationOptions;
+        prefs: ErrorValidationOptions;
         messages: LanguageMessages;
         state: State;
         value: any;
