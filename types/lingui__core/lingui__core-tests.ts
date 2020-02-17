@@ -25,6 +25,17 @@ const descriptorResult = i18n._({
 });
 
 const count = 42;
+const now = new Date()
+
+const numberResult: string = i18n.number(count);
+
+const formattedNumberResult: string = i18n.number(count, { currency: 'USD', style: 'currency' });
+
+const dateResult: string = i18n.date(now)
+
+const dateResultBasedOnString: string = i18n.date('12-12-2012')
+
+const dateResultWithOptions: string = i18n.date(now, {timeZone: 'UTC', timeZoneName: 'short'})
 
 const pluralResult: string = i18n.plural({
     value: count,

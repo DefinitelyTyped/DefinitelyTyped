@@ -55,6 +55,10 @@ export class I18n {
 
     selectOrdinal(id: string, config: PluralProps): string;
 
+    number(value: number, format?: Intl.NumberFormatOptions): string;
+
+    date(value: string | Date, format?: Intl.DateTimeFormatOptions): string;
+
     constructor();
 
     availableLanguages: string[];
