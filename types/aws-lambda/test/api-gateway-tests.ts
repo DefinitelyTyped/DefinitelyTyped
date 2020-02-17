@@ -158,13 +158,11 @@ const authorizerHandler: CustomAuthorizerHandler = async (event, context, callba
 
     policyDocument = { Version: str, Statement: [statement, statement] };
 
-    // Test bad key types
-    let authResponseContext: AuthResponseContext = {
-        // $ExpectError
-        arrayKey: [],
-        // $ExpectError
-        objectKey: {}
-    };
+    // $ExpectError
+    let authResponseContext: AuthResponseContext = { arrayKey: ['foo'] };
+
+    // $ExpectError
+    authResponseContext = { objectKey: { bar: 123 } };
 
     authResponseContext = {
         stringKey: strOrUndefined,
