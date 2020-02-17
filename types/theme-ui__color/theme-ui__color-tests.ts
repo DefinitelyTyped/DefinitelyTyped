@@ -17,20 +17,42 @@ import {
     grayscale,
 } from '@theme-ui/color';
 
-darken(0.2, '#000');
-lighten(0.2, '#000');
-rotate(0.2, '#000');
-hue(0.2, '#000');
-saturation(0.2, '#000');
-lightness(0.2, '#000');
-desaturate(0.1, '#000');
-saturate(0.1, '#000');
-shade('20%', '#000');
-tint('20%', '#000');
-transparentize(0.2, '#000');
+darken('#000', 0.2);
+darken('#000', '0.2');
+lighten('#000', 0.2);
+lighten('#000', '0.2');
+rotate('#000', 0.2);
+rotate('#000', '0.2');
+
+hue('#000', 2);
+hue('#000', '2');
+
+saturation('#000', 0.2);
+saturation('#000', '0.2');
+lightness('#000', 0.2);
+lightness('#000', '0.2');
+
+desaturate('#000', 0.1);
+desaturate('#000', '0.1');
+saturate('#000', 0.1);
+saturate('#000', '0.1');
+
+shade('#000', 0.25);
+shade('#000', '0.25');
+tint('#000', 0.25);
+tint('#000', '0.25');
+
+transparentize('#000', 0.2);
+transparentize('#000', '0.2');
 alpha('#000', 0.2);
-mix(0.25, '#000', '#FFF');
-complement('#000');
+alpha('#000', '0.2');
+
+mix('#000', '#FFF');
+mix('#000', '#FFF', 0.25);
+mix('#000', '#FFF', '0.25');
+
 complement('#000');
 invert('#000');
-grayscale('#000');
+
+grayscale('#000', 0.25);
+grayscale('#000', '0.25');
