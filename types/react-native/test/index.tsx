@@ -372,6 +372,8 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
 // ViewPagerAndroid
