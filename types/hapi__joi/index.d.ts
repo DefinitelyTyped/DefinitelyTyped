@@ -88,7 +88,7 @@ declare namespace Joi {
         wrapArrays?: boolean;
     }
 
-    interface ValidationOptions {
+    interface BaseValidationOptions {
         /**
          * when true, stops validation on the first error, otherwise returns all the errors found.
          *
@@ -140,14 +140,6 @@ declare namespace Joi {
          */
         externals?: boolean;
         /**
-         * overrides individual error messages. Defaults to no override (`{}`).
-         * Messages use the same rules as templates.
-         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
-         *
-         * @default {}
-         */
-        messages?: LanguageMessages;
-        /**
          * when true, do not apply default values.
          *
          * @default false
@@ -182,6 +174,17 @@ declare namespace Joi {
         stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
     }
 
+    interface ValidationOptions extends BaseValidationOptions {
+        /**
+         * overrides individual error messages. Defaults to no override (`{}`).
+         * Messages use the same rules as templates.
+         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
+         *
+         * @default {}
+         */
+        messages?: LanguageMessages;
+    }
+
     interface AsyncValidationOptions extends ValidationOptions {
         /**
          * when true, warnings are returned alongside the value (i.e. `{ value, warning }`).
@@ -189,6 +192,17 @@ declare namespace Joi {
          * @default false
          */
         warnings?: boolean;
+    }
+
+    interface LanguageMessageTemplate {
+        source: string;
+        rendered: string;
+        _template: null | any[];
+        _settings: any;
+    }
+
+    interface ErrorValidationOptions extends BaseValidationOptions {
+        messages?: Record<string, LanguageMessageTemplate>;
     }
 
     interface RenameOptions {
@@ -582,7 +596,7 @@ declare namespace Joi {
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
-        path: string;
+        path: string[];
         prefs: ValidationOptions;
         messages: LanguageMessages;
         state: State;
