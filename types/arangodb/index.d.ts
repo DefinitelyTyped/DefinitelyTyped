@@ -1533,7 +1533,7 @@ declare module "@arangodb/foxx/queues" {
 declare module "@arangodb/foxx/graphql" {
     type GraphQLSchema = object;
     type GraphQLFormatErrorFunction = (error: any) => any;
-    type GraphQLModule = {
+    interface GraphQLModule {
       formatError: GraphQLFormatErrorFunction;
       Source: any;
       parse: any;
