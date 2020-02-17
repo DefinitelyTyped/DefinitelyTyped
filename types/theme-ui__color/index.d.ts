@@ -26,4 +26,4 @@ export function mix(color: string, otherColor: string, number?: number | string)
 export function complement(color: string): string;
 export function invert(color: string): string;
 
-export function grayscale(color: string): string;
+export function grayscale(color: string, number: number | string): string;
