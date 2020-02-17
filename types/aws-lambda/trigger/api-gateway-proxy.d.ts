@@ -1,5 +1,5 @@
 import { APIGatewayEventRequestContext } from "../common/api-gateway";
-import { Callback, Handler } from "../hander";
+import { Callback, Handler } from "../handler";
 
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;

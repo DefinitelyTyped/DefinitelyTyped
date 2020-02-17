@@ -1,4 +1,4 @@
-// Used by both APIGatewayPraxyEvent and APIGatewayAuthorizerEvent
+// Used by both APIGatewayProxyEvent and APIGatewayAuthorizerEvent
 export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
