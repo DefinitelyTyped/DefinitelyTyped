@@ -171,6 +171,8 @@ export interface VisitNodeObject<S, P> {
     exit?: VisitNodeFunction<S, P>;
 }
 
+type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>]
+
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
     parent: Node;
@@ -272,7 +274,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple<NodeType extends Node>(nodes: NodeType[]): Array<NodePath<NodeType>>;
+    replaceWithMultiple<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -433,7 +435,7 @@ export class NodePath<T = Node> {
      * @param listKey - The key at which the child nodes are stored (usually body).
      * @param nodes - the nodes to insert.
      */
-    unshiftContainer<NodeType extends Node>(listKey: string, nodes: NodeType | NodeType[]): Array<NodePath<NodeType>>;
+    unshiftContainer<Nodes extends Node | Node[]>(listKey: string, nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Insert child nodes at the end of the current node.

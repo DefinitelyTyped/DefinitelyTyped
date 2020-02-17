@@ -101,19 +101,53 @@ const v1: Visitor = {
         path.scope.rename("n");
     },
     ExportDefaultDeclaration(path) {
-        // https://github.com/zeit/next.js/blob/9cfc09e3abd039686803627213188b33fbe13309/packages/next/build/babel/plugins/next-ssg-transform.ts#L44
-        const [pageCompPath] = path.replaceWithMultiple([
-            t.variableDeclaration('const', [
-                t.variableDeclarator(t.identifier('id')),
-            ])
-        ]);
-        path.scope.registerDeclaration(pageCompPath);
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
+            stringPath
+            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
+            booleanPath
+        }
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple<[t.StringLiteral, t.BooleanLiteral]>([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<t.StringLiteral>
+            stringPath
+            // $ExpectType NodePath<t.BooleanLiteral>
+            booleanPath
+        }
     },
     Program(path) {
-        // https://github.com/zeit/next.js/blob/9cfc09e3abd039686803627213188b33fbe13309/packages/next/build/babel/plugins/jsx-pragma.ts#L67
-        const mapping = t.variableDeclaration('var', []);
-        const [newPath] = path.unshiftContainer('body', mapping);
-        const declar = newPath.get('declarations')[0];
+        {
+            const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
+            // $ExpectType NodePath<t.StringLiteral>
+            newPath
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
+            stringPath
+            // $ExpectType NodePath<t.StringLiteral | t.BooleanLiteral>
+            booleanPath
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<t.StringLiteral>
+            stringPath
+            // $ExpectType NodePath<t.BooleanLiteral>
+            booleanPath
+        }
     }
 };
 
