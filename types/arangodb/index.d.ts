@@ -1541,7 +1541,7 @@ declare module "@arangodb/foxx/graphql" {
       specifiedRules: any;
       getOperationAST: any;
       execute: any;
-    };
+    }
     interface GraphQLOptions {
         schema: GraphQLSchema;
         context?: any;
