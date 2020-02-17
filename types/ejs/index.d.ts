@@ -414,7 +414,7 @@ export interface Options {
 	 *
 	 * @default ejs.localsName
 	 */
-    localsName?: string;
+	localsName?: string;
 
     /** Set to a string (e.g., 'echo' or 'print') for a function to print output inside scriptlet tags. */
     outputFunctionName ?: string;
