@@ -167,9 +167,9 @@ const authorizerHandler: CustomAuthorizerHandler = async (event, context, callba
     };
 
     authResponseContext = {
-        stringKey: str,
-        numberKey: num,
-        booleanKey: bool,
+        stringKey: strOrUndefined,
+        numberKey: numOrUndefined,
+        booleanKey: boolOrUndefined,
     };
 
     let result: CustomAuthorizerResult = {
