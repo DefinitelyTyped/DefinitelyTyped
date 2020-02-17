@@ -6,6 +6,7 @@ import {
     HTMLOverlay,
     FullscreenControl,
     GeolocateControl,
+    ScaleControl,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
     SVGRedrawOptions,
@@ -58,7 +59,14 @@ class MyMap extends React.Component<{}, State> {
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
-                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
+                    <GeolocateControl
+                      className="test-class"
+                      style={{ marginTop: "8px" }}
+                      onGeolocate={(options) => {
+                        console.log(options.enableHighAccuracy)
+                      }}
+                    />
+                    <ScaleControl unit="nautical" />
                     <CanvasOverlay
                         redraw={opts => {
                             const {

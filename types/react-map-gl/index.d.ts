@@ -1,4 +1,4 @@
-// Type definitions for react-map-gl 5.1
+// Type definitions for react-map-gl 5.2
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
@@ -6,6 +6,7 @@
 //                 Otto Urpelainen <https://github.com/oturpe>
 //                 Arman Safikhani <https://github.com/Arman92>
 //                 William Chiu <https://github.com/chiuhow>
+//                 David Baumgold <https://github.com/singingwolfboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -15,6 +16,8 @@ import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
 import WebMercatorViewport from 'viewport-mercator-project';
+
+export { WebMercatorViewport } from 'viewport-mercator-project';
 
 export interface ViewState {
     latitude: number;
@@ -344,6 +347,9 @@ export interface NavigationControlProps extends BaseControlProps {
     onViewportChange?: ViewportChangeHandler;
     showCompass?: boolean;
     showZoom?: boolean;
+    zoomInLabel?: string;
+    zoomOutLabel?: string;
+    compassLabel?: string;
 }
 
 export class NavigationControl extends BaseControl<NavigationControlProps, HTMLDivElement> {}
@@ -355,18 +361,34 @@ export interface FullscreenControlProps extends BaseControlProps {
 
 export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
 
+// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+interface PositionOptions {
+    enableHighAccuracy?: boolean;
+    timeout: number;
+    maximumAge: number;
+}
+
 export interface GeolocateControlProps extends BaseControlProps {
     className?: string;
+    label?: string;
     positionOptions?: MapboxGL.PositionOptions;
     fitBoundsOptions?: MapboxGL.FitBoundsOptions;
     trackUserLocation?: boolean;
     showUserLocation?: boolean;
     onViewStateChange?: ViewStateChangeHandler;
     onViewportChange?: ViewportChangeHandler;
+    onGeolocate?: (options: PositionOptions) => void;
     style?: React.CSSProperties;
 }
 
 export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
+
+export interface ScaleControlProps extends BaseControlProps {
+    maxWidth?: number;
+    unit?: 'imperial' | 'metric' | 'nautical';
+}
+
+export class ScaleControl extends BaseControl<ScaleControlProps, HTMLDivElement> {}
 
 export interface DragEvent {
     lngLat: [number, number];
