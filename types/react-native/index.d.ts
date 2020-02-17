@@ -6881,7 +6881,7 @@ export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-passwo
  *
  * AppState is frequently used to determine the intent and proper behavior
  * when handling push notifications.
- * 
+ *
  * App State Events
  *      change - This even is received when the app state has changed.
  *      focus [Android] - Received when the app gains focus (the user is interacting with the app).
