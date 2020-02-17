@@ -1,0 +1,35 @@
+import { KapShareService } from 'kap-plugin';
+
+interface Config {
+    name: string;
+    greeting: string;
+}
+
+const service: KapShareService<Config> = {
+    title: 'My Plugin',
+    formats: ['apng', 'gif'],
+    config: {
+        name: {
+            type: 'string',
+            minLength: 1,
+            required: true,
+            default: 'Bilbo',
+        },
+        greeting: {
+            type: 'string',
+            // $ExpectError
+            default: true,
+        },
+    },
+    action: async context => {
+        // $ExpectType string
+        const name = context.config.get('name');
+
+        // $ExpectError
+        context.config.get('unknown');
+
+        await context.request(`https://example.com/greet/${name}`);
+
+        context.notify('Greeted example.com');
+    },
+};
