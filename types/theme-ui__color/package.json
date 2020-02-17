@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "polished": "^3.4.1"
+  }
+}

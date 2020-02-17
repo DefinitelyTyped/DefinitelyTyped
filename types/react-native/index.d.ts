@@ -32,6 +32,7 @@
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
+//                 Dominique Richard <https://github.com/doumart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -992,6 +993,21 @@ export interface TextInputIOSProps {
     keyboardAppearance?: 'default' | 'light' | 'dark';
 
     /**
+     * Provide rules for your password.
+     * For example, say you want to require a password with at least eight characters consisting of a mix of uppercase and lowercase letters, at least one number, and at most two consecutive characters.
+     * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
+     */
+    passwordRules?: string | null;
+
+    /**
+     * If `true`, allows TextInput to pass touch events to the parent component.
+     * This allows components to be swipeable from the TextInput on iOS,
+     * as is the case on Android by default.
+     * If `false`, TextInput always asks to handle the input (except when disabled).
+     */
+    rejectResponderTermination?: boolean | null;
+
+    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1193,14 +1209,18 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardType =
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
-    | 'number-pad'
     | 'name-phone-pad'
-    | 'decimal-pad'
     | 'twitter'
     | 'web-search';
 export type KeyboardTypeAndroid = 'visible-password';
@@ -7081,22 +7101,6 @@ export interface CameraRollStatic {
      * @deprecated use saveToCameraRoll instead
      */
     saveImageWithTag(tag: string): Promise<string>;
-
-    /**
-     * Saves the photo or video to the camera roll / gallery.
-     *
-     * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
-     *
-     * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
-     * or a local video file URI (remote or data URIs are not supported for saving video at this time).
-     *
-     * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
-     * it will be treated as a photo. To override the automatic choice, you can pass an optional
-     * `type` parameter that must be one of 'photo' or 'video'.
-     *
-     * Returns a Promise which will resolve with the new URI.
-     */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
      * Saves the photo or video to the camera roll / gallery.

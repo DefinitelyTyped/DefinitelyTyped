@@ -823,3 +823,9 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
 
 const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
 const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+
+const arrayOfStringsSchema = yup.array().of(yup.string());
+type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
+function returnTheArray(data: ArrayOfStrings): any[] {
+  return data;
+}

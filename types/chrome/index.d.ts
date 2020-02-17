@@ -6968,6 +6968,12 @@ declare namespace chrome.tabs {
          */
         url?: string;
         /**
+         * The URL the tab is navigating to, before it has committed.
+         * This property is only present if the extension's manifest includes the "tabs" permission and there is a pending navigation.
+         * @since Chrome 79.
+         */
+        pendingUrl?: string;
+        /**
          * Whether the tab is pinned.
          * @since Chrome 9.
          */
@@ -7666,6 +7672,32 @@ declare namespace chrome.tabs {
      * @param callback Called after the operation is completed.
      */
     export function discard(tabId?: number, callback?: (tab: Tab) => void): void;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goForward(callback?: () => void): void;
+    /**
+     * Go foward to the next page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goForward(tabId: number, callback?: () => void): void;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goBack(callback?: () => void): void;
+    /**
+     * Go back to the previous page, if one is available.
+     * @since Chrome 72.
+     * @param tabId Optional. The ID of the tab to navigate back; defaults to the selected tab of the current window.
+     * @param callback Optional. Called after the operation is completed.
+     */
+    export function goBack(tabId: number, callback?: () => void): void;
 
     /**
      * Fired when the highlighted or selected tabs in a window changes.

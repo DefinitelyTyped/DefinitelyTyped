@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+      "jsx": "preserve",
+      "module": "commonjs",
+      "lib": [
+          "es6"
+      ],
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "strictFunctionTypes": true,
+      "strictNullChecks": true,
+      "baseUrl": "../",
+      "typeRoots": [
+          "../"
+      ],
+      "paths": {
+          "@theme-ui/color": ["theme-ui__color"]
+      },
+      "types": [],
+      "noEmit": true,
+      "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+      "index.d.ts",
+      "theme-ui__color-tests.ts"
+    ]
+}

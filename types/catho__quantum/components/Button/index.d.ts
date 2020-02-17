@@ -22,6 +22,7 @@ export interface ButtonProps<T> {
             button: object;
         };
     };
+    id?: string;
 }
 
 export default class Button<T = HTMLButtonElement> extends React.Component<ButtonProps<T>> {

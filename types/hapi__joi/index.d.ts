@@ -679,6 +679,13 @@ declare namespace Joi {
 
     type SchemaFunction = (schema: Schema) => Schema;
 
+    interface AddRuleOptions {
+        name: string;
+        args?: {
+            [key: string]: any;
+        };
+    }
+
     interface SchemaInternals {
         /**
          * Parent schema object.
@@ -693,7 +700,7 @@ declare namespace Joi {
         /**
          * Adds a rule to current validation schema.
          */
-        $_addRule(rule: string | ExtensionRule): Schema;
+        $_addRule(rule: string | AddRuleOptions): Schema;
 
         /**
          * Internally compiles schema.
@@ -1756,7 +1763,7 @@ declare namespace Joi {
     interface RuleArgs {
         name: string;
         ref?: boolean;
-        assert?: (value: any) => boolean;
+        assert?: ((value: any) => boolean) | AnySchema;
         message?: string;
 
         /**

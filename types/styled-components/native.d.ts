@@ -205,6 +205,14 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
+  FlatList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.FlatList,
+    T
+  >;
+  SectionList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.SectionList,
+    T
+  >;
 }
 
 export interface ReactNativeThemedStyledComponentsModule<

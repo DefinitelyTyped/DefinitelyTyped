@@ -3,6 +3,9 @@ import * as data from '@wordpress/data';
 data.select('core/block-editor').isTyping<boolean>();
 data.dispatch('core/block-editor').resetBlocks('');
 
+const unsubscribe = data.subscribe(() => console.log('Store was updated.'));
+unsubscribe();
+
 data.use(data.plugins.persistence, { storage: window.localStorage });
 
 interface FooBar {
