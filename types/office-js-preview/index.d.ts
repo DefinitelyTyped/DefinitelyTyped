@@ -9789,8 +9789,9 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
-         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
+         * - In Outlook on Mac, only preview build 16.35.205.0 or later with an Office 365 subscription supports saving a meeting.
+         * Otherwise, the saveAsync method fails when called from a meeting in compose mode.
+         * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -9827,8 +9828,9 @@ declare namespace Office {
          *
          * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
          *
-         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
-         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
+         * - In Outlook on Mac, only preview build 16.35.205.0 or later with an Office 365 subscription supports saving a meeting.
+         * Otherwise, the saveAsync method fails when called from a meeting in compose mode.
+         * For a workaround, see {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API}.
          *
          * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
@@ -10931,9 +10933,13 @@ declare namespace Office {
          * 
          * For file attachments, the formatting is a base64-encoded string.
          * 
-         * For item attachments that represent messages, the formatting is a string representing an .eml formatted file.
+         * For item attachments that represent messages and were attached by drag-and-drop or "Attach Item",
+         * the formatting is a string representing an .eml formatted file.
+         * **Important**: If a message item was attached by drag-and-drop in Outlook on the web, then `getAttachmentContentAsync` throws an error.
          * 
-         * For item attachments that represent calendar items, the formatting is a string representing an .icalendar file.
+         * For item attachments that represent calendar items and were attached by drag-and-drop or "Attach Item",
+         * the formatting is a string representing an .icalendar file.
+         * **Important**: If a calendar item was attached by drag-and-drop in Outlook on the web, then `getAttachmentContentAsync` throws an error.
          * 
          * For cloud attachments, the formatting is a URL string.
          */
@@ -13978,13 +13984,6 @@ declare namespace Office {
          * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the itemId will return an error.
          *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
-         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
-         *
          * [Api set: Mailbox 1.3]
          *
          * @remarks
@@ -14017,13 +14016,6 @@ declare namespace Office {
          * **Note**: If your add-in calls saveAsync on an item in compose mode in order to get an itemId to use with EWS or the REST API, be aware that 
          * when Outlook is in cached mode, it may take some time before the item is actually synced to the server. 
          * Until the item is synced, using the itemId will return an error.
-         *
-         * **Note**: The following clients have different behavior for saveAsync on appointments in compose mode:
-         *
-         * - Outlook on Mac does not support saving a meeting. The saveAsync method fails when called from a meeting in compose mode.
-         * See {@link https://support.microsoft.com/help/4505745 | Cannot save a meeting as a draft in Outlook for Mac by using Office JS API} for a workaround.
-         *
-         * - Outlook on the web always sends an invitation or update when saveAsync is called on an appointment in compose mode.
          *
          * [Api set: Mailbox 1.3]
          *
@@ -20873,6 +20865,8 @@ declare namespace Excel {
         /**
          *
          * Renders the range as a base64-encoded png image.
+         * 
+         * **Important**: This API is currently unsupported in Excel for Mac. Visit [OfficeDev/office-js Issue #235](https://github.com/OfficeDev/office-js/issues/235) for the current status.
          *
          * [Api set: ExcelApi 1.7]
          */

@@ -15,7 +15,6 @@ import {
     PaymentMethodNonce,
     Transaction,
     WebhookNotificationKind,
-    SubscriptionNotification,
 } from 'braintree';
 
 /**
@@ -112,4 +111,38 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     if (notification.kind !== kind) return;
 
     const subscription = notification.subscription;
+})();
+
+(async () => {
+    const kind: WebhookNotificationKind = 'payment_method_revoked_by_customer';
+    const subscriptionId = '123456';
+
+    const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
+    if (!sampleResponse) return;
+
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
+
+    // this should cause the type of `notification` to be narrowed to `PaymentMethodNotification`
+    if (notification.kind !== kind) return;
+
+    const metadata = notification.revokedPaymentMethodMetadata;
+    if (!metadata.revokedPaymentMethod) return;
+})();
+
+(async () => {
+    const kind: WebhookNotificationKind = 'account_updater_daily_report';
+    const subscriptionId = '123456';
+
+    const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
+    if (!sampleResponse) return;
+
+    const notification = await gateway.webhookNotification.parse(sampleResponse.bt_signature, sampleResponse.bt_payload).catch(console.error);
+    if (!notification) return;
+
+    // this should cause the type of `notification` to be narrowed to `AccountUpdaterNotification`
+    if (notification.kind !== kind) return;
+
+    const reportUrl = notification.accountUpdaterDailyReport.reportUrl;
+    if (!reportUrl) return;
 })();

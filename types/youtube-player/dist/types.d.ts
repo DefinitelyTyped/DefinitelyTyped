@@ -33,7 +33,7 @@ export interface Options {
         widget_referrer?: string,
     };
     events?: {
-        [eventType in EventType]: (event: CustomEvent) => void
+        [eventType in EventType]?: (event: CustomEvent) => void
     };
 }
 
