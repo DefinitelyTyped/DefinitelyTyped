@@ -333,6 +333,7 @@ export interface ThemedStyledComponentsModule<
     ThemeProvider: ThemeProviderComponent<T, U>;
     ThemeConsumer: React.Consumer<T>;
     ThemeContext: React.Context<T>;
+    useTheme(): T;
 
     // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
     isStyledComponent: typeof isStyledComponent;
@@ -358,6 +359,8 @@ export type WithThemeFnInterface<T extends object> = BaseWithThemeFnInterface<
     AnyIfEmpty<T>
 >;
 export const withTheme: WithThemeFnInterface<DefaultTheme>;
+
+export function useTheme(): DefaultTheme;
 
 /**
  * This interface can be augmented by users to add types to `styled-components`' default theme
