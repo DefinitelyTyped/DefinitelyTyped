@@ -8,13 +8,6 @@ import * as got from 'got';
 import * as ElectronStore from 'electron-store';
 import { JSONSchema7 } from 'json-schema';
 
-/**
- * Base options that Kap provides out of the box.
- */
-export interface BuiltInConfig {
-    accessToken?: string;
-}
-
 export interface KapContext<T> {
     /**
      * The file format the user chose in the editor window
@@ -43,7 +36,7 @@ export interface KapContext<T> {
     /**
      * Get and set config for you plugin. It’s an instance of electron-store.
      */
-    config: ElectronStore<T & BuiltInConfig>;
+    config: ElectronStore<T>;
 
     /**
      * Do a network request, like uploading. It’s a wrapper around `got`.
@@ -128,5 +121,5 @@ export interface KapShareService<T = unknown> {
      * Definition of the config the plugins needs. A JSON schema, with the
      * ability to mark properties as `required` individually.
      */
-    config: { [K in keyof T]: ConfigSchema<T[K]> };
+    config: { [K in keyof T]?: ConfigSchema<T[K]> };
 }
