@@ -110,24 +110,6 @@ export interface CommonOptions {
 	swDest?: string;
 
 	/**
-	 * Valid values are `'cdn'`, `'local'`, and `'disabled'`.
-	 *
-	 *  - `'cdn'`, the default, will use a URL for the Workbox runtime libraries hosted on a highly-available Google Cloud Storage instance.
-	 *
-	 *  - `'local'` will copy all of the Workbox runtime libraries into a versioned directory alongside your generated service worker, and configure the service worker to use those local copies.
-	 *    This option is provided for developers who would prefer to host everything themselves and not rely on the Google Cloud Storage CDN.
-	 *
-	 *  - `'disabled'` will opt-out automatic behavior. It's up to you to host a local copy of the Workbox libraries at your preferred URL, and to pass in the correct path to `workbox-sw.js`
-	 *    via the `importScripts` configuration option.
-	 *
-	 *  - Note: In webpack, passing in a string corresponding to the webpack chunk name containing a custom Workbox runtime library bundle is also supported.
-	 *
-	 * @default 'cdn'
-	 * @example importWorkboxFrom: 'local'
-	 */
-	importWorkboxFrom?: 'cdn' | 'local' | 'disabled';
-
-	/**
 	 * By default, Workbox will precache assets regardless of which chunk the asset is part of.
 	 *
 	 * If you would like to override this behavior via a whitelist, specify one or more chunk names. Only assets belonging to those chunks will be precached;

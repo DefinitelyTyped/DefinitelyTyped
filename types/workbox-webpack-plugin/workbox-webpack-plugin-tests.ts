@@ -13,7 +13,6 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
   // With all of the examples
   plugin = new GenerateSW({
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
     // Exclude assets that belong to these chunks:
@@ -141,7 +140,6 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
   // With all of the examples
   plugin = new InjectManifest({
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
     // Exclude assets that belong to these chunks:
