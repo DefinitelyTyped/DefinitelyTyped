@@ -8497,7 +8497,7 @@ export namespace Animated {
         : T | Value | AnimatedInterpolation
     > {}
 
-  export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+  export type AnimatedProps<T> = { [K in keyof T]: WithAnimatedValue<T[K]> };
 
   export interface AnimatedComponent<
     T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
