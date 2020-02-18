@@ -8491,7 +8491,7 @@ export namespace Animated {
     export interface WithAnimatedValue<T>
     extends ThisType<
       T extends object
-        ? { [K in keyof Omit<T, 'ref'>]?: WithAnimatedValue<T[K]> }
+        ? { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]?: WithAnimatedValue<T[K]> }
         : T extends (infer P)[]
         ? WithAnimatedValue<P>[]
         : T | Value | AnimatedInterpolation
