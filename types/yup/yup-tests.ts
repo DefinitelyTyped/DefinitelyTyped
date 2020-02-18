@@ -73,14 +73,14 @@ const fieldsTestSchema = yup.object().shape({
   d: yup.date(),
   a: yup.array(),
   o: yup.object()
-})
-const stringField: Schema<string> = fieldsTestSchema.fields.s
-const numberField: Schema<number> = fieldsTestSchema.fields.n
-const mixedField: Schema<any> = fieldsTestSchema.fields.m
-const booleanField: Schema<boolean> = fieldsTestSchema.fields.b
-const dateField: Schema<Date> = fieldsTestSchema.fields.d
-const arrayField: Schema<any[]> = fieldsTestSchema.fields.a
-const objectField: Schema<object> = fieldsTestSchema.fields.o
+});
+const stringField: Schema<string> = fieldsTestSchema.fields.s;
+const numberField: Schema<number> = fieldsTestSchema.fields.n;
+const mixedField: Schema<any> = fieldsTestSchema.fields.m;
+const booleanField: Schema<boolean> = fieldsTestSchema.fields.b;
+const dateField: Schema<Date> = fieldsTestSchema.fields.d;
+const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
+const objectField: Schema<object> = fieldsTestSchema.fields.o;
 
 const renderable = yup.lazy(value => {
     switch (typeof value) {
