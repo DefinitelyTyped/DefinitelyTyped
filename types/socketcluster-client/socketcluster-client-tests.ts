@@ -84,6 +84,23 @@ socket.transmitPublish('myChannel', 'This is a message');
     authStatus.isAuthenticated;
 })();
 
+(async () => {
+    // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+    for await (const event of socket.listener('subscribeStateChange')) {
+        // $ExpectType string
+        event.channel;
+
+        // $ExpectType ChannelState
+        event.oldChannelState;
+
+        // $ExpectType ChannelState
+        event.newChannelState;
+
+        // $ExpectType SubscribeOptions
+        event.subscriptionOptions;
+    }
+})();
+
 const mostOptions = {
     path: '/socketcluster/',
     port: 8000,

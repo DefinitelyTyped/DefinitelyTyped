@@ -1996,6 +1996,7 @@ declare namespace React {
         crossOrigin?: "anonymous" | "use-credentials" | "";
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
+        loading?: "eager" | "lazy";
         sizes?: string;
         src?: string;
         srcSet?: string;

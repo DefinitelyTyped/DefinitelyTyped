@@ -112,7 +112,7 @@ export type UseTableOptions<D extends object> = {
     defaultColumn: Partial<Column<D>>;
     initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
-    getRowId: (originalRow: D, relativeIndex: number) => IdType<D>;
+    getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =

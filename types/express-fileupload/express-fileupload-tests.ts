@@ -39,7 +39,7 @@ app.use(fileUpload({ safeFileNames: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: 2 }));
 app.use(fileUpload({ abortOnLimit: true }));
-app.use(fileUpload({ responseOnLimit: true }));
+app.use(fileUpload({ responseOnLimit: 'Size Limit reached' }));
 app.use(fileUpload({ limitHandler: true }));
 app.use(
     fileUpload({

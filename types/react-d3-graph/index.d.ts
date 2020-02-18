@@ -1,6 +1,7 @@
 // Type definitions for react-d3-graph 2.3
 // Project: https://github.com/danielcaldas/react-d3-graph#readme
-// Definitions by: hrngoode <https://github.com/me>
+// Definitions by: Harry Goode <https://github.com/hrngoode>
+//                 Adina Todoran <https://github.com/adina-todoran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Component } from "react";

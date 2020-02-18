@@ -61,6 +61,7 @@ export type VerifyFunctionWithRequest = (
     req: express.Request,
     accessToken: string,
     refreshToken: string,
+    extraParams: ExtraVerificationParams,
     profile: Profile,
     done: (error: any, user?: any, info?: any) => void
 ) => void;

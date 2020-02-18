@@ -1563,6 +1563,36 @@ describe("createSpyObj", function() {
         expect(spyObj.m()).toEqual(3);
         expect(spyObj.p).toEqual(4);
     });
+
+    it("allows methods and properties lists to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>(["method1"], ["property1"]);
+
+        expect(spyObj).toEqual({
+            method1: jasmine.any(Function),
+            method2: undefined as any,
+            property1: undefined as any,
+            property2: undefined as any
+        });
+    });
+
+    it("allows methods and properties objects to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>({method1: 3}, {property1: "4"});
+
+        expect(spyObj.method1()).toEqual(3);
+        expect(spyObj.property1).toEqual("4");
+    });
 });
 
 describe('Static Matcher Test', function() {
