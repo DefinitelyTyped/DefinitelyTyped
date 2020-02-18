@@ -8504,9 +8504,7 @@ export namespace Animated {
   >
     extends React.FC<
       AnimatedProps<ComponentProps<T>> & {
-        ref?:
-          | React.RefObject<AnimatedComponent<T> | undefined>
-          | React.MutableRefObject<AnimatedComponent<T> | undefined>;
+        ref?: React.Ref<AnimatedComponent<T>>;
       }
     > {
     getNode: () => T;
