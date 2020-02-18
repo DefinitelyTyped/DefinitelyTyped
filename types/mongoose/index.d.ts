@@ -35,6 +35,7 @@
 //                 Thomas Pischulski <https://github.com/nephix>
 //                 Sam Kim <https://github.com/rlaace423>
 //                 Dongjun Lee <https://github.com/ChazEpps>
+//                 Clement Debiaune <https://github.com/Unibozu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -2296,8 +2297,11 @@ declare module "mongoose" {
 
     /** Flag to opt out of using $geoWithin. */
     static use$geoWithin: boolean;
-  }
 
+    /** AsyncIterator - https://mongoosejs.com/docs/api/query.html#query_Query-Symbol.asyncIterator */
+    [Symbol.asyncIterator](): AsyncIterator<DocType>;
+  }
+  
   // https://github.com/aheckmann/mquery
   // mquery currently does not have a type definition please
   //   replace it if one is ever created
@@ -2703,10 +2707,10 @@ declare module "mongoose" {
 
     // If cursor option is on, could return an object
     /** Executes the aggregate pipeline on the currently bound Model. */
-    exec(callback?: (err: any, result: T) => void): Promise<T> | any;
+    exec(callback?: (err: any, result: T[]) => void): Promise<T[]> | any;
 
     /** Execute the aggregation with explain */
-    explain(callback?: (err: any, result: T) => void): Promise<T>;
+    explain(callback?: (err: any, result: T[]) => void): Promise<T[]>;
 
     /**
      * Appends a new custom $group operator to this aggregate pipeline.
@@ -2804,7 +2808,7 @@ declare module "mongoose" {
     sort(arg: string | any): this;
 
     /** Provides promise for aggregate. */
-    then: Promise<T>["then"];
+    then: Promise<T[]>["then"];
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2818,6 +2822,9 @@ declare module "mongoose" {
      * new in mongodb 3.2
      */
     unwind(...opts: { path: string, includeArrayIndex?: string, preserveNullAndEmptyArrays?: boolean }[]): this;
+
+    /** AsyncIterator - https://mongoosejs.com/docs/api/aggregate.html#aggregate_Aggregate-Symbol.asyncIterator */
+    [Symbol.asyncIterator](): AsyncIterator<T>;
   }
 
   /*
@@ -2994,8 +3001,8 @@ declare module "mongoose" {
      * If a callback is not passed, the aggregate itself is returned.
      * @param aggregations pipeline operator(s) or operator array
      */
-    aggregate<U = any>(aggregations?: any[]): Aggregate<U[]>;
-    aggregate<U = any>(aggregations: any[], cb: Function): Promise<U[]>;
+    aggregate<U = any>(aggregations?: any[]): Aggregate<U>;
+    aggregate<U = any>(aggregations: any[], cb: Function): Promise<U>;
 
     /** Counts number of matching documents in a database collection. */
     count(conditions: any, callback?: (err: any, count: number) => void): Query<number> & QueryHelpers;

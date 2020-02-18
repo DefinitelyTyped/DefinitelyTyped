@@ -2280,3 +2280,26 @@ Animal2.find().byName('fido').exec(function(err, animals) {
 Animal2.findOne().byName('fido').exec(function(err, animal) {
   console.log(animal);
 });
+
+/* AsyncIterator: https://mongoosejs.com/docs/api/query.html#query_Query-Symbol.asyncIterator */
+
+interface asyncIteratorDocument extends mongoose.Document {
+  foo: string
+}
+
+const asyncIteratorModel = mongoose.model<asyncIteratorDocument, mongoose.Model<asyncIteratorDocument>>('AsyncIterator', new mongoose.Schema({}));
+
+async function queryAsyncIteratorTest() {
+  // tslint has invalid assumption on checking for AsyncIterator - see https://github.com/microsoft/TypeScript/issues/21115
+  // This is not going to be fixed on tslint so the ignore needs to remain until DefinitelyTyped moves to eslint
+  // tslint:disable-next-line await-promise
+  for await (const d of asyncIteratorModel.find({})) {
+    d.foo;
+  }
+
+  // tslint:disable-next-line await-promise
+  for await (const agg of asyncIteratorModel.aggregate<{group: string}>()) {
+    agg.group;
+  }
+}
+
