@@ -27,6 +27,6 @@ declare namespace AppleSignInAPI {
             id_token: string;
             state: string;
         };
-        user: { name: { firstName: string; lastName: string }; email: string };
+        user?: { name: { firstName: string; lastName: string }; email: string };
     }
 }
