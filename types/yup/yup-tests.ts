@@ -64,33 +64,23 @@ const node: ObjectSchema<any> = yup.object().shape({
     child: yup.lazy(() => node.default(undefined)),
 });
 
-const numberfield: Schema<number> = yup.object().shape({
-  id: yup.number()
-}).fields.id;
-
-const stringfield: Schema<string> = yup.object().shape({
-  name: yup.string()
-}).fields.name;
-
-const mixedfield: Schema<any> = yup.object().shape({
-  m: yup.mixed()
-}).fields.m;
-
-const booleanfield: Schema<boolean> = yup.object().shape({
-  b: yup.boolean()
-}).fields.b;
-
-const datefield: Schema<Date> = yup.object().shape({
-  d: yup.date()
-}).fields.d;
-
-const arrayfield: Schema<any[]> = yup.object().shape({
-  a: yup.array()
-}).fields.a;
-
-const objectfield: Schema<object> = yup.object().shape({
+// ObjectSchema.fields
+const fieldsTestSchema = yup.object().shape({
+  s: yup.string(),
+  n: yup.number(),
+  m: yup.mixed(),
+  b: yup.boolean(),
+  d: yup.date(),
+  a: yup.array(),
   o: yup.object()
-}).fields.o;
+})
+const stringField: Schema<string> = fieldsTestSchema.fields.s
+const numberField: Schema<number> = fieldsTestSchema.fields.n
+const mixedField: Schema<any> = fieldsTestSchema.fields.m
+const booleanField: Schema<boolean> = fieldsTestSchema.fields.b
+const dateField: Schema<Date> = fieldsTestSchema.fields.d
+const arrayField: Schema<any[]> = fieldsTestSchema.fields.a
+const objectField: Schema<object> = fieldsTestSchema.fields.o
 
 const renderable = yup.lazy(value => {
     switch (typeof value) {
