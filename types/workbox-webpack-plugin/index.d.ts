@@ -350,12 +350,12 @@ export interface GenerateSWOptions extends CommonOptions {
 	 *
 	 * This is useful if only a subset of your site's URLs should be treated as being part of a Single Page App.
 	 *
-	 * If both navigateFallbackBlacklist and navigateFallbackWhitelist are configured, the blacklist takes precedent.
+	 * If both navigateFallbackDenylist and navigateFallbackWhitelist are configured, the blacklist takes precedent.
 	 *
 	 * @default []
-	 * @example navigateFallbackBlacklist: [/^\/_/, /admin/]
+	 * @example navigateFallbackDenylist: [/^\/_/, /admin/]
 	 */
-	navigateFallbackBlacklist?: RegExp[];
+	navigateFallbackDenylist?: RegExp[];
 
 	/**
 	 * An optional array of regular expressions that restricts which URLs the configured navigateFallback behavior applies to.
