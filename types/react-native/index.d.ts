@@ -8489,19 +8489,28 @@ export namespace Animated {
     export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
     export interface WithAnimatedValue<T>
-      extends ThisType<
-        T extends object
-          ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
-          : T extends (infer P)[]
-          ? WithAnimatedValue<P>[]
-          : T | Value | AnimatedInterpolation
-        > {}
+    extends ThisType<
+      T extends object
+        ? { [K in Omit<keyof T, 'ref'>]?: WithAnimatedValue<T[K]> }
+        : T extends (infer P)[]
+        ? WithAnimatedValue<P>[]
+        : T | Value | AnimatedInterpolation
+    > {}
 
-    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+  export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
 
-    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<AnimatedProps<ComponentProps<T>>> {
-        getNode: () => T;
-    }
+  export interface AnimatedComponent<
+    T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
+  >
+    extends React.FC<
+      AnimatedProps<ComponentProps<T>> & {
+        ref?:
+          | React.RefObject<AnimatedComponent<T> | undefined>
+          | React.MutableRefObject<AnimatedComponent<T> | undefined>;
+      }
+    > {
+    getNode: () => T;
+  }
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
