@@ -319,6 +319,7 @@ async function testResumeExistingObject () {
     });
 }
 
+/* Office direct API tests */
 async function testOfficeDirectApis() {
     let supported = Office.isSetSupported('ExcelApi', '1.10');
     Office.addin.setStartupBehavior(Office.StartupBehavior.load);
