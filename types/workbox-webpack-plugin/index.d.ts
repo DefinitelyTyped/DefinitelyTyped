@@ -1,4 +1,4 @@
-// Type definitions for workbox-webpack-plugin 4.1
+// Type definitions for workbox-webpack-plugin 5.0
 // Project: https://github.com/GoogleChrome/workbox/blob/master/packages/workbox-webpack-plugin, https://github.com/googlechrome/workbox
 // Definitions by: Kevin Groat <https://github.com/kgroat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -350,7 +350,7 @@ export interface GenerateSWOptions extends CommonOptions {
 	 *
 	 * This is useful if only a subset of your site's URLs should be treated as being part of a Single Page App.
 	 *
-	 * If both navigateFallbackDenylist and navigateFallbackWhitelist are configured, the blacklist takes precedent.
+	 * If both navigateFallbackDenylist and navigateFallbackAllowlist are configured, the blacklist takes precedent.
 	 *
 	 * @default []
 	 * @example navigateFallbackDenylist: [/^\/_/, /admin/]
@@ -362,12 +362,12 @@ export interface GenerateSWOptions extends CommonOptions {
 	 *
 	 * This is useful if only a subset of your site's URLs should be treated as being part of a Single Page App.
 	 *
-	 * If both navigateFallbackBlacklist and navigateFallbackWhitelist are configured, the blacklist takes precedent.
+	 * If both navigateFallbackDenylist and navigateFallbackAllowlist are configured, the blacklist takes precedent.
 	 *
 	 * @default []
-	 * @example navigateFallbackWhitelist: [/^\/pages/]
+	 * @example navigateFallbackAllowlist: [/^\/pages/]
 	 */
-	navigateFallbackWhitelist?: RegExp[];
+	navigateFallbackAllowlist?: RegExp[];
 
 	/**
 	 * An required list of JavaScript files that should be passed to

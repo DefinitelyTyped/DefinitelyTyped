@@ -86,7 +86,7 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
     // Exempt all URLs that start with /_ or contain admin anywhere:
     navigateFallbackDenylist: [/^\/_/, /admin/],
     // Include URLs that start with /pages:
-    navigateFallbackWhitelist: [/^\/pages/],
+    navigateFallbackAllowlist: [/^\/pages/],
     importScripts: ['push-notifications.abcd1234.js'],
     // This will ignore all parameters:
     ignoreUrlParametersMatching: [/./],
