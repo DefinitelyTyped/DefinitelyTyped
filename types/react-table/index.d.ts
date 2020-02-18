@@ -646,6 +646,7 @@ export interface TableToggleRowsSelectedProps extends TableToggleCommonProps {}
 export type UseRowSelectOptions<D extends object> = Partial<{
     manualRowSelectedKey: IdType<D>;
     autoResetSelectedRows: boolean;
+    selectSubRows: boolean;
 }>;
 
 export interface UseRowSelectHooks<D extends object> {
