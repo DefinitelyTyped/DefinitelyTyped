@@ -10,4 +10,4 @@
  * @returns The URL of the proxy that should handle the request to the given
  *          URL.
  */
-export function getProxyForUrl(url: string): string;
+export function getProxyForUrl(url: string|URL): string;
