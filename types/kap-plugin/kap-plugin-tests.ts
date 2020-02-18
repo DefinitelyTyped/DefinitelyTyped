@@ -16,11 +16,8 @@ const service: KapShareService<Config> = {
             required: true,
             default: 'Bilbo',
         },
-        greeting: {
-            type: 'string',
-            // $ExpectError
-            default: true,
-        },
+        // $ExpectError
+        greeting: { type: 'string', default: true },
     },
     action: async context => {
         // $ExpectType string
