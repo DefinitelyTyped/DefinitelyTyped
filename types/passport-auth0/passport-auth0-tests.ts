@@ -48,7 +48,7 @@ passport.use(
             req: express.Request,
             accessToken: string,
             refreshToken: string,
-            extraParams: ExtraVerificationParams,
+            extraParams: auth0.ExtraVerificationParams,
             profile: auth0.Profile,
             done: (error: any, user?: any) => void,
         ) => {
