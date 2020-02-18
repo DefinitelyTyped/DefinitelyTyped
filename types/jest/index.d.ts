@@ -283,6 +283,12 @@ declare namespace jest {
     ): Required<T>[M] extends (...args: any[]) => any
         ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
         : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M
+    ): Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -303,12 +309,15 @@ declare namespace jest {
 
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
     type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
         string;
     type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
+        string;
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
         string;
 
     interface DoneCallback {
@@ -526,49 +535,7 @@ declare namespace jest {
         message: () => string;
     }
 
-    interface SnapshotSerializerOptions {
-        callToJSON?: boolean;
-        edgeSpacing?: string;
-        spacing?: string;
-        escapeRegex?: boolean;
-        highlight?: boolean;
-        indent?: number;
-        maxDepth?: number;
-        min?: boolean;
-        plugins?: SnapshotSerializerPlugin[];
-        printFunctionName?: boolean;
-        theme?: SnapshotSerializerOptionsTheme;
-
-        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
-    }
-    interface SnapshotSerializerOptionsTheme {
-        comment?: string;
-        content?: string;
-        prop?: string;
-        tag?: string;
-        value?: string;
-    }
-    interface SnapshotSerializerColor {
-        close: string;
-        open: string;
-    }
-    interface SnapshotSerializerColors {
-        comment: SnapshotSerializerColor;
-        content: SnapshotSerializerColor;
-        prop: SnapshotSerializerColor;
-        tag: SnapshotSerializerColor;
-        value: SnapshotSerializerColor;
-    }
-    interface SnapshotSerializerPlugin {
-        print(
-            val: any,
-            serialize: (val: any) => string,
-            indent: (str: string) => string,
-            opts: SnapshotSerializerOptions,
-            colors: SnapshotSerializerColors
-        ): string;
-        test(val: any): boolean;
-    }
+    type SnapshotSerializerPlugin = import('pretty-format').Plugin;
 
     interface InverseAsymmetricMatchers {
         /**

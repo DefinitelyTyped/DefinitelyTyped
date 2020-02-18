@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 2.10
+// Type definitions for react-datepicker 2.11
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Andrey Balokha <https://github.com/andrewBalekha>,
@@ -114,6 +114,10 @@ export interface ReactDatePickerProps {
         increaseMonth(): void;
         prevMonthButtonDisabled: boolean;
         nextMonthButtonDisabled: boolean;
+        decreaseYear(): void;
+        increaseYear(): void;
+        prevYearButtonDisabled: boolean;
+        nextYearButtonDisabled: boolean;
     }): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
     required?: boolean;

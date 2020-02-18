@@ -246,6 +246,9 @@ export interface ObjectSchemaConstructor {
 }
 
 export interface ObjectSchema<T extends object | null | undefined = object> extends Schema<T> {
+    fields: {
+      [k in keyof T]: Schema<T[k]>
+    };
     shape<U extends object>(
         fields: ObjectSchemaDefinition<U>,
         noSortEdges?: Array<[string, string]>,
@@ -351,12 +354,28 @@ export interface TestOptions<P extends Record<string, any> = {}, R = any> {
     exclusive?: boolean;
 }
 
+export interface SchemaFieldRefDescription {
+    type: 'ref';
+    key: string;
+}
+
+export interface SchemaFieldInnerTypeDescription extends Pick<
+    SchemaDescription, Exclude<keyof SchemaDescription, 'fields'>
+> {
+    innerType?: SchemaFieldDescription;
+}
+
+export type SchemaFieldDescription =
+    | SchemaDescription
+    | SchemaFieldRefDescription
+    | SchemaFieldInnerTypeDescription;
+
 export interface SchemaDescription {
     type: string;
     label: string;
     meta: object;
-    tests: Array<{ name: string; params: object }>;
-    fields: object;
+    tests: Array<{ name: string; params: { [k: string]: any } }>;
+    fields: Record<string, SchemaFieldDescription>;
 }
 
 // ValidationError works a lot more like a class vs. a constructor
@@ -495,5 +514,5 @@ type KeyOfUndefined<T> = {
 type Id<T> = { [K in keyof T]: T[K] };
 type RequiredProps<T> = Pick<T, Exclude<keyof T, KeyOfUndefined<T>>>;
 type NotRequiredProps<T> = Partial<Pick<T, KeyOfUndefined<T>>>;
-type InnerInferType<T> = Id<NotRequiredProps<T> & RequiredProps<T>>;
+type InnerInferType<T> = T extends Array<infer T> ? T[] : Id<NotRequiredProps<T> & RequiredProps<T>> ;
 type InferredArrayType<T> = T extends Array<infer U> ? U : T;

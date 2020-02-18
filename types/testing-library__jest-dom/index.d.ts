@@ -28,7 +28,7 @@ declare namespace jest {
         toHaveClass(...classNames: string[]): R;
         toHaveFocus(): R;
         toHaveFormValues(expectedValues: Record<string, unknown>): R;
-        toHaveStyle(css: string): R;
+        toHaveStyle(css: string | Record<string, unknown>): R;
         toHaveTextContent(text: string | RegExp, options?: { normalizeWhitespace: boolean }): R;
         toHaveValue(value?: string | string[] | number): R;
         toBeChecked(): R;

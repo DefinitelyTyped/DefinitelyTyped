@@ -1025,6 +1025,37 @@ describe("jasmine.objectContaining", () => {
         });
     });
 
+    it("other expected can be nested in jasmine.objectContaining", () => {
+        interface nestedFooType {
+            nested: {
+                a: number;
+                b: number;
+                bar: string;
+            };
+            other: {
+                c: number;
+                d: string;
+            };
+        }
+
+        const nestedFoo: nestedFooType = {
+            nested: {
+                a: 1,
+                b: 2,
+                bar: 's',
+            },
+            other: {
+                c: 5,
+                d: 't',
+            },
+        };
+
+        expect(nestedFoo).toEqual(jasmine.objectContaining({
+            nested: jasmine.objectContaining({ b: 2 }),
+            other: jasmine.any(Object),
+        }));
+    });
+
     describe("when used with a spy", () => {
         it("is useful for comparing arguments", () => {
             const callback = jasmine.createSpy('callback');
@@ -1531,6 +1562,36 @@ describe("createSpyObj", function() {
 
         expect(spyObj.m()).toEqual(3);
         expect(spyObj.p).toEqual(4);
+    });
+
+    it("allows methods and properties lists to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>(["method1"], ["property1"]);
+
+        expect(spyObj).toEqual({
+            method1: jasmine.any(Function),
+            method2: undefined as any,
+            property1: undefined as any,
+            property2: undefined as any
+        });
+    });
+
+    it("allows methods and properties objects to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>({method1: 3}, {property1: "4"});
+
+        expect(spyObj.method1()).toEqual(3);
+        expect(spyObj.property1).toEqual("4");
     });
 });
 

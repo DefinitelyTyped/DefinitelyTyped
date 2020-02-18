@@ -207,7 +207,7 @@ declare namespace jasmine {
     type SpyObjPropertyNames<T = undefined> =
         T extends undefined ?
                 (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T>);
+                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
@@ -263,7 +263,7 @@ declare namespace jasmine {
 
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
-    function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
+    function objectContaining<T>(sample: {[K in keyof T]?: ExpectedRecursive<T[K]>}): ObjectContaining<T>;
 
     function setDefaultSpyStrategy(and: SpyAnd): void;
     function createSpy(name?: string, originalFn?: Function): Spy;
