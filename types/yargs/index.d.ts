@@ -29,7 +29,7 @@
 import { DetailedArguments, Configuration } from 'yargs-parser';
 
 declare namespace yargs {
-    type BuilderCallback<T, R> = ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
+    type BuilderCallback<T, R> = ((args: Argv<T>) => PromiseLike<Argv<R>>) | ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
 
     type ParserConfigurationOptions = Configuration & {
         /** Sort commands alphabetically. Default is `false` */
@@ -771,7 +771,7 @@ declare namespace yargs {
     }
 
     type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
-    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>);
+    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
