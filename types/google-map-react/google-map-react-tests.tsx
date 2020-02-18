@@ -28,4 +28,4 @@ const options: MapOptions = {
     ],
 };
 
-<GoogleMapReact center={center} zoom={3} bootstrapURLKeys={client} options={options} />;
+<GoogleMapReact center={center} heatmapLibrary={true} zoom={3} bootstrapURLKeys={client} options={options} />;
