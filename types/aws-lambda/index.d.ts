@@ -36,7 +36,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export * from "./hander";
+export * from "./handler";
 export * from "./common/api-gateway";
 export * from "./common/cloudfront";
 export * from "./trigger/alb";

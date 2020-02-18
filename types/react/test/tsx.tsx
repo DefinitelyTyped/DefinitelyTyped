@@ -363,6 +363,10 @@ const imgProps: ImgProps = {};
 imgProps.decoding = 'async';
 imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
+imgProps.loading = 'eager';
+imgProps.loading = 'lazy';
+// $ExpectError
+imgProps.loading = 'nonsense';
 // $ExpectError
 imgProps.decoding = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;

@@ -1,5 +1,5 @@
 import { APIGatewayEventRequestContext, AuthResponseContext } from "../common/api-gateway";
-import { Callback, Handler } from "../hander";
+import { Callback, Handler } from "../handler";
 
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
 export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;

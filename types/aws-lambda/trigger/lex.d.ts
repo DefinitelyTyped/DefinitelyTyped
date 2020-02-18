@@ -1,4 +1,4 @@
-import { Callback, Handler } from "../hander";
+import { Callback, Handler } from "../handler";
 
 export type LexHandler = Handler<LexEvent, LexResult>;
 export type LexCallback = Callback<LexResult>;

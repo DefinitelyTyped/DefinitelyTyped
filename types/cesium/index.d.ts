@@ -1485,7 +1485,7 @@ declare namespace Cesium {
         origin: Cartesian3;
         direction: Cartesian3;
         constructor(origin?: Cartesian3, direction?: Cartesian3);
-        static getPoint(t: number, result?: Cartesian3): Cartesian3;
+        static getPoint(ray: Ray, t: number, result?: Cartesian3): Cartesian3;
     }
 
     class Rectangle extends Packable {
