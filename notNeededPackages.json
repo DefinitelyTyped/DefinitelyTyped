@@ -475,8 +475,8 @@
             "asOfVersion": "3.5.0"
         },
         {
-            "libraryName": "catho__quantum",
-            "typingsPackageName": "catho__quantum",
+            "libraryName": "@catho/quantum",
+            "typingsPackageName": "@catho/quantum",
             "sourceRepoURL": "https://github.com/catho/quantum",
             "asOfVersion": "3.9.0"
         },
