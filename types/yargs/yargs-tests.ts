@@ -1178,6 +1178,21 @@ function Argv$parsed() {
     const parsedArgs = yargs.parsed;
 }
 
+function Argv$defaultCommandWithPositional(): string {
+    const argv = yargs.command(
+        "$0 <arg>",
+        "default command",
+        (yargs) =>
+            yargs.positional("arg", {
+                demandOption: true,
+                describe: "argument",
+                type: "string",
+            }),
+        () => { }).argv;
+
+    return argv.arg;
+}
+
 function makeSingleton() {
     yargsSingleton(process.argv.slice(2));
 }
