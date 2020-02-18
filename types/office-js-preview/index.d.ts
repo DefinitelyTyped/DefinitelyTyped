@@ -338,7 +338,7 @@ declare namespace Office {
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */
-    function isSetSupported(name: string, minVersion?: string): boolean;    
+    function isSetSupported(name: string, minVersion?: string): boolean;
     // Enumerations
     /**
      * Startup behavior of the add-in.
@@ -365,7 +365,7 @@ declare namespace Office {
          * Visible
          */
         taskpane = 'Taskpane',
-    }    
+    }
     /**
      * Specifies the result of an asynchronous call.
      * 
