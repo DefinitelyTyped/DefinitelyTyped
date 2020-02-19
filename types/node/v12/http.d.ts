@@ -326,6 +326,9 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
+        readonly freeSockets: {
+            readonly [key: string]: Socket[];
+        };
         readonly sockets: {
             readonly [key: string]: Socket[];
         };
