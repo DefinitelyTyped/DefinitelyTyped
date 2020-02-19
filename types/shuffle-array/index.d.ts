@@ -1,6 +1,7 @@
 // Type definitions for shuffle-array
 // Project: https://github.com/pazguille/shuffle-array
 // Definitions by: rhysd <https://rhysd.github.io>
+//                 jwulf0 <https://github.com/jwulf0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -29,12 +30,13 @@ interface ShuffleArray {
      */
     <T>(arr: T[], options?: ShuffleOption): T[];
     /**
-     * Pick one or more random elements from the given array.
+     * Pick one or more random elements from the given array. If options.picks is
+     * omitted or === 1, a single element will be returned; otherwise an array.
      *
      * arr - The given array.
      * options - Optional configuration options.
      */
-    pick<T>(arr: T[], options?: Object): T[];
+    pick<T>(arr: ReadonlyArray<T>, options?: PickOption): T | T[];
 }
 declare var shuffle: ShuffleArray;
 export = shuffle;
