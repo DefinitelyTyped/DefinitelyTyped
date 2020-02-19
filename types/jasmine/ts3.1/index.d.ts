@@ -918,7 +918,7 @@ declare namespace jasmine {
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
         rejectWith(val: PromisedRejectType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string): Spy;
+        throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }
