@@ -13,7 +13,7 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, CSSProperties } from 'react';
+import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, ReactFragment, CSSProperties } from 'react';
 
 export {};
 
