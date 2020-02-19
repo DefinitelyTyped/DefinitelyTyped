@@ -9,10 +9,10 @@ import { Test, Suite } from 'mocha';
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace Mocha {
-	type TestCase = (this: unknown, context: TestContext) => void | PromiseLike<void>;
-	type TestCaseWithDone = (this: unknown, context: TestContextWithDone) => void;
-	type HookFunc = (this: unknown, context: HookContext) => void;
-	type SuiteFunc = (this: unknown, context: SuiteContext) => void;
+	type TestCase = (this: undefined, context: TestContext) => void | PromiseLike<void>;
+	type TestCaseWithDone = (this: undefined, context: TestContextWithDone) => void;
+	type HookFunc = (this: undefined, context: HookContext) => void;
+	type SuiteFunc = (this: undefined, context: SuiteContext) => void;
 
 	interface Options {
 		/**
