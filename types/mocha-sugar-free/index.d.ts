@@ -9,7 +9,12 @@ import { Test, Suite } from 'mocha';
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace Mocha {
-	export interface Options {
+	type TestCase = (this: unknown, context: TestContext) => void | PromiseLike<void>;
+	type TestCaseWithDone = (this: unknown, context: TestContextWithDone) => void;
+	type HookFunc = (this: unknown, context: HookContext) => void;
+	type SuiteFunc = (this: unknown, context: SuiteContext) => void;
+
+	interface Options {
 		/**
 		 * Whether the context should contain a `done` callback.
 		 */
@@ -51,11 +56,7 @@ declare namespace Mocha {
 		fn?: TestCase | TestCaseWithDone | SuiteFunc | HookFunc;
 	}
 
-	export type TestCase = (this: void, context: TestContext) => void | PromiseLike<void>;
-	export type TestCaseWithDone = (context: TestContextWithDone) => void;
-	export type HookFunc = (context: HookContext) => void;
-	export type SuiteFunc = (context: SuiteContext) => void;
-
+	// #region Test functions
 	interface BaseInterface {
 		/**
 		 * The detected Mocha interface.
@@ -250,26 +251,23 @@ declare namespace Mocha {
 	}
 
 	type AnyInterface = Omit<BDD & TDD & QUnit, 'detectedInterface'> & BaseInterface;
-
-	// #region Test functions
-
 	// #endregion
 
 	// #region Test context
-	export interface SuiteContext {
+	interface SuiteContext {
 		isSuite: true;
 		isTest: false;
 		isHook: false;
 	}
 
-	export interface HookContext {
+	interface HookContext {
 		isSuite: false;
 		isTest: false;
 		isHook: true;
 		hook: 'before' | 'after' | 'beforeEach' | 'afterEach';
 	}
 
-	export interface TestContextBase {
+	interface TestContextBase {
 		isSuite: false;
 		isTest: true;
 		isHook: false;
@@ -310,14 +308,14 @@ declare namespace Mocha {
 		enableTimeouts(enabled: boolean): this;
 	}
 
-	export interface TestContext extends TestContextBase {
+	interface TestContext extends TestContextBase {
 		/**
 		 * Mark a test as completed.
 		 */
 		done: null;
 	}
 
-	export interface TestContextWithDone extends TestContextBase {
+	interface TestContextWithDone extends TestContextBase {
 		/**
 		 * Mark a test as completed.
 		 */
@@ -333,7 +331,7 @@ declare namespace Mocha {
 	 *
 	 * The name of the function is used as the name of the hook.
 	 */
-	export interface HookFunction {
+	interface HookFunction {
 		(fn?: HookFunc): void;
 		(options: Options & { fn?: HookFunc }, fn?: HookFunc): void;
 	}
@@ -343,7 +341,7 @@ declare namespace Mocha {
 	 *
 	 * Describe a "suite" with the given `title` and callback `fn` containing nested suites.
 	 */
-	export interface SuiteFunction {
+	interface SuiteFunction {
 		(title: string, fn?: SuiteFunc): Suite;
 		(title: string, options?: Options & { fn?: SuiteFunc }, fn?: SuiteFunc): Suite;
 		// tslint:disable-next-line: unified-signatures
@@ -371,7 +369,7 @@ declare namespace Mocha {
 	 *
 	 * Indicates this suite should be executed exclusively.
 	 */
-	export interface ExclusiveSuiteFunction {
+	interface ExclusiveSuiteFunction {
 		(title: string, fn?: SuiteFunc): Suite;
 		(title: string, options?: Options & { fn?: SuiteFunc }, fn?: SuiteFunc): Suite;
 		// tslint:disable-next-line: unified-signatures
@@ -388,7 +386,7 @@ declare namespace Mocha {
 	 * @returns [bdd] `Suite`
 	 * @returns [tdd] `void`
 	 */
-	export interface PendingSuiteFunction {
+	interface PendingSuiteFunction {
 		(title: string, fn?: SuiteFunc): Suite | void;
 		(title: string, options?: Options & { fn?: SuiteFunc }, fn?: SuiteFunc): Suite | void;
 		// tslint:disable-next-line: unified-signatures
@@ -402,7 +400,7 @@ declare namespace Mocha {
 	 *
 	 * The name of the function is used as the name of the test if `title` is not supplied.
 	 */
-	export interface TestFunction {
+	interface TestFunction {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
@@ -435,7 +433,7 @@ declare namespace Mocha {
 	 *
 	 * Indicates this test should be executed exclusively.
 	 */
-	export interface ExclusiveTestFunction {
+	interface ExclusiveTestFunction {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
@@ -454,7 +452,7 @@ declare namespace Mocha {
 	 *
 	 * Indicates this test should not be executed.
 	 */
-	export interface PendingTestFunction {
+	interface PendingTestFunction {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
