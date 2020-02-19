@@ -4,6 +4,8 @@
 //                 FloPes <https://github.com/flopes89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 import { Url } from "url";
 
 /**
