@@ -7,7 +7,6 @@
 import { ComponentClass, ReactElement, Component } from 'react'
 import { TextStyle } from 'react-native'
 
-/*~ You can declare types that are available via importing the module */
 export interface MenuProps {
     button?: ReactElement;
     style?: StyleMedia;
