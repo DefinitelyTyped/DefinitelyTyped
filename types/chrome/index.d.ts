@@ -8,6 +8,7 @@
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
 //                 Thierry Régagnon <https://github.com/tregagnon>
+//                 Brian Wilson <https://github.com/echoabstract>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -6883,15 +6884,20 @@ declare namespace chrome.tabCapture {
         fullscreen: boolean;
     }
 
+    export interface MediaStreamConstraint {
+        mandatory: object;
+        optional?: object;
+    }
+
     export interface CaptureOptions {
         /** Optional. */
         audio?: boolean;
         /** Optional. */
         video?: boolean;
         /** Optional. */
-        audioConstraints?: MediaStreamConstraints;
+        audioConstraints?: MediaStreamConstraint;
         /** Optional. */
-        videoConstraints?: MediaStreamConstraints;
+        videoConstraints?: MediaStreamConstraint;
     }
 
     export interface CaptureStatusChangedEvent extends chrome.events.Event<(info: CaptureInfo) => void> { }
