@@ -13,7 +13,7 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, ReactFragment } from 'react';
+import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, CSSProperties } from 'react';
 
 export {};
 
@@ -52,7 +52,8 @@ export interface HeaderGroup<D extends object = {}> extends ColumnInstance<D>, U
 export interface Row<D extends object = {}> extends UseTableRowProps<D> {}
 
 export interface TableCommonProps {
-    style?: React.CSSProperties;
+    style?: CSSProperties;
+    className?: string;
 }
 
 export interface TableProps extends TableCommonProps {}
