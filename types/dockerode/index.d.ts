@@ -908,6 +908,7 @@ declare namespace Dockerode {
     MacAddress?: boolean;
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
+    StopTimeout?: number;
     HostConfig?: HostConfig;
     NetworkingConfig?: {
       EndpointsConfig?: EndpointsConfig;

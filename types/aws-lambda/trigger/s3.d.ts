@@ -1,4 +1,4 @@
-import { Handler } from "../hander";
+import { Handler } from "../handler";
 
 export type S3Handler = Handler<S3Event, void>;
 

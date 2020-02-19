@@ -26,3 +26,5 @@ declare module 'restify' {
     setCookie(key: string, val: string, options?: CookieOptions): void;
   }
 }
+
+export function parse(): any;

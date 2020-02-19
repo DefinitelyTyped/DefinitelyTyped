@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
     InteractiveMap,
     CanvasOverlay,
@@ -6,6 +6,7 @@ import {
     HTMLOverlay,
     FullscreenControl,
     GeolocateControl,
+    ScaleControl,
     CanvasRedrawOptions,
     HTMLRedrawOptions,
     SVGRedrawOptions,
@@ -14,8 +15,8 @@ import {
     Source,
     Layer,
 } from 'react-map-gl';
-import * as MapboxGL from "mapbox-gl";
-import { FeatureCollection } from "geojson";
+import * as MapboxGL from 'mapbox-gl';
+import { FeatureCollection } from 'geojson';
 
 interface State {
     viewport: ViewportProps;
@@ -23,10 +24,8 @@ interface State {
 
 const geojson: FeatureCollection = {
     type: 'FeatureCollection',
-    features: [
-      {type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: [-122.4, 37.8]}}
-    ]
-  };
+    features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-122.4, 37.8] } }],
+};
 
 class MyMap extends React.Component<{}, State> {
     readonly state: State = {
@@ -58,16 +57,17 @@ class MyMap extends React.Component<{}, State> {
                     onViewStateChange={({ viewState }) => this.setState({ viewport: viewState })}
                 >
                     <FullscreenControl className="test-class" container={document.querySelector('body')} />
-                    <GeolocateControl className="test-class" style={{ marginTop: "8px" }} />
+                    <GeolocateControl
+                        className="test-class"
+                        style={{ marginTop: '8px' }}
+                        onGeolocate={options => {
+                            console.log(options.enableHighAccuracy);
+                        }}
+                    />
+                    <ScaleControl unit="nautical" />
                     <CanvasOverlay
                         redraw={opts => {
-                            const {
-                                ctx,
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { ctx, height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                             ctx.clearRect(0, 0, width, height);
                         }}
@@ -79,17 +79,10 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <SVGOverlay
-                        redraw={() => {}}
-                    />
+                    <SVGOverlay redraw={() => {}} />
                     <SVGOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         captureScroll={true}
@@ -97,21 +90,14 @@ class MyMap extends React.Component<{}, State> {
                         captureClick={true}
                         captureDoubleClick={true}
                     />
-                    <HTMLOverlay
-                        redraw={() => {}}
-                    />
+                    <HTMLOverlay redraw={() => {}} />
                     <HTMLOverlay
                         redraw={opts => {
-                            const {
-                                height,
-                                project,
-                                unproject,
-                                width,
-                            } = opts;
+                            const { height, project, unproject, width } = opts;
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         style={{
-                            border: "2px solid black"
+                            border: '2px solid black',
                         }}
                         captureScroll={true}
                         captureDrag={true}
@@ -120,10 +106,13 @@ class MyMap extends React.Component<{}, State> {
                     />
 
                     <Source type="geojson" data={geojson}>
-                        <Layer type="point" paint={{
-                                                    'circle-radius': 10,
-                                                    'circle-color': '#007cbf'
-                                                    }}></Layer>
+                        <Layer
+                            type="point"
+                            paint={{
+                                'circle-radius': 10,
+                                'circle-color': '#007cbf',
+                            }}
+                        ></Layer>
                     </Source>
                 </InteractiveMap>
                 <StaticMap
