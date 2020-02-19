@@ -9,7 +9,7 @@
  * copy - Sets if should return a shuffled copy of the given array. By default it's a falsy value.
  * rng - Specifies a custom random number generator.
  */
-interface ShuffleOption {
+interface ShuffleOptions {
     copy?: boolean;
     rng?: () => number;
 }
@@ -17,7 +17,7 @@ interface ShuffleOption {
  * picks - Specifies how many random elements you want to pick. By default it picks 1.
  * rng - Specifies a custom random number generator.
  */
-interface PickOption {
+interface PickOptions {
     picks?: number;
     rng?: () => number;
 }
@@ -28,7 +28,7 @@ interface ShuffleArray {
      * arr - The given array.
      * options - Optional configuration options.
      */
-    <T>(arr: T[], options?: ShuffleOption): T[];
+    <T>(arr: T[], options?: ShuffleOptions): T[];
     /**
      * Pick one or more random elements from the given array. If options.picks is
      * omitted or === 1, a single element will be returned; otherwise an array.
@@ -36,7 +36,7 @@ interface ShuffleArray {
      * arr - The given array.
      * options - Optional configuration options.
      */
-    pick<T>(arr: ReadonlyArray<T>, options?: PickOption): T | T[];
+    pick<T>(arr: ReadonlyArray<T>, options?: PickOptions): T | T[];
 }
 declare var shuffle: ShuffleArray;
 export = shuffle;
