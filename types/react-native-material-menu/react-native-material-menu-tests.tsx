@@ -6,25 +6,16 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 class App extends React.PureComponent {
     _menu: Menu | null = null;
 
-    setMenuRef = (ref: Menu) => {
-        this._menu = ref;
-    };
+    setMenuRef = (ref: Menu) => (this._menu = ref);
 
-    hideMenu = () => {
-        this._menu?.hide();
-    };
+    hideMenu = () => this._menu && this._menu.hide();
 
-    showMenu = () => {
-        this._menu?.show();
-    };
+    showMenu = () => this._menu && this._menu.show();
 
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Menu
-                    ref={this.setMenuRef}
-                    button={<Text onPress={this.showMenu}>Show menu</Text>}
-                >
+                <Menu ref={this.setMenuRef} button={<Text onPress={this.showMenu}>Show menu</Text>}>
                     <MenuItem onPress={this.hideMenu}>Menu item 1</MenuItem>
                     <MenuItem onPress={this.hideMenu}>Menu item 2</MenuItem>
                     <MenuItem onPress={this.hideMenu} disabled>
