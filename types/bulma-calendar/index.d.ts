@@ -1,5 +1,5 @@
 // Type definitions for bulma-calendar 6.0
-// Project: https://creativebulma.net/components/calendar
+// Project: https://creativebulma.net/product/calendar/demo
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
@@ -185,7 +185,7 @@ export interface BulmaCalendarOptions {
     /**
      * List of disabled week days
      */
-    disabledWeekDays?: any[];
+    disabledWeekDays?: string | any[];
 
     /**
      * Default weekstart day number
