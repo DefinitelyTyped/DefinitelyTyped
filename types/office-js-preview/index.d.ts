@@ -334,18 +334,18 @@ declare namespace Office {
      */
     const ribbon: Ribbon;
     /**
-     * Check if the specified requirement set is supported by the host Office application.
+     * Checks if the specified requirement set is supported by the host Office application.
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */
     function isSetSupported(name: string, minVersion?: string): boolean;
     // Enumerations
     /**
-     * Startup behavior of the add-in.
+     * Provides options to determine the startup behavior of the add-in upon next start-up. 
      */
     enum StartupBehavior {
         /**
-         * Nothing.
+         * The add-in does not load until opened by the user.
          */
         none = 'None',
         /**
@@ -358,11 +358,11 @@ declare namespace Office {
      */
     enum VisibilityMode {
         /**
-         * Hidden
+         * UI is Hidden
          */
         hidden = 'Hidden',
         /**
-         * Visible
+         * Displayed as taskpane
          */
         taskpane = 'Taskpane',
     }
@@ -517,7 +517,7 @@ declare namespace Office {
         value: T;
     }
     /**
-     * Message used in the visibility mode changed event.
+     * Message used in the `onVisibilityModeChanged` invocation.
      */
     interface VisibilityModeChangedMessage {
         /**
@@ -535,7 +535,7 @@ declare namespace Office {
     interface Addin {
         /**
          * Set the startup behavior for the add-in for when the document is opened next time.
-         * @param behavior Specifies startup behavior of the add-in.
+         * @param - behavior Specifies startup behavior of the add-in.
          */
         setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
         /**
@@ -553,8 +553,8 @@ declare namespace Office {
          */
         hide(): Promise<void>;
         /**
-         * Adds a listener for the VisbilityModeChanged event.
-         * @param listener The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
+         * Adds a listener for the `onVisbilityModeChanged` event.
+         * @param listener - The listener function that is called when the event is emitted. This function takes in a message for the receiving component.
          * @returns A promise that resolves when the listener is added.
          */
         onVisibilityModeChanged(
@@ -562,13 +562,13 @@ declare namespace Office {
         ): Promise<RemoveEventListener>;
     }
     /**
-     * Ribbon interface contains all the functionality provided to manage the state of the OFfice ribbon.
+     * An interface that contains all the functionality provided to manage the state of the OFfice ribbon.
      */
     interface Ribbon {
         /**
          * Sends a request to Office to update the ribbon.
-         * Note that this API is only to request for an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
-         * @param input Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
+         * Note that this API is only to request an update. The actual UI update to the ribbon is controlled by the Office application and hence the exact timing of the ribbon update (or refresh) cannot be determined by the completion of this API.
+         * @param input - Represents the updates to be made to the ribbon. Note that only the changes specified in the input parameter are made.
          */
         requestUpdate(input: RibbonUpdaterData): Promise<void>;
     }
