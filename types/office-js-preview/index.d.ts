@@ -577,7 +577,7 @@ declare namespace Office {
      */
     interface RibbonUpdaterData {
         /**
-         * Collection of tabs whose state is set with the call of requestUpdate.
+         * Collection of tabs whose state is set with the call of `requestUpdate`.
          */
         tabs: Tab[];
     }
