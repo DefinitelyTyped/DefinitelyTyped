@@ -157,3 +157,6 @@ declare namespace flowjs {
     type ErrorCallbackArguments = [string, FlowFile, FlowChunk];
     type CatchAllCallbackArguments = [Event];
 }
+
+export = flowjs;
+export as namespace flowjs;
