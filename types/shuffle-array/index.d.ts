@@ -1,4 +1,4 @@
-// Type definitions for shuffle-array
+// Type definitions for shuffle-array 1.0.1
 // Project: https://github.com/pazguille/shuffle-array
 // Definitions by: rhysd <https://rhysd.github.io>
 //                 jwulf0 <https://github.com/jwulf0>
