@@ -123,14 +123,14 @@ declare namespace flowjs {
     interface FlowEventMap {
         fileSuccess: FileSuccessCallbackArguments;
         fileProgress: FileProgressCallbackArguments;
-        fileAdded: FilesAddedCallbackArguments;
-        filesAdded: FileAddedCallbackArguments;
+        fileAdded: FileAddedCallbackArguments;
+        filesAdded: FilesAddedCallbackArguments;
         filesSubmitted: FilesSubmittedCallbackArguments;
         fileRemoved: FileRemovedCallbackArguments;
         fileRetry: FileRetryCallbackArguments;
         fileError: FileErrorCallbackArguments;
         uploadStart: UploadStartCallbackArguments;
-        complete: UploadStartCallbackArguments;
+        complete: CompleteCallbackArguments;
         progress: ProgressCallbackArguments;
         error: ErrorCallbackArguments;
         catchAll: CatchAllCallbackArguments;
