@@ -176,7 +176,6 @@ export interface UseTableColumnOptions<D extends object>
     extends Accessor<D>,
         Partial<{
             columns: Array<Column<D>>;
-            show: boolean | ((instance: TableInstance<D>) => boolean);
             Header: Renderer<HeaderProps<D>>;
             Cell: Renderer<CellProps<D>>;
             width?: number | string;
