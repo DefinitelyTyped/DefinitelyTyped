@@ -7,6 +7,7 @@
 //                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
+//                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
