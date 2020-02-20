@@ -56,48 +56,48 @@ declare module 'react-table' {
 
     interface TableOptions<D extends object>
         extends UseExpandedOptions<D>,
-            UseFiltersOptions<D>,
-            UseGroupByOptions<D>,
-            UsePaginationOptions<D>,
-            UseRowSelectOptions<D>,
-            UseSortByOptions<D> {
+        UseFiltersOptions<D>,
+        UseGroupByOptions<D>,
+        UsePaginationOptions<D>,
+        UseRowSelectOptions<D>,
+        UseSortByOptions<D> {
         updateMyData: (rowIndex: number, columnId: string, value: any) => void;
     }
 
     interface TableInstance<D extends object = {}>
         extends UseExpandedInstanceProps<D>,
-            UseFiltersInstanceProps<D>,
-            UseGroupByInstanceProps<D>,
-            UsePaginationInstanceProps<D>,
-            UseRowSelectInstanceProps<D>,
-            UseSortByInstanceProps<D> {
+        UseFiltersInstanceProps<D>,
+        UseGroupByInstanceProps<D>,
+        UsePaginationInstanceProps<D>,
+        UseRowSelectInstanceProps<D>,
+        UseSortByInstanceProps<D> {
         editable: boolean;
     }
 
     interface TableState<D extends object = {}>
         extends UseExpandedState<D>,
-            UseFiltersState<D>,
-            UseGroupByState<D>,
-            UsePaginationState<D>,
-            UseRowSelectState<D>,
-            UseSortByState<D> {}
+        UseFiltersState<D>,
+        UseGroupByState<D>,
+        UsePaginationState<D>,
+        UseRowSelectState<D>,
+        UseSortByState<D> { }
 
     interface Column<D extends object = {}>
         extends UseFiltersColumnOptions<D>,
-            UseGroupByColumnOptions<D>,
-            UseSortByColumnOptions<D> {}
+        UseGroupByColumnOptions<D>,
+        UseSortByColumnOptions<D> { }
 
     interface ColumnInstance<D extends object = {}>
         extends UseFiltersColumnProps<D>,
-            UseGroupByColumnProps<D>,
-            UseSortByColumnProps<D> {}
+        UseGroupByColumnProps<D>,
+        UseSortByColumnProps<D> { }
 
-    interface Cell<D extends object = {}> extends UseGroupByCellProps<D> {}
+    interface Cell<D extends object = {}> extends UseGroupByCellProps<D> { }
 
     interface Row<D extends object = {}>
         extends UseExpandedRowProps<D>,
-            UseGroupByRowProps<D>,
-            UseRowSelectRowProps<D> {}
+        UseGroupByRowProps<D>,
+        UseRowSelectRowProps<D> { }
 }
 
 interface Data {
@@ -302,8 +302,8 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                     const rowValue = row.values[id];
                     return rowValue !== undefined
                         ? String(rowValue)
-                              .toLowerCase()
-                              .startsWith(String(filterValue).toLowerCase())
+                            .toLowerCase()
+                            .startsWith(String(filterValue).toLowerCase())
                         : true;
                 });
             },
@@ -439,7 +439,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : (// For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
