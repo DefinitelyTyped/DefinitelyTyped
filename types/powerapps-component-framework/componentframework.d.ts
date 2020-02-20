@@ -1882,6 +1882,11 @@ declare namespace ComponentFramework {
 				loadPreviousPage(): void;
 
 				/**
+				 * Request the exact page of results to be loaded. New data will be pushed to control in another 'updateView' cycle.
+				 */
+				loadExactPage(pageNumber: number): void;
+
+				/**
 				 * Reload the results from the server, and reset to page 1.
 				 */
 				reset(): void;
