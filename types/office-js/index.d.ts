@@ -10000,13 +10000,13 @@ declare namespace Office {
         /**
          * Gets the date and time that an item was last modified.
          *
+         * **Note**: This member is not supported in Outlook on iOS or Android.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Appointment Attendee
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         dateTimeModified: Date;
         /**
@@ -10788,6 +10788,9 @@ declare namespace Office {
         isInline: boolean;
         /**
          * Gets the name of the attachment.
+         * 
+         * **Important**: For message or appointment items that were attached by drag-and-drop or "Attach Item",
+         * `name` includes a file extension in Outlook on Mac, but excludes the extension on the web or Windows.
          */
         name: string;
         /**
@@ -12178,6 +12181,8 @@ declare namespace Office {
          * In compose mode you must call the saveAsync method before you can use the ewsUrl member. 
          * Your app must have ReadWriteItem permissions to call the saveAsync method.
          *
+         * **Note**: This member is not supported in Outlook on iOS or Android.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
@@ -12186,8 +12191,6 @@ declare namespace Office {
          *
          * The ewsUrl value can be used by a remote service to make EWS calls to the user's mailbox. 
          * For example, you can create a remote service to {@link https://docs.microsoft.com/outlook/add-ins/get-attachments-of-an-outlook-item | get attachments from the selected item}.
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         ewsUrl: string;
         /**
@@ -13952,13 +13955,13 @@ declare namespace Office {
         /**
          * Gets the date and time that an item was last modified.
          *
+         * **Note**: This member is not supported in Outlook on iOS or Android.
+         *
          * @remarks
          *
          * **{@link https://docs.microsoft.com/outlook/add-ins/understanding-outlook-add-in-permissions | Minimum permission level}**: ReadItem
          * 
          * **{@link https://docs.microsoft.com/outlook/add-ins/#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * **Note**: This member is not supported in Outlook on iOS or Android.
          */
         dateTimeModified: Date;
         /**
