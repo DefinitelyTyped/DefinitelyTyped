@@ -45,8 +45,8 @@ declare namespace driver {
         open(): Promise<void>;
         submit(bytecode: Bytecode): Promise<any>;
         close(): Promise<void>;
-        addListener(event: string | Symbol, handler: (...args: any) => void): void;
-        removeListener(event: string | Symbol, handler: (...args: any) => void): void;
+        addListener(event: string | symbol, handler: (...args: any[]) => void): void;
+        removeListener(event: string | symbol, handler: (...args: any[]) => void): void;
     }
 
     class Client {

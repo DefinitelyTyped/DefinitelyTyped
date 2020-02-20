@@ -271,7 +271,7 @@ function dslTests() {
             if (!TestDSLTraversal._statics) {
                 // Should construct a proper statics object here that fits the return type
                 // ie. merge the newly defined DSL steps with the base Tinkerpop statics
-                TestDSLTraversal._statics = <TestDSLStatics>statics;
+                TestDSLTraversal._statics = <TestDSLStatics> statics;
             }
 
             return TestDSLTraversal._statics;
