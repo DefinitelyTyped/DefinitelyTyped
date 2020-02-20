@@ -13,7 +13,16 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, ReactFragment } from 'react';
+import {
+    ComponentType,
+    DependencyList,
+    EffectCallback,
+    MouseEvent,
+    ReactElement,
+    ReactNode,
+    ReactText,
+    ReactFragment,
+} from 'react';
 
 export {};
 
@@ -112,7 +121,7 @@ export type UseTableOptions<D extends object> = {
     defaultColumn: Partial<Column<D>>;
     initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
-    getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
+    getRowId: (originalRow: D, relativeIndex: number) => IdType<D>;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =
@@ -150,9 +159,10 @@ export interface UseTableHooks<D extends object> extends Record<string, any> {
     >;
     columns: Array<(columns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
     columnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
-    flatColumns: Array<(flatColumns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
-    flatColumnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
-    headerGroups: Array<(flatColumns: Array<HeaderGroup<D>>, meta: Meta<D>) => Array<HeaderGroup<D>>>;
+    allColumns: Array<(allColumns: Array<Column<D>>, meta: Meta<D>) => Array<Column<D>>>;
+    allColumnsDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
+    visibleColumns: Array<(visibleColumns: any[], meta: Meta<D>) => any[]>;
+    headerGroups: Array<(allColumns: Array<HeaderGroup<D>>, meta: Meta<D>) => Array<HeaderGroup<D>>>;
     headerGroupDeps: Array<(deps: any[], meta: Meta<D>) => any[]>;
     useInstanceBeforeDimensions: Array<(instance: TableInstance<D>) => void>;
     useInstance: Array<(instance: TableInstance<D>) => void>;
@@ -193,7 +203,8 @@ export interface UseTableInstanceProps<D extends object> {
     plugins: Array<PluginHook<D>>;
     dispatch: TableDispatch;
     columns: Array<ColumnInstance<D>>;
-    flatColumns: Array<ColumnInstance<D>>;
+    allColumns: Array<ColumnInstance<D>>;
+    visibleColumns: Array<ColumnInstance<D>>;
     headerGroups: Array<HeaderGroup<D>>;
     footerGroups: Array<HeaderGroup<D>>;
     headers: Array<ColumnInstance<D>>;
@@ -208,6 +219,7 @@ export interface UseTableInstanceProps<D extends object> {
     setHiddenColumns: (param: Array<IdType<D>> | UpdateHiddenColumns<D>) => void;
     toggleHideAllColumns: (value?: boolean) => void;
     getToggleHideAllColumnsProps: (props?: Partial<TableToggleHideAllColumnProps>) => TableToggleHideAllColumnProps;
+    getHooks: () => Hooks<D>;
 }
 
 export interface UseTableHeaderGroupProps<D extends object> {
@@ -232,7 +244,7 @@ export interface UseTableColumnProps<D extends object> {
     depth: number; // not documented
     index: number; // not documented
     placeholderOf?: ColumnInstance;
- }
+}
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
@@ -323,6 +335,8 @@ export namespace useExpanded {
     const pluginName = 'useExpanded';
 }
 
+export interface TableToggleAllRowsExpandedProps extends TableToggleCommonProps {}
+
 export interface TableExpandedToggleProps extends TableKeyedProps {}
 
 export type UseExpandedOptions<D extends object> = Partial<{
@@ -333,7 +347,8 @@ export type UseExpandedOptions<D extends object> = Partial<{
 }>;
 
 export interface UseExpandedHooks<D extends object> {
-    getExpandedToggleProps: Array<(row: Row<D>, instance: TableInstance<D>) => object>;
+    getToggleRowExpandedProps: Array<(row: Row<D>, instance: TableInstance<D>) => object>;
+    getToggleAllRowsExpandedProps: Array<(instance: TableInstance<D>) => object>;
 }
 
 export interface UseExpandedState<D extends object> {
@@ -342,16 +357,21 @@ export interface UseExpandedState<D extends object> {
 
 export interface UseExpandedInstanceProps<D extends object> {
     rows: Array<Row<D>>;
-    toggleExpanded: (id: Array<IdType<D>>, isExpanded: boolean) => void;
+    toggleRowExpanded: (id: Array<IdType<D>>, isExpanded: boolean) => void;
+    toggleAllRowsExpanded: (set?: boolean) => void;
     expandedDepth: number;
+    getToggleAllRowsExpandedProps: (
+        props?: Partial<TableToggleAllRowsExpandedProps>,
+    ) => TableToggleAllRowsExpandedProps;
+    isAllRowsExpanded: boolean;
 }
 
 export interface UseExpandedRowProps<D extends object> {
     isExpanded: boolean;
     canExpand: boolean;
     subRows: Array<Row<D>>;
-    toggleExpanded: (isExpanded?: boolean) => void;
-    getExpandedToggleProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
+    toggleRowExpanded: (isExpanded?: boolean) => void;
+    getToggleRowExpandedProps: (props?: Partial<TableExpandedToggleProps>) => TableExpandedToggleProps;
 }
 
 //#endregion
@@ -448,6 +468,7 @@ export interface UseGlobalFiltersState<D extends object> {
 
 export interface UseGlobalFiltersInstanceProps<D extends object> {
     rows: Array<Row<D>>;
+    globalFilteredRows: Array<Row<D>>;
     preGlobalFilteredRows: Array<Row<D>>;
     setGlobalFilter: (filterValue: FilterValue) => void;
 }
@@ -515,7 +536,7 @@ export interface UseGroupByRowProps<D extends object> {
 
 export interface UseGroupByCellProps<D extends object> {
     isGrouped: boolean;
-    isRepeatedValue: boolean;
+    isPlaceholder: boolean;
     isAggregated: boolean;
 }
 
@@ -733,7 +754,7 @@ export interface UseSortByColumnProps<D extends object> {
     isSortedDesc: boolean | undefined;
 }
 
-export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => number;
+export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => 0 | 1 | -1;
 
 export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
 
@@ -800,7 +821,5 @@ export function safeUseLayoutEffect(effect: EffectCallback, deps?: DependencyLis
 export function useMountedLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
 
 export function useAsyncDebounce<F extends (...args: any[]) => any>(defaultFn: F, defaultWait?: number): F;
-
-export function useConsumeHookGetter<D extends object>(hooks: Hooks<D>, hookName: string): any;
 
 export function makeRenderer(instance: TableInstance, column: ColumnInstance, meta?: any): ReactElement;
