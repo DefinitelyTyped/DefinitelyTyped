@@ -1,4 +1,4 @@
-// Type definitions for agora-rtc-sdk 2.6
+// Type definitions for agora-rtc-sdk 3.0
 // Project: https://github.com/AgoraIO/web-archive#readme
 // Definitions by: Menthays <https://github.com/menthays>
 //                 Derek Lu <https://github.com/scaret>
@@ -26,7 +26,7 @@ declare namespace AgoraRTC {
      * To share the screen on Electron, call this method to get the screen sources. See [Share the Screen](../../screensharing_web?platform=Web#electron) for details.
      *
      * If this method succeeds, the SDK returns a list of screen sources in an array of {@link DesktopCapturerSource} objects.
-     * @example **Sample Code**
+     * @example **Sample code**
      * ```javascript
      * AgoraRTC.getScreenSources(function(err, sources) {
      *   console.log(sources)
@@ -70,7 +70,11 @@ declare namespace AgoraRTC {
      *
      * This method returns the codecs supported by both the Agora Web SDK and the web browser. The Agora Web SDK supports VP8 and H.264 for video, and OPUS for audio.
      *
-     * This method supports all web browsers. For web browsers that do not support WebRTC or are not recognized, the returned codec list is empty.
+     * **Note:**
+     *
+     * - This method supports all web browsers. For web browsers that do not support WebRTC or are not recognized, the returned codec list is empty.
+     * - The returned codec list is based on the [SDP](https://tools.ietf.org/html/rfc4566) used by the web browser and for reference only.
+     * - Some Android phones might claim to support H.264 but have problems in communicating with other platforms using H.264. In this case, we recommend using the VP8 codec.
      *
      * @returns  Returns a `Promise` object. In the `.then(function(result){})` callback, `result` has the following properties:
      * - `video`: array, the supported video codecs. The array might include `"H264"` and `"VP8"`, or be empty.
@@ -113,8 +117,12 @@ declare namespace AgoraRTC {
      * This method enumerates the available media input and output devices, such as microphones, cameras, headsets, and so on.
      *
      * If this method succeeds, the SDK returns a list of media devices in an array of {@link MediaDeviceInfo} objects.
+     *
+     * **Note:**
+     *
+     * On Safari 12.1 or later, call this method after calling {@link createStream} successfully.
      * @example
-     * **Sample Code**
+     * **Sample code**
      *
      * ``` javascript
      * AgoraRTC.getDevices (function(devices) {
@@ -213,8 +221,91 @@ declare namespace AgoraRTC {
          */
         readonly kind: string;
     }
+    /**
+     * Error messages of stream playback
+     *
+     * When [[Stream.play]] fails to play the stream, this interface provides detailed error messages.
+     *
+     * In most cases, you can prompt the user to resume the playback ([[Stream.resume]]) by a user gesture except when the {@link status} is "aborted".
+     */
+    interface StreamPlayError {
+        /**
+         * The status of the player:
+         * - "aborted": The player is removed before the stream is played successfully.
+         * - "paused": The player is stopped.
+         */
+        readonly status: string;
+        /**
+         * The reason why the playback fails. Usually, this value is an event that triggers the playback failure. Possible values include the following:
+         * - "stalled": The failure might be caused by the browser policy. See [stalled event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/stalled_event).
+         * - "pause": The stream playback might be paused by the user. See [pause event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event).
+         * - "suspend": The failure might be caused by the browser policy. See [suspend event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event).
+         * - "canplay": Some browsers automatically stop the playback when the playback window is not displayed on the screen. See [canplay event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event).
+         * - "timer": The playback failure is caused by an unknown reason and captured by the internal timer.
+         *
+         * Due to the differences in browsers, `reason` might have different values for the same event.
+         */
+        readonly reason: string;
+    }
+    /**
+     * The video encoder configuration.
+     *
+     * This interface sets the video encoder configuration in {@link setVideoEncoderConfiguration}.
+     *
+     * Depending on the OS, browser, and camera, the actual resolution, frame rate, and bitrate might be different from the set values.
+     */
+    interface VideoEncoderConfiguration {
+        /**
+         * Resolution of the video.
+         *
+         * We recommend using common resolutions, for example:
+         *
+         * - 480 &times; 360
+         * - 640 &times; 480
+         * - 960 &times; 720
+         *
+         */
+        resolution?: {
+            /** Width of the video. The value range is [1,10000]. */
+            width: number,
+            /** Height of the video. The value range is [1,10000]. */
+            height: number,
+        };
+        /**
+         * The video frame rate (fps).
+         *
+         * The value range is [1, 10000]. We recommend setting the frame rate between 5 fps and 30 fps.
+         *
+         * **Note:**
+         * - This parameter sets the local capturing video frame rate. The actual encoding frame rate depends on the device, system, and browser.
+         * - When the network conditions change, the browser adjusts the encoding frame rate automatically.
+         */
+        frameRate?: {
+            /** The minimum frame rate. The SDK uses this value as the preferred frame rate. */
+            min: number,
+            /** The maximum frame rate. */
+            max: number,
+        };
+        /**
+         * The video bitrate (Kbps). The value range is [1,10000000].
+         *
+         * We recommend setting the bitrate between 100 Kbps and 5000 Kbps. You can refer to the table below and set your bitrate.
+         *
+         * [[include:VideoProfileDefinition.md]]
+         */
+        bitrate?: {
+            /** The minimum bitrate. */
+            min: number,
+            /** The maximum bitrate. */
+            max: number,
+        };
+    }
 
-    /** Audio statistics of the remote stream. */
+    /**
+     * Audio statistics of the remote stream.
+     *
+     * If {@link getRemoteAudioStats} is called successfully, the {@link RemoteAudioStatsMap} interface provides the UID and {@link RemoteAudioStats} of each remote user.
+     */
     interface RemoteAudioStats {
         /**
          * End-to-end delay in ms.
@@ -254,7 +345,11 @@ declare namespace AgoraRTC {
         readonly TotalPlayDuration?: string;
     }
 
-    /** Audio statistics of the local stream. */
+    /**
+     * Audio statistics of the local stream.
+     *
+     * If {@link getLocalAudioStats} is called successfully, the {@link LocalAudioStatsMap} provides the UID and {@link LocalAudioStats} of the local user.
+     */
     interface LocalAudioStats {
         /** Energy level of the captured audio. */
         readonly RecordingLevel?: string;
@@ -280,7 +375,11 @@ declare namespace AgoraRTC {
         readonly MuteState?: string;
     }
 
-    /** Video statistics of the remote stream. */
+    /**
+     * Video statistics of the remote stream.
+     *
+     * If {@link getRemoteVideoStats} is called successfully, the {@link RemoteVideoStatsMap} interface provides the UID and {@link RemoteVideoStats} of each remote user.
+     */
     interface RemoteVideoStats {
         /**
          * End-to-end delay in ms.
@@ -321,7 +420,11 @@ declare namespace AgoraRTC {
         readonly RenderResolutionHeight?: string;
     }
 
-    /** Video statistics of the local stream. */
+    /**
+     * Video statistics of the local stream.
+     *
+     * If {@link getLocalVideoStats} is called successfully, the {@link LocalVideoStatsMap} interface provides the UID and {@link LocalVideoStats} of the local user.
+     */
     interface LocalVideoStats {
         /** Bitrate of the local video set in [[setVideoProfile]]. */
         readonly TargetSendBitrate?: string;
@@ -354,7 +457,11 @@ declare namespace AgoraRTC {
         readonly TotalDuration?: string;
     }
 
-    /** Statistics of the network connection. */
+    /**
+     * Statistics of the network connection.
+     *
+     * If {@link getTransportStats} is called successfully, this interface provides the statistics.
+     */
     interface TransportStats {
         /** RTT (Round-Trip Time) between the SDK and the access node of the SD-RTN, in ms. */
         readonly RTT?: string;
@@ -373,7 +480,7 @@ declare namespace AgoraRTC {
          *
          * **Note:**
          *
-         * Chrome 61+ is required for this function, and the compatibility is not guaranteed.
+         * Chrome 61 or later is required for this function, and the compatibility is not guaranteed.
          * See [Network Information API](https://developer.mozilla.org/en-US/docs/Web/API/Network_Information_API) for details.
          */
         readonly NetworkType?: "bluetooth" | "cellular" | "ethernet" | "none" | "wifi" | "wimax" | "other" | "unknown" | "UNSUPPORTED";
@@ -381,7 +488,11 @@ declare namespace AgoraRTC {
         readonly OutgoingAvailableBandwidth?: string;
     }
 
-    /** Statistics of the session connection. */
+    /**
+     * Statistics of the session connection.
+     *
+     * If {@link getSessionStats} is called successfully, this interface provides the statistics.
+     */
     interface SessionStats {
         /** Call duration in seconds, represented by an aggregate value. */
         readonly Duration?: string;
@@ -404,10 +515,14 @@ declare namespace AgoraRTC {
         readonly RecvBitrate?: string;
     }
 
-    /** Statistics of the network quality. */
+    /**
+     * Statistics of the network quality.
+     *
+     * After joining the channel, the SDK triggers the `"network-quality"` callback once every two seconds and provides the network quality ratings in this interface.
+     */
     interface NetworkQualityStats {
         /**
-         * The uplink network quality.
+         * Uplink network quality rating of the user in terms of the transmission bitrate, packet loss rate, average RTT (Round-Trip Time) and jitter of the uplink network.
          *
          *  - "0": The network quality is unknown.
          *  - "1": The network quality is excellent.
@@ -415,11 +530,11 @@ declare namespace AgoraRTC {
          *  - "3": Users can feel the communication slightly impaired.
          *  - "4": Users can communicate only not very smoothly.
          *  - "5": The network is so bad that users can hardly communicate.
-         *  - "6": The network is down and users cannot communicate at all.
+         *  - "6": The network is disconnected and users cannot communicate at all.
          */
         readonly uplinkNetworkQuality?: string;
         /**
-         * The downlink network quality.
+         * Downlink network quality rating of the user in terms of packet loss rate, average RTT, and jitter of the downlink network.
          *
          *  - "0": The network quality is unknown.
          *  - "1": The network quality is excellent.
@@ -432,7 +547,45 @@ declare namespace AgoraRTC {
         readonly downlinkNetworkQuality?: string;
     }
 
-    /** Manages the user layout configuration in the CDN live streaming. */
+    /**
+     * Adds a watermark image to the CDN (Content Delivery Network) live stream in {@link setLiveTranscoding}.
+     *
+     * **Since**
+     * <br>&emsp;&emsp;&emsp;*3.0.0*
+     */
+    interface TranscodingWatermark {
+        /**
+         * The HTTP/HTTPS URL address of the image on the broadcasting video.
+         *
+         * ASCII characters only. The maximum length of this parameter is 1024 bytes. Only supports online PNG files.
+         */
+        url: string;
+        /**
+         * The position of the image on the upper left of the broadcasting video on the horizontal axis.
+         *
+         * Integer only. The value range is [0,10000]. The default value is 0.
+         */
+        x?: number;
+        /**
+         * The position of the image on the upper left of the broadcasting video on the vertical axis.
+         *
+         * Integer only. The value range is [0,10000]. The default value is 0.
+         */
+        y?: number;
+        /**
+         * The width of the watermark image.
+         *
+         * Integer only. The value range is [0,10000]. The default value is 160.
+         */
+        width?: number;
+        /**
+         * The height of the watermark image.
+         *
+         * Integer only. The value range is [0,10000]. The default value is 160.
+         */
+        height?: number;
+    }
+    /** Manages the user layout configuration in {@link setLiveTranscoding}. */
     interface TranscodingUser {
         /** User ID of the CDN live host. */
         uid?: number | string;
@@ -483,22 +636,38 @@ declare namespace AgoraRTC {
         alpha?: number;
     }
 
-    /** A list of `RemoteAudioStats` objects, one per uid. */
+    /**
+     * A list of `RemoteAudioStats` objects, one per uid.
+     *
+     * If {@link getRemoteAudioStats} is called successfully, this interface provides the UID and [[RemoteAudioStats]] of each remote user.
+     */
     interface RemoteAudioStatsMap {
         [uid: string]: RemoteAudioStats;
     }
 
-    /** A list of `LocalAudioStats` objects, one per uid. */
+    /**
+     * A list of `LocalAudioStats` objects, one per uid.
+     *
+     * If {@link getLocalAudioStats} is called successfully, this interface provides the UID and [[LocalAudioStats]] of the local user.
+     */
     interface LocalAudioStatsMap {
         [uid: string]: LocalAudioStats;
     }
 
-    /** A list of `RemoteVideoStats` objects, one per uid. */
+    /**
+     * A list of `RemoteVideoStats` objects, one per uid.
+     *
+     * If {@link getRemoteVideoStats} is called successfully, this interface provides the UID and [[RemoteVideoStats]] of each remote user.
+     */
     interface RemoteVideoStatsMap {
         [uid: string]: RemoteVideoStats;
     }
 
-    /** A list of `LocalVideoStats` objects, one per uid. */
+    /**
+     * A list of `LocalVideoStats` objects, one per uid.
+     *
+     * If {@link getLocalVideoStats} is called successfully, this interface provides the UID and [[LocalVideoStats]] of each remote user.
+     */
     interface LocalVideoStatsMap {
         [uid: string]: LocalVideoStats;
     }
@@ -526,7 +695,7 @@ declare namespace AgoraRTC {
          *
          * The log level follows the sequence of NONE, ERROR, WARNING, INFO, and DEBUG.
          * For example, if you set the log level as `AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO);`, then you can see logs in levels INFO, ERROR, and WARNING.
-         * @param level The output log level.
+         * @param level The output log level. The default value is {@link DEBUG}.
          */
         function setLogLevel(level: DEBUG|INFO|WARNING|ERROR|NONE): void;
         /**
@@ -563,7 +732,7 @@ declare namespace AgoraRTC {
      *
      * [[include:ClientConfig-example.md]]
      * @example
-     * **Sample Code**
+     * **Sample code**
      * ``` javascript
      * var config = {
      *      mode: "live",
@@ -597,21 +766,22 @@ declare namespace AgoraRTC {
          * - For Native SDK v2.3.2 and later:
          *  * Set {@link mode} as `"rtc"` or `"live"` if the Native SDK uses the communication channel profile.
          *  * Set {@link mode} as `"live"` if the Native SDK uses the live broadcast channel profile.
-         * - For Native SDK before v2.3.2, set  mode as "live" regardless of which channel profile the Native SDK uses.
+         * - For Native SDK before v2.3.2, set mode as "live" regardless of which channel profile the Native SDK uses.
          *
          * **Note:**
          *
-         * If you set {@link mode} as `"rtc"`, the Agora Recording SDK is not supported.
+         * The `"rtc"` mode supports the Agora Recording SDK 2.3.3 or later.
          */
         mode: "live" | "rtc";
         /**
-         * The codec the Web browser uses for encoding and decoding.
-         * - `"vp8"`: Sets the browser to use VP8 for encoding and decoding.
-         * - `"h264"`: Sets the browser to use H264 for encoding and decoding.
+         * The codec the Web browser uses for encoding.
+         * - `"vp8"`: Sets the browser to use VP8 for encoding.
+         * - `"h264"`: Sets the browser to use H.264 for encoding.
          *
          * **Note:**
          *
-         * Set {@link codec} as `"h264"` as long as Safari is involved in the session.
+         * - Safari 12.1 or earlier does not support the VP8 codec.
+         * - Codec support on mobile devices is a bit complex, see [Use Agora Web SDK on Mobile Devices](https://docs.agora.io/en/faq/web_on_mobile) for details.
          */
         codec: "vp8" | "h264";
         /**
@@ -648,16 +818,15 @@ declare namespace AgoraRTC {
     }
 
     /**
-     * A class for managing user-specific CDN live audio/video transcoding settings.
+     * A class for managing user-specific CDN live audio/video transcoding settings in {@link setLiveTranscoding}.
      *
-     * @example **Sample Code**
+     * @example **Sample code**
      * ``` javascript
      * var LiveTranscoding = {
      *   width: 640,
      *   height: 360,
      *   videoBitrate: 400,
      *   videoFramerate: 15,
-     *   lowLatency: false,
      *   audioSampleRate: AgoraRTC.AUDIO_SAMPLE_RATE_48000,
      *   audioBitrate: 48,
      *   audioChannels: 1,
@@ -673,28 +842,38 @@ declare namespace AgoraRTC {
         /**
          * Width of the video.
          *
-         * Positive integer, the default value is 640. The value range is [1, 10000].
+         * Positive integer, the default value is 640. The value range is [64, 10000].
+         *
+         * - When pushing video streams to the CDN, set the value of width × height to at least 64 × 64, or the SDK adjusts it to 64 x 64.
+         * - When pushing audio streams to the CDN, set the value of width × height to 0 × 0.
          */
         width?: number;
         /**
          * Height of the video.
          *
-         * Positive integer, the default value is 360. The value range is [1, 10000].
+         * Positive integer, the default value is 360. The value range is [64, 10000].
+         *
+         * - When pushing video streams to the CDN, set the value of width × height to at least 64 × 64, or the SDK adjusts it to 64 x 64.
+         * - When pushing audio streams to the CDN, set the value of width × height to 0 × 0.
          */
         height?: number;
         /**
          * Bitrate of the CDN live output video stream.
          *
          * Positive integer. The default value is 400 Kbps. The value range is [1,1000000].
+         *
+         * Set the bitrate according to the {@link AgoraRTC.VideoEncoderConfiguration.bitrate Video Profile Table}. If you set a bitrate beyond the proper range, the SDK automatically adapts it to a value within the range.
          */
         videoBitrate?: number;
         /**
          * Frame rate of the output data stream set for CDN live.
          *
-         * Positive integer. The default value is 15 fps. The value range is [1, 10000].
+         * Positive integer. The default value is 15 fps. The value range is [1, 30]. Agora adjusts all values over 30 to 30.
          */
         videoFramerate?: number;
         /**
+         * **DEPRECATED**
+         *
          * Latency mode:
          * - true: Low latency with unassured quality.
          * - false: (Default）High latency with assured quality.
@@ -729,7 +908,9 @@ declare namespace AgoraRTC {
         /** Video GOP in frames. The default value is 30 frames. The value range is [1,10000]. */
         videoGop?: number;
         /**
-         * Video codec profile type:
+         * Video codec profile type.
+         *
+         * Set it as 66, 77, or 100 (default). If you set this parameter to other values, Agora adjusts it to the default value 100.
          *
          * - 66: Baseline video codec profile. Generally used in video calls on mobile phones.
          * - 77: Main video codec profile.Generally used in mainstream electronics, such as MP4 players, portable video players, PSP, and iPads.
@@ -749,13 +930,22 @@ declare namespace AgoraRTC {
          *
          * Agora supports a maximum of 17 transcoding users in a CDN streaming channel. See [[TranscodingUser]] for details.
          */
-        transcodingUsers?: TranscodingUser[];
+        transcodingUsers: TranscodingUser[];
+        /**
+         * Adds a watermark image to the CDN live stream.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * See [[TranscodingWatermark]] for details.
+         */
+        images: TranscodingWatermark[];
     }
 
     /**
-     * A class for configuring the imported live broadcast voice or video stream.
+     * A class for configuring the imported live broadcast voice or video stream in {@link addInjectStreamUrl}.
      *
-     * @example **Sample Code**
+     * @example **Sample code**
      * ```javascript
      * var InjectStreamConfig = {
      *   width: 0,
@@ -857,9 +1047,26 @@ declare namespace AgoraRTC {
          */
         video: boolean;
         /**
-         * Marks whether this stream contains a screen-sharing track.
+         * Marks whether this stream contains a screen-sharing track. See [Share the Screen](../../../screensharing_web?platform=Web) for details.
          */
         screen?: boolean;
+        /**
+         * Marks whether to share the audio playback when sharing the screen.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * - `true`: Share the local audio playback when sharing the screen.
+         * - `false`: (Default) Do not share the local audio playback when sharing the screen.
+         *
+         * To share the local audio playback when sharing the screen, ensure that you set {@link screen} as `true`. We recommend also setting {@link audio} as `false`. If both `screenAudio` and `audio` are set as `true`, the stream only contains the local audio playback.
+         *
+         * **Note:**
+         *
+         * - This function supports only Chrome 73 or later on Windows.
+         * - For the audio sharing to take effect, the user must check **Share audio** in the pop-up window when sharing the screen.
+         */
+        screenAudio?: boolean;
         /**
          * Specifies the audio source of the stream.
          */
@@ -875,19 +1082,36 @@ declare namespace AgoraRTC {
         /**
          * The camera device ID retrieved from the {@link getDevices} method.
          *
-         * The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
+         * The retrieved ID is ASCII characters, and the string length is greater than or equals to 0 and less than 256 bytes.
+         *
+         * When the string length is 0, this property is ignored.
          */
         cameraId?: string;
         /**
          * The microphone device ID retrieved from the {@link getDevices} method.
          *
-         * The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
+         * The retrieved ID is ASCII characters, and the string length is greater than or equals to 0 and less than 256 bytes.
+         *
+         * When the string length is 0, this property is ignored.
          */
         microphoneId?: string;
         /**
-         * Marks whether the video image of the publisher is mirrored on the publisher’s webpage.
+         * Sets using the front or rear camera
          *
-         * The default value is `true` (except in the screen-share mode). Agora recommends enabling this function when using the front camera, and disabling it when using the rear camera.
+         * You can set this parameter to use the front or rear camera on mobile devices:
+         * - `"user"`: The front camera.
+         * - `"environment"`: The rear camera.
+         */
+        facingMode?: string;
+        /**
+         * Marks whether to mirror the local video image of the publisher in the local preview.
+         *
+         * This setting does not take effect in screen-sharing streams.
+         *
+         * - `true`: (Default) Mirror the local video.
+         * - `false`: Do not mirror the local video.
+         *
+         *  Agora recommends enabling this function when using the front camera, and disabling it when using the rear camera.
          */
         mirror?: boolean;
         /**
@@ -957,6 +1181,8 @@ declare namespace AgoraRTC {
 
     /**
      * The connection statistics of the local stream.
+     *
+     * If the local stream calls {@link getStats} successfully, this interface provides the statistics.
      */
     interface LocalStreamStats {
         /** Bytes of the sent audio. */
@@ -989,6 +1215,8 @@ declare namespace AgoraRTC {
 
     /**
      * The connection statistics of the remote stream.
+     *
+     * If the remote stream calls {@link getStats} successfully, this interface provides the statistics.
      */
     interface RemoteStreamStats {
         /** Bytes of the received audio. */
@@ -1008,9 +1236,9 @@ declare namespace AgoraRTC {
         /** Decode frame rate after the video is received. */
         videoReceiveDecodeFrameRate: string;
         /** Resolution width of the received video. */
-        videoReceivedResolutionWidth?: string;
+        videoReceiveResolutionWidth?: string;
         /** Resolution height of the received video. */
-        videoReceivedResolutionHeight?: string;
+        videoReceiveResolutionHeight?: string;
         /** Delay in accessing the SD-RTN (ms). */
         accessDelay: string;
         /**
@@ -1051,7 +1279,11 @@ declare namespace AgoraRTC {
         NetworkType: "bluetooth" | "cellular" | "ethernet" | "none" | "wifi" | "wimax" | "other" | "unknown" | "UNSUPPORTED";
     }
 
-    /** System statistics. */
+    /**
+     * System statistics.
+     *
+     * If {@link getSystemStats} is called successfully, this interface provides the system statistics.
+     */
     interface SystemStats {
         /** Battery level of the system (%). */
         BatteryLevel: 'string';
@@ -1062,7 +1294,7 @@ declare namespace AgoraRTC {
      *
      * A stream represents a published local or remote media stream object in a call session.
      *
-     * All Stream methods can be called for both local and remote streams, except for {@link Stream.init} that only applies to the local stream.
+     * All Stream methods can be called for both local and remote streams if not specified.
      */
     interface Stream {
         /** Occurs when the user gives access to the camera and microphone. */
@@ -1072,6 +1304,18 @@ declare namespace AgoraRTC {
         /** Occurs when screen-sharing stops. */
         on(event: "stopScreenSharing", callback: (evt: any) => void): void;
         /**
+         * Occurs when the video track no longer provides data to the stream.
+         *
+         * Possible reasons include device removal and deauthorization. See [MediaStreamTrack.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
+         */
+        on(event: "videoTrackEnded", callback: (evt: any) => void): void;
+        /**
+         * Occurs when the audio track no longer provides data to the stream.
+         *
+         * Possible reasons include device removal and deauthorization. See [MediaStreamTrack.onended](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/onended).
+         */
+        on(event: "audioTrackEnded", callback: (evt: any) => void): void;
+        /**
          * Occurs when the audio mixing stream playback starts/resumes.
          *
          * **Note:**
@@ -1080,6 +1324,48 @@ declare namespace AgoraRTC {
         on(event: "audioMixingPlayed", callback: (evt: any) => void): void;
         /** Occurs when the last audio mixing stream playback finishes. */
         on(event: "audioMixingFinished", callback: (evt: any) => void): void;
+        /**
+         * Occurs when the stream playback status changes.
+         *
+         * On Windows, frequent DOM manipulations might cause the browser to pause the Chrome player. To avoid this, you can listen for this event and call the {@link Stream.resume} method to resume the playback.
+         *
+         * This callback has the following properties.
+         * - isErrorState: Whether or not the playback fails.
+         *     - true: The playback fails.
+         *     - false: The playback is normal.
+         * - mediaType: The player type.
+         *     - "audio": Audio player.
+         *     - "video": Video player.
+         * - status: The playback status.
+         *     - "play": Playing.
+         *     - "aborted": The player is removed before the stream is played successfully.
+         *     - "paused": The player is stopped.
+         * - reason: The reason why the playback status changes. Usually, this value is the event that triggers the status change. Possible values include the following:
+         *     - "playing": The playback starts. See [HTMLMediaElement: playing event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playing_event).
+         *     - "stalled": The failure might be caused by the browser policy. See [stalled event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/stalled_event).
+         *     - "pause": The stream playback might be paused by the user. See [pause event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event).
+         *     - "suspend": The failure might be caused by the browser policy. See [suspend event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event).
+         *     - "canplay": Some browsers automatically stop the playback when the playback window is not displayed on the screen. See [canplay event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event).
+         *     - "timer": The playback failure is caused by an unknown reason and captured by the internal timer.
+         *
+         * @example **Sample code**
+         *
+         * ``` javascript
+         *  stream.on("player-status-change", function(evt){
+         *      if (evt.isErrorState && evt.status === "paused"){
+         *          console.error(`Stream is paused unexpectedly. Trying to resume...`);
+         *          stream.resume().then(function(){
+         *              console.log(`Stream is resumed successfully`);
+         *          }).catch(function(e){
+         *              console.error(`Failed to resume stream. Error ${e.name} Reason ${e.message}`);
+         *          });
+         *      }
+         *  });
+         *
+         * ```
+         *
+         */
+        on(event: "player-status-change", callback: (evt: any) => void): void;
         /**
          * Initializes the Stream Object
          *
@@ -1102,7 +1388,7 @@ declare namespace AgoraRTC {
          *
          * The `info` field shows the extra information for the error. If no more extra information, its value will be `null`.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * init(function() {
@@ -1118,7 +1404,7 @@ declare namespace AgoraRTC {
          * @param onSuccess The callback when the method succeeds.
          * @param onFailure The callback when the method fails.
          */
-        init(onSuccess?: () => void, onFailure?: (err: any) => void): void;
+        init(onSuccess?: () => void, onFailure?: (err: { type: "warning" | "error", msg: string, info?: string }) => void): void;
         /**
          * Plays the Audio/Video Stream
          *
@@ -1128,14 +1414,21 @@ declare namespace AgoraRTC {
          *
          * Due to browser policy changes, this method must be triggered by the user's gesture on the Chrome 70+ and Safari browsers.
          * See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for details.
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
-         * stream.play("agora_remote", {fit: 'contain'}); // stream will be played in the element with the ID agora_remote
+         * stream.play("agora_remote", {fit: "contain"}, function(errState){
+         *     if (errState && errState.status !== "aborted"){
+         *         // The playback fails, probably due to browser policy. You can resume the playback by user gesture.
+         *     }
+         * }); // stream will be played in the element with the ID agora_remote
          * ```
          * @param HTMLElementID Represents the HTML element ID. Digits and letters in the ASCII character set, “_”, “-", and ".". The string length must be greater than 0 and less than 256 bytes.
          * @param option Options for playing the stream.
-         *
+         * @param callback Whether or not the playback succeeds.
+         * - err
+         *  -  `null` if the playback succeeds.
+         *  - [[StreamPlayError]] if the playback fails.
          */
         play(HTMLElementID: string, option?: {
             /**
@@ -1161,9 +1454,17 @@ declare namespace AgoraRTC {
              * For more information, see [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes).
              */
             muted?: boolean,
-        }): void;
+        }, callback?: (err: null | StreamPlayError) => void): void;
         /**
-         * Stops the Audio/Video Stream
+         * Resumes the Audio/Video Stream Playback
+         *
+         * This method can be used when the playback fails after calling the {@link Stream.play} method. In most cases, the playback is stopped due to the browser policy.
+         *
+         * This method needs to be triggered by a user gesture. See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for more information.
+         */
+        resume(): Promise<any>;
+        /**
+         * Stops the Audio/Video Stream Playback
          *
          * Call this method to stop playing the stream set by {@link Stream.play}.
          */
@@ -1189,6 +1490,8 @@ declare namespace AgoraRTC {
          *
          * This method enables the audio track in the stream.
          *
+         * If you call this method to enable the audio track for local streams, the `Client.on("unmute-audio")` callback is triggered on the remote client.
+         *
          * **Note:** For local streams, it works only when the audio flag is `true` in the stream.
          *
          * By default the audio track is enabled. If you call {@link muteAudio}, call this method to enable audio.
@@ -1202,7 +1505,7 @@ declare namespace AgoraRTC {
          *
          * This method disables the audio track in the stream.
          *
-         * - For local streams, the SDK stops sending audio after you call this method.
+         * - For local streams, this method call stops sending audio and triggers the `Client.on("mute-audio")` callback on the remote client.
          * - For remote streams, the SDK still receives audio but stops playing it after you call this method.
          *
          * **Note:** For local streams, it works only when the audio flag is `true` in the stream.
@@ -1215,6 +1518,8 @@ declare namespace AgoraRTC {
          * Enables the Video
          *
          * This method enables the video track in the stream.
+         *
+         * If you call this method to enable the audio track for local streams, the `Client.on("unmute-video")` callback is triggered on the remote client.
          *
          * **Note:** For local streams, it works only when the video flag is `true` in the stream.
          *
@@ -1229,7 +1534,7 @@ declare namespace AgoraRTC {
          *
          * This method disables the video track in the stream.
          *
-         * - For local streams, the SDK stops sending video after you call this method.
+         * - For local streams, this method call stops sending video and triggers the `Client.on("mute-video")` callback on the remote client.
          * - For remote streams, the SDK still receives video but stops playing it after you call this method.
          *
          * **Note:** For local streams, it works only when the video flag is `true` in the stream.
@@ -1286,7 +1591,7 @@ declare namespace AgoraRTC {
         /**
          * Retrieves the Audio Flag
          *
-         * This method retrieves the audio flag.
+         * This method retrieves the audio flag and only works for local streams.
          * @returns
          * - true: The stream contains audio data.
          * - false: The stream does not contain audio data.
@@ -1295,7 +1600,7 @@ declare namespace AgoraRTC {
         /**
          * Retrieves the Video Flag
          *
-         * This method retrieves the video flag.
+         * This method retrieves the video flag and only works for local streams.
          * @returns
          * - true: The stream contains video data.
          * - false: The stream does not contain video data.
@@ -1307,7 +1612,7 @@ declare namespace AgoraRTC {
          * This method retrieves the current audio level.
          *
          * Call `setTimeout` or `setInterval` to retrieve the local or remote audio change.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * setInterval(function() {
          *   var audioLevel = stream.getAudioLevel();
@@ -1321,8 +1626,10 @@ declare namespace AgoraRTC {
          *
          * Due to browser policy changes, this method must be triggered by the user's gesture on the Chrome 70+ and Safari browser.
          * See [Autoplay Policy Changes](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes) for details.
+         *
+         * @returns The audio level. The value range is [0,1].
          */
-        getAudioLevel(): number;
+        getAudioLevel(): number | void;
         /**
          * Retrieves the Audio Track
          *
@@ -1351,12 +1658,13 @@ declare namespace AgoraRTC {
          * **Note:**
          *
          * - Supports Chrome 65+, Safari, and latest Firefox.
+         * - This method might not take effect on some mobile devices.
          * - Firefox does not support switching audio tracks between different microphones. You can replace the audio track from the microphone with an audio file, or vice versa.
          * - Replacing audio tracks from external audio devices may not be fully supported on Safari.
          * - The subscriber will not be notified if the track gets replaced.
          * - Agora recommends you use [[switchDevice]] to switch the media input devices.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ```javascript
          * // Suppose we have a localStream1
@@ -1370,7 +1678,10 @@ declare namespace AgoraRTC {
          *
          * @param MediaStreamTrack The new track.
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - `"INVALID_TRACK"` and `"INVALID_TRACK_TYPE"`: The MediaStreamTrack object cannot be recognized.
+         * - `"MEDIASTREAM_TRACK_NOT_FOUND"`: The track to be replaced is not found, for example, replacing a video track in an audio-only stream.
+         * - `"NO_STREAM_FOUND"`: The local stream object is not found.
          */
         replaceTrack(MediaStreamTrack: MediaStreamTrack,
                      onSuccess?: () => void,
@@ -1380,9 +1691,11 @@ declare namespace AgoraRTC {
          *
          * This method adds the audio or video tracks into the stream.
          *
+         * When the track is added, the `Client.on("stream-updated")` is triggered on the remote client.
+         *
          * @param track The track can be retrieved from the `mediaStream` method.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ```javascript
          * var localStream = AgoraRTC.createStream({audio: true, video: false});
@@ -1391,7 +1704,7 @@ declare namespace AgoraRTC {
          *
          * **Note:**
          *
-         * - Firefox does not support this function.
+         * - This method does not support Firefox and Safari.
          * - A Stream object can have only one audio track and one video track at most.
          */
         addTrack(track: MediaStreamTrack): void;
@@ -1400,11 +1713,14 @@ declare namespace AgoraRTC {
          *
          * This method removes the audio or video tracks from the stream.
          *
+         * When the track is removed, the `Client.on("stream-updated")` callback is triggered on the remote client.
+         *
          * **Note:**
          *
-         * If you need to change both the audio and video tracks, Agora recommend using the [[replaceTrack]] method instead.
+         * - If you need to change both the audio and video tracks, we recommend using the [[replaceTrack]] method instead.
+         * - This method does not support Firefox and Safari.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ```javascript
          * var localStream = AgoraRTC.createStream({audio: true, video: true});
@@ -1412,16 +1728,12 @@ declare namespace AgoraRTC {
          * ```
          *
          * @param track The track can be retrieved from the `mediaStream` method.
-         *
-         * **Note:**
-         *
-         * Firefox does not support this function.
          */
         removeTrack(track: MediaStreamTrack): void;
         /**
          * Sets the Audio Profile
          *
-         * This method sets the audio profile.
+         * This method sets the audio profile of the local stream.
          *
          * It is optional and works only when called before {@link Stream.init}. The default value is `"music_standard"`.
          *
@@ -1431,7 +1743,7 @@ declare namespace AgoraRTC {
          *
          * - Firefox does not support setting the audio encoding rate.
          * - Safari does not support stereo audio.
-         * - The latest version of Google Chrome does not support playing stereo audio, but supports sending a stereo audio stream.
+         * - Google Chrome does not support playing stereo audio, but supports sending a stereo audio stream. If the audio profile is set to stereo, the `AEC`, `AGC`, and `ANS` options in {@link audioProcessing} are automatically disabled.
          *
          * @param profile The audio profile has the following options:
          * - `"speech_low_quality"`: Sample rate 16 kHz, mono, encoding rate 24 Kbps.
@@ -1455,16 +1767,14 @@ declare namespace AgoraRTC {
         /**
          * Sets the Audio Output
          *
-         * This method sets the audio output device for the remote stream. You can use it to switch between the microphone and the speakerphone.
-         *
-         * It can be called either before or after the remote stream is played.
+         * This method sets the audio output device for the remote stream. You can use it to switch between the speakerphones. It can be called either before or after the remote stream is played.
          *
          * **Note:**
          *
-         * Only Chrome 49+ supports this function.
-         * @param deviceId The device ID can be retrieved from {@link getDevices}, whose [[kind]] should be "audiooutput".
-         *
-         * The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
+         * Only Chrome 49 or later supports this function.
+         * @param deviceId The device ID can be retrieved from {@link getDevices}, whose [[kind]] should be "audiooutput". The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
+         * @param onSuccess The callback when the method succeeds.
+         * @param onFailure The callback when the method fails.
          */
         setAudioOutput(deviceId: string,
                        onSuccess?: () => void,
@@ -1479,15 +1789,17 @@ declare namespace AgoraRTC {
          *
          * If you call this method after [[publish]], there is no need to re-publish the stream after switching the device.
          *
-         * **Note:**
-         *
          *  This method does not support the following scenarios:
          *
          * - Dual-stream mode is enabled by [[enableDualStream]].
+         * - During audio mixing.
          * - The remote stream.
          * - The stream is created by defining the [[audioSource]] and [[videoSource]] properties.
          * - The Firefox browser.
          *
+         * **Note:**
+         *
+         * This method might not take effect on some mobile devices.
          * @param type Type of the device: "audio" or "video".
          * @param deviceId  Device ID, which can be retrieved from [[getDevices]]. The retrieved ID is ASCII characters, and the string length is greater than 0 and less than 256 bytes.
          * @param onSuccess The callback when the method succeeds.
@@ -1502,16 +1814,59 @@ declare namespace AgoraRTC {
         /**
          * Sets the Video Profile
          *
-         * This method sets the video profile.
+         * This method sets the video encoding profile for the local stream. Each video encoding profile includes a set of parameters, such as the resolution, frame rate, and bitrate. The default value is `"480p_1"`.
          *
-         * It is optional and works only when called before {@link Stream.init}. The default value is `"480p_1"`.
+         * This method is optional and is usually called before {@link Stream.init}. From v2.7, you can also call this method after {@link Stream.init} to change the video encoding profile.
          *
+         * **Note:**
+         *
+         * - Do not call this method when publishing streams.
+         * - On some iOS devices, when you update the video profile after {@link Stream.init}, black bars might appear around your video.
+         * - Changing the video profile after {@link Stream.init} works only on Chrome 63 or later and Safari 11 or later.
          * @example `setVideoProfile("480p");`
          * @param profile The video profile. See the following table for its definition and supported profiles in different scenarios.
          *
          * [[include:VideoProfileDefinition.md]]
          */
         setVideoProfile(profile: string): void;
+        /**
+         * Customizes the Video Encoder Configuration
+         *
+         * You can use this method to customize the video resolution, frame rate, and bitrate of the local stream. This method can be called before or after {@link Stream.init}.
+         *
+         * **Note:**
+         *
+         * - Do not call this method when publishing streams.
+         * - On some iOS devices, when you update the video encoder configuration after {@link Stream.init}, black bars might appear around your video.
+         * - The actual resolution, frame rate, and bitrate depend on the device, see [MediaStreamTrack.applyConstraints()](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/applyConstraints) for more information.
+         * - This method works on Chrome 63 or later and is not fully functional on other browsers with the following issues:
+         *   - The frame rate setting does not take effect on Safari 12 or earlier.
+         *   - Safari 11 or earlier only supports specific resolutions.
+         *   - Safari on iOS does not support low resolutions in H.264 codec.
+         *
+         * @example **Sample code**
+         * ```javascript
+         *      stream.setVideoEncoderConfiguration({
+         *          // Video resolution
+         *          resolution: {
+         *              width: 640,
+         *              height: 480
+         *          },
+         *          // Video encoding frame rate. We recommend 15 fps. Do not set this to a value greater than 30.
+         *          frameRate: {
+         *              min: 15,
+         *              max: 30
+         *          },
+         *          // Video encoding bitrate.
+         *          bitrate: {
+         *              min: 1000,
+         *              max: 5000
+         *          }
+         *      });
+         * ```
+         *
+         */
+        setVideoEncoderConfiguration(config: VideoEncoderConfiguration): void;
         /**
          * Sets the Screen Profile
          *
@@ -1528,6 +1883,10 @@ declare namespace AgoraRTC {
          *
          * You can specify the number of playback loops and play time duration.
          *
+         * When the audio mixing file playback starts, the SDK triggers the `Stream.on("audioMixingPlayed")` callback on the local client.
+         *
+         * When the audio mixing file playback finishes, the SDK triggers the `Stream.on("audioMixingFinished")` callback on the local client.
+         *
          * **Note:**
          *
          * - This method supports the following browsers:
@@ -1543,12 +1902,16 @@ declare namespace AgoraRTC {
          * The callback of this method:
          *
          * - null: The method succeeds.
-         * - err: The method fails.
+         * - err: The method fails. Possible errors:
+         *
+         *   - "BROWSER_NOT_SUPPORT": Does not support the current browser.
+         *   - "LOAD_AUDIO_FAILED": Fails to load the online audio file.
+         *   - "CREATE_BUFFERSOURCE_FAILED": Fails to create buffer for audio mixing.
          *
          * **Note:**
          * The callbacks of the other audio mixing methods are the same as this one, using the Node.js callback pattern.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * stream.startAudioMixing({
@@ -1613,6 +1976,7 @@ declare namespace AgoraRTC {
         /**
          * Stops Audio Mixing
          *
+         * When the audio mixing file playback is stopped, the SDK triggers the `Stream.on("audioMixingFinished")` callback on the local client.
          */
         stopAudioMixing(callback?: (err: string | null) => void): void;
         /**
@@ -1623,6 +1987,7 @@ declare namespace AgoraRTC {
         /**
          * Resumes Audio Mixing
          *
+         * When the audio mixing file playback resumes, the SDK triggers the `Stream.on("audioMixingPlayed")` callback on the local client.
          */
         resumeAudioMixing(callback?: (err: string | null) => void): void;
         /**
@@ -1939,6 +2304,72 @@ declare namespace AgoraRTC {
             callback?: (err: string | null) => void
         ): void;
         /**
+         * Enables/Disables image enhancement and sets the options.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * This method supports the following browsers:
+         *   * Safari 12 or later
+         *   * Chrome 65 or later
+         *   * Firefox 70.0.1 or later
+         *
+         * **Note:**
+         *
+         * - This function does not support mobile devices.
+         * - If the dual-stream mode is enabled ({@link enableDualStream}), the image enhancement options apply only to the high-video stream.
+         * - To remove a video track ({@link removeTrack}) after enabling image enhancement, call this method to disable image enhancement first.
+         *
+         * @param enabled Sets whether to enable image enhancement:
+         *
+         * - `true`: Enables image enhancement.
+         * - `false`: (Default) Disables image enhancement.
+         * @param options The image enhancement options.
+         *
+         * @example **Sample code**
+         *
+         * ``` javascript
+         * stream.setBeautyEffectOptions(true, {
+         *     lighteningContrastLevel: 1,
+         *     lighteningLevel: 0.7,
+         *     smoothnessLevel: 0.5,
+         *     rednessLevel: 0.1
+         * });
+         *
+         * ```
+         */
+        setBeautyEffectOptions(
+            enabled: boolean,
+            options: {
+                /**
+                 * The contrast level, used with the `lighteningLevel` parameter.
+                 *
+                 * - 0: Low contrast level.
+                 * - 1: (Default) The original contrast level.
+                 * - 2: High contrast level.
+                 */
+                lighteningContrastLevel?: number,
+                /**
+                 * The brightness level.
+                 *
+                 * The value ranges from 0.0 (original) to 1.0. The default value is 0.7.
+                 */
+                lighteningLevel?: number,
+                /**
+                 * The sharpness level.
+                 *
+                 * The value ranges from 0.0 (original) to 1.0. The default value is 0.5. This parameter is usually used to remove blemishes.
+                 */
+                smoothnessLevel?: number,
+                /**
+                 * The redness level.
+                 *
+                 * The value ranges from 0.0 (original) to 1.0. The default value is 0.1. This parameter adjusts the red saturation level.
+                 */
+                rednessLevel?: number
+            },
+        ): void;
+        /**
          * Retrieves the Stream ID
          *
          * This method retrieves the stream ID.
@@ -1960,7 +2391,7 @@ declare namespace AgoraRTC {
          * - If it is a subscribing stream, then the stats is {@link RemoteStreamStats}.
          *
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * localStream.getStats((stats) => {
@@ -2004,8 +2435,39 @@ declare namespace AgoraRTC {
      */
     interface Client {
         /**
+         * Occurs when the first remote audio frame is decoded.
+         *
+         * The SDK triggers this callback when the local client successfully subscribes to a remote stream and decodes the first audio frame.
+         *
+         * **Note:** This callback supports only the Google Chrome browser.
+         * @example **Sample code**
+         * ``` javascript
+         * client.on('first-audio-frame-decode', function (evt) {
+         *   console.log('first-audio-frame-decode');
+         *   console.log(evt.stream);
+         * })
+         *
+         * ```
+         */
+        on(event: "first-audio-frame-decode", callback: (evt: any) => void): void;
+        /**
+         * Occurs when the first remote video frame is decoded.
+         *
+         * The SDK triggers this callback when the local client successfully subscribes to a remote stream and decodes the first video frame.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on('first-video-frame-decode', function (evt) {
+         *   console.log('first-video-frame-decode');
+         *   console.log(evt.stream);
+         * })
+         *
+         * ```
+         */
+        on(event: "first-video-frame-decode", callback: (evt: any) => void): void;
+        /**
          * Occurs when the local stream is published.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("stream-published", function(evt) {
          *     console.log("local stream published");
@@ -2017,7 +2479,11 @@ declare namespace AgoraRTC {
         on(event: "stream-published", callback: (evt: any) => void): void;
         /**
          * Occurs when the remote stream is added.
-         * @example **Sample Code**
+         *
+         * **Note:**
+         *
+         * When the local user joins the channel, if other users are already in the channel, the SDK also reports to the app on the existing remote streams.
+         * @example **Sample code**
          * ``` javascript
          * client.on("stream-added", function(evt) {
          *     var stream = evt.stream;
@@ -2032,7 +2498,7 @@ declare namespace AgoraRTC {
         on(event: "stream-added", callback: (evt: any) => void): void;
         /**
          * Occurs when the remote stream is removed; for example, a peer user calls {@link Client.unpublish}.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("stream-removed", function(evt) {
          *     var stream = evt.stream;
@@ -2045,7 +2511,7 @@ declare namespace AgoraRTC {
         on(event: "stream-removed", callback: (evt: any) => void): void;
         /**
          * Occurs when a user subscribes to a remote stream.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("stream-subscribed", function(evt) {
          *     var stream = evt.stream;
@@ -2058,21 +2524,66 @@ declare namespace AgoraRTC {
          */
         on(event: "stream-subscribed", callback: (evt: any) => void): void;
         /**
-         * Occurs when the peer user leaves the channel; for example, the peer user calls {@link Client.leave}.
-         * @example **Sample Code**
+         * Occurs when a remote user or host joins the channel.
+         *
+         * - Communication channel (rtc mode): This callback notifies the app that another user joins the channel.
+         *   If other users are already in the channel, the SDK also reports to the app on the existing users.
+         * - Live-broadcast channel (live mode): This callback notifies the app that the host joins the channel.
+         * If other hosts are already in the channel, the SDK also reports to the app on the existing hosts. Agora recommends limiting the number of hosts to 17.
+         *
+         * The SDK triggers this callback under one of the following circumstances:
+         * - A remote user/host joins the channel by calling the [[Client.join]] method.
+         * - A remote user switches the user role to the host by calling the [[Client.setClientRole]] method after joining the channel.
+         * - A remote user/host rejoins the channel after a network interruption.
+         * - The host injects an online media stream into the channel by calling the [[Client.addInjectStreamUrl]] method.
+         *
+         * @example **Sample code**
+         *
+         * ```javascript
+         * client.on('peer-online', function(evt) {
+         *   console.log('peer-online', evt.uid);
+         * });
+         * ```
+         *
+         */
+        on(event: "peer-online", callback: (evt:
+            /** @param uid ID of the user or host who joins the channel.  */
+            { uid: string }) => void): void;
+        /**
+         * Occurs when a remote user becomes offline.
+         *
+         * The SDK triggers this callback in the following situations:
+         * - A remote user calls {@link Client.leave} and leaves the channel.
+         * - A remote user drops offline. When no data packet of the user or host is received for 20 seconds, the SDK assumes that the user drops offline.
+         * A poor network connection may lead to false detections, so we recommend using the signaling system for reliable offline detection.
+         * - A remote user switches the client role from host to audience.
+         *
+         * **Note:**
+         * In live-broadcast channels, the SDK triggers this callback only when a host goes offline.
+         *
+         * @example **Sample code**
          * ``` javascript
          * client.on("peer-leave", function(evt) {
          *     var uid = evt.uid;
-         *     console.log("remote user left ", uid);
+         *     var reason = evt.reason;
+         *     console.log("remote user left ", uid, "reason: ", reason);
          *     //……
          * });
          *
          * ```
          */
-        on(event: "peer-leave", callback: (evt: any) => void): void;
+        on(event: "peer-leave", callback: (evt:
+            /**
+             * @param uid ID of the remote user.
+             * @param reason Reason why the user goes offline.
+             * - "Quit": The user calls {@link Client.leave} and leaves the channel.
+             * - "ServerTimeOut": The user drops offline.
+             * - "BecomeAudience": The client role switches from `"host"` to `"audience"`.
+             */
+            { uid: string, reason: string }) => void): void;
         /**
          * Occurs when the peer user mutes the audio.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("mute-audio", function(evt) {
          *   var uid = evt.uid;
@@ -2085,7 +2596,7 @@ declare namespace AgoraRTC {
         on(event: "mute-audio", callback: (evt: any) => void): void;
         /**
          * Occurs when the peer user unmutes the audio.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("unmute-audio", function (evt) {
          *   var uid = evt.uid;
@@ -2097,7 +2608,7 @@ declare namespace AgoraRTC {
         on(event: "unmute-audio", callback: (evt: any) => void): void;
         /**
          * Occurs when the peer user turns off the video.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("mute-video", function (evt) {
          *   var uid = evt.uid;
@@ -2110,7 +2621,7 @@ declare namespace AgoraRTC {
         on(event: "mute-video", callback: (evt: any) => void): void;
         /**
          * Occurs when the peer user turns on the video.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("unmute-video", function (evt) {
          *   var uid = evt.uid;
@@ -2121,8 +2632,30 @@ declare namespace AgoraRTC {
          */
         on(event: "unmute-video", callback: (evt: any) => void): void;
         /**
-         * This callback notifies the peer user that they are banned from the channel. Only the banned users receive this callback.
-         * @example **Sample Code**
+         * Occurs when encryption or decryption fails during publishing or subscribing to a stream.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * The failure is usually due to a wrong encryption password ({@link setEncryptionSecret}) or an incorrect encryption mode ({@link setEncryptionMode}).
+         *
+         * @example **Sample code**
+         * ```javascript
+         * client.on("crypt-error", function (evt) {
+         *   console.log(evt.cryptType + "error!");
+         * });
+         * ```
+         */
+        on(event: "crypt-error", callback: (evt: any) => void): void;
+        /**
+         * This callback notifies the peer user that he/she is banned from the channel. Only the banned users receive this callback.
+         *
+         * Possible reasons include:
+         * - K_CHANNEL_PERMISSION_INVALID: The user has no permission.
+         * - K_UID_BANNED: The UID is banned.
+         * - K_IP_BANNED: The IP is banned.
+         * - K_CHANNEL_BANNED The channel is banned.
+         * @example **Sample code**
          * ``` javascript
          * client.on("client-banned", function (evt) {
          *    var uid = evt.uid;
@@ -2136,7 +2669,7 @@ declare namespace AgoraRTC {
         on(event: "client-banned", callback: (evt: any) => void): void;
         /**
          * This callback notifies the application who is the active speaker in the channel.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("active-speaker", function(evt) {
          *      var uid = evt.uid;
@@ -2153,11 +2686,11 @@ declare namespace AgoraRTC {
          * If enabled, it reports the volumes every two seconds regardless of whether there are users speaking.
          *
          * The volume is an integer ranging from 0 to 100. Usually a user with volume above five will be counted as a speaking user.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("volume-indicator", function(evt){
          *     evt.attr.forEach(function(volume, index){
-         *     console.log(`#{index} UID ${volume.uid} Level ${volume.level}`);
+         *     console.log(`${index} UID ${volume.uid} Level ${volume.level}`);
          *   });
          * });
          * ```
@@ -2177,6 +2710,12 @@ declare namespace AgoraRTC {
         on(event: "liveStreamingStopped", callback: (evt: any) => void): void;
         /**
          * Occurs when the live transcoding setting is updated.
+         *
+         * The SDK triggers this callback when the live transcoding setting is updated by calling the {@link setLiveTranscoding} method.
+         *
+         * **Note:**
+         *
+         * The first call of the {@link setLiveTranscoding} method does not trigger this callback.
          */
         on(event: "liveTranscodingUpdated", callback: (evt: any) => void): void;
         /**
@@ -2187,7 +2726,7 @@ declare namespace AgoraRTC {
          * Occurs when the Token expires in 30 seconds.
          *
          * You should request a new Token from your server and call {@link Client.renewToken}.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("onTokenPrivilegeWillExpire", function(){
          *   //After requesting a new token
@@ -2201,7 +2740,7 @@ declare namespace AgoraRTC {
          * Occurs when the Token expires.
          *
          * You should request a new Token from your server and call {@link Client.renewToken}.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("onTokenPrivilegeDidExpire", function(){
          *   //After requesting a new token
@@ -2213,20 +2752,22 @@ declare namespace AgoraRTC {
         on(event: "onTokenPrivilegeDidExpire", callback: (evt: any) => void): void;
         /**
          * Occurs when an error message is reported and requires error handling.
-         * @example **Sample Code**
+         *
+         * Possible errors:
+         * - When `reason` is `"SOCKET_DISCONNECTED"`, the SDK disconnects from the Agora server due to network conditions and will automatically try reconnecting.
+         * - If this callback reports other reasons, it means that the error occurs during the reconnecting phase.
+         * @example **Sample code**
          * ``` javascript
          * client.on("error", function(err) {
          *     console.log("Got error msg:", err.reason);
          *   });
          *
          * ```
-         *
-         * For details, see [Error Codes and Warning Codes](../../../the_error_web).
          */
-        on(event: "error", callback: (evt: any) => void): void;
+        on(event: "error", callback: (evt: { type: "error", reason: any }) => void): void;
         /**
          * Occurs when the network type changes.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("network-type-changed", function(evt) {
          *     console.log("Network Type Changed to", evt.networkType);
@@ -2242,7 +2783,7 @@ declare namespace AgoraRTC {
         on(event: "network-type-changed", callback: (evt: any) => void): void;
         /**
          * Occurs when an audio input device is added or removed.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("recording-device-changed", function(evt) {
          *     console.log("Recording Device Changed", evt.state, evt.device);
@@ -2254,7 +2795,7 @@ declare namespace AgoraRTC {
         on(event: "recording-device-changed", callback: (evt: any) => void): void;
         /**
          * Occurs when an audio output device is added or removed.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("playout-device-changed", function(evt) {
          *     console.log("Playout Device Changed", evt.state, evt.device);
@@ -2269,7 +2810,7 @@ declare namespace AgoraRTC {
         on(event: "playout-device-changed", callback: (evt: any) => void): void;
         /**
          * Occurs when a camera is added or removed.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("camera-changed", function(evt) {
          *     console.log("Camera Changed", evt.state, evt.device);
@@ -2288,7 +2829,7 @@ declare namespace AgoraRTC {
          *
          * - 0: High-bitrate, high-resolution video stream.
          * - 1: Low-bitrate, low-resolution video stream.
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.on("stream-type-changed", function(evt) {
@@ -2313,7 +2854,7 @@ declare namespace AgoraRTC {
          * If the connection is lost because, for example, the network is down or switched, the SDK triggers this callback and notifies the app that the state changes from `CONNECTED` to `CONNECTING`.
          * - `DISCONNECTING`: The SDK is disconnecting from Agora's edge server. The SDK enters this state when calling [[Client.leave]].
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.on("connection-state-change", function(evt) {
@@ -2330,7 +2871,7 @@ declare namespace AgoraRTC {
         /**
          * Occurs when the SDK starts republishing or re-subscribing to a stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.on("stream-reconnect-start", function(evt) {
@@ -2345,7 +2886,7 @@ declare namespace AgoraRTC {
         /**
          * Occurs when the SDK finishes republishing or re-subscribing to a stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.on('stream-reconnect-end', function(evt) {
@@ -2371,7 +2912,7 @@ declare namespace AgoraRTC {
         /**
          * Occurs when the user role switches in a live broadcast. For example, from a host to an audience or vice versa.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ```javascript
          * client.on('client-role-changed', function(evt) {
@@ -2383,26 +2924,6 @@ declare namespace AgoraRTC {
                                                         /** @param role Role that the user switches to. */
                                                         { role: string }) => void): void;
         /**
-         * Occurs when a remote user or host joins the channel.
-         *
-         * - Communication channel (rtc mode): This callback notifies the app that another user joins the channel.
-         *   If other users are already in the channel, the SDK also reports to the app on the existing users.
-         * - Live-broadcast channel (live mode): This callback notifies the app that the host joins the channel.
-         * If other hosts are already in the channel, the SDK also reports to the app on the existing hosts. Agora recommends limiting the number of hosts to 17.
-         *
-         * @example **Sample Code**
-         *
-         * ```javascript
-         * client.on('peer-online', function(evt) {
-         *   console.log('peer-online', evt.uid);
-         * });
-         * ```
-         *
-         */
-        on(event: "peer-online", callback: (evt:
-                                                /** @param uid ID of the user or host who joins the channel.  */
-                                                { uid: string }) => void): void;
-        /**
          * Reports the network quality of the local user once every two seconds.
          *
          * This callback reports on the uplink and downlink network conditions of the local user.
@@ -2411,7 +2932,7 @@ declare namespace AgoraRTC {
          *
          * This is an experimental feature and the network quality rating is for reference only.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.on('network-quality', function(stats) {
@@ -2473,7 +2994,7 @@ declare namespace AgoraRTC {
          * **Note:**
          *
          * This callback supports only the Chrome browser.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.on("exception", function(evt) {
          *   console.log(evt.code, evt.msg, evt.uid);
@@ -2489,10 +3010,107 @@ declare namespace AgoraRTC {
             uid: string
         }) => void): void;
         /**
+         * Occurs when a remote user of the Native SDK calls `enableLocalVideo(true)` to enable video capture.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         */
+        on(event: "enable-local-video", callback: (evt: {
+            /** The ID of the remote user. */
+            uid: string
+        }) => void): void;
+        /**
+         * Occurs when a remote user of the Native SDK calls `enableLocalVideo(false)` to disable video capture.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         */
+        on(event: "disable-local-video", callback: (evt: {
+            /** The ID of the remote user. */
+            uid: string
+        }) => void): void;
+        /**
+         * Reports events during the media stream relay.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         */
+        on(event: "channel-media-relay-event", callback: (evt: {
+            /**
+             * The event code for media stream relay.
+             *
+             * - 0: The user disconnects from the server due to a poor network connection.
+             * - 1: The user is connected to the server.
+             * - 2: The user joins the source channel.
+             * - 3: The user joins the destination channel.
+             * - 4: The SDK starts relaying the media stream to the destination channel.
+             * - 5: The server receives the video stream from the source channel.
+             * - 6: The server receives the audio stream from the source channel.
+             * - 7: The destination channel is updated.
+             */
+            code: number
+        }) => void): void;
+        /**
+         * Occurs when the state of the media stream relay changes.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * The SDK reports the state and error code of the current media relay in this callback.
+         */
+        on(event: "channel-media-relay-state", callback: (evt: {
+            /**
+             * The state code.
+             *
+             * - 0: The SDK is initializing.
+             * - 1: The SDK tries to relay the media stream to the destination channel.
+             * - 2: The SDK successfully relays the media stream to the destination channel.
+             * - 3: An error occurs. See `code` for the error code. In case of an error, the SDK resets the media stream relay state, and you need to call {@link startChannelMediaRelay} to restart the relay.
+             */
+            state: number,
+            /**
+             * The error code.
+             *
+             * - 0: No error.
+             * - 1: An error occurs in the server response.
+             * - 2: No server response.
+             * - 3: The SDK fails to access the service, probably due to limited resources of the server.
+             * - 4: Fails to send the relay request.
+             * - 5: Fails to accept the relay request.
+             * - 6: The server fails to receive the media stream.
+             * - 7: The server fails to send the media stream.
+             * - 8: The SDK disconnects from the server and fails to reconnect to the server due to a poor network connection. In this case, the SDK resets the relay state. You can try {@link startChannelMediaRelay} to restart the media stream relay.
+             * - 9: An internal error occurs in the server.
+             * - 10: The token of the source channel has expired.
+             * - 11: The token of the destination channel has expired.
+             * - 12: The relay has already started. Possibly caused by calling {@link startChannelMediaRelay} repeatedly, or calling {@link startChannelMediaRelay} before {@link stopChannelMediaRelay} succeeds.
+             * - 13: The relay has not started. Possibly caused by calling {@link updateChannelMediaRelay} before {@link startChannelMediaRelay} succeeds.
+             */
+            code: number
+        }) => void): void;
+        /**
+         * Unbinds Events
+         *
+         * This method removes the events attached by the `Client.on()` method.
+         *
+         * @param eventType The event to be removed.
+         * @param callback The function to be removed.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * client.on("stream-published", function processStreamPublished(evt) {
+         *   console.log("Stream Published");
+         *   evt.stream.play("divId");
+         *   client.off("stream-published", processStreamPublished);
+         * })
+         * ```
+         */
+        off(eventType: string, callback: any): void;
+        /**
          * Initializes a Client Object
          *
          * This method initializes the client object.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.init(appId, function() {
          *     console.log("client initialized");
@@ -2503,11 +3121,10 @@ declare namespace AgoraRTC {
          *     // Error handling
          * });
          * ```
-         * @param appId Pass in the App ID for your project. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
-         *
-         * To get your App ID, see [Get an App ID](../../../web_prepare?platform=Web#create-an-agora-account-and-get-an-app-id).
+         * @param appId Pass in the [App ID](https://docs.agora.io/en/Agora%20Platform/terms?platform=All%20Platforms#a-name-appid-a-app-id) for your project. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are the common errors:
+         * - `"BAD_ENVIRONMENT"`: Unsupported web browser.
          */
         init(
             appId: string,
@@ -2518,7 +3135,12 @@ declare namespace AgoraRTC {
          * Joins an AgoraRTC Channel
          *
          * This method joins an AgoraRTC channel.
-         * @example **Sample Code**
+         *
+         * When joining the channel, the `Client.on("connected")` and `Client.on("connection-state-change")` callbacks are triggered on the local client.
+         *
+         * After joining the channel, if the user joining the channel is in the Communication profile, or is a host in the Live Broadcast profile, the `Client.on("peer-online")` callback is triggered on the remote client.
+         *
+         * @example **Sample code**
          * ``` javascript
          * client.join(<token>, "1024", null, function(uid) {
          *     console.log("client" + uid + "joined channel");
@@ -2534,11 +3156,11 @@ declare namespace AgoraRTC {
          * - High security requirements: Pass the string of the Token or Channel Key as the parameter value. See [Use Security Keys](../../../token) for details.
          * @param channel A string that provides a unique channel name for the Agora session. The length must be within 64 bytes. Supported character scopes:
          *
-         *  - 26 lowercase English letters a-z
-         *  - 26 uppercase English letters A-Z
-         *  - 10 numbers 0-9
-         *  - Space
-         *  - "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", "{", "}", "|", "~", ","
+         * - All lowercase English letters: a to z.
+         * - All uppercase English letters: A to Z.
+         * - All numeric characters: 0 to 9.
+         * - The space character.
+         * - Punctuation characters and other symbols, including: "!", "#", "$", "%", "&", "(", ")", "+", "-", ":", ";", "<", "=", ".", ">", "?", "@", "[", "]", "^", "_", " {", "}", "|", "~", ",".
          * @param uid The user ID, an integer or a string, ASCII characters only. Ensure this ID is unique.
          *            If you set the uid to `null`, the server assigns one and returns it in the `onSuccess` callback.
          *
@@ -2547,21 +3169,30 @@ declare namespace AgoraRTC {
          * - All users in the same channel should have the same type (number or string) of `uid`.
          * - If you use a number as the user ID, it should be a 32-bit unsigned integer with a value ranging from 0 to (2<sup>32</sup>-1).
          * - If you use a string as the user ID, the maximum length is 255 characters.
+         * - You can use string UIDs to interoperate with the Native SDK 2.8 or later. Ensure that the Native SDK uses the User Account to join the channel. See [Use String User Accounts](https://docs.agora.io/en/Interactive%20Broadcast/string_web?platform=Web).
          * @param onSuccess The callback when the method succeeds. The server returns the uid which represents the identity of the user.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "INVALID_OPERATION": Unable to join the channel. Usually due to calling `Client.join` repeatedly.
+         * - "UID_CONFLICT": The `uid` of the local client conflicts with other users in the channel.
+         * - "SOCKET_ERROR": The SDK disconnects with the Agora server when joining the channel.
          */
         join(
             tokenOrKey: string | null,
             channel: string,
             uid: number | string | null,
             onSuccess?: (uid: number | string) => void,
-            onFailure?: (err: any) => void
+            onFailure?: (err: string) => void
         ): void;
         /**
          * Leaves an AgoraRTC Channel
          *
          * This method enables a user to leave a channel.
-         * @example **Sample Code**
+         *
+         * When leaving the channel, the `Client.on("connection-state-change")` callback is triggered on the local client.
+         *
+         * After leaving the channel, if the user joining the channel is in the Communication profile, or is a host in the Live Broadcast profile, the `Client.on("peer-leave") callback` is triggered on the remote client.
+         *
+         * @example **Sample code**
          * ``` javascript
          * client.leave(function() {
          *     console.log("client leaves channel");
@@ -2572,18 +3203,25 @@ declare namespace AgoraRTC {
          * });
          * ```
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "INVALID_OPERATION": Invalid operation. Possible reasons are that this method is already called or the user is not in the channel.
+         * - "SOCKET_ERROR": The SDK disconnects with the Agora server when leaving the channel.
+         * - "LEAVE_MSG_TIMEOUT": The request to leave the channel times out. In this case, the SDK automatically disconnects and leaves the channel.
          */
-        leave(onSuccess?: () => void, onFailure?: (err: any) => void): void;
+        leave(onSuccess?: () => void, onFailure?: (err: string) => void): void;
         /**
          * Publishes a Local Stream
          *
          * This method publishes a local stream to the SD-RTN.
          *
+         * When the stream is published, the following callbacks are triggered:
+         * - On the local client: `Client.on("stream-published")`
+         * - On the remote client: `Client.on("stream-added")`
+         *
          * **Note:**
          *
          * In a live broadcast, whoever calls this API is the host.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.publish(stream, function(err) {
          *     console.log(err);
@@ -2591,15 +3229,22 @@ declare namespace AgoraRTC {
          * })
          * ```
          * @param stream Stream object, which represents the local stream.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "STREAM_ALREADY_PUBLISHED": This stream object is already published.
+         * - "INVALID_LOCAL_STREAM": The stream object is invalid.
+         * - "INVALID_OPERATION": The user is not in the channel, possibly because the user has not joined the channel or the connection is interrupted.
+         * - "PUBLISH_STREAM_FAILED": Fails to publish the stream, usually because the connection is lost during publishing.
+         * - "PEERCONNECTION_FAILED": Fails to establish the media transport channel.
          */
-        publish(stream: Stream, onFailure?: (err: any) => void): void;
+        publish(stream: Stream, onFailure?: (err: string) => void): void;
         /**
          * Unpublishes the Local Stream
          *
          * This method unpublishes the local stream.
+         *
+         * When the stream is unpublished, the `Client.on("stream-removed")` callback is triggered on the remote client.
          * @example
-         * **Sample Code**
+         * **Sample code**
          * ``` javascript
          * client.unpublish(stream, function(err) {
          *     console.log(err);
@@ -2608,13 +3253,20 @@ declare namespace AgoraRTC {
          *
          * ```
          * @param stream Stream object, which represents the local stream.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "STREAM_NOT_YET_PUBLISHED": The specified stream object is not published.
+         * - "INVALID_LOCAL_STREAM": The specified stream object is invalid.
+         * - "INVALID_OPERATION": The user is not in the channel, possibly because the user has not joined the channel or the connection is interrupted.
          */
-        unpublish(stream: Stream, onFailure?: (err: any) => void): void;
+        unpublish(stream: Stream, onFailure?: (err: string) => void): void;
         /**
          * Subscribes to a Remote Stream
          *
          * This method enables a user to subscribe to a remote stream.
+         *
+         * After the user subscribes to a remote stream, the SDK triggers the `Client.on("stream-subscribed")` callback.
+         * If the remote stream contains an audio track, the SDK also triggers the `Client.on("first-audio-frame-decode")` callback;
+         * if the remote stream contains a video track, the SDK also triggers the `Client.on("first-video-frame-decode")` callback.
          *
          * @param stream Stream object, which represents the remote stream.
          * @param options Sets whether to receive the video or audio data independently by the `video` and `audio` parameters.
@@ -2623,10 +3275,13 @@ declare namespace AgoraRTC {
          *
          * - `video` and `audio` cannot be set as `false` at the same time. If you need to stop subscribing to the stream, call [[Client.unsubscribe]] instead.
          * - Safari does not support independent subscription. Set `options` as `null` for Safari, otherwise the`SAFARI_NOT_SUPPORTED_FOR_TRACK_SUBSCRIPTION` error occurs.
-         * @param onFailure The callback when the method fails.
-         *
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "SAFARI_NOT_SUPPORTED_FOR_TRACK_SUBSCRIPTION": Safari does not support independent subscription.
+         * - "INVALID_OPERATION": The user is not in the channel, possibly because the user has not joined the channel or the connection is interrupted.
+         * - "SUBSCRIBE_STREAM_FAILED": The subscription fails, usually because the SDK has disconnected from the Agora server when subscribing to the stream.
+         * - "PEERCONNECTION_FAILED": Fails to establish the media transport channel.
          * @example
-         * **Sample Code**
+         * **Sample code**
          * ```javascript
          * client.subscribe(stream, function(err) {
          *     console.error("stream subscribe failed", err);
@@ -2638,7 +3293,7 @@ declare namespace AgoraRTC {
          * This method can be called multiple times for a single remote stream, and enables you to switch between receiving/not receiving the video or audio data flexibly.
          *
          * @example
-         * **Sample Code**
+         * **Sample code**
          * ```javascript
          * // Initially, subscribe to the stream and receive only the video data
          * client.subscribe(stream, {video: true, audio: false});
@@ -2663,13 +3318,13 @@ declare namespace AgoraRTC {
                  */
                 audio?: boolean
             },
-            onFailure?: (err: any) => void): void;
+            onFailure?: (err: string) => void): void;
         /**
          * Unsubscribes from the Remote Stream
          *
          * This method enables the user to unsubscribe from the remote stream.
          * @example
-         * **Sample Code**
+         * **Sample code**
          * ``` javascript
          * client.unsubscribe(stream, function(err) {
          *     console.log(err);
@@ -2678,9 +3333,13 @@ declare namespace AgoraRTC {
          *
          * ```
          * @param stream Stream object, which represents the remote stream.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "INVALID_REMOTE_STREAM": The specified stream object is invalid.
+         * - "INVALID_OPERATION": The user is not in the channel, possibly because the user has not joined the channel or the connection is interrupted.
+         * - "NO_SUCH_REMOTE_STREAM": The specified stream object is not found.
+         * - "UNSUBSCRIBE_STREAM_FAILED": Fails to unsubscribe from the stream, usually because the SDK has disconnected from the Agora server when unsubscribing from the stream.
          */
-        unsubscribe(stream: Stream, onFailure?: (err: any) => void): void;
+        unsubscribe(stream: Stream, onFailure?: (err: string) => void): void;
         /**
          * Sets the role of the user.
          *
@@ -2688,14 +3347,14 @@ declare namespace AgoraRTC {
          *
          * Sets the role of the user such as a host or an audience (default), before joining a channel.
          *
-         * This method can be used to switch the user role after the user joins a channel.
+         * This method can be used to switch the user role after the user joins a channel. When a user switches the user role after joining a channel, the following callbacks are triggered:
+         * - On the local client: `Client.on("client-role-changed")`.
+         * - On the remote client: `Client.on("peer-online")` or `Client.on("peer-leave")`.
          *
          * In live mode ([[mode]] is set as `live`):
          *
          * - Before joining the channel, you can call this method to set the role.
-         *
          * - After joining the channel, you can call this method to switch the role:
-         *
          *  - When you call [[publish]], the user role switches to `host`; when you call [[unpublish]], the user role switches to `audience`.
          *  - After calling [[publish]], if you call this method and set the user role as `audience`, [[unpublish]] is called automatically.
          *
@@ -2708,35 +3367,38 @@ declare namespace AgoraRTC {
          * - `"audience"`: Audience, the default role. An audience can only receive streams.
          * - `"host"`: Host. A host can both send and receive streams.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
-         * client.setClientRole('host', function() {
-         *   console.log("setHost success");
-         * }, function(e) {
-         *   console.log("setHost failed", e);
-         * })
+         * client.setClientRole("host", function(e) {
+         *   if (!e) {
+         *     console.log("setHost success");
+         *   } else {
+         *     console.log("setHost error", e);
+         *   }
+         * });
          * ```
          *
-         *
          */
-        setClientRole(role: "audience" | "host", callback?: (err: any) => void): void;
+        setClientRole(role: "audience" | "host", callback?: (err?: string | null) => void): void;
         /**
          * Enables Dual Stream
          *
-         * This method enables the dual-stream mode on the publisher side.
+         * This method enables the dual-stream mode on the publisher side. We recommend calling this method after joining a channel({@link Client.join}).
          *
          * Dual streams are a hybrid of a high-video stream and a low-video stream:
          *
          * - High-video stream: high bitrate, high resolution
          * - Low-video stream: low bitrate, low resolution
          *
-         * @example **Sample Code**
+         * We do not recommend using the track methods ([[addTrack]]/[[removeTrack]]/[[replaceTrack]]) on dual streams, which might cause different performance in the high-video and low-video streams.
+         *
+         * @example **Sample code**
          * ``` javascript
          * client.enableDualStream(function() {
          *   console.log("Enable dual stream success!")
          * }, function(err) {
-         *   console,log(err)
+         *   console.log(err)
          * })
          * ```
          *
@@ -2749,11 +3411,15 @@ declare namespace AgoraRTC {
          * -   Safari browser on iOS
          * -   Screen-sharing scenario
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "IOS_NOT_SUPPORT": Does not support iOS.
+         * - "WECHAT_NOT_SUPPORT": Does not support WeChat.
+         * - "STILL_ON_PUBLISHING": Still publishing the stream. Enable dual streams later.
+         * - "ENABLE_DUALSTREAM_FAILED": Fails to enable dual streams.
          */
         enableDualStream(
             onSuccess?: () => void,
-            onFailure?: (err: any) => void
+            onFailure?: (err: string) => void
         ): void;
         /**
          * Sets the Low-video Stream Parameter
@@ -2794,7 +3460,7 @@ declare namespace AgoraRTC {
          *
          * When a remote user sends dual streams, this method decides on which stream to receive on the subscriber side. If this method is not used, the subscriber receives the high-video stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * switchStream = function (){
          *   if (highOrLow === 0) {
@@ -2824,6 +3490,8 @@ declare namespace AgoraRTC {
          *
          * Under poor network conditions, the SDK can choose to subscribe to the low-video stream or only the audio stream.
          *
+         * If the auto-fallback option is enabled, the SDK triggers the `Client.on("stream-type-changed")` callback when the remote stream changes from a high-video stream to a low-video stream or vice versa, and triggers the `Client.on("stream-fallback")` callback when the remote stream changes from a video stream to an audio-only stream or vice versa.
+         *
          * **Note:**
          *
          * This method can only be used when the publisher has enabled the dual-stream mode by {@link enableDualStream}.
@@ -2833,7 +3501,7 @@ declare namespace AgoraRTC {
          * - 1: (Default) Automatically subscribe to the low-video stream under poor network.
          * - 2: Under poor network, the SDK may subscribe to the low-video stream (of lower resolution and lower bitrate) first,
          *      but if the network still does not allow displaying the video, the SDK will receive audio only.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ```javascript
          * // The sender side, after publishing the high stream
          * client.enableDualStream();
@@ -2847,7 +3515,7 @@ declare namespace AgoraRTC {
          * Disables Dual Streams
          *
          * This method disables dual streams.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.disableDualStream(function() {
          *   console.log("Disable dual stream success!")
@@ -2856,28 +3524,30 @@ declare namespace AgoraRTC {
          * })
          * ```
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "STILL_ON_PUBLISHING": Still publishing the stream. Disable dual streams later.
+         * - "DISABLE_DUALSTREAM_FAILED": Fails to disable dual streams.
          */
         disableDualStream(
             onSuccess?: () => void,
-            onFailure?: (err: any) => void
+            onFailure?: (err: string) => void
         ): void;
         /**
          * Enables Volume Indicator
          *
          * This method enables the SDK to report the active remote users who are speaking and their volume regularly.
          *
-         * If this method is enabled, the SDK will return the volumes every two seconds, regardless of whether there are active speakers.
+         * If this method is enabled, the SDK triggers the `"volume-indicator"` callback to report the volumes every two seconds, regardless of whether there are active speakers.
          *
          * **Note:**
          *
          * - If you have multiple web pages running the Web SDK, this function might not work.
-         * @example **Sample Code**
+         * @example **Sample code**
          * ``` javascript
          * client.enableAudioVolumeIndicator(); // Triggers the "volume-indicator" callback event every two seconds.
          * client.on("volume-indicator", function(evt){
          *     evt.attr.forEach(function(volume, index){
-         *             console.log(#{index} UID ${volume.uid} Level ${volume.level});
+         *             console.log(`${index} UID ${volume.uid} Level ${volume.level}`);
          *     });
          * });
          * ```
@@ -2899,7 +3569,7 @@ declare namespace AgoraRTC {
          *
          * Call {@link configPublisher} before {@link Client.join}.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.configPublisher({
@@ -2921,16 +3591,21 @@ declare namespace AgoraRTC {
         /**
          * Starts a Live Stream
          *
-         * This method starts a live stream.
-         * @example **Sample Code**
+         * This method starts a live stream. For details, see [Push Streams to the CDN](../../../cdn_streaming_web).
+         *
+         * When the live stream starts, the SDK triggers the `Client.on("liveStreamingStarted")` callback.
+         * If this method call fails, the SDK triggers the `Client.on("liveStreamingFailed")` callback.
+         *
+         * **Note:**
+         *
+         * - Only hosts in live-broadcast channels can call this method. Ensure that you set the user role as `"host"` in {@link setClientRole}.
+         * - Call this method after {@link Stream.init}.
+         * - Push one live stream at a time. If you need to push several streams, ensure that the current stream starts successfully before pushing the next one.
+         * @example **Sample code**
          * ``` javascript
          * client.setLiveTranscoding(<coding>);
          * client.startLiveStreaming(<url>, true)
          * ```
-         *
-         * **Note:**
-         *
-         * Call {@link startLiveStreaming} after {@link createStream}. For details, see [Push Streams to the CDN](../../../push_stream_web).
          * @param url URL address for the live stream. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          * @param enableTranscoding Marks whether to enable live transcoding. If set as `true`, {@link setLiveTranscoding} must be called before this method.
          */
@@ -2939,10 +3614,13 @@ declare namespace AgoraRTC {
          * Sets Live Transcoding
          *
          * This method sets the video layout and audio for CDN live.
+         * A successful call of this method to update the transcoding settings triggers the `Client.on("liveTranscodingUpdated")` callback.
          *
          * **Note:**
          *
-         * Call {@link setLiveTranscoding} after {@link createStream}. For details, see [Push Streams to the CDN](../../../push_stream_web).
+         * - Ensure that you [enable the RTMP Converter service](../../../cdn_streaming_web#prerequisites) before using this function.
+         * - The first call of this method does not trigger the `Client.on("liveTranscodingUpdated")` callback.
+         * - Call {@link setLiveTranscoding} after {@link createStream}. For details, see [Push Streams to CDN](../../../cdn_streaming_web).
          * @param coding Transcoding settings, see {@link LiveTranscoding} for details.
          */
         setLiveTranscoding(coding: LiveTranscoding): void;
@@ -2950,14 +3628,26 @@ declare namespace AgoraRTC {
          * Stops Live Streaming
          *
          * This method stops and deletes the live streaming.
+         * When the live stream stops, the SDK triggers the `Client.on("liveStreamingStopped")` callback.
          * @param url URL address of the live streaming. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          */
         stopLiveStreaming(url: string): void;
         /**
          * Injects an Online Media Stream to a Live Broadcast
          *
-         * The `streamInjectedStatus` callback returns the inject status.If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel.
+         * This method call triggers the following callbacks:
+         * - On the local client:
+         *   - `Client.on("streamInjectedStatus")`, with the state of injecting the online stream.
+         *   - `Client.on("stream-added")` and `Client.on("peer-online")`(uid: 666), if the online media stream is injected into the channel.
+         * - On the remote client:
+         *   - `Client.on("stream-added")` and `Client.on("peer-online")`(uid: 666), if the online media stream is injected into the channel.
+         *
+         * If this method is called successfully, the server pulls the voice or video stream and injects it into a live channel.
          * This is applicable to scenarios where all of the audience members in the channel can watch a live show and interact with each other.
+         *
+         * **Note:**
+         *
+         * Ensure that you [enable the RTMP Converter service](../../../cdn_streaming_web#prerequisites) before using this function.
          * @param url URL address of the live streaming. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          * Valid protocols are RTMP, HLS, and FLV.
          * - Supported FLV audio codec type: AAC.
@@ -2973,9 +3663,25 @@ declare namespace AgoraRTC {
          */
         removeInjectStreamUrl(url: string): void;
         /**
-         * Deploys the Nginx Server
+         * Enables Cloud Proxy
          *
-         * Use this method to deploy the Nginx server.
+         * This method must be called before joining the channel or after leaving the channel.
+         *
+         * To use the cloud proxy service, some extra settings are needed, see [Use Cloud Proxy](https://docs.agora.io/en/Interactive%20Broadcast/cloud_proxy_web?platform=Web) for details.
+         */
+        startProxyServer(): void;
+        /**
+         * Disables Cloud Proxy
+         *
+         * This method must be called before joining the channel or after leaving the channel.
+         *
+         * This method disables all proxy settings, including those set by [[setProxyServer]] and [[setTurnServer]].
+         */
+        stopProxyServer(): void;
+        /**
+         * Deploys a Proxy Server
+         *
+         * Use this method to deploy the Nginx server. See [Deploy the Enterprise Proxy](https://docs.agora.io/en/Interactive%20Broadcast/proxy_web?platform=Web) for details.
          *
          * **Note:**
          *
@@ -3001,11 +3707,15 @@ declare namespace AgoraRTC {
         /**
          * Enables Built-in Encryption
          *
-         * This method enables the built-in encryption.
+         * Use this method with [[setEncryptionMode]] method to enable the built-in encryption before joining a channel.
+         *
+         * All users in a channel must set the same encryption password.
          *
          * **Note:**
          *
-         * Ensure that you call this API before {@link Client.join}.
+         * - Ensure you call [[setEncryptionSecret]] and [[setEncryptionMode]] before joining the channel, otherwise the encryption is disabled.
+         * - Do not use this method for CDN live streaming.
+         * - If the encryption password is incorrect, the SDK triggers the `Client.on("crypt-error")` callback when publishing or subscribing to a stream.
          * @example `client.setEncryptionSecret(password)`
          * @param password The encryption password. ASCII characters only, and the string length must be greater than 0 and less than 256 bytes.
          */
@@ -3013,11 +3723,15 @@ declare namespace AgoraRTC {
         /**
          * Sets the Encryption Mode
          *
-         * This method sets the encryption mode.
+         * Use this method with [[setEncryptionSecret]] method to enable the built-in encryption before joining a channel.
+         *
+         * All users in a channel must set the same encryption mode.
          *
          * **Note:**
          *
-         * Ensure that you call this API before {@link Client.join}.
+         * - Ensure you call [[setEncryptionSecret]] and [[setEncryptionMode]] before joining the channel, otherwise the encryption is disabled.
+         * - Do not use this method for CDN live streaming.
+         * - If the encryption mode is incorrect, the SDK triggers the `Client.on("crypt-error")` callback when publishing or subscribing to a stream.
          * @example `client.setEncryptionMode(encryptionMode);`
          * @param encryptionMode The encryption mode:
          *
@@ -3051,12 +3765,13 @@ declare namespace AgoraRTC {
          * Not doing so will result in SDK disconnecting with the server.
          * @param key Specifies the renewed Channel Key.
          * @param onSuccess The callback when the method succeeds.
-         * @param onFailure The callback when the method fails.
+         * @param onFailure The callback when the method fails. The following are common errors:
+         * - "INVALID_OPERATION": The user is not in the channel. Call this method after the user joins a channel.
          */
         renewChannelKey(
             key: string,
             onSuccess?: () => void,
-            onFailure?: (err: any) => void
+            onFailure?: (err: string) => void
         ): void;
         /**
          * Gets the Statistics of the System Network
@@ -3074,7 +3789,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the system network.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getNetworkStats((stats) => {
@@ -3096,7 +3811,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the system.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getSystemStats((stats) => {
@@ -3112,15 +3827,19 @@ declare namespace AgoraRTC {
          *
          * If this method succeeds, the SDK returns a list of audio input devices in an array of [[MediaDeviceInfo]] objects.
          */
-        getRecordingDevices(callback: (devices: MediaDeviceInfo) => void): void;
+        getRecordingDevices(callback: (devices: MediaDeviceInfo[]) => void): void;
         /**
          * Enumerates Audio Output Devices
          *
          * This method enumerates the available audio output devices, such as speakers.
          *
          * If this method succeeds, the SDK returns a list of audio output devices in an array of [[MediaDeviceInfo]] objects.
+         *
+         * **Note:**
+         *
+         * Only Chrome 49 or later supports this function.
          */
-        getPlayoutDevices(callback: (devices: MediaDeviceInfo) => void): void;
+        getPlayoutDevices(callback: (devices: MediaDeviceInfo[]) => void): void;
         /**
          * Enumerates Video Input Devices
          *
@@ -3128,7 +3847,7 @@ declare namespace AgoraRTC {
          *
          * If this method succeeds, the SDK returns a list of video input devices in an array of [[MediaDeviceInfo]] objects.
          */
-        getCameras(callback: (devices: MediaDeviceInfo) => void): void;
+        getCameras(callback: (devices: MediaDeviceInfo[]) => void): void;
         /**
          * Retrieves the Audio Statistics of the Remote Stream
          *
@@ -3141,7 +3860,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the remote audio stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getRemoteAudioStats((remoteAudioStatsMap) => {
@@ -3172,7 +3891,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the local audio stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getLocalAudioStats((localAudioStats) => {
@@ -3200,7 +3919,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the remote video stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getRemoteVideoStats((remoteVideoStatsMap) => {
@@ -3235,7 +3954,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the local video stream.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getLocalVideoStats((localVideoStats) => {
@@ -3269,7 +3988,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the transmission quality.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getTransportStats((stats) => {
@@ -3292,7 +4011,7 @@ declare namespace AgoraRTC {
          *
          * @param callback The callback contains the statistics of the session connection.
          *
-         * @example **Sample Code**
+         * @example **Sample code**
          *
          * ``` javascript
          * client.getSessionStats((stats) => {
@@ -3323,6 +4042,217 @@ declare namespace AgoraRTC {
          * - `DISCONNECTING`: The SDK is disconnecting from Agora's edge server. The SDK enters this state when calling [[Client.leave]].
          */
         getConnectionState(): string;
+
+        /**
+         * Starts relaying media streams across channels.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * After this method call, the SDK triggers the following callbacks:
+         *
+         * - `Client.on("channel-media-relay-state")`, which reports the state and error code of the media stream relay.
+         *   - If the media stream relay starts successfully, this callback returns `state` 2 and `code` 0.
+         *   - If the media stream relay fails, this callback returns `state` 3. Refer to `code` for the error code and call this method again.
+         * - `Client.on("channel-media-relay-event")`, which reports the events of the media stream relay.
+         *   - If the media stream relay starts successfully, this callback returns `code` 4, reporting that the SDK starts relaying the media stream to the destination channel.
+         *
+         * **Note:**
+         *
+         * - We do not support string user IDs in this API.
+         * - Call this method only after joining a channel.
+         * - In a live-broadcast channel, only a host can call this method.
+         * - To call this method again after it succeeds, you must call {@link stopChannelMediaRelay} to quit the current relay.
+         * @param config Configurations of the media stream relay: {@link ChannelMediaRelayConfiguration}.
+         * @param callback The result of starting the media stream relay.
+         *
+         * - null: Success.
+         * - {@link ChannelMediaError}: Failure. This class provides the error details.
+         *
+         * @example **Sample code**
+         * ```javascript
+         * client.startChannelMediaRelay(channelMediaConfig, function(e) {
+         *   if(e) {
+         *     utils.notification(`startChannelMediaRelay failed: ${JSON.stringify(e)}`);
+         *   } else {
+         *     utils.notification(`startChannelMediaRelay success`);
+         *   }
+         * });
+         * ```
+         */
+        startChannelMediaRelay(config: ChannelMediaRelayConfiguration, callback: (err: null | ChannelMediaError) => void): void;
+        /**
+         * Updates the channels for media stream relay.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * After the channel media relay starts, if you want to relay the media stream to more channels, or leave the current relay channel, you can call this method.
+         *
+         * After this method call, the SDK triggers the `Client.on("channel-media-relay-event")` callback.
+         *
+         * - If the update succeeds, the callback returns `code` 7.
+         * - If the update fails, the callback returns `code` 8, and the SDK also triggers the `Client.on("channel-media-relay-state")` callback with `state` 3. In this case, the media relay state is reset, and you need to call {@link startChannelMediaRelay} again to restart the relay.
+         *
+         * **Note:**
+         *
+         * - Call this method after {@link startChannelMediaRelay}.
+         * - You can add a maximum of four destination channels to a relay.
+         *
+         * @param config Configurations of the media stream relay: {@link ChannelMediaRelayConfiguration}.
+         * @param callback The result of updating the destination channels.
+         *
+         * - `null`: Success.
+         * - {@link ChannelMediaError}: Failure. This class provides the error details.
+         *
+         * @example **Sample code**
+         * ```javascript
+         * client.updateChannelMediaRelay(channelMediaConfig, function(e) {
+         *   if(e) {
+         *     utils.notification(`updateChannelMediaRelay failed: ${JSON.stringify(e)}`);
+         *   } else {
+         *     utils.notification(`updateChannelMediaRelay success`);
+         *   }
+         * });
+         * ```
+         */
+        updateChannelMediaRelay(config: ChannelMediaRelayConfiguration, callback: (err: null | ChannelMediaError) => void): void;
+        /**
+         * Stops the media stream relay.
+         *
+         * **Since**
+         * <br>&emsp;&emsp;&emsp;*3.0.0*
+         *
+         * Once the relay stops, the user leaves all the destination channels.
+         *
+         * After this method call, the SDK triggers the `Client.on("channel-media-relay-state")` callback.
+         *
+         * - If the relay stops, the callback returns `state` 0.
+         * - If the relay fails to stop, the callback returns `state` 3 and `code` 2 or 8. The failure is usually due to poor network conditions. You can call {@link Client.leave} to leave the channel and stop the relay.
+         *
+         * @param callback The result of stopping the media stream relay.
+         *
+         * - `null`: Success.
+         * - {@link ChannelMediaError}: Failure. This class provides the error details.
+         *
+         * @example **Sample code**
+         *
+         * ```javascript
+         * stopChannelMediaRelay: function() {
+         *   client.stopChannelMediaRelay(function(e) {
+         *     if(e) {
+         *       utils.notification(`stopChannelMediaRelay failed: ${JSON.stringify(e)}`);
+         *     } else {
+         *       utils.notification(`stopChannelMediaRelay success`);
+         *     }
+         *   });
+         * }
+         * ```
+         */
+        stopChannelMediaRelay(callback: (err: null | ChannelMediaError) => void): void;
+    }
+
+    /**
+     * Configurations of the media stream relay.
+     *
+     * **Since**
+     * <br>&emsp;&emsp;&emsp;*3.0.0*
+     *
+     * Use this interface to set the media stream relay when calling {@link startChannelMediaRelay} or {@link updateChannelMediaRelay}.
+     */
+    interface ChannelMediaRelayConfiguration {
+        /**
+         * Sets the information of the source channel.
+         *
+         * @param srcInfo The information of the source channel:
+         *
+         * - `channelName`: String, the channel name.
+         * - `uid`: Number, the unique ID to identify the relay stream in the source channel. A 32-bit unsigned integer with a value ranging from 0 to (2<sup>32</sup>-1). If you set it as `0`, the server assigns a random one. To avoid UID conflicts, this value must be different from the UID of the current host.
+         * - `token`: String, the token generated with the above `channelName` and `uid`. Do not set this parameter if you have not enabled token.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * var configuration = new AgoraRTC.ChannelMediaRelayConfiguration();
+         * configuration.setSrcChannelInfo({
+         *  channelName: "srcChannel",
+         *  uid: 123,
+         *  token: "yourSrcToken",
+         * })
+         * ```
+         */
+        setSrcChannelInfo(srcInfo: any): void;
+        /**
+         * Sets the information of the destination channel.
+         *
+         * To relay a media stream across multiple channels, call this method as many times (to a maximum of four).
+         *
+         * @param channelName The name of the destination channel. Ensure that the value of this parameter is the same as the value of `channelName` in `destInfo`.
+         * @param destInfo The information of the destination channel:
+         *
+         * - `channelName`: String, the channel name.
+         * - `uid`: Number, the unique ID to identify the relay stream in the destination channel. A 32-bit unsigned integer with a value ranging from 0 to (2<sup>32</sup>-1). If you set it as `0`, the server assigns a random one. To avoid UID conflicts, this uid must be different from any other UIDs in the destination channel.
+         * - `token`: String, the token generated with the above `channelName` and `uid`. Do not set this parameter if you have not enabled token.
+         *
+         * @example **Sample code**
+         * ``` javascript
+         * var configuration = new AgoraRTC.ChannelMediaRelayConfiguration();
+         * configuration.setDestChannelInfo("cname", {
+         *  channelName: "destChannel",
+         *  uid: 123,
+         *  token: "yourDestToken",
+         * })
+         * ```
+         */
+        setDestChannelInfo(channelName: string, destInfo: any): void;
+        /**
+         * Removes the destination channel.
+         *
+         * @param channelName The name of the destination channel.
+         * @example **Sample code**
+         * ``` javascript
+         * configuration.removeDestChannelInfo("cname")
+         * ```
+         */
+        removeDestChannelInfo(channelName: string): void;
+    }
+
+    /**
+     * Error information of the media stream relay.
+     *
+     * When errors occur in calling {@link startChannelMediaRelay}, {@link updateChannelMediaRelay}, or {@link stopChannelMediaRelay}, the callback functions of these methods provide error details in this class.
+     *
+     * In this class, `code` is the error code and `message` is the error message. See the following table for details.
+     *
+     * | `code`   | `message`                       | Description                                                  |
+     * | -------- | ------------------------------- | ------------------------------------------------------------ |
+     * | 0        | RELAY_OK                        | No error.                                                    |
+     * | 1        | SERVER_ERROR_RESPONSE           | An error occurs in the server response.                      |
+     * | 2        | SERVER_NO_RESPONSE              | No server response.                                          |
+     * | 3        | NO_RESOURCE_AVAILABLE           | The SDK fails to access the service, probably due to limited resources of the server.             |
+     * | 4        | FAILED_JOIN_SRC                 | Fails to send the relay request.                 |
+     * | 5        | FAILED_JOIN_DEST                | Fails to accept the relay request.              |
+     * | 6        | FAILED_PACKET_RECEIVED_FROM_SRC | The server fails to receive the media stream.  |
+     * | 7        | FAILED_PACKET_SENT_TO_DEST      | The server fails to send the media stream.              |
+     * | 8        | SERVER_CONNECTION_LOST          | The SDK disconnects from the server and fails to reconnect to the server due to a poor network connection. In this case, the SDK resets the media stream relay state. You can try {@link startChannelMediaRelay} to restart the media stream relay. |
+     * | 9        | INTERNAL_ERROR                  | An internal error occurs in the server.                              |
+     * | 10       | SRC_TOKEN_EXPIRED               | The token of the source channel has expired.                         |
+     * | 11       | DEST_TOKEN_EXPIRED              | The token of the destination channel has expired.               |
+     * | 12       | RELAY_ALREADY_START             | The relay has already started. Possibly caused by calling {@link startChannelMediaRelay} repeatedly, or calling {@link startChannelMediaRelay} before {@link stopChannelMediaRelay} succeeds. |
+     * | 13       | RELAY_NOT_START                 | The relay has not started. Possibly caused by calling {@link updateChannelMediaRelay} before {@link startChannelMediaRelay} succeeds. |
+     */
+    class ChannelMediaError {
+        /**
+         * Additional information.
+         */
+        data?: any;
+        /**
+         * The error code.
+         */
+        code: number;
+        /**
+         * The error message.
+         */
+        message: string;
     }
 
     /**
