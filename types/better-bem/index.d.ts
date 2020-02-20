@@ -5,11 +5,12 @@
 
 export type BEMModifier = string | { [key: string]: any };
 
-export type BEMClass = {
+export interface BEMClass {
     cn: string;
     mod: (modifiers: BEMModifier | BEMModifier[]) => BEMClass;
     el: (element: string | string[]) => BEMClass;
-};
+}
+
 declare function BEM(blockName: string | string[], mapping?: { [key: string]: string }): BEMClass;
 
 export default BEM;
