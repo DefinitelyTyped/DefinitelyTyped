@@ -3,8 +3,8 @@
 // Definitions by: Ibtihel CHNAB <https://github.com/IbtihelCHNAB>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function defaults(options: any, defaultOptions: any): any;
-
 declare module "defaults" {
+  function defaults(options: any, defaultOptions: any): any;
+
   export = defaults;
 }
