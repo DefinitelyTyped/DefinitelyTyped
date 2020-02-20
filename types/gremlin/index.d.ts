@@ -1,6 +1,8 @@
 // Type definitions for gremlin 3.4
 // Project: https://tinkerpop.apache.org/
-// Definitions by: matt-sungwook <https://github.com/matt-sungwook>, keith1024 <https://github.com/keith1024>
+// Definitions by: matt-sungwook <https://github.com/matt-sungwook>
+//                 keith1024 <https://github.com/keith1024>
+//                 Paulo Soares <https://github.com/7jpsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { driver, process, structure };
@@ -43,6 +45,8 @@ declare namespace driver {
         open(): Promise<void>;
         submit(bytecode: Bytecode): Promise<any>;
         close(): Promise<void>;
+        addListener(event: string | Symbol, handler: (...args: any) => void): void;
+        removeListener(event: string | Symbol, handler: (...args: any) => void): void;
     }
 
     class Client {

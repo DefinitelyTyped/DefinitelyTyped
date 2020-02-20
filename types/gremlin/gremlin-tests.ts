@@ -297,6 +297,8 @@ function dslTests() {
     __ = TestDSLTraversal.statics;
 
     const connection = new DriverRemoteConnection('test');
+    const eventHandler = (logline: string) => {};
+    connection.addListener('log', eventHandler);
     const g = traversal(TestDSLTraversalSource).withRemote(connection);
 
     g.person('test').aged(33);
@@ -305,4 +307,5 @@ function dslTests() {
         .aged(33);
     g.V().where(__.hasNotLabel('test'));
     g.V().aged(33);
+    connection.removeListener('log', eventHandler);
 }
