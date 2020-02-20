@@ -7,6 +7,13 @@ auth.trackSession(session => {
     console.log(`The user is ${session.webId}`);
 });
 
+auth.stopTrackSession(session => {
+  if (!session)
+    console.log('The user is not logged in');
+  else
+    console.log(`The user is ${session.webId}`);
+});
+
 auth.fetch('https://timbl.com/timbl/Public/friends.ttl').then(console.log);
 
 async function login(idp: string) {

@@ -31,6 +31,9 @@
 //                 Sergey Sychev <https://github.com/SychevSP>
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
+//                 Abe Dolinger <https://github.com/256hz>
+//                 Dominique Richard <https://github.com/doumart>
+//                 Mohamed Shaban <https://github.com/drmas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,7 +55,6 @@
 /// <reference path="Devtools.d.ts" />
 /// <reference path="LaunchScreen.d.ts" />
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
 type Constructor<T> = new (...args: any[]) => T;
@@ -992,6 +994,21 @@ export interface TextInputIOSProps {
     keyboardAppearance?: 'default' | 'light' | 'dark';
 
     /**
+     * Provide rules for your password.
+     * For example, say you want to require a password with at least eight characters consisting of a mix of uppercase and lowercase letters, at least one number, and at most two consecutive characters.
+     * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
+     */
+    passwordRules?: string | null;
+
+    /**
+     * If `true`, allows TextInput to pass touch events to the parent component.
+     * This allows components to be swipeable from the TextInput on iOS,
+     * as is the case on Android by default.
+     * If `false`, TextInput always asks to handle the input (except when disabled).
+     */
+    rejectResponderTermination?: boolean | null;
+
+    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1125,6 +1142,28 @@ export interface TextInputAndroidProps {
     | 'off';
 
     /**
+     * Determines whether the individual fields in your app should be included in a
+     * view structure for autofill purposes on Android API Level 26+. Defaults to auto.
+     * To disable auto complete, use `off`.
+     *
+     * *Android Only*
+     *
+     * The following values work on Android only:
+     *
+     * - `auto` - let Android decide
+     * - `no` - not important for autofill
+     * - `noExcludeDescendants` - this view and its children aren't important for autofill
+     * - `yes` - is important for autofill
+     * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
+     */
+    importantForAutofill?:
+    | "auto"
+    | "no"
+    | "noExcludeDescendants"
+    | "yes"
+    | "yesExcludeDescendants";
+
+    /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
      *   the OS may choose to have the user edit the text inside of a full screen text input mode.
      * When true, this feature is disabled and users will always edit the text directly inside of the text input.
@@ -1171,14 +1210,18 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardType =
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
-    | 'number-pad'
     | 'name-phone-pad'
-    | 'decimal-pad'
     | 'twitter'
     | 'web-search';
 export type KeyboardTypeAndroid = 'visible-password';
@@ -2898,8 +2941,6 @@ export interface PickerItemProps {
     value?: any;
 }
 
-export class PickerItem extends React.Component<PickerItemProps> { }
-
 export interface PickerPropsIOS extends ViewProps {
     /**
      * Style to apply to each of the item labels.
@@ -2952,7 +2993,7 @@ export interface PickerProps extends PickerPropsIOS, PickerPropsAndroid {
      */
     selectedValue?: any;
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<TextStyle>;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -2975,7 +3016,7 @@ export class Picker extends React.Component<PickerProps> {
      */
     static MODE_DROPDOWN: string;
 
-    static Item: typeof PickerItem;
+    static Item: React.ComponentType<PickerItemProps>;
 }
 
 /**
@@ -3883,12 +3924,12 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<ItemT> | null, index: number) => { length: number; offset: number; index: number };
+    getItemLayout?: (data: Array<ItemT> | null | undefined, index: number) => { length: number; offset: number; index: number };
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
      */
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * How many items to render in the initial batch
@@ -3898,7 +3939,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Instead of starting at the top with the first item, start at initialScrollIndex
      */
-    initialScrollIndex?: number;
+    initialScrollIndex?: number | null;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -3960,7 +4001,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: ListRenderItem<ItemT>;
+    renderItem: ListRenderItem<ItemT> | null | undefined;
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -3975,39 +4016,29 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     removeClippedSubviews?: boolean;
 }
 
-export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
-    /**
-     * Exports some data, e.g. for perf investigations or analytics.
-     */
-    getMetrics: () => {
-        contentLength: number;
-        totalRows: number;
-        renderedRows: number;
-        visibleRows: number;
-    };
-
+export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>> {
     /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd: (params?: { animated?: boolean }) => void;
+    scrollToEnd: (params?: { animated?: boolean | null }) => void;
 
     /**
      * Scrolls to the item at the specified index such that it is positioned in the viewable area
      * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean | null; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean | null; item: ItemT; viewPosition?: number }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
+    scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
@@ -4020,6 +4051,21 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
      * Displays the scroll indicators momentarily.
      */
     flashScrollIndicators: () => void;
+
+    /**
+     * Provides a handle to the underlying scroll responder.
+     */
+    getScrollResponder: () => JSX.Element | null | undefined;
+
+    /**
+     * Provides a reference to the underlying host component
+     */
+    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+
+    getScrollableNode: () => any;
+
+    // TODO: use `unknown` instead of `any` for Typescript >= 3.0
+    setNativeProps: (props: {[key: string]: any}) => void;
 }
 
 /**
@@ -4107,7 +4153,7 @@ export interface SectionListProps<ItemT> extends VirtualizedListWithoutRenderIte
     /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
-    inverted?: boolean;
+    inverted?: boolean | null;
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -4203,7 +4249,7 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -4250,7 +4296,7 @@ export interface SectionListStatic<SectionT> extends React.ComponentClass<Sectio
  * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
  */
 export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRenderItemProps<ItemT> {
-    renderItem: ListRenderItem<ItemT>;
+    renderItem: ListRenderItem<ItemT> | null | undefined;
 }
 
 export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
@@ -4317,7 +4363,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
         index: number;
     };
 
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * How many items to render in the initial batch. This should be enough to fill the screen but not
@@ -4332,12 +4378,12 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * always rendered and immediately renders the items starting at this initial index. Requires
      * `getItemLayout` to be implemented.
      */
-    initialScrollIndex?: number;
+    initialScrollIndex?: number | null;
 
     /**
      * Reverses the direction of scroll. Uses scale transforms of -1.
      */
-    inverted?: boolean;
+    inverted?: boolean | null;
 
     keyExtractor?: (item: ItemT, index: number) => string;
 
@@ -6122,11 +6168,23 @@ export interface ScrollViewPropsIOS {
     scrollIndicatorInsets?: Insets; //zeroes
 
     /**
+     * When true, the scroll view can be programmatically scrolled beyond its
+     * content size. The default value is false.
+     * @platform ios
+     */
+    scrollToOverflowEnabled?: boolean,
+
+    /**
      * When true the scroll view scrolls to top when the status bar is tapped.
      * The default value is true.
      */
     scrollsToTop?: boolean;
 
+    /**
+     * Fires when the scroll view scrolls to top after the status bar has been tapped
+     * @platform ios
+     */
+    onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
     /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing
@@ -6199,7 +6257,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
      * When true the scroll view's children are arranged horizontally in a row
      * instead of vertically in a column. The default value is false.
      */
-    horizontal?: boolean;
+    horizontal?: boolean | null;
 
     /**
      * If sticky headers should stick at the bottom instead of the top of the
@@ -6584,13 +6642,13 @@ export interface ActionSheetIOSStatic {
 
 export type ShareContent =
     | {
-        title?: string;
-        message: string;
-    }
+    title?: string;
+    message: string;
+}
     | {
-        title?: string;
-        url: string;
-    };
+    title?: string;
+    url: string;
+};
 
 export type ShareOptions = {
     dialogTitle?: string;
@@ -6818,22 +6876,27 @@ export interface AlertStatic {
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
 
 /**
- * AppStateIOS can tell you if the app is in the foreground or background,
+ * AppState can tell you if the app is in the foreground or background,
  * and notify you when the state changes.
  *
- * AppStateIOS is frequently used to determine the intent and proper behavior
+ * AppState is frequently used to determine the intent and proper behavior
  * when handling push notifications.
  *
- * iOS App States
+ * App State Events
+ *      change - This even is received when the app state has changed.
+ *      focus [Android] - Received when the app gains focus (the user is interacting with the app).
+ *      blur [Android] - Received when the user is not actively interacting with the app.
+ *
+ * App States
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
- *      inactive - This is a transition state that currently never happens for typical React Native apps.
+ *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
- * @see https://facebook.github.io/react-native/docs/appstateios.html#content
+ * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
-export type AppStateEvent = 'change' | 'memoryWarning';
+export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
 export type AppStateStatus = 'active' | 'background' | 'inactive';
 
 export interface AppStateStatic {
@@ -7062,22 +7125,6 @@ export interface CameraRollStatic {
     saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
-     * Saves the photo or video to the camera roll / gallery.
-     *
-     * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
-     *
-     * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
-     * or a local video file URI (remote or data URIs are not supported for saving video at this time).
-     *
-     * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
-     * it will be treated as a photo. To override the automatic choice, you can pass an optional
-     * `type` parameter that must be one of 'photo' or 'video'.
-     *
-     * Returns a Promise which will resolve with the new URI.
-     */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
-
-    /**
      * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
      *
      * @param params See getPhotosParamChecker.
@@ -7212,6 +7259,15 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Open the Settings app and displays the app’s custom settings, if it has any.
      */
     openSettings(): Promise<void>;
+
+    /**
+     * Sends an Android Intent - a broad surface to express Android functions.  Useful for deep-linking to settings pages,
+     * opening an SMS app with a message draft in place, and more.  See https://developer.android.com/reference/kotlin/android/content/Intent?hl=en
+     */
+    sendIntent(
+        action: string,
+        extras?: Array<{key: string, value: string | number | boolean}>,
+    ): Promise<void>;
 }
 
 export interface PanResponderGestureState {
@@ -8436,21 +8492,38 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
+    export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
+
+    export interface WithAnimatedValue<T>
+      extends ThisType<
+        T extends object
+          ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
+          : T extends (infer P)[]
+          ? WithAnimatedValue<P>[]
+          : T | Value | AnimatedInterpolation
+        > {}
+
+    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+
+    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<AnimatedProps<ComponentProps<T>>> {
+        getNode: () => T;
+    }
+
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent(component: any): any;
+    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export const View: any;
-    export const Image: any;
-    export const Text: any;
-    export const ScrollView: any;
-    export const FlatList: any;
-    export const SectionList: any;
+    export const View: AnimatedComponent<View>;
+    export const Image: AnimatedComponent<Image>;
+    export const Text: AnimatedComponent<Text>;
+    export const ScrollView: AnimatedComponent<ScrollView>;
+    export const FlatList: AnimatedComponent<FlatList>;
+    export const SectionList: AnimatedComponent<SectionList>;
 }
 
 // tslint:disable-next-line:interface-name
@@ -8945,6 +9018,9 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void;
         debug(message?: any, ...optionalParams: any[]): void;
         table(...data: any[]): void;
+        groupCollapsed(label?: string): void;
+        groupEnd(): void;
+        group(label?: string): void;
         disableYellowBox: boolean;
         ignoredYellowBox: string[];
     }

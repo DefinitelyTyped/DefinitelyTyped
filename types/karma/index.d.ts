@@ -3,6 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
 //                 Yaroslav Admin <https://github.com/devoto13>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -164,6 +165,10 @@ export interface ConfigOptions {
      * the <code>__dirname</code> of the configuration file.
      */
     basePath?: string;
+    /**
+     * Configure how the browser console is logged with the following properties, all of which are optional
+     */
+    browserConsoleLogOptions?: BrowserConsoleLogOptions;
     /**
      * @default 2000
      * @description How long does Karma wait for a browser to reconnect (in ms).
@@ -373,6 +378,12 @@ export interface ConfigOptions {
      */
     reporters?: string[];
     /**
+     * When Karma is watching the files for changes, it will delay a new run
+     * until the current run is finished. Enabling this setting
+     * will cancel the current run and start a new run immediately when a change is detected.
+     */
+    restartOnFileChange?: boolean;
+    /**
      * @default false
      * @description Continuous Integration mode.
      * If true, Karma will start and capture all configured browsers, run tests and then exit with an exit code of 0 or 1 depending
@@ -466,6 +477,21 @@ export interface CustomLauncher {
     browserName?: string;
     flags?: string[];
     platform?: string;
+}
+
+export interface BrowserConsoleLogOptions {
+    /** the desired log-level, where level log always is logged */
+    level?: 'log' | 'error' | 'warn' | 'info' | 'debug';
+    /**
+     * The format is a string where `%b`, `%t`, `%T`, and `%m` are replaced with the browser string,
+     * log type in lower-case, log type in uppercase, and log message, respectively.
+     * This format will only effect the output file
+     */
+    format?: string;
+    /** output-path of the output-file */
+    path?: string;
+    /** if the log should be written in the terminal, or not */
+    terminal?: boolean;
 }
 
 export namespace config {

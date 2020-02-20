@@ -23,8 +23,11 @@
 //                 Ray Nicholus <https://github.com/rnicholus>
 //                 Oscar Cabrera <https://github.com/mrjack88>
 //                 Carlos Anoceto <https://github.com/canoceto>
+//                 Nobuhiko Futagami <https://github.com/nobu222>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+import { Moment } from 'moment';
 
 declare class Chart {
     static readonly Chart: typeof Chart;
@@ -227,10 +230,10 @@ declare namespace Chart {
     }
 
     interface ChartPoint {
-        x?: number | string | Date;
-        y?: number | string | Date;
+        x?: number | string | Date | Moment;
+        y?: number | string | Date | Moment;
         r?: number;
-        t?: number | string | Date;
+        t?: number | string | Date | Moment;
     }
 
     interface ChartConfiguration {
@@ -241,7 +244,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: Array<string | string[]>;
+        labels?: Array<string | string[] | number | number[] | Date | Date[] | Moment | Moment[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -649,6 +652,7 @@ declare namespace Chart {
         maxBarThickness?: number;
         minBarLength?: number;
         steppedLine?: 'before' | 'after' | 'middle' | boolean;
+        order?: number;
         pointBorderColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBackgroundColor?: ChartColor | ChartColor[] | Scriptable<ChartColor>;
         pointBorderWidth?: number | number[] | Scriptable<number>;

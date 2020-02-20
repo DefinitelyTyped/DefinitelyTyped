@@ -112,7 +112,7 @@ export type UseTableOptions<D extends object> = {
     defaultColumn: Partial<Column<D>>;
     initialRowStateKey: IdType<D>;
     getSubRows: (originalRow: D, relativeIndex: number) => D[];
-    getRowId: (originalRow: D, relativeIndex: number) => IdType<D>;
+    getRowId: (originalRow: D, relativeIndex: number, parent?: Row<D>) => string;
 }>;
 
 export type PropGetter<D extends object, Props, T extends object = never, P = Partial<Props>> =
@@ -228,10 +228,11 @@ export interface UseTableColumnProps<D extends object> {
     getFooterProps: (propGetter?: FooterPropGetter<D>) => TableFooterProps;
     toggleHidden: (value?: boolean) => void;
     parent: ColumnInstance<D>; // not documented
-    getToggleHideColumnsProps: (userProps: any) => any;
+    getToggleHiddenProps: (userProps?: any) => any;
     depth: number; // not documented
     index: number; // not documented
-}
+    placeholderOf?: ColumnInstance;
+ }
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
@@ -310,7 +311,7 @@ export interface UseColumnOrderState<D extends object> {
 }
 
 export interface UseColumnOrderInstanceProps<D extends object> {
-    setColumnOrder: (updater: (columnOrder: Array<IdType<D>>) => Array<IdType<D>>) => void;
+    setColumnOrder: (updater: ((columnOrder: Array<IdType<D>>) => Array<IdType<D>>) | Array<IdType<D>>) => void;
 }
 
 //#endregion
@@ -726,13 +727,13 @@ export interface UseSortByColumnProps<D extends object> {
     canSort: boolean;
     toggleSortBy: (descending: boolean, multi: boolean) => void;
     getSortByToggleProps: (props?: Partial<TableSortByToggleProps>) => TableSortByToggleProps;
-    clearSorting: () => void;
+    clearSortBy: () => void;
     isSorted: boolean;
     sortedIndex: number;
     isSortedDesc: boolean | undefined;
 }
 
-export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => 0 | 1 | -1;
+export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => number;
 
 export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
 

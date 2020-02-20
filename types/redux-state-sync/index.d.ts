@@ -37,3 +37,4 @@ export function withReduxStateSync(
     appReducer: Reducer
 ): (state: any, action: AnyAction) => Reducer;
 export function initStateWithPrevTab(store: Store): Store;
+export function isActionSynced(action: AnyAction): boolean;

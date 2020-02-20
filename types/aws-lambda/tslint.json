@@ -1,8 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
-        "npm-naming": false,
-        "dt-header": false
+        // This is needed because there's an unrelated aws-lambda package on NPM,
+        // and DTS is complaining that we're referring to a non-existing version.
+        "npm-naming": false
     }
 }

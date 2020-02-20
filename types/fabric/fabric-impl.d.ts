@@ -1879,6 +1879,14 @@ interface ICanvasOptions extends IStaticCanvasOptions {
 	 * @default
 	 */
 	fireMiddleClick?: boolean;
+
+	/**
+	 * Keep track of the subTargets for Mouse Events
+	 * @type {Array.<fabric.Object>}
+	 * @since 3.6.0
+	 * @default
+	 */
+	targets?: Object[];
 }
 export interface Canvas extends StaticCanvas { }
 export interface Canvas extends ICanvasOptions { }
@@ -2229,7 +2237,7 @@ export class Ellipse {
 }
 interface IGroupOptions extends IObjectOptions {
 	/**
-	 * Indicates if click events should also check for subtargets
+	 * Indicates if click, mouseover, mouseout events & hoverCursor should also check for subtargets
 	 * @type Boolean
 	 */
 	subTargetCheck?: boolean;
@@ -3930,6 +3938,10 @@ export class Object {
 	 * @return {fabric.Object}
 	 */
 	static _fromObject(className: string, object: Object, callback?: Function, extraParam?: any): Object;
+	/**
+	 * Defines the number of fraction digits to use when serializing object values.
+	 */
+	static NUM_FRACTION_DIGITS?: number;
 }
 
 interface IPathOptions extends IObjectOptions {
@@ -6157,6 +6169,20 @@ interface IUtilMisc {
 	 * @param [options] Options object
 	 */
 	groupSVGElements(elements: any[], options?: any, path?: string): Object | Group;
+
+	/**
+	 * Clear char widths cache for the given font family or all the cache if no
+	 * fontFamily is specified.
+	 * Use it if you know you are loading fonts in a lazy way and you are not waiting
+	 * for custom fonts to load properly when adding text objects to the canvas.
+	 * If a text object is added when its own font is not loaded yet, you will get wrong
+	 * measurement and so wrong bounding boxes.
+	 * After the font cache is cleared, either change the textObject text content or call
+	 * initDimensions() to trigger a recalculation
+	 * @memberOf fabric.util
+	 * @param {String} [fontFamily] font family to clear
+	 */
+	clearFabricFontCache(fontFamily?: string): void
 
 	/**
 	 * Populates an object with properties of another object

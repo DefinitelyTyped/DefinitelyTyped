@@ -81,6 +81,7 @@ import {
     Modal,
     TimePickerAndroid,
     DatePickerAndroid,
+    Picker,
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
@@ -371,6 +372,8 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -534,6 +537,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
+                            onScrollToTop={() => {}}
+                            scrollToOverflowEnabled={true}
                         />
                     );
                 }}
@@ -895,6 +900,13 @@ const DatePickerAndroidTest = () => {
         }
     });
 }
+
+const PickerTest = () => (
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+        <Picker.Item label="Item1" value="v1" />
+        <Picker.Item label="Item2" value="v2" />
+    </Picker>
+);
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {

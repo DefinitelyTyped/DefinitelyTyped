@@ -1,5 +1,5 @@
 import { ASTNode, GraphQLError } from 'graphql';
-import { Location } from './GraphQLIR';
+import { Location } from './IR';
 
 export type UserError = GraphQLError;
 

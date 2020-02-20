@@ -6,24 +6,6 @@
 
 import * as React from 'react';
 
-export namespace extensions {
-    class MjmlComment extends React.Component<{ children: string }> { }
-    class MjmlConditionalComment extends React.Component<{ children: string; condition: string }> { }
-    class MjmlTrackingPixel extends React.Component<{ src: string }> { }
-    class MjmlYahooStyle extends React.Component<{ children: string }> { }
-}
-
-export namespace utils {
-    function namedEntityToHexCode(html: string): string;
-    function fixConditionalComment(html: string, havingContent: string, newCondition: string): string;
-    function useHttps(url?: string): string | undefined;
-    function toMobileFontSize(sizeWithUnit: string): number;
-    function addQueryParams(url: string, params: { [key: string]: any }): string;
-
-    type TextAlignment = 'left' | 'right' | 'center' | 'justify' | 'inherit';
-    function getTextAlign(value: string, fallback?: TextAlignment): TextAlignment;
-}
-
 export function renderToMjml(email: React.ReactElement): string;
 
 export interface Mjml2HtmlOptions {
@@ -377,6 +359,7 @@ export interface MjmlTableProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'];
     width?: string | number;
     tableLayout?: 'auto' | 'fixed' | 'initial' | 'inherit';
+    align?: 'left' | 'right' | 'center';
 }
 
 export class MjmlTable extends React.Component<MjmlTableProps & RequiredChildrenProps & PaddingProps> { }

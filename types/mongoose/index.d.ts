@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.5.1
+// Type definitions for Mongoose 5.7.12
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -148,6 +148,12 @@ declare module "mongoose" {
 
   /** Gets mongoose options */
   export function get(key: string): any;
+
+  /**
+   * Tests whether Mongoose can cast a value to an ObjectId
+   * @param value value to be tested if it can be cast to an ObjectId
+   */
+  export function isValidObjectId(value: any): boolean;
 
   /**
    * Defines a model or retrieves it.
@@ -311,6 +317,15 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
+      
+    /** Connected database name */
+    name: string
+
+    /** Connected host */
+    host: string
+
+    /** Connected port number */
+    port: number
 
     /** mapping of ready states */
     states: typeof ConnectionStates;
@@ -1206,9 +1221,18 @@ declare module "mongoose" {
       (value: T, done: (result: boolean) => void): void;
     }
 
+    interface ValidatorProps {
+      path: string;
+      value: any;
+    }
+
+    interface ValidatorMessageFn {
+      (props: ValidatorProps): string;
+    }
+
     interface ValidateOptsBase {
       msg?: string;
-      message?: string;
+      message?: string | ValidatorMessageFn;
       type?: string;
     }
 
@@ -2915,9 +2939,13 @@ declare module "mongoose" {
     /**
      * Requires a replica set running MongoDB >= 3.6.0. Watches the underlying collection for changes using MongoDB change streams.
      * This function does not trigger any middleware. In particular, it does not trigger aggregate middleware.
-     * @param options See https://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#watch
+     * @param pipeline See http://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
+     * @param options See https://mongodb.github.io/node-mongodb-native/3.3/api/Collection.html#watch
      */
-    watch(options?: mongodb.ChangeStreamOptions & { session?: ClientSession }): mongodb.ChangeStream;
+    watch(
+        pipeline?: object[],
+        options?: mongodb.ChangeStreamOptions & { session?: ClientSession },
+    ): mongodb.ChangeStream;
 
     /**
      * Translate any aliases fields/conditions so the final query or document object is pure
@@ -3469,13 +3497,17 @@ declare module "mongoose" {
     strict?: boolean;
     /** disables update-only mode, allowing you to overwrite the doc (false) */
     overwrite?: boolean;
+    /**
+     * Only update elements that match the arrayFilters conditions in the document or documents that match the query conditions.
+     */
+    arrayFilters?: { [key: string]: any }[];
     /** other options */
     [other: string]: any;
     /**
      *  by default, mongoose only returns the first error that occurred in casting the query.
      *  Turn on this option to aggregate all the cast errors.
      */
-      multipleCastError?: boolean;
+    multipleCastError?: boolean;
   }
 
   interface ModelMapReduceOption<T, Key, Val> {

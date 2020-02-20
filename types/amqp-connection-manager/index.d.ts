@@ -36,7 +36,19 @@ export interface AmqpConnectionManagerOptions {
 	 * These are passed through directly to amqplib (http://www.squaremobius.net/amqp.node/channel_api.html#connect),
 	 * which in turn passes them through to tls.connect (https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
 	 */
-	connectionOptions?: ConnectionOptions;
+	connectionOptions?: ConnectionOptions & {
+		noDelay?: boolean;
+		timeout?: number;
+		keepAlive?: boolean;
+		keepAliveDelay?: number;
+		clientProperties?: any;
+		credentials?: {
+			mechanism: string;
+			username: string;
+			password: string;
+			response: () => Buffer;
+		};
+	};
 }
 
 /**

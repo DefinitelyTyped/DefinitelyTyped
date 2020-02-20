@@ -197,6 +197,9 @@ interface SketchMSAttributedString {
     _class: 'attributedString';
     string: string;
     attributes: SketchMSStringAttribute[];
+    archivedAttributedString?: {
+      _archive: string;
+    };
 }
 interface SketchMSTextLayer extends SketchMSContainerLayer {
     _class: 'text';
@@ -336,6 +339,10 @@ interface SketchMSLayer {
     clippingMaskMode: SketchMSLayerClippingMaskMode;
     hasClippingMask: boolean;
     style: SketchMSStyle;
+    layers?: SketchMSLayer[];
+
+    // xLayers custom property
+    css?: string;
 }
 interface SketchMSSharedStyle {
     _class: 'sharedStyle';

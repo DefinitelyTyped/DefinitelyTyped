@@ -2,6 +2,7 @@ function sample1() {
   const canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',
     selection: false,
+    targets: []
   });
 
   canvas.on('object:moving', (e: fabric.IEvent) => {
@@ -46,6 +47,8 @@ function sample2() {
   const getRandomInt = fabric.util.getRandomInt;
   const rainbow = ["#ffcc66", "#ccff66", "#66ccff", "#ff6fcf", "#ff6666"];
   const rainbowEnd = rainbow.length - 1;
+
+  fabric.Object.NUM_FRACTION_DIGITS = 2;
 
   //
   // Rendering canvas #1

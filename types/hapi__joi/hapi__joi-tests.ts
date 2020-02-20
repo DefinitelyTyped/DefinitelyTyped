@@ -187,6 +187,21 @@ validErrFunc = errs => errs[0];
 validErrFunc = errs => 'Some error';
 validErrFunc = errs => err;
 
+// error() can take function with ErrorReport argument
+validErrFunc = errors => {
+    const path: string = errors[0].path[0];
+    const code: string = errors[0].code;
+    const messages = errors[0].prefs.messages;
+
+    const message: string = messages ? messages[code].rendered : 'Error';
+
+    const validationErr = new Error();
+    validationErr.message = `[${path}]: ${message}`;
+    return validationErr;
+};
+
+Joi.any().error(validErrFunc);
+
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = anySchema;
@@ -944,6 +959,9 @@ schema = Joi.link(str);
         value = schema.validate(value).value;
 
         result = schema.validate(value);
+        if (result.error) {
+            throw Error('error should not be set');
+        }
         result = schema.validate(value, validOpts);
         asyncResult = schema.validateAsync(value);
         asyncResult = schema.validateAsync(value, validOpts);
@@ -952,6 +970,12 @@ schema = Joi.link(str);
             .then(val => JSON.stringify(val, null, 2))
             .then(val => { throw new Error('one error'); })
             .catch(e => { });
+
+        const falsyValue = { username: 'example' };
+        result = schema.validate(falsyValue);
+        if (!result.error) {
+            throw Error('error should be set');
+        }
     }
 }
 
@@ -1003,11 +1027,18 @@ const Joi3 = Joi.extend({
         asd: {
             args: [
                 {
-                    name: 'allowFalse'
+                    name: 'allowFalse',
+                    ref: true,
+                    assert: Joi.boolean(),
                 }
             ],
-            method(allowFalse) {
-                this.$_createError(str, {}, {}, {}, {});
+            method(allowFalse: boolean) {
+                return this.$_addRule({
+                    name: 'asd',
+                    args: {
+                        allowFalse,
+                    }
+                });
             },
             validate(value: boolean, helpers, params, options) {
                 if (value || params.allowFalse && !value) {

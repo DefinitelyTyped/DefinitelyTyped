@@ -523,13 +523,26 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface RefForwardingComponent<T, P = {}> {
+    interface ForwardRefRenderFunction<T, P = {}> {
         (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
-        propTypes?: WeakValidationMap<P>;
-        contextTypes?: ValidationMap<any>;
-        defaultProps?: Partial<P>;
         displayName?: string;
+        // explicit rejected with `never` required due to
+        // https://github.com/microsoft/TypeScript/issues/36826
+        /**
+         * defaultProps are not supported on render functions
+         */
+        defaultProps?: never;
+        /**
+         * propTypes are not supported on render functions
+         */
+        propTypes?: never;
     }
+
+    /**
+     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     *             "real" component.
+     */
+    interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new (props: P, context?: any): Component<P, S>;
@@ -751,7 +764,7 @@ declare namespace React {
         propTypes?: WeakValidationMap<P>;
     }
 
-    function forwardRef<T, P = {}>(Component: RefForwardingComponent<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
@@ -1997,6 +2010,7 @@ declare namespace React {
         crossOrigin?: "anonymous" | "use-credentials" | "";
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
+        loading?: "eager" | "lazy";
         sizes?: string;
         src?: string;
         srcSet?: string;
@@ -2789,11 +2803,12 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ReactChildren {
-        map<T, C>(children: C | C[], fn: (child: C, index: number) => T): T[];
+        map<T, C>(children: C | C[], fn: (child: C, index: number) => T):
+            C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
         forEach<C>(children: C | C[], fn: (child: C, index: number) => void): void;
         count(children: any): number;
         only<C>(children: C): C extends any[] ? never : C;
-        toArray<C>(children: C | C[]): C[];
+        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     }
 
     //
