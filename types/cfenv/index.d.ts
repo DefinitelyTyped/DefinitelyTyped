@@ -11,7 +11,7 @@ export interface Service {
     credentials: object;
 }
 
-export class AppEnv {
+export interface AppEnv {
     app: object;
     isLocal: boolean;
     name: string;
