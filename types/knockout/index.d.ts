@@ -947,7 +947,7 @@ interface KnockoutComputedContext {
 // and used Union Types to simplify overloads (requires TypeScript 1.4)
 //
 declare namespace KnockoutComponentTypes {
-    type viewModel = ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+    type ViewModel = ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
     
     interface Config<T> {
         viewModel?: T;
@@ -955,8 +955,8 @@ declare namespace KnockoutComponentTypes {
         synchronous?: boolean;
     }
 
-    interface ComponentConfig<T = viewModel> {
-        viewModel?: viewModel;
+    interface ComponentConfig<T = ViewModel> {
+        viewModel?: ViewModel;
         template: any;
         createViewModel?: any;
     }
@@ -1028,7 +1028,7 @@ interface KnockoutComponents {
      * @param componentName Component name. Will be used for your custom HTML tag name.
      * @param config Component configuration.
      */
-    register<T = KnockoutComponentTypes.viewModel>(componentName: string, config: KnockoutComponentTypes.Config<T> | KnockoutComponentTypes.EmptyConfig): void;
+    register<T = KnockoutComponentTypes.ViewModel>(componentName: string, config: KnockoutComponentTypes.Config<T> | KnockoutComponentTypes.EmptyConfig): void;
     /**
      * Determine if a component with the specified name is already registered in the default component loader.
      * @param componentName Component name.
