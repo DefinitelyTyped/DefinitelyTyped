@@ -365,7 +365,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         usePagination,
         useRowSelect,
         (hooks: Hooks<Data>) => {
-            hooks.flatColumns.push(columns => [
+            hooks.flatColumns.push((columns: Column[]) => [
                 {
                     id: 'selection',
                     // Make this column a groupByBoundary. This ensures that groupBy columns
@@ -430,7 +430,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                         <td {...cell.getCellProps()}>
                                             {cell.isGrouped ? (
                                                 <>
-                                                    <span {...row.getExpandedToggleProps()}>
+                                                    <span {...row.getToggleRowExpandedProps()}>
                                                         {row.isExpanded ? '👇' : '👉'}
                                                     </span>{' '}
                                                     {cell.render('Cell', { editable: false })} ({row.subRows.length})
@@ -439,7 +439,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isRepeatedValue ? null : (// For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
