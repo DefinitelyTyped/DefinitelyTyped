@@ -47,6 +47,7 @@ declare namespace bonjour {
         subtypes?: string[];
         protocol?: 'udp'|'tcp';
         txt?: Object;
+        probe?: boolean;
     }
 
     interface Service extends NodeJS.EventEmitter {
@@ -64,6 +65,7 @@ declare namespace bonjour {
         start(): void;
     }
     interface BonjourOptions {
+        type?: 'udp4' | 'udp6';
         multicast?: boolean;
         interface?: string;
         port?: number;
