@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Socket } from "net";
-declare namespace NodeIPC {
+export declare namespace NodeIPC {
     class IPC {
         /**
          * Set these variables in the ipc.config scope to overwrite or set default values
