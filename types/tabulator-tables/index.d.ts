@@ -1564,6 +1564,8 @@ You can pass an optional additional property with sorter, sorterParams that shou
     }
 }
 
+export = Tabulator;
+
 // Tabulator.prototype.(?!registerModule|helpers|_)\w+
 declare class Tabulator {
     constructor(selector: string | HTMLElement, options?: Tabulator.Options);
