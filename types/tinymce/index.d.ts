@@ -62,7 +62,7 @@ export function get(id: string | number): Editor;
 
 export interface Settings {
   table_toolbar?: string;
-
+  
   table_appearance_options?: boolean;
 
   table_clone_elements?: string;
@@ -340,6 +340,8 @@ export interface Settings {
   spellchecker_on_load?: boolean;
 
   spellchecker_active?: boolean;
+    
+  base_url? string;
 }
 
 export namespace settings {
