@@ -18,6 +18,7 @@
 //                 Craig Michael Thompson <https://github.com/craga89>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Hammad Jutt <https://github.com/hammadj>
+//                 Dhruv Jain <https://github.com/maddhruv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -1188,7 +1189,7 @@ export interface OpacityProps<ThemeType extends Theme = RequiredTheme> {
      *
      * [MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity)
      */
-    opacity?: ResponsiveValue<CSS.OpacityProperty, ThemeType>;
+    opacity?: ResponsiveValue<CSS.GlobalsNumber, ThemeType>;
 }
 
 export const opacity: styleFn;
