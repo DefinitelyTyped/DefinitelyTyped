@@ -14,6 +14,7 @@
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Simon Haenisch <https://github.com/simonhaenisch>
 //                 Gavin Nitta <https://github.com/gshigeto>
+//                 Bat-Orshikh Baavgaikhuu <https://github.com/Bat-Orshikh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TypeScript Version: 3.0
@@ -1995,6 +1996,10 @@ declare namespace google.maps {
         onAdd(): void;
         onRemove(): void;
         setMap(map: Map | StreetViewPanorama | null): void;
+        /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsAndGesturesFrom Maps JavaScript API} */
+        static preventMapHitsAndGesturesFrom(element: Element): void;
+        /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsFrom Maps JavaScript API} */
+        static preventMapHitsFrom(element: Element): void;
     }
 
     /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#MapPanes Maps JavaScript API} */
