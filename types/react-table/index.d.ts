@@ -733,7 +733,7 @@ export interface UseSortByColumnProps<D extends object> {
     isSortedDesc: boolean | undefined;
 }
 
-export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => number;
+export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>, desc?: boolean) => number;
 
 export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
 
