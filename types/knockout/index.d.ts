@@ -956,7 +956,7 @@ declare namespace KnockoutComponentTypes {
     }
 
     interface ComponentConfig<T = ViewModel> {
-        viewModel?: ViewModel;
+        viewModel?: T;
         template: any;
         createViewModel?: any;
     }
