@@ -819,8 +819,7 @@ export function loopHooks(hooks: Hooks, ...args: any[]): void;
 export function ensurePluginOrder<D extends object = {}>(
     plugins: Array<PluginHook<D>>,
     befores: string[],
-    pluginName: string,
-    afters?: string[],
+    pluginName: string
 ): void;
 
 export function functionalUpdate<D extends object = {}>(
