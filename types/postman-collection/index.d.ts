@@ -179,7 +179,7 @@ export interface CollectionDefinition extends ItemGroupDefinition {
     variable?: VariableDefinition[];
 }
 
-export class Collection extends ItemGroup<Request> {
+export class Collection extends ItemGroup<Item> {
     events: EventList;
     variables: VariableList;
     version?: Version;
