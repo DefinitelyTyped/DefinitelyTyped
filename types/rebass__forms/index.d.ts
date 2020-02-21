@@ -1,7 +1,7 @@
 // Type definitions for @rebass/forms 4.0
 // Project: https://github.com/rebassjs/rebass#readme
 // Definitions by: zinozzino <https://github.com/zinozzino>
-// Definitions by: trumanshuck <https://github.com/trumanshuck>
+//                 trumanshuck <https://github.com/trumanshuck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
