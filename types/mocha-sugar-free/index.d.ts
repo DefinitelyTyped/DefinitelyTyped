@@ -9,16 +9,23 @@ import { Test, Suite } from 'mocha';
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace Mocha {
-	type TestCase = (this: undefined, context: TestContext) => void | PromiseLike<void>;
+	type TestCase = (this: undefined, context: TestContext) => void | PromiseLike<any>;
 	type TestCaseWithDone = (this: undefined, context: TestContextWithDone) => void;
 	type HookFunc = (this: undefined, context: HookContext) => void;
 	type SuiteFunc = (this: undefined, context: SuiteContext) => void;
 
 	interface Options {
+		[option: string]: any;
+
 		/**
 		 * Whether the context should contain a `done` callback.
 		 */
 		async?: boolean;
+
+		/**
+		 * Set whether timeouts are enabled.
+		 */
+		enableTimeouts?: boolean;
 
 		/**
 		 * Whether failing to return a PromiseLike should fail the test.
@@ -44,6 +51,16 @@ declare namespace Mocha {
 		 * Whether the test should be skipped outside a browser environment.
 		 */
 		skipUnlessBrowser?: boolean;
+
+		/**
+		 * Set test slowness threshold.
+		 */
+		slow?: string | number;
+
+		/**
+		 * Set test timeout.
+		 */
+		timeout?: string | number;
 
 		/**
 		 * The test title. Replaced by the title parameter if present.
@@ -319,7 +336,7 @@ declare namespace Mocha {
 		/**
 		 * Mark a test as completed.
 		 */
-		done(err: any): void;
+		done(err?: any): void;
 	}
 	// #endregion
 
@@ -404,10 +421,10 @@ declare namespace Mocha {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(title: string, options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(title: string, options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 		// tslint:disable-next-line: unified-signatures
 		(options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 
 		/**
 		 * [bdd, tdd, qunit]
@@ -437,10 +454,10 @@ declare namespace Mocha {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(title: string, options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(title: string, options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 		// tslint:disable-next-line: unified-signatures
 		(options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 	}
 
 	/**
@@ -456,10 +473,10 @@ declare namespace Mocha {
 		(fn: TestCase): Test;
 		(title: string, fn?: TestCase): Test;
 		(title: string, options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(title: string, options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(title: string, options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 		// tslint:disable-next-line: unified-signatures
 		(options: Options & { async?: false; fn?: TestCase }, fn?: TestCase): Test;
-		(options: Options & { async?: true; fn?: TestCase }, fn?: TestCaseWithDone): Test;
+		(options: Options & { async: true; fn?: TestCaseWithDone }, fn?: TestCaseWithDone): Test;
 	}
 	// #endregion
 }
