@@ -546,6 +546,8 @@ class Overlay extends google.maps.OverlayView {
 }
 let overlay = new Overlay();
 overlay.setMap(map);
+google.maps.OverlayView.preventMapHitsAndGesturesFrom(div); // $ExpectType void
+google.maps.OverlayView.preventMapHitsFrom(div); // $ExpectType void
 
 /***** Rectangles *****/
 // https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
