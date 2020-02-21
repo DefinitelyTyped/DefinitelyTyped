@@ -58,7 +58,7 @@ function testCreateWaitingContext() {
             </Wait>
             <button disabled={isWaiting()} onClick={endWaiting}>Cancel</button>
         </div>
-    )
+    );
 }
 
 function testWaiters() {
@@ -67,5 +67,5 @@ function testWaiters() {
         <ul>
             {waiters.map((waiter, index) => <li key={index}>{waiter}</li>)}
         </ul>
-    )
+    );
 }
