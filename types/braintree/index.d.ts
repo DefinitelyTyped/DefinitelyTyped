@@ -1,10 +1,11 @@
-// Type definitions for braintree 2.20
+// Type definitions for braintree 2.22
 // Project: https://github.com/braintree/braintree_node
 // Definitions by: Sam Rubin <https://github.com/smrubin>,
 //                 Mohamed Elsharnouby <https://github.com/sharno>,
 //                 Aaron Rose <https://github.com/acdr>
+//                 Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -42,7 +43,7 @@ declare namespace braintree {
         customer: CustomerGateway;
         discount: DiscountGateway;
         dispute: DisputeGateway;
-        merchantAccountGateway: MerchantAccountGateway;
+        merchantAccount: MerchantAccountGateway;
         paymentMethod: PaymentMethodGateway;
         paymentMethodNonce: PaymentMethodNonceGateway;
         plan: PlanGateway;
@@ -647,10 +648,10 @@ declare namespace braintree {
     export interface MerchantAccountCreateRequest {
         business?: MerchantBusiness;
         funding: MerchantFunding;
-        id: string;
+        id?: string;
         individual: MerchantIndividual;
         masterMerchantAccountId: string;
-        status: MerchantAccountStatus;
+        status?: MerchantAccountStatus;
         tosAccepted: boolean;
     }
 
@@ -661,11 +662,11 @@ declare namespace braintree {
         individual: MerchantIndividual;
         masterMerchantAccountId: string;
         status: MerchantAccountStatus;
+        tosAccepted: boolean;
     }
 
     export interface MerchantBusiness {
         address?: MerchantAddressDetails;
-        addressDetails?: MerchantAddressDetails;
         dbaName?: string;
         legalName?: string;
         taxId?: string;
@@ -689,7 +690,7 @@ declare namespace braintree {
     }
 
     export interface MerchantIndividual {
-        addressDetails: MerchantAddressDetails;
+        address: MerchantAddressDetails;
         dateOfBirth: string;
         email: string;
         firstName: string;
