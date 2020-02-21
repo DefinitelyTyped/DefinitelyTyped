@@ -1,4 +1,14 @@
 {
     "extends": "dtslint/dt.json",
+    "rules": {
+        "npm-naming": [
+            true,
+            {
+                "errors": {
+                },
+                "mode": "code"
+            }
+        ]
+    },
     "strict-export-declare-modifiers": false
 }

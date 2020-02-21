@@ -1,8 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-consecutive-blank-lines": [true, 3],
-        "ban-types": [false],
-        "npm-naming": false
+        "ban-types": false,
+        "no-consecutive-blank-lines": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ]
     }
 }

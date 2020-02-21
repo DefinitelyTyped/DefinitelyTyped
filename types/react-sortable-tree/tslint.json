@@ -3,6 +3,11 @@
     "rules": {
         "ban-types": false,
         "no-any-union": false,
-        "npm-naming": false
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ]
     }
 }

@@ -1,6 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-empty-interface": false
+        "npm-naming": [
+            true,
+            {
+                "errors": {
+                },
+                "mode": "code"
+            }
+        ]
     }
 }

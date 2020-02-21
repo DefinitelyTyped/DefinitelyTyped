@@ -2,18 +2,22 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
+        "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-internal-module": false,
         "no-padding": false,
-        "no-redundant-jsdoc-2": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "jsdoc-format": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ],
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "trim-file": false,
-        "unified-signatures": false,
-        "npm-naming": false
+        "unified-signatures": false
     }
 }

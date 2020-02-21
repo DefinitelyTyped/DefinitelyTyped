@@ -1,25 +1,27 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false,
         "class-name": true,
         "indent": [
             true,
             "spaces"
         ],
-        "max-line-length": [
-            true,
-            250
-        ],
+        "jsdoc-format": false,
+        "max-line-length": false,
         "no-const-enum": false,
+        "no-empty-interface": false,
+        "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ],
         "quotemark": [
             true,
             "double"
         ],
-        "jsdoc-format": true,
-        "no-unnecessary-generics": false,
-        "no-empty-interface": false,
-        "npm-naming": false
+        "unified-signatures": false
     }
 }

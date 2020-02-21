@@ -1,7 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "unified-signatures": false,
-        "quotemark": [true, "double", "avoid-escape", "avoid-template"]
+        "quotemark": [
+            true,
+            "double",
+            "avoid-escape",
+            "avoid-template"
+        ],
+        "unified-signatures": false
     }
 }

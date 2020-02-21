@@ -3,6 +3,11 @@
     "rules": {
         "no-unnecessary-generics": false,
         "no-void-expression": false,
-        "npm-naming": false
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ]
     }
 }
