@@ -209,7 +209,8 @@ export interface CookieDefinition {
     extensions?: Array<{key: string; value: string}>;
 }
 
-export class Cookie extends PropertyBase<CookieDefinition> implements CookieDefinition {
+export class Cookie extends PropertyBase<CookieDefinition> implements Exclude<CookieDefinition, 'key'> {
+    name?: string;
     domain: string;
     expires: Date;
     extensions?: Array<{key: string; value: string}>;
