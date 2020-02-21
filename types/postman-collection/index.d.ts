@@ -434,8 +434,8 @@ export class QueryParam extends Property<QueryParamDefinition> implements QueryP
 export interface RequestDefinition extends PropertyDefinition {
     url: string | Url;
     method?: string;
-    header?: HeaderDefinition;
-    body?: RequestBody;
+    header?: HeaderDefinition[];
+    body?: RequestBodyDefinition;
     auth?: RequestAuthDefinition;
     proxy?: ProxyConfigDefinition;
     certificate?: CertificateDefinition;
