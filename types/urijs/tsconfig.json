@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/urijs-dom.test.ts",
-        "test/urijs-nodejs.test.ts"
+        "test/urijs-nodejs.test.ts",
+        "test/urijs-global.test.ts"
     ]
 }
