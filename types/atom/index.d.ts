@@ -202,16 +202,14 @@ export interface AtomEnvironment {
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
 
-    /** Restores the full screen and maximized state after the window has resized to
-     *  prevent resize glitches.
-     */
-    displayWindow(): void
+    /** Restores the full screen and maximized state after the window has resized to prevent resize glitches. */
+    displayWindow(): void;
 
     /** Get the dimensions of this window. */
     getWindowDimensions(): { x: number, y: number, width: number, height: number };
 
     /** Set the dimensions of the window. */
-    setWindowDimensions({ x: number, y: number, width: number, height: number }): Promise<object>
+    setWindowDimensions({ x: 0, y: 0, width: 640, height: 480 }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
