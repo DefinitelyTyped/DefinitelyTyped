@@ -493,7 +493,7 @@ export interface RequestAuthDefinition extends PropertyDefinition {
 }
 
 export class RequestAuth extends Property<RequestAuthDefinition> implements RequestAuthDefinition {
-    type: Required<RequestAuthDefinition['type']>;
+    type: NonNullable<RequestAuthDefinition['type']>;
 
     constructor(options: RequestAuthDefinition, parent?: Property<PropertyDefinition> | PropertyList<RequestAuth>);
 

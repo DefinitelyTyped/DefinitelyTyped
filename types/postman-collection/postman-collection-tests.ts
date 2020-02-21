@@ -154,7 +154,7 @@ pmCollection.ItemGroup.isItemGroup(ig); // $ExpectType boolean
 // CollectionDefinition Tests
 const colDef: pmCollection.CollectionDefinition = {};
 colDef.info; // $ExpectType { id?: string | undefined; name?: string | undefined; version?: string | undefined; } | undefined
-colDef.variable; // $ExpectType VariableDefinition | undefined
+colDef.variable; // $ExpectType VariableDefinition[] | undefined
 
 let collection: pmCollection.Collection;
 collection = new pmCollection.Collection();
@@ -447,8 +447,8 @@ const reqDef: pmCollection.RequestDefinition = {
 };
 reqDef.url; // $ExpectType string | Url
 reqDef.method; // $ExpectType string | undefined
-reqDef.header; // $ExpectType HeaderDefinition | undefined
-reqDef.body; // $ExpectType RequestBody | undefined
+reqDef.header; // $ExpectType HeaderDefinition[] | undefined
+reqDef.body; // $ExpectType RequestBodyDefinition | undefined
 reqDef.auth; // $ExpectType RequestAuthDefinition | undefined
 reqDef.proxy; // $ExpectType ProxyConfigDefinition | undefined
 reqDef.certificate; // $ExpectType CertificateDefinition | undefined
@@ -505,14 +505,14 @@ pmCollection.Request.isRequest(req); // $ExpectType boolean
 // RequestAuthDefinition Tests
 
 const reqAuthDef: pmCollection.RequestAuthDefinition = {};
-reqAuthDef.type; // $ExpectType string | undefined
+reqAuthDef.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm" | undefined
 
 // RequestAuth Tests
 
 let reqAuth = new pmCollection.RequestAuth(reqAuthDef);
 reqAuth = new pmCollection.RequestAuth(reqAuthDef, collection);
 
-reqAuth.type; // $ExpectType string
+reqAuth.type; // $ExpectType "oauth2" | "hawk" | "noauth" | "basic" | "oauth1" | "apikey" | "digest" | "bearer" | "awsv4" | "edgegrid" | "ntlm"
 
 reqAuth.update(new pmCollection.VariableList(collection, [])); // $ExpectType void
 reqAuth.update({key: "string", value: "string"}); // $ExpectType void
