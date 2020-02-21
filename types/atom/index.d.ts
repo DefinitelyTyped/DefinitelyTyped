@@ -202,7 +202,8 @@ export interface AtomEnvironment {
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
 
-    /** Restores the full screen and maximized state after the window has resized to prevent resize
+    /**
+     * Restores the full screen and maximized state after the window has resized to prevent resize
      *  glitches.
      */
     displayWindow(): void;
