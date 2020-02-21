@@ -176,7 +176,7 @@ export interface CollectionDefinition extends ItemGroupDefinition {
         name?: string;
         version?: string;
     };
-    variable?: VariableDefinition;
+    variable?: VariableDefinition[];
 }
 
 export class Collection extends ItemGroup<Request> {
