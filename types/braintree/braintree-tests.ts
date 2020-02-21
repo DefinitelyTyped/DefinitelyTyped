@@ -148,6 +148,16 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     if (!reportUrl) return;
 })();
 
+/**
+ * Gateway function helper
+ */
+const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: 'abc123',
+    publicKey: 'def456',
+    privateKey: 'xyz789',
+});
+
 (async () => {
     const merchantAccount: MerchantAccountCreateRequest = {
         individual: {
@@ -170,7 +180,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         masterMerchantAccountId: 'master_merchant',
         tosAccepted: true
     };
-    const response = await gateway.merchantAccount.create(merchantAccount);
+    const response = await gateway2.merchantAccount.create(merchantAccount);
     if (!response) return;
     const id = response.merchantAccount.masterMerchantAccount?.id;
 })();
