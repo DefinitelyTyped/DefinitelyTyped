@@ -157,6 +157,7 @@ function testAtomEnvironment() {
     bool = atom.inDevMode();
     bool = atom.inSafeMode();
     bool = atom.inSpecMode();
+    str = atom.getAppName();
     str = atom.getVersion();
     bool = atom.isReleasedVersion();
     num = atom.getWindowLoadTime();
@@ -190,6 +191,9 @@ function testAtomEnvironment() {
     bool = atom.isFullScreen();
     atom.setFullScreen(true);
     atom.toggleFullScreen();
+    atom.displayWindow();
+    obj = atom.getWindowDimensions();
+    atom.setWindowDimensions({ x: 0, y: 0, width: 640, height: 480 });
 
     // Messaging the User
     atom.beep();

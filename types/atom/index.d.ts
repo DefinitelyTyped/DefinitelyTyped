@@ -121,6 +121,9 @@ export interface AtomEnvironment {
     /** Returns a boolean that is true if the current window is running specs. */
     inSpecMode(): boolean;
 
+    /** Get the full name of this Atom release (e.g. "Atom", "Atom Beta") */
+    getAppName(): string;
+
     /** Get the version of the Atom application. */
     getVersion(): string;
 
@@ -198,6 +201,17 @@ export interface AtomEnvironment {
 
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
+
+    /** Restores the full screen and maximized state after the window has resized to
+     *  prevent resize glitches.
+     */
+    displayWindow(): void
+
+    /** Get the dimensions of this window. */
+    getWindowDimensions(): { x: number, y: number, width: number, height: number };
+
+    /** Set the dimensions of the window. */
+    setWindowDimensions({ x: number, y: number, width: number, height: number }): Promise<object>
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
