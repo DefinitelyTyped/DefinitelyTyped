@@ -32,3 +32,6 @@ declare function cancelIdleCallback(handle: number): void;
 
 declare function request(callback: IdleRequestCallback, options?: IdleRequestOptions): IdleCallbackHandle;
 declare function cancel(handle: IdleCallbackHandle): void;
+
+export const request = request;
+export const cancel = cancel;
