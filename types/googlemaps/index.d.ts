@@ -1996,7 +1996,10 @@ declare namespace google.maps {
         onAdd(): void;
         onRemove(): void;
         setMap(map: Map | StreetViewPanorama | null): void;
-        /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsAndGesturesFrom Maps JavaScript API} */
+        /**
+         * Stops click, tap, drag, and wheel events on the element from bubbling up to the map. Use this to prevent map dragging and zooming, as well as map "click" events.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsAndGesturesFrom Maps JavaScript API}
+         */
         static preventMapHitsAndGesturesFrom(element: Element): void;
         /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsFrom Maps JavaScript API} */
         static preventMapHitsFrom(element: Element): void;
