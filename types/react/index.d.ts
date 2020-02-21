@@ -2445,6 +2445,7 @@ declare namespace React {
         overlineThickness?: number | string;
         paintOrder?: number | string;
         panose1?: number | string;
+        path?: string;
         pathLength?: number | string;
         patternContentUnits?: string;
         patternTransform?: number | string;
