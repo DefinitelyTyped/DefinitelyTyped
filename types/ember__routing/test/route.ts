@@ -104,6 +104,27 @@ class InvalidRedirect extends Route {
     }
 }
 
+class TransitionToExamples extends Route {
+    // NOTE: this one won't check that `queryParams` has the right shape,
+    // because the overload for the version where `models` are passed
+    // necessarily includes all objects.
+    transitionToModelAndQP() {
+        this.transitionTo('somewhere', { queryParams: { neat: true } });
+    }
+
+    transitionToJustQP() {
+        this.transitionTo({ queryParams: { neat: 'true' }});
+    }
+
+    transitionToNonsense() {
+        this.transitionTo({ cannotDoModelHere: true }); // $ExpectError
+    }
+
+    transitionToBadQP() {
+        this.transitionTo({ queryParams: 12 }); // $ExpectError
+    }
+}
+
 class ApplicationController extends Controller {}
 declare module '@ember/controller' {
     interface Registry {
