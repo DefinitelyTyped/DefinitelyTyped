@@ -61,8 +61,8 @@ declare module "codemirror" {
         closeOnUnfocus?: boolean;
         completeOnSingleClick?: boolean;
         container?: HTMLElement | null;
-        customKeys?: {[key: string]: (editor: Editor, handle: Handle) => void} | null;
-        extraKeys?: {[key: string]: (editor: Editor, handle: Handle) => void} | null;
+        customKeys?: {[key: string]: (editor: Editor, handle: Handle) => void | string} | null;
+        extraKeys?: {[key: string]: (editor: Editor, handle: Handle) => void | string} | null;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/
