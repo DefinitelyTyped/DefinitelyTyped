@@ -76,9 +76,8 @@ export interface TableRowProps extends TableKeyedProps {}
 
 export interface TableCellProps extends TableKeyedProps {}
 
-export interface TableToggleCommonProps {
+export interface TableToggleCommonProps extends TableCommonProps {
     onChange?: () => void;
-    style?: { cursor: string };
     checked?: boolean;
     title?: string;
     indeterminate?: boolean;
@@ -190,7 +189,6 @@ export interface TableToggleHideAllColumnProps extends TableToggleCommonProps {}
 
 export interface UseTableInstanceProps<D extends object> {
     state: TableState<D>;
-    hooks: Hooks<D>;
     plugins: Array<PluginHook<D>>;
     dispatch: TableDispatch;
     columns: Array<ColumnInstance<D>>;
@@ -338,7 +336,8 @@ export type UseExpandedOptions<D extends object> = Partial<{
 }>;
 
 export interface UseExpandedHooks<D extends object> {
-    getToggleAllRowsExpandedProps: Array<(row: Row<D>, instance: TableInstance<D>) => object>;
+    getToggleRowsExpandedProps: Array<PropGetter<D, TableCommonProps>>;
+    getToggleAllRowsExpandedProps: Array<PropGetter<D, TableCommonProps>>;
 }
 
 export interface UseExpandedState<D extends object> {
@@ -351,8 +350,8 @@ export interface UseExpandedInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     expandedDepth: number;
     isAllRowsExpanded: boolean;
-    toggleRowExpanded: (id: Array<IdType<D>>, value: boolean) => void;
-    toggleAllRowsExpanded: (value: boolean) => void;
+    toggleRowExpanded: (id: Array<IdType<D>>, value?: boolean) => void;
+    toggleAllRowsExpanded: (value?: boolean) => void;
 }
 
 export interface UseExpandedRowProps<D extends object> {
@@ -496,7 +495,7 @@ export type UseGroupByOptions<D extends object> = Partial<{
 }>;
 
 export interface UseGroupByHooks<D extends object> {
-    getGroupByToggleProps: Array<(header: HeaderGroup<D>, instance: TableInstance<D>) => object>;
+    getGroupByToggleProps: Array<HeaderGroupPropGetter<D>>;
 }
 
 export interface UseGroupByState<D extends object> {
@@ -525,7 +524,7 @@ export interface UseGroupByInstanceProps<D extends object> {
     rows: Array<Row<D>>;
     flatRows: Array<Row<D>>;
     rowsById: Record<string, Row<D>>;
-    toggleGroupBy: (columnId: IdType<D>, value: boolean) => void;
+    toggleGroupBy: (columnId: IdType<D>, value?: boolean) => void;
 }
 
 export interface UseGroupByColumnProps<D extends object> {
@@ -650,8 +649,8 @@ export type UseRowSelectOptions<D extends object> = Partial<{
 }>;
 
 export interface UseRowSelectHooks<D extends object> {
-    getToggleRowSelectedProps: Array<(row: Row<D>, instance: TableInstance<D>) => object>;
-    getToggleAllRowsSelectedProps: Array<(instance: TableInstance<D>) => object>;
+    getToggleRowSelectedProps: Array<PropGetter<D, TableToggleRowsSelectedProps>>;
+    getToggleAllRowsSelectedProps: Array<PropGetter<D, TableToggleAllRowsSelectedProps>>;
 }
 
 export interface UseRowSelectState<D extends object> {
@@ -737,7 +736,7 @@ export type UseSortByOptions<D extends object> = Partial<{
 }>;
 
 export interface UseSortByHooks<D extends object> {
-    getSortByToggleProps: Array<(column: Column<D>, instance: TableInstance<D>) => object>;
+    getSortByToggleProps: Array<PropGetter<D, TableCommonProps>>;
 }
 
 export interface UseSortByState<D extends object> {
