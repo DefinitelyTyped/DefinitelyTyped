@@ -1,6 +1,6 @@
 import * as SparqlHttp from 'sparql-http-client';
 
-const client = new SparqlHttp();
+const client: SparqlHttp.SparqlHttpClient = new SparqlHttp();
 
 async function selectQuery() {
     const response = await client.selectQuery('...', {
