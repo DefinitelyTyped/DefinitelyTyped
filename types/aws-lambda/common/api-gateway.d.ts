@@ -9,6 +9,7 @@ export interface APIGatewayEventRequestContext {
     domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
+    protocol: string;
     httpMethod: string;
     identity: APIGatewayEventIdentity;
     messageDirection?: string;
