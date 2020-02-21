@@ -479,11 +479,21 @@ export class Request extends Property<RequestDefinition> implements RequestDefin
 }
 
 export interface RequestAuthDefinition extends PropertyDefinition {
-    type?: string;
+    type?: 'oauth2' | 'hawk' | 'noauth' | 'basic' | 'oauth1' | 'apikey' | 'digest' | 'bearer' | 'awsv4' | 'edgegrid' | 'ntlm';
+    oauth2?: VariableDefinition[];
+    hawk?: VariableDefinition[];
+    basic?: VariableDefinition[];
+    oauth1?: VariableDefinition[];
+    apikey?: VariableDefinition[];
+    digest?: VariableDefinition[];
+    bearer?: VariableDefinition[];
+    awsv4?: VariableDefinition[];
+    edgegrid?: VariableDefinition[];
+    ntlm?: VariableDefinition[];
 }
 
 export class RequestAuth extends Property<RequestAuthDefinition> implements RequestAuthDefinition {
-    type: string;
+    type: Required<RequestAuthDefinition['type']>;
 
     constructor(options: RequestAuthDefinition, parent?: Property<PropertyDefinition> | PropertyList<RequestAuth>);
 
