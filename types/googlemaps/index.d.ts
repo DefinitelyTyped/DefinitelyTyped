@@ -2001,7 +2001,10 @@ declare namespace google.maps {
          * @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsAndGesturesFrom Maps JavaScript API}
          */
         static preventMapHitsAndGesturesFrom(element: Element): void;
-        /** @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsFrom Maps JavaScript API} */
+        /**
+         * Stops click or tap on the element from bubbling up to the map. Use this to prevent the map from triggering "click" events.
+         * @see {@link https://developers.google.com/maps/documentation/javascript/reference/overlay-view#OverlayView.preventMapHitsFrom Maps JavaScript API}
+         */
         static preventMapHitsFrom(element: Element): void;
     }
 
