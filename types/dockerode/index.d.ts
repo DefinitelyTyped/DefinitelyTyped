@@ -451,6 +451,9 @@ declare namespace Dockerode {
       Error: string;
       StartedAt: string;
       FinishedAt: string;
+      Health?: {
+        Status: "starting" | "unhealthy" | "healthy"
+      };
     };
     Image: string;
     ResolvConfPath: string;
