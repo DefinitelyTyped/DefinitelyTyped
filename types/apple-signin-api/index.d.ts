@@ -1,16 +1,39 @@
-// Type definitions for non-npm package Apple Sign in API 0.1
+// Type definitions for non-npm package Apple Sign in API 1.4
 // Project: https://developer.apple.com/documentation/signinwithapplejs
 // Definitions by: Julius Lungys <https://github.com/voidpumpkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace AppleSignInAPI {
+    // https://developer.apple.com/documentation/signinwithapplejs/authorizationi
+    interface AuthorizationI {
+        code: string;
+        id_token: string;
+        state: string;
+    }
+    // https://developer.apple.com/documentation/signinwithapplejs/namei
+    interface NameI {
+        firstName: string;
+        lastName: string;
+    }
+    // https://developer.apple.com/documentation/signinwithapplejs/signinerrori
+    interface SignInErrorI {
+        error: string;
+    }
+    // https://developer.apple.com/documentation/signinwithapplejs/signinresponsei
+    interface SignInResponseI {
+        authorization: AuthorizationI;
+        user?: UserI;
+    }
+    // https://developer.apple.com/documentation/signinwithapplejs/useri
+    interface UserI {
+        email: string;
+        name: NameI;
+    }
     // https://developer.apple.com/documentation/signinwithapplejs/authi
     interface AuthI {
-        auth: {
-            init: (config?: ClientConfigI) => Promise<void>;
-            signIn: (config?: ClientConfigI) => Promise<signInResponse>;
-            renderButton: () => void;
-        };
+        init: (config: ClientConfigI) => Promise<void>;
+        signIn: (signInConfig?: ClientConfigI) => Promise<SignInResponseI | SignInErrorI>;
+        renderButton: () => void;
     }
     // https://developer.apple.com/documentation/signinwithapplejs/clientconfigi
     interface ClientConfigI {
@@ -18,15 +41,9 @@ declare namespace AppleSignInAPI {
         redirectURI: string;
         scope: string;
         state: string;
-        usePopup: boolean; // Mentioned in https://developer.apple.com/documentation/signinwithapplejs/configuring_your_webpage_for_sign_in_with_apple
+        usePopup: boolean;
     }
-    // https://developer.apple.com/documentation/signinwithapplejs/configuring_your_webpage_for_sign_in_with_apple
-    interface signInResponse {
-        authorization: {
-            code: string;
-            id_token: string;
-            state: string;
-        };
-        user?: { name: { firstName: string; lastName: string }; email: string };
+    interface AppleID {
+        auth: AuthI;
     }
 }

@@ -6,7 +6,7 @@ const ClientConfig: AppleSignInAPI.ClientConfigI = {
     usePopup: false,
 };
 
-const signinResponse: AppleSignInAPI.signInResponse = {
+const signInResponse: AppleSignInAPI.SignInResponseI = {
     authorization: {
         state: '[STATE]',
         code: '[CODE]',
@@ -21,10 +21,22 @@ const signinResponse: AppleSignInAPI.signInResponse = {
     },
 };
 
-const AuthI: AppleSignInAPI.AuthI = {
+const signInError: AppleSignInAPI.SignInErrorI = {
+    error: '[ERROR]',
+};
+
+const AuthGood: AppleSignInAPI.AppleID = {
     auth: {
         init: () => new Promise(() => {}),
-        signIn: () => new Promise(() => signinResponse),
+        signIn: () => new Promise(() => signInResponse),
+        renderButton: () => {},
+    },
+};
+
+const AuthBad: AppleSignInAPI.AppleID = {
+    auth: {
+        init: () => new Promise(() => {}),
+        signIn: () => new Promise(() => signInError),
         renderButton: () => {},
     },
 };
