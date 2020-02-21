@@ -452,7 +452,7 @@ declare namespace Dockerode {
       StartedAt: string;
       FinishedAt: string;
       Health?: {
-        Status: "starting" | "unhealthy" | "healthy"
+        Status: string;
       };
     };
     Image: string;
