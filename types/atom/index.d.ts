@@ -206,7 +206,7 @@ export interface AtomEnvironment {
      * Restores the full screen and maximized state after the window has resized to prevent resize
      * glitches.
      */
-    displayWindow(): void;
+    displayWindow(): Promise<undefined>;
 
     /** Get the dimensions of this window. */
     getWindowDimensions(): { x: number, y: number, width: number, height: number };
