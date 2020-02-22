@@ -2,6 +2,7 @@
 // Project: https://github.com/styled-system/styled-system
 // Definitions by: Sebastian Sebald <https://github.com/sebald>
 //                 Bartosz Szewczyk <https://github.com/sztobar>
+//                 Ryan Dowling <https://github.com/RyanTheAllmighty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
@@ -332,6 +333,18 @@ interface OverwriteCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/font-weight
      */
     fontWeight?: CSS.FontWeightProperty | string;
+    /**
+     * The **`z-index`** CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with a larger z-index cover those with a smaller one.
+     *
+     * **Initial value**: `auto`
+     *
+     * | Chrome | Firefox | Safari |  Edge  |  IE   |
+     * | :----: | :-----: | :----: | :----: | :---: |
+     * | **1**  |  **1**  | **1**  | **12** | **4** |
+     *
+     * @see https://developer.mozilla.org/docs/Web/CSS/z-index
+     */
+    zIndex?: CSS.ZIndexProperty | string;
 }
 
 /**
@@ -340,7 +353,7 @@ interface OverwriteCSSProperties {
  * theme function or nested) in `SystemCssProperties`.
  */
 interface AllSystemCSSProperties
-    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight'>,
+    extends Omit<CSSProperties, 'boxShadow' | 'fontWeight' | 'zIndex'>,
         AliasesCSSProperties,
         OverwriteCSSProperties {}
 

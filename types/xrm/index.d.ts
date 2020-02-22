@@ -3852,7 +3852,7 @@ declare namespace Xrm {
              * @param handler If an anonymous function is set using the addOnPreStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnPreStageChange(handler: Events.ProcessStatusChangeHandler): void;
+            removeOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnProcessStatusChange event.

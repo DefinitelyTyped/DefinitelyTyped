@@ -6,6 +6,7 @@ import {
     DataTableHeader,
     DataTableRow,
     Dropdown,
+    FileUploader,
     NumberInput,
     Slider,
     Tab,
@@ -394,5 +395,12 @@ const numberInput = (
     <NumberInput
         id="my-id"
         value={12}
+    />
+);
+
+// FileUploader
+const fileUploaderHasOnChange = (
+    <FileUploader
+        onChange={(e) => {} }
     />
 );

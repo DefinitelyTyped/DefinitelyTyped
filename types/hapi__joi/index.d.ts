@@ -22,6 +22,7 @@
 //                 David Recuenco <https://github.com/RecuencoJones>
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
+//                 Simcha Wood <https://github.com/SimchaWood>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -87,7 +88,7 @@ declare namespace Joi {
         wrapArrays?: boolean;
     }
 
-    interface ValidationOptions {
+    interface BaseValidationOptions {
         /**
          * when true, stops validation on the first error, otherwise returns all the errors found.
          *
@@ -139,14 +140,6 @@ declare namespace Joi {
          */
         externals?: boolean;
         /**
-         * overrides individual error messages. Defaults to no override (`{}`).
-         * Messages use the same rules as templates.
-         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
-         *
-         * @default {}
-         */
-        messages?: LanguageMessages;
-        /**
          * when true, do not apply default values.
          *
          * @default false
@@ -181,6 +174,17 @@ declare namespace Joi {
         stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
     }
 
+    interface ValidationOptions extends BaseValidationOptions {
+        /**
+         * overrides individual error messages. Defaults to no override (`{}`).
+         * Messages use the same rules as templates.
+         * Variables in double braces `{{var}}` are HTML escaped if the option `errors.escapeHtml` is set to true.
+         *
+         * @default {}
+         */
+        messages?: LanguageMessages;
+    }
+
     interface AsyncValidationOptions extends ValidationOptions {
         /**
          * when true, warnings are returned alongside the value (i.e. `{ value, warning }`).
@@ -188,6 +192,15 @@ declare namespace Joi {
          * @default false
          */
         warnings?: boolean;
+    }
+
+    interface LanguageMessageTemplate {
+        source: string;
+        rendered: string;
+    }
+
+    interface ErrorValidationOptions extends BaseValidationOptions {
+        messages?: Record<string, LanguageMessageTemplate>;
     }
 
     interface RenameOptions {
@@ -581,8 +594,8 @@ declare namespace Joi {
     interface ErrorReport extends Error {
         code: string;
         flags: Record<string, ExtensionFlag>;
-        path: string;
-        prefs: ValidationOptions;
+        path: string[];
+        prefs: ErrorValidationOptions;
         messages: LanguageMessages;
         state: State;
         value: any;
@@ -614,7 +627,7 @@ declare namespace Joi {
         context?: Context;
     }
 
-    type ValidationErrorFunction = (errors: ValidationErrorItem[]) => string | ValidationErrorItem | Error;
+    type ValidationErrorFunction = (errors: ErrorReport[]) => string | ValidationErrorItem | Error;
 
     interface ValidationResult {
         error?: ValidationError;
@@ -664,7 +677,8 @@ declare namespace Joi {
         [key in keyof TSchema]?: SchemaLike | SchemaLike[];
     };
 
-    type Schema = AnySchema
+    type Schema =
+        | AnySchema
         | ArraySchema
         | AlternativesSchema
         | BinarySchema
@@ -678,6 +692,13 @@ declare namespace Joi {
         | SymbolSchema;
 
     type SchemaFunction = (schema: Schema) => Schema;
+
+    interface AddRuleOptions {
+        name: string;
+        args?: {
+            [key: string]: any;
+        };
+    }
 
     interface SchemaInternals {
         /**
@@ -693,7 +714,7 @@ declare namespace Joi {
         /**
          * Adds a rule to current validation schema.
          */
-        $_addRule(rule: string | ExtensionRule): Schema;
+        $_addRule(rule: string | AddRuleOptions): Schema;
 
         /**
          * Internally compiles schema.
@@ -703,7 +724,14 @@ declare namespace Joi {
         /**
          * Creates a joi error object.
          */
-        $_createError(code: string, value: any, context: Context, state: State, prefs: ValidationOptions, options?: CreateErrorOptions): Err;
+        $_createError(
+            code: string,
+            value: any,
+            context: Context,
+            state: State,
+            prefs: ValidationOptions,
+            options?: CreateErrorOptions,
+        ): Err;
 
         /**
          * Get value from given flag.
@@ -1756,7 +1784,7 @@ declare namespace Joi {
     interface RuleArgs {
         name: string;
         ref?: boolean;
-        assert?: (value: any) => boolean;
+        assert?: ((value: any) => boolean) | AnySchema;
         message?: string;
 
         /**

@@ -828,6 +828,14 @@ declare namespace braintree {
         | 'SamsungPayCard';
 
     /**
+     * Account Updater
+     */
+    export class AccountUpdaterDailyReport {
+        reportDate: Date;
+        reportUrl: string;
+    }
+
+    /**
      * Webhooks
      */
 
@@ -868,8 +876,7 @@ declare namespace braintree {
 
     export interface AccountUpdaterNotification extends BaseWebhookNotification {
         kind: AccountUpdaterNotificationKind;
-        reportDate: Date;
-        reportUrl: string;
+        accountUpdaterDailyReport: AccountUpdaterDailyReport;
     }
 
     export interface PaymentMethodNotification extends BaseWebhookNotification {

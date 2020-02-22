@@ -3,7 +3,6 @@
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 //                 Karol Janyst <https://github.com/LKay>
 //                 Luka Zakrajsek <https://github.com/bancek>
-//                 Alex Young <https://github.com/alsiola>
 //                 Anton Novik <https://github.com/tehbi4>
 //                 Huw Martin <https://github.com/huwmartin>
 //                 Matt Davis <https://github.com/m-b-davis>
