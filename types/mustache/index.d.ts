@@ -340,7 +340,24 @@ declare class MustacheWriter {
     rawValue(token: string[]): string;
 }
 
-type TemplateSpanType = 'text' | 'name' | '#' | '&' | '^' | '!' | '>' | '=';
+type RAW_VALUE = "text";
+type ESCAPED_VALUE = "name";
+type UNESCAPED_VALUE = "&";
+type SECTION = "#";
+type INVERTED = "^";
+type COMMENT = "!";
+type PARTIAL = ">";
+type EQUAL = "=";
+
+type TemplateSpanType =
+    | RAW_VALUE
+    | ESCAPED_VALUE
+    | SECTION
+    | UNESCAPED_VALUE
+    | INVERTED
+    | COMMENT
+    | PARTIAL
+    | EQUAL;
 
 type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number]
