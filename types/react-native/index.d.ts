@@ -2216,6 +2216,12 @@ export interface AccessibilityPropsIOS {
     accessibilityViewIsModal?: boolean;
 
     /**
+     * When accessibile is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
+     * @platform ios
+     */
+    onAccessibilityEscape?: () => void;
+
+    /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
@@ -2226,12 +2232,6 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     onMagicTap?: () => void;
-
-    /**
-     * When accessibile is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
-     * @platform DatePickerIOSBase
-     */
-    onAccessibilityEscape?: () => void;
 
     /**
      * https://facebook.github.io/react-native/docs/accessibility#accessibilityignoresinvertcolorsios
