@@ -3,17 +3,13 @@
 // Definitions by: Eric Cornelissen <https://github.com/ericcornelissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace SimpleIcons {
-    interface SimpleIcon {
-        title: string;
-        slug: string;
-        svg: string;
-        path: string;
-        source: string;
-        hex: string;
-    }
-    
-    function get(name: string): SimpleIcon;
+export interface SimpleIcon {
+    title: string;
+    slug: string;
+    svg: string;
+    path: string;
+    source: string;
+    hex: string;
 }
 
-export = SimpleIcons;
+export function get(name: string): SimpleIcon;
