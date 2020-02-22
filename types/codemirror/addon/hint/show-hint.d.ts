@@ -61,7 +61,7 @@ declare module "codemirror" {
         closeOnUnfocus?: boolean;
         completeOnSingleClick?: boolean;
         container?: HTMLElement | null;
-        customKeys?: {[key: string]: (editor: Editor, handle: Handle) => void | string} | null;
+        customKeys?: {[key: string]: ((editor: Editor, handle: Handle) => void) | string} | null;
         extraKeys?: {[key: string]: ((editor: Editor, handle: Handle) => void) | string} | null;
     }
 
