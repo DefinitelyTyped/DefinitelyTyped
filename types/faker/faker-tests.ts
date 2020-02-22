@@ -89,7 +89,6 @@ resultStr = faker.finance.currencyCode();
 resultStr = faker.finance.currencyName();
 resultStr = faker.finance.currencySymbol();
 resultStr = faker.finance.bitcoinAddress();
-resultStr = faker.finance.creditCardCVV();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
 resultStr = faker.finance.bic();
