@@ -62,7 +62,7 @@ declare module "codemirror" {
         completeOnSingleClick?: boolean;
         container?: HTMLElement | null;
         customKeys?: {[key: string]: (editor: Editor, handle: Handle) => void | string} | null;
-        extraKeys?: {[key: string]: (editor: Editor, handle: Handle) => void | string} | null;
+        extraKeys?: {[key: string]: ((editor: Editor, handle: Handle) => void) | string} | null;
     }
 
     /** The Handle used to interact with the autocomplete dialog box.*/
