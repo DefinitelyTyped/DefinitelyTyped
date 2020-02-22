@@ -1,4 +1,4 @@
-// Type definitions for shopify-buy 1.11.0 (WIP)
+// Type definitions for shopify-buy 1.11.0
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
