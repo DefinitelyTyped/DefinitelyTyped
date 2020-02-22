@@ -4,7 +4,7 @@
 //                 Bas Pennings <https://github.com/basp>,
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
 //                 Matt Bishop <https://github.com/mattbishop>,
-//                Leonardo Testa <https://github.com/testica>
+//                 Leonardo Testa <https://github.com/testica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
