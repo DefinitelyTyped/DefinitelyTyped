@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Atom 1.36
+// Type definitions for non-npm package Atom 1.40
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.36.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.40.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -5983,7 +5983,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.36.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.40.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
