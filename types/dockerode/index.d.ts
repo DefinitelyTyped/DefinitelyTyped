@@ -453,6 +453,13 @@ declare namespace Dockerode {
       FinishedAt: string;
       Health?: {
         Status: string;
+        FailingStreak: number;
+        Log: Array<{
+          Start: string;
+          End: string;
+          ExitCode: number;
+          Output: string;
+        }>;
       };
     };
     Image: string;
