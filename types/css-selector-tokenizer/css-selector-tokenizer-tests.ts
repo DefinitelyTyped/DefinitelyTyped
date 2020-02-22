@@ -9,7 +9,7 @@ parseValues('url(abc)'); // $ExpectType ValuesNode
 stringifyValues({ type: 'values', nodes: [] }); // $ExpectType string
 
 // extracted from https://github.com/css-modules/css-selector-tokenizer/blob/v0.7.1/test/test-cases.js
-export const slectorsNodes: cssSelectorTokenizer.SelectorsNode[] = [
+export const selectorsNodes: cssSelectorTokenizer.SelectorsNode[] = [
     {
         type: 'selectors',
         nodes: [
