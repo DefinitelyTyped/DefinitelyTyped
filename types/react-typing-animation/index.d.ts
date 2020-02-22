@@ -18,7 +18,7 @@ export interface TypingProps {
     onStartedTyping?: () => {};
     onBeforeType?: () => {};
     onAfterType?: () => {};
-    onFinishedType?: () => {};
+    onFinishedTyping?: () => {};
 }
 
 declare namespace Typing {
