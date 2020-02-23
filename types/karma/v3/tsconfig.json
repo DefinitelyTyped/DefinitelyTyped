@@ -6,12 +6,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "karma": [ "karma/v3" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
