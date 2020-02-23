@@ -653,7 +653,6 @@ declare namespace braintree {
         id?: string;
         individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
-        status?: MerchantAccountStatus;
         tosAccepted: boolean;
     }
 
@@ -663,7 +662,6 @@ declare namespace braintree {
         id: string;
         individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
-        status: MerchantAccountStatus;
     }
 
     export interface MerchantBusinessRequest {
