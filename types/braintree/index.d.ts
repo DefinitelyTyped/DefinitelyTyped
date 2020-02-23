@@ -637,37 +637,44 @@ declare namespace braintree {
      */
 
     export class MerchantAccount {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessResponse;
         currencyIsoCode: string;
         default: boolean;
         funding: MerchantFunding;
         id: string;
-        individual: MerchantIndividual;
+        individual: MerchantIndividualResponse;
         masterMerchantAccount?: MerchantAccount;
         status: MerchantAccountStatus;
     }
 
     export interface MerchantAccountCreateRequest {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessRequest;
         funding: MerchantFunding;
         id?: string;
-        individual: MerchantIndividual;
+        individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
         status?: MerchantAccountStatus;
         tosAccepted: boolean;
     }
 
     export interface MerchantAccountUpdateRequest {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessRequest;
         funding: MerchantFunding;
         id: string;
-        individual: MerchantIndividual;
+        individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
         status: MerchantAccountStatus;
     }
 
-    export interface MerchantBusiness {
+    export interface MerchantBusinessRequest {
         address?: MerchantAddressDetails;
+        dbaName?: string;
+        legalName?: string;
+        taxId?: string;
+    }
+
+    export interface MerchantBusinessResponse {
+        addressDetails?: MerchantAddressDetails;
         dbaName?: string;
         legalName?: string;
         taxId?: string;
@@ -690,8 +697,19 @@ declare namespace braintree {
         routingNumber?: string;
     }
 
-    export interface MerchantIndividual {
+    export interface MerchantIndividualRequest {
         address: MerchantAddressDetails;
+        dateOfBirth: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+        phone?: string;
+        ssn?: string;
+        ssnLast4?: string;
+    }
+
+    export interface MerchantIndividualResponse {
+        addressDetails: MerchantAddressDetails;
         dateOfBirth: string;
         email: string;
         firstName: string;
