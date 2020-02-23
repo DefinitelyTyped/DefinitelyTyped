@@ -326,19 +326,19 @@ export interface ConfigOptions {
     crossOriginAttribute?: boolean;
     /**
      * If null (default), uses karma's own context.html file.
-     * @default null
+     * @default undefined
      */
-    customContextFile?: null | string;
+    customContextFile?: string;
     /**
      * If null (default), uses karma's own client_with_context.html file (which is used when client.runInParent set to true).
-     * @default null
+     * @default undefined
      */
-    customClientContextFile?: null | string;
+    customClientContextFile?: string;
     /**
      * If null (default), uses karma's own debug.html file.
-     * @default null
+     * @default undefined
      */
-    customDebugFile?: null | string;
+    customDebugFile?: string;
     /**
      * Custom HTTP headers that will be set upon serving files by Karma's web server.
      * Custom headers are useful, especially with upcoming browser features like Service Workers.
