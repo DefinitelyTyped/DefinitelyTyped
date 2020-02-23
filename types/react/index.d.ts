@@ -2010,6 +2010,7 @@ declare namespace React {
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
         loading?: "eager" | "lazy";
+        referrerPolicy?: string;
         sizes?: string;
         src?: string;
         srcSet?: string;
