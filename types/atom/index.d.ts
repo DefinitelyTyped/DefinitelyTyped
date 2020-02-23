@@ -209,10 +209,10 @@ export interface AtomEnvironment {
     displayWindow(): Promise<undefined>;
 
     /** Get the dimensions of this window. */
-    getWindowDimensions(): { x?: number, y?: number, width?: number, height?: number };
+    getWindowDimensions(): { x: number, y: number, width: number, height: number };
 
     /** Set the dimensions of the window. */
-    setWindowDimensions(dimensions: object): Promise<object>;
+    setWindowDimensions(dimensions: { x?: number, y?: number, width?: number, height?: number }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
