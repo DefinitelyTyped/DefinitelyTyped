@@ -10,10 +10,12 @@
 //                 Steve Faulkner <https://github.com/southpolesteve>
 //                 ExE Boss <https://github.com/ExE-Boss>
 //                 Alex Savin <https://github.com/alexandrusavin>
+//                 Alexis Tyler <https://github.com/OmgImAlexis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
+import FormData = require('form-data');
 import { Agent } from "http";
 import { URLSearchParams, URL } from "url";
 import { AbortSignal } from "./externals";
