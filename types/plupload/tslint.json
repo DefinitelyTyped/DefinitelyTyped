@@ -14,12 +14,7 @@
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-method-signature": false,

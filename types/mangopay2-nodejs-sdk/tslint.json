@@ -5,11 +5,6 @@
         "no-empty-interface": false,
         "no-redundant-jsdoc": false,
         "no-unnecessary-class": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ]
+        "npm-naming": false
     }
 }

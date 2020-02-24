@@ -6,12 +6,7 @@
         "max-line-length": false,
         "no-redundant-undefined": false,
         "no-unnecessary-generics": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

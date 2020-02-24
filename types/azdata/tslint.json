@@ -9,12 +9,7 @@
         "no-empty-interface": false,
         "no-single-declare-module": false,
         "no-unnecessary-generics": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "strict-export-declare-modifiers": false
     }
 }

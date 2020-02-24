@@ -7,12 +7,7 @@
         "interface-name": false,
         "jsdoc-format": false,
         "no-redundant-jsdoc": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-method-signature": false,
         "space-before-function-paren": false

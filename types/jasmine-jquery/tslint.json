@@ -9,12 +9,7 @@
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-method-signature": false,

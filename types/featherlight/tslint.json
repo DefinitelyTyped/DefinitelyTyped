@@ -7,12 +7,7 @@
         "new-parens": false,
         "no-redundant-jsdoc": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-method-signature": false,

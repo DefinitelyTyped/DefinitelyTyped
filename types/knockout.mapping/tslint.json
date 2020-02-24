@@ -8,12 +8,7 @@
         "no-padding": false,
         "no-redundant-jsdoc": false,
         "no-trailing-whitespace": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "prefer-method-signature": false,
         "quotemark": [
             true,

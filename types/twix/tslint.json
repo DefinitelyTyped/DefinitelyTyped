@@ -10,6 +10,18 @@
         "no-outside-dependencies": false,
         "no-redundant-jsdoc": false,
         "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

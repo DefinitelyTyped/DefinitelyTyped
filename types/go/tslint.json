@@ -15,12 +15,7 @@
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "prefer-const": false,
         "prefer-method-signature": false,
         "prefer-template": false,

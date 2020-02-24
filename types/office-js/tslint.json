@@ -24,12 +24,7 @@
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-for-of": false,

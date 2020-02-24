@@ -13,12 +13,7 @@
         "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "prefer-method-signature": false,
         "strict-export-declare-modifiers": false,
         "unified-signatures": false

@@ -5,12 +5,7 @@
         "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-redundant-jsdoc": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "prefer-method-signature": false,
         "trim-file": false,
         "unified-signatures": false

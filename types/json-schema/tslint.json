@@ -1,12 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "semicolon": false
     }
 }

@@ -10,8 +10,12 @@
         "npm-naming": [
             true,
             {
-                "errors": {
-                },
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
                 "mode": "code"
             }
         ],

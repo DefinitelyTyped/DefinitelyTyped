@@ -9,12 +9,7 @@
         "no-padding": false,
         "no-redundant-jsdoc": false,
         "no-unnecessary-class": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "one-line": false,
         "prefer-method-signature": false,
         "strict-export-declare-modifiers": false

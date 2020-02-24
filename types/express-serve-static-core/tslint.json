@@ -4,12 +4,7 @@
         "comment-format": false,
         "interface-name": false,
         "no-empty-interface": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

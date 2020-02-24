@@ -1,6 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        "npm-naming": [
+            true,
+            {
+                "mode": "name-only"
+            }
+        ],
         "unified-signatures": false
     }
 }

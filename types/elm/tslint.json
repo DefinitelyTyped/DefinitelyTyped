@@ -9,12 +9,7 @@
         "no-empty-interface": false,
         "no-redundant-jsdoc": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "prefer-method-signature": false,
         "semicolon": false,
         "trim-file": false

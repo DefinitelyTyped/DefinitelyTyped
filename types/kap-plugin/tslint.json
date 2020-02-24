@@ -1,8 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // Disabled since "kap" is its own application, and this only types one
-        // API that it exposes.
         "npm-naming": false
     }
 }

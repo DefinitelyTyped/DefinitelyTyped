@@ -14,6 +14,18 @@
         "no-redundant-jsdoc": false,
         "no-var-keyword": false,
         "no-var-requires": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
         "one-variable-per-declaration": false,
         "prefer-const": false,
         "prefer-method-signature": false,

@@ -10,6 +10,18 @@
         "no-redundant-jsdoc": false,
         "no-single-declare-module": false,
         "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
         "prefer-const": false,
         "prefer-method-signature": false,
         "semicolon": false,

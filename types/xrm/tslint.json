@@ -12,12 +12,7 @@
         "no-empty-interface": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
+        "npm-naming": false,
         "quotemark": [
             true,
             "double"
