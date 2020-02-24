@@ -1,4 +1,4 @@
-// Type definitions for postman-collection 3.5.5
+// Type definitions for postman-collection 3.5
 // Project: https://github.com/postmanlabs/postman-collection
 // Definitions by: Kyle Buzby <https://github.com/kbuzby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
