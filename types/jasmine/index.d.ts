@@ -12,7 +12,6 @@
 //                 Domas Trijonis <https://github.com/fdim>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Mochamad Arfin <https://github.com/ndunks>
 //                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
