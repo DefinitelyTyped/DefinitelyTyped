@@ -5,6 +5,7 @@
 //                 CrossR <https://github.com/CrossR>
 //                 Mike Wickett <https://github.com/mwickett>
 //                 Hitomi Hatsukaze <https://github.com/htkzhtm>
+//                 Ezra Celli <https://github.com/ezracelli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
@@ -17,7 +18,7 @@ export = marked;
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): string;
+declare function marked(src: string, callback?: (error: any | undefined, parseResult: string) => void): string | void;
 
 /**
  * Compiles markdown to HTML.
@@ -27,7 +28,7 @@ declare function marked(src: string, callback: (error: any | undefined, parseRes
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
+declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string | void;
 
 declare namespace marked {
     const defaults: MarkedOptions;
