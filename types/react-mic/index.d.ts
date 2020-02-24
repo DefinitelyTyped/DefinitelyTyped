@@ -46,4 +46,19 @@ export interface ReactMicProps {
 
     /** Background color */
     backgroundColor?: string;
+    
+    /** Audio Bits Per Second */
+    audioBitsPerSecond?: number;
+    
+    /** Media output type */
+    mimeType?: string;
+    
+    /** Sample Rate */
+    sampleRate: number;
+    
+    /** Buffer Size */
+    bufferSize: number;
+    
+    /** Recorder Params */
+    recorderParams: any;
 }
