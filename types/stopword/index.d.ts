@@ -1,11 +1,9 @@
-// Type definitions for stopword 0.3
+// Type definitions for stopword 0.3.4
 // Project: https://github.com/fergiemcdowall/stopword
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Stopword {
-    type TStopwords = string[];
-
      const IStopword: {
       /**
        * Stopword removal
@@ -19,13 +17,13 @@ declare namespace Stopword {
        * Get array of stopwords according by language code
        * Also can uses for stopwords parameter on removeStopwords
        */
-       af: TStopwords; ar: TStopwords; bn: TStopwords; br: TStopwords; da: TStopwords;
-       de: TStopwords; en: TStopwords; es: TStopwords; fa: TStopwords; fr: TStopwords;
-       fi: TStopwords; ha: TStopwords; he: TStopwords; hi: TStopwords; id: TStopwords;
-       it: TStopwords; ja: TStopwords; lgg: TStopwords; lggo: TStopwords; my: TStopwords;
-       nl: TStopwords; no: TStopwords; pa: TStopwords; pl: TStopwords; pt: TStopwords;
-       ru: TStopwords; so: TStopwords; st: TStopwords; sv: TStopwords; sw: TStopwords;
-       vi: TStopwords; yo: TStopwords; zh: TStopwords; zu: TStopwords;
+       af: string[]; ar: string[]; bn: string[]; br: string[]; da: string[];
+       de: string[]; en: string[]; es: string[]; fa: string[]; fr: string[];
+       fi: string[]; ha: string[]; he: string[]; hi: string[]; id: string[];
+       it: string[]; ja: string[]; lgg: string[]; lggo: string[]; my: string[];
+       nl: string[]; no: string[]; pa: string[]; pl: string[]; pt: string[];
+       ru: string[]; so: string[]; st: string[]; sv: string[]; sw: string[];
+       vi: string[]; yo: string[]; zh: string[]; zu: string[];
     };
 }
 
