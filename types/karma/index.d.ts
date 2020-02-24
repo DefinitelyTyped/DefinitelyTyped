@@ -215,6 +215,17 @@ export interface UpstreamProxy {
     protocol?: string;
 }
 
+// description of inline plugins
+export type PluginName = string;
+// tslint:disable-next-line:ban-types support for constructor function and classes
+export type ConstructorFn = Function | (new (...params: any[]) => any);
+export type FactoryFn = (...params: any[]) => any;
+export type ConstructorFnType = ['type', ConstructorFn];
+export type FactoryFnType = ['factory', FactoryFn];
+export type ValueType = ['value', any];
+export type InlinePluginType = FactoryFnType | ConstructorFnType | ValueType;
+export type InlinePluginDef = Record<PluginName, InlinePluginType>;
+
 export interface ConfigOptions {
     /**
      * @description Enable or disable watching files and executing the tests whenever one of these files changes.
@@ -471,7 +482,7 @@ export interface ConfigOptions {
      * By default, Karma loads all sibling NPM modules which have a name starting with karma-*.
      * Note: Just about all plugins in Karma require an additional library to be installed (via NPM).
      */
-    plugins?: Array<string | { [plugin: string]: Array<string | ((...params: any[]) => any)> }>;
+    plugins?: Array<PluginName | InlinePluginDef>;
     /**
      * @default 9876
      * @description The port where the web server will be listening.

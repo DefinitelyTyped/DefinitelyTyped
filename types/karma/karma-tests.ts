@@ -166,16 +166,25 @@ function CustomMiddlewareFactory(config: karma.ConfigOptions) {
     };
 }
 
-const factoryFn = () => {};
+// plugin can be class or constructor function
+const CustomPlugin = function CustomPlugin() {};
+CustomPlugin.prototype = {
+    log: () => {},
+};
+class CustomPluginClass {
+    log: () => {};
+}
+
 const pluginsTests = (config: karma.Config) => {
     config.set({
         middleware: ['custom'],
         plugins: [
             'karma-jasmine',
             'karma-chrome-launcher',
-            { 'framework:xyz': ['factory', factoryFn] },
-            { 'middleware:custom': ['factory', CustomMiddlewareFactory] },
-            require('./plugin-required-from-config'),
+            { 'framework:xyz': ['factory', CustomMiddlewareFactory] },
+            { 'framework:abc': ['type', CustomPlugin] },
+            { 'framework:abc': ['type', CustomPluginClass] },
+            { 'framework:xyz': ['value', 5] },
         ],
     });
 };
