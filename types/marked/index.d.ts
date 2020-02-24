@@ -309,7 +309,7 @@ declare namespace marked {
         /**
          * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
          */
-        highlight?(code: string, lang: string, callback?: (error: any | undefined, code: string) => void): string;
+        highlight?(code: string, lang: string, callback?: (error: any | undefined, code: string) => void): string | void;
 
         /**
          * Set the prefix for code block classes.
