@@ -151,7 +151,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 /**
  * Gateway function helper
  */
-const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
+const gateway2: BraintreeGateway = braintree.connect({
     environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',
