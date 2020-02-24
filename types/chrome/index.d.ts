@@ -31,13 +31,53 @@ interface Window {
  * Important: This API works only on Chrome OS.
  */
 declare namespace chrome.accessibilityFeatures {
+    /** **ChromeOS only.** Spoken feedback (text-to-speech). */
     export var spokenFeedback: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Enlarged cursor. */
     export var largeCursor: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Sticky modifier keys (like shift or alt). */
     export var stickyKeys: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** High contrast rendering mode. */
     export var highContrast: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Full screen magnification. */
     export var screenMagnifier: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Auto mouse click after mouse stops moving. */
     export var autoclick: chrome.types.ChromeSetting;
+    /** **ChromeOS only.** Virtual on-screen keyboard. */
     export var virtualKeyboard: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Caret highlighting.
+     * @since Chrome 51.
+     */
+    export var caretHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Cursor highlighting.
+     * @since Chrome 51.
+     */
+    export var cursorHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Focus highlighting.
+     * @since Chrome 51.
+     */
+    export var focusHighlight: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Select-to-speak.
+     * @since Chrome 51.
+     */
+    export var selectToSpeak: chrome.types.ChromeSetting;
+    /**
+     * **ChromeOS only.**
+     * Switch Access.
+     * @since Chrome 51.
+     */
+    export var switchAccess: chrome.types.ChromeSetting;
+    /**
+     * @since Chrome 42.
+     */
     export var animationPolicy: chrome.types.ChromeSetting;
 }
 
