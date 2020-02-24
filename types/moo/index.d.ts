@@ -90,7 +90,7 @@ export interface Lexer {
     /**
      * Empty the internal buffer of the lexer, and set the line, column, and offset counts back to their initial value.
      */
-    reset(chunk?: string, state?: LexerState): void;
+    reset(chunk?: string, state?: LexerState): this;
     /**
      * Returns current state, which you can later pass it as the second argument
      * to reset() to explicitly control the internal state of the lexer.
