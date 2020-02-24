@@ -493,29 +493,30 @@ export interface ModeBarButton {
 	toggle?: boolean;
 }
 
+export interface GaugeLine {
+	color: Color;
+	width: number;
+}
+export interface Threshold {
+	line: Partial<GaugeLine>;
+	value: number;
+	thickness: number;
+}
+
+export interface GaugeBar {
+	color: Color;
+	line: Partial<GaugeLine>;
+	thickness: number;
+}
 export interface Gauge {
 	shape: 'angular' | 'bullet';
-	bar: {
-		color: Color
-		line: {
-			color: Color
-			width: number
-		};
-		thickness: number
-	};
+	bar: Partial<GaugeBar>;
 	bgcolor: Color;
 	bordercolor: Color;
 	borderwidth: number;
 	axis: Partial<Axis>;
 	steps: Array<{range: number[], color: Color}>;
-	threshold: {
-		line: {
-			color: Color
-			width: number
-		};
-		value: number
-		thickness: number
-		};
+	threshold: Partial<Threshold>;
 }
 
 export interface Delta {

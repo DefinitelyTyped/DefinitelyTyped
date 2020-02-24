@@ -207,7 +207,7 @@ declare namespace jasmine {
     type SpyObjPropertyNames<T = undefined> =
         T extends undefined ?
                 (ReadonlyArray<string> | { [propertyName: string]: any }) :
-                (ReadonlyArray<keyof T>);
+                (ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] });
 
     /**
      * Configuration that can be used when configuring Jasmine via {@link jasmine.Env.configure}
@@ -874,6 +874,10 @@ declare namespace jasmine {
         returnValues(...values: any[]): Spy;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Function): Spy;
+        /** Tell the spy to return a promise resolving to the specified value when invoked. */
+        resolveTo(val: any): Spy;
+        /** Tell the spy to return a promise rejecting with the specified value when invoked. */
+        rejectWith(val: any): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
         throwError(msg: string|Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */

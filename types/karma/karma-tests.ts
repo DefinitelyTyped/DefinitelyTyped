@@ -100,7 +100,13 @@ module.exports = (config: karma.Config) => {
     },
 
     singleRun: true,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    browserConsoleLogOptions: {
+        level: 'warn',
+        format: '%b %T: %m',
+        path: 'some/path/to.log',
+        terminal: false,
+    },
   });
 };
 

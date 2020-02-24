@@ -40,6 +40,7 @@ const {
   pop,
   scope,
   t,
+  traversal,
   statics,
 } = process;
 
@@ -56,6 +57,8 @@ const {
   Long,
   toLong,
 } = structure;
+
+import Statics = process.Statics;
 
 function constructorTests() {
   const remoteConnection = new RemoteConnection("test");
@@ -253,4 +256,55 @@ function predefinedEnumTests() {
   t.key.toString() === "key";
   t.label.toString() === "label";
   t.value.toString() === "value";
+}
+
+function dslTests() {
+  // DSL definition
+
+  interface TestDSLStatics extends Statics<TestDSLTraversal> {
+      aged: (age: number) => TestDSLTraversal;
+      hasNotLabel: (...args: string[]) => TestDSLTraversal;
+  }
+
+  let __: TestDSLStatics;
+
+  class TestDSLTraversal extends GraphTraversal {
+    private static _statics: TestDSLStatics;
+
+    static get statics(): TestDSLStatics {
+      if (!TestDSLTraversal._statics) {
+        // Should construct a proper statics object here that fits the return type
+        // ie. merge the newly defined DSL steps with the base Tinkerpop statics
+        TestDSLTraversal._statics = <TestDSLStatics> statics;
+      }
+
+      return TestDSLTraversal._statics;
+    }
+
+    aged(age: number): TestDSLTraversal {
+      return this.has('person', 'age', age);
+    }
+
+    hasNotLabel(...args: string[]): TestDSLTraversal {
+      return this.not(__.hasLabel(...args));
+    }
+  }
+
+  class TestDSLTraversalSource extends GraphTraversalSource<TestDSLTraversal> {
+    person(name: string): TestDSLTraversal {
+      return this.V().has('person', 'name', name);
+    }
+  }
+
+  // DSL usage
+
+  __ = TestDSLTraversal.statics;
+
+  const connection = new DriverRemoteConnection('test');
+  const g = traversal(TestDSLTraversalSource).withRemote(connection);
+
+  g.person('test').aged(33);
+  g.person('test').where(__.hasNotLabel('test')).aged(33);
+  g.V().where(__.hasNotLabel('test'));
+  g.V().aged(33);
 }

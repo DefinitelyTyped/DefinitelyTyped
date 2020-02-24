@@ -5,24 +5,24 @@ import { Store } from 'express-rate-limit';
 let store: Store;
 
 // $ExpectType Store
-store = RedisStore();
+store = new RedisStore();
 
 // $ExpectType Store
-store = RedisStore({
+store = new RedisStore({
     expiry: 1000,
 });
 
 // $ExpectType Store
-store = RedisStore({
+store = new RedisStore({
     prefix: 'types',
 });
 
 // $ExpectType Store
-store = RedisStore({
+store = new RedisStore({
     resetExpiryOnChange: false,
 });
 
 // $ExpectType Store
-store = RedisStore({
+store = new RedisStore({
     client: new RedisClient({}),
 });

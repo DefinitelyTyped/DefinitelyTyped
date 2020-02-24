@@ -437,10 +437,17 @@ spy4 = jest.spyOn(spiedTarget, 'returnsString');
 spy4.mockImplementation(() => 1);
 spy4.mockRestore();
 
-// $ExpectType SpyInstance<number, []>
-const spy5 = jest.spyOn(spiedTarget2, 'value', 'get');
+let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
+
+// $ExpectType SpyInstance<void, [string]>
+spy5 = jest.spyOn(spiedTarget, 'setValue');
 // $ExpectError
-spy5.mockReturnValue('5');
+spy5 = jest.spyOn(spiedTarget, 'returnsString');
+
+// $ExpectType SpyInstance<number, []>
+const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
+// $ExpectError
+spy6.mockReturnValue('5');
 
 // $ExpectType SpyInstance<void, [number]>
 jest.spyOn(spiedTarget2, 'value', 'set');
