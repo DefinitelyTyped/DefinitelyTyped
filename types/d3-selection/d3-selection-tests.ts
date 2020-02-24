@@ -1208,37 +1208,37 @@ selTextAndCircle = text.join(enter => enter.append('circle').text(d => d.data));
 
 selText = text.join(
     'text',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selText = text.join<SVGTextElement>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selText = text.join(
     enter => enter.append('text').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
 selTextAndCircle = text.join(
     enter => enter.append('circle').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.data).remove(),
 );
 
@@ -1246,37 +1246,37 @@ selTextAndCircle = text.join(
 
 selText = text.join<'text', OldDatum>(
     'text',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => `Bye ${d.oldData}`).remove(),
 );
 
 selText = text.join<SVGTextElement, OldDatum>(
     'custom',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => `Bye ${d.oldData}`).remove(),
 );
 
 selText = text.join<SVGTextElement, OldDatum>(
     enter => enter.append('text').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<'circle', OldDatum>(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
     'circle',
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
 selTextAndCircle = text.join<SVGCircleElement, OldDatum>(
     enter => enter.append('circle').text(d => d.data),
-    update => r ? undefined : update.text(d => d.data).attr('fill', 'gray'),
+    update => r() ? undefined : update.text(d => d.data).attr('fill', 'gray'),
     exit => exit.text(d => d.oldData).remove(),
 );
 
