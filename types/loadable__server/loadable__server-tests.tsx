@@ -122,11 +122,11 @@ const attrFn: AttrFn = (chunk) => {
 // getInlineStyleElements
 {
     // Should return a promise with an array of React elements
-    const elements: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements();
-    const elementsWithAttrs: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements(
+    const elements: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements();
+    const elementsWithAttrs: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
         attributes
     );
-    const elementsWithAttrFn: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements(
+    const elementsWithAttrFn: Promise<Array<React.ReactElement<{}>>> = getInlineStyleElements(
         attrFn
     );
 }

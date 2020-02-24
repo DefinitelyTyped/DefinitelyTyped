@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType, ReactElement, Component, ReactHTMLElement } from 'react';
+import { ComponentType, ReactElement, Component } from 'react';
 
 export type ChunkExtractorOptions = {
 	/**
@@ -112,12 +112,12 @@ export class ChunkExtractor {
 	/**
 	 * Get inline style links as a string of <link> tags (returns a promise)
 	 */
-  	getInlineStyleTags(attr?: {} | AttrFn): Array<ReactHTMLElement<{}>>;
+  	getInlineStyleTags(attr?: {} | AttrFn): Array<ReactElement<{}>>;
 
 	/**
 	 * Get inline style links as an array of React <link> elements (returns a promise).
 	 */
-    getInlineStyleElements(attr?: {} | AttrFn): Promise<Array<ReactHTMLElement<{}>>>;
+    getInlineStyleElements(attr?: {} | AttrFn): Promise<Array<ReactElement<{}>>>;
 
 	/**
 	 * Get css as a raw string for using directly within app (e.g. in custom AMP style tag)
