@@ -1,4 +1,4 @@
-// Type definitions for stopword 0.3.4
+// Type definitions for stopword 0.3
 // Project: https://github.com/fergiemcdowall/stopword
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
