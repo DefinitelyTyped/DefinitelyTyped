@@ -2,16 +2,24 @@
 // Project: https://github.com/catamphetamine/javascript-time-ago
 // Definitions by: Erik Burton  <https://github.com/erikburt>
 //                 Henry Nguyen <https://github.com/HenryNguyen5>
+//                 Luis Felipe Zaguini <https://github.com/zaguiini>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Locale, TimeUnit, Duration, DefaultFormats, RTFFormatter, Formats, QuantifyType } from "./locale";
+import {
+    DefaultFormats,
+    Duration,
+    Formats,
+    Locale,
+    RTFFormatter,
+    TimeUnit
+} from './locale';
+import { FormatStyle } from './style';
 
 export = TimeAgo;
 
 declare class TimeAgo {
     constructor(locales?: string | string[]);
 
-    format(input: Date | number, style?: string): string;
+    format(input: Date | number, style?: string | FormatStyle): string;
     formatNumber(number: number): string;
     formatValue(value: Date | number, unit: TimeUnit, localeData: Duration): string;
     getFormatter(flavor: DefaultFormats): RTFFormatter;

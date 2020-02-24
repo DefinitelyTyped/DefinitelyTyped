@@ -60,10 +60,6 @@ declare module "util" {
     function deprecate<T extends Function>(fn: T, message: string, code?: string): T;
     function isDeepStrictEqual(val1: any, val2: any): boolean;
 
-    interface CustomPromisify<TCustom extends Function> extends Function {
-        __promisify__: TCustom;
-    }
-
     function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
     function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
@@ -89,6 +85,16 @@ declare module "util" {
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
 
+    interface CustomPromisifyLegacy<TCustom extends Function> extends Function {
+        __promisify__: TCustom;
+    }
+
+    interface CustomPromisifySymbol<TCustom extends Function> extends Function {
+        [promisify.custom]: TCustom;
+    }
+
+    type CustomPromisify<TCustom extends Function> = CustomPromisifySymbol<TCustom> | CustomPromisifyLegacy<TCustom>;
+
     function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     function promisify<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => Promise<TResult>;
     function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
@@ -111,6 +117,9 @@ declare module "util" {
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     function promisify(fn: Function): Function;
+    namespace promisify {
+        const custom: unique symbol;
+    }
 
     namespace types {
         function isAnyArrayBuffer(object: any): boolean;
@@ -182,9 +191,5 @@ declare module "util" {
         readonly encoding: string;
         encode(input?: string): Uint8Array;
         encodeInto(input: string, output: Uint8Array): EncodeIntoResult;
-    }
-
-    namespace promisify {
-        const custom: unique symbol;
     }
 }

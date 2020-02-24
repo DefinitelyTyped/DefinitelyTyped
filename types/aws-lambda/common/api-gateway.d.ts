@@ -1,4 +1,4 @@
-// Used by both APIGatewayPraxyEvent and APIGatewayAuthorizerEvent
+// Used by both APIGatewayProxyEvent and APIGatewayAuthorizerEvent
 export interface APIGatewayEventRequestContext {
     accountId: string;
     apiId: string;
@@ -9,23 +9,9 @@ export interface APIGatewayEventRequestContext {
     domainPrefix?: string;
     eventType?: string;
     extendedRequestId?: string;
+    protocol: string;
     httpMethod: string;
-    identity: {
-        accessKey: string | null;
-        accountId: string | null;
-        apiKey: string | null;
-        apiKeyId: string | null;
-        caller: string | null;
-        cognitoAuthenticationProvider: string | null;
-        cognitoAuthenticationType: string | null;
-        cognitoIdentityId: string | null;
-        cognitoIdentityPoolId: string | null;
-        principalOrgId: string | null;
-        sourceIp: string;
-        user: string | null;
-        userAgent: string | null;
-        userArn: string | null;
-    };
+    identity: APIGatewayEventIdentity;
     messageDirection?: string;
     messageId?: string | null;
     path: string;
@@ -36,6 +22,23 @@ export interface APIGatewayEventRequestContext {
     resourceId: string;
     resourcePath: string;
     routeKey?: string;
+}
+
+export interface APIGatewayEventIdentity {
+    accessKey: string | null;
+    accountId: string | null;
+    apiKey: string | null;
+    apiKeyId: string | null;
+    caller: string | null;
+    cognitoAuthenticationProvider: string | null;
+    cognitoAuthenticationType: string | null;
+    cognitoIdentityId: string | null;
+    cognitoIdentityPoolId: string | null;
+    principalOrgId: string | null;
+    sourceIp: string;
+    user: string | null;
+    userAgent: string | null;
+    userArn: string | null;
 }
 
 /**

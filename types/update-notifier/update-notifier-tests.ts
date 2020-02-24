@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import UpdateNotifier = require('update-notifier');
 
 let notifier = UpdateNotifier();
@@ -10,7 +12,7 @@ console.log(notifier.update);
 
 // Also exposed as a class
 notifier = new UpdateNotifier.UpdateNotifier({
-    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 7, // 1 week
 });
 
 if (notifier.update) {
@@ -22,27 +24,24 @@ if (notifier.update) {
         message: 'Update available: ' + notifier.update.latest,
         defer: false,
         isGlobal: true,
-        boxenOpts: {
+        boxenOptions: {
             padding: 1,
             margin: 1,
             align: 'center',
             borderColor: 'yellow',
-            borderStyle: 'round'
-        }
+            borderStyle: 'round',
+        },
     });
 }
 
-// Using the callback option
-notifier = new UpdateNotifier.UpdateNotifier({
-    callback: (err, update) => {
-        if (err) throw err;
-        if (update) {
-            console.log(
-                update.current,
-                update.latest,
-                update.name,
-                update.type
-            );
-        }
+(async () => {
+    const update = await notifier.fetchInfo();
+    update.current; // $ExpectType string
+    update.latest; // $ExpectType string
+    update.name; // $ExpectType string
+    update.type; // $ExpectType "latest" | "major" | "minor" | "patch" | "prerelease" | "build"
+    notifier.config.set('lastUpdateCheck', Date.now());
+    if (update.type && update.type !== 'latest') {
+        notifier.config.set('update', update);
     }
-});
+})();

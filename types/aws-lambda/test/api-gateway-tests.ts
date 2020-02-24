@@ -28,6 +28,7 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     requestContext = event.requestContext;
     str = event.resource;
 
+    str = requestContext.protocol;
     str = requestContext.accountId;
     str = requestContext.apiId;
     const authContext: AuthResponseContext | null | undefined = requestContext.authorizer;

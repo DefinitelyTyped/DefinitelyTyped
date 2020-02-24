@@ -475,6 +475,12 @@
             "asOfVersion": "3.5.0"
         },
         {
+            "libraryName": "@catho/quantum",
+            "typingsPackageName": "catho__quantum",
+            "sourceRepoURL": "https://github.com/catho/quantum",
+            "asOfVersion": "3.9.0"
+        },
+        {
             "libraryName": "chai-http",
             "typingsPackageName": "chai-http",
             "sourceRepoURL": "https://github.com/chaijs/chai-http",
