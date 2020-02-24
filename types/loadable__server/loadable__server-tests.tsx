@@ -13,7 +13,10 @@ const {
 	getScriptTags,
 	getStyleElements,
 	getStyleTags,
-	requireEntrypoint
+    requireEntrypoint,
+    getInlineStyleTags,
+    getInlineStyleElements,
+    getCssString
 } = new ChunkExtractor({ stats: {} });
 
 // collectChunks
@@ -102,6 +105,36 @@ const attrFn: AttrFn = (chunk) => {
     const tags: string = getStyleTags();
     const tagsWithAttrs: string = getStyleTags(attributes);
     const tagsWithAttrFn: string = getStyleTags(attrFn);
+}
+
+// getInlineStyleTags
+{
+    // Should return an array of React elements
+    const elements: Array<React.ReactElement<{}>> = getInlineStyleTags();
+    const elementsWithAttrs: Array<React.ReactElement<{}>> = getInlineStyleTags(
+        attributes
+    );
+    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getInlineStyleTags(
+        attrFn
+    );
+}
+
+// getInlineStyleElements
+{
+    // Should return a promise with an array of React elements
+    const elements: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements();
+    const elementsWithAttrs: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements(
+        attributes
+    );
+    const elementsWithAttrFn: Promise<Array<React.ReactHTMLElement<{}>>> = getInlineStyleElements(
+        attrFn
+    );
+}
+
+// getCssString
+{
+    // Should return a promise with string
+    const elements: Promise<string> = getCssString();
 }
 
 // requireEntrypoint
