@@ -16,6 +16,11 @@ let options: marked.MarkedOptions = {
     renderer: new marked.Renderer(),
 };
 
+options.highlight = (code: string, lang: string, callback) => {
+    callback(null, '');
+    callback(new Error(), '');
+};
+
 options = marked.getDefaults();
 options = marked.defaults;
 
