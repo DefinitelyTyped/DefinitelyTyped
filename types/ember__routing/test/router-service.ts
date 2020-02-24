@@ -18,3 +18,7 @@ router.transitionTo(
 router.transitionTo('someRoute', { queryParams: { shouldWork: true } });
 router.transitionTo({ queryParams: { areSupported: true } });
 router.transitionTo({ queryParams: 'potato' }); // $ExpectError
+router.transitionTo('someRoute', 1);
+router.transitionTo('someRoute', 1, { queryParams: { areSupported: true } });
+router.transitionTo('someRoute', 1, '13');
+router.transitionTo('someRoute', 1, '13', { queryParams: { areSupported: true } });

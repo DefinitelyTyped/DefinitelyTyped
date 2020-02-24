@@ -5,6 +5,9 @@ import Evented from '@ember/object/evented';
 import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
 import Controller, { Registry as ControllerRegistry } from '@ember/controller';
 
+// tslint:disable-next-line:strict-export-declare-modifiers
+type RouteModel = object | string | number;
+
 /**
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
@@ -377,7 +380,24 @@ export default class Route extends EmberObject.extend(ActionHandler, Evented) {
      * @returns       the Transition object associated with this attempted
      *                transition
      */
-    transitionTo(name: string, ...modelsOrOptions: object[]): Transition;
+    transitionTo(name: string, options?: { queryParams: object }): Transition;
+    transitionTo(name: string, modelsA: RouteModel, options?: { queryParams: object }): Transition;
+    transitionTo(name: string, modelsA: RouteModel, modelsB: RouteModel, options?: { queryParams: object }): Transition;
+    transitionTo(
+        name: string,
+        modelsA: RouteModel,
+        modelsB: RouteModel,
+        modelsC: RouteModel,
+        options?: { queryParams: object },
+    ): Transition;
+    transitionTo(
+        name: string,
+        modelsA: RouteModel,
+        modelsB: RouteModel,
+        modelsC: RouteModel,
+        modelsD: RouteModel,
+        options?: { queryParams: object },
+    ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
     // https://emberjs.com/api/ember/3.2/classes/Route/methods/intermediateTransitionTo?anchor=intermediateTransitionTo
