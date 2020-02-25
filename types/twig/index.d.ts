@@ -3,6 +3,7 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 //                 Tim Schumacher <https://github.com/enko>
 //                 Maik Tizziani <https://github.com/mtizziani>
+//                 Daniel Melcer <https://github.com/dmelcer9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/twig.d.ts
@@ -24,6 +25,7 @@ export interface Parameters {
 
 export interface Template {
     reset(blocks: any): void;
+    render(context?: any, params?: any, allow_async?: false): string;
     render(context?: any, params?: any, allow_async?: boolean): string | Promise<string>;
     renderAsync(context?: any, params?: any): Promise<string>;
     importFile(file: string): Template;
