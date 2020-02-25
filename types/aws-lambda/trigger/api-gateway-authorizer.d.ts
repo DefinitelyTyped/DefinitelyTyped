@@ -1,18 +1,29 @@
-import { APIGatewayEventRequestContext, AuthResponseContext } from "../common/api-gateway";
+import {
+    APIGatewayEventRequestContext,
+    APIGatewayEventRequestContextWithAuthorizer,
+    AuthResponseContext,
+} from "../common/api-gateway";
 import { Callback, Handler } from "../handler";
 
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
-export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
+export type APIGatewayAuthorizerWithContextHandler<TAuthorizer> = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizer>>;
+
+export type APIGatewayAuthorizerCallback = Callback<APIGatewayAuthorizerResult>;
+export type APIGatewayAuthorizerWithContextCallback<TAuthorizer> = Callback<APIGatewayAuthorizerWithContextResult<TAuthorizer>>;
 
 export type APIGatewayTokenAuthorizerHandler = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizer> = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizer>>;
+
+export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayRequestAuthorizerWithContextHandler<TAuthorizer> = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizer>>;
+
+export type APIGatewayAuthorizerEvent = APIGatewayTokenAuthorizerEvent | APIGatewayRequestAuthorizerEvent;
 
 export interface APIGatewayTokenAuthorizerEvent {
     type: "TOKEN";
     methodArn: string;
     authorizationToken: string;
 }
-
-export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
 
 // Note, when invoked by the tester in the AWS web console, the map values can be null,
 // but they will be empty objects in the real object.
@@ -28,7 +39,7 @@ export interface APIGatewayRequestAuthorizerEvent {
     queryStringParameters: { [name: string]: string } | null;
     multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
-    requestContext: APIGatewayEventRequestContext;
+    requestContext: APIGatewayEventRequestContextWithAuthorizer<undefined>;
     domainName: string;
     apiId: string;
 }
@@ -40,13 +51,20 @@ export interface APIGatewayAuthorizerResult {
     usageIdentifierKey?: string | null;
 }
 
+export interface APIGatewayAuthorizerWithContextResult<TAuthorizer> {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context: TAuthorizer;
+    usageIdentifierKey?: string | null;
+}
+
 // Legacy event / names
 
 /** @deprecated Use APIGatewayAuthorizerHandler or a subtype */
-export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, CustomAuthorizerResult>;
+export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, APIGatewayAuthorizerResult>;
 
 // This one is actually fine.
-export type CustomAuthorizerCallback = Callback<CustomAuthorizerResult>;
+export type CustomAuthorizerCallback = APIGatewayAuthorizerCallback;
 
 /** @deprecated Use APIGatewayAuthorizerEvent or a subtype */
 export interface CustomAuthorizerEvent {

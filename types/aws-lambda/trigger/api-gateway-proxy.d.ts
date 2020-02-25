@@ -1,16 +1,19 @@
-import { APIGatewayEventRequestContext } from "../common/api-gateway";
+import { APIGatewayEventRequestContextWithAuthorizer, AuthResponseContext } from "../common/api-gateway";
 import { Callback, Handler } from "../handler";
 
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
+
+export type APIGatewayProxyWithAuthorizerHandler<TAuthorizer> = Handler<APIGatewayProxyEventWithAuthorizer<TAuthorizer>, APIGatewayProxyResult>;
 
 export type ProxyHandler = APIGatewayProxyHandler; // Old name
 export type ProxyCallback = APIGatewayProxyCallback; // Old name
 export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
 export type ProxyResult = APIGatewayProxyResult; // Old name
 
-// API Gateway "event"
-export interface APIGatewayProxyEvent {
+export type APIGatewayProxyEvent = APIGatewayProxyEventWithAuthorizer<AuthResponseContext | null | undefined>;
+
+export interface APIGatewayProxyEventWithAuthorizer<TAuthorizer> {
     body: string | null;
     headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
@@ -21,8 +24,17 @@ export interface APIGatewayProxyEvent {
     queryStringParameters: { [name: string]: string } | null;
     multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
-    requestContext: APIGatewayEventRequestContext;
+    requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizer>;
     resource: string;
+}
+
+export type APIGatewayProxyEventWithCognitoAuthorizer = APIGatewayProxyEventWithAuthorizer<APIGatewayProxyCognitoAuthorizer>;
+export type APIGatewayEventRequestContextWithCognitoAuthorizer = APIGatewayEventRequestContextWithAuthorizer<APIGatewayProxyCognitoAuthorizer>;
+
+export interface APIGatewayProxyCognitoAuthorizer {
+    claims: {
+        [name: string]: string | number | boolean,
+    };
 }
 
 export interface APIGatewayProxyResult {
