@@ -134,6 +134,9 @@ whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
 whenOpts = { is: schema, otherwise: schema };
 whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
+whenOpts = { not: schema, then: schema };
+whenOpts = { not: schema, otherwise: schema };
+whenOpts = { not: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
