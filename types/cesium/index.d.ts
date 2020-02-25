@@ -4353,6 +4353,7 @@ declare namespace Cesium {
         pickTranslucentDepth: boolean;
         postProcessStages: PostProcessStageCollection;
         readonly postRender: Event;
+        readonly postUpdate: Event;
         readonly preRender: Event;
         readonly preUpdate: Event;
         readonly primitives: PrimitiveCollection;
