@@ -3,6 +3,7 @@
 // Definitions by: Nikita Litvin <https://github.com/deltaidea>
 //                 Jörg Vehlow <https://github.com/MofX>
 //                 Martien Oranje <https://github.com/moranje>
+//                 Nick Koester <https://github.com/nickkoester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace moo;
@@ -70,7 +71,7 @@ export interface Rule {
     type?: TypeMapper;
 }
 export interface Rules {
-    [x: string]: RegExp | string | string[] | Rule | Rule[] | ErrorRule | FallbackRule;
+    [x: string]: RegExp | string | readonly string[] | Rule | Rule[] | ErrorRule | FallbackRule;
 }
 
 export interface Lexer {
