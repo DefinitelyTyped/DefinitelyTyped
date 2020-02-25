@@ -5,6 +5,7 @@
 //                 Martien Oranje <https://github.com/moranje>
 //                 Nick Koester <https://github.com/nickkoester>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 export as namespace moo;
 
