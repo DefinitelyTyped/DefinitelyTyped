@@ -1,4 +1,4 @@
-// Type definitions for karma 4.4
+// Type definitions for karma 3.0
 // Project: https://github.com/karma-runner/karma, http://karma-runner.github.io
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 James Garbutt <https://github.com/43081j>
@@ -144,88 +144,6 @@ export interface ConfigFile {
     configFile: string;
 }
 
-// For documentation and intellisense list Karma browsers
-
-/**
- *  Available browser launchers
- * - `Chrome` - launcher requires `karma-chrome-launcher` plugin
- * - `ChromeCanary` - launcher requires `karma-chrome-launcher` plugin
- * - `ChromeHeadless` - launcher requires `karma-chrome-launcher` plugin
- * - `PhantomJS` - launcher requires `karma-phantomjs-launcher` plugin
- * - `Firefox` - launcher requires `karma-firefox-launcher` plugin
- * - `Opera` - launcher requires `karma-opera-launcher` plugin
- * - `IE` - launcher requires `karma-ie-launcher` plugin
- * - `Safari` - launcher requires karma-safari-launcher plugin
- */
-export type AutomatedBrowsers =
-    | 'Chrome'
-    | 'ChromeCanary'
-    | 'ChromeHeadless'
-    | 'PhantomJS'
-    | 'Firefox'
-    | 'Opera'
-    | 'IE'
-    | 'Safari';
-
-export interface CustomHeaders {
-    /** Regular expression string to match files */
-    match: string;
-    /** HTTP header name */
-    name: string;
-    /** HTTP header value */
-    value: string;
-}
-
-export interface ProxyOptions {
-    /** The target url or path (mandatory) */
-    target: string;
-    /**
-     * Whether or not the proxy should override the Host header using the host from the target
-     * @defult false
-     */
-    changeOrigin?: boolean;
-}
-
-/** A map of path-proxy pairs. */
-export interface PathProxyPairs {
-    [path: string]: string | ProxyOptions;
-}
-
-/** For use when the Karma server needs to be run behind a proxy that changes the base url, etc */
-export interface UpstreamProxy {
-    /**
-     * Will be prepended to the base url when launching browsers and prepended to internal urls as loaded by the browsers
-     * @default '/'
-     */
-    path?: string;
-    /**
-     * Will be used as the port when launching browsers
-     * @default 9875
-     */
-    port?: number;
-    /**
-     * Will be used as the hostname when launching browsers
-     * @default 'localhost'
-     */
-    hostname?: string;
-    /**
-     * Will be used as the protocol when launching browsers
-     * @default 'http'
-     */
-    protocol?: string;
-}
-
-// description of inline plugins
-export type PluginName = string;
-// tslint:disable-next-line:ban-types support for constructor function and classes
-export type ConstructorFn = Function | (new (...params: any[]) => any);
-export type FactoryFn = (...params: any[]) => any;
-export type ConstructorFnType = ['type', ConstructorFn];
-export type FactoryFnType = ['factory', FactoryFn];
-export type ValueType = ['value', any];
-export type InlinePluginType = FactoryFnType | ConstructorFnType | ValueType;
-export type InlinePluginDef = Record<PluginName, InlinePluginType>;
-
 export interface ConfigOptions {
     /**
      * @description Enable or disable watching files and executing the tests whenever one of these files changes.
@@ -283,11 +201,6 @@ export interface ConfigOptions {
      */
     browserNoActivityTimeout?: number;
     /**
-     * Timeout for the client socket connection (in ms)
-     * @default 20000
-     */
-    browserSocketTimeout?: number;
-    /**
      * @default []
      * Possible Values:
      * <ul>
@@ -304,7 +217,7 @@ export interface ConfigOptions {
      * You can capture any browser manually by opening the browser and visiting the URL where
      * the Karma web server is listening (by default it is <code>http://localhost:9876/</code>).
      */
-    browsers?: Array<AutomatedBrowsers | string>;
+    browsers?: string[];
     /**
      * @default 60000
      * @description Timeout for capturing a browser (in ms).
@@ -329,77 +242,17 @@ export interface ConfigOptions {
      * you can specify how many browsers should be running at once at any given point in time.
      */
     concurrency?: number;
-    /**
-     * When true, this will append the crossorigin attribute to generated script tags,
-     * which enables better error reporting for JavaScript files served from a different origin
-     * @default true
-     */
-    crossOriginAttribute?: boolean;
-    /**
-     * If null (default), uses karma's own context.html file.
-     * @default undefined
-     */
-    customContextFile?: string;
-    /**
-     * If null (default), uses karma's own client_with_context.html file (which is used when client.runInParent set to true).
-     * @default undefined
-     */
-    customClientContextFile?: string;
-    /**
-     * If null (default), uses karma's own debug.html file.
-     * @default undefined
-     */
-    customDebugFile?: string;
-    /**
-     * Custom HTTP headers that will be set upon serving files by Karma's web server.
-     * Custom headers are useful, especially with upcoming browser features like Service Workers.
-     * @default undefined
-     */
-    customHeaders?: CustomHeaders[];
     customLaunchers?: { [key: string]: CustomLauncher };
-    /**
-     * When true, this will start the karma server in another process, writing no output to the console.
-     * The server can be stopped using the karma stop command.
-     * @default false
-     */
-    detached?: boolean;
     /**
      * @default []
      * @description List of files/patterns to exclude from loaded files.
      */
     exclude?: string[];
     /**
-     * Enable or disable failure on running empty test-suites.
-     * If disabled the program will return exit-code 0 and display a warning.
-     * @default true
-     */
-    failOnEmptyTestSuite?: boolean;
-    /**
-     * Enable or disable failure on tests deliberately disabled, eg fit() or xit() tests in jasmine.
-     * Use this to prevent accidental disabling tests needed to validate production.
-     * @default true
-     */
-    failOnSkippedTests?: boolean;
-    /**
-     * Enable or disable failure on failing tests.
-     * @default true
-     */
-    failOnFailingTestSuite?: boolean;
-    /**
      * @default []
      * @description List of files/patterns to load in the browser.
      */
     files?: Array<FilePattern | string>;
-    /**
-     * Force socket.io to use JSONP polling instead of XHR polling
-     * @default false
-     */
-    forceJSONP?: boolean;
-    /**
-     * A new error message line
-     * @default undefined
-     */
-    formatError?: (msg: string) => string;
     /**
      * @default []
      * @description List of test frameworks you want to use. Typically, you will set this to ['jasmine'], ['mocha'] or ['qunit']...
@@ -412,22 +265,12 @@ export interface ConfigOptions {
      */
     hostname?: string;
     /**
-     * Module used for Karma webserver
-     * @default undefined
-     */
-    httpModule?: string;
-    /**
      * @default {}
      * @description Options object to be used by Node's https class.
      * Object description can be found in the
      * [NodeJS.org API docs](https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener)
      */
     httpsServerOptions?: https.ServerOptions;
-    /**
-     * Address that the server will listen on. Change to 'localhost' to only listen to the loopback, or '::' to listen on all IPv6 interfaces
-     * @default '0.0.0.0' or `LISTEN_ADDR`
-     */
-    listenAddress?: string;
     /**
      * @default config.LOG_INFO
      * Possible values:
@@ -459,22 +302,11 @@ export interface ConfigOptions {
      */
     middleware?: string[];
     /**
-     * This is the same as middleware except that these middleware will be run before karma's own middleware.
-     * @default []
-     */
-    beforeMiddleware?: string[];
-    /**
      * @default {}
      * @description Redefine default mapping from file extensions to MIME-type.
      * Set property name to required MIME, provide Array of extensions (without dots) as it's value.
      */
-    mime?: { [type: string]: string[] };
-    /**
-     * Socket.io pingTimeout in ms, https://socket.io/docs/server-api/#new-Server-httpServer-options.
-     * Very slow networks may need values up to 60000. Larger values delay discovery of deadlock in tests or browser crashes.
-     * @default 5000
-     */
-    pingTimeout?: number;
+    mime?: {[type: string]: string[]};
     /**
      * @default ['karma-*']
      * @description List of plugins to load. A plugin can be a string (in which case it will be required
@@ -482,17 +314,12 @@ export interface ConfigOptions {
      * By default, Karma loads all sibling NPM modules which have a name starting with karma-*.
      * Note: Just about all plugins in Karma require an additional library to be installed (via NPM).
      */
-    plugins?: Array<PluginName | InlinePluginDef>;
+    plugins?: any[];
     /**
      * @default 9876
      * @description The port where the web server will be listening.
      */
     port?: number;
-    /**
-     * How long will Karma wait for browser process to terminate before sending a SIGKILL signal
-     * @default 2000
-     */
-    processKillTimeout?: number;
     /**
      * @default {'**\/*.coffee': 'coffee'}
      * @description A map of preprocessors to use.
@@ -524,20 +351,9 @@ export interface ConfigOptions {
     protocol?: string;
     /**
      * @default {}
-     * @description A map of path-proxy pairs
-     * The proxy can be specified directly by the target url or path, or with an object to configure more options
+     * @description A map of path-proxy pairs.
      */
-    proxies?: PathProxyPairs;
-    /**
-     * Called when requesting Proxy
-     * @default undefined
-     */
-    proxyReq?: (proxyReq: any, req: any, res: any, options: object) => void;
-    /**
-     * Called when respnsing Proxy
-     * @default undefined
-     */
-    proxyRes?: (proxyRes: any, req: any, res: any) => void;
+    proxies?: { [path: string]: string };
     /**
      * @default true
      * @description Whether or not Karma or any browsers should raise an error when an inavlid SSL certificate is found.
@@ -568,11 +384,6 @@ export interface ConfigOptions {
      */
     restartOnFileChange?: boolean;
     /**
-     * When a browser crashes, karma will try to relaunch. This defines how many times karma should relaunch a browser before giving up.
-     * @default 2
-     */
-    retryLimit?: number;
-    /**
      * @default false
      * @description Continuous Integration mode.
      * If true, Karma will start and capture all configured browsers, run tests and then exit with an exit code of 0 or 1 depending
@@ -586,10 +397,6 @@ export interface ConfigOptions {
      * between browsers and the testing server).
      */
     transports?: string[];
-    /**
-     * For use when the Karma server needs to be run behind a proxy that changes the base url, etc
-     */
-    upstreamProxy?: UpstreamProxy;
     /**
      * @default '/'
      * @description The base url, where Karma runs.
@@ -609,13 +416,6 @@ export interface ClientOptions {
      * documentation to see how (and if) it uses this value.
      */
     args?: string[];
-    /**
-     * @default false
-     * @description Set style display none on client elements.
-     * If true, Karma does not display the banner and browser list.
-     * Useful when using karma on component tests with screenshots
-     */
-    clientDisplayNone?: boolean;
     /**
      * @default true
      * @description Run the tests inside an iFrame or a new window
@@ -643,12 +443,9 @@ export interface ClientOptions {
     clearContext?: boolean;
 }
 
-/** type to use when including a file */
-export type FilePatternTypes = 'css' | 'html' | 'js' | 'dart' | 'module' | 'dom';
-
 export interface FilePattern {
     /**
-     * The pattern to use for matching.
+     * The pattern to use for matching. This property is mandatory.
      */
     pattern: string;
     /**
@@ -668,14 +465,6 @@ export interface FilePattern {
      * @description Should the files be served by Karma's webserver?
      */
     served?: boolean;
-    /**
-     * Choose the type to use when including a file
-     * @default 'js'
-     * @description  The type determines the mechanism for including the file.
-     * The css and html types create link elements; the js, dart, and module elements create script elements.
-     * The dom type includes the file content in the page, used, for example, to test components combining HTML and JS.
-     */
-    type?: FilePatternTypes;
     /**
      * @default false
      * @description Should the files be served from disk on each request by Karma's webserver?
