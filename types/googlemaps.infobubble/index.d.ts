@@ -2,6 +2,7 @@
 // Project: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/
 // Definitions by: Johan Nilsson <https://github.com/Dashue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.0
 
 /// <reference types="google-maps" />
 
