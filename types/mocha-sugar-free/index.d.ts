@@ -267,7 +267,7 @@ declare namespace Mocha {
 		test: TestFunction;
 	}
 
-	type AnyInterface = Omit<BDD & TDD & QUnit, 'detectedInterface'> & BaseInterface;
+	type AnyInterface = Omit<BDD, 'detectedInterface'> & Omit<TDD, 'detectedInterface'> & Omit<QUnit, 'detectedInterface'> & BaseInterface;
 	// #endregion
 
 	// #region Test context

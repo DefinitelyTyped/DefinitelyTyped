@@ -22,6 +22,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
+//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -86,8 +87,8 @@ declare namespace React {
     interface RefObject<T> {
         readonly current: T | null;
     }
-
-    type Ref<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"] | RefObject<T> | null;
+    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
+    type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
 
     type ComponentState = any;
@@ -2010,6 +2011,7 @@ declare namespace React {
         decoding?: "async" | "auto" | "sync";
         height?: number | string;
         loading?: "eager" | "lazy";
+        referrerPolicy?: "no-referrer" | "origin" | "unsafe-url";
         sizes?: string;
         src?: string;
         srcSet?: string;

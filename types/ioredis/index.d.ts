@@ -386,14 +386,14 @@ declare namespace IORedis {
 
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             withScores?: 'WITHSCORES',
         ): Promise<string[]>;
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             withScores: 'WITHSCORES',
             limit: 'LIMIT',
             offset: number,
@@ -401,8 +401,8 @@ declare namespace IORedis {
         ): Promise<string[]>;
         zrevrangebyscore(
             key: KeyType,
-            min: number | string,
             max: number | string,
+            min: number | string,
             limit: 'LIMIT',
             offset: number,
             count: number,

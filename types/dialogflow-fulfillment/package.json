@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "actions-on-google": ">=2.12.0"
+    }
+}

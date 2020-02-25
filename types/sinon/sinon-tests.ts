@@ -268,6 +268,7 @@ function testAssert() {
     sinon.assert.alwaysCalledWith(spy, 'a', 'b', 'c');
     sinon.assert.neverCalledWith(spy, 'a', 'b', 'c');
     sinon.assert.calledWithExactly(spy, 'a', 'b', 'c');
+    sinon.assert.calledOnceWithExactly(spy, 'a', 'b', 'c');
     sinon.assert.alwaysCalledWithExactly(spy, 'a', 'b', 'c');
     sinon.assert.calledWithMatch(spy, 'a', 'b', 'c');
     sinon.assert.calledWithMatch(spy.firstCall, 'a', 'b', 'c');

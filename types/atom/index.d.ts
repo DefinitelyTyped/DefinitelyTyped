@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Atom 1.36
+// Type definitions for non-npm package Atom 1.40
 // Project: https://github.com/atom/atom
 // Definitions by: GlenCFL <https://github.com/GlenCFL>
 //                 smhxx <https://github.com/smhxx>
@@ -7,7 +7,7 @@
 // TypeScript Version: 2.3
 
 // NOTE: only those classes exported within this file should be retain that status below.
-// https://github.com/atom/atom/blob/v1.36.0/exports/atom.js
+// https://github.com/atom/atom/blob/v1.40.0/exports/atom.js
 
 /// <reference types="node" />
 
@@ -121,6 +121,9 @@ export interface AtomEnvironment {
     /** Returns a boolean that is true if the current window is running specs. */
     inSpecMode(): boolean;
 
+    /** Get the full name of this Atom release (e.g. "Atom", "Atom Beta") */
+    getAppName(): string;
+
     /** Get the version of the Atom application. */
     getVersion(): string;
 
@@ -198,6 +201,23 @@ export interface AtomEnvironment {
 
     /** Toggle the full screen state of the current window. */
     toggleFullScreen(): void;
+
+    /**
+     * Restores the full screen and maximized state after the window has resized to prevent resize
+     * glitches.
+     */
+    displayWindow(): Promise<undefined>;
+
+    /** Get the dimensions of this window. */
+    getWindowDimensions(): { x: number, y: number, width: number, height: number };
+
+    /** Set the dimensions of the window. */
+    setWindowDimensions(dimensions: {
+        x?: number,
+        y?: number,
+        width?: number,
+        height?: number
+    }): Promise<object>;
 
     // Messaging the User
     /** Visually and audibly trigger a beep. */
@@ -5968,7 +5988,7 @@ export interface TextEditorObservedEvent {
 // information under certain contexts.
 
 // NOTE: the config schema with these defaults can be found here:
-//   https://github.com/atom/atom/blob/v1.36.0/src/config-schema.js
+//   https://github.com/atom/atom/blob/v1.40.0/src/config-schema.js
 /**
  *  Allows you to strongly type Atom configuration variables. Additional key:value
  *  pairings merged into this interface will result in configuration values under
