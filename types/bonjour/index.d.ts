@@ -30,7 +30,7 @@ declare namespace bonjour {
         on(event: 'up' | 'down', listener: (service: Service) => void): this;
         once(event: 'up' | 'down', listener: (service: Service) => void): this;
         removeListener(event: 'up' | 'down', listener: (service: Service) => void): this;
-        removeAllListeners(event: 'up' | 'down'): this;
+        removeAllListeners(event?: 'up' | 'down'): this;
     }
     interface BrowserOptions {
         type?: string;
