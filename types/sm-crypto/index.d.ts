@@ -1,6 +1,6 @@
 // Type definitions for sm-crypto 0.1
 // Project: https://github.com/JuneAndGreen/sm-crypto#readme
-// Definitions by: Thermod <https://github.com/me>
+// Definitions by: Thermod <https://github.com/Moonisky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import BigInteger = require('bigi');
