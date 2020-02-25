@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import mongooseLeanVirtuals from 'mongoose-lean-virtuals';
+import mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 
 const schema = new Schema({
     test: { type: String }

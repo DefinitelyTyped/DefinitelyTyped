@@ -11,4 +11,4 @@ declare function mongooseLeanVirtuals(schema: Schema): void;
 declare namespace mongooseLeanVirtuals {
 }
 
-export default mongooseLeanVirtuals;
+export = mongooseLeanVirtuals;
