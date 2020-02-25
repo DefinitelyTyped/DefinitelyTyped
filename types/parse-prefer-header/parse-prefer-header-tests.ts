@@ -1,3 +1,4 @@
 import parsePreferHeader = require('parse-prefer-header');
 
-parsePreferHeader('Prefer: code=500, value=50');
+parsePreferHeader(['respond-async, wait=100', 'handling=lenient']);
+parsePreferHeader('');
