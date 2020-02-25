@@ -12876,6 +12876,16 @@ declare namespace Office {
          *
          * The add-in should use the `restUrl` property to determine the correct URL to use when making REST API calls.
          *
+         * This API works for the following scopes:
+         * 
+         * - `Mail.ReadWrite`
+         * 
+         * - `Mail.Send`
+         * 
+         * - `Calendars.ReadWrite`
+         * 
+         * - `Contacts.ReadWrite`
+         *
          * *EWS Tokens*
          *
          * When an EWS token is requested (`options.isRest = false`), the resulting token will not work to authenticate REST API calls.
