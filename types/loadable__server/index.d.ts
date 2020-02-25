@@ -112,7 +112,7 @@ export class ChunkExtractor {
 	/**
 	 * Get inline style links as a string of <link> tags (returns a promise)
 	 */
-  	getInlineStyleTags(attr?: {} | AttrFn): Array<ReactElement<{}>>;
+  	getInlineStyleTags(attr?: {} | AttrFn): Promise<string>;
 
 	/**
 	 * Get inline style links as an array of React <link> elements (returns a promise).
