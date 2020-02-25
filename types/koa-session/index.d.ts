@@ -163,6 +163,13 @@ declare namespace session {
         ContextStore?: { new(ctx: Koa.Context): stores };
 
         /**
+         * External key is used the cookie by default, 
+         * but you can use options.externalKey to customize your own external key methods. 
+         */
+
+        externalKey?: externalKeys;
+
+        /**
          * If you want to add prefix for all external session id, you can use options.prefix, it will not work if options.genid present.
          */
         prefix?: string;
@@ -193,6 +200,19 @@ declare namespace session {
          * destroy session for key
          */
         destroy(key: string): any;
+    }
+
+    interface externalKeys {
+        /**
+         * get session object by key
+         */
+        get(ctx: Koa.Context): string;
+
+        /**
+         * set session object for key, with a maxAge (in ms)
+         */
+        set(ctx: Koa.Context, value: any): void;
+
     }
 }
 
