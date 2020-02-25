@@ -76,9 +76,12 @@ function constructorTests() {
 
   remoteStrategy.apply(remoteTraversal);
 
+  const eventHandler = (logline: string) => {};
+  driverRemoteConnection.addListener('log', eventHandler);
   driverRemoteConnection.open();
   driverRemoteConnection.submit(new Bytecode());
   driverRemoteConnection.close();
+  driverRemoteConnection.removeListener('log', eventHandler);
 
   client.open();
   client.submit(new Bytecode());
