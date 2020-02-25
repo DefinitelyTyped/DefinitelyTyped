@@ -1,6 +1,7 @@
 // Type definitions for keycloak-connect 4.5
 // Project: https://github.com/keycloak/keycloak-nodejs-connect, http://keycloak.org
 // Definitions by: Gregor Stamać <https://github.com/gstamac>
+//                 Blas Sackmann <https://github.com/SackSlab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -62,6 +63,7 @@ declare namespace Keycloak {
 		isExpired: () => boolean;
 		hasRole: (roleName: string) => boolean;
 		hasApplicationRole: (appName: string, roleName: string) => boolean;
+		hasPermission: (resource: string, scope: string) => boolean;
 		hasRealmRole: (roleName: string) => boolean;
 	}
 
