@@ -401,7 +401,7 @@ declare namespace IORedis {
         ): Promise<string[]>;
         zrevrangebyscore(
             key: KeyType,
-            max: number | string,             
+            max: number | string,
             min: number | string,
             limit: 'LIMIT',
             offset: number,
