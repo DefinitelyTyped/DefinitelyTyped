@@ -109,12 +109,12 @@ const attrFn: AttrFn = (chunk) => {
 
 // getInlineStyleTags
 {
-    // Should return an array of React elements
-    const elements: Array<React.ReactElement<{}>> = getInlineStyleTags();
-    const elementsWithAttrs: Array<React.ReactElement<{}>> = getInlineStyleTags(
+    // Should return a promise of inline style links as a string.
+    const elements: Promise<string> = getInlineStyleTags();
+    const elementsWithAttrs: Promise<string> = getInlineStyleTags(
         attributes
     );
-    const elementsWithAttrFn: Array<React.ReactElement<{}>> = getInlineStyleTags(
+    const elementsWithAttrFn: Promise<string> = getInlineStyleTags(
         attrFn
     );
 }
