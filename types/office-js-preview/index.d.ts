@@ -535,7 +535,7 @@ declare namespace Office {
     interface Addin {
         /**
          * Set the startup behavior for the add-in for when the document is opened next time.
-         * @param - behavior Specifies startup behavior of the add-in.
+         * @param behavior - Specifies startup behavior of the add-in.
          */
         setStartupBehavior(behavior: Office.StartupBehavior): Promise<void>;
         /**
