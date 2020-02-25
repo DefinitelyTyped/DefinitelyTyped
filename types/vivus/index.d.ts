@@ -1,6 +1,6 @@
 // Type definitions for Vivus 0.4.0
 // Project: http://maxwellito.github.io/vivus/
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ruslan Lekhman <https://github.com/lekhmanrus>
+// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ruslan Lekhman <https://github.com/lekhmanrus>, Shuta Hirai <https://github.com/shuta13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Vivus;
@@ -60,6 +60,11 @@ declare class Vivus {
      * Reset the SVG but make the instance out of order.
      */
     destroy(): void;
+
+    /**
+     * for types of HTMLElement
+     */
+    el: HTMLElement;
 }
 
 declare namespace Vivus {
