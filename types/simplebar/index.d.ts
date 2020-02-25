@@ -1,28 +1,35 @@
-// Type definitions for simplebar.js 2.4
+// Type definitions for simplebar.js 5.1
 // Project: https://github.com/Grsmto/simplebar, https://grsmto.github.io/simplebar
-// Definitions by: Gregor Woiwode <https://github.com/gregonnet>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Valikhan Akhmedov <https://github.com/val-o>, Gregor Woiwode <https://github.com/gregonnet>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 3.1
 
 export as namespace SimpleBar;
 export = SimpleBar;
 
 declare class SimpleBar {
     static removeObserver(): void;
+    static initHtmlApi(): void;
 
     constructor(element: HTMLElement, options?: SimpleBar.Options);
 
-    recalculate(): void;
-    getScrollElement(): Element;
-    getContentElement(): Element;
+    public recalculate(): void;
+    public getScrollElement(): Element;
+    public getContentElement(): Element;
+
+    public instances: Pick<WeakMap<HTMLElement, SimpleBar>, 'get' | 'has'>;
 }
 
 declare namespace SimpleBar {
     interface Options {
-        wrapContent?: boolean;
         autoHide?: boolean;
-        scrollbarMinSize?: number;
         classNames?: ClassNamesOptions;
+        forceVisible?: boolean | 'x' | 'y';
+        direction?: 'rtl' | 'ltr';
+        timeout?: number;
+        clickOnTrack?: boolean;
+        scrollbarMinSize?: number;
+        scrollbarMaxSize?: number;
     }
 
     interface ClassNamesOptions {
