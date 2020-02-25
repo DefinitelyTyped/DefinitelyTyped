@@ -5023,6 +5023,12 @@
             "asOfVersion": "2.0.0"
         },
         {
+            "libraryName": "theme-ui",
+            "typingsPackageName": "theme-ui__color",
+            "sourceRepoURL": "https://github.com/system-ui/theme-ui",
+            "asOfVersion": "0.3.1"
+        },
+        {
             "libraryName": "three",
             "typingsPackageName": "three",
             "sourceRepoURL": "https://github.com/mrdoob/three.js",
