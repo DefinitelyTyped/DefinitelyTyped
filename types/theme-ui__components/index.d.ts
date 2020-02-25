@@ -50,7 +50,7 @@ export interface GridProps extends BoxProps {
     /**
      * 	Number of columns to use for the layout (cannot be used in conjunction with the width prop)
      */
-    columns?: ResponsiveValue<number>;
+    columns?: ResponsiveValue<string | number>;
     /**
      * Space between child elements
      */
