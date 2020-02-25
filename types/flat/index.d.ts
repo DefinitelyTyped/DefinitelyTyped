@@ -1,4 +1,4 @@
-// Type definitions for flat
+// Type definitions for flat 5.0.0
 // Project: https://github.com/hughsk/flat
 // Definitions by:  Ilya Mochalov <https://github.com/chrootsu>
 //                  Oz Weiss <https://github.com/thewizarodofoz>
