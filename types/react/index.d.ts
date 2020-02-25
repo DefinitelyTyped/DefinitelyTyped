@@ -22,6 +22,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kyle Scully <https://github.com/zieka>
 //                 Cong Zhang <https://github.com/dancerphil>
+//                 Jannes Drijkoningen <https://github.com/jannes-io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1052,8 +1053,6 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
      */
     function useImperativeHandle<T, R extends T>(ref: Ref<T>|undefined, init: () => R, deps?: DependencyList): void;
-    // I made 'inputs' required here and in useMemo as there's no point to memoizing without the memoization key
-    // useCallback(X) is identical to just using X, useMemo(() => Y) is identical to just using Y.
     /**
      * `useCallback` will return a memoized version of the callback that only changes if one of the `inputs`
      * has changed.
@@ -1062,7 +1061,7 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usecallback
      */
     // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
-    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
+    function useCallback<T extends (...args: any[]) => any>(callback: T, deps?: DependencyList): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
@@ -1081,8 +1080,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
-    // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
+    function useMemo<T>(factory: () => T, deps?: DependencyList): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
