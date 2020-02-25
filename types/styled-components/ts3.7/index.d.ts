@@ -236,21 +236,18 @@ type ThemedStyledComponentFactories<T extends object> = {
 
 export type StyledComponentInnerComponent<
     C extends React.ComponentType<any>
-> = C extends
-    | StyledComponent<infer I, any, any, any>
-    | StyledComponent<infer I, any, any>
-    ? I
-    : C;
+> = C extends StyledComponent<infer I, any, any, any> ? I :
+    C extends StyledComponent<infer I, any, any> ? I :
+    C;
 export type StyledComponentPropsWithRef<
     C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = C extends AnyStyledComponent
     ? React.ComponentPropsWithRef<StyledComponentInnerComponent<C>>
     : React.ComponentPropsWithRef<C>;
-export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> = C extends
-    | StyledComponent<any, any, infer O, any>
-    | StyledComponent<any, any, infer O>
-    ? O
-    : never;
+export type StyledComponentInnerOtherProps<C extends AnyStyledComponent> =
+    C extends StyledComponent<any, any, infer O, any> ? O :
+    C extends StyledComponent<any, any, infer O> ? O :
+    never;
 export type StyledComponentInnerAttrs<
     C extends AnyStyledComponent
 > = C extends StyledComponent<any, any, any, infer A> ? A : never;
