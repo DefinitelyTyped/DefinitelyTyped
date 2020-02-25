@@ -3,7 +3,8 @@
 // Definitions by: Billy Kwok <https://github.com/billykwok>
 //                 Jake Runzer <https://github.com/coffee-cup>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
+
 import * as Babel from '@babel/core';
 
 export interface References {

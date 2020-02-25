@@ -130,7 +130,10 @@ import * as trace_events from "trace_events";
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
     }
-    async function testPromisify() {
+    async function testPromisify(doSomething: {
+        (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
+        [util.promisify.custom](foo: any): Promise<string>;
+    }) {
         const setTimeout = util.promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
         let s: string = await setTimeout(100, "");
@@ -138,6 +141,12 @@ import * as trace_events from "trace_events";
         const setImmediate = util.promisify(timers.setImmediate);
         v = await setImmediate(); // tslint:disable-line no-void-expression
         s = await setImmediate("");
+
+        // $ExpectType (foo: any) => Promise<string>
+        const doSomethingPromise = util.promisify(doSomething);
+
+        // $ExpectType string
+        s = await doSomethingPromise('foo');
     }
 }
 

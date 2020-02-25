@@ -16,7 +16,8 @@ import {
     ToolbarProps,
     EventProps,
     EventWrapperProps,
-    NavigateAction
+    NavigateAction,
+    Culture
 } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
@@ -197,6 +198,7 @@ class CalendarResource {
                         const end = slotInfo.end;
                         return true;
                     }}
+                    dayLayoutAlgorithm="overlap"
                     views={['day']}
                     toolbar={true}
                     popup={true}
@@ -218,8 +220,8 @@ class CalendarResource {
                     scrollToTime={new Date()}
                     formats={{
                         dateFormat: 'h a',
-                        agendaDateFormat: (date: Date, culture?: string, localizer?: object) => 'some-format',
-                        dayRangeHeaderFormat: (range: DateRange, culture?: string, localizer?: object) => 'some-format',
+                        agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
+                        dayRangeHeaderFormat: (range: DateRange, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
                     }}
                     messages={{
                         date: 'Date',
@@ -253,6 +255,7 @@ class CalendarResource {
                     }}
                     dayPropGetter={customDayPropGetter}
                     slotPropGetter={customSlotPropGetter}
+                    slotGroupPropGetter={customGroupSlotPropGetter}
                     defaultDate={new Date()}
                     resources={getResources()}
                     resourceAccessor={event => event.resourceId}
@@ -323,6 +326,12 @@ const customSlotPropGetter = (date: Date) => {
             className: 'special-day',
         };
     else return {};
+};
+
+const customGroupSlotPropGetter = () => {
+    return {
+        className: 'slot-group'
+    };
 };
 
 function Event(props: EventProps<CalendarEvent>) {

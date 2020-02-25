@@ -1,4 +1,4 @@
-import { Handler } from "../hander";
+import { Handler } from "../handler";
 
 export type ScheduledHandler = Handler<ScheduledEvent, void>;
 

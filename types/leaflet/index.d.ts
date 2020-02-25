@@ -118,6 +118,7 @@ export class LatLng {
     distanceTo(otherLatLng: LatLngExpression): number;
     wrap(): LatLng;
     toBounds(sizeInMeters: number): LatLngBounds;
+    clone(): LatLng;
 
     lat: number;
     lng: number;

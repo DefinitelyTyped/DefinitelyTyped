@@ -1,4 +1,4 @@
-import { Handler, Callback } from "../hander";
+import { Handler, Callback } from "../handler";
 
 export type ALBHandler = Handler<ALBEvent, ALBResult>;
 export type ALBCallback = Callback<ALBResult>;

@@ -98,6 +98,7 @@ export interface MutationResult<TResults> {
     isLoading: boolean;
     error: null | Error;
     promise: Promise<TResults>;
+    reset: () => void;
 }
 
 export function setQueryData(

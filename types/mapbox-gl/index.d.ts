@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.7
+// Type definitions for Mapbox GL JS 1.8
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -704,7 +704,7 @@ declare namespace mapboxgl {
      * Geolocate
      */
     export class GeolocateControl extends Control {
-        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showAccuracyCircle?: boolean, showUserLocation?: boolean });
         trigger(): boolean;
     }
 

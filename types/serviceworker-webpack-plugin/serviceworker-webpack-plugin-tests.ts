@@ -43,10 +43,15 @@ new ServiceWorkerWebpackPlugin<number>({
     },
 });
 
-runtime.register().then(registration => {
-    registration.pushManager;
-});
+const serviceworkerPromise = runtime.register();
+if (serviceworkerPromise) {
+    serviceworkerPromise.then(registration => {
+        registration.pushManager;
+    });
 
-runtime.register({ scope: '' }).then(registration => {
-    registration.pushManager;
-});
+    serviceworkerPromise.then(registration => {
+        registration.pushManager;
+    });
+} else {
+    console.log(serviceworkerPromise === false);
+}

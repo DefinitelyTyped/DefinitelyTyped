@@ -646,6 +646,11 @@ bool = bounds.isEmpty();
 expectType<boolean>(bounds.contains([37, 50]));
 
 /*
+ * GeolocateControl
+ */
+const geolocateControl = new mapboxgl.GeolocateControl({showAccuracyCircle: true});
+
+/*
  * AttributionControl
  */
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
