@@ -1,4 +1,6 @@
-import MySQLStore = require('express-mysql-session');
+import * as mysqlSession from 'express-mysql-session'
+
+const MySQLStore = mysqlSession(session)
 
 const options = {
     host: 'localhost',
