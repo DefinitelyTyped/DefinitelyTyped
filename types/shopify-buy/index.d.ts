@@ -1,4 +1,4 @@
-// Type definitions for shopify-buy 1.4.0
+// Type definitions for shopify-buy 1.11
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 //                 Stephen Traiforos <https://github.com/straiforos>
@@ -88,6 +88,13 @@ declare namespace ShopifyBuy {
         removeLineItems(
             checkoutId: string | number,
             lineItemIds: string[]
+        ): Promise<Cart>;
+
+        /**
+         * Remove discounts from cart
+         */
+        removeDiscount(
+            checkoutId: string | number
         ): Promise<Cart>;
 
         /**

@@ -4,7 +4,7 @@
         "array-type": false,
         "ban-types": false,
         "callable-types": false,
-        "dt-header": false,
+        "dt-header": true,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
