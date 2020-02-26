@@ -43,7 +43,7 @@ export interface OutTrackingOptions extends ClearOptOutInOutOptions {
 export interface Config {
   api_host: string;
   app_host: string;
-  autrotrack: boolean;
+  autotrack: boolean;
   cdn: string;
   cross_subdomain_cookie: boolean;
   persistence: Persistence;
