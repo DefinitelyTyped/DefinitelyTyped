@@ -12,8 +12,8 @@
 export function removeStopwords(text: string[], stopwords?: string[]): string[];
 
 /**
-* Get array of stopwords according by language code
-*/
+ * Get array of stopwords according by language code
+ */
 export const af: string[];
 export const ar: string[];
 export const bn: string[];
