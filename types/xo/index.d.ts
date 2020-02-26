@@ -5,11 +5,10 @@
 
 import eslint = require('eslint');
 
-export {};
 /**
  * From T pick a set of properties K
  */
-type Pick<T, K extends keyof T> = {
+export type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 };
 
@@ -29,12 +28,12 @@ export function outputFixes(report: ResultReport): void;
 export function lintText(text: string, options?: Options): ResultReport;
 export function lintFiles(patterns: string | string[], options?: Options): ResultReport | Promise<ResultReport>;
 
-type CLIEngineOptions = Pick<
+export type CLIEngineOptions = Pick<
     eslint.CLIEngine.Options,
     'baseConfig' | 'cwd' | 'envs' | 'extensions' | 'fix' | 'globals' | 'ignore' | 'parser' | 'plugins' | 'rules'
 >;
-type ESLintOptions = Pick<eslint.Linter.LintOptions, 'filename'>;
-type ESLintConfig = Pick<eslint.Linter.Config, 'extends' | 'settings'>;
+export type ESLintOptions = Pick<eslint.Linter.LintOptions, 'filename'>;
+export type ESLintConfig = Pick<eslint.Linter.Config, 'extends' | 'settings'>;
 
 export type Options = {
     /** Enforce ES2015+ rules. Disabling this will make it not enforce ES2015+ syntax and conventions */
