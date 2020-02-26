@@ -749,7 +749,7 @@ declare namespace Bull {
     /**
      * Returns a promise that marks the start of a transaction block.
      */
-    multi(): Promise<Redis.Pipeline>;
+    multi(): Redis.Pipeline;
 
     /**
      * Returns the queue specific key.
