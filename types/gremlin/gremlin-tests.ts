@@ -174,6 +174,14 @@ function processTests() {
   anonymousTraversalSource.withRemote(new RemoteConnection("test"));
 }
 
+async function asyncIteratorTests() {
+    const g = traversal().withRemote(new DriverRemoteConnection('test'));
+
+    for await (const v of g.V().limit(10)) {
+        // ...
+    }
+}
+
 function structureTests() {
   const element = new Element(1, "test");
   const graphSonReader = new GraphSONReader();

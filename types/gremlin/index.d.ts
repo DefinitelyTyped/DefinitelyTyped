@@ -123,9 +123,9 @@ declare namespace process {
     static startingWith(...args: any[]): TextP;
   }
 
-  class Traversal {
+  class Traversal implements AsyncIterator<any> {
     constructor(graph: Nullable<Graph>, traversalStrategies: Nullable<TraversalStrategies>, bytecode: Bytecode);
-    // [asyncIteratorSymbol: symbol | SymbolConstructor](): Traversal; // How can I implement this?
+    [Symbol.asyncIterator](): this;
     getBytecode(): Bytecode;
     hasNext(): Promise<boolean>;
     iterate(): Promise<void>;
