@@ -61,6 +61,9 @@ export function triggerSave(): void;
 export function get(id: string | number): Editor;
 
 export interface Settings {
+  
+  base_url?: string;
+    
   table_toolbar?: string;
 
   table_appearance_options?: boolean;
