@@ -72,6 +72,7 @@ declare let workspaceCenter: Atom.WorkspaceCenter;
 declare let pixelPos: Atom.PixelPosition;
 declare let textEditorElement: Atom.TextEditorElement;
 declare let textEditorComponent: Atom.TextEditorComponent;
+declare let timingMarkers: Atom.TimingMarker[];
 
 // AtomEnvironment ============================================================
 function testAtomEnvironment() {
@@ -161,6 +162,7 @@ function testAtomEnvironment() {
     str = atom.getVersion();
     bool = atom.isReleasedVersion();
     num = atom.getWindowLoadTime();
+    timingMarkers = atom.getStartupMarkers();
     obj = atom.getLoadSettings();
 
     // Managing The Atom Window
@@ -1905,6 +1907,7 @@ function testSelection() {
     selection.setBufferRange([[0, 0], [0, 0]], {});
     selection.setBufferRange(range, { autoscroll: true, preserveFolds: false });
     selection.setBufferRange([pos, pos], { autoscroll: true });
+    selection.setBufferRange(range, { reversed: true });
 
     const [startingRow, endingRow ]: [number, number] = selection.getBufferRowRange();
 
@@ -3343,6 +3346,8 @@ function testWorkspace() {
 
     panel = atom.workspace.addModalPanel({ item: element });
     panel = atom.workspace.addModalPanel({ item: element, priority: 100, visible: true });
+    panel = atom.workspace.addModalPanel({ item: element, autoFocus: element });
+    panel = atom.workspace.addModalPanel({ item: element, autoFocus: () => element });
 
     const potentialPanel = atom.workspace.panelForItem(element);
     if (potentialPanel) {

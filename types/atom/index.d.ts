@@ -139,6 +139,9 @@ export interface AtomEnvironment {
     /** Get the time taken to completely load the current window. */
     getWindowLoadTime(): number;
 
+    /** Get the all the markers with the information about startup time. */
+    getStartupMarkers(): TimingMarker[];
+
     /** Get the load settings for the current window. */
     getLoadSettings(): WindowLoadSettings;
 
@@ -2972,7 +2975,7 @@ export interface Workspace {
         item: T,
         visible?: boolean,
         priority?: number,
-        autoFocus?: boolean,
+        autoFocus?: boolean | FocusableHTMLElement,
     }): Panel<T>;
 
     /**
@@ -4670,6 +4673,7 @@ export interface Selection {
 
     /** Modifies the buffer Range for the selection. */
     setBufferRange(bufferRange: RangeCompatible, options?: {
+        reversed?: boolean,
         preserveFolds?: boolean,
         autoscroll?: boolean,
     }): void;
@@ -5243,7 +5247,10 @@ export class TextBuffer {
     /** Determine whether the buffer is empty. */
     isEmpty(): boolean;
 
-    /** Get the entire text of the buffer. */
+    /**
+     *  Get the entire text of the buffer. Avoid using this unless you know that
+     *  the buffer's text is reasonably short.
+     */
     getText(): string;
 
     /** Get the text in a range. */
@@ -6103,7 +6110,7 @@ export interface ConfigValues {
      */
     "core.fileSystemWatcher": "native"|"experimental"|"poll"|"atom";
 
-    /** Experimental: Use the new Tree-sitter parsing system for supported languages. */
+    /** Use the new Tree-sitter parsing system for supported languages. */
     "core.useTreeSitterParsers": boolean;
 
     /**
@@ -6407,7 +6414,7 @@ export interface CopyMarkerOptions {
      */
     exclusive?: boolean;
 
-    /** -DEPRECATED- Custom properties to be associated with the marker. */
+    /** Custom properties to be associated with the marker. */
     properties?: object;
 }
 
@@ -6861,6 +6868,14 @@ export interface JQueryCompatible<Element extends Node = HTMLElement> extends It
     jquery: string;
 }
 
+/**
+ *  The type used by the `focus-trap` library to target a specific DOM node.
+ *
+ *  A DOM node, a selector string (which will be passed to `document.querySelector()`
+ *  to find the DOM node), or a function that returns a DOM node.
+ */
+export type FocusableHTMLElement = HTMLElement | string | { (): HTMLElement };
+
 /** The types usable when constructing a point via the Point::fromObject method. */
 export type PointCompatible = PointLike|[number, number];
 
@@ -7079,6 +7094,11 @@ export interface TextChange {
     newText: string;
     oldText: string;
     start: Point;
+}
+
+export interface TimingMarker {
+    label: string;
+    time: number;
 }
 
 /** Result returned by `Grammar.tokenizeLine`. */
