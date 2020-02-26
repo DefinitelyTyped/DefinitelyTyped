@@ -32,6 +32,10 @@ export interface AuthenticationTls {
     privateKeyPath: string;
 }
 
+export interface AuthenticationToken {
+    token: string;
+}
+
 export interface ClientOpts {
     /**
      * The connection URL for the Pulsar cluster.
@@ -42,7 +46,7 @@ export interface ClientOpts {
      * Configure the authentication provider.
      * Default: No Authentication
      */
-    authentication?: AuthenticationTls;
+    authentication?: AuthenticationTls | AuthenticationToken;
 
     /**
      * The timeout for Node.js client operations (creating producers, subscribing to and unsubscribing from topics).
