@@ -6,7 +6,7 @@
 
 declare namespace pendo {
     interface Identity {
-        /** visitor.id is requiired if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
+        /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
         visitor?: IdentityMetadata;
         account?: IdentityMetadata;
     }
