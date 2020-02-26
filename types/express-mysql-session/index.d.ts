@@ -8,7 +8,7 @@ import * as expressSession from 'express-session'
 
 export = MySQLStore;
 
-declare function MySQLStore(session: typeof expressSession): typeof MySQLStore
+declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreClass
 
 
 declare namespace MySQLStore {
@@ -35,7 +35,7 @@ declare namespace MySQLStore {
     }
 }
 
-declare class MySQLStore {
+declare class MySQLStoreClass {
     constructor(options: MySQLStore.Options, connection?: any, callback?: (error: any) => void);
 
     setDefaultOptions(): void;
