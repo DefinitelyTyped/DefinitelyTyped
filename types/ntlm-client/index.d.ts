@@ -3,7 +3,7 @@
 // Definitions by: Manuel Borrajo <https://github.com/borrajo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import "node";
+/// <reference types="node"/>
 
 interface NtlmType2 {
     flags: number;
