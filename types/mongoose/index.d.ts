@@ -915,6 +915,13 @@ declare module "mongoose" {
     requiredPaths(invalidate?: boolean): string[];
 
     /**
+     * Lists all paths and their type in the current schema.
+     */
+    paths: {
+      [key: string]: SchemaType;
+    }
+
+    /**
      * Sets/gets a schema option.
      * @param key option name
      * @param value if not passed, the current option value is returned
