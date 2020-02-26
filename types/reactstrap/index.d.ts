@@ -193,5 +193,5 @@ export {
   UncontrolledCarouselProps,
   UncontrolledPopoverProps
 } from './lib/Uncontrolled';
-import * as Util from './lib/Util';
+import * as Util from './lib/utils';
 export { Util };
