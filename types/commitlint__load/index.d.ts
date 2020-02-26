@@ -60,7 +60,7 @@ export interface CommitlintConfig {
     rules: Rules;
 }
 
-
+// tslint:disable-next-line:no-const-enum
 export const enum Level {
     Disable = 0,
     Warn = 1,
