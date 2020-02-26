@@ -114,6 +114,11 @@ export interface AmqpConnectionManager extends EventEmitter {
 	 * Close this AmqpConnectionManager and free all associated resources.
 	 */
 	close(): Promise<void>;
+
+    /**
+     * Returns a Promise which resolves when this channel next connects.
+     */
+    waitForConnect(): Promise<void>;
 }
 
 export interface ChannelWrapper extends EventEmitter {
