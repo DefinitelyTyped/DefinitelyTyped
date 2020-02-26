@@ -127,9 +127,10 @@ declare namespace process {
     constructor(graph: Nullable<Graph>, traversalStrategies: Nullable<TraversalStrategies>, bytecode: Bytecode);
     // [asyncIteratorSymbol: symbol | SymbolConstructor](): Traversal; // How can I implement this?
     getBytecode(): Bytecode;
-    toList(): Promise<Traverser[]>;
+    hasNext(): Promise<boolean>;
     iterate(): Promise<void>;
     next(): Promise<{ value: any; done: boolean; }>;
+    toList(): Promise<Traverser[]>;
     toString(): string;
   }
 

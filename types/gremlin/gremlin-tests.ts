@@ -143,6 +143,7 @@ function processTests() {
   TextP.startingWith();
 
   traversal.getBytecode();
+  traversal.hasNext();
   traversal.iterate();
   traversal.next();
   traversal.toList();
