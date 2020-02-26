@@ -3,6 +3,6 @@
 // Definitions by: Vincenzo Chianese <https://github.com/XVincentX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function parsePreferHeader(preferHeader: string | string[]): { [key: string]: string | boolean };
+declare function parsePreferHeader(preferHeader: string | string[] | null | undefined): { [key: string]: string | boolean };
 
 export = parsePreferHeader;
