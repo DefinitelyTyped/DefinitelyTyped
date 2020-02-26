@@ -45,13 +45,20 @@ var Monkeys = new Mongo.Collection<MonkeyDAO>('monkeys');
 
 /**
  * From Core, Meteor.startup section
- * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find()
+ * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find(), Collection.rawCollection()
  */
 if (Meteor.isServer) {
     Meteor.startup(function () {
         if (Rooms.find().count() === 0) {
             Rooms.insert({ name: "Initial room" });
         }
+
+        Rooms.rawDatabase().stats().then(
+            stats => console.log('stats', stats),
+            error => console.error('stats', error)
+        );
+
+        Rooms.rawCollection().aggregate([{$group: {_id: null, names: {$addToSet: '$name'}}}]).toArray().then();
     });
 }
 
