@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@commitlint/load": ["commitlint__load"]
-        },
+        }
     },
     "files": [
         "index.d.ts",
