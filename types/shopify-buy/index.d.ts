@@ -89,7 +89,7 @@ declare namespace ShopifyBuy {
             checkoutId: string | number,
             lineItemIds: string[]
         ): Promise<Cart>;
-        
+
         /**
          * Remove discounts from cart
          */
