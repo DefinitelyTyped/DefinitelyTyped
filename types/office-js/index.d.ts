@@ -12253,9 +12253,9 @@ declare namespace Office {
          * In compose mode you must call the `saveAsync` method before you can use the `restUrl` member. 
          * Your app must have `ReadWriteItem` permissions to call the `saveAsync` method.
          *
-         * However, in shared folders, you should instead use the `targetRestUrl` property of the {@link Office.SharedProperties | SharedProperties}
-         * object. For more information about this scenario, see the
-         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
+         * However, in delegate or shared scenarios, you should instead use the `targetRestUrl` property of the
+         * {@link Office.SharedProperties | SharedProperties} object (introduced in requirement set 1.8). For more information,
+         * see the {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * [Api set: Mailbox 1.5]
          *
