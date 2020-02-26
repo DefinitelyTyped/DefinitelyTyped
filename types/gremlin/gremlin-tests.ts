@@ -312,3 +312,12 @@ function dslTests() {
   g.V().where(__.hasNotLabel('test'));
   g.V().aged(33);
 }
+
+async function asyncIteratorTest() {
+  const t = new process.Traversal(null, null, new Bytecode());
+
+  // tslint:disable-next-line: await-promise Bug in tslint: https://github.com/palantir/tslint/issues/3997
+  for await (const v of t) {
+    v;
+  }
+}
