@@ -1,15 +1,13 @@
 // Type definitions for express-mysql-session 2.1
 // Project: https://github.com/chill117/express-mysql-session#readme
-// Definitions by: Akim95 <https://github.com/Akim95> Sebastian Krüger <https://github.com/mathe42>
+// Definitions by: Akim95 <https://github.com/Akim95>, Sebastian Krüger <https://github.com/mathe42>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="express-session" />
 
-import * as expressSession from 'express-session'
+import * as expressSession from 'express-session';
 
 export = MySQLStore;
 
-declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreClass
-
+declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreClass;
 
 declare namespace MySQLStore {
     interface Options {
