@@ -4597,6 +4597,36 @@
             "asOfVersion": "3.0.0"
         },
         {
+            "libraryName": "slate",
+            "typingsPackageName": "slate",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/slate",
+            "asOfVersion": "0.50.0"
+        },
+        {
+            "libraryName": "slate-base64-serializer",
+            "typingsPackageName": "slate-base64-serializer",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/slate",
+            "asOfVersion": "0.2.112"
+        },
+        {
+            "libraryName": "slate-html-serializer",
+            "typingsPackageName": "slate-html-serializer",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/slate",
+            "asOfVersion": "0.8.11"
+        },
+        {
+            "libraryName": "slate-plain-serializer",
+            "typingsPackageName": "slate-plain-serializer",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/slate",
+            "asOfVersion": "0.7.11"
+        },
+        {
+            "libraryName": "slate-react",
+            "typingsPackageName": "slate-react",
+            "sourceRepoURL": "https://github.com/ianstormtaylor/slate",
+            "asOfVersion": "0.50.0"
+        },
+        {
             "libraryName": "smooth-scrollbar",
             "typingsPackageName": "smooth-scrollbar",
             "sourceRepoURL": "https://github.com/idiotWu/smooth-scrollbar",
