@@ -413,6 +413,12 @@ declare namespace Joi {
         is?: SchemaLike;
 
         /**
+         * the negative version of `is` (`then` and `otherwise` have reverse
+         * roles).
+         */
+        not?: SchemaLike;
+
+        /**
          * the alternative schema type if the condition is true. Required if otherwise or switch are missing.
          */
         then?: SchemaLike;

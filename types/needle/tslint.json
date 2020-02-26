@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-conditional-assignment": false,
-        "strict-export-declare-modifiers": false
+        "no-conditional-assignment": false
     }
 }

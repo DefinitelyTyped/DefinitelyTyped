@@ -11,7 +11,6 @@
 //                 Peter Safranek <https://github.com/pe8ter>
 //                 Moshe Kolodny <https://github.com/kolodny>
 //                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Mochamad Arfin <https://github.com/ndunks>
 //                 Alex Povar <https://github.com/zvirja>
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -918,7 +917,7 @@ declare namespace jasmine {
         /** Tell the spy to return a promise rejecting with the specified value when invoked. */
         rejectWith(val: PromisedRejectType<Fn>): Spy<Fn>;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string): Spy;
+        throwError(msg: string | Error): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }

@@ -27,6 +27,11 @@ FunctionComponent2.defaultProps = {
     <g>
         <text x="200" y="300" strokeWidth="5" stroke="black" alignmentBaseline="middle">
             Hello, world!
+            <animateMotion
+                path="M20,50 C20,-50 180,150 180,50 C180-50 20,150 20,50 z"
+                dur="5s"
+                repeatCount="indefinite"
+            />
         </text>
         <div slot="Some Div"> Hello again! </div>
     </g>
