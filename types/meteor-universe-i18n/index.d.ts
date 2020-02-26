@@ -1,6 +1,7 @@
 // Type definitions for non-npm package https://github.com/vazco/meteor-universe-i18n 1.14
 // Project: meteor-universe-i18n
 // Definitions by: Mathias Scherer <https://github.com/mathewmeconry>
+//                 Radosław Miernik <https://github.com/radekmie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
