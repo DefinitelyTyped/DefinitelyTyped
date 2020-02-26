@@ -13,12 +13,19 @@ export type Pick<T, K extends keyof T> = {
 };
 
 // eslint.CLIEngine.getErrorResults without modification
-// eslint.CLIEngine.getErrorResults redeclared to match input shape
+// eslint.CLIEngine.getFormatter without modification
+// eslint.CLIEngine.outputFixes redeclared to match input shape
 
 /**
  * Can be used to filter out all the non error messages from the report object.
  */
 export const getErrorResults: typeof eslint.CLIEngine.getErrorResults;
+/**
+ * Returns the formatter representing the given format
+ * or null if no formatter with the given name can be found.
+ * see {@link https://github.com/eslint/eslint/blob/master/docs/developer-guide/nodejs-api.md#clienginegetformatter}
+ */
+export const getFormatter: typeof eslint.CLIEngine.prototype.getFormatter;
 /**
  * Used to output fixes from report to disk.
  * It does by looking for files that have an output property in their results

@@ -55,4 +55,11 @@ result.results; // LintResult[]
     const errorReport = xo.getErrorResults(result.results);
     // output fixes to disk
     xo.outputFixes(report);
+    // tests for the formatter
+    let formatter = xo.getFormatter();
+    formatter = xo.getFormatter('compact');
+    formatter = xo.getFormatter('./my/formatter.js');
+    xo.getFormatter('compact')(report.results);
+    // output to console
+    console.log(formatter(report.results));
 })();
