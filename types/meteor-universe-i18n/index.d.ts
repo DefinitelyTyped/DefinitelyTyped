@@ -33,8 +33,9 @@ declare module "meteor/universe:i18n" {
         function __(...key: string[]): string;
         function getTranslations(namespace: string, locale?: string): string[];
 
-        // options setter
-        function setOptions(options: i18nOptions): void;
+        // options
+        var options: Readonly<i18nOptions>;
+        function setOptions(options: Partial<i18nOptions>): void;
 
         // number operations
         function parseNumber(number: string, locale?: string): string;
@@ -51,6 +52,7 @@ declare module "meteor/universe:i18n" {
         function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
 
         // language getters
+        var _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
         function getLanguages(type?: 'code' | 'name' | 'nativeNames'): string[];
         function getLanguageName(locale?: string): string;
         function getLanguageNativeName(locale?: string): string;
@@ -62,6 +64,7 @@ declare module "meteor/universe:i18n" {
         // others
         function isRTL(locale?: string): boolean;
         function getAllKeysForLocale(locale?: string, excactlyThis?: boolean): string[];
+        function normalize(locale: string): string | undefined;
 
         // events
         function onChangeLocale(callback: (locale: string) => void): void;
@@ -77,15 +80,26 @@ declare module "meteor/universe:i18n" {
         _containerType?: string;
     }
 
+    type i18nLocaleEntry = [
+        string, // code
+        string, // name
+        string, // localName
+        boolean, // isRTL
+        string, // numberTypographic
+        number, // decimal
+        string, // currency
+        [number] | [number, number] // groupNumberBY
+    ];
+
     interface i18nOptions {
-        defaultLocale?: string;
-        open?: string;
-        close?: string;
+        defaultLocale: string;
+        open: string;
+        close: string;
         purify?: () => void;
-        hideMissing?: boolean;
-        hostUrl?: string;
+        hideMissing: boolean;
+        hostUrl: string;
         translationsHeaders?: OutgoingHttpHeaders;
-        sameLocaleOnServerConnection?: boolean;
+        sameLocaleOnServerConnection: boolean;
     }
 
     interface GetTranslationParams {
