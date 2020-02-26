@@ -337,7 +337,7 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean; timeout?: number },
+    options?: { collectPendingData?: boolean; timeout?: number; waitForIdle?: boolean },
     cb?: (error?: Error) => void,
 ): void;
 

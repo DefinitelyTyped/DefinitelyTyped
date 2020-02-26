@@ -109,6 +109,10 @@ newrelic.shutdown({ collectPendingData: true, timeout: 3000 });
 newrelic.shutdown({ collectPendingData: true, timeout: 3000 }, err => {
     const error: Error | undefined = err;
 });
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true });
+newrelic.shutdown({ collectPendingData: true, timeout: 3000, waitForIdle: true }, err => {
+    const error: Error | undefined = err;
+});
 newrelic.shutdown(err => {
     const error: Error | undefined = err;
 });
