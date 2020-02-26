@@ -5,7 +5,7 @@
 // TypeScript Version: 3.1
 
 import * as React from 'react';
-import { ButtonProps, TextProps, ViewStyle } from 'react-native';
+import { TextProps, ViewStyle } from 'react-native';
 
 export interface AppIntroProps {
     skipLabel?: string;
