@@ -2,22 +2,20 @@
 // Project: https://github.com/Grsmto/simplebar, https://grsmto.github.io/simplebar
 // Definitions by: Valikhan Akhmedov <https://github.com/val-o>, Gregor Woiwode <https://github.com/gregonnet>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 2.8
 
 export as namespace SimpleBar;
 export = SimpleBar;
 
 declare class SimpleBar {
     static removeObserver(): void;
-    static initHtmlApi(): void;
+    static instances: Pick<WeakMap<HTMLElement, SimpleBar>, 'get' | 'has'>;
 
     constructor(element: HTMLElement, options?: SimpleBar.Options);
 
-    public recalculate(): void;
-    public getScrollElement(): Element;
-    public getContentElement(): Element;
-
-    public instances: Pick<WeakMap<HTMLElement, SimpleBar>, 'get' | 'has'>;
+    recalculate(): void;
+    getScrollElement(): Element;
+    getContentElement(): Element;
 }
 
 declare namespace SimpleBar {

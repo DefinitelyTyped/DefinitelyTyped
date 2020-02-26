@@ -9,10 +9,15 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "simplebar": [
+                "simplebar/v2"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -20,6 +25,6 @@
     "files": [
         "index.d.ts",
         "simplebar-tests.ts",
-        "test/module-tests.ts"
+        "../test/module-tests.ts"
     ]
 }
