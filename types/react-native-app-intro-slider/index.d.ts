@@ -1,6 +1,7 @@
 // Type definitions for react-native-app-intro-slider 3.0
 // Project: https://github.com/jacse/react-native-app-intro-slider
 // Definitions by: Haseeb Majid <https://github.com/hmajid2301>
+//                 Oliver Welter <https://github.com/oliverwelter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
