@@ -1,4 +1,11 @@
 import parsePreferHeader = require('parse-prefer-header');
 
-parsePreferHeader(['respond-async, wait=100', 'handling=lenient']);
+const testArray = ['respond-async, wait=100', 'handling=lenient'];
+
+const readonlyTestArray: ReadonlyArray<string> = testArray;
+
+parsePreferHeader(testArray);
+parsePreferHeader(readonlyTestArray);
 parsePreferHeader('');
+parsePreferHeader(null);
+parsePreferHeader(undefined);
