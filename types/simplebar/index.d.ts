@@ -31,9 +31,21 @@ declare namespace SimpleBar {
     }
 
     interface ClassNamesOptions {
-        content?: string;
-        scrollContent?: string;
+        contentEl?: string;
+        contentWrapper?: string;
+        offset?: string;
+        mask?: string;
+        wrapper?: string;
+        placeholder?: string;
         scrollbar?: string;
         track?: string;
+        heightAutoObserverWrapperEl?: string;
+        heightAutoObserverEl?: string;
+        visible?: string;
+        horizontal?: string;
+        vertical?: string;
+        hover?: string;
+        dragging?: string;
+        [className: string]: string;
     }
 }
