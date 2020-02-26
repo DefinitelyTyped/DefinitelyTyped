@@ -6,6 +6,7 @@
 //                 Kyle Scully <https://github.com/zieka>
 //                 Kenneth Aasan <https://github.com/kennethaasan>
 //                 Jon Flaishans <https://github.com/funkswing>
+//                 Dylan Smith <https://github.com/dylansmith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
