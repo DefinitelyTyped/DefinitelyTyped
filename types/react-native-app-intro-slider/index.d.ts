@@ -13,11 +13,11 @@ export interface AppIntroProps {
     nextLabel?: string;
     prevLabel?: string;
     bottomButton?: boolean;
-    buttonStyle?: ButtonProps;
+    buttonStyle?: ViewStyle;
     buttonTextStyle?: TextProps;
     dotStyle?: ViewStyle;
     activeDotStyle?: ViewStyle;
-    paginationStyle?: TextProps;
+    paginationStyle?: ViewStyle;
     hidePagination?: boolean;
     renderNextButton?: () => void;
     renderPrevButton?: () => void;
