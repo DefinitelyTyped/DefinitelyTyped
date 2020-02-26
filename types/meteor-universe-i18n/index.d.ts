@@ -40,7 +40,7 @@ declare module 'meteor/universe:i18n' {
         function getTranslations(namespace: string, locale?: string): string[];
 
         // options
-        var options: Readonly<i18nOptions>;
+        let options: Readonly<i18nOptions>;
         function setOptions(options: Partial<i18nOptions>): void;
 
         // number operations
@@ -58,7 +58,7 @@ declare module 'meteor/universe:i18n' {
         function runWithLocale(locale: string, func: (...keys: any[]) => void): void;
 
         // language getters
-        var _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
+        let _locales: Readonly<{ [locale: string]: Readonly<i18nLocaleEntry> }>;
         function getLanguages(type?: 'code' | 'name' | 'nativeNames'): string[];
         function getLanguageName(locale?: string): string;
         function getLanguageNativeName(locale?: string): string;
