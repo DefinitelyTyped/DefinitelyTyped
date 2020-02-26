@@ -102,6 +102,8 @@ i18n.getAllKeysForLocale();
 i18n.getAllKeysForLocale('de-CH');
 i18n.getAllKeysForLocale('de-CH', true);
 
+i18n.normalize('en');
+
 i18n.onChangeLocale((newLocale: string) => {
     console.log(newLocale);
 });
