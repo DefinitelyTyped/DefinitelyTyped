@@ -2237,7 +2237,7 @@ declare namespace Cesium {
         label: LabelGraphics;
         model: ModelGraphics;
         name: string;
-        orientation: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};;
+        orientation: Property;
         parent: Entity;
         path: PathGraphics;
         plane: any;
@@ -2259,7 +2259,7 @@ declare namespace Cesium {
           show?: boolean;
           description?: Property;
           position?: PositionProperty;
-          orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
+          orientation?: Property;
           viewFrom?: Property;
           parent?: Entity;
           billboard?: BillboardGraphics;
