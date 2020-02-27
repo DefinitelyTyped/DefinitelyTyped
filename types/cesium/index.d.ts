@@ -2518,8 +2518,8 @@ declare namespace Cesium {
           imageBasedLightingFactor?: Property | Cartesian2;
           lightColor?: Property | Cartesian3;
           distanceDisplayCondition?: Property | DistanceDisplayCondition;
-          nodeTransformations?: any; // PropertyBag          
-          articulations?: any; // PropertyBag;
+          nodeTransformations?: any; // PropertyBag
+          articulations?: any; // PropertyBag
           clippingPlanes?: Property | ClippingPlaneCollection;
         });
         clone(result?: ModelGraphics): ModelGraphics;
@@ -3948,7 +3948,7 @@ declare namespace Cesium {
         silhouetteColor: Color;
         silhouetteSize: number;
         specularEnvironmentMaps: string;
-        sphericalHarmonicCoefficients: Array<Cartesian3>;
+        sphericalHarmonicCoefficients: Cartesian3[];
         constructor(options?: {
             gltf?: any;
             basePath?: string;
@@ -3978,7 +3978,7 @@ declare namespace Cesium {
             imageBasedLightingFactor?: Cartesian2;
             lightColor?: Cartesian3;
             luminanceAtZenith?: number;
-            sphericalHarmonicCoefficients?: Array<Cartesian3>;
+            sphericalHarmonicCoefficients?: Cartesian3[];
             specularEnvironmentMaps?: string;
             credit?: Credit | string;
         });
@@ -3990,7 +3990,7 @@ declare namespace Cesium {
             scale?: number;
             minimumPixelSize?: number;
             maximumScale?: number;
-            id?: Object;
+            id?: any;
             allowPicking?: boolean;
             incrementallyLoadTextures?: boolean;
             asynchronous?: boolean;
