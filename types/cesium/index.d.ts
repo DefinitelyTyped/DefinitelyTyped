@@ -4398,6 +4398,7 @@ declare namespace Cesium {
         invertClassification: boolean;
         invertClassificationColor: Color;
         readonly lastRenderTime: JulianDate;
+        logarithmicDepthBuffer: boolean;
         logarithmicDepthFarToNearRatio: number;
         mapMode2D: boolean;
         readonly mapProjection: MapProjection;
