@@ -492,7 +492,7 @@ export class MatrixClient extends EventEmitter {
   setRoomTag(roomId: string, tagName: string, metadata: object, callback?: MatrixCallback): Promise<void>
   setRoomTopic(roomId: string, topic: string, callback?: MatrixCallback): Promise<void>
 
-  startClient(opts?: {
+  startClient(opts?: number | {
     initialSyncLimit?: Number  // <optional> The event limit= to apply to initial sync. Default: 8.
     includeArchivedRooms?: Boolean // <optional> True to put archived=true on the /initialSync request. Default: false.
     resolveInvitesToProfiles?: Boolean // <optional> True to do /profile requests on every invite event if the displayname/avatar_url is not known for this user ID. Default: false.
@@ -641,3 +641,15 @@ export class RoomState {
   setUnknownStateEvents       (events: MatrixEvent)                          : void
 
 }
+
+interface CreateClientOption {
+  accessToken?: string
+  baseUrl?: string,
+  request?: any,
+  store?: any,
+  scheduler?: MatrixScheduler,
+  cryptoStore?: any,
+  userId?: string,
+}
+
+export function createClient(ops: string | CreateClientOption): MatrixClient
