@@ -59,7 +59,7 @@ export interface AmqpConnectionManagerOptions {
  */
 export function connect(urls: string[], options?: AmqpConnectionManagerOptions): AmqpConnectionManager;
 
-export type SetupFunc = ((channel: ConfirmChannel, callback: (error?: Error) => void) => void) | ((channel: ConfirmChannel) => Promise<void>);
+export type SetupFunc = (channel: ConfirmChannel, callback?: (error?: Error) => void) => Promise<any> | void;
 
 export interface CreateChannelOpts {
 	/**
