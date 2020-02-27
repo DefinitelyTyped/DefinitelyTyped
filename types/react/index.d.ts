@@ -116,7 +116,7 @@ declare namespace React {
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
         P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
-    > extends ReactElement<P, T> { }
+    > extends ReactElement<P, Exclude<T, number>> { }
 
     /**
      * @deprecated Please use `FunctionComponentElement`
