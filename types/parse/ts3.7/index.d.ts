@@ -848,7 +848,6 @@ namespace Parse {
         getSessionToken(): string;
 
         linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
-        _linkWith: (provider: string | AuthProvider, options: { authData?: AuthData }, saveOpts?: FullOptions) => Promise<this>;
         _isLinked: (provider: string | AuthProvider) => boolean;
         _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
     }
