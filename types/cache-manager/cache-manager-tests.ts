@@ -49,10 +49,11 @@ memoryCache.wrap<{ id: number, name: string }>(key, (cb: any) => {
     });
 });
 
-memoryCache.store.keys().then((result) => {
-
-    //console.log(result);
-});
+if (memoryCache.store.keys) {
+    memoryCache.store.keys().then((result) => {
+        //console.log(result);
+    });
+}
 
 const multiCache = cacheManager.multiCaching([memoryCache]);
 
