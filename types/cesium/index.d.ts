@@ -3489,14 +3489,14 @@ declare namespace Cesium {
 
     enum Cesium3DTileColorBlendMode {
         HIGHLIGHT,
-        MIX,
-        REPLACE
+        REPLACE,
+        MIX
     }
 
     enum ColorBlendMode {
         HIGHLIGHT,
-        MIX,
-        REPLACE
+        REPLACE,
+        MIX
     }
 
     export class PointCloudShading {
@@ -3943,6 +3943,7 @@ declare namespace Cesium {
         readonly pendingTextureLoads: number;
         readonly ready: boolean;
         readonly readyPromise: Promise<Model>;
+        shadows: ShadowMode;
         scale: number;
         show: boolean;
         silhouetteColor: Color;
