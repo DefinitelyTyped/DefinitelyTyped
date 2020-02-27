@@ -3488,6 +3488,12 @@ declare namespace Cesium {
         REPLACE
     }
 
+    enum ColorBlendMode {
+        HIGHLIGHT,
+        MIX,
+        REPLACE
+    }
+
     export class PointCloudShading {
         attenuation: boolean;
         backFaceCulling: boolean;
@@ -3905,21 +3911,39 @@ declare namespace Cesium {
     }
 
     class Model {
-        show: boolean;
-        modelMatrix: Matrix4;
-        scale: number;
-        minimumPixelSize: number;
-        id: any;
         activeAnimations: ModelAnimationCollection;
+        readonly allowPicking: boolean;
+        readonly asynchronous: boolean;
+        readonly basePath: string;
+        readonly boundingSphere: BoundingSphere;
+        clampAnimations: boolean;
+        clippingPlanes: ClippingPlaneCollection;
+        color: Color;
+        colorBlendAmount: number;
+        colorBlendMode: ColorBlendMode;
+        credit: Credit;
         debugShowBoundingVolume: boolean;
         debugWireframe: boolean;
-        gltf: any;
-        basePath: string;
-        boundingSphere: BoundingSphere;
-        ready: boolean;
-        readyPromise: Promise<Model>;
-        asynchronous: boolean;
-        allowPicking: boolean;
+        distanceDisplayCondition: DistanceDisplayCondition;
+        readonly gltf: any;
+        heightReference: HeightReference;
+        id: any;
+        imageBasedLightingFactor: Cartesian2;
+        readonly incrementallyLoadTextures: boolean;
+        lightColor: Cartesian3;
+        luminanceAtZenith: number;
+        maximumScale: number;
+        minimumPixelSize: number;
+        modelMatrix: Matrix4;
+        readonly pendingTextureLoads: number;
+        readonly ready: boolean;
+        readonly readyPromise: Promise<Model>;
+        scale: number;
+        show: boolean;
+        silhouetteColor: Color;
+        silhouetteSize: number;
+        specularEnvironmentMaps: string;
+        sphericalHarmonicCoefficients: Array<Cartesian3>;
         constructor(options?: {
             gltf?: any;
             basePath?: string;
@@ -3927,30 +3951,69 @@ declare namespace Cesium {
             modelMatrix?: Matrix4;
             scale?: number;
             minimumPixelSize?: number;
+            maximumScale?: number;
             id?: any;
             allowPicking?: boolean;
+            incrementallyLoadTextures?: boolean;
             asynchronous?: boolean;
+            clampAnimations?: boolean;
+            shadows?: ShadowMode;
             debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean
+            debugWireframe?: boolean;
+            heightReference?: HeightReference;
+            scene?: Scene;
+            distanceDisplayCondition?: DistanceDisplayCondition;
+            color?: Color;
+            colorBlendMode?: Property;
+            colorBlendAmount?: number;
+            silhouetteColor?: Color;
+            silhouetteSize?: number;
+            clippingPlanes?: ClippingPlaneCollection;
+            dequantizeInShader?: boolean;
+            imageBasedLightingFactor?: Cartesian2;
+            lightColor?: Cartesian3;
+            luminanceAtZenith?: number;
+            sphericalHarmonicCoefficients?: Array<Cartesian3>;
+            specularEnvironmentMaps?: string;
+            credit?: Credit | string;
         });
-        getNode(name: string): ModelNode;
-        getMesh(name: string): ModelMesh;
-        getMaterial(name: string): ModelMaterial;
-        update(): void;
-        isDestroyed(): boolean;
-        destroy(): void;
         static fromGltf(options: {
             url: string;
-            headers?: any;
+            basePath?: string;
             show?: boolean;
             modelMatrix?: Matrix4;
             scale?: number;
             minimumPixelSize?: number;
+            maximumScale?: number;
+            id?: Object;
             allowPicking?: boolean;
+            incrementallyLoadTextures?: boolean;
             asynchronous?: boolean;
+            clampAnimations?: boolean;
+            shadows?: ShadowMode;
             debugShowBoundingVolume?: boolean;
-            debugWireframe?: boolean
+            debugWireframe?: boolean;
+            heightReference?: HeightReference;
+            scene?: Scene;
+            distanceDisplayCondition?: DistanceDisplayCondition;
+            color?: Color;
+            colorBlendMode?: ColorBlendMode;
+            colorBlendAmount?: number;
+            silhouetteColor?: Color;
+            silhouetteSize?: number;
+            clippingPlanes?: ClippingPlaneCollection;
+            dequantizeInShader?: boolean;
+            credit?: Credit;
         }): Model;
+        static siluhouetteSupported(scene: Scene): boolean;
+        applyArticulations(): void;
+        destroy(): void;
+        getMaterial(name: string): ModelMaterial;
+        getMesh(name: string): ModelMesh;
+        getNode(name: string): ModelNode;
+        isDestroyed(): boolean;
+        setArticulationStage(articulationStageKey: string, value: number): void;
+        update(): void;
     }
 
     class ModelAnimation {
