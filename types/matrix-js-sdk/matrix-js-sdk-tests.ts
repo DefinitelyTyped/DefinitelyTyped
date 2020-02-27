@@ -6,10 +6,10 @@
  */
 import sdk from 'matrix-js-sdk'
 
-var myUserId      = "@example:localhost"
-var myAccessToken = "QGV4YW1wbGU6bG9jYWxob3N0.qPEvLuYfNBjxikiCjP"
+const myUserId      = "@example:localhost"
+const myAccessToken = "QGV4YW1wbGU6bG9jYWxob3N0.qPEvLuYfNBjxikiCjP"
 
-var matrixClient = sdk.createClient({
+const matrixClient = sdk.createClient({
   baseUrl: "http://localhost:8008",
   accessToken: myAccessToken,
   userId: myUserId,

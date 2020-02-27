@@ -642,7 +642,7 @@ export class RoomState {
 
 }
 
-interface CreateClientOption {
+export interface CreateClientOption {
   accessToken?: string
   baseUrl?: string,
   request?: any,
