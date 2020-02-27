@@ -1,0 +1,26 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
+        "semicolon": [ false ],
+        "space-before-function-paren": [ false ],
+        "typedef-whitespace": [ false ],
+        "member-access": [ false ],
+        "max-line-length": [ false ],
+        "no-padding": [ false ],
+        "ban-types": [ false ]
+
+
+    }
+}

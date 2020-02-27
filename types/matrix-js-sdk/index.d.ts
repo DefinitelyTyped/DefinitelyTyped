@@ -1,7 +1,6 @@
-// Type definitions for matrix-js-sdk
+// Type definitions for matrix-js-sdk 5.0
 // Project: https://github.com/matrix-org/matrix-js-sdk
-// Definitions  by: Huan LI (李卓桓) <https://github.com/huan> Jun 2019
-//             for: <https://github.com/huan/matrix-appservice-wechaty>
+// Definitions by: Huan LI (李卓桓) <https://github.com/huan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -27,7 +26,7 @@ export class Room {
 
   roomId       : string              // The ID of this room.
   name         : string              // The human-readable display name for this room.
-  timeline     : Array<MatrixEvent>  // The live event timeline for this room, with the oldest event at index 0. Present for backwards compatibility - prefer getLiveTimeline().getEvents().
+  timeline     : MatrixEvent[]       // The live event timeline for this room, with the oldest event at index 0. Present for backwards compatibility - prefer getLiveTimeline().getEvents().
   tags         : object              // Dict of room tags; the keys are the tag name and the values are any metadata associated with the tag - e.g. { "fav" : { order: 1 } }
   accountData  : object              // Dict of per-room account_data events; the keys are the event type and the values are the events.
   oldState     : RoomState           // The state of the room at the time of the oldest event in the live timeline. Present for backwards compatibility - prefer getLiveTimeline().getState(EventTimeline.BACKWARDS).
@@ -42,9 +41,9 @@ export class Room {
     unstableClientRelationAggregation? : boolean  // <optional> false Optional. Set to true to enable client-side aggregation of event relations via `EventTimelineSet#getRelationsForEvent`. This feature is currently unstable and the API may change without notice.
   })
 
-  addAccountData(events: Array<MatrixEvent>): void
-  addEventsToTimeline(events: Array<MatrixEvent>, toStartOfTimeline: boolean, timeline: EventTimeline, paginationToken?: string): void
-  addLiveEvents(events: Array<MatrixEvent>, duplicateStrategy: string): void
+  addAccountData(events: MatrixEvent[]): void
+  addEventsToTimeline(events: MatrixEvent[], toStartOfTimeline: boolean, timeline: EventTimeline, paginationToken?: string): void
+  addLiveEvents(events: MatrixEvent[], duplicateStrategy: string): void
   addPendingEvent(event: MatrixEvent, txnId: string): void
   addReceipt(event: MatrixEvent, fake: boolean): void
   addTags(event: MatrixEvent): void
@@ -52,7 +51,7 @@ export class Room {
   clearLoadedMembersIfNeeded(): void
   findEventById(eventId: string): null | MatrixEvent
   getAccountData(type: string): null | MatrixEvent
-  getAliases(): Array<string>
+  getAliases(): string[]
   getAvatarUrl(
     baseUrl: string, width: number, height: number, resizeMethod: string, allowDefault: boolean,
   ): null | string
@@ -60,27 +59,27 @@ export class Room {
   getCanonicalAlias() : null | string
   getDefaultRoomName(userId: string): string
   getDMInviter (): undefined | string
-  getEncryptionTargetMembers(): Promise<Array<RoomMember>>
+  getEncryptionTargetMembers(): Promise<RoomMember[]>
   getEventReadUpTo(userId: string, ignoreSynthesized: boolean): string
   getInvitedAndJoinedMemberCount(): number
   getInvitedMemberCount(): number
   getJoinedMemberCount(): number
-  getJoinedMembers(): Array<RoomMember>
+  getJoinedMembers(): RoomMember[]
   getLiveTimeline(): EventTimeline
   getMember(userId: string): RoomMember
-  getMembersWithMembership(membership: string): Array<RoomMember>
+  getMembersWithMembership(membership: string): RoomMember[]
   getMyMembership(myUserId: string): string
   getOrCreateFilteredTimelineSet(filter: Filter): EventTimelineSet
-  getPendingEvents(): Array<MatrixEvent>
-  getReceiptsForEvent(event: MatrixEvent): Array<Object>
+  getPendingEvents(): MatrixEvent[]
+  getReceiptsForEvent(event: MatrixEvent): object[]
   getRecommendedVersion(): Promise<{
     version: string, needsUpgrade: boolean, urgent: boolean
   }>
   getTimelineForEvent(eventId: string): null | EventTimeline
-  getTimelineSets(): Array<EventTimelineSet>
+  getTimelineSets(): EventTimelineSet[]
   getUnfilteredTimelineSet(): EventTimelineSet
   getUnreadNotificationCount(type: string): number
-  getUsersReadUpTo(event: MatrixEvent): Array<string>
+  getUsersReadUpTo(event: MatrixEvent): string[]
   getVersion(): string
   guessDMUserId(): string
   hasMembershipState(userId: string, membership: MembershipType): boolean
@@ -90,14 +89,14 @@ export class Room {
   maySendMessage(): boolean
   recalculate(): void
   removeEvent(eventId: string): boolean
-  removeEvents(event_ids: Array<string>): void
+  removeEvents(event_ids: string[]): void
   removeFilteredTimelineSet(filter: Filter): void
   resetLiveTimeline(backPaginationToken?: string, forwardPaginationToken?: string): void
   setBlacklistUnverifiedDevices(value: boolean): void
   setUnreadNotificationCount(type: string, count: number): void
   shouldEncryptForInvitedMembers(): boolean
   shouldUpgradeToVersion(): null | string
-  updateMyMembership(membership: MemberShipType): void
+  updateMyMembership(membership: MembershipType): void
   updatePendingEvent (event: MatrixEvent, newStatus: EventStatus, newEventId: string): void
   userMayUpgradeRoom(userId: string): boolean
 
@@ -198,13 +197,13 @@ export class MatrixClient extends EventEmitter {
   deleteRoomTag(roomId: string, tagName: string, callback?: MatrixCallback): Promise<void>
   deleteThreePid(medium: string, address: string): Promise<object>
   disableKeyBackup(): void
-  downloadKeys(userIds: Array<string>, forceDownload: boolean): Promise<{
+  downloadKeys(userIds: string[], forceDownload: boolean): Promise<{
     [userId: string]: {
       [deviceId: string]: string // DeviceInfo
     }
   }>
-  downloadKeysForUsers(userIds: Array<string>, opts?: object): Promise<object>
-  dropFromPresenceList(callback: MatrixCallback, userIds: Array<string>): Promise<void>
+  downloadKeysForUsers(userIds: string[], opts?: object): Promise<object>
+  dropFromPresenceList(callback: MatrixCallback, userIds: string[]): Promise<void>
   emit(event: string, listener: Function): boolean
   enableKeyBackup(info: object): void
   exportRoomKeys(): Promise<void>
@@ -217,7 +216,7 @@ export class MatrixClient extends EventEmitter {
   getCanResetTimelineCallback(): null | Function
   getCapabilities(fresh: boolean): Promise<object>
   getCasLoginUrl(redirectUrl: string): string
-  getCurrentUploads(): Array<object>
+  getCurrentUploads(): object[]
   getDeviceEd25519Key(): null | string
   getDeviceId(): null | string
   getDevices(): Promise<object>
@@ -232,15 +231,15 @@ export class MatrixClient extends EventEmitter {
   getGroupInvitedUsers(groupId: string): Promise<object>
   getGroupProfile(groupId: string): Promise<object>
   getGroupRooms(groupId: string): Promise<object>
-  getGroups(): Array<Group>
+  getGroups(): Group[]
   getGroupSummary(groupId: string): Promise<object>
   getGroupUsers(groupId: string): Promise<object>
   getHomeserverUrl(): string
   getIdentityServerUrl(stripProto: boolean): string
-  getIgnoredUsers(): Array<string>
-  getJoinedGroups(): Promise<Array<object>>
-  getJoinedRoomMembers(roomId: string): Promise<Array<object>>
-  getJoinedRooms(): Promise<Array<object>>
+  getIgnoredUsers(): string[]
+  getJoinedGroups(): Promise<object[]>
+  getJoinedRoomMembers(roomId: string): Promise<object[]>
+  getJoinedRooms(): Promise<object[]>
   getKeyBackupEnabled(): boolean
   getKeyBackupVersion(): Promise<null | object>
   getKeyChanges(oldToken: string, newToken: string): Promise<object>
@@ -248,7 +247,7 @@ export class MatrixClient extends EventEmitter {
   getNotifTimelineSet(): EventTimelineSet
   getOpenIdToken(): Promise<object>
   getOrCreateFilter(filterName: string, filter: Filter): Promise<String>
-  getPresenceList(callback: MatrixCallback): Promise<Array<object>>
+  getPresenceList(callback: MatrixCallback): Promise<object[]>
   getProfileInfo(userId: string, info: string, callback?: MatrixCallback): Promise<object>
   getPublicisedGroups(userIds: string[]): Promise<object>
   getPushActionsForEvent(event: MatrixEvent): PushAction
@@ -258,35 +257,35 @@ export class MatrixClient extends EventEmitter {
   getRoomDirectoryVisibility(roomId: string, callback?: MatrixCallback): Promise<object>
   getRoomIdForAlias(alias: string, callback?: MatrixCallback): Promise<object>
   getRoomPushRule(scope: string, roomId: string): object
-  getRooms(): Array<Room>
+  getRooms(): Room[]
   getRoomTags(roomId: string, callback?: MatrixCallback): Promise<object>
-  getRoomUpgradeHistory(roomId: string, verifyLinks: boolean): Array<Room>
+  getRoomUpgradeHistory(roomId: string, verifyLinks: boolean): Room[]
   getScheduler(): null | MatrixScheduler
   getSsoLoginUrl(redirectUrl: string, loginType: string): string
   getStateEvent(
     roomId: string, eventType: EventType, stateKey?: string, callback?: MatrixCallback
   ): Promise<object>
   getStoredDevice(userId: string, deviceId: string): Promise<CryptoDeviceInfo>
-  getStoredDevicesForUser(userId: string): Promise<Array<CryptoDeviceInfo>>
+  getStoredDevicesForUser(userId: string): Promise<CryptoDeviceInfo[]>
   getSyncState(): null | string
   getSyncStateData(): null | object
   getThirdpartyLocation(protocol: string, params: object): Promise<object>
   getThirdpartyProtocols(): Promise<object>
   getThirdpartyUser(protocol: string, params: object): Promise<object>
   getThreePids(callback: MatrixCallback): Promise<object>
-  getTurnServers(): Array<Object>
+  getTurnServers(): object[]
   getUrlPreview(url: string, ts: number, callback?: MatrixCallback): Promise<object>
   getUser(userId: string): null | User
   getUserId(): null | string
   getUserIdLocalpart (): null | string
-  getUsers(): Array<User>
-  getVisibleRooms(): Array<Room>
-  importRoomKeys(keys: Array<object>): Promise<void>
+  getUsers(): User[]
+  getVisibleRooms(): Room[]
+  importRoomKeys(keys: object[]): Promise<void>
   initCrypto(): void
   invite(roomId: string, userId: string, callback?: MatrixCallback): Promise<void>
   inviteByEmail(roomId: string, email: string, callback?: MatrixCallback): Promise<void>
   inviteByThreePid(roomId: string, medium: string, address: string, callback?: MatrixCallback): Promise<void>
-  inviteToPresenceList(callback: MatrixCallback, userIds: Array<string>): Promise<void>
+  inviteToPresenceList(callback: MatrixCallback, userIds: string[]): Promise<void>
   inviteUserToGroup(groupId: string, userId: string): Promise<void>
   isCryptoEnabled(): boolean
   isEventSenderVerified(event: MatrixEvent): boolean
@@ -336,7 +335,7 @@ export class MatrixClient extends EventEmitter {
     auth: object, bindThreepids: object, guestAccessToken: string,
     inhibitLogin: string, callback?: MatrixCallback,
   ): Promise<void>
-  registerGuest(opts?: object, callback?:MatrixCallback): Promise<void>
+  registerGuest(opts?: object, callback?: MatrixCallback): Promise<void>
   registerRequest(data: object, kind?: string, callback?: MatrixCallback): Promise<object>
   removeRoomFromGroup(groupId: string, roomId: string): Promise<void>
   removeRoomFromGroupSummary(groupId: string, roomId: string): Promise<void>
@@ -362,7 +361,7 @@ export class MatrixClient extends EventEmitter {
     phoneCountry: string, phoneNumber: string, clientSecret: string, sendAttempt: number, nextLink: string,
   ): Promise<string>
   requestVerification(
-    userId: string, methods: Array<string>, devices: Array<string>,
+    userId: string, methods: string[], devices: string[],
   ): Promise<CryptoVerificationBase>
   resendEvent(event: MatrixEvent, room: Room): Promise<void>
   resetNotifTimelineSet(): void
@@ -393,7 +392,7 @@ export class MatrixClient extends EventEmitter {
   searchUserDirectory(opts: {
     term: string  // the term with which to search.
     limit:  number  // the maximum number of results to return. The server will apply a limit if unspecified.
-  }): Promise<Array<object>>
+  }): Promise<object[]>
   sendEmoteMessage(
     roomId: string, body: string, txnId: string, callback?: MatrixCallback,
   ): Promise<void>
@@ -455,8 +454,8 @@ export class MatrixClient extends EventEmitter {
   setGroupPublicity(groupId: string, isPublic: boolean): Promise<void>
   setGuest(isGuest: boolean): void
   setGuestAccess(roomId: string, opts: {
-    allowJoin:boolean // True to allow guests to join this room. This implicitly gives guests write access. If false or not given, guests are explicitly forbidden from joining the room.
-    allowRead:boolean // True to set history visibility to be world_readable. This gives guests read access *from this point forward*. If false or not given, history visibility is not modified.
+    allowJoin: boolean // True to allow guests to join this room. This implicitly gives guests write access. If false or not given, guests are explicitly forbidden from joining the room.
+    allowRead: boolean // True to set history visibility to be world_readable. This gives guests read access *from this point forward*. If false or not given, history visibility is not modified.
   }): Promise<void>
   setIgnoredUsers(userIds: string[], callback?: MatrixCallback): Promise<object>
   setNotifTimelineSet(notifTimelineSet: EventTimelineSet): void
@@ -471,7 +470,7 @@ export class MatrixClient extends EventEmitter {
   setProfileInfo(info: string, data: object, callback?: MatrixCallback): Promise<void>
   setPusher(pusher: object, callback?: MatrixCallback): Promise<void>
   setPushRuleActions(
-    scope: string, kind: string, ruleId: string, actions: Array<string>, callback?: MatrixCallback,
+    scope: string, kind: string, ruleId: string, actions: string[], callback?: MatrixCallback,
   ): Promise<object>
   setPushRuleEnabled(
     scope: string, kind: string, ruleId: string, enabled: boolean, callback?: MatrixCallback,
@@ -539,7 +538,7 @@ export type RoomSummary = any
 export type EventStatus = any
 
 export interface CreateRoomOptions {
-  invite          : Array<string>  //  <string> A list of user IDs to invite to this room.
+  invite          : string[]  //  <string> A list of user IDs to invite to this room.
   name            : string         //  The name to give this room.
   room_alias_name : string         //  The alias localpart to assign to this room.
   topic           : string         //  The topic to give this room.
@@ -557,7 +556,7 @@ export class Filter {
     filterId?: string // <optional> The filter ID if known.
   )
 
-  filterRoomTimeline (events: MatrixEvent): Array<MatrixEvent>
+  filterRoomTimeline (events: MatrixEvent): MatrixEvent[]
   getDefinition(): object
   getFilterId(): null | number
   getRoomTimelineFilterComponent(): FilterComponent
@@ -620,11 +619,11 @@ export class RoomState {
   getJoinedMemberCount        ()                                             : number
   getLastModifiedTime         ()                                             : number
   getMember                   (userId: string)                               : RoomMember
-  getMembers                  ()                                             : Array<RoomMember>
-  getMembersExcept            (excludedIds: string[])                        : Array<RoomMember>
+  getMembers                  ()                                             : RoomMember[]
+  getMembersExcept            (excludedIds: string[])                        : RoomMember[]
   getSentinelMember           (userId: string)                               : RoomMember
-  getStateEvents              (eventType: EventType, stateKey:string)        : MatrixEvent | Array<MatrixEvent>
-  getUserIdsWithDisplayName   (displayName: string)                          : Array<string>
+  getStateEvents              (eventType: EventType, stateKey: string)       : MatrixEvent | MatrixEvent[]
+  getUserIdsWithDisplayName   (displayName: string)                          : string[]
   markOutOfBandMembersFailed  ()                                             : void
   markOutOfBandMembersStarted ()                                             : void
   mayClientSendStateEvent     (stateEventType: EventType, cli: MatrixClient) : boolean
