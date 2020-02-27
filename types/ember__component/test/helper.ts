@@ -1,4 +1,3 @@
-import { assertType } from './lib/assert';
 import Helper, { helper } from '@ember/component/helper';
 
 class Timestamp extends Helper {
@@ -16,10 +15,17 @@ class Timestamp extends Helper {
     }
 }
 
+// $ExpectType<([a, b]: number[]) => number>
 const addHelper = helper(function add([a, b]: number[]) {
     return a + b;
 });
 
-const dasherizeHelper = helper(function dasherize([str]: string[], { delim = '-'}) {
+// $ExpectType<([str]: string[], { delim }: { delim: string | undefined }) => string>
+const dasherizeHelper = helper(function dasherize([str]: string[], { delim = '-' }) {
     return str.split(/[\s\n\_\.]+/g).join(delim);
 });
+
+type Resolved<T> = T extends Promise<infer U> ? U : T;
+declare const resolve: <T>([promise]: Array<Promise<T>>) => Resolved<T>;
+
+helper(resolve); // $ExpectType<<T>([promise]: Array<Promise<T>>) => Resolved<T>>
