@@ -2237,7 +2237,7 @@ declare namespace Cesium {
         label: LabelGraphics;
         model: ModelGraphics;
         name: string;
-        orientation: Property;
+        orientation: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};;
         parent: Entity;
         path: PathGraphics;
         plane: any;
@@ -2259,7 +2259,7 @@ declare namespace Cesium {
           show?: boolean;
           description?: Property;
           position?: PositionProperty;
-          orientation?: Property;
+          orientation?: { direction: Cartesian3, up: Cartesian3 } | { heading: number, pitch: number, roll: number};
           viewFrom?: Property;
           parent?: Entity;
           billboard?: BillboardGraphics;
@@ -2477,45 +2477,50 @@ declare namespace Cesium {
     }
 
     class ModelGraphics {
+        articulations: any; // PropertyBag
         clampAnimations: Property | boolean;
-        clippingPlanes: Property;
-        color: Property;
+        clippingPlanes: Property | ClippingPlaneCollection;
+        color: Property | Color;
         colorBlendAmount: Property | number;
-        colorBlendMode: Property;
+        colorBlendMode: Property | ColorBlendMode;
         readonly definitionChanged: Event;
-        distanceDisplayCondition: Property;
-        heightReference: Property;
+        distanceDisplayCondition: Property | DistanceDisplayCondition;
+        heightReference: Property | HeightReference;
+        imageBasedLightingFactor: Property | Cartesian2;
         incrementallyLoadTextures: Property | boolean;
+        lightColor: Property | Cartesian3;
         maximumScale: Property | number;
-        minimumScale: Property | number;
         minimumPixelSize: Property | number;
         nodeTransformations: any; // PropertyBag
         runAnimations: Property | boolean;
         scale: Property | number;
-        shadows: Property;
+        shadows: Property | ShadowMode;
         show: Property | boolean;
-        silhouetteColor: Property;
+        silhouetteColor: Property | Color;
         silhouetteSize: Property | number;
         uri: Property | string;
         constructor(options?: {
-          uri?: Property | string;
           show?: Property | boolean;
+          uri?: Property | string;
           scale?: Property | number;
           minimumPixelSize?: Property | number;
           maximumScale?: Property | number;
           incrementallyLoadTextures?: Property | boolean;
           runAnimations?: Property | boolean;
           clampAnimations?: Property | boolean;
-          nodeTransformations?: Property;
-          shadows?: Property;
-          heightReference?: Property;
-          distanceDisplayCondition?: Property;
-          silhouetteColor?: Property;
+          shadows?: Property | ShadowMode;
+          heightReference?: Property | HeightReference;
+          silhouetteColor?: Property | Color;
           silhouetteSize?: Property | number;
-          color?: Property;
-          colorBlendMode?: Property;
+          color?: Property | Color;
+          colorBlendMode?: Property | ColorBlendMode;
           colorBlendAmount?: Property | number;
-          clippingPlanes?: Property;
+          imageBasedLightingFactor?: Property | Cartesian2;
+          lightColor?: Property | Cartesian3;
+          distanceDisplayCondition?: Property | DistanceDisplayCondition;
+          nodeTransformations?: any; // PropertyBag          
+          articulations?: any; // PropertyBag;
+          clippingPlanes?: Property | ClippingPlaneCollection;
         });
         clone(result?: ModelGraphics): ModelGraphics;
         merge(source: ModelGraphics): ModelGraphics;
