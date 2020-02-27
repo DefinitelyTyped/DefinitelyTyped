@@ -46,3 +46,16 @@ const manager = new PluginManager(serverless);
 manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
 manager.addPlugin(BadPlugin); // $ExpectError
+
+// Test provider's 'request' method
+const provider = serverless.getProvider('aws');
+provider.request('AccessAnalyzer', 'createAnalyzer');
+provider.request('CloudFormation', 'deleteStack', {
+    StackName: 'stack'
+});
+provider.request('CloudFormation', 'deleteStack', {
+    StackName: 'stack'
+}, {
+    useCache: true,
+    region: 'us-east-1'
+});
