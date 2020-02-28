@@ -1196,6 +1196,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
         | 'rownum'
         | 'handle'
         | 'rowSelection'
+        | 'responsiveCollapse'
         | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
     type FormatterParams =
         | MoneyParams
@@ -1388,7 +1389,7 @@ You can pass an optional additional property with sorter, sorterParams that shou
     type ColumnSorterParamLookupFunction = (column: ColumnComponent, dir: SortDirection) => {};
 
     type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
-    type RowLookup = RowComponent | HTMLElement | string | number;
+    type RowLookup = RowComponent | HTMLElement | string | number | number[] | string[];
     type VisibleRowRangeLookup = 'active' | 'visible';
 
     interface KeyBinding {
@@ -1884,8 +1885,8 @@ declare class Tabulator {
     clearHeaderFilter: () => void;
     /** To programmatically select a row you can use the selectRow function.
 
-    To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). */
-    selectRow: (lookup?: Tabulator.RowLookup[] | 'all' | 'active' | 'visible') => void;
+    To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.*/
+    selectRow: (lookup?: Tabulator.RowLookup[] | 'all' | 'active' | 'visible' | true) => void;
     deselectRow: (row?: Tabulator.RowLookup) => void;
     toggleSelectRow: (row?: Tabulator.RowLookup) => void;
     /** To get the RowComponent's for the selected rows at any time you can use the getSelectedRows function.

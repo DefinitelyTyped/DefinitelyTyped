@@ -48,7 +48,7 @@ frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM: true }
 // the returned node to the current document
 frag = dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM_IMPORT: true });
 
-// return a TrustHTML type instead of a HTML string 
+// return a TrustHTML type instead of a HTML string
 trustedHtml = dompurify.sanitize(dirty, { RETURN_TRUSTED_TYPE: true });
 
 // return entire document including <html> tags (default is false)
@@ -85,7 +85,15 @@ const hookName: DOMPurify.HookName = "beforeSanitizeElements";
 dompurify.addHook(hookName, (currentNode: Element, event: DOMPurify.HookEvent) => {});
 
 //test the 'SanitizeElementHookEvent' type is publicly accessible.
-dompurify.addHook("uponSanitizeElement", (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {});
+dompurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {
+  if (currentNode.nodeName && currentNode.nodeName.match(/^\w+-\w+$/) && !event.allowedTags[event.tagName]) {
+      event.allowedTags[event.tagName] = true;
+  }
+});
 
 //test the 'SanitizeAttributeHookEvent' type is publicly accessible.
-dompurify.addHook("uponSanitizeAttribute", (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {});
+dompurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
+  if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
+      event.allowedAttributes[event.attrName] = true;
+  }
+});

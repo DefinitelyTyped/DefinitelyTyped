@@ -745,21 +745,20 @@ declare module "fs" {
 
     interface RmDirAsyncOptions extends RmDirOptions {
         /**
-         * If an `EMFILE` error is encountered, Node.js will
-         * retry the operation with a linear backoff of 1ms longer on each try until the
-         * timeout duration passes this limit. This option is ignored if the `recursive`
-         * option is not `true`.
-         * @default 1000
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
          */
-        emfileWait?: number;
+        retryDelay?: number;
         /**
-         * If an `EBUSY`, `ENOTEMPTY`, or `EPERM` error is
-         * encountered, Node.js will retry the operation with a linear backoff wait of
-         * 100ms longer on each try. This option represents the number of retries. This
-         * option is ignored if the `recursive` option is not `true`.
-         * @default 3
+         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
+         * `EPERM` error is encountered, Node.js will retry the operation with a linear
+         * backoff wait of `retryDelay` ms longer on each try. This option represents the
+         * number of retries. This option is ignored if the `recursive` option is not
+         * `true`.
+         * @default 0
          */
-        maxBusyTries?: number;
+        maxRetries?: number;
     }
 
     /**
@@ -1824,6 +1823,7 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        emitClose?: boolean;
         start?: number;
         highWaterMark?: number;
     }): WriteStream;
@@ -1935,6 +1935,13 @@ declare module "fs" {
 
     interface OpenDirOptions {
         encoding?: BufferEncoding;
+        /**
+         * Number of directory entries that are buffered
+         * internally when reading from the directory. Higher values lead to better
+         * performance but higher memory usage.
+         * @default 32
+         */
+        bufferSize?: number;
     }
 
     function opendirSync(path: string, options?: OpenDirOptions): Dir;

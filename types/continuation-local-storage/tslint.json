@@ -1,13 +1,13 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "only-arrow-functions": false,
+        "interface-over-type-literal": false,
         "no-consecutive-blank-lines": false,
+        "no-unnecessary-generics": false,
+        "no-var": false,
         "one-line": false,
         "one-variable-per-declaration": false,
-        "space-before-function-paren": false,
-        "no-var": false,
-        "interface-over-type-literal": false,
-        "no-unnecessary-generics": false
+        "only-arrow-functions": false,
+        "space-before-function-paren": false
     }
 }

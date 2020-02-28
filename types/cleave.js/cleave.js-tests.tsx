@@ -36,8 +36,8 @@ const ExampleReact2 = (props: Props) => {
         <CleaveReact
             value="test"
             className="form-control"
-            options={{ phone: true }}
             {...props}
+            options={{ phone: true }}
         />
     );
 };

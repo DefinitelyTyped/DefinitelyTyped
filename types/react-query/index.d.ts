@@ -2,22 +2,23 @@
 // Project: https://github.com/tannerlinsley/react-query
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
+//                 Matteo Frana <https://github.com/matteofrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentType } from 'react';
+
+// overloaded useQuery function with pagination
+export function useQuery<TResult, TVariables extends object>(
+    queryKey: QueryKey<TVariables>,
+    queryFn: QueryFunction<TResult, TVariables>,
+    options: QueryOptionsPaginated<TResult>
+): QueryResultPaginated<TResult, TVariables>;
 
 export function useQuery<TResult, TVariables extends object>(
     queryKey: QueryKey<TVariables>,
     queryFn: QueryFunction<TResult, TVariables>,
     options?: QueryOptions<TResult>
 ): QueryResult<TResult, TVariables>;
-
-// overloaded useQuery function with pagination
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options?: QueryOptionsPaginated<TResult>
-): QueryResultPaginated<TResult, TVariables>;
 
 export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
 export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;
@@ -31,14 +32,17 @@ export interface QueryOptions<TResult> {
     staleTime?: number;
     cacheTime?: number;
     refetchInterval?: false | number;
+    refetchIntervalInBackground?: boolean;
+    refetchOnWindowFocus?: boolean;
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
     suspense?: boolean;
+    initialData?: TResult;
 }
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
     paginated: true;
-    getCanFetchMore: (lastPage: number, allPages: number) => boolean;
+    getCanFetchMore: (lastPage: TResult, allPages: TResult[]) => boolean;
 }
 
 export interface QueryResult<TResult, TVariables> {
@@ -48,7 +52,7 @@ export interface QueryResult<TResult, TVariables> {
     isFetching: boolean;
     isCached: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => void;
+    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
 }
 
 export interface QueryResultPaginated<TResult, TVariables> extends QueryResult<TResult[], TVariables> {
@@ -94,6 +98,7 @@ export interface MutationResult<TResults> {
     isLoading: boolean;
     error: null | Error;
     promise: Promise<TResults>;
+    reset: () => void;
 }
 
 export function setQueryData(

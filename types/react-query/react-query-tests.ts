@@ -8,7 +8,7 @@ const querySimple = useQuery('todos',
 querySimple.data; // $ExpectType string | null
 querySimple.error; // $ExpectType Error | null
 querySimple.isLoading; // $ExpectType boolean
-querySimple.refetch(); // $ExpectType void
+querySimple.refetch(); // $ExpectType Promise<void>
 queryPaginated.fetchMore; // $ExpectError
 queryPaginated.canFetchMore; // $ExpectError
 queryPaginated.isFetchingMore; // $ExpectError
@@ -19,7 +19,7 @@ const queryVariables = useQuery(['todos', {param}],
     (variables) => Promise.resolve(variables.param === 'test'));
 
 queryVariables.data; // $ExpectType boolean | null
-queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType void
+queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<void>
 queryVariables.refetch({variables: {other: 'foo'}}); // $ExpectError
 
 // Query with falsey query key
@@ -37,12 +37,13 @@ const queryNested = useQuery(['key', {
 queryNested.data; // $ExpectType number | null
 
 // Paginated mode
-const queryPaginated = useQuery('key', () => Promise.resolve([1, 2, 3]), {
+const queryPaginated = useQuery('key', () => Promise.resolve({data: [1, 2, 3], next: true}), {
+    refetchInterval: 1000,
     paginated: true,
-    getCanFetchMore: (lastPage, allPages) => true
+    getCanFetchMore: (lastPage, allPages) => lastPage.next
 });
-queryPaginated.data; // $ExpectType number[][] | null
-queryPaginated.fetchMore; // $ExpectType (variables?: {} | undefined) => Promise<number[]> || (variables?: object | undefined) => Promise<number[]>
+queryPaginated.data; // $ExpectType { data: number[]; next: boolean; }[] | null
+queryPaginated.fetchMore; // $ExpectType (variables?: {} | undefined) => Promise<{ data: number[]; next: boolean; }> || (variables?: object | undefined) => Promise<{ data: number[]; next: boolean; }>
 queryPaginated.canFetchMore; // $ExpectType boolean
 queryPaginated.isFetchingMore; // $ExpectType boolean
 

@@ -1,7 +1,6 @@
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/scroll/scrollpastend";
 
-/// <reference types="../../../../codemirror/addon/scroll/scrollpastend" />
-
-
-var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
+const myCodeMirror: CodeMirror.Editor = CodeMirror(document.body, {
     scrollPastEnd: true
 });

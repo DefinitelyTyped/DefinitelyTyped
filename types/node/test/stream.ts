@@ -96,7 +96,9 @@ function simplified_stream_ctor_test() {
             cb;
         },
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 
     new Transform({
@@ -154,12 +156,17 @@ function simplified_stream_ctor_test() {
         },
         allowHalfOpen: true,
         readableObjectMode: true,
-        writableObjectMode: true
+        writableObjectMode: true,
+        readableHighWaterMark: 2048,
+        writableHighWaterMark: 1024
     });
 }
 
 function streamPipelineFinished() {
-    const cancel = finished(process.stdin, (err?: Error | null) => {});
+    let cancel = finished(process.stdin, (err?: Error | null) => {});
+    cancel();
+
+    cancel = finished(process.stdin, { readable: false }, (err?: Error | null) => {});
     cancel();
 
     pipeline(process.stdin, process.stdout, (err?: Error | null) => {});
@@ -168,6 +175,7 @@ function streamPipelineFinished() {
 async function asyncStreamPipelineFinished() {
     const fin = promisify(finished);
     await fin(process.stdin);
+    await fin(process.stdin, { readable: false });
 
     const pipe = promisify(pipeline);
     await pipe(process.stdin, process.stdout);

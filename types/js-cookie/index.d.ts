@@ -57,7 +57,7 @@ declare namespace Cookies {
         /**
          * Create a cookie
          */
-        set(name: string, value: string | T, options?: CookieAttributes): void;
+        set(name: string, value: string | T, options?: CookieAttributes): string | undefined;
 
         /**
          * Read cookie

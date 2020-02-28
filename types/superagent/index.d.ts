@@ -88,6 +88,11 @@ declare namespace request {
     }
 
     interface ResponseError extends Error {
+        status?: number;
+        response?: Response;
+    }
+
+    interface HTTPError extends Error {
         status: number;
         text: string;
         method: string;
@@ -100,7 +105,7 @@ declare namespace request {
         body: any;
         charset: string;
         clientError: boolean;
-        error: ResponseError;
+        error: false | HTTPError;
         files: any;
         forbidden: boolean;
         get(header: string): string;
@@ -133,6 +138,7 @@ declare namespace request {
         ca(cert: string | string[] | Buffer | Buffer[]): this;
         cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
+        disableTLSCerts(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;
         field(fields: { [fieldName: string]: MultipartValue }): this;
@@ -157,6 +163,7 @@ declare namespace request {
         set(field: string, val: string): this;
         set(field: 'Cookie', val: string[]): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
+        trustLocalhost(enabled?: boolean): this;
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;

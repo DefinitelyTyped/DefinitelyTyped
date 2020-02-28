@@ -182,7 +182,7 @@ declare namespace m {
         median(radius?: number): State;
         minify(factor: number): State;
         mode(mode: OperationMode | string): State;
-        modulate(b: number, s: number, h: number): State;
+        modulate(b: number, s?: number, h?: number): State;
         monitor(): State;
         monochrome(): State;
         montage(otherImg: string): State;

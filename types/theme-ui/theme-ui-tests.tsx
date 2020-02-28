@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Flex, jsx, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme } from 'theme-ui';
+import { Flex, jsx, css, InitializeColorMode, ColorMode, Styled, SxStyleProp, Theme } from 'theme-ui';
 
 export const Component = () => {
     return (
@@ -50,7 +50,7 @@ const Success = () => (
 );
 
 const workingThemeColorModes: Theme = {
-    initialColorMode: 'light',
+    initialColorModeName: 'light',
     colors: {
         text: '#000',
         background: '#fff',
@@ -73,16 +73,10 @@ const workingThemeColorModes: Theme = {
     },
 };
 
-const incompleteThemeColorModes: Theme = {
-    initialColorMode: 'light',
-    // $ExpectError
-    colors: {
-        text: '#000',
-        background: '#fff',
-        primary: '#07c',
-        secondary: '#05a',
-        muted: '#f6f6f6f',
-        modes: {
+// prettier-ignore
+const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: { // $ExpectError
+                text: '#433',
+            },
             dark: {
                 text: '#fff',
                 background: '#000',
@@ -90,11 +84,14 @@ const incompleteThemeColorModes: Theme = {
                 secondary: '#09c',
                 muted: '#111',
             },
-            papaya: {
-                text: '#433',
-            },
         },
+        text: '#000',
+        background: '#fff',
+        primary: '#07c',
+        secondary: '#05a',
+        muted: '#f6f6f6f',
     },
+    initialColorModeName: 'light',
 };
 
 const themeWithStyles: Theme = {
@@ -133,4 +130,22 @@ function SpreadingAndMergingInSxProp() {
             click me
         </button>
     );
+}
+
+function cssUtility() {
+    const styleObject = {
+        fontSize: [1, 2, 3],
+        color: 'primary',
+    };
+
+    const theme = {
+        fontSizes: [10, 12, 14],
+        colors: {
+            background: 'white',
+            text: 'black',
+            primary: 'red',
+        },
+    };
+
+    css(styleObject)(theme);
 }

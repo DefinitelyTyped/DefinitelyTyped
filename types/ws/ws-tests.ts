@@ -115,6 +115,7 @@ import * as url from 'url';
 
 {
     const ws = new WebSocket('ws://www.host.com/path', {
+        timeout: 5000,
         maxPayload: 10 * 1024 * 1024
     });
     ws.on('open', () => ws.send('something assume to be really long'));
@@ -134,4 +135,15 @@ import * as url from 'url';
     ws.onmessage = (event: WebSocket.MessageEvent) => {
         console.log(event.data, event.target, event.type);
     };
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    const duplex = WebSocket.createWebSocketStream(ws, {
+        allowHalfOpen: true
+    });
+
+    duplex.pipe(process.stdout);
+    process.stdin.pipe(duplex);
 }

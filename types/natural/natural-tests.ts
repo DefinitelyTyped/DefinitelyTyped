@@ -32,6 +32,8 @@ console.log(natural.LevenshteinDistance("ones","onez", {
 natural.DamerauLevenshteinDistance("ones","onez", { search: true });
 // $ExpectType number
 natural.DamerauLevenshteinDistance("ones","onez", { search: false });
+// $ExpectType number
+natural.DamerauLevenshteinDistance("ones","onez");
 // $ExpectType number | SubstringDistanceResult
 natural.DamerauLevenshteinDistance("ones","onez", { search: Math.random() > 0.5 });
 

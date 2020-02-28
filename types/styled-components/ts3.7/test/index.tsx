@@ -475,7 +475,7 @@ sheet.seal();
 
 const sheet2 = new ServerStyleSheet();
 const element = (
-    <StyleSheetManager sheet={sheet2.instance}>
+    <StyleSheetManager sheet={sheet2.instance} disableCSSOMInjection>
         <SSRTitle>Hello world</SSRTitle>
     </StyleSheetManager>
 );
@@ -586,6 +586,15 @@ const asTest = (
     <>
         <WithComponentH1 as="h2" />
         <WithComponentH1 as={WithComponentH2} />
+    </>
+);
+
+const ForwardedAsNestedComponent = styled.div``;
+const ForwardedAsComponent = styled(ForwardedAsNestedComponent)``;
+const forwardedAsTest = (
+    <>
+        <ForwardedAsComponent forwardedAs="h2" />
+        <ForwardedAsComponent forwardedAs={WithComponentH2} />
     </>
 );
 

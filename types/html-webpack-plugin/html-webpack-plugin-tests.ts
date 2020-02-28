@@ -1,7 +1,19 @@
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import { Compiler, compilation } from 'webpack';
 
-new HtmlWebpackPlugin();
+const plugin = new HtmlWebpackPlugin();
+
+const webpackCompilation: compilation.Compilation = {} as any;
+const templateFunction = () => '';
+plugin.evaluateCompilationResult(webpackCompilation, '').then(res => {
+	if (typeof res === 'function') {
+		res({});
+	} else {
+		res.trim();
+	}
+});
+plugin.executeTemplate(templateFunction, undefined, undefined, webpackCompilation).then(res => res.trim());
+plugin.postProcessHtml('', undefined, undefined).then(res => res.trim());
 
 const optionsArray: HtmlWebpackPlugin.Options[] = [
 	{

@@ -1,13 +1,25 @@
-// Type definitions for compression 1.0
+// Type definitions for compression 1.7
 // Project: https://github.com/expressjs/compression
 // Definitions by: Santi Albo <https://github.com/santialbo>
 //                 Rob van der Burgt <https://github.com/rburgt>
 //                 Neil Bryson Cargamento <https://github.com/neilbryson>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
-import * as express from 'express';
+import express = require('express');
 
+// This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.
+
+declare global {
+    namespace Express {
+        interface Response {
+            /**
+             * Forces the partially-compressed response to be flushed to the client.
+             */
+            flush(): void;
+        }
+    }
+}
 /**
  * Returns the compression middleware using the given `options`. The middleware will attempt to compress response bodies
  * for all request that traverse through the middleware, based on the given `options`.
@@ -17,9 +29,9 @@ import * as express from 'express';
  *
  * @see {@link https://github.com/expressjs/compression#compressionoptions|`compression([options]) documentation`}
  */
-declare function e(options?: e.CompressionOptions): express.RequestHandler;
+declare function compression(options?: compression.CompressionOptions): express.RequestHandler;
 
-declare namespace e {
+declare namespace compression {
     /**
      * The default `filter` function. This is used to construct a custom filter function that is an extension of the default function.
      *
@@ -43,19 +55,39 @@ declare namespace e {
      *
      * @see {@link https://github.com/expressjs/compression#filter-1|`.filter` documentation}
      */
-    export function filter(req: express.Request, res: express.Response): boolean;
+    function filter(req: express.Request, res: express.Response): boolean;
 
+    /**
+     * A function to decide if the response should be considered for compression.
+     */
     interface CompressionFilter {
         (req: express.Request, res: express.Response): boolean;
     }
 
+    /**
+     * compression() accepts these properties in the options object.
+     * In addition to those listed below, `zlib` options may be passed in to the options object.
+     */
     interface CompressionOptions {
         /**
-         * @default zlib.Z_DEFAULT_CHUNK or 16384
+         * @default zlib.constants.Z_DEFAULT_CHUNK or 16384
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning| Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#chunksize|chunkSize documentation}
          */
         chunkSize?: number;
+
+        /**
+         * A function to decide if the response should be considered for compression. This function is called as
+         * `filter(req, res)` and is expected to return `true` to consider the response for compression, or `false` to
+         * not compress the response.
+         *
+         * The default filter function uses the `compressible` module to determine if `res.getHeader('Content-Type')`
+         * is compressible.
+         *
+         * @see {@link https://github.com/expressjs/compression#filter|`filter` documentation}
+         * @see {@link https://www.npmjs.com/package/compressible|compressible module}
+         */
+        filter?: CompressionFilter;
 
         /**
          * The level of zlib compression to apply to responses. A higher level will result in better compression, but
@@ -65,21 +97,21 @@ declare namespace e {
          * can be used to mean the "default compression level", which is a default compromise between speed and
          * compression (currently equivalent to level 6).
          *
-         * - `-1` Default compression level (also `zlib.Z_DEFAULT_COMPRESSION`).
-         * - `0` No compression (also `zlib.Z_NO_COMPRESSION`).
-         * - `1` Fastest compression (also `zlib.Z_BEST_SPEED`).
+         * - `-1` Default compression level (also `zlib.constants.Z_DEFAULT_COMPRESSION`).
+         * - `0` No compression (also `zlib.constants.Z_NO_COMPRESSION`).
+         * - `1` Fastest compression (also `zlib.constants.Z_BEST_SPEED`).
          * - `2`
          * - `3`
          * - `4`
          * - `5`
-         * - `6` (currently what `zlib.Z_DEFAULT_COMPRESSION` points to).
+         * - `6` (currently what `zlib.constants.Z_DEFAULT_COMPRESSION` points to).
          * - `7`
          * - `8`
-         * - `9` Best compression (also `zlib.Z_BEST_COMPRESSION`).
+         * - `9` Best compression (also `zlib.constants.Z_BEST_COMPRESSION`).
          *
          * **Note** in the list above, `zlib` is from `zlib = require('zlib')`.
          *
-         * @default zlib.DEFAULT_COMPRESSION or -1
+         * @default zlib.constants.DEFAULT_COMPRESSION or -1
          * @see {@link https://github.com/expressjs/compression#level|`level` documentation}
          */
         level?: number;
@@ -88,7 +120,7 @@ declare namespace e {
          * This specifies how much memory should be allocated for the internal compression state and is an integer in
          * the range of `1` (minimum level) and `9` (maximum level).
          *
-         * @default zlib.DEFAULT_MEMLEVEL or 8
+         * @default zlib.constants.DEFAULT_MEMLEVEL or 8
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          * @see {@link https://github.com/expressjs/compression#memlevel|`memLevel` documentation}
          */
@@ -98,15 +130,15 @@ declare namespace e {
          * This is used to tune the compression algorithm. This value only affects the compression ratio, not the
          * correctness of the compressed output, even if it is not set appropriately.
          *
-         * - `zlib.Z_DEFAULT_STRATEGY` Use for normal data.
-         * - `zlib.Z_FILTERED` Use for data produced by a filter (or predictor). Filtered data consists mostly of small
+         * - `zlib.constants.Z_DEFAULT_STRATEGY` Use for normal data.
+         * - `zlib.constants.Z_FILTERED` Use for data produced by a filter (or predictor). Filtered data consists mostly of small
          *   values with a somewhat random distribution. In this case, the compression algorithm is tuned to compress
          *   them better. The effect is to force more Huffman coding and less string matching; it is somewhat intermediate
-         *   between `zlib.Z_DEFAULT_STRATEGY` and `zlib.Z_HUFFMAN_ONLY`.
-         * - `zlib.Z_FIXED` Use to prevent the use of dynamic Huffman codes, allowing for a simpler decoder for special applications.
-         * - `zlib.Z_HUFFMAN_ONLY` Use to force Huffman encoding only (no string match).
-         * - `zlib.Z_RLE` Use to limit match distances to one (run-length encoding). This is designed to be almost as
-         *    fast as `zlib.Z_HUFFMAN_ONLY`, but give better compression for PNG image data.
+         *   between `zlib.constants.Z_DEFAULT_STRATEGY` and `zlib.constants.Z_HUFFMAN_ONLY`.
+         * - `zlib.constants.Z_FIXED` Use to prevent the use of dynamic Huffman codes, allowing for a simpler decoder for special applications.
+         * - `zlib.constants.Z_HUFFMAN_ONLY` Use to force Huffman encoding only (no string match).
+         * - `zlib.constants.Z_RLE` Use to limit match distances to one (run-length encoding). This is designed to be almost as
+         *    fast as `zlib.constants.Z_HUFFMAN_ONLY`, but give better compression for PNG image data.
          *
          * **Note** in the list above, `zlib` is from `zlib = require('zlib')`.
          */
@@ -126,36 +158,15 @@ declare namespace e {
         threshold?: number | string;
 
         /**
-         * @default zlib.Z_DEFAULT_WINDOWBITS or 15.
+         * @default zlib.constants.Z_DEFAULT_WINDOWBITS or 15.
          * @see {@link http://nodejs.org/api/zlib.html#zlib_memory_usage_tuning|Node.js documentation}
          */
         windowBits?: number;
-
         /**
-         * A function to decide if the response should be considered for compression. This function is called as
-         * `filter(req, res)` and is expected to return `true` to consider the response for compression, or `false` to
-         * not compress the response.
-         *
-         * The default filter function uses the `compressible` module to determine if `res.getHeader('Content-Type')`
-         * is compressible.
-         *
-         * @see {@link https://github.com/expressjs/compression#filter|`filter` documentation}
-         * @see {@link https://www.npmjs.com/package/compressible|compressible module}
+         * In addition , `zlib` options may be passed in to the options object.
          */
-        filter?: CompressionFilter;
-
-        /**
-         * @default zlib.Z_NO_FLUSH
-         * @see {@link https://nodejs.org/api/zlib.html#zlib_class_options|Zlib class options}
-         */
-        flush?: number;
-
-        /**
-         * @default zlib.Z_FINISH
-         * @see {@link https://nodejs.org/api/zlib.html#zlib_class_options|Zlib class options}
-         */
-        finishFlush?: number;
+        [property: string]: any;
     }
 }
 
-export = e;
+export = compression;

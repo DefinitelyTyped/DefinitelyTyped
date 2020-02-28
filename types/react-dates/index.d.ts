@@ -75,6 +75,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -97,6 +98,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean;
         verticalHeight?: number;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
         verticalSpacing?: number;
 
         // navigation related props
@@ -151,7 +153,7 @@ declare namespace ReactDates {
 
         // required props for a functional interactive SingleDatePicker
         date: momentPropTypes.momentObj | null;
-        focused: boolean;
+        focused: boolean | null;
 
         onDateChange: (date: momentPropTypes.momentObj | null) => void;
         onFocusChange: (arg: { focused: boolean | null }) => void;
@@ -181,6 +183,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         orientation?: OrientationShape;
@@ -203,6 +206,7 @@ declare namespace ReactDates {
         isRTL?: boolean;
         verticalHeight?: number | null;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         // navigation related props
         navPrev?: string | JSX.Element;
@@ -211,8 +215,7 @@ declare namespace ReactDates {
         onNextMonthClick?: (newCurrentMonth: momentPropTypes.momentObj) => void;
         onClose?: (
             final: {
-                startDate: momentPropTypes.momentObj;
-                endDate: momentPropTypes.momentObj;
+                date: momentPropTypes.momentObj;
             }
         ) => void;
 
@@ -422,6 +425,7 @@ declare namespace ReactDates {
                 month: momentPropTypes.momentObj;
                 onMonthSelect: (currentMonth: momentPropTypes.momentObj, newMonthVal: string) => void;
                 onYearSelect: (currentMonth: momentPropTypes.momentObj, newYearVal: string) => void;
+                isVisible: boolean;
             }
         ) => string | JSX.Element;
         enableOutsideDays?: boolean;
@@ -435,6 +439,7 @@ declare namespace ReactDates {
         verticalHeight?: number;
         noBorder?: boolean;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;

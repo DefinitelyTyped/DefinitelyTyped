@@ -165,6 +165,11 @@ videoQueue.add({ video: 'http://example.com/video1.mov' }, { jobId: 1 })
     // error
 });
 
+pdfQueue.whenCurrentJobsFinished()
+.then(() => {
+    // Jobs finished
+});
+
 //////////////////////////////////////////////////////////////////////////////////
 //
 // Typed Event Handlers
@@ -245,3 +250,8 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
+
+// Use low-level API
+const multi = myQueue.multi();
+multi.del(myQueue.toKey('repeat'));
+multi.exec();

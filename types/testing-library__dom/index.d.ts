@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/dom 6.11
+// Type definitions for @testing-library/dom 6.12
 // Project: https://github.com/testing-library/dom-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
@@ -6,6 +6,7 @@
 //                 Weyert de Boer <https://github.com/weyert>
 //                 Ronald Rey <https://github.com/reyronald>
 //                 Justin Hall <https://github.com/wKovacs64>
+//                 Wesley Tsai <https://github.com/wezleytsai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

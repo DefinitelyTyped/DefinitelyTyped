@@ -1,6 +1,7 @@
-// Type definitions for camunda-external-task-client-js 1.2
+// Type definitions for camunda-external-task-client-js 1.3
 // Project: https://github.com/camunda/camunda-external-task-client-js#readme
 // Definitions by: MacRusher <https://github.com/MacRusher>
+//                 DoYoung Ha <https://github.com/hados99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,6 +11,13 @@ export class Client {
     stop(): void;
     subscribe(topic: string, options: SubscribeOptions, handler: Handler): TopicSubscription;
     subscribe(topic: string, handler: Handler): TopicSubscription;
+
+    on(name: TopicEvent, callback: (topic: string, topicSubscription: TopicSubscription) => void): void;
+    on(name: PollEvent, callback: () => void): void;
+    on(name: SuccessWithTasksEvent, callback: (tasks: Task[]) => void): void;
+    on(name: SuccessWithTaskEvent, callback: (task: Task) => void): void;
+    on(name: ErrorWithTaskEvent, callback: (task: Task, error: any) => void): void;
+    on(name: ErrorEvent, callback: (error: any) => void): void;
 }
 
 export interface ClientConfig {
@@ -113,5 +121,12 @@ export type Logger = Middleware & {
     success(text: string): void;
     error(text: string): void;
 };
+
+export type TopicEvent = "subscribe" | "unsubscribe";
+export type PollEvent = "poll:start" | "poll:stop";
+export type SuccessWithTasksEvent = "poll:success";
+export type SuccessWithTaskEvent = "complete:success" | "handleFailure:success" | "handleBpmnError:success" | "extendLock:success" | "unlock:success";
+export type ErrorWithTaskEvent = "handleFailure:error" | "handleBpmnError:error" | "extendLock:error" | "unlock:error";
+export type ErrorEvent = "poll:error" | "complete:error";
 
 export const logger: Logger;

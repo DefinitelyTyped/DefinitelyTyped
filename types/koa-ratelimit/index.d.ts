@@ -1,6 +1,7 @@
-// Type definitions for koa-ratelimit 4.1
+// Type definitions for koa-ratelimit 4.2
 // Project: https://github.com/koajs/ratelimit#readme
 // Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
+//                 Patrick Muff <https://github.com/dislick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -29,9 +30,14 @@ declare namespace KoaRatelimit {
 
     interface MiddlewareOptions {
         /**
+         * Driver to use ("redis" or "memory").
+         */
+        driver: 'redis' | 'memory';
+
+        /**
          * The database powering the backing rate-limiter package.
          */
-        db: RedisClient;
+        db: RedisClient | Map<any, any>;
 
         /**
          * The length of a single limiting period. This value is expressed

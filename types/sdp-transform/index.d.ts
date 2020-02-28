@@ -147,16 +147,16 @@ export interface MediaAttributes extends SharedAttributes {
         address?: string;
     };
     // a=rtcp-fb:98 nack rpsi
-    rtcpFb?: {
+    rtcpFb?: Array<{
         payload: number;
         type: string;
         subtype?: string;
-    };
+    }>;
     // a=rtcp-fb:98 trr-int 100
-    rtcpFbTrrInt?: {
+    rtcpFbTrrInt?: Array<{
         payload: number;
         value: number;
-    };
+    }>;
     // a=fmtp
     fmtp: Array<{
         payload: number;

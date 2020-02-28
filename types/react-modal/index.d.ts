@@ -7,6 +7,8 @@
 //                 Uwe Wiemer <https://github.com/hallowatcher>,
 //                 Peter Blazejewicz <https://github.com/peterblazejewicz>,
 //                 Justin Powell <https://github.com/jpowell>
+//                 Juwan Wheatley <https://github.com/fiberjw>
+//                 Nitzan Mousan <https://github.com/nitzanmo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -17,12 +19,8 @@ export as namespace ReactModal;
 
 declare namespace ReactModal {
     interface Styles {
-        content?: {
-            [key: string]: any;
-        };
-        overlay?: {
-            [key: string]: any;
-        };
+        content?: React.CSSProperties;
+        overlay?: React.CSSProperties;
     }
 
     interface Classes {
@@ -38,6 +36,19 @@ declare namespace ReactModal {
         describedby?: string;
         /** Indicates whether an element is modal when displayed. */
         modal?: boolean | 'false' | 'true';
+    }
+
+    /** Describes overlay and content element references passed to onAfterOpen function */
+    interface OnAfterOpenCallbackOptions {
+        /** overlay element reference */
+        overlayEl: Element;
+        /** content element reference */
+        contentEl: HTMLDivElement;
+    }
+
+    /** Describes unction that will be run after the modal has opened */
+    interface OnAfterOpenCallback {
+        (obj?: OnAfterOpenCallbackOptions): void;
     }
 
     interface Props {
@@ -66,13 +77,13 @@ declare namespace ReactModal {
         appElement?: HTMLElement | {};
 
         /* Function that will be run after the modal has opened. */
-        onAfterOpen?(): void;
+        onAfterOpen?: OnAfterOpenCallback;
 
         /* Function that will be run after the modal has closed. */
         onAfterClose?(): void;
 
         /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?(event: (React.MouseEvent | React.KeyboardEvent)): void;
+        onRequestClose?(event: React.MouseEvent | React.KeyboardEvent): void;
 
         /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
         closeTimeoutMS?: number;
@@ -115,6 +126,9 @@ declare namespace ReactModal {
 
         /* String value of data-test-id attibute to be applied to to the modal content. */
         testId?: string;
+
+        /* String value of an id attribute to be applied to the modal content */
+        id?: string;
     }
 }
 
@@ -127,8 +141,8 @@ declare class ReactModal extends React.Component<ReactModal.Props> {
      */
     static setAppElement(appElement: string | HTMLElement): void;
 
-    portal: {
-        overlay: Element | undefined;
-        content: HTMLDivElement;
+    portal: null | {
+        overlay: null | Element;
+        content: null | HTMLDivElement;
     };
 }

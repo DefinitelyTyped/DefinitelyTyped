@@ -4,41 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
+declare global {
 /**
  * Helpers class and interfaces defined here, to make `nw` module cleaner.
  */
-declare module NWJS_Helpers {
-
-    /**
-     * Node.js v6.x EventEmitter Class
-     */
-    class EventEmitter extends NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
-
-        static listenerCount( emitter: EventEmitter, event: string ): number; // deprecated
-        static defaultMaxListeners: number;
-
-        addListener( event: string, listener: Function ): this;
-
-        on( event: string, listener: Function ): this;
-
-        once( event: string, listener: Function ): this;
-
-        removeListener( event: string, listener: Function ): this;
-
-        removeAllListeners( event?: string ): this;
-
-        setMaxListeners( n: number ): this;
-
-        getMaxListeners(): number;
-
-        listeners( event: string ): Function[];
-
-        emit( event: string, ...args: any[] ): boolean;
-
-        listenerCount( type: string ): number;
-    }
+module NWJS_Helpers {
 
     /**
      * The clipboard object.
@@ -1352,7 +1324,7 @@ declare module NWJS_Helpers {
     }
 }
 
-declare namespace nw {
+namespace nw {
 
     /* Reference: http://docs.nwjs.io/en/latest/References/App/ */
     /**
@@ -1565,7 +1537,7 @@ declare namespace nw {
     /**
      * `MenuItem` represents an item in a menu.
      */
-    class MenuItem extends NWJS_Helpers.EventEmitter {
+    class MenuItem extends EventEmitter {
 
         /**
          * Create a new MenuItem.
@@ -1645,7 +1617,7 @@ declare namespace nw {
      * Screen is an instance of EventEmitter object, and you"re able to use Screen.on(...) to respond to native screen"s events.
      * Screen is a singleton object, need to be initiated once by calling nw.Screen.Init().
      */
-    interface Screen extends NWJS_Helpers.EventEmitter {
+    interface Screen extends EventEmitter {
 
         /**
          * Init the Screen singleton object, you only need to call this once.
@@ -1732,7 +1704,7 @@ declare namespace nw {
     /**
      * `Shortcut` represents a global keyboard shortcut, also known as system-wide hotkey.
      */
-    export class Shortcut extends NWJS_Helpers.EventEmitter {
+    export class Shortcut extends EventEmitter {
 
         /**
          * Create new Shortcut.
@@ -1782,7 +1754,7 @@ declare namespace nw {
     /**
      * `Tray` is an abstraction of different controls on different platforms, usually it"s a small icon shown on the OS"s notification area. On Mac OS X it"s called Status Item, on GTK it"s Status Icon, and on Windows it"s System Tray Icon.
      */
-    export class Tray extends NWJS_Helpers.EventEmitter {
+    export class Tray extends EventEmitter {
         /**
          * Create a new Tray.
          * @param option {Object} Contains initial settings for the Tray.
@@ -1839,7 +1811,7 @@ declare namespace nw {
     /**
      * Window is a wrapper of the DOM's window object. It has extended operations and can receive various window events.
      */
-    interface Window extends NWJS_Helpers.EventEmitter {
+    interface Window extends EventEmitter {
 
         /**
          * Get the native Window Object.
@@ -1864,6 +1836,7 @@ declare namespace nw {
     export var Screen: Screen;
     export var Shell: Shell;
     export var Window: Window;
+}
 }
 
 declare module "nw.gui" {

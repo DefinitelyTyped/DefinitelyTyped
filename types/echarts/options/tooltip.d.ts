@@ -295,7 +295,7 @@ declare namespace echarts {
              *
              * @default 5
              */
-            padding?: number;
+            padding?: number | number[];
 
             /**
              * The text style of tooltip's floating layer.

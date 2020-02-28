@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.6
+// Type definitions for Mapbox GL JS 1.8
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -6,6 +6,7 @@
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
+//                 Marko Klopets <https://github.com/mklopets>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -193,7 +194,7 @@ declare namespace mapboxgl {
 
         getLayer(id: string): mapboxgl.Layer;
 
-        setFilter(layer: string, filter?: any[]): this;
+        setFilter(layer: string, filter?: any[] | null): this;
 
         setLayerZoomRange(layerId: string, minzoom: number, maxzoom: number): this;
 
@@ -361,7 +362,7 @@ declare namespace mapboxgl {
         crossSourceCollisions?: boolean;
 
         /** ID of the container element */
-        container: string | Element;
+        container: string | HTMLElement;
 
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
@@ -511,7 +512,7 @@ declare namespace mapboxgl {
 
         /**
          * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
-         * 
+         *
          * @default null
          */
         accessToken?: string;
@@ -703,7 +704,7 @@ declare namespace mapboxgl {
      * Geolocate
      */
     export class GeolocateControl extends Control {
-        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showAccuracyCircle?: boolean, showUserLocation?: boolean });
         trigger(): boolean;
     }
 
@@ -819,6 +820,11 @@ declare namespace mapboxgl {
 
         closeOnClick?: boolean;
 
+        /**
+        * @param {boolean} [options.closeOnMove=false] If `true`, the popup will closed when the map moves.
+        */
+        closeOnMove?: boolean;
+
         anchor?: Anchor;
 
         offset?: number | PointLike | { [key: string]: PointLike; };
@@ -862,6 +868,8 @@ declare namespace mapboxgl {
     export interface Sources {
         [sourceName: string]: AnySourceData;
     }
+
+    export type PromoteIdSpecification = {[key: string]: string} | string;
 
     export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
 
@@ -913,6 +921,8 @@ declare namespace mapboxgl {
         lineMetrics?: boolean;
 
         generateId?: boolean;
+
+        promoteId?: PromoteIdSpecification;
     }
 
     /**
@@ -1001,6 +1011,7 @@ declare namespace mapboxgl {
         minzoom?: number;
         maxzoom?: number;
         attribution?: string;
+        promoteId?: PromoteIdSpecification;
     }
 
     interface RasterSource extends Source {

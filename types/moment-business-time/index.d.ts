@@ -18,7 +18,7 @@ declare module 'moment' {
         addWorkingTime: (...args: Array<number | unitOfTime.Base>) => Moment;
         subtractWorkingTime: (...args: Array<number | unitOfTime.Base>) => Moment;
 
-        workingDiff: (moment: Moment, unit: unitOfTime.Base, fractions?: boolean) => Moment;
+        workingDiff: (moment: Moment, unit: unitOfTime.Base, fractions?: boolean) => number;
 
         isWorkingDay: () => boolean;
         isWorkingTime: () => boolean;

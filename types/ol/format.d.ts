@@ -3,6 +3,7 @@ export { default as GeoJSON } from './format/GeoJSON';
 export { default as GML } from './format/GML';
 export { default as GPX } from './format/GPX';
 export { default as IGC } from './format/IGC';
+export { default as IIIFInfo } from './format/IIIFInfo';
 export { default as KML } from './format/KML';
 export { default as MVT } from './format/MVT';
 export { default as OWS } from './format/OWS';

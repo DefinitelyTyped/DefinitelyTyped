@@ -21,6 +21,7 @@ import {
     CheckBox,
     ColorPropType,
     DataSourceAssetCallback,
+    DeviceEventEmitter,
     DeviceEventEmitterStatic,
     Dimensions,
     Image,
@@ -80,6 +81,7 @@ import {
     Modal,
     TimePickerAndroid,
     DatePickerAndroid,
+    Picker,
     ViewPropTypes,
     requireNativeComponent,
     Keyboard,
@@ -89,6 +91,7 @@ import {
     PushNotificationIOS,
     AccessibilityInfo,
     YellowBox,
+    useWindowDimensions,
 } from "react-native";
 
 declare module "react-native" {
@@ -116,6 +119,10 @@ function testDimensions() {
 
     Dimensions.addEventListener("change", dimensionsListener);
     Dimensions.removeEventListener("change", dimensionsListener);
+}
+
+function TextUseWindowDimensions() {
+    const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
@@ -187,6 +194,11 @@ const textProperty = StyleSheet.flatten(textStyle).fontSize;
 const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
+// correct use of the StyleSheet.flatten
+const styleArray: StyleProp<ViewStyle>[] = [];
+const flattenStyle = StyleSheet.flatten(styleArray);
+const { top } = flattenStyle;
+
 const s = StyleSheet.create({
     shouldWork: {
         fontWeight: "900", // if we comment this line, errors gone
@@ -194,6 +206,62 @@ const s = StyleSheet.create({
     },
 });
 const f1: TextStyle = s.shouldWork;
+
+// StyleSheet.compose
+// It creates a new style object by composing two existing styles
+const composeTextStyle: StyleProp<TextStyle> = {
+    color: '#000000',
+    fontSize: 20,
+};
+
+const composeImageStyle: StyleProp<ImageStyle> = {
+    resizeMode: 'contain',
+};
+
+// The following use of the compose method is valid
+const combinedStyle: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    composeTextStyle,
+);
+
+const combinedStyle1: StyleProp<ImageStyle> = StyleSheet.compose(
+    composeImageStyle,
+    composeImageStyle,
+);
+
+const combinedStyle2: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    [composeTextStyle],
+);
+
+const combinedStyle3: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    null,
+);
+
+const combinedStyle4: StyleProp<TextStyle> = StyleSheet.compose(
+    [composeTextStyle],
+    null,
+);
+
+const combinedStyle5: StyleProp<TextStyle> = StyleSheet.compose(
+    composeTextStyle,
+    Math.random() < 0.5 ? composeTextStyle : null,
+);
+
+const combinedStyle6: StyleProp<TextStyle | null> = StyleSheet.compose(
+    null,
+    null,
+);
+
+// The following use of the compose method is invalid:
+const combinedStyle7 = StyleSheet.compose(composeImageStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle8: StyleProp<ImageStyle> = StyleSheet.compose(composeTextStyle, composeTextStyle); // $ExpectError
+
+const combinedStyle9: StyleProp<ImageStyle> = StyleSheet.compose([composeTextStyle], null); // $ExpectError
+
+const combinedStyle10: StyleProp<ImageStyle> = StyleSheet.compose(Math.random() < 0.5 ? composeTextStyle : null, null); // $ExpectError
 
 const testNativeSyntheticEvent = <T extends {}>(e: NativeSyntheticEvent<T>): void => {
     e.isDefaultPrevented();
@@ -304,6 +372,8 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -377,7 +447,7 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
     }
 
     scrollMe = () => {
-        this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
+        this.myList.current && this.myList.current.scrollToLocation({ itemIndex: 0, sectionIndex: 1 });
     };
 
     render() {
@@ -467,6 +537,8 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             snapToOffsets={[100, 300, 500]}
                             {...props}
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
+                            onScrollToTop={() => {}}
+                            scrollToOverflowEnabled={true}
                         />
                     );
                 }}
@@ -600,7 +672,7 @@ const dataSourceAssetCallback1: DataSourceAssetCallback = {
 const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 
 // DeviceEventEmitterStatic
-const deviceEventEmitterStatic: DeviceEventEmitterStatic = null;
+const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
@@ -665,7 +737,7 @@ class TextInputTest extends React.Component<{}, { username: string }> {
     render() {
         return (
             <View>
-                <Text onPress={() => this.username.focus()}>Username</Text>
+                <Text onPress={() => this.username && this.username.focus()}>Username</Text>
 
                 <TextInput
                     ref={input => (this.username = input)}
@@ -715,7 +787,7 @@ export class ImageTest extends React.Component {
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
-        Image.queryCache([uri]).then(({ [uri]: status }) => {
+        Image.queryCache && Image.queryCache([uri]).then(({ [uri]: status }) => {
             if (status === undefined) {
                 console.log("Image is not in cache");
             } else {
@@ -789,6 +861,8 @@ class AccessibilityTest extends React.Component {
                 accessibilityStates={["selected"]}
                 accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
+                onMagicTap={() => {}}
+                onAccessibilityEscape={() => {}}
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
                     Text
@@ -828,6 +902,13 @@ const DatePickerAndroidTest = () => {
         }
     });
 }
+
+const PickerTest = () => (
+    <Picker mode="dropdown" selectedValue="v1" onValueChange={(val: string) => {}}>
+        <Picker.Item label="Item1" value="v1" />
+        <Picker.Item label="Item2" value="v2" />
+    </Picker>
+);
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
@@ -923,6 +1004,11 @@ const PlatformTest = () => {
             return Platform.isTV ? 40 : 44;
     }
 };
+
+Platform.select({ android: 1 }); // $ExpectType number | undefined
+Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number
+Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
 
 // ProgressBarAndroid
 const ProgressBarAndroidTest = () => {

@@ -31,13 +31,14 @@ export interface Bounds {
     right?: number;
     bottom?: number;
 }
+export declare type ViewBounds = Pick<Bounds, Exclude<keyof Bounds, 'right' | 'bottom'>>;
 export interface RGB {
     red: number;
     blue: number;
     green: number;
 }
 export interface ContextMenuSettings {
-    enable?: boolean;
+    enable: boolean;
     devtools?: boolean;
     reload?: boolean;
 }

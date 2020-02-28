@@ -118,6 +118,7 @@ export class LatLng {
     distanceTo(otherLatLng: LatLngExpression): number;
     wrap(): LatLng;
     toBounds(sizeInMeters: number): LatLngBounds;
+    clone(): LatLng;
 
     lat: number;
     lng: number;
@@ -1658,6 +1659,8 @@ export interface ZoomAnimEvent extends LeafletEvent {
 export namespace DomEvent {
     type EventHandlerFn = (event: Event) => void;
 
+    type PropagableEvent = LeafletMouseEvent | LeafletKeyboardEvent | LeafletEvent | Event;
+
     function on(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
     function on(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
@@ -1666,7 +1669,7 @@ export namespace DomEvent {
 
     function off(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
 
-    function stopPropagation(ev: Event): typeof DomEvent;
+    function stopPropagation(ev: PropagableEvent): typeof DomEvent;
 
     function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
 
@@ -1674,7 +1677,7 @@ export namespace DomEvent {
 
     function preventDefault(ev: Event): typeof DomEvent;
 
-    function stop(ev: Event): typeof DomEvent;
+    function stop(ev: PropagableEvent): typeof DomEvent;
 
     function getMousePosition(ev: MouseEvent, container?: HTMLElement): Point;
 
@@ -1787,6 +1790,7 @@ export class Map extends Evented {
     stopLocate(): this;
 
     // Properties
+    attributionControl: L.Control.Attribution;
     boxZoom: Handler;
     doubleClickZoom: Handler;
     dragging: Handler;
