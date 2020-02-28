@@ -2,6 +2,7 @@
 // Project: https://github.com/rollup/plugins/tree/master/packages/virtual#readme
 // Definitions by: ed eustace <https://github.com/ahum>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.9
 
 /// <reference types="node" />
 
