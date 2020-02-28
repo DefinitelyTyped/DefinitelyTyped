@@ -92,6 +92,7 @@ import {
     AccessibilityInfo,
     YellowBox,
     useWindowDimensions,
+    Appearance,
 } from "react-native";
 
 declare module "react-native" {
@@ -1046,3 +1047,22 @@ const PushNotificationTest = () => {
 
 // YellowBox
 const YellowBoxTest = () => <YellowBox />;
+
+// Appearance
+const DarkMode = () => {
+    const isDarkMode = Appearance.getColorScheme() === 'dark';
+
+    Appearance.addChangeListener(({ colorScheme }) => {
+        console.log(colorScheme);
+    });
+
+    Appearance.removeChangeListener(({ colorScheme }) => {
+        console.log(colorScheme);
+    });
+
+    return (
+        <Text>
+            Is dark mode enabled? {isDarkMode}
+        </Text>
+    );
+}

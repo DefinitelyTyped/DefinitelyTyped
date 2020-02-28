@@ -34,6 +34,7 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
+//                 Jérémy Barbet <https://github.com/jeremybarbet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -8149,6 +8150,36 @@ export interface VibrationStatic {
      * Stop vibration
      */
     cancel(): void;
+}
+
+export namespace Appearance {
+    type ColorSchemeName = 'light' | 'dark';
+
+    type AppearancePreferences = {
+        colorScheme: ColorSchemeName | null | undefined;
+    };
+
+    type AppearanceListener = (preferences: AppearancePreferences) => void;
+
+    /**
+     * Note: Although color scheme is available immediately, it may change at any
+     * time. Any rendering logic or styles that depend on this should try to call
+     * this function on every render, rather than caching the value (for example,
+     * using inline styles rather than setting a value in a `StyleSheet`).
+     *
+     * Example: `const colorScheme = Appearance.getColorScheme();`
+     */
+    export function getColorScheme(): ColorSchemeName | null | undefined;
+
+    /**
+     * Add an event handler that is fired when appearance preferences change.
+     */
+    export function addChangeListener(listener: AppearanceListener): EventSubscription;
+
+    /**
+     * Remove an event handler.
+     */
+    export function removeChangeListener(listener: AppearanceListener): EventSubscription;
 }
 
 /**
