@@ -3,6 +3,6 @@
 // Definitions by: Eduardo Turiño <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = parameterize;
-
-declare function parameterize(s: string, num_chars?: number, delimiter?: string): string;
+declare module 'parameterize' {
+    export default function parameterize(s: string, num_chars?: number, delimiter?: string): string;
+}
