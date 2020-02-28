@@ -9,6 +9,7 @@
 //                 ekinsol <https://github.com/ekinsol>
 //                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
+//                 Sebastiaan Pasma <https://github.com/spasma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -4508,6 +4509,12 @@ declare namespace chrome.notifications {
          * @since Chrome 50
          */
         requireInteraction?: boolean;
+        /**
+         * Optional.
+         * Indicates that no sounds or vibrations should be made when the notification is being shown. This defaults to false.
+         * @since Chrome 70
+         */
+        silent?: boolean;
     }
 
     export interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> { }
