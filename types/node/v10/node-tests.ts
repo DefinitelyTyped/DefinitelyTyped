@@ -2221,7 +2221,7 @@ async function asyncStreamPipelineFinished() {
     const ws: tty.WriteStream = new tty.WriteStream(1);
 
     const rsIsRaw: boolean = rs.isRaw;
-    rs.setRawMode(true);
+    const rsRaw: tty.ReadStream = rs.setRawMode(true);
 
     const wsColumns: number = ws.columns;
     const wsRows: number = ws.rows;
