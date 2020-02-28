@@ -27,12 +27,14 @@ export type SubscriptionType =
     'Shared' |
     'Failover';
 
-export interface AuthenticationTls {
+export class AuthenticationTls {
+    constructor(authTlsOpts: { certificatePath: string; privateKeyPath: string });
     certificatePath: string;
     privateKeyPath: string;
 }
 
-export interface AuthenticationToken {
+export class AuthenticationToken {
+    constructor(authTokenOpts: { token: string });
     token: string;
 }
 
