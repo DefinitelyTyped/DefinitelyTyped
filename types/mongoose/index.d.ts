@@ -1,4 +1,4 @@
-// Type definitions for Mongoose 5.7.12
+// Type definitions for Mongoose 5.9.2
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 lukasz-zak <https://github.com/lukasz-zak>
@@ -163,9 +163,9 @@ declare module "mongoose" {
    * @param collection (optional, induced from model name)
    * @param skipInit whether to skip initialization (defaults to false)
    */
-  export function model<T extends Document>(name: string, schema?: Schema, collection?: string,
+  export function model<T extends MongooseDocument = Document>(name: string, schema?: Schema, collection?: string,
     skipInit?: boolean): Model<T>;
-  export function model<T extends Document, U extends Model<T>>(
+  export function model<T extends MongooseDocument, U extends Model<T>>(
     name: string,
     schema?: Schema,
     collection?: string,
@@ -640,7 +640,7 @@ declare module "mongoose" {
    * QueryCursor can only be accessed by query#cursor(), we only
    *   expose its interface to enable type-checking.
    */
-  class QueryCursor<T extends Document> extends stream.Readable {
+  class QueryCursor<T extends MongooseDocument> extends stream.Readable {
     /**
      * A QueryCursor is a concurrency primitive for processing query results
      * one document at a time. A QueryCursor fulfills the Node.js streams3 API,
@@ -797,33 +797,33 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: 'insertMany', fn: (
-      this: Model<Document>,
+    post<T extends MongooseDocument = Document>(method: 'insertMany', fn: (
+      this: Model<T>,
       error: mongodb.MongoError, docs: T[], next: (err?: NativeError) => void
     ) => void): this;
 
-    post<T extends Document>(method: 'insertMany', fn: (
-      this: Model<Document>,
+    post<T extends MongooseDocument = Document>(method: 'insertMany', fn: (
+      this: Model<T>,
       docs: T[], next: (err?: NativeError) => void
     ) => void): this;
 
-    post<T extends Document>(method: 'insertMany', fn: (
-      this: Model<Document>,
+    post<T extends MongooseDocument = Document>(method: 'insertMany', fn: (
+      this: Model<T>,
       docs: T[], next: (err?: NativeError) => Promise<any>
     ) => void): this;
 
-    post<T extends Document>(method: string | RegExp, fn: (
+    post<T extends MongooseDocument = Document>(method: string | RegExp, fn: (
       doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
-    post<T extends Document>(method: string | RegExp, fn: (
+    post<T extends MongooseDocument = Document>(method: string | RegExp, fn: (
       error: mongodb.MongoError, doc: T, next: (err?: NativeError) => void
     ) => void): this;
 
     /**
      * Defines a pre hook for the document.
      */
-    pre<T extends Document = Document>(
+    pre<T extends MongooseDocument = Document>(
       method: "init" | "validate" | "save" | "remove",
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
@@ -846,18 +846,18 @@ declare module "mongoose" {
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
-    pre<T extends Model<Document> = Model<Document>>(
+    pre<T extends Model<MongooseDocument> = Model<Document>>(
       method: "insertMany",
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
-    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+    pre<T extends MongooseDocument | Model<MongooseDocument> | Query<any> | Aggregate<any>>(
       method: string | RegExp,
       fn: HookSyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
 
-    pre<T extends Document = Document>(
+    pre<T extends MongooseDocument = Document>(
       method: "init" | "validate" | "save" | "remove",
       parallel: boolean,
       fn: HookAsyncCallback<T>,
@@ -883,13 +883,13 @@ declare module "mongoose" {
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
-    pre<T extends Model<Document> = Model<Document>>(
+    pre<T extends Model<MongooseDocument> = Model<Document>>(
       method: "insertMany",
       parallel: boolean,
       fn: HookAsyncCallback<T>,
       errorCb?: HookErrorCallback
     ): this;
-    pre<T extends Document | Model<Document> | Query<any> | Aggregate<any>>(
+    pre<T extends MongooseDocument | Model<MongooseDocument> | Query<any> | Aggregate<any>>(
       method: string | RegExp,
       parallel: boolean,
       fn: HookAsyncCallback<T>,
@@ -1277,23 +1277,93 @@ declare module "mongoose" {
     }
   }
 
+  /**
+   * Top level Documents
+   * @remarks
+   * This is separated from MongooseDocument since the subclasses of MongooseDocument
+   * have incompatible member signatures.
+   */
+  class Document extends MongooseDocument {
+    /**
+     * Removes this document from the db.
+     * @param fn optional callback
+     */
+    remove(options?: ModelOptions, fn?: (err: any, product: this) => void): Promise<this>;
+    remove(fn?: (err: any, product: this) => void): Promise<this>;
+  }
+
   /*
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  interface MongooseDocument extends MongooseDocumentOptionals { }
-  class MongooseDocument {
+  class MongooseDocument {}
+  interface MongooseDocument extends NodeJS.EventEmitter, MongooseDocumentOptionals, ModelProperties {
+    /**
+     * Don't run validation on this path or persist changes to this path.
+     * @param path the path to ignore
+     */
+    $ignore(path: string): void;
+
+    /**
+     * Setter, determines whether the document was removed or not.
+     * @param val optional, overrides whether mongoose thinks the doc is deleted
+     */
+    $isDeleted(val: boolean): this;
+    /**
+     * Getter, determines whether the document was removed or not.
+     * @returns whether mongoose thinks this doc is deleted.
+     */
+    $isDeleted(): boolean;
+
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
+    /**
+     * Returns true if the given path is nullish or only contains empty objects.
+     * Useful for determining whether this subdoc will get stripped out by the minimize option.
+     * @param path optional path to check
+     */
+    $isEmpty(path?: string): boolean;
+
+    /**
+     * Empty object that you can use for storing properties on the document.
+     * This is handy for passing data to middleware without conflicting with Mongoose internals.
+     */
+    $locals: { [k: string]: any };
+
+    /**
+     * Marks a path as valid, removing existing validation errors.
+     * @param path the field to mark as valid
+     */
+    $markValid(path: string): void;
+
+    /**
+     * A string containing the current operation that Mongoose is executing on this document.
+     * May be `null`, `'save'`, `'validate'`, or `'remove'`.
+     */
+    $op: null | 'save' | 'validate' | 'remove';
+
     /** Getter/setter around the session associated with this document. */
     $session(session?: ClientSession): ClientSession;
+
+    /** Alias for `set()`, used internally to avoid conflicts */
+    $set(): this;
 
     /**
      * Takes a populated field and returns it to its unpopulated state.
      * If the path was not populated, this is a no-op.
      */
     depopulate(path?: string): this;
+
+    /**
+     * Returns the list of paths that have been directly modified.
+     * A direct modified path is a path that you explicitly set, whether via `doc.foo = 'bar'`,
+     * `Object.assign(doc, { foo: 'bar' })`, or `doc.set('foo', 'bar')`.
+     * 
+     * A path `a` may be in `modifiedPaths()` but not in `directModifiedPaths()` because a child of
+     * `a` was directly modified.
+     */
+    directModifiedPaths(): string[];
 
     /**
      * Returns true if the Document stores the same data as doc.
@@ -1303,15 +1373,15 @@ declare module "mongoose" {
      */
     equals(doc: MongooseDocument): boolean;
 
+    /** Hash containing current validation errors. */
+    errors: any;
+
     /**
      * Explicitly executes population and returns a promise.
      * Useful for ES2015 integration.
      * @returns promise that resolves to the document when population is done
      */
     execPopulate(): Promise<this>;
-
-    /** Checks if path was explicitly selected. If no projection, always returns true. */
-    isDirectSelected(path: string): boolean;
 
     /**
      * Returns the value of a path.
@@ -1324,6 +1394,9 @@ declare module "mongoose" {
       virtuals?: boolean;
       getters?: boolean;
     }): any;
+
+    /** Signal that we desire an increment of this documents version. */
+    increment(): this;
 
     /**
      * Initializes the document without setters or marking anything modified.
@@ -1351,6 +1424,9 @@ declare module "mongoose" {
     /** Returns true if path was directly set and modified, else false. */
     isDirectModified(path: string): boolean;
 
+    /** Checks if path was explicitly selected. If no projection, always returns true. */
+    isDirectSelected(path: string): boolean;
+
     /** Checks if path was initialized */
     isInit(path: string): boolean;
 
@@ -1360,6 +1436,9 @@ declare module "mongoose" {
      * chain has been modified.
      */
     isModified(path?: string): boolean;
+
+    /** Boolean flag specifying if the document is new. */
+    isNew: boolean;
 
     /** Checks if path was selected in the source query which initialized this document. */
     isSelected(path: string): boolean;
@@ -1371,8 +1450,20 @@ declare module "mongoose" {
      */
     markModified(path: string): void;
 
+    /**
+     * Returns another Model instance.
+     * @param name model name
+     */
+    model<T extends MongooseDocument>(name: string): Model<T>;
+
     /** Returns the list of paths that have been modified. */
     modifiedPaths(): string[];
+
+    /**
+     * Overwrite all values, except for immutable properties.
+     * @param obj the object to overwrite this document with
+     */
+    overwrite(obj: any): this;
 
     /**
      * Populates document references, executing the callback when complete.
@@ -1394,6 +1485,29 @@ declare module "mongoose" {
     populated(path: string): any;
 
     /**
+     * Removes this document from the db.
+     * @param fn optional callback
+     */
+    remove(options?: any, fn?: (err: any, product?: this) => void): Promise<this> | void | this;
+    remove(fn?: (err: any, product?: this) => void): Promise<this> | void | this;
+
+    /** Sends an replaceOne command with this document _id as the query selector.  */
+    replaceOne(replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
+
+    /**
+     * Saves this document.
+     * @param options options optional options
+     * @param options.safe overrides schema's safe option
+     * @param options.validateBeforeSave set to false to save without validating.
+     * @param fn optional callback
+     */
+    save(options?: SaveOptions, fn?: (err: any, product: this) => void): Promise<this>;
+    save(fn?: (err: any, product: this) => void): Promise<this>;
+
+    /** The documents schema. */
+    schema: Schema;
+
+    /**
      * Sets the value of a path, or many paths.
      * @param path path or object of key/vals to set
      * @param val the value to set
@@ -1403,12 +1517,6 @@ declare module "mongoose" {
     set(path: string, val: any, options?: any): this;
     set(path: string, val: any, type: any, options?: any): this;
     set(value: any): this;
-
-    /**
-     * Overwrite all values, except for immutable properties.
-     * @param obj the object to overwrite this document with
-     */
-    overwrite(obj: any): this;
 
     /**
      * The return value of this method is used in calls to JSON.stringify(doc).
@@ -1432,9 +1540,6 @@ declare module "mongoose" {
      * @param path the path to unmark modified
      */
     unmarkModified(path: string): void;
-
-    /** Sends an replaceOne command with this document _id as the query selector.  */
-    replaceOne(replacement: any, callback?: (err: any, raw: any) => void): Query<any>;
 
     /** Sends an update command with this document _id as the query selector.  */
     update(doc: any, callback?: (err: any, raw: any) => void): Query<any>;
@@ -1462,16 +1567,14 @@ declare module "mongoose" {
      */
     validateSync(pathsToValidate?: string | string[]): Error.ValidationError | undefined;
 
-    /** Hash containing current validation errors. */
-    errors: any;
     /** This documents _id. */
     _id: any;
-    /** Boolean flag specifying if the document is new. */
-    isNew: boolean;
-    /** The documents schema. */
-    schema: Schema;
-    /** Empty object that you can use for storing properties on the document */
-    $locals: { [k: string]: any };
+
+    /**
+     * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey
+     * If you're using another key, you will have to access it using []: doc[_myVersionKey]
+     */
+    __v?: number;
   }
 
   interface MongooseDocumentOptionals {
@@ -1513,14 +1616,14 @@ declare module "mongoose" {
       */
     class Subdocument extends MongooseDocument {
       /** Returns the top level document of this sub-document. */
-      ownerDocument(): MongooseDocument;
+      ownerDocument(): Document;
 
       /**
        * Null-out this subdoc
        * @param callback optional callback for compatibility with Document.prototype.remove
        */
-      remove(callback?: (err: any) => void): void;
       remove(options: any, callback?: (err: any) => void): void;
+      remove(callback?: (err: any) => void): void;
     }
 
     /*
@@ -1723,16 +1826,15 @@ declare module "mongoose" {
       invalidate(path: string, err: string | NativeError): boolean;
 
       /** Returns the top level document of this sub-document. */
-      ownerDocument(): MongooseDocument;
+      ownerDocument(): Document;
       /** Returns this sub-documents parent document. */
       parent(): MongooseDocument;
       /** Returns this sub-documents parent array. */
       parentArray(): DocumentArray<MongooseDocument>;
 
       /** Removes the subdocument from its parent array. */
-      remove(options?: {
-        noop?: boolean;
-      }, fn?: (err: any) => void): this;
+      remove(options?: { noop?: boolean }, fn?: (err: any) => void): this;
+      remove(fn?: (err: any) => void): this;
 
       /**
        * Marks the embedded doc modified.
@@ -1770,7 +1872,7 @@ declare module "mongoose" {
    * for instance findOneAndUpdate.
    */
   class Query<T> extends DocumentQuery<T, any> { }
-  class DocumentQuery<T, DocType extends Document, QueryHelpers = {}> extends mquery {
+  class DocumentQuery<T, DocType extends MongooseDocument, QueryHelpers = {}> extends mquery {
     /**
      * Specifies a javascript function or expression to pass to MongoDBs query system.
      * Only use $where when you have a condition that cannot be met using other MongoDB
@@ -2278,7 +2380,7 @@ declare module "mongoose" {
      * constructor with all arguments and options retained.
      */
     toConstructor<T>(): new (...args: any[]) => Query<T> & QueryHelpers;
-    toConstructor<T, Doc extends Document>(): new (...args: any[]) => DocumentQuery<T, Doc, QueryHelpers> & QueryHelpers;
+    toConstructor<T, Doc extends MongooseDocument>(): new (...args: any[]) => DocumentQuery<T, Doc, QueryHelpers> & QueryHelpers;
 
     /**
      * Declare and/or execute this query as an update() operation.
@@ -2469,7 +2571,7 @@ declare module "mongoose" {
          * @param schema discriminator model schema
          * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
+        discriminator<U extends MongooseDocument>(name: string, schema: Schema, value?: string): EmbeddedModel<U>;
 
         /**
          * Adds a discriminator type.
@@ -2477,7 +2579,7 @@ declare module "mongoose" {
          * @param schema discriminator model schema
          * @param value the string stored in the `discriminatorKey` property
          */
-        discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
+        discriminator<U extends MongooseDocument, M extends EmbeddedModel<U>>(name: string, schema: Schema, value?: string): M;
 
       }
 
@@ -2924,7 +3026,7 @@ declare module "mongoose" {
    * http://mongoosejs.com/docs/api.html#model-js
    */
   export var Model: Model<any>;
-  interface Model<T extends Document, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
+  interface Model<T extends MongooseDocument, QueryHelpers = {}> extends NodeJS.EventEmitter, ModelProperties {
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -2987,7 +3089,7 @@ declare module "mongoose" {
     findById(id: any | string | number, projection: any, options: any,
       callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T, QueryHelpers> & QueryHelpers;
 
-    model<U extends Document>(name: string): Model<U>;
+    model<U extends MongooseDocument>(name: string): Model<U>;
 
     /**
      * Creates a Query and specifies a $where condition.
@@ -3057,7 +3159,7 @@ declare module "mongoose" {
      * @param schema discriminator model schema
      * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document>(name: string, schema: Schema, value?: string): Model<U>;
+    discriminator<U extends MongooseDocument>(name: string, schema: Schema, value?: string): Model<U>;
 
     /**
      * Adds a discriminator type.
@@ -3065,7 +3167,7 @@ declare module "mongoose" {
      * @param schema discriminator model schema
      * @param value the string stored in the `discriminatorKey` property
      */
-    discriminator<U extends Document, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
+    discriminator<U extends MongooseDocument, M extends Model<U>>(name: string, schema: Schema, value?: string): M;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]> & QueryHelpers;
@@ -3376,43 +3478,28 @@ declare module "mongoose" {
     where(path: string, val?: any): Query<any> & QueryHelpers;
   }
 
-  class Document {}
-  interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
-    /** Signal that we desire an increment of this documents version. */
-    increment(): this;
-
+  /**
+   * Embedded discrimators' model
+   * https://mongoosejs.com/docs/discriminators.html#embedded-discriminators-in-arrays
+   */
+  interface EmbeddedModel<T extends MongooseDocument, QueryHelpers = {}> extends NodeJS.EventEmitter, EmbeddedModelProperties {
     /**
-     * Returns another Model instance.
-     * @param name model name
+     * Model constructor
+     * Provides the interface to MongoDB collections as well as creates document instances.
+     * @param doc values with which to create the document
+     * @event error If listening to this event, it is emitted when a document
+     *   was saved without passing a callback and an error occurred. If not
+     *   listening, the event bubbles to the connection used to create this Model.
+     * @event index Emitted after Model#ensureIndexes completes. If an error
+     *   occurred it is passed with the event.
+     * @event index-single-start Emitted when an individual index starts within
+     *   Model#ensureIndexes. The fields and options being used to build the index
+     *   are also passed with the event.
+     * @event index-single-done Emitted when an individual index finishes within
+     *   Model#ensureIndexes. If an error occurred it is passed with the event.
+     *   The fields, options, and index name are also passed.
      */
-    model<T extends Document>(name: string): Model<T>;
-
-    /** Override whether mongoose thinks this doc is deleted or not */
-    $isDeleted(isDeleted: boolean): void;
-    /** whether mongoose thinks this doc is deleted. */
-    $isDeleted(): boolean;
-
-    /**
-     * Removes this document from the db.
-     * @param fn optional callback
-     */
-    remove(fn?: (err: any, product: this) => void): Promise<this>;
-
-    /**
-     * Saves this document.
-     * @param options options optional options
-     * @param options.safe overrides schema's safe option
-     * @param options.validateBeforeSave set to false to save without validating.
-     * @param fn optional callback
-     */
-    save(options?: SaveOptions, fn?: (err: any, product: this) => void): Promise<this>;
-    save(fn?: (err: any, product: this) => void): Promise<this>;
-
-    /**
-     * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey
-     * If you're using another key, you will have to access it using []: doc[_myVersionKey]
-     */
-    __v?: number;
+    new(doc?: any): T;
   }
 
   interface SaveOptions {
@@ -3450,8 +3537,22 @@ declare module "mongoose" {
     /** Registered discriminators for this model. */
     discriminators: any;
 
+    /** Event emitter that reports any errors that occurred. Useful for global error handling. */
+    events: events.EventEmitter;
+
     /** The name of the model */
     modelName: string;
+
+    /** Schema the model uses. */
+    schema: Schema;
+  }
+
+  interface EmbeddedModelProperties {
+    /** Event emitter that reports any errors that occurred. Useful for global error handling. */
+    events: NodeJS.EventEmitter;
+
+    /** The name of the model */
+    name: string;
 
     /** Schema the model uses. */
     schema: Schema;
