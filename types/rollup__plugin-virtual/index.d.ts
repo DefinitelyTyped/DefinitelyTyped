@@ -6,17 +6,16 @@
 
 /// <reference types="node" />
 
-declare module '@rollup/plugin-virtual' {
-    import { Plugin } from 'rollup';
-    namespace virtual {
-        interface Options {
-            [filePath: string]: string;
-        }
-    }
+import { Plugin } from 'rollup';
 
-    /**
-     * A Rollup plugin which loads virtual modules from memory.
-     */
-    function virtual(options?: virtual.Options): Plugin;
-    export = virtual;
+declare namespace virtual {
+    interface Options {
+        [filePath: string]: string;
+    }
 }
+
+/**
+ * A Rollup plugin which loads virtual modules from memory.
+ */
+declare function virtual(options?: virtual.Options): Plugin;
+export = virtual;
