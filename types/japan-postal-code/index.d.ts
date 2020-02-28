@@ -1,4 +1,4 @@
-// Type definitions for japan-postal-code 2.0
+// Type definitions for japan-postal-code 0.2
 // Project: https://github.com/mzp/japan-postal-code
 // Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
