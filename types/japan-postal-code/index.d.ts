@@ -3,17 +3,16 @@
 // Definitions by: Takesi Tokugawa <https://github.com/TokugawaTakesi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export as namespace JapanPostalCodeLibrary;
 
 export = JapanPostalCode;
 
-declare abstract class JapanPostalCode {
-  static get: JapanPostalCode.FetchPostalCodeMethod; 
-}
-
+declare const JapanPostalCode: JapanPostalCode.API;
 
 declare namespace JapanPostalCode {
+  export interface API {
+    get: FetchPostalCodeMethod;
+  }
 
   export interface FetchPostalCodeMethod {
     (stringifiedPostalCode: string, callback: Callback): void;
