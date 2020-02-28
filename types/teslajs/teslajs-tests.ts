@@ -6,6 +6,7 @@ async function main() {
   tjs.login('username', 'password', (err, result) => {
     const token = result.authToken;
   });
+  const vehicle = await tjs.vehicleAsync(options)
   const vehicleData = await tjs.vehicleDataAsync(options);
   const chargeState = await tjs.chargeStateAsync(options);
 }

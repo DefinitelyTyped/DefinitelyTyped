@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Vehicle {
-    response: object;
     id: string;
     vehicleID: number;
+    [key: string]: string | number | boolean | null;
 }
 export interface TokenResponse {
     response: object;
@@ -67,7 +67,7 @@ export function logoutAsync(authToken: string): Promise<void>;
 export function vehicle(options: optionsType, callback: nodeBack): Vehicle;
 export function vehicleAsync(options: optionsType): Promise<Vehicle>;
 export function vehicles(options: optionsType, callback: nodeBack): void;
-export function vehiclesAsync(options: optionsType): Promise<object[]>;
+export function vehiclesAsync(options: optionsType): Promise<Array<{[key: string]: string | number | boolean | null}>>;
 export function get_command(options: optionsType, command: string, callback: nodeBack): void;
 export function get_commandAsync(options: optionsType, command: string): Promise<any>;
 export function post_command(options: optionsType, command: string, body: object, callback: nodeBack): void;
