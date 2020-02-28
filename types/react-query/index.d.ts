@@ -46,6 +46,7 @@ export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
 }
 
 export interface QueryResult<TResult, TVariables> {
+    status: 'loading' | 'success' | 'error';
     data: null | TResult;
     error: null | Error;
     isLoading: boolean;
@@ -94,6 +95,7 @@ export type MutateFunction<TResults, TVariables extends object> = (
 ) => Promise<TResults>;
 
 export interface MutationResult<TResults> {
+    status: 'idle' | 'loading' | 'error' | 'success';
     data: TResults | null;
     isLoading: boolean;
     error: null | Error;
