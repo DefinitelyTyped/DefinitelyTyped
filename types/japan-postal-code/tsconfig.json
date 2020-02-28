@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-      "japan-postal-code.ts"
+        "japan-postal-code-tests.ts"
     ]
 }
