@@ -1,6 +1,6 @@
-import Viewer, { Drawer, Viewport, MouseTracker } from 'openseadragon';
+import OpenSeadragon, { Viewport, Drawer, MouseTracker } from 'openseadragon';
 
-const viewer = new Viewer({ id: "viewerid" });
+const viewer = OpenSeadragon({ id: "viewerid" });
 
 viewer.addHandler('tile-loaded', (event) => {
     console.log(event.eventSource);

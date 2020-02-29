@@ -5,6 +5,7 @@
 //                  Jasper Staab <https://github.com/jstaab>
 //                  Kristin Ruben <https://github.com/kristinruben>
 //                  Geoff Harper <https://github.com/geoff-harper>
+//                  Justin <https://github.com/justincy>
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
 // TypeScript Version: 3.5
 /// <reference types="node"/>
@@ -212,7 +213,7 @@ export interface GestureSettings {
     flickMomentum?: number;
 }
 
-interface NavImagesValues {
+export interface NavImagesValues {
     REST: string;
     GROUP: string;
     HOVER: string;
@@ -237,6 +238,7 @@ export interface Options {
         | string
         | string[]
         | TileSource[]
+        | TileSourceOptions
         | {
               Image: {
                   xmlns?: string;
@@ -377,7 +379,7 @@ export interface Options {
     crossOriginPolicy?: "Anonymous" | "use-credentials" | false;
     ajaxWithCredentials?: boolean;
     loadTilesWithAjax?: boolean;
-    axajHeaders?: object;
+    ajaxHeaders?: object;
     imageSmoothingEnabled?: boolean;
 }
 
@@ -671,7 +673,7 @@ export interface GesturePoint {
     currentTime: number;
 }
 
-declare class GesturePointList {
+export class GesturePointList {
     buttons: Button[];
     captureCount: number;
     clicks: number;
@@ -707,7 +709,7 @@ export class OsmTileSource extends TileSource {
     );
 }
 
-type OnDrawCallback = (
+export type OnDrawCallback = (
     position: Point,
     size: Point,
     element: HTMLElement
@@ -1057,7 +1059,7 @@ export class TmsTileSource extends TileSource {
     );
 }
 
-interface TiledImageOptions {
+export interface TiledImageOptions {
     tileSource: string | object;
     index?: number;
     replace?: boolean;
@@ -1306,7 +1308,7 @@ export class ZoomifyTileSource extends TileSource {
 
 // TODO: use proper eventName type aliases, and OSDEvent where appropiate
 
-type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
+export type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
 
 export type ButtonEventName =
     | "blur"
@@ -1384,28 +1386,28 @@ export type WorldEventName =
     | "metrics-change"
     | "remove-item";
 
-interface OSDEvent<T> extends Event {
+export interface OSDEvent<T> extends Event {
     eventSource?: T;
     userData: any;
 }
 
-interface ButtonEvent extends OSDEvent<Button> {
+export interface ButtonEvent extends OSDEvent<Button> {
     originalEvent: Event;
 }
 
-interface TiledImageEvent extends OSDEvent<TiledImage> {
+export interface TiledImageEvent extends OSDEvent<TiledImage> {
     compositeOperationChange?: string;
     fullyLoaded?: boolean;
     opacity?: boolean;
 }
 
-interface TileSourceEvent extends OSDEvent<TileSource> {
+export interface TileSourceEvent extends OSDEvent<TileSource> {
     message?: string;
     source?: string;
     tileSource?: object;
 }
 
-interface ViewerEvent extends OSDEvent<Viewer> {
+export interface ViewerEvent extends OSDEvent<Viewer> {
     message?: string;
     source?: string;
     options?: object;
@@ -1459,10 +1461,10 @@ interface ViewerEvent extends OSDEvent<Viewer> {
     zoom?: number;
 }
 
-interface WorldEvent extends OSDEvent<World> {
+export interface WorldEvent extends OSDEvent<World> {
     item?: TiledImage;
     previousIndex?: number;
     newIndex?: number;
 }
 
-export default Viewer;
+export default function(options: Options): Viewer;
