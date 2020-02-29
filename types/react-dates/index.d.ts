@@ -98,6 +98,7 @@ declare namespace ReactDates {
         hideKeyboardShortcutsPanel?: boolean;
         verticalHeight?: number;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
         verticalSpacing?: number;
 
         // navigation related props
@@ -205,6 +206,7 @@ declare namespace ReactDates {
         isRTL?: boolean;
         verticalHeight?: number | null;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         // navigation related props
         navPrev?: string | JSX.Element;
@@ -437,6 +439,7 @@ declare namespace ReactDates {
         verticalHeight?: number;
         noBorder?: boolean;
         transitionDuration?: number;
+        horizontalMonthPadding?: number;
 
         navPrev?: string | JSX.Element;
         navNext?: string | JSX.Element;

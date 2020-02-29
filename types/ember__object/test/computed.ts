@@ -154,7 +154,8 @@ const objectWithComputedProperties = EmberObject.extend({
     equalNumber: equal('foo', 1),
     equalString: equal('foo', 'bar'),
     equalObject: equal('foo', {}),
-    filter: filter('foo', (item) => item === 'bar'),
+    filter1: filter('foo', (item) => item === 'bar'),
+    filter2: filter('foo', ['bar', 'baz'], (item) => item === 'bar'),
     filterBy1: filterBy('foo', 'bar'),
     filterBy2: filterBy('foo', 'bar', false),
     gt: gt('foo', 3),
@@ -185,6 +186,16 @@ const objectWithComputedProperties = EmberObject.extend({
             return 0;
         }
     }),
+    sort3: sort('foo', ['bar', 'baz'], (itemA, itemB) => {
+        if (itemA < itemB) {
+            return -1;
+        } else if (itemA > itemB) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }),
+
     sum: sum('foo'),
     union: union('foo', 'bar', 'baz', 'qux'),
     uniq: uniq('foo'),

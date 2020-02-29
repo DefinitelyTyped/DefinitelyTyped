@@ -8765,7 +8765,13 @@ declare namespace Office {
             Last = "last"
         }
     }
+    /**
+     * Provides an option for the data format.
+     */
     interface CoercionTypeOptions {
+        /**
+         * The desired data format.
+         */
         coercionType?: Office.CoercionType | string;
     }
     /**
@@ -12244,8 +12250,12 @@ declare namespace Office {
          *
          * Your app must have the `ReadItem` permission specified in its manifest to call the `restUrl` member in read mode.
          *
-         * In compose mode you must call the saveAsync method before you can use the `restUrl` member. 
+         * In compose mode you must call the `saveAsync` method before you can use the `restUrl` member. 
          * Your app must have `ReadWriteItem` permissions to call the `saveAsync` method.
+         *
+         * However, in delegate or shared scenarios, you should instead use the `targetRestUrl` property of the
+         * {@link Office.SharedProperties | SharedProperties} object (introduced in requirement set 1.8). For more information,
+         * see the {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
          *
          * [Api set: Mailbox 1.5]
          *
@@ -12525,7 +12535,7 @@ declare namespace Office {
          *
          * *REST Tokens*
          *
-         * When a REST token is requested (`options.isRest = true`), the resulting token will not work to authenticate Exchange Web Services calls.
+         * When a REST token is requested (`options.isRest` = `true`), the resulting token will not work to authenticate Exchange Web Services calls.
          * The token will be limited in scope to read-only access to the current item and its attachments, unless the add-in has specified the
          * `ReadWriteMailbox` permission in its manifest.
          * If the `ReadWriteMailbox` permission is specified, the resulting token will grant read/write access to mail, calendar, and contacts,
@@ -12533,9 +12543,19 @@ declare namespace Office {
          *
          * The add-in should use the `restUrl` property to determine the correct URL to use when making REST API calls.
          *
+         * This API works for the following scopes:
+         * 
+         * - `Mail.ReadWrite`
+         * 
+         * - `Mail.Send`
+         * 
+         * - `Calendars.ReadWrite`
+         * 
+         * - `Contacts.ReadWrite`
+         *
          * *EWS Tokens*
          *
-         * When an EWS token is requested (`options.isRest = false`), the resulting token will not work to authenticate REST API calls.
+         * When an EWS token is requested (`options.isRest` = `false`), the resulting token will not work to authenticate REST API calls.
          * The token will be limited in scope to accessing the current item.
          *
          * The add-in should use the `ewsUrl` property to determine the correct URL to use when making EWS calls.
@@ -15838,6 +15858,9 @@ declare namespace Office {
     }
     /**
      * Represents the properties of an appointment or message in a shared folder, mailbox, or calendar.
+     *
+     * For more information on how this object is used, see the
+     * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/delegate-access | delegate access} article.
      *
      * [Api set: Mailbox 1.8]
      *
