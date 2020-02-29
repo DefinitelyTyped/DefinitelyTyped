@@ -4,39 +4,39 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface PrettyPrintOptions {
-    showTime: boolean
+    showTime: boolean;
 }
 
 export interface RelativeTimeOptions {
-    futureSuffix: string
-    pastSuffix: string
-    presentText: string
-    returnObject: boolean
-    allUnits: boolean
+    futureSuffix: string;
+    pastSuffix: string;
+    presentText: string;
+    returnObject: boolean;
+    allUnits: boolean;
 }
 
 export interface RelativeTimeReturns {
-    seconds: number
-    hours: number
-    days: number
-    years: number
-    past: boolean
+    seconds: number;
+    hours: number;
+    days: number;
+    years: number;
+    past: boolean;
 }
 
 // prettyPrint
-export function prettyPrint (
+export function prettyPrint(
     arg: string | Date | number,
     options?: PrettyPrintOptions
 ): string;
 
 // relativeTime
-export function relativeTime (
+export function relativeTime(
     arg: string | Date | number,
     options?: RelativeTimeOptions
 ): string | RelativeTimeReturns;
 
 // monthName
-export function monthName (arg: string | Date | number): string;
+export function monthName(arg: string | Date | number): string;
 
 // toUTC
-export function toUTC (arg: string | Date | number): Date;
+export function toUTC(arg: string | Date | number): Date;
