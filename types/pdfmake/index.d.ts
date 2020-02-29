@@ -5,7 +5,9 @@
 //                 Enzo Volkmann <https://github.com/evolkmann>
 //                 Andi Pätzold <https://github.com/andipaetzold>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.0
+
+/// <reference lib="dom" />
 
 declare module "pdfmake/build/vfs_fonts" {
     let pdfMake: {

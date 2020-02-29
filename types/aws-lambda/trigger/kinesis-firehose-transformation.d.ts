@@ -1,4 +1,4 @@
-import { Callback, Handler } from "../hander";
+import { Callback, Handler } from "../handler";
 
 export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
 export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;

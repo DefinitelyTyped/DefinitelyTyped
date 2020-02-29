@@ -22,7 +22,7 @@
 //                  Patrick O'Sullivan <https://github.com/REPTILEHAUS>
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// TypeScript Version: 3.5
 
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
@@ -508,7 +508,7 @@ namespace Parse {
                         : T extends RegExp
                             ? string
                             : T extends Array<infer R>
-                                ? Array<Encode<R>>
+                                ? any[]
                                 : T extends object
                                     ? ToJSON<T>
                                     : T

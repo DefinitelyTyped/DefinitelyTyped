@@ -1,8 +1,19 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODOs
         "no-any-union": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
+                "mode": "code"
+            }
+        ],
         "unified-signatures": false
     }
 }

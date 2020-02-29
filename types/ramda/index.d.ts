@@ -1533,11 +1533,11 @@ export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
  * value according to strict equality (`===`).  Most likely used to
  * filter a list.
  */
-export function propEq<T>(name: string | number, val: T, obj: any): boolean;
-export function propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-export function propEq(name: string | number): {
-    <T>(val: T, obj: any): boolean;
-    <T>(val: T): (obj: any) => boolean;
+export function propEq<K extends string | number, V>(name: K, val: V, obj: Record<K, V>): boolean;
+export function propEq<K extends string | number, V>(name: K, val: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(name: K): {
+    <V>(val: V, obj: Record<K, V>): boolean;
+    <V>(val: V): (obj: Record<K, V>) => boolean;
 };
 
 /**

@@ -7,6 +7,7 @@
 //                 Orblazer <https://github.com/orblazer>
 //                 reduckted <https://github.com/reduckted>
 //                 teidesu <https://github.com/teidesu>
+//                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -43,8 +44,8 @@ declare class WebSocket extends events.EventEmitter {
     onclose: (event: WebSocket.CloseEvent) => void;
     onmessage: (event: WebSocket.MessageEvent) => void;
 
-    constructor(address: string | url.URL, options?: WebSocket.ClientOptions);
-    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions);
+    constructor(address: string | url.URL, options?: WebSocket.ClientOptions | http.ClientRequestArgs);
+    constructor(address: string | url.URL, protocols?: string | string[], options?: WebSocket.ClientOptions | http.ClientRequestArgs);
 
     close(code?: number, data?: string): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;

@@ -2,6 +2,7 @@
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
 //                 Michael Stramel <https://github.com/stramel>
+//                 gargroh <https://github.com/gargroh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 // reflects react-table@7.0.0-rc.15
@@ -733,7 +734,7 @@ export interface UseSortByColumnProps<D extends object> {
     isSortedDesc: boolean | undefined;
 }
 
-export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>) => number;
+export type SortByFn<D extends object> = (rowA: Row<D>, rowB: Row<D>, columnId: IdType<D>, desc?: boolean) => number;
 
 export type DefaultSortTypes = 'alphanumeric' | 'datetime' | 'basic';
 

@@ -1293,7 +1293,7 @@ function testObject() {
         JSONTyped.someDate;
         // $ExpectType ToJSON<AttributesAllTypes>
         JSONTyped.someJSONObject;
-        // $ExpectType ToJSON<AttributesAllTypes>[]
+        // $ExpectType any[]
         JSONTyped.someJSONArray;
         // $ExpectType string
         JSONTyped.someRegExp;

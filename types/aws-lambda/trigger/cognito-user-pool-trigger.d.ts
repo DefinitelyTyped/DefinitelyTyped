@@ -1,4 +1,4 @@
-import { Handler } from "../hander";
+import { Handler } from "../handler";
 
 // Result type is weird: docs and samples say to return the mutated event, but it only requires an object
 // with a "response" field, the type of which is specific to the event.triggerType. Leave as any for now.
@@ -65,6 +65,7 @@ export interface CognitoUserPoolTriggerEvent {
         privateChallengeParameters?: { [key: string]: string };
         challengeAnswer?: string;
         password?: string;
+        clientMetadata?: { [key: string]: string };
     };
     response: {
         autoConfirmUser?: boolean;

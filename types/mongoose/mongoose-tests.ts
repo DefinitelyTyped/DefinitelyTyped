@@ -2280,3 +2280,9 @@ Animal2.find().byName('fido').exec(function(err, animals) {
 Animal2.findOne().byName('fido').exec(function(err, animal) {
   console.log(animal);
 });
+Animal2.find().distinct('_id').byName('fido').exec(function(err, animal) {
+  console.log(animal);
+});
+Animal2.findOne().where({ type: 'dog' }).byName('fido').exec(function(err, animal) {
+  console.log(animal);
+});

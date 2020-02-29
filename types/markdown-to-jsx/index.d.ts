@@ -1,12 +1,13 @@
-// Type definitions for markdown-to-jsx 6.9
+// Type definitions for markdown-to-jsx 6.11
 // Project: https://probablyup.github.io/markdown-to-jsx
 // Definitions by: Elizabeth Craig <https://github.com/ecraig12345>
+//                 Sun Knudsen <https://github.com/sunknudsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
-export default class Markdown extends React.Component<MarkdownProps> { }
+export default class Markdown extends React.Component<MarkdownProps> {}
 
 export interface MarkdownProps extends React.HTMLAttributes<HTMLElement> {
     options?: MarkdownOptions;
@@ -15,10 +16,14 @@ export interface MarkdownProps extends React.HTMLAttributes<HTMLElement> {
     children?: React.ReactNode;
 }
 
-export type ComponentOverride = string | React.ComponentClass | React.SFC | {
-    component: string | React.ComponentClass | React.SFC;
-    props?: any;
-};
+export type ComponentOverride<P = any, S = any> =
+    | string
+    | React.ComponentClass<P, S>
+    | React.SFC<P>
+    | {
+          component: string | React.ComponentClass<P, S> | React.SFC<P>;
+          props?: any;
+      };
 
 export interface MarkdownOptions {
     /** Force all input strings to use block layout. */
@@ -70,9 +75,10 @@ export interface MarkdownOptions {
         type: React.SFC<P> | React.ComponentClass<P> | string,
         // This typing is copied from React
         // tslint:disable-next-line:no-null-undefined-union
-        props?: React.Attributes & P | null,
+        props?: (React.Attributes & P) | null,
         // tslint:disable-next-line:no-null-undefined-union
-        ...children: React.ReactNode[]) => React.ReactElement<P>;
+        ...children: React.ReactNode[]
+    ) => React.ReactElement<P>;
 
     /** Custom function to generate an HTML id from headings. */
     slugify?: (text: string) => string;
