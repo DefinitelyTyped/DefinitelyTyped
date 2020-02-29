@@ -239,6 +239,14 @@ export interface Options {
         | TileSource[]
         | TileSourceOptions
         | {
+            type: string;
+            levels: Array<{
+                url: string;
+                height: number;
+                width: number;
+            }>
+        }
+        | {
               Image: {
                   xmlns?: string;
                   Url: string;
@@ -584,7 +592,7 @@ export class ImageTileSource extends TileSource {
 
 export class LegacyTileSource extends TileSource {
     constructor(
-        levels: Array<{
+        levels?: Array<{
             url: string;
             width: number;
             height: number;
