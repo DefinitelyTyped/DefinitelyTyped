@@ -4,10 +4,10 @@ const arr = ['one', 'two'];
 const obj = {foo: {bar: arr}};
 
 // Pass single `object`.
-set(arr, '0', {}); // $ExpectType any
-set(arr, ['0'], ''); // $ExpectType any
-set(obj, 'foo.bar', 0); // $ExpectType any
-set(obj, 'foo.bar.0', 1); // $ExpectType any
+set(arr, '0', {}); // $ExpectType boolean
+set(arr, ['0'], ''); // $ExpectType boolean
+set(obj, 'foo.bar', 0); // $ExpectType boolean
+set(obj, 'foo.bar.0', 1); // $ExpectType boolean
 
 // Incorrect argument
 set(); // $ExpectError
