@@ -3,4 +3,5 @@
 // Definitions by: Eduardo Turiño <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function parameterize(s: string, num_chars?: number, delimiter?: string): string;
+declare function parameterize(s: string, num_chars?: number, delimiter?: string): string;
+export = parameterize;
