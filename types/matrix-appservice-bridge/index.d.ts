@@ -17,14 +17,9 @@ import {
 
 export type Controller = any;
 
-// FIXME: declare it in the right way
-export class AppServiceRegistration {
-    static generateToken(): string;
-
-    // FIXME: ERROR: 21:8    no-unnecessary-class          Every member of this class is static. Use namespaces or plain objects instead.
-    private tbd(): void;
+declare namespace AppServiceRegistration {
+    export function generateToken(): string
 }
-/* ********************* */
 
 export interface AppServiceRegistration {
     sender_localpart: string;
@@ -52,8 +47,6 @@ export interface CliOptions {
     run: (port: number, config: any) => void;
 }
 
-/* *********************************************** */
-// FIXME: find the official name for this structure
 export interface RoomMemberDict {
     [id: string]: {
     display_name: string,
@@ -66,8 +59,6 @@ export interface RemoteRoomDict {
 export interface EntryDict {
     [id: string]: Entry[];
 }
-// FIXME: END
-/* ****************** */
 
 export interface RoomInfo {
     id: string;         // The matrix room ID
@@ -112,9 +103,6 @@ export interface ThirdPartyLocationResult {
     fields: object;  // The normalised values of the location query field data.
 }
 
-/**
- * FIXME: any
- */
 export type BridgeGetProtocol = any;
 export type BridgeGetLocation = any;
 export type BridgeParseLocation = any;
