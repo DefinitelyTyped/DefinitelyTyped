@@ -17,8 +17,8 @@ import {
 
 export type Controller = any;
 
-declare namespace AppServiceRegistration {
-    export function generateToken(): string
+export namespace AppServiceRegistration {
+    function generateToken(): string;
 }
 
 export interface AppServiceRegistration {
