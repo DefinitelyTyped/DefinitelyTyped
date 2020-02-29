@@ -380,7 +380,7 @@ declare namespace Chart {
         bodySpacing: number;
         borderColor: string;
         borderWidth: number;
-        caretPadding: number,
+        caretPadding: number;
         caretSize: number;
         caretX: number;
         caretY: number;
