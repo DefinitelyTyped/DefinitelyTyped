@@ -1,4 +1,4 @@
-const parameterize = require('parameterize');
+import parameterize = require('parameterize');
 
 parameterize('asa'); // $ExpectType string
 parameterize('aeda', 12); // $ExpectType string
