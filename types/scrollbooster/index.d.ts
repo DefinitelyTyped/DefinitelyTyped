@@ -1,4 +1,7 @@
+// Type definitions for scrollbooster 2.2
+// Project: https://github.com/ilyashubin/scrollbooster
 // Definitions by: Chris <https://github.com/chrisneven>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Position {
     x?: number;
