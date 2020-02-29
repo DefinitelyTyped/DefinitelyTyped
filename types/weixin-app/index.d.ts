@@ -3164,6 +3164,7 @@ declare namespace wx {
 	type Scope =
 		| "scope.userInfo"
 		| "scope.userLocation"
+		| "scope.userLocationBackground"
 		| "scope.address"
 		| "scope.invoiceTitle"
 		| "scope.invoice"
