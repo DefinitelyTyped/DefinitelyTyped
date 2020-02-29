@@ -1,4 +1,4 @@
-// Type definitions for non-npm package wx-app 2.2
+// Type definitions for non-npm package wx-app 2.9
 // Project: https://mp.weixin.qq.com/debug/wxadoc/dev/api/
 // Definitions by: taoqf <https://github.com/taoqf>
 //                 AlexStacker <https://github.com/AlexStacker>
