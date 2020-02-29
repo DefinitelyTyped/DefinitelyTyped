@@ -17,6 +17,7 @@ export interface ScrollingState {
         bottom: boolean;
     };
 }
+
 export interface ScrollBoosterOptions {
     content?: HTMLElement | null;
     viewport: HTMLElement | null;
@@ -33,6 +34,7 @@ export interface ScrollBoosterOptions {
     onClick?: (state: ScrollingState, event: Event) => void;
     shouldScroll?: (state: ScrollingState, event: Event) => boolean;
 }
+
 export default class ScrollBooster {
     constructor(options: ScrollBoosterOptions);
 
