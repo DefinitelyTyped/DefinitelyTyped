@@ -1,4 +1,4 @@
-// Type definitions for react-countup 4.0
+// Type definitions for react-countup 4.3
 // Project: https://react-countup.now.sh
 // Definitions by: Daniel Brodin <https://github.com/danielbrodin>
 //                 Ezequiel Surijon <https://github.com/esurijon>
