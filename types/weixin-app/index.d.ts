@@ -1098,11 +1098,22 @@ declare namespace wx {
 		speed: number;
 		/** 位置的精确度 */
 		accuracy: number;
+		/** 高度，单位 m */
+		altitude: number;
+		/** 垂直精度，单位 m（Android 无法获取，返回 0）*/
+		verticalAccuracy: number;
+		/** 水平精度，单位 m */
+		horizontalAccuracy: number;
 	}
 	interface GetLocationOptions extends BaseOptions {
 		/** 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于wx.openLocation的坐标 */
 		type?: "wgs84" | "gcj02";
-		altitude?: boolean; // 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
+		/** 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度 */
+		altitude?: boolean;
+		/** 开启高精度定位 */
+		isHighAccuracy?: boolean;
+		/** 高精度定位超时时间(ms)，指定时间内返回最高精度，该值3000ms以上高精度定位才有效果 */
+		highAccuracyExpireTime?: number;
 		/** 接口调用成功的回调函数，返回内容详见返回参数说明。 */
 		success(res: LocationData): void;
 	}
