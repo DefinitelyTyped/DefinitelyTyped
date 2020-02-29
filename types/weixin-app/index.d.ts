@@ -1100,7 +1100,7 @@ declare namespace wx {
 		accuracy: number;
 		/** 高度，单位 m */
 		altitude: number;
-		/** 垂直精度，单位 m（Android 无法获取，返回 0）*/
+		/** 垂直精度，单位 m（Android 无法获取，返回 0） */
 		verticalAccuracy: number;
 		/** 水平精度，单位 m */
 		horizontalAccuracy: number;
