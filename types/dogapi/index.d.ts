@@ -30,7 +30,8 @@ interface metric {
             type?: 'gauge' | 'rate' | 'count',
             metric_type?: 'gauge' | 'count',
             host?: string,
-            tags?: ReadonlyArray<string>,}, callback: (err: Error | null, res: "ok") => void): void;
+            tags?: ReadonlyArray<string>,
+        }, callback: (err: Error | null, res: "ok") => void): void;
 }
 
 export const metric: metric;
