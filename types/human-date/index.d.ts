@@ -3,42 +3,40 @@
 // Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Arg = string | Date | number;
-
-export type PrettyPrintOptions = {
+export interface PrettyPrintOptions {
     showTime: boolean
-};
+}
 
-export type RelativeTimeOptions = {
+export interface RelativeTimeOptions {
     futureSuffix: string
     pastSuffix: string
     presentText: string
     returnObject: boolean
     allUnits: boolean
-};
+}
 
-export type RelativeTimeReturns = {
+export interface RelativeTimeReturns {
     seconds: number
     hours: number
     days: number
     years: number
     past: boolean
-};
+}
 
 // prettyPrint
 export function prettyPrint (
-    arg: Arg,
+    arg: string | Date | number,
     options?: PrettyPrintOptions
 ): string;
 
 // relativeTime
 export function relativeTime (
-    arg: Arg,
+    arg: string | Date | number,
     options?: RelativeTimeOptions
 ): string | RelativeTimeReturns;
 
 // monthName
-export function monthName (arg: Arg): string;
+export function monthName (arg: string | Date | number): string;
 
 // toUTC
-export function toUTC (arg: Arg): Date;
+export function toUTC (arg: string | Date | number): Date;
