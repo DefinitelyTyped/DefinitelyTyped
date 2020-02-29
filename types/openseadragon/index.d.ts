@@ -7,8 +7,7 @@
 //                  Geoff Harper <https://github.com/geoff-harper>
 //                  Justin <https://github.com/justincy>
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
-// TypeScript Version: 3.5
-/// <reference types="node"/>
+// TypeScript Version: 3.1
 export class Browser {
     vendor: BROWSERS;
     version: number;
