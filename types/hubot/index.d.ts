@@ -13,7 +13,9 @@ import { Server } from 'http';
 import { Express } from 'express';
 
 declare namespace Hubot {
-    type UnknownData = { [key: string]: unknown };
+    interface UnknownData {
+        [key: string]: unknown;
+    }
 
     class Adapter extends EventEmitter {
         constructor(robot: Robot<Adapter>);
@@ -48,15 +50,15 @@ declare namespace Hubot {
         // write has completed.
         //
         // Value can be any JSON-serializable type.
-        set<T>(key: string, value: T): Promise<void>;
+        set(key: string, value: any): Promise<void>;
 
         // Public: Assuming `key` represents an object in the database,
         // sets its `objectKey` to `value`. If `key` isn't already
         // present, it's instantiated as an empty object.
-        setObject<T>(key: string, objectKey: string, value: T): Promise<void>;
-        setArray<T>(key: string, value: T): Promise<void>;
-        get<T>(key: string): Promise<T | undefined>;
-        getObject<T>(key: string, objectKey: string): Promise<T | undefined>;
+        setObject(key: string, objectKey: string, value: any): Promise<void>;
+        setArray(key: string, value: any): Promise<void>;
+        get(key: string): Promise<any>;
+        getObject(key: string, objectKey: string): Promise<any>;
     }
 
     class DataStoreUnavailable extends Error {}
@@ -70,8 +72,8 @@ declare namespace Hubot {
 
     class Brain<A extends Adapter> extends EventEmitter {
         constructor(robot: Robot<A>);
-        set<T>(key: string, value: T): this;
-        get<T>(key: string): T;
+        set(key: string, value: any): this;
+        get(key: string): any;
         remove(key: string): this;
         save(): void;
         close(): void;
@@ -89,8 +91,8 @@ declare namespace Hubot {
         constructor(id: string, options?: UnknownData);
         id: string;
         name: string;
-        set<T>(key: string, value: T): this;
-        get<T>(key: string): T;
+        set(key: string, value: any): this;
+        get(key: string): any;
         [property: string]: unknown;
     }
 
