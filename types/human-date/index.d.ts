@@ -16,11 +16,11 @@ export interface RelativeTimeOptions {
 }
 
 export interface RelativeTimeReturns {
-    seconds?: number;
-    hours?: number;
-    days?: number;
-    years?: number;
-    past?: boolean;
+    seconds: number;
+    hours: number;
+    days: number;
+    years: number;
+    past: boolean;
 }
 
 // prettyPrint
