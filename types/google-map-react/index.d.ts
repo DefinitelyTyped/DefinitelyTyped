@@ -2,7 +2,7 @@
 // Project: https://github.com/google-map-react/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as React from 'react';
 
