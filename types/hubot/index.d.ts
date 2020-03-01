@@ -18,7 +18,7 @@ declare namespace Hubot {
     }
 
     class Adapter extends EventEmitter {
-        constructor(robot: Robot<Adapter>);
+        constructor(robot: Robot);
 
         send(envelope: Envelope, ...strings: string[]): void;
         emote(envelope: Envelope, ...strings: string[]): void;
@@ -64,7 +64,7 @@ declare namespace Hubot {
     class DataStoreUnavailable extends Error {}
 
     class Middleware<T extends Adapter = Adapter> {
-        stack: MiddlewareHandler<T>[];
+        stack: Array<MiddlewareHandler<T>>;
         constructor(robot: Robot<T>);
         execute(context: MiddlewareContext<T>, next: NextFunction, done: DoneFunction): void;
         register(middleware: MiddlewareHandler<T>): void;
@@ -127,16 +127,16 @@ declare namespace Hubot {
     }
 
     class CatchAllMessage extends Message {
-        public message: Message;
+        message: Message;
 
         constructor(message: Message);
     }
 
-    type Envelope = {
+    interface Envelope {
         room: string;
         user: User;
         message: Message;
-    };
+    }
 
     class Response<R> {
         match: RegExpMatchArray;

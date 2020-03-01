@@ -9,6 +9,6 @@ robot.emit('test', 'arg'); // $ExpectType boolean
 
 const brain = new Brain(robot);
 brain; // $ExpectType Brain<Adapter>
-brain.userForName('someone'); // $ExpectType User
+brain.userForName('someone'); // $ExpectType User | null
 brain.get('test'); // $ExpectType any
 brain.set('test', 'test'); // $ExpectType Brain<Adapter>
