@@ -144,7 +144,7 @@ export interface Props {
     onMapTypeIdChange?(args: any): void;
     distanceToMouse?(pt: Point, mousePos: Point, markerProps?: object): number;
     googleMapLoader?(bootstrapURLKeys: any): void;
-    onGoogleApiLoaded?(maps: { map: any; maps: any, ref: Element | null }): void;
+    onGoogleApiLoaded?(maps: { map: google.maps.Map; maps: typeof google.maps, ref: Element | null }): void;
     onTilesLoaded?(): void;
     yesIWantToUseGoogleMapApiInternals?: boolean;
     style?: React.HTMLProps<HTMLDivElement>;
