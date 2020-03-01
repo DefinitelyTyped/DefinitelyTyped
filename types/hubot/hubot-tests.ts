@@ -16,8 +16,8 @@ robot.helpCommands(); // $ExpectType string[]
 robot.http('https://google.com'); // $ExpectType ScopedClient
 robot.leave(() => null); // $ExpectType void
 robot.listen(
-    msg => true,
-    msg => null,
+    () => true,
+    () => null,
 ); // $ExpectType void
 robot.listenerMiddleware((context, next, done) => {
     next(done);
