@@ -16,40 +16,46 @@ robot.helpCommands(); // $ExpectType string[]
 robot.http('https://google.com'); // $ExpectType ScopedClient
 robot.leave(() => null); // $ExpectType void
 robot.listen(
+    // $ExpectType void
     () => true,
     () => null,
-); // $ExpectType void
+);
 robot.listenerMiddleware((context, next, done) => {
+    // $ExpectType void
     next(done);
-}); // $ExpectType void
+});
 robot.messageRoom('general', 'Hello friends'); // $ExpectType void
 robot.on('test', () => null); // $ExpectType Robot<Adapter>
 robot.receive(message, () => null); // $ExpectType void
 robot.receiveMiddleware((context, next, done) => {
+    // $ExpectType void
     next(done);
-}); // $ExpectType void
+});
 robot.reply(
+    // $ExpectType void
     {
         message,
         user,
         room: 'general',
     },
     'Replying to friends',
-); // $ExpectType void
+);
 robot.respond(/hello/, () => null); // $ExpectType void
 robot.respondPattern(/hello/); // $ExpectType RegExp
 robot.responseMiddleware((context, next, done) => {
+    // $ExpectType void
     next(done);
-}); // $ExpectType void
+});
 robot.run(); // $ExpectType void
 robot.send(
+    // $ExpectType void
     {
         message,
         user,
         room: 'general',
     },
     'Replying to friends',
-); // $ExpectType void
+);
 robot.shutdown(); // $ExpectType void
 robot.topic(message => null); // $ExpectType void
 
