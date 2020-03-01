@@ -6,6 +6,7 @@
 //                  Kristin Ruben <https://github.com/kristinruben>
 //                  Geoff Harper <https://github.com/geoff-harper>
 //                  Justin <https://github.com/justincy>
+//                  Peter Blazejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/alvaromartmart/types-openseadragon
 // TypeScript Version: 3.1
 export class Browser {
@@ -239,13 +240,13 @@ export interface Options {
         | TileSource[]
         | TileSourceOptions
         | {
-            type: string;
-            levels: Array<{
-                url: string;
-                height: number;
-                width: number;
-            }>
-        }
+              type: string;
+              levels: Array<{
+                  url: string;
+                  height: number;
+                  width: number;
+              }>;
+          }
         | {
               Image: {
                   xmlns?: string;
@@ -1474,4 +1475,8 @@ export interface WorldEvent extends OSDEvent<World> {
     newIndex?: number;
 }
 
-export default function(options: Options): Viewer;
+export as namespace OpenSeadragon;
+
+declare function OpenSeadragon(options: OpenSeadragon.Options): Viewer;
+
+export default OpenSeadragon;
