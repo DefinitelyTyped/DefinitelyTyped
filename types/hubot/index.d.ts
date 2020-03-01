@@ -200,7 +200,7 @@ declare namespace Hubot {
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         catchAll(callback: ListenerCallback<A, CatchAllMessage>): void;
         catchAll(options: UnknownData, callback: ListenerCallback<A, CatchAllMessage>): void;
-        emit(event: string | symbol, ...args: unknown[]): boolean;
+        emit(event: string | symbol, ...args: unknown[]): void;
         enter(callback: ListenerCallback<A, EnterMessage>): void;
         enter(options: UnknownData, callback: ListenerCallback<A, EnterMessage>): void;
         error(cb: (error: Error) => void): void;
