@@ -12,6 +12,8 @@ hdate.relativeTime(4, {futureSuffix: "in the future"});
 hdate.relativeTime("8-16-1987");
 hdate.relativeTime(new Date("8-16-1987"));
 hdate.relativeTime(new Date("8-16-1987"), { returnObject: true });
+hdate.relativeTime(new Date("8-16-1987")).length;
+hdate.relativeTime(new Date("8-16-1987"), { returnObject: true }).seconds;
 hdate.relativeTime(75, { allUnits: true });
 
 // .monthName method

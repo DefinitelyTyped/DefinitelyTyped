@@ -32,8 +32,13 @@ export function prettyPrint(
 // relativeTime
 export function relativeTime(
     arg: string | Date | number,
-    options?: RelativeTimeOptions
-): string | RelativeTimeReturns;
+    options?: RelativeTimeOptions & { returnObject?: false }
+): string;
+
+export function relativeTime(
+    arg: string | Date | number,
+    options: RelativeTimeOptions & { returnObject: true }
+): RelativeTimeReturns;
 
 // monthName
 export function monthName(arg: string | Date | number): string;
