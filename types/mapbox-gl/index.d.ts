@@ -1115,7 +1115,10 @@ declare namespace mapboxgl {
         toString(): string;
 
         /** Returns a boolean */
-        isEmpty(): boolean
+        isEmpty(): boolean;
+        
+        /* True if the point is within the bounding box */
+        contains(lnglat: LngLatLike): boolean;
 
         /** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
         static convert(input: LngLatBoundsLike): mapboxgl.LngLatBounds;
