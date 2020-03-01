@@ -1,4 +1,4 @@
-// Type definitions for hubot 3.3.2
+// Type definitions for hubot 3.3
 // Project: https://github.com/hubotio/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 //                 Kees C. Bakker <https://github.com/KeesCBakker>
