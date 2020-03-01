@@ -6,6 +6,8 @@
 
 import * as React from 'react';
 
+import google from 'googlemaps';
+
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string; region?: string; libraries?: string[] | string; };
 
 export interface MapTypeStyle {
