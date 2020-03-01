@@ -40,21 +40,8 @@ declare namespace Hubot {
     }
 
     class DataStore {
-        // Represents a persistent, database-backed storage for the robot. Extend this.
-        //
-        // Returns a new Datastore with no storage.
         constructor(robot: Robot);
-
-        // Public: Set value for key in the database. Overwrites existing
-        // values if present. Returns a promise which resolves when the
-        // write has completed.
-        //
-        // Value can be any JSON-serializable type.
         set(key: string, value: any): Promise<void>;
-
-        // Public: Assuming `key` represents an object in the database,
-        // sets its `objectKey` to `value`. If `key` isn't already
-        // present, it's instantiated as an empty object.
         setObject(key: string, objectKey: string, value: any): Promise<void>;
         setArray(key: string, value: any): Promise<void>;
         get(key: string): Promise<any>;
@@ -138,12 +125,12 @@ declare namespace Hubot {
         message: Message;
     }
 
-    class Response<R> {
+    class Response<A extends Adapter = Adapter, M extends Message = Message> {
         match: RegExpMatchArray;
         message: Message;
         envelope: Envelope;
 
-        constructor(robot: R, message: Message, match: RegExpMatchArray);
+        constructor(robot: Robot<A>, message: Message, match: RegExpMatchArray);
         send(...strings: string[]): void;
         emote(...strings: string[]): void;
         reply(...strings: string[]): void;
@@ -155,11 +142,13 @@ declare namespace Hubot {
         http(url: string, options?: HttpOptions): ScopedClient;
     }
 
-    type ListenerCallback<R> = (response: Response<R>) => void;
+    type ListenerCallback<A extends Adapter = Adapter, M extends Message = Message> = (
+        response: Response<A, M>,
+    ) => void;
     type DoneFunction = () => void;
     type NextFunction = (done: DoneFunction) => void;
     interface MiddlewareContext<T extends Adapter = Adapter> {
-        response?: Response<Robot<T>>;
+        response?: Response<T>;
         [key: string]: unknown;
     }
     type MiddlewareHandler<T extends Adapter = Adapter> = (
@@ -209,20 +198,20 @@ declare namespace Hubot {
         router: Express;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
-        catchAll(callback: ListenerCallback<this>): void;
-        catchAll(options: UnknownData, callback: ListenerCallback<this>): void;
+        catchAll(callback: ListenerCallback<A, CatchAllMessage>): void;
+        catchAll(options: UnknownData, callback: ListenerCallback<A, CatchAllMessage>): void;
         emit(event: string | symbol, ...args: unknown[]): boolean;
-        enter(callback: ListenerCallback<this>): void;
-        enter(options: UnknownData, callback: ListenerCallback<this>): void;
+        enter(callback: ListenerCallback<A, EnterMessage>): void;
+        enter(options: UnknownData, callback: ListenerCallback<A, EnterMessage>): void;
         error(cb: (error: Error) => void): void;
-        hear(regex: RegExp, callback: ListenerCallback<this>): void;
-        hear(regex: RegExp, options: UnknownData, callback: ListenerCallback<this>): void;
+        hear(regex: RegExp, callback: ListenerCallback<A, TextMessage>): void;
+        hear(regex: RegExp, options: UnknownData, callback: ListenerCallback<A, TextMessage>): void;
         helpCommands(): string[];
         http(url: string, options?: HttpOptions): ScopedClient;
-        leave(callback: ListenerCallback<this>): void;
-        leave(options: UnknownData, callback: ListenerCallback<this>): void;
-        listen(matcher: (message: Message) => boolean, callback: ListenerCallback<this>): void;
-        listen(matcher: (message: Message) => boolean, options: UnknownData, callback: ListenerCallback<this>): void;
+        leave(callback: ListenerCallback<A, LeaveMessage>): void;
+        leave(options: UnknownData, callback: ListenerCallback<A, LeaveMessage>): void;
+        listen(matcher: (message: Message) => boolean, callback: ListenerCallback<A>): void;
+        listen(matcher: (message: Message) => boolean, options: UnknownData, callback: ListenerCallback<A>): void;
         listenerMiddleware(middleware: MiddlewareHandler<A>): void;
         loadExternalScripts(packages: string[]): void;
         loadFile(directory: string, fileName: string): void;
@@ -232,15 +221,15 @@ declare namespace Hubot {
         receive(message: Message, cb?: () => void): void;
         receiveMiddleware(middleware: MiddlewareHandler<A>): void;
         reply(envelope: Envelope, ...strings: string[]): void;
-        respond(regex: RegExp, callback: ListenerCallback<this>): void;
-        respond(regex: RegExp, options: UnknownData, callback: ListenerCallback<this>): void;
+        respond(regex: RegExp, callback: ListenerCallback<A, TextMessage>): void;
+        respond(regex: RegExp, options: UnknownData, callback: ListenerCallback<A, TextMessage>): void;
         respondPattern(regex: RegExp): RegExp;
         responseMiddleware(middleware: MiddlewareHandler<A>): void;
         run(): void;
         send(envelope: Envelope, ...strings: string[]): void;
         shutdown(): void;
-        topic(callback: ListenerCallback<this>): void;
-        topic(options: UnknownData, callback: ListenerCallback<this>): void;
+        topic(callback: ListenerCallback<A, TopicMessage>): void;
+        topic(options: UnknownData, callback: ListenerCallback<A, TopicMessage>): void;
     }
 }
 
