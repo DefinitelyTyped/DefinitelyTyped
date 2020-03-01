@@ -174,28 +174,28 @@ declare namespace Hubot {
     }
 
     class Robot<A extends Adapter = Adapter> {
-        name: string;
-        events: EventEmitter;
-        brain: Brain<A>;
-        alias: string;
-        adapterPath: string;
-        adapterName: string;
-        adapter: A;
-        errorHandlers: [];
-        onUncaughtException: (err: Error) => void;
-        datastore: null | DataStore;
-        commands: [];
-        middleware: {
+        readonly name: string;
+        readonly events: EventEmitter;
+        readonly brain: Brain<A>;
+        readonly alias: string;
+        readonly adapterPath: string;
+        readonly adapterName: string;
+        readonly adapter: A;
+        readonly errorHandlers: [];
+        readonly onUncaughtException: (err: Error) => void;
+        readonly datastore: null | DataStore;
+        readonly commands: [];
+        readonly middleware: {
             listener: Middleware<A>;
             response: Middleware<A>;
             receive: Middleware<A>;
         };
-        logger: Log;
-        pingIntervalId: null | NodeJS.Timeout;
-        globalHttpOptions: HttpOptions;
-        version: string;
-        server?: Server;
-        router: Express;
+        readonly logger: Log;
+        readonly pingIntervalId: null | NodeJS.Timeout;
+        readonly globalHttpOptions: HttpOptions;
+        readonly version: string;
+        readonly server?: Server;
+        readonly router: Express;
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         catchAll(callback: ListenerCallback<A, CatchAllMessage>): void;

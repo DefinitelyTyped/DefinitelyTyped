@@ -7,6 +7,7 @@ const robot = new Robot<Adapter>('src/adapters', 'slack', false, 'hubot');
 robot; // $ExpectType Robot<Adapter>
 robot.adapter; // $ExpectType Adapter
 robot.name; // $ExpectType string
+robot.brain; // $ExpectType Brain<Adapter>
 robot.catchAll(() => null); // $ExpectType void
 robot.emit('test', 'arg'); // $ExpectType void
 robot.enter(() => null); // $ExpectType void
