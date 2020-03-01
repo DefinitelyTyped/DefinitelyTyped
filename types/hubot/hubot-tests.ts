@@ -64,3 +64,14 @@ brain; // $ExpectType Brain<Adapter>
 brain.userForName('someone'); // $ExpectType User | null
 brain.get('test'); // $ExpectType any
 brain.set('test', 'test'); // $ExpectType Brain<Adapter>
+brain.remove('test'); // $ExpectType Brain<Adapter>
+brain.setAutoSave(false); // $ExpectType void
+brain.resetSaveInterval(15); // $ExpectType void
+brain.mergeData({ foo: 'bar' }); // $ExpectType void
+brain.users(); // $ExpectType User[]
+brain.userForId('123'); // $ExpectType User
+brain.userForName('jon'); // $ExpectType User | null
+brain.usersForRawFuzzyName('fuzzy'); // $ExpectType User[]
+brain.usersForFuzzyName('fuzzy'); // $ExpectType User[]
+brain.save(); // $ExpectType void
+brain.close(); // $ExpectType void
