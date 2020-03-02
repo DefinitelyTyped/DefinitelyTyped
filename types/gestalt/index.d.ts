@@ -682,7 +682,7 @@ https://pinterest.github.io/gestalt/#/SegmentedControl
 */
 
 export interface SegmentedControlProps {
-    items: Array<React.ReactNode>;
+    items: React.ReactNode[];
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
     selectedItemIndex: number;
     responsive?: boolean;
@@ -840,7 +840,7 @@ https://pinterest.github.io/gestalt/#/Toast
 export interface ToastProps {
     color?: 'darkGray' | 'orange' | 'red';
     icon?: 'arrow-circle-forward';
-    text?: string | Array<string>;
+    text?: string | string[];
     thumbnail?: React.ReactElement;
 }
 
