@@ -231,7 +231,7 @@ export class MatrixClient extends EventEmitter {
   getIdentityServerUrl(stripProto: boolean): string;
   getIgnoredUsers(): string[];
   getJoinedGroups(): Promise<object[]>;
-  getJoinedRoomMembers(roomId: string): Promise<object[]>;
+  getJoinedRoomMembers(roomId: string): Promise<object>;
   getJoinedRooms(): Promise<object[]>;
   getKeyBackupEnabled(): boolean;
   getKeyBackupVersion(): Promise<null | object>;
