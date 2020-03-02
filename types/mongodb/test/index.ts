@@ -66,6 +66,18 @@ mongodb.connect(
   (err: mongodb.MongoError, client: mongodb.MongoClient) => {},
 );
 
+// TLS
+const userName = '';
+const password = '';
+const url = `mongodb://${userName}:${password}@server:27017?authMechanism=MONGODB-X509&tls=true`;
+const client = new mongodb.MongoClient(url, {
+    tls: true,
+    tlsAllowInvalidHostnames: true,
+    tlsCAFile: `${__dirname}/certs/ca.pem`,
+    tlsCertificateKeyFile: `${__dirname}/certs/x509/client.pem`,
+    tlsCertificateKeyFilePassword: '10gen',
+});
+
 // Test other error classes
 new mongodb.MongoNetworkError('network error');
 new mongodb.MongoParseError('parse error');
