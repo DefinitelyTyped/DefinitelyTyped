@@ -414,7 +414,7 @@ export interface TransactionHandle {
      */
     insertDistributedTraceHeaders(headers: {
         [header: string]: number | string | string[] | undefined;
-    }): void
+    }): void;
 }
 
 export interface LinkingMetadata {
