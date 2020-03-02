@@ -103,6 +103,13 @@ declare module "http" {
          * @default 8192
          */
         maxHeaderSize?: number;
+        /**
+         * Use an insecure HTTP parser that accepts invalid HTTP headers when true.
+         * Using the insecure parser should be avoided.
+         * See --insecure-http-parser for more information.
+         * @default false
+         */
+        insecureHTTPParser?: boolean;
     }
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;

@@ -8,6 +8,11 @@ declare module "async_hooks" {
     function executionAsyncId(): number;
 
     /**
+     * Returns the current executing async resource.
+     */
+    function executionAsyncResource(): object;
+
+    /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
