@@ -408,6 +408,13 @@ export interface TransactionHandle {
      * Parses incoming distributed trace header payload.
      */
     acceptDistributedTracePayload(payload: DistributedTracePayload): void;
+
+    /**
+     * Inserts distributed trace headers into the provided headers map.
+     */
+    insertDistributedTraceHeaders(headers: {
+        [header: string]: number | string | string[] | undefined;
+    }): void
 }
 
 export interface LinkingMetadata {
