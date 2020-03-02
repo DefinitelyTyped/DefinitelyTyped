@@ -253,7 +253,7 @@ https://pinterest.github.io/gestalt/#/GroupAvatar
 */
 
 export interface GroupAvatarProps {
-    collaborators: { name: string; src?: string }[];
+    collaborators: ReadonlyArray<{ name: string; src?: string }>;
     outline?: boolean;
     size?: 'sm' | 'md' | 'lg';
 }
@@ -586,8 +586,6 @@ Masonry Props Interface
 https://pinterest.github.io/gestalt/#/Masonry
 */
 
-type ItemData = { [key: string]: any };
-
 export interface MasonryProps {
     comp: React.ComponentType<{ data: { [key: string]: any }; itemIdx?: number; isMeasuring?: boolean }>;
     items: [{ [key: string]: any }];
@@ -684,7 +682,7 @@ https://pinterest.github.io/gestalt/#/SegmentedControl
 */
 
 export interface SegmentedControlProps {
-    items: React.ReactNode[];
+    items: Array<React.ReactNode>;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeIndex: number }) => void;
     selectedItemIndex: number;
     responsive?: boolean;
@@ -699,7 +697,7 @@ https://pinterest.github.io/gestalt/#/SelectList
 export interface SelectListProps {
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
-    options: { label: string; value: string }[];
+    options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean;
     errorMessage?: string;
     name?: string;
@@ -754,7 +752,7 @@ https://pinterest.github.io/gestalt/#/Tabs
 export interface TabsProps {
     activeTabIndex: number;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
-    tabs: { text: any; href: string }[];
+    tabs: ReadonlyArray<{ text: any; href: string }>;
     wrap?: boolean;
 }
 
@@ -842,7 +840,7 @@ https://pinterest.github.io/gestalt/#/Toast
 export interface ToastProps {
     color?: 'darkGray' | 'orange' | 'red';
     icon?: 'arrow-circle-forward';
-    text?: string | string[];
+    text?: string | Array<string>;
     thumbnail?: React.ReactElement;
 }
 
@@ -889,10 +887,10 @@ export interface VideoProps {
     captions: string;
     src:
         | string
-        | {
+        | ReadonlyArray<{
               type: 'video/m3u8' | 'video/mp4' | 'video/ogg';
               src: string;
-          }[];
+          }>;
     accessibilityMaximizeLabel?: string;
     accessibilityMinimizeLabel?: string;
     accessibilityMuteLabel?: string;
