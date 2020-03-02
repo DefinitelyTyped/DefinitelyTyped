@@ -587,8 +587,8 @@ https://pinterest.github.io/gestalt/#/Masonry
 */
 
 export interface MasonryProps {
-    comp: React.ComponentType<{ data: { [key: string]: any }; itemIdx?: number; isMeasuring?: boolean }>;
-    items: [{ [key: string]: any }];
+    comp: React.ComponentType<{ data: any; itemIdx?: number; isMeasuring?: boolean }>;
+    items: any[];
     columnWidth?: number;
     flexible?: boolean;
     gutterWidth?: number;
