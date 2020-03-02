@@ -48,4 +48,4 @@ declare class Scrambo {
     get(number?: number): [string];
 }
 
-export default Scrambo;
+export = Scrambo;
