@@ -23,6 +23,9 @@
             "@rdfjs/fetch-lite": [
                 "rdfjs__fetch-lite"
             ],
+            "@rdfjs/formats-common": [
+                "rdfjs__formats-common"
+            ],
             "@rdfjs/sink-map": [
                 "rdfjs__sink-map"
             ]

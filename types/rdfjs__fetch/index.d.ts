@@ -3,8 +3,8 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FormatsInit, RdfFetchResponse, FactoryInit, DatasetResponse } from '@rdfjs/fetch-lite'
-import { DatasetCore, Quad, BaseQuad } from 'rdf-js'
+import { FormatsInit, RdfFetchResponse, FactoryInit, DatasetResponse } from '@rdfjs/fetch-lite';
+import { DatasetCore, Quad, BaseQuad } from 'rdf-js';
 
 declare function rdfFetch(url: string, options: FormatsInit): Promise<RdfFetchResponse>;
 declare function rdfFetch <D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad>(
