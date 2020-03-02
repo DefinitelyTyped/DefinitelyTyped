@@ -108,8 +108,11 @@ rangeNumbers = linearScaleNumber.range();
 linearScaleString = linearScaleString.range(['steelblue', 'brown']);
 rangeStrings = linearScaleString.range();
 
+// $ExpectError
 linearScaleNumString = linearScaleNumString.range(rangeNumbers);
-rangeNumbers = linearScaleNumString.range();
+
+linearScaleNumString = linearScaleNumString.range(['steelblue', 'brown']);
+domainStrings = linearScaleNumString.range();
 
 // invert(...) -----------------------------------------------------------------
 
@@ -224,8 +227,10 @@ rangeNumbers = powerScaleNumber.range();
 powerScaleString = powerScaleString.range(['steelblue', 'brown']);
 rangeStrings = powerScaleString.range();
 
+// $ExpectError
 powerScaleNumString = powerScaleNumString.range(rangeNumbers);
-rangeNumbers = powerScaleNumString.range();
+powerScaleNumString = powerScaleNumString.range(['steelblue', 'brown']);
+domainStrings = powerScaleNumString.range();
 
 // invert(...) -----------------------------------------------------------------
 
@@ -326,8 +331,10 @@ rangeNumbers = logScaleNumber.range();
 logScaleString = logScaleString.range(['steelblue', 'brown']);
 rangeStrings = logScaleString.range();
 
+// $ExpectError
 logScaleNumString = logScaleNumString.range(rangeNumbers);
-rangeNumbers = logScaleNumString.range();
+logScaleNumString = logScaleNumString.range(['steelblue', 'brown']);
+domainStrings = logScaleNumString.range();
 
 // invert(...) -----------------------------------------------------------------
 
@@ -480,8 +487,11 @@ rangeNumbers = localTimeScaleNumber.range();
 localTimeScaleString = localTimeScaleString.range(['steelblue', 'brown']);
 rangeStrings = localTimeScaleString.range();
 
+// $ExpectError
 localTimeScaleNumString = localTimeScaleNumString.range(rangeNumbers);
-rangeNumbers = localTimeScaleNumString.range();
+
+localTimeScaleNumString = localTimeScaleNumString.range(['steelblue', 'brown']);
+domainStrings = localTimeScaleNumString.range();
 
 // invert(...) -----------------------------------------------------------------
 

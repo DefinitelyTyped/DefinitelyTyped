@@ -34,7 +34,7 @@ export interface InterpolatorFactory<T, U> {
 /**
  * A helper interface for a continuous scale defined over a numeric domain.
  */
-export interface ScaleContinuousNumeric<Range, Output> {
+export interface ScaleContinuousNumeric<Domain, Range> {
     /**
      * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
      *
@@ -44,7 +44,7 @@ export interface ScaleContinuousNumeric<Range, Output> {
      *
      * @param value A numeric value from the domain.
      */
-    (value: number | { valueOf(): number }): Output;
+    (value: number | { valueOf(): number }): Range;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -703,7 +703,7 @@ export function scaleIdentity(): ScaleIdentity;
  * If range element and output element type differ, the interpolator factory used with the scale must match this behavior and
  * convert the interpolated range element to a corresponding output element.
  */
-export interface ScaleTime<Range, Output> {
+export interface ScaleTime<Domain, Range> {
     /**
      * Given a value from the domain, returns the corresponding value from the range, subject to interpolation, if any.
      *
@@ -713,7 +713,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param value A temporal value from the domain. If the value is not a Date, it will be coerced to Date.
      */
-    (value: Date | number | { valueOf(): number }): Output;
+    (value: Date | number | { valueOf(): number }): Range;
 
     /**
      * Given a value from the range, returns the corresponding value from the domain. Inversion is useful for interaction,
@@ -806,7 +806,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param interpolate An interpolation factory. The generics for Range and Output of the scale must correspond to the interpolation factory applied to the scale.
      */
-    interpolate(interpolate: InterpolatorFactory<Range, Output>): this;
+    interpolate(interpolate: InterpolatorFactory<Domain, Range>): this;
     /**
      * Sets the scale’s range interpolator factory. This interpolator factory is used to create interpolators for each adjacent pair of values from the range;
      * these interpolators then map a normalized domain parameter t in [0, 1] to the corresponding value in the range.
@@ -821,7 +821,7 @@ export interface ScaleTime<Range, Output> {
      *
      * @param interpolate An interpolation factory. The generics for Range and Output of the scale must correspond to the interpolation factory applied to the scale.
      */
-    interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScaleTime<Range, NewOutput>;
+    interpolate<NewOutput>(interpolate: InterpolatorFactory<Domain, NewOutput>): ScaleTime<Domain, NewOutput>;
 
     /**
      * Returns representative dates from the scale’s domain. The returned tick values are uniformly-spaced (mostly),
@@ -968,7 +968,7 @@ export function scaleTime<Output>(): ScaleTime<Output, Output>;
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
  */
-export function scaleTime<Range, Output>(): ScaleTime<Range, Output>;
+export function scaleTime<Domain, Range>(): ScaleTime<Domain, Range>;
 
 /**
  * Constructs a new time scale using Coordinated Universal Time (UTC) with the domain [2000-01-01, 2000-01-02], the unit range [0, 1], the default interpolator and clamping disabled.
@@ -1001,7 +1001,7 @@ export function scaleUtc<Output>(): ScaleTime<Output, Output>;
  *
  * The interpolator factory may be set using the interpolate(...) method of the scale.
  */
-export function scaleUtc<Range, Output>(): ScaleTime<Range, Output>;
+export function scaleUtc<Domain, Range>(): ScaleTime<Domain, Range>;
 
 // -------------------------------------------------------------------------------
 // Sequential Scale Factory
@@ -1312,7 +1312,7 @@ export interface ScaleQuantile<Range> {
      *
      * @param domain Array of domain values.
      */
-    domain(domain: Array<number | { valueOf(): number } | null | undefined >): this;
+    domain(domain: Array<number | { valueOf(): number } | null | undefined>): this;
 
     /**
      * Returns the current range.
