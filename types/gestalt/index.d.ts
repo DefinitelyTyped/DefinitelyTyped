@@ -499,7 +499,7 @@ export interface IconButtonProps {
     icon?: Icons;
     iconColor?: 'blue' | 'darkGray' | 'gray' | 'red' | 'white' | 'orange';
     onClick?: (args: { event: React.SyntheticEvent<React.MouseEvent> }) => void;
-    selected: boolean;
+    selected?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
@@ -586,9 +586,11 @@ Masonry Props Interface
 https://pinterest.github.io/gestalt/#/Masonry
 */
 
+type ItemData = { [key: string]: any };
+
 export interface MasonryProps {
-    comp: React.ComponentType;
-    items: any[];
+    comp: React.ComponentType<{ data: { [key: string]: any }; itemIdx?: number; isMeasuring?: boolean }>;
+    items: [{ [key: string]: any }];
     columnWidth?: number;
     flexible?: boolean;
     gutterWidth?: number;
@@ -915,7 +917,7 @@ export interface VideoProps {
     playsInline?: boolean;
     poster?: string;
     preload?: 'auto' | 'metadata' | 'none';
-    volume: number;
+    volume?: number;
 }
 
 export class Avatar extends React.Component<AvatarProps, any> {}
