@@ -1,19 +1,45 @@
-import { APIGatewayEventRequestContextWithAuthorizer, AuthResponseContext } from "../common/api-gateway";
+import {
+    APIGatewayEventDefaultAuthorizerContext,
+    APIGatewayEventRequestContextWithAuthorizer,
+} from "../common/api-gateway";
 import { Callback, Handler } from "../handler";
 
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 
-export type APIGatewayProxyWithAuthorizerHandler<TAuthorizer> = Handler<APIGatewayProxyEventWithAuthorizer<TAuthorizer>, APIGatewayProxyResult>;
+export type APIGatewayProxyEvent = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>;
 
-export type ProxyHandler = APIGatewayProxyHandler; // Old name
-export type ProxyCallback = APIGatewayProxyCallback; // Old name
-export type APIGatewayEvent = APIGatewayProxyEvent; // Old name
-export type ProxyResult = APIGatewayProxyResult; // Old name
+export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> =
+    Handler<APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>, APIGatewayProxyResult>;
 
-export type APIGatewayProxyEvent = APIGatewayProxyEventWithAuthorizer<AuthResponseContext | null | undefined>;
+export type APIGatewayProxyWithCognitoAuthorizerHandler =
+    Handler<APIGatewayProxyWithCognitoAuthorizerEvent, APIGatewayProxyResult>;
 
-export interface APIGatewayProxyEventWithAuthorizer<TAuthorizer> {
+export type APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext> =
+    APIGatewayProxyEventBase<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
+
+export type APIGatewayProxyWithLambdaAuthorizerEventRequestContext<TAuthorizerContext> =
+    APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
+
+// API Gateway proxy integration mangles the context from a custom authorizer,
+// converting all number or boolean properties to string, and adding some extra properties.
+export type APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext> = {
+    [P in keyof TAuthorizerContext]: TAuthorizerContext[P] extends null ? null : string;
+} & {
+    principalId: string;
+    integrationLatency: number;
+};
+
+export type APIGatewayProxyWithCognitoAuthorizerEvent = APIGatewayProxyEventBase<APIGatewayProxyCognitoAuthorizer>;
+
+// All claims are coerced into strings.
+export interface APIGatewayProxyCognitoAuthorizer {
+    claims: {
+        [name: string]: string;
+    };
+}
+
+export interface APIGatewayProxyEventBase<TAuthorizerContext> {
     body: string | null;
     headers: { [name: string]: string };
     multiValueHeaders: { [name: string]: string[] };
@@ -24,17 +50,8 @@ export interface APIGatewayProxyEventWithAuthorizer<TAuthorizer> {
     queryStringParameters: { [name: string]: string } | null;
     multiValueQueryStringParameters: { [name: string]: string[] } | null;
     stageVariables: { [name: string]: string } | null;
-    requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizer>;
+    requestContext: APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>;
     resource: string;
-}
-
-export type APIGatewayProxyEventWithCognitoAuthorizer = APIGatewayProxyEventWithAuthorizer<APIGatewayProxyCognitoAuthorizer>;
-export type APIGatewayEventRequestContextWithCognitoAuthorizer = APIGatewayEventRequestContextWithAuthorizer<APIGatewayProxyCognitoAuthorizer>;
-
-export interface APIGatewayProxyCognitoAuthorizer {
-    claims: {
-        [name: string]: string | number | boolean,
-    };
 }
 
 export interface APIGatewayProxyResult {
@@ -48,3 +65,9 @@ export interface APIGatewayProxyResult {
     body: string;
     isBase64Encoded?: boolean;
 }
+
+// Legacy names
+export type ProxyHandler = APIGatewayProxyHandler;
+export type ProxyCallback = APIGatewayProxyCallback;
+export type APIGatewayEvent = APIGatewayProxyEvent;
+export type ProxyResult = APIGatewayProxyResult;

@@ -1,17 +1,23 @@
 import {
     APIGatewayAuthorizerHandler,
     APIGatewayAuthorizerResult,
+    APIGatewayAuthorizerResultContext,
     APIGatewayAuthorizerWithContextHandler,
     APIGatewayAuthorizerWithContextResult,
     APIGatewayEvent,
+    APIGatewayEventDefaultAuthorizerContext,
+    APIGatewayEventLambdaAuthorizerContext,
     APIGatewayEventRequestContext,
     APIGatewayEventRequestContextWithAuthorizer,
     APIGatewayProxyEvent,
     APIGatewayProxyHandler,
     APIGatewayProxyResult,
-    APIGatewayProxyWithAuthorizerHandler,
-    APIGatewayRequestAuthorizerHandler, APIGatewayRequestAuthorizerWithContextHandler,
-    APIGatewayTokenAuthorizerHandler, APIGatewayTokenAuthorizerWithContextHandler,
+    APIGatewayProxyWithLambdaAuthorizerEventRequestContext,
+    APIGatewayProxyWithLambdaAuthorizerHandler,
+    APIGatewayRequestAuthorizerHandler,
+    APIGatewayRequestAuthorizerWithContextHandler,
+    APIGatewayTokenAuthorizerHandler,
+    APIGatewayTokenAuthorizerWithContextHandler,
     AuthResponseContext,
     Context,
     CustomAuthorizerHandler,
@@ -22,9 +28,42 @@ import {
     Statement,
 } from "aws-lambda";
 
-interface CustomAuthorizerContext {
-    customToken: string;
+interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
+    valid: string | number | boolean | null | undefined;
+    str: string;
+    num: number;
+    bool: boolean;
+    numOrNull: number | null;
+    numOrUndefined: number | undefined;
+    und: undefined;
 }
+
+// Can't serialize objects in the response from an authorizer
+interface CustomAuthorizerInvalidResponseContext extends APIGatewayAuthorizerResultContext {
+    valid: string | number | boolean | null | undefined;
+    // $ExpectError
+    invalid: {
+        id: number;
+    };
+}
+
+// Enforce custom response contexts extend APIGatewayAuthorizerResultContext for use in authorizer,
+// $ExpectError
+type InvalidCustomAuthorizerHandler = APIGatewayAuthorizerWithContextHandler<{
+    valid: string | number | boolean | null | undefined;
+    invalid: {
+        id: number;
+    };
+}>;
+
+// but don't care about in proxy, since it's overkill to force extending an interface if
+// its not defined in the same codebase
+type ProbablyInvalidCustomProxyHandler = APIGatewayProxyWithLambdaAuthorizerHandler<{
+    valid: string | number | boolean | null | undefined;
+    invalid: {
+        id: number;
+    };
+}>;
 
 let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     strOrNull = event.body;
@@ -47,7 +86,15 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     str = requestContext.protocol;
     str = requestContext.accountId;
     str = requestContext.apiId;
-    const authContext: AuthResponseContext | null | undefined = requestContext.authorizer;
+    const authContext: APIGatewayEventDefaultAuthorizerContext = requestContext.authorizer;
+    if (authContext) {
+        // Anything goes by default
+        str = authContext.claims[str];
+        str = authContext.principalId;
+        num = authContext.integrationLatency;
+        // Even probable mistakes: lambda contexts properties are converted to string
+        num = authContext.num;
+    }
     numOrUndefined = requestContext.connectedAt;
     strOrUndefined = requestContext.connectionId;
     strOrUndefined = requestContext.domainName;
@@ -85,20 +132,38 @@ let proxyHandler: APIGatewayProxyHandler = async (event, context, callback) => {
     return result;
 };
 
-const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
+const proxyHandlerWithCustomAuthorizer: APIGatewayProxyWithLambdaAuthorizerHandler<CustomAuthorizerContext> = async (event, context, callback) => {
     // standard fields...
     strOrNull = event.body;
     str = event.headers['example'];
     str = event.multiValueHeaders['example'][0];
 
-    let requestContext: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
+    // It seems like it would be easy to make this mistake, but it's still a useful type.
+    let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextWithAuthorizer<CustomAuthorizerContext>;
+    // $ExpectError
+    requestContextWithAuthorizerDirectly = event.requestContext;
+
+    // Check assignable to named types
+    let requestContext: APIGatewayProxyWithLambdaAuthorizerEventRequestContext<CustomAuthorizerContext>;
     requestContext = event.requestContext;
+
+    let authorizer: APIGatewayEventLambdaAuthorizerContext<CustomAuthorizerContext>;
+    authorizer = requestContext.authorizer;
 
     // And it can be converted down to the basic type
     const basicEvent: APIGatewayProxyEvent = event;
     const basicRequestContext: APIGatewayEventRequestContext = event.requestContext;
 
-    str = requestContext.authorizer.customToken;
+    // All non-null or undefined types are converted to string.
+    str = authorizer.valid;
+    str = authorizer.str;
+    str = authorizer.num;
+    str = authorizer.bool;
+    strOrNull = authorizer.numOrNull;
+    strOrUndefined = authorizer.numOrUndefined;
+    // And these extra properties are added
+    str = authorizer.principalId;
+    num = authorizer.integrationLatency;
 
     const result = createProxyResult();
 
@@ -358,7 +423,13 @@ function createAuthorizerResultWithCustomContext(): APIGatewayAuthorizerWithCont
         principalId: str,
         policyDocument: createPolicyDocument(),
         context: {
-            customToken: str,
+            valid: [str, num, bool, null, undefined][num],
+            str,
+            num,
+            bool,
+            numOrNull: [num, null][num],
+            numOrUndefined: [num, undefined][num],
+            und: undefined,
         },
     };
 
