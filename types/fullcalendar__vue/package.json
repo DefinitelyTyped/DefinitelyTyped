@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "dependencies": {
+        "@fullcalendar/core": "^4.4.0",
+        "@fullcalendar/daygrid": "^4.4.0",
+        "@fullcalendar/vue": "^4.4.0",
+        "vue": ">=2.0.0"
+    }
+}
