@@ -32,6 +32,12 @@ declare module 'moment' {
     (date: any, timezone: string): moment.Moment;
 
     zone(timezone: string): MomentZone | null;
+    /**
+     * Get a list of timezones for some country
+     * @param country The country code
+     * @param options Set offset to true to also get offsets
+     */
+    zonesForCountry(country: string, options?: { offset: boolean }): string[];
 
     add(packedZoneString: string): void;
     add(packedZoneString: string[]): void;

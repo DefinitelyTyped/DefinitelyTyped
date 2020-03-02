@@ -4,6 +4,7 @@
 //                 Alan Brazil Lins <https://github.com/alanblins>
 //                 Agustin Carrasco <https://github.com/asermax>
 //                 Borys Kupar <https://github.com/borys-kupar>
+//                 Justin Rahardjo <https://github.com/justindra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import moment = require('./moment-timezone');
