@@ -2276,7 +2276,7 @@ declare namespace Cesium {
           polygon?: PolygonGraphics;
           polyline?: PolylineGraphics;
           polylineVolume?: PolylineVolumeGraphics;
-          properties: any; // PropertyBag
+          properties?: any; // PropertyBag
           rectangle?: RectangleGraphics;
           wall?: WallGraphics
         });
