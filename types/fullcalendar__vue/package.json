@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@fullcalendar/vue": "^4.4.0",
         "vue": ">=2.0.0"
     }
 }
