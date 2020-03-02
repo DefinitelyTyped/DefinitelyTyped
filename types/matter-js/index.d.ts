@@ -1,9 +1,10 @@
-// Type definitions for Matter.js - 0.10.1
+// Type definitions for Matter.js - 0.14.2
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
 //                 Piotr Pietrzak <https://github.com/hasparus>,
 //                 Dale Whinham <https://github.com/dwhinham>
+//                 slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -2439,6 +2440,13 @@ declare namespace Matter {
          * default undefined
          */
         background?: string
+
+        /**
+         * Sets wireframe background if `render.options.wireframes` is enabled
+         * @type string
+         * default undefined
+         */
+        wireframeBackground?: string
     }
 
     /**
