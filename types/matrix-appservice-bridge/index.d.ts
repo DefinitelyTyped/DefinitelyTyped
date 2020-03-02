@@ -152,7 +152,7 @@ export interface ProvisionedRoom {
 }
 
 export class Bridge {
-    public opts: BridgeOptions;
+    opts: BridgeOptions;
     constructor(opts: BridgeOptions);
     run(port: number, config: object, appServiceInstance?: AppService): void;
     getIntent(userId?: string, request?: Request): Intent;
