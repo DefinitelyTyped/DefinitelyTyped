@@ -75,7 +75,7 @@ export interface BoxProps {
     lgColumn?: UnsignedUpTo12;
     dangerouslySetInlineStyle?: {
         __style: {
-            [key: string]: string | number | void;
+            [key: string]: string | number | undefined;
         };
     };
     direction?: 'row' | 'column';
