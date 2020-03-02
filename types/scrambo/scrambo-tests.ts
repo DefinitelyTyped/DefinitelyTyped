@@ -1,4 +1,4 @@
-import Scrambo from 'scrambo';
+import Scrambo = require('scrambo');
 
 (async () => {
     const scrambo = new Scrambo();
