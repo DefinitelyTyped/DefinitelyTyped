@@ -409,6 +409,8 @@ const test = () => (
         <Spacer marginRight={[1, 2, 3]} paddingRight={[1, 2, 3]} />
         <Spacer marginTop={[1, 2, 3]} paddingTop={[1, 2, 3]} />
         <Spacer marginBottom={[1, 2, 3]} paddingBottom={[1, 2, 3]} />
+        <Spacer marginX={[1, 2, 3]} paddingX={[1, 2, 3]} />
+        <Spacer marginY={[1, 2, 3]} paddingY={[1, 2, 3]} />
         // overflow
         <Box overflow="hidden" />
         <Box overflowX="auto" />
