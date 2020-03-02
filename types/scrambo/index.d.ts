@@ -9,47 +9,43 @@ type ScrambleType = NNN | 'clock' | 'minx' | 'pyram' | 'sq1' | 'skewb';
 declare class Scrambo {
     /**
      * Sets this instance's scrambler type and returns the original instance.
-     * 
      * @param type
      */
-    type (type: ScrambleType): Scrambo;
+    type(type: ScrambleType): Scrambo;
 
     /**
      * Returns the currently configured scrambler type.
      */
-    type (): ScrambleType;
-    
+    type(): ScrambleType;
+
     /**
      * Sets this instance's seed and returns the original instance.
-     * 
      * @param seed
      */
-    seed (seed: number): Scrambo;
+    seed(seed: number): Scrambo;
 
     /**
      * Returns the current seed type of this scrambler.
      */
-    seed (): number;
-    
+    seed(): number;
+
     /**
      * Sets this instance's scramble length and returns the original instance.
-     * 
      * @param length
      */
-    length (length: number): Scrambo;
+    length(length: number): Scrambo;
 
     /**
      * Returns the currently configured scramble length.
      */
-    length (): number;
+    length(): number;
 
     /**
      * Returns an array of random scrambles with the given length
      * for the configured scrambler type.
-     * 
      * @param number defaults to 1
      */
-    get (number?: number): [string];
+    get(number?: number): [string];
 }
 
 export default Scrambo;
