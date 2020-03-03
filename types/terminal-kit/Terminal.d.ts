@@ -4,7 +4,7 @@ type Terminal = Terminal.Impl & EventEmitter;
 
 export = Terminal;
 
-type Callback<T> = ((err: any) => void) | ((err: undefined, arg: T) => void);
+type Callback<T> = (err: any, arg: T) => void;
 
 declare namespace Terminal {
   interface Impl {
