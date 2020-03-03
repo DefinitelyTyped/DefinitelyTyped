@@ -4,6 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.8
 
-declare module 'fxjs' {
-    export function go(..._: any[]): any[];
-}
+export function go(..._: any[]): any[];
