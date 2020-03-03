@@ -11,7 +11,7 @@ import * as React from 'react';
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
 export interface ReactCropperProps extends Cropper.Options, Omit<React.HTMLProps<HTMLImageElement>, 'data' | 'ref'> {
-    ref?: string | ((cropper: null | ReactCropper) => any);
+    ref?: string | React.RefObject<Cropper | undefined> | ((cropper: null | ReactCropper) => any);
 }
 
 interface ReactCropper extends Cropper {} // tslint:disable-line no-empty-interface
