@@ -5,8 +5,8 @@ export type DurationInput = DurationObjectInput | string | number;
 export type DateInput = Date | string | number | number[];
 export type FuncFormatterFunc = (arg: any) => string;
 export type FormatterInput = object | string | FuncFormatterFunc;
-export type OverlapFunc = (stillEvent: any, movingEvent: any | null) => boolean;
-export type AllowFunc = (span: any, movingEvent: any | null) => boolean;
+export type OverlapFunc = (stillEvent: any, movingEvent: any) => boolean;
+export type AllowFunc = (span: any, movingEvent: any) => boolean;
 
 export interface DurationObjectInput {
     years?: number;
