@@ -1,11 +1,55 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from "react-native";
+import { Animated, View, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+
+interface CompProps {
+    width: number;
+}
+
+class Comp extends React.Component<CompProps> {
+    f1: () => boolean = () => true;
+
+    render() {
+        const { width } = this.props;
+        return <View style={{ width }} />;
+    }
+}
+
+const ForwardComp = React.forwardRef<View, CompProps>(({ width }, ref) => {
+    function f1(): boolean {
+        return true;
+    }
+
+    return <View ref={ref} style={{ width }} />;
+});
 
 function TestAnimatedAPI() {
     // Value
     const v1 = new Animated.Value(0);
     const v2 = new Animated.Value(0);
+
+    // Ref
+    const AnimatedViewRef = React.useRef<typeof Animated.View>(null);
+
+    AnimatedViewRef.current &&
+        AnimatedViewRef.current.getNode().measure((x, y, width, height, pageX, pageY) => {
+            return;
+        });
+
+    const AnimatedComp = Animated.createAnimatedComponent(Comp);
+
+    const AnimatedCompRef = React.useRef<typeof AnimatedComp>(null);
+
+    AnimatedCompRef.current && AnimatedCompRef.current.getNode().f1();
+
+    const AnimatedForwardComp = Animated.createAnimatedComponent(ForwardComp);
+
+    const AniamtedForwardCompRef = React.useRef<Animated.AnimatedComponent<View>>(null);
+    const ForwardCompRef = React.useRef<View>(null);
+
+    AniamtedForwardCompRef.current?.getNode().measure((x, y, width, height, pageX, pageY) => {
+        return;
+    });
 
     v1.setValue(0.1);
 
@@ -76,6 +120,7 @@ function TestAnimatedAPI() {
     return (
         <View>
             <Animated.View
+                ref={AnimatedViewRef}
                 style={[
                     position.getLayout(),
                     {
@@ -83,8 +128,10 @@ function TestAnimatedAPI() {
                     },
                 ]}
             />
-
-            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
+            <AnimatedComp ref={AnimatedCompRef} width={v1} />
+            <ForwardComp ref={ForwardCompRef} width={1} />
+            <AnimatedForwardComp ref={AniamtedForwardCompRef} width={10} />
+            <Animated.Image style={position.getTranslateTransform()} source={{ uri: 'https://picsum.photos/200' }} />
         </View>
     );
 }

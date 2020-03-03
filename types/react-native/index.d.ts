@@ -55,8 +55,11 @@
 /// <reference path="LaunchScreen.d.ts" />
 
 import * as React from 'react';
+import { ForwardRefExoticComponent } from '../react';
 
 type Constructor<T> = new (...args: any[]) => T;
+
+export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
 
 export type MeasureOnSuccessCallback = (
     x: number,
@@ -84,7 +87,7 @@ interface EventSubscription {
      * @param subscriber the subscriber that controls
      *   this subscription.
      */
-    new(subscriber: EventSubscriptionVendor): EventSubscription;
+    new (subscriber: EventSubscriptionVendor): EventSubscription;
 
     /**
      * Removes this subscription from the subscriber that controls it.
@@ -149,7 +152,7 @@ interface EmitterSubscription extends EventSubscription {
      * @param context - Optional context object to use when invoking the
      *   listener
      */
-    new(
+    new (
         emitter: EventEmitter,
         subscriber: EventSubscriptionVendor,
         listener: () => any,
@@ -186,7 +189,7 @@ interface EventEmitter extends EventEmitterListener {
      * @param subscriber - Optional subscriber instance
      *   to use. If omitted, a new subscriber will be created for the emitter.
      */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter;
+    new (subscriber?: EventSubscriptionVendor): EventEmitter;
 
     /**
      * Similar to addListener, except that the listener is removed after it is
@@ -377,7 +380,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> { }
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
 
 export interface NativeTouchEvent {
     /**
@@ -426,7 +429,7 @@ export interface NativeTouchEvent {
     touches: NativeTouchEvent[];
 }
 
-export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> { }
+export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 // See https://facebook.github.io/react-native/docs/scrollview.html#contentoffset
 export interface PointPropType {
@@ -722,6 +725,7 @@ export interface TransformsStyle {
 
 export interface StyleSheetProperties {
     hairlineWidth: number;
+
     flatten<T extends string>(style: T): T;
 }
 
@@ -740,6 +744,7 @@ export interface LayoutChangeEvent {
 }
 
 export type FontVariant = 'small-caps' | 'oldstyle-nums' | 'lining-nums' | 'tabular-nums' | 'proportional-nums';
+
 export interface TextStyleIOS extends ViewStyle {
     fontVariant?: FontVariant[];
     letterSpacing?: number;
@@ -902,9 +907,11 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
 /**
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
-declare class TextComponent extends React.Component<TextProps> { }
+declare class TextComponent extends React.Component<TextProps> {}
+
 declare const TextBase: Constructor<NativeMethodsMixin> & typeof TextComponent;
-export class Text extends TextBase { }
+
+export class Text extends TextBase {}
 
 type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 'none' | 'all';
 
@@ -918,7 +925,7 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
-    new(anchor: number, focus: number): DocumentSelectionState;
+    new (anchor: number, focus: number): DocumentSelectionState;
 
     /**
      * Apply an update to the state. If either offset value has changed,
@@ -935,15 +942,23 @@ export interface DocumentSelectionState extends EventEmitter {
     constrainLength(maxLength: number): void;
 
     focus(): void;
+
     blur(): void;
+
     hasFocus(): boolean;
+
     isCollapsed(): boolean;
+
     isBackward(): boolean;
 
     getAnchorOffset(): number;
+
     getFocusOffset(): number;
+
     getStartOffset(): number;
+
     getEndOffset(): number;
+
     overlaps(start: number, end: number): boolean;
 }
 
@@ -1063,34 +1078,34 @@ export interface TextInputIOSProps {
      *
      */
     textContentType?:
-    | 'none'
-    | 'URL'
-    | 'addressCity'
-    | 'addressCityAndState'
-    | 'addressState'
-    | 'countryName'
-    | 'creditCardNumber'
-    | 'emailAddress'
-    | 'familyName'
-    | 'fullStreetAddress'
-    | 'givenName'
-    | 'jobTitle'
-    | 'location'
-    | 'middleName'
-    | 'name'
-    | 'namePrefix'
-    | 'nameSuffix'
-    | 'nickname'
-    | 'organizationName'
-    | 'postalCode'
-    | 'streetAddressLine1'
-    | 'streetAddressLine2'
-    | 'sublocality'
-    | 'telephoneNumber'
-    | 'username'
-    | 'password'
-    | 'newPassword'
-    | 'oneTimeCode';
+        | 'none'
+        | 'URL'
+        | 'addressCity'
+        | 'addressCityAndState'
+        | 'addressState'
+        | 'countryName'
+        | 'creditCardNumber'
+        | 'emailAddress'
+        | 'familyName'
+        | 'fullStreetAddress'
+        | 'givenName'
+        | 'jobTitle'
+        | 'location'
+        | 'middleName'
+        | 'name'
+        | 'namePrefix'
+        | 'nameSuffix'
+        | 'nickname'
+        | 'organizationName'
+        | 'postalCode'
+        | 'streetAddressLine1'
+        | 'streetAddressLine2'
+        | 'sublocality'
+        | 'telephoneNumber'
+        | 'username'
+        | 'password'
+        | 'newPassword'
+        | 'oneTimeCode';
 
     /**
      * If false, scrolling of the text view will be disabled. The default value is true. Only works with multiline={true}
@@ -1126,19 +1141,19 @@ export interface TextInputAndroidProps {
      * - `off`
      */
     autoCompleteType?:
-    | 'cc-csc'
-    | 'cc-exp'
-    | 'cc-exp-month'
-    | 'cc-exp-year'
-    | 'cc-number'
-    | 'email'
-    | 'name'
-    | 'password'
-    | 'postal-code'
-    | 'street-address'
-    | 'tel'
-    | 'username'
-    | 'off';
+        | 'cc-csc'
+        | 'cc-exp'
+        | 'cc-exp-month'
+        | 'cc-exp-year'
+        | 'cc-number'
+        | 'email'
+        | 'name'
+        | 'password'
+        | 'postal-code'
+        | 'street-address'
+        | 'tel'
+        | 'username'
+        | 'off';
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -1155,12 +1170,7 @@ export interface TextInputAndroidProps {
      * - `yes` - is important for autofill
      * - `yesExcludeDescendants` - this view is important for autofill but its children aren't
      */
-    importantForAutofill?:
-    | "auto"
-    | "no"
-    | "noExcludeDescendants"
-    | "yes"
-    | "yesExcludeDescendants";
+    importantForAutofill?: 'auto' | 'no' | 'noExcludeDescendants' | 'yes' | 'yesExcludeDescendants';
 
     /**
      * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
@@ -1209,13 +1219,7 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType =
-    | 'default'
-    | 'email-address'
-    | 'numeric'
-    | 'phone-pad'
-    | 'number-pad'
-    | 'decimal-pad';
+export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad' | 'number-pad' | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
@@ -1547,8 +1551,10 @@ interface TextInputState {
 /**
  * @see https://facebook.github.io/react-native/docs/textinput.html#methods
  */
-declare class TextInputComponent extends React.Component<TextInputProps> { }
+declare class TextInputComponent extends React.Component<TextInputProps> {}
+
 declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
+
 export class TextInput extends TextInputBase {
     /**
      * Access the current focus state.
@@ -1701,9 +1707,11 @@ export interface ToolbarAndroidProps extends ViewProps {
  *
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
-declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> { }
+declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> {}
+
 declare const ToolbarAndroidBase: Constructor<NativeMethodsMixin> & typeof ToolbarAndroidComponent;
-export class ToolbarAndroid extends ToolbarAndroidBase { }
+
+export class ToolbarAndroid extends ToolbarAndroidBase {}
 
 /**
  * Gesture recognition on mobile devices is much more complicated than web.
@@ -2008,7 +2016,9 @@ export interface ViewPropsAndroid {
 }
 
 type Falsy = undefined | null | false;
-interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> { }
+
+interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
+
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy;
@@ -2257,10 +2267,10 @@ type AccessibilityTrait =
  */
 export interface ViewProps
     extends ViewPropsAndroid,
-    ViewPropsIOS,
-    GestureResponderHandlers,
-    Touchable,
-    AccessibilityProps {
+        ViewPropsIOS,
+        GestureResponderHandlers,
+        Touchable,
+        AccessibilityProps {
     /**
      * This defines how far a touch event can start away from the view.
      * Typical interface guidelines recommend touch targets that are at least
@@ -2332,8 +2342,10 @@ export interface ViewProps
  * View maps directly to the native view equivalent on whatever platform React is running on,
  * whether that is a UIView, <div>, android.view, etc.
  */
-declare class ViewComponent extends React.Component<ViewProps> { }
+declare class ViewComponent extends React.Component<ViewProps> {}
+
 declare const ViewBase: Constructor<NativeMethodsMixin> & typeof ViewComponent;
+
 export class View extends ViewBase {
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
@@ -2411,8 +2423,10 @@ export interface ViewPagerAndroidProps extends ViewProps {
     pageMargin?: number;
 }
 
-declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> { }
+declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> {}
+
 declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixin> & typeof ViewPagerAndroidComponent;
+
 export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
      * A helper function to scroll to a specific page in the ViewPager.
@@ -2431,9 +2445,11 @@ export class ViewPagerAndroid extends ViewPagerAndroidBase {
  * It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
  * It can automatically adjust either its position or bottom padding based on the position of the keyboard.
  */
-declare class KeyboardAvoidingViewComponent extends React.Component<KeyboardAvoidingViewProps> { }
+declare class KeyboardAvoidingViewComponent extends React.Component<KeyboardAvoidingViewProps> {}
+
 declare const KeyboardAvoidingViewBase: Constructor<TimerMixin> & typeof KeyboardAvoidingViewComponent;
-export class KeyboardAvoidingView extends KeyboardAvoidingViewBase { }
+
+export class KeyboardAvoidingView extends KeyboardAvoidingViewBase {}
 
 export interface KeyboardAvoidingViewProps extends ViewProps {
     behavior?: 'height' | 'position' | 'padding';
@@ -2511,9 +2527,11 @@ export interface SegmentedControlIOSProps extends ViewProps {
  * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
-declare class SafeAreaViewComponent extends React.Component<ViewProps> { }
+declare class SafeAreaViewComponent extends React.Component<ViewProps> {}
+
 declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
-export class SafeAreaView extends SafeAreaViewBase { }
+
+export class SafeAreaView extends SafeAreaViewBase {}
 
 /**
  * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
@@ -2522,7 +2540,7 @@ export class SafeAreaView extends SafeAreaViewBase { }
  * To use this component wrap your custom toolbar with the InputAccessoryView component, and set a nativeID. Then, pass
  * that nativeID as the inputAccessoryViewID of whatever TextInput you desire.
  */
-export class InputAccessoryView extends React.Component<InputAccessoryViewProps> { }
+export class InputAccessoryView extends React.Component<InputAccessoryViewProps> {}
 
 export interface InputAccessoryViewProps {
     backgroundColor?: string;
@@ -2555,9 +2573,11 @@ export interface InputAccessoryViewProps {
  * />
  * ````
  */
-declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> { }
+declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
+
 declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixin> & typeof SegmentedControlIOSComponent;
-export class SegmentedControlIOS extends SegmentedControlIOSBase { }
+
+export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProps {
     /**
@@ -2706,9 +2726,11 @@ export interface ActivityIndicatorProps extends ViewProps {
     style?: StyleProp<ViewStyle>;
 }
 
-declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProps> { }
+declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProps> {}
+
 declare const ActivityIndicatorBase: Constructor<NativeMethodsMixin> & typeof ActivityIndicatorComponent;
-export class ActivityIndicator extends ActivityIndicatorBase { }
+
+export class ActivityIndicator extends ActivityIndicatorBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
@@ -2795,11 +2817,13 @@ export interface DatePickerIOSProps extends ViewProps {
     timeZoneOffsetInMinutes?: number;
 }
 
-declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> { }
-declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
-export class DatePickerIOS extends DatePickerIOSBase { }
+declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> {}
 
-export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> { }
+declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
+
+export class DatePickerIOS extends DatePickerIOSBase {}
+
+export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 /**
  * @see DrawerLayoutAndroid.android.js
@@ -2898,8 +2922,10 @@ interface DrawerPosition {
     Right: number;
 }
 
-declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProps> { }
+declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProps> {}
+
 declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixin> & typeof DrawerLayoutAndroidComponent;
+
 export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
     /**
      * drawer's positions.
@@ -2928,7 +2954,7 @@ export interface PickerIOSItemProps {
 /**
  * @see PickerIOS.ios.js
  */
-export class PickerIOSItem extends React.Component<PickerIOSItemProps> { }
+export class PickerIOSItem extends React.Component<PickerIOSItemProps> {}
 
 /**
  * @see Picker.js
@@ -3032,8 +3058,10 @@ export interface PickerIOSProps extends ViewProps {
  * @see https://facebook.github.io/react-native/docs/pickerios.html
  * @see PickerIOS.ios.js
  */
-declare class PickerIOSComponent extends React.Component<PickerIOSProps> { }
+declare class PickerIOSComponent extends React.Component<PickerIOSProps> {}
+
 declare const PickerIOSBase: Constructor<NativeMethodsMixin> & typeof PickerIOSComponent;
+
 export class PickerIOS extends PickerIOSBase {
     static Item: typeof PickerIOSItem;
 }
@@ -3045,13 +3073,13 @@ export class PickerIOS extends PickerIOSBase {
 export interface ProgressBarAndroidProps extends ViewProps {
     /**
      * Style of the ProgressBar. One of:
-         Horizontal
-         Normal (default)
-         Small
-         Large
-         Inverse
-         SmallInverse
-         LargeInverse
+     Horizontal
+     Normal (default)
+     Small
+     Large
+     Inverse
+     SmallInverse
+     LargeInverse
      */
     styleAttr?: 'Horizontal' | 'Normal' | 'Small' | 'Large' | 'Inverse' | 'SmallInverse' | 'LargeInverse';
 
@@ -3081,13 +3109,16 @@ export interface ProgressBarAndroidProps extends ViewProps {
      */
     testID?: string;
 }
+
 /**
  * React component that wraps the Android-only `ProgressBar`. This component is used to indicate
  * that the app is loading or there is some activity in the app.
  */
-declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> { }
+declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> {}
+
 declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixin> & typeof ProgressBarAndroidComponent;
-export class ProgressBarAndroid extends ProgressBarAndroidBase { }
+
+export class ProgressBarAndroid extends ProgressBarAndroidBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/progressviewios.html
@@ -3124,9 +3155,12 @@ export interface ProgressViewIOSProps extends ViewProps {
      */
     trackImage?: ImageURISource | ImageURISource[];
 }
-declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> { }
+
+declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> {}
+
 declare const ProgressViewIOSBase: Constructor<NativeMethodsMixin> & typeof ProgressViewIOSComponent;
-export class ProgressViewIOS extends ProgressViewIOSBase { }
+
+export class ProgressViewIOS extends ProgressViewIOSBase {}
 
 export interface RefreshControlPropsIOS extends ViewProps {
     /**
@@ -3193,13 +3227,15 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
  * __Note:__ `refreshing` is a controlled prop, this is why it needs to be set to true
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
-declare class RefreshControlComponent extends React.Component<RefreshControlProps> { }
+declare class RefreshControlComponent extends React.Component<RefreshControlProps> {}
+
 declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
+
 export class RefreshControl extends RefreshControlBase {
     static SIZE: Object; // Undocumented
 }
 
-export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps { }
+export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps {}
 
 /**
  * Wrapper around android native recycler view.
@@ -3215,9 +3251,11 @@ export interface RecyclerViewBackedScrollViewProps extends ScrollViewProps { }
  * use it pass this component as `renderScrollComponent` to the list view. For
  * now only horizontal scrolling is supported.
  */
-declare class RecyclerViewBackedScrollViewComponent extends React.Component<RecyclerViewBackedScrollViewProps> { }
+declare class RecyclerViewBackedScrollViewComponent extends React.Component<RecyclerViewBackedScrollViewProps> {}
+
 declare const RecyclerViewBackedScrollViewBase: Constructor<ScrollResponderMixin> &
     typeof RecyclerViewBackedScrollViewComponent;
+
 export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBase {
     /**
      * A helper function to scroll to a specific point  in the scrollview.
@@ -3341,9 +3379,12 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
 /**
  * A component used to select a single value from a range of values.
  */
-declare class SliderComponent extends React.Component<SliderProps> { }
+declare class SliderComponent extends React.Component<SliderProps> {}
+
 declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
-export class Slider extends SliderBase { }
+
+export class Slider extends SliderBase {}
+
 export type SliderIOS = Slider;
 
 /**
@@ -3390,7 +3431,7 @@ export interface SwitchIOSProps extends ViewProps {
  *
  * @see https://facebook.github.io/react-native/docs/switchios.html
  */
-export class SwitchIOS extends React.Component<SwitchIOSProps> { }
+export class SwitchIOS extends React.Component<SwitchIOSProps> {}
 
 export type ImageResizeMode = 'cover' | 'contain' | 'stretch' | 'repeat' | 'center';
 
@@ -3760,12 +3801,17 @@ export interface ImageProps extends ImagePropsBase {
     style?: StyleProp<ImageStyle>;
 }
 
-declare class ImageComponent extends React.Component<ImageProps> { }
+declare class ImageComponent extends React.Component<ImageProps> {}
+
 declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
+
 export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
+
     static prefetch(url: string): any;
+
     static abortPrefetch?(requestId: number): void;
+
     static queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 
     /**
@@ -3777,16 +3823,23 @@ export class Image extends ImageBase {
 export interface ImageBackgroundProps extends ImagePropsBase {
     imageStyle?: StyleProp<ImageStyle>;
     style?: StyleProp<ViewStyle>;
+
     imageRef?(image: Image): void;
 }
 
-declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> { }
+declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> {}
+
 declare const ImageBackgroundBase: Constructor<NativeMethodsMixin> & typeof ImageBackgroundComponent;
+
 export class ImageBackground extends ImageBackgroundBase {
     resizeMode: ImageResizeMode;
+
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
+
     prefetch(url: string): any;
+
     abortPrefetch?(requestId: number): void;
+
     queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 }
 
@@ -3923,7 +3976,10 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<ItemT> | null | undefined, index: number) => { length: number; offset: number; index: number };
+    getItemLayout?: (
+        data: Array<ItemT> | null | undefined,
+        index: number,
+    ) => { length: number; offset: number; index: number };
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
@@ -4026,7 +4082,12 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
      * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean | null; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: {
+        animated?: boolean | null;
+        index: number;
+        viewOffset?: number;
+        viewPosition?: number;
+    }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -4064,7 +4125,7 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     getScrollableNode: () => any;
 
     // TODO: use `unknown` instead of `any` for Typescript >= 3.0
-    setNativeProps: (props: {[key: string]: any}) => void;
+    setNativeProps: (props: { [key: string]: any }) => void;
 }
 
 /**
@@ -4630,8 +4691,10 @@ interface TimerMixin {
     cancelAnimationFrame: typeof cancelAnimationFrame;
 }
 
-declare class ListViewComponent extends React.Component<ListViewProps> { }
+declare class ListViewComponent extends React.Component<ListViewProps> {}
+
 declare const ListViewBase: Constructor<ScrollResponderMixin> & Constructor<TimerMixin> & typeof ListViewComponent;
+
 export class ListView extends ListViewBase {
     static DataSource: ListViewDataSource;
 
@@ -4665,9 +4728,11 @@ interface MaskedViewIOSProps extends ViewProps {
 /**
  * @see https://facebook.github.io/react-native/docs/maskedviewios.html
  */
-declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> { }
+declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> {}
+
 declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
-export class MaskedViewIOS extends MaskedViewBase { }
+
+export class MaskedViewIOS extends MaskedViewBase {}
 
 export interface ModalBaseProps {
     /**
@@ -4737,7 +4802,7 @@ export interface ModalPropsAndroid {
 
 export type ModalProps = ModalBaseProps & ModalPropsIOS & ModalPropsAndroid;
 
-export class Modal extends React.Component<ModalProps> { }
+export class Modal extends React.Component<ModalProps> {}
 
 /**
  * @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\Components\Touchable\Touchable.js
@@ -4793,7 +4858,9 @@ interface TouchableMixin {
 
     // These methods are undocumented but still being used by TouchableMixin internals
     touchableGetLongPressDelayMS(): number;
+
     touchableGetPressOutDelayMS(): number;
+
     touchableGetHitSlop(): Insets;
 }
 
@@ -4915,11 +4982,13 @@ export interface TouchableWithoutFeedbackProps extends TouchableWithoutFeedbackP
  *
  * @see https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html
  */
-declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> { }
+declare class TouchableWithoutFeedbackComponent extends React.Component<TouchableWithoutFeedbackProps> {}
+
 declare const TouchableWithoutFeedbackBase: Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
     typeof TouchableWithoutFeedbackComponent;
-export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase { }
+
+export class TouchableWithoutFeedback extends TouchableWithoutFeedbackBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html#props
@@ -4965,12 +5034,14 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
  *
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
  */
-declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> { }
+declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> {}
+
 declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> &
     Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
     typeof TouchableHighlightComponent;
-export class TouchableHighlight extends TouchableHighlightBase { }
+
+export class TouchableHighlight extends TouchableHighlightBase {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html#props
@@ -4991,11 +5062,13 @@ export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
  *
  * @see https://facebook.github.io/react-native/docs/touchableopacity.html
  */
-declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> { }
+declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> {}
+
 declare const TouchableOpacityBase: Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
     Constructor<NativeMethodsMixin> &
     typeof TouchableOpacityComponent;
+
 export class TouchableOpacity extends TouchableOpacityBase {
     /**
      * Animate the touchable to a new opacity.
@@ -5052,8 +5125,10 @@ export interface TouchableNativeFeedbackProps extends TouchableWithoutFeedbackPr
  *
  * @see https://facebook.github.io/react-native/docs/touchablenativefeedback.html#content
  */
-declare class TouchableNativeFeedbackComponent extends React.Component<TouchableNativeFeedbackProps> { }
+declare class TouchableNativeFeedbackComponent extends React.Component<TouchableNativeFeedbackProps> {}
+
 declare const TouchableNativeFeedbackBase: Constructor<TouchableMixin> & typeof TouchableNativeFeedbackComponent;
+
 export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
     /**
      * Creates an object that represents android theme's default background for
@@ -5079,6 +5154,7 @@ export class TouchableNativeFeedback extends TouchableNativeFeedbackBase {
      * @param borderless If the ripple can render outside it's bounds
      */
     static Ripple(color: string, borderless?: boolean): RippleBackgroundPropType;
+
     static canUseNativeForeground(): boolean;
 }
 
@@ -5103,7 +5179,9 @@ export interface Route {
 
 interface InteractionMixin {
     createInteractionHandle(): number;
+
     clearInteractionHandle(clearHandle: number): void;
+
     /**
      * Schedule work for after all interactions have completed.
      *
@@ -5262,6 +5340,7 @@ export interface SystraceStatic {
      * beginEvent/endEvent for starting and then ending a profile within the same call stack frame
      **/
     beginEvent(profileName?: any, args?: any): void;
+
     endEvent(): void;
 
     /**
@@ -5270,6 +5349,7 @@ export interface SystraceStatic {
      * the returned cookie variable should be used as input into the endAsyncEvent call to end the profile
      **/
     beginAsyncEvent(profileName?: any): any;
+
     endAsyncEvent(profileName?: any, cookie?: any): void;
 
     /**
@@ -5353,7 +5433,7 @@ export interface ListViewDataSource {
      * - rowHasChanged(prevRowData, nextRowData);
      * - sectionHeaderHasChanged(prevSectionData, nextSectionData);
      */
-    new(onAsset: DataSourceAssetCallback): ListViewDataSource;
+    new (onAsset: DataSourceAssetCallback): ListViewDataSource;
 
     /**
      * Clones this `ListViewDataSource` with the specified `dataBlob` and
@@ -5394,6 +5474,7 @@ export interface ListViewDataSource {
     ): ListViewDataSource;
 
     getRowCount(): number;
+
     getRowAndSectionCount(): number;
 
     /**
@@ -5488,18 +5569,18 @@ export interface TabBarIOSItemProps extends ViewProps {
      *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
      */
     systemIcon?:
-    | 'bookmarks'
-    | 'contacts'
-    | 'downloads'
-    | 'favorites'
-    | 'featured'
-    | 'history'
-    | 'more'
-    | 'most-recent'
-    | 'most-viewed'
-    | 'recents'
-    | 'search'
-    | 'top-rated';
+        | 'bookmarks'
+        | 'contacts'
+        | 'downloads'
+        | 'favorites'
+        | 'featured'
+        | 'history'
+        | 'more'
+        | 'most-recent'
+        | 'most-viewed'
+        | 'recents'
+        | 'search'
+        | 'top-rated';
 
     /**
      * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -5507,7 +5588,7 @@ export interface TabBarIOSItemProps extends ViewProps {
     title?: string;
 }
 
-export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> { }
+export class TabBarIOSItem extends React.Component<TabBarIOSItemProps> {}
 
 /**
  * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
@@ -5623,6 +5704,7 @@ interface PlatformStatic {
     select<T>(
         specifics: ({ [platform in PlatformOSType]?: T } & { default: T }) | { [platform in PlatformOSType]: T },
     ): T;
+
     select<T>(specifics: { [platform in PlatformOSType]?: T }): T | undefined;
 }
 
@@ -5654,7 +5736,9 @@ interface PlatformWebStatic extends PlatformStatic {
  */
 interface DeviceEventEmitterStatic extends EventEmitter {
     sharedSubscriber: EventSubscriptionVendor;
-    new(): DeviceEventEmitterStatic;
+
+    new (): DeviceEventEmitterStatic;
+
     addListener(type: string, listener: (data: any) => void, context?: any): EmitterSubscription;
 }
 
@@ -5777,7 +5861,7 @@ export interface InteractionManagerStatic extends EventEmitterListener {
     setDeadline(deadline: number): void;
 }
 
-export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> { }
+export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
 interface ScrollResponderMixin extends SubscribableMixin {
     /**
@@ -6171,7 +6255,7 @@ export interface ScrollViewPropsIOS {
      * content size. The default value is false.
      * @platform ios
      */
-    scrollToOverflowEnabled?: boolean,
+    scrollToOverflowEnabled?: boolean;
 
     /**
      * When true the scroll view scrolls to top when the status bar is tapped.
@@ -6183,7 +6267,7 @@ export interface ScrollViewPropsIOS {
      * Fires when the scroll view scrolls to top after the status bar has been tapped
      * @platform ios
      */
-    onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void,
+    onScrollToTop?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
     /**
      * An array of child indices determining which children get docked to the
      * top of the screen when scrolling. For example passing
@@ -6221,11 +6305,11 @@ export interface ScrollViewPropsAndroid {
     /**
      * Used to override default value of overScroll mode.
 
-        * Possible values:
-        *   - 'auto' - Default value, allow a user to over-scroll this view only if the content is large enough to meaningfully scroll.
-        *   - 'always' - Always allow a user to over-scroll this view.
-        *   - 'never' - Never allow a user to over-scroll this view.
-        */
+     * Possible values:
+     *   - 'auto' - Default value, allow a user to over-scroll this view only if the content is large enough to meaningfully scroll.
+     *   - 'always' - Always allow a user to over-scroll this view.
+     *   - 'never' - Never allow a user to over-scroll this view.
+     */
     overScrollMode?: 'auto' | 'always' | 'never';
 
     /**
@@ -6414,8 +6498,10 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
     disableScrollViewPanResponder?: boolean;
 }
 
-declare class ScrollViewComponent extends React.Component<ScrollViewProps> { }
+declare class ScrollViewComponent extends React.Component<ScrollViewProps> {}
+
 declare const ScrollViewBase: Constructor<ScrollResponderMixin> & typeof ScrollViewComponent;
+
 export class ScrollView extends ScrollViewBase {
     /**
      * Scrolls to a given x, y offset, either immediately or with a smooth animation.
@@ -6497,9 +6583,11 @@ export interface SnapshotViewIOSProps extends ViewProps {
     testIdentifier: string;
 }
 
-declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProps> { }
+declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProps> {}
+
 declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixin> & typeof SnapshotViewIOSComponent;
-export class SnapshotViewIOS extends SnapshotViewIOSBase { }
+
+export class SnapshotViewIOS extends SnapshotViewIOSBase {}
 
 // Deduced from
 // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
@@ -6518,9 +6606,13 @@ export interface SwipeableListViewDataSource {
         sectionIdentities?: Array<string>,
         rowIdentities?: Array<Array<string>>,
     ): SwipeableListViewDataSource;
+
     getDataSource(): ListViewDataSource;
+
     getOpenRowID(): string;
+
     getFirstRowID(): string;
+
     setOpenRowID(rowID: string): SwipeableListViewDataSource;
 }
 
@@ -6641,13 +6733,13 @@ export interface ActionSheetIOSStatic {
 
 export type ShareContent =
     | {
-    title?: string;
-    message: string;
-}
+          title?: string;
+          message: string;
+      }
     | {
-    title?: string;
-    url: string;
-};
+          title?: string;
+          url: string;
+      };
 
 export type ShareOptions = {
     dialogTitle?: string;
@@ -6701,6 +6793,7 @@ export interface ShareStatic {
      *
      */
     share(content: ShareContent, options?: ShareOptions): Promise<ShareAction>;
+
     sharedAction: 'sharedAction';
     dismissedAction: 'dismissedAction';
 }
@@ -6992,7 +7085,9 @@ export type BackPressEventName = 'hardwareBackPress';
  */
 export interface BackHandlerStatic {
     exitApp(): void;
+
     addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
+
     removeEventListener(eventName: BackPressEventName, handler: () => void): void;
 }
 
@@ -7009,7 +7104,7 @@ export interface ButtonProps {
     testID?: string;
 }
 
-export class Button extends React.Component<ButtonProps> { }
+export class Button extends React.Component<ButtonProps> {}
 
 export type CameraRollGroupType = 'Album' | 'All' | 'Event' | 'Faces' | 'Library' | 'PhotoStream' | 'SavedPhotos';
 export type CameraRollAssetType = 'All' | 'Videos' | 'Photos';
@@ -7154,11 +7249,12 @@ export interface CheckBoxProps extends ViewProps {
     value?: boolean;
 }
 
-export class CheckBox extends React.Component<CheckBoxProps> { }
+export class CheckBox extends React.Component<CheckBoxProps> {}
 
 /** Clipboard gives you an interface for setting and getting content from Clipboard on both iOS and Android */
 export interface ClipboardStatic {
     getString(): Promise<string>;
+
     setString(content: string): void;
 }
 
@@ -7258,10 +7354,7 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Sends an Android Intent - a broad surface to express Android functions.  Useful for deep-linking to settings pages,
      * opening an SMS app with a message draft in place, and more.  See https://developer.android.com/reference/kotlin/android/content/Intent?hl=en
      */
-    sendIntent(
-        action: string,
-        extras?: Array<{key: string, value: string | number | boolean}>,
-    ): Promise<void>;
+    sendIntent(action: string, extras?: Array<{ key: string; value: string | number | boolean }>): Promise<void>;
 }
 
 export interface PanResponderGestureState {
@@ -7432,20 +7525,25 @@ export interface PermissionsAndroidStatic {
      * A list of specified "dangerous" permissions that require prompting the user
      */
     PERMISSIONS: { [key: string]: Permission };
-    new(): PermissionsAndroidStatic;
+
+    new (): PermissionsAndroidStatic;
+
     /**
      * @deprecated Use check instead
      */
     checkPermission(permission: Permission): Promise<boolean>;
+
     /**
      * Returns a promise resolving to a boolean value as to whether the specified
      * permissions has been granted
      */
     check(permission: Permission): Promise<boolean>;
+
     /**
      * @deprecated Use request instead
      */
     requestPermission(permission: Permission, rationale?: Rationale): Promise<boolean>;
+
     /**
      * Prompts the user to enable a permission and returns a promise resolving to a
      * string value indicating whether the user allowed or denied the request
@@ -7457,6 +7555,7 @@ export interface PermissionsAndroidStatic {
      * and then shows the system permission dialog
      */
     request(permission: Permission, rationale?: Rationale): Promise<PermissionStatus>;
+
     /**
      * Prompts the user to enable multiple permissions in the same dialog and
      * returns an object with the permissions as keys and strings as values
@@ -7699,8 +7798,11 @@ export interface PushNotificationIOSStatic {
 
 export interface SettingsStatic {
     get(key: string): any;
+
     set(settings: Object): void;
+
     watchKeys(keys: string | Array<string>, callback: () => void): number;
+
     clearWatch(watchId: number): void;
 }
 
@@ -7800,7 +7902,7 @@ export class StatusBar extends React.Component<StatusBarProps> {
 /**
  * @deprecated Use StatusBar instead
  */
-export interface StatusBarIOSStatic extends NativeEventEmitter { }
+export interface StatusBarIOSStatic extends NativeEventEmitter {}
 
 export interface TimePickerAndroidOpenOptions {
     hour?: number;
@@ -7891,8 +7993,10 @@ export interface ToastAndroidStatic {
      * May be ToastAndroid.SHORT or ToastAndroid.LONG
      */
     show(message: string, duration: number): void;
+
     /** `gravity` may be ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER */
     showWithGravity(message: string, duration: number, gravity: number): void;
+
     // Toast duration constants
     SHORT: number;
     LONG: number;
@@ -8103,9 +8207,11 @@ export interface SwitchProps extends SwitchPropsIOS {
  * If the `value` prop is not updated, the component will continue to render
  * the supplied `value` prop instead of the expected result of any user actions.
  */
-declare class SwitchComponent extends React.Component<SwitchProps> { }
+declare class SwitchComponent extends React.Component<SwitchProps> {}
+
 declare const SwitchBase: Constructor<NativeMethodsMixin> & typeof SwitchComponent;
-export class Switch extends SwitchBase { }
+
+export class Switch extends SwitchBase {}
 
 /**
  * The Vibration API is exposed at `Vibration.vibrate()`.
@@ -8145,6 +8251,7 @@ export interface VibrationStatic {
  * http://xaedes.de/dev/transitions/
  */
 export type EasingFunction = (value: number) => number;
+
 export interface EasingStatic {
     step0: EasingFunction;
     step1: EasingFunction;
@@ -8152,16 +8259,25 @@ export interface EasingStatic {
     ease: EasingFunction;
     quad: EasingFunction;
     cubic: EasingFunction;
+
     poly(n: number): EasingFunction;
+
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
+
     elastic(bounciness: number): EasingFunction;
+
     back(s: number): EasingFunction;
+
     bounce: EasingFunction;
+
     bezier(x1: number, y1: number, x2: number, y2: number): EasingFunction;
+
     in(easing: EasingFunction): EasingFunction;
+
     out(easing: EasingFunction): EasingFunction;
+
     inOut(easing: EasingFunction): EasingFunction;
 }
 
@@ -8370,7 +8486,7 @@ export namespace Animated {
      */
     export function add(a: Animated, b: Animated): AnimatedAddition;
 
-    class AnimatedAddition extends AnimatedInterpolation { }
+    class AnimatedAddition extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value composed by subtracting the second Animated
@@ -8378,7 +8494,7 @@ export namespace Animated {
      */
     export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
 
-    class AnimatedSubtraction extends AnimatedInterpolation { }
+    class AnimatedSubtraction extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value composed by dividing the first Animated
@@ -8386,7 +8502,7 @@ export namespace Animated {
      */
     export function divide(a: Animated, b: Animated): AnimatedDivision;
 
-    class AnimatedDivision extends AnimatedInterpolation { }
+    class AnimatedDivision extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value composed from two Animated values multiplied
@@ -8394,7 +8510,7 @@ export namespace Animated {
      */
     export function multiply(a: Animated, b: Animated): AnimatedMultiplication;
 
-    class AnimatedMultiplication extends AnimatedInterpolation { }
+    class AnimatedMultiplication extends AnimatedInterpolation {}
 
     /**
      * Creates a new Animated value that is the (non-negative) modulo of the
@@ -8402,7 +8518,7 @@ export namespace Animated {
      */
     export function modulo(a: Animated, modulus: number): AnimatedModulo;
 
-    class AnimatedModulo extends AnimatedInterpolation { }
+    class AnimatedModulo extends AnimatedInterpolation {}
 
     /**
      * Create a new Animated value that is limited between 2 values. It uses the
@@ -8415,7 +8531,7 @@ export namespace Animated {
      */
     export function diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
 
-    class AnimatedDiffClamp extends AnimatedInterpolation { }
+    class AnimatedDiffClamp extends AnimatedInterpolation {}
 
     /**
      * Starts an animation after the given delay.
@@ -8463,6 +8579,7 @@ export namespace Animated {
     export function parallel(animations: Array<CompositeAnimation>, config?: ParallelConfig): CompositeAnimation;
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
+
     interface EventConfig<T> {
         listener?: (event: NativeSyntheticEvent<T>) => void;
         useNativeDriver?: boolean;
@@ -8486,34 +8603,54 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
-    export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
-
     export interface WithAnimatedValue<T>
-    extends ThisType<
-      T extends object
-        ? { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]?: WithAnimatedValue<T[K]> }
-        : T extends (infer P)[]
-        ? WithAnimatedValue<P>[]
-        : T | Value | AnimatedInterpolation
-    > {}
+        extends ThisType<
+            T extends object
+                ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
+                : T extends (infer P)[]
+                ? WithAnimatedValue<P>[]
+                : T | Value | AnimatedInterpolation
+        > {}
 
-  export type AnimatedProps<T> = { [K in keyof T]: WithAnimatedValue<T[K]> };
+    export type AnimatedProps<T> = { [K in keyof Pick<T, Exclude<keyof T, 'ref'>>]: WithAnimatedValue<T[K]> };
 
-  export interface AnimatedComponent<
-    T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
-  >
-    extends React.FC<
-      AnimatedProps<ComponentProps<T>> & {
-        ref?: React.Ref<AnimatedComponent<T>>;
-      }
-    > {
-    getNode: () => T;
-  }
+    export interface AnimatedComponent<
+        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
+    >
+        extends React.FC<
+            AnimatedProps<ComponentProps<T>> & {
+                ref?: React.Ref<AnimatedComponent<T>>;
+            }
+        > {
+        getNode: () => T;
+    }
+
+    export interface AnimatedForwardRefComponent<
+        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>,
+        P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
+    >
+        extends React.FC<
+            AnimatedProps<ComponentProps<T>> & {
+                ref?: React.Ref<AnimatedComponent<P>>;
+            }
+        > {
+        getNode: () => P;
+    }
 
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
+    export function createAnimatedComponent<
+        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>
+    >(
+        component: T,
+    ): T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<infer P>>
+        ? P extends React.ComponentClass<ComponentProps<P>>
+            ? AnimatedForwardRefComponent<T, InstanceType<P>>
+            : P extends React.FunctionComponent<ComponentProps<P>>
+            ? AnimatedForwardRefComponent<T, P>
+            : never
+        : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
@@ -8551,12 +8688,15 @@ export type ImagePickerResult = [string, number, number];
 
 export interface ImagePickerIOSStatic {
     canRecordVideos(callback: (value: boolean) => void): void;
+
     canUseCamera(callback: (value: boolean) => void): void;
+
     openCameraDialog(
         config: OpenCameraDialogOptions,
         successCallback: (args: ImagePickerResult) => void,
         cancelCallback: (args: any[]) => void,
     ): void;
+
     openSelectDialog(
         config: OpenSelectDialogOptions,
         successCallback: (args: ImagePickerResult) => void,
@@ -8728,15 +8868,15 @@ export interface ARTSurfaceProps {
     height: number;
 }
 
-export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> { }
+export class ClippingRectangle extends React.Component<ARTClippingRectangleProps> {}
 
-export class Group extends React.Component<ARTGroupProps> { }
+export class Group extends React.Component<ARTGroupProps> {}
 
-export class Shape extends React.Component<ARTShapeProps> { }
+export class Shape extends React.Component<ARTShapeProps> {}
 
-export class Surface extends React.Component<ARTSurfaceProps> { }
+export class Surface extends React.Component<ARTSurfaceProps> {}
 
-export class ARTText extends React.Component<ARTTextProps> { }
+export class ARTText extends React.Component<ARTTextProps> {}
 
 export interface ARTStatic {
     ClippingRectangle: typeof ClippingRectangle;
@@ -8775,6 +8915,7 @@ type KeyboardEventListener = (event: KeyboardEvent) => void;
 
 export interface KeyboardStatic extends NativeEventEmitter {
     dismiss: () => void;
+
     addListener(eventType: KeyboardEventName, listener: KeyboardEventListener): EmitterSubscription;
 }
 
@@ -8905,11 +9046,13 @@ export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 //////////// Plugins //////////////
 
 export const DeviceEventEmitter: DeviceEventEmitterStatic;
+
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter { }
+export interface NativeEventEmitter extends EventEmitter {}
+
 export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
@@ -9013,15 +9156,25 @@ declare global {
      */
     interface Console {
         error(message?: any, ...optionalParams: any[]): void;
+
         info(message?: any, ...optionalParams: any[]): void;
+
         log(message?: any, ...optionalParams: any[]): void;
+
         warn(message?: any, ...optionalParams: any[]): void;
+
         trace(message?: any, ...optionalParams: any[]): void;
+
         debug(message?: any, ...optionalParams: any[]): void;
+
         table(...data: any[]): void;
+
         groupCollapsed(label?: string): void;
+
         groupEnd(): void;
+
         group(label?: string): void;
+
         disableYellowBox: boolean;
         ignoredYellowBox: string[];
     }
