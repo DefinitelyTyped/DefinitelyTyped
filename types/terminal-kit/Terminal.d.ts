@@ -216,7 +216,7 @@ declare namespace Terminal {
       options?: InputFieldOptions
     ): {
       abort: () => void;
-      promise?: Promise<string | undefined>;
+      promise: Promise<string | undefined>;
     };
 
     fileInput(options: IFileInputOptions, callback: Callback<string>): void;
