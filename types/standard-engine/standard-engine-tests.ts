@@ -106,4 +106,4 @@ const standardConfig: standardEngine.LinterOptions = {
     tagline: 'Use JavaScript Standard Style',
     version: pkg.version,
 };
-new Linter(standardConfig);
+new Linter(standardConfig); // $ExpectType Linter

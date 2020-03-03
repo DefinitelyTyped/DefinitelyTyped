@@ -6,22 +6,24 @@
 import eslint = require('eslint');
 import { type } from 'os';
 
-export class Linter {
-    constructor(opts?: LinterOptions);
-    /**
-     * Lint the provided source text to enforce your defined style.
-     * An opts object may be provided
-     */
-    lintTextSync(text: string, opts?: LintTextOptions): eslint.CLIEngine.LintReport;
-    lintText(text: string, opts: LintTextOptions, callback: LintCallback): void;
-    lintText(text: string, callback: LintCallback): void;
+declare namespace standardEngine {
+    class Linter {
+        constructor(opts?: LinterOptions);
+        /**
+         * Lint the provided source text to enforce your defined style.
+         * An opts object may be provided
+         */
+        lintTextSync(text: string, opts?: LintTextOptions): eslint.CLIEngine.LintReport;
+        lintText(text: string, opts: LintTextOptions, callback: LintCallback): void;
+        lintText(text: string, callback: LintCallback): void;
 
-    /**
-     * Lint the provided files globs.
-     * An opts object may be provided
-     */
-    lintFiles(files: string | string[], callback: LintCallback): void;
-    lintFiles(files: string | string[], opts: LintFilesOptions | undefined, callback: LintCallback): void;
+        /**
+         * Lint the provided files globs.
+         * An opts object may be provided
+         */
+        lintFiles(files: string | string[], callback: LintCallback): void;
+        lintFiles(files: string | string[], opts: LintFilesOptions | undefined, callback: LintCallback): void;
+    }
 }
 
 /**
@@ -150,4 +152,7 @@ export type LintCallback = (error: Error | null, results: eslint.CLIEngine.LintR
 
 export function cli(opts: LinterOptions): void;
 
-export const linter: typeof Linter;
+export const linter: typeof standardEngine.Linter;
+
+// added to prevent automatic export of standardEngine namespace
+export {};
