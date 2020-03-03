@@ -52,7 +52,7 @@ term.moveTo.cyan(1, 1, "My name is %s, I'm %d.\n", "Jack", 32);
 
 // Get some user input
 term.magenta("Enter your name: ");
-term.inputField((error: any, input: any) => {
+term.inputField((error, input) => {
   term.green("\nYour name is '%s'\n", input);
 });
 
