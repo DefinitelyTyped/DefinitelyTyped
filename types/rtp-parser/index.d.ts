@@ -23,7 +23,7 @@ declare function parseRtpPacket(buf: Buffer): ParsedRTPPacket;
 
 declare const FIXED_HEADER_LENGTH: 12;
 
-interface payloads {
+interface PayloadTypesHash {
     0: {name: 'PCMU', mediaType: 'A', clockRate: 8000, channels: 1};
     1: {name: 'reserved', mediaType: 'A'};
     2: {name: 'reserved', mediaType: 'A'};
@@ -153,7 +153,8 @@ interface payloads {
     126: {name: 'dynamic'};
     127: {name: 'dynamic'};
 }
-export const payloadTypesHash: payloads;
+export const payloadTypesHash: PayloadTypesHash;
+type PayloadType = keyof PayloadTypesHash;
 
 interface ParsedRTPType {
     name: 'PCMU' | 'GSM' | 'G723' | 'DVI4' | 'DVI4' | 'LPC' | 'PCMA' | 'G722' | 'L16' | 'L16' | 'QCELP' | 'CN' |
@@ -164,7 +165,6 @@ interface ParsedRTPType {
     channels?: 1 | 2;
 }
 
-declare function parseRtpPayloadType(payloadType: number): ParsedRTPPacket;
 declare function parseRtpPayloadType(payloadType: 0): {name: 'PCMU', mediaType: 'A', clockRate: 8000, channels: 1};
 declare function parseRtpPayloadType(payloadType: 1 | 2 | 19): {name: 'reserved', mediaType: 'A'};
 declare function parseRtpPayloadType(payloadType: 3): {name: 'GSM' , mediaType: 'A', clockRate: 8000, channels: 1};
@@ -202,9 +202,11 @@ declare function parseRtpPayloadType(payloadType: 96 | 97 | 98 | 99 | 100 | 101 
                                                   109 | 110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 120 |
                                                   121 | 122 | 123 | 124 | 125 | 126 | 127
                                     ): {name: 'dynamic'};
+declare function parseRtpPayloadType(payloadType: number): ParsedRTPType;
 
 export {
     parseRtpPacket,
     parseRtpPayloadType,
     FIXED_HEADER_LENGTH,
+    PayloadType,
 };
