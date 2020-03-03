@@ -155,6 +155,16 @@ interface payloads {
 }
 export const payloadTypesHash: payloads;
 
+interface ParsedRTPType {
+    name: 'PCMU' | 'GSM' | 'G723' | 'DVI4' | 'DVI4' | 'LPC' | 'PCMA' | 'G722' | 'L16' | 'L16' | 'QCELP' | 'CN' |
+          'MPA' | 'G728' | 'DVI4' | 'DVI4' | 'G729' | 'CelB' | 'JPEG' | 'nv' | 'H261' | 'MPV' | 'MP2T' | 'H263' |
+          'reserved' | 'unassigned' | 'dynamic';
+    mediaType?: 'A' | 'AV' | 'V';
+    clockRate?: 8000 | 16000 | 44100 | 90000 | 11025 | 22050;
+    channels?: 1 | 2;
+}
+
+declare function parseRtpPayloadType(payloadType: number): ParsedRTPPacket;
 declare function parseRtpPayloadType(payloadType: 0): {name: 'PCMU', mediaType: 'A', clockRate: 8000, channels: 1};
 declare function parseRtpPayloadType(payloadType: 1 | 2 | 19): {name: 'reserved', mediaType: 'A'};
 declare function parseRtpPayloadType(payloadType: 3): {name: 'GSM' , mediaType: 'A', clockRate: 8000, channels: 1};
@@ -182,15 +192,12 @@ declare function parseRtpPayloadType(payloadType: 31): {name: 'H261', mediaType:
 declare function parseRtpPayloadType(payloadType: 32): {name: 'MPV', mediaType: 'V', clockRate: 90000};
 declare function parseRtpPayloadType(payloadType: 33): {name: 'MP2T', mediaType: 'AV', clockRate: 90000};
 declare function parseRtpPayloadType(payloadType: 34): {name: 'H263', mediaType: 'V', clockRate: 90000};
-
 declare function parseRtpPayloadType(payloadType: 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 |
                                                   50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 |
                                                   65 | 66 | 67 | 68 | 69 | 70 | 71 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 |
                                                   85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95
                                     ): {name: 'unassigned'};
-
 declare function parseRtpPayloadType(payloadType: 72 | 73 | 74 | 75 | 76): {name: 'reserved'};
-
 declare function parseRtpPayloadType(payloadType: 96 | 97 | 98 | 99 | 100 | 101 | 102 | 103 | 104 | 105 | 106 | 107 | 108 |
                                                   109 | 110 | 111 | 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119 | 120 |
                                                   121 | 122 | 123 | 124 | 125 | 126 | 127
