@@ -502,6 +502,16 @@ class MyMarker extends L.Marker {
 	constructor() {
 		super([12, 13]);
 	}
+
+	// adapted from Leaflet.AnimatedMarker
+	animate() {
+		const speed = 1000;
+
+		if (L.DomUtil.TRANSITION) {
+			if (this.getElement()) { this.getElement().style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
+			if (this._shadow) { this._shadow.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
+		}
+	}
 }
 
 class MyLayer extends L.Layer {
