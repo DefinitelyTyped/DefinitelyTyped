@@ -8625,7 +8625,7 @@ export namespace Animated {
     }
 
     export interface AnimatedForwardRefComponent<
-        T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>,
+        T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<P>>,
         P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
     >
         extends React.FC<

@@ -32,7 +32,7 @@ function TestAnimatedAPI() {
     const AnimatedViewRef = React.useRef<typeof Animated.View>(null);
 
     AnimatedViewRef.current &&
-        AnimatedViewRef.current.getNode().measure((x, y, width, height, pageX, pageY) => {
+        AnimatedViewRef.current.getNode().measure(() => {
             return;
         });
 
@@ -47,7 +47,7 @@ function TestAnimatedAPI() {
     const AniamtedForwardCompRef = React.useRef<Animated.AnimatedComponent<View>>(null);
     const ForwardCompRef = React.useRef<View>(null);
 
-    AniamtedForwardCompRef.current?.getNode().measure((x, y, width, height, pageX, pageY) => {
+    AniamtedForwardCompRef.current?.getNode().measure(() => {
         return;
     });
 
