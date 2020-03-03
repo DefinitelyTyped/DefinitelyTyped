@@ -210,11 +210,11 @@ declare namespace Terminal {
       promise?: Promise<boolean>;
     };
 
-    inputField(options: InputFieldOptions, callback: Callback<string | undefined>): void;
-    inputField(callback: Callback<string | undefined>): void;
-    inputField(
-      options?: InputFieldOptions
-    ): {
+    inputField(options: InputFieldOptions, callback?: Callback<string | undefined>): {
+      abort: () => void;
+      promise: Promise<string | undefined>;
+    };
+    inputField(callback: Callback<string | undefined>): {
       abort: () => void;
       promise: Promise<string | undefined>;
     };
