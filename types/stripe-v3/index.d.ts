@@ -14,6 +14,7 @@
 //                 Hiroshi Ioka <https://github.com/hirochachacha>
 //                 Austin Turner <https://github.com/paustint>
 //                 Kevin Soltysiak <https://github.com/ksol>
+//                 Kohei Matsubara <https://github.com/matsuby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Stripe: stripe.StripeStatic;
@@ -296,7 +297,8 @@ declare namespace stripe {
         | 'card_error'
         | 'idempotency_error'
         | 'invalid_request_error'
-        | 'rate_limit_error';
+        | 'rate_limit_error'
+        | 'validation_error';
 
     interface Error {
         /**
