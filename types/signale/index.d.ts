@@ -59,8 +59,7 @@ declare namespace signale {
         underlinePrefix?: boolean;
         underlineSuffix?: boolean;
         uppercaseLabel?: boolean;
-        /** */
-        logLevel?:string;
+        logLevel?: string;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
@@ -124,9 +123,9 @@ declare namespace signale {
             label?: string,
             span?: number
         ): { label: string; span?: number };
-         /**
-         * Disables the logging functionality of all loggers belonging to a specific instance.
-         */
+        /**
+        * Disables the logging functionality of all loggers belonging to a specific instance.
+        */
         disable(): void;
         /**
          * Enables the logging functionality of all loggers belonging to a specific instance.
