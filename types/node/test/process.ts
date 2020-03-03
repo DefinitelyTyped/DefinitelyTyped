@@ -73,7 +73,7 @@ import { EventEmitter } from "events";
 {
     const usage: NodeJS.MemoryUsage = process.memoryUsage();
     const rss: number = usage.rss;
-    const heapTotal : number = usage.heapTotal;
+    const heapTotal: number = usage.heapTotal;
     const heapUsed: number = usage.heapUsed;
     const external: number = usage.external;
     const arrayBuffers: number = usage.arrayBuffers;
