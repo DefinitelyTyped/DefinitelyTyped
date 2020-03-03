@@ -128,6 +128,7 @@ declare namespace Cesium {
         getValue(time: JulianDate, result?: object): object;
         hasProperty(propertyName: string): boolean;
         merge(source: object, createPropertyCallback?: (value?: any) => void): void;
+        removeProperty(propertyName: string);
     }
 
     class ArcGisImageServerTerrainProvider extends TerrainProvider {
