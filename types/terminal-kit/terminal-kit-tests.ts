@@ -145,7 +145,7 @@ term("Please enter your name: ");
 
 term.inputField(
   { history, autoComplete, autoCompleteMenu: true },
-  (error: any, input: string) => {
+  (error: any, input: string | undefined) => {
     term.green("\nYour name is '%s'\n", input);
   }
 );
