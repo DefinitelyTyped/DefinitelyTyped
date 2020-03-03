@@ -47,7 +47,7 @@ function TestAnimatedAPI() {
     const AniamtedForwardCompRef = React.useRef<Animated.AnimatedComponent<View>>(null);
     const ForwardCompRef = React.useRef<View>(null);
 
-    AniamtedForwardCompRef.current?.getNode().measure(() => {
+    AniamtedForwardCompRef.current && AniamtedForwardCompRef.current.getNode().measure(() => {
         return;
     });
 
