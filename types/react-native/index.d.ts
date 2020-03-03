@@ -55,7 +55,6 @@
 /// <reference path="LaunchScreen.d.ts" />
 
 import * as React from 'react';
-import { ForwardRefExoticComponent } from '../react';
 
 type Constructor<T> = new (...args: any[]) => T;
 
