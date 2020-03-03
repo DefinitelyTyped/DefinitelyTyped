@@ -36,7 +36,7 @@ interface ShuffleArray {
      * arr - The given array.
      * options - Optional configuration options.
      */
-    pick<T>(arr: ReadonlyArray<T>, options?: PickOptions): T | T[];
+    pick<T>(arr: ReadonlyArray<T>, options?: PickOptions): T | T[];
 }
 declare var shuffle: ShuffleArray;
 export = shuffle;
