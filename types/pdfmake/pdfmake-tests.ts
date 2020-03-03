@@ -1,7 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
-const definitions = [
+const definitions: pdfMake.TDocumentDefinitions[] = [
     {
         content: [
             'First paragraph',
@@ -424,7 +424,7 @@ const definitions = [
                     ]
                 }
             },
-            { text: 'Column/row spans', pageBreak: 'before', style: 'subheader' },
+            { text: 'Column/row spans', pageBreak: pdfMake.PageBreak.Before, style: 'subheader' },
             'Each cell-element can set a rowSpan or colSpan',
             {
                 style: 'tableExample',
@@ -449,7 +449,7 @@ const definitions = [
                     ]
                 }
             },
-            { text: 'Headers', pageBreak: 'before', style: 'subheader' },
+            { text: 'Headers', pageBreak: pdfMake.PageBreak.Before, style: 'subheader' },
             'You can declare how many rows should be treated as a header. Headers are',
             ' automatically repeated on the following pages',
             { text: ['It is also possible to set keepWithHeaderRows to make sure there will be no page-break'
@@ -483,7 +483,7 @@ const definitions = [
                 ]
             },
             'with more options coming soon...\n\npdfmake currently has a few predefined styles (see them on the next page)',
-            { text: 'noBorders:', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
+            { text: 'noBorders:', fontSize: 14, bold: true, pageBreak: pdfMake.PageBreak.Before, margin: [0, 0, 0, 8] },
             {
                 style: 'tableExample',
                 table: {
@@ -498,7 +498,7 @@ const definitions = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: 'noBorders'
+                layout: pdfMake.Layout.NoBorders
             },
             { text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
             {
@@ -515,7 +515,7 @@ const definitions = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: 'headerLineOnly'
+                layout: pdfMake.Layout.HeaderLineOnly
             },
             { text: 'lightHorizontalLines:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
             {
@@ -531,7 +531,7 @@ const definitions = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: 'lightHorizontalLines'
+                layout: pdfMake.Layout.LightHorizontalLines
             },
             { text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
             {
@@ -585,7 +585,7 @@ const definitions = [
                     }
                 }
             },
-            { text: 'Optional border', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
+            { text: 'Optional border', fontSize: 14, bold: true, pageBreak: pdfMake.PageBreak.Before, margin: [0, 0, 0, 8] },
             'Each cell contains an optional border property: an array of 4 booleans for left border, top border, right border, bottom border.',
             {
                 style: 'tableExample',
@@ -1296,7 +1296,7 @@ const definitions = [
             {
                 image: 'sampleImage.jpg',
                 fit: [100, 100],
-                pageBreak: 'after'
+                pageBreak: pdfMake.PageBreak.After
             },
             // Warning! Make sure to copy this definition and paste it to an
             // external text editor, as the online AceEditor has some troubles
@@ -1320,15 +1320,146 @@ const definitions = [
     {
         compress: false,
         content: ['This document does not use compression']
+    },
+    //Table of Contents tests
+    {
+        content: [
+            {
+                toc: {
+                    title: {text: 'INDEX', style: 'header'}
+                }
+            }
+        ]
+    },
+    {
+        content: [
+            {
+                toc: {
+                    id: 'mainToc',
+                    title: {text: 'INDEX', style: 'header'}
+                }
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: true,
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: 'mainToc' //if is used id in toc
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: ['mainToc', 'subToc'] // for multiple tocs
+            },
+        ]
+    },
+    //Watermark tests
+    {
+        content: "Watermark content",
+        watermark: {
+            text: "Test Environment",
+            color: "red",
+            opacity: 0.3,
+            bold: true,
+            italics: true,
+            fontSize: 20,
+            angle: 70
+        }
     }
-];
+]
 
-const createPdf = () => {
-  const pdf = pdfMake;
-  pdf.vfs = pdfFonts.pdfMake.vfs;
-
-  for (const definition of definitions) {
-      const typedDefinition: pdfMake.TDocumentDefinitions = definition;
-      pdfMake.createPdf(typedDefinition).download();
-  }
+const downloadPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+    
+    for (const def of definitions) {
+        pdfMake.createPdf(def).download();
+    }
 };
+
+const openPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+    
+    for (const def of definitions) {
+        pdfMake.createPdf(def).open();
+    }
+};
+
+const openPdfInSameWindow = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+    
+    for (const def of definitions) {
+        pdfMake.createPdf(def).open({}, window);
+    }
+};
+
+const printPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+    
+    for (const def of definitions) {
+        pdfMake.createPdf(def).print();
+    }
+};
+
+const printPdfInSameWindow = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+    
+    for (const def of definitions) {
+        pdfMake.createPdf(def).print({}, window);
+    }
+};
+
+const pdfAsBaseSixtyFourData = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBase64((data) => {
+            alert(data);
+        });   
+    }
+}
+
+const pdfAsBuffer = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBuffer((buffer) => {
+            // ...
+        }); 
+    }
+}
+
+const pdfAsBlob = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBlob((blob) => {
+            // ...
+        }); 
+    }
+}
+
+const getPdfKitDocumentObject = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getStream((gs) => {
+            // ...
+        });
+    }
+}
