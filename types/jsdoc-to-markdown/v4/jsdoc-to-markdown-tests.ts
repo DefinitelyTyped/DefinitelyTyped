@@ -1,6 +1,5 @@
-import { JsdocToMarkdown, StyleListFormat } from "jsdoc-to-markdown";
-
-const jsdoc2md = new JsdocToMarkdown();
+import jsdoc2md = require('jsdoc-to-markdown');
+import { StyleListFormat } from 'jsdoc-to-markdown';
 
 const JsdocDataOptions = {
     files: "file.js"
