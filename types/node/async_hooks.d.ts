@@ -8,7 +8,16 @@ declare module "async_hooks" {
     function executionAsyncId(): number;
 
     /**
-     * Returns the current executing async resource.
+     * The resource representing the current execution.
+     *  Useful to store data within the resource.
+     *
+     * Resource objects returned by `executionAsyncResource()` are most often internal
+     * Node.js handle objects with undocumented APIs. Using any functions or properties
+     * on the object is likely to crash your application and should be avoided.
+     *
+     * Using `executionAsyncResource()` in the top-level execution context will
+     * return an empty object as there is no handle or request object to use,
+     * but having an object representing the top-level can be helpful.
      */
     function executionAsyncResource(): object;
 

@@ -872,6 +872,7 @@ declare namespace NodeJS {
 
         resourceUsage(): ResourceUsage;
 
+        /* EventEmitter */
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
         addListener(event: "disconnect", listener: DisconnectListener): this;
         addListener(event: "exit", listener: ExitListener): this;
