@@ -1,4 +1,4 @@
-import { parseRtpPacket, parseRtpPayloadType } from 'rtp-parser';
+import { parseRtpPacket, parseRtpPayloadType, payloadTypesHash } from 'rtp-parser';
 
 const result = parseRtpPacket(new Buffer('fakeRTP'));
 result.csrc; // $ExpectType number[]
@@ -12,6 +12,8 @@ parsed3.clockRate; // $ExpectType 8000
 
 const parsed35 = parseRtpPayloadType(35);
 parsed35.name; // $ExpectType "unassigned"
+
+payloadTypesHash[0].mediaType; // $ExpectType "A"
 
 parseRtpPayloadType(0);
 parseRtpPayloadType(1);
