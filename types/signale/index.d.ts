@@ -124,8 +124,8 @@ declare namespace signale {
             span?: number
         ): { label: string; span?: number };
         /**
-        * Disables the logging functionality of all loggers belonging to a specific instance.
-        */
+         * Disables the logging functionality of all loggers belonging to a specific instance.
+         */
         disable(): void;
         /**
          * Enables the logging functionality of all loggers belonging to a specific instance.
