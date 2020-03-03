@@ -232,6 +232,13 @@ declare class Mocha {
     run(fn?: (failures: number) => void): Mocha.Runner;
 
     /**
+     * Loads ESM (and CJS) test files asynchronously.
+     *
+     * @see https://mochajs.org/api/mocha#loadFilesAsync
+     */
+    loadFilesAsync(): Promise<void>;
+
+    /**
      * Load registered files.
      *
      * @see https://mochajs.org/api/mocha#loadFiles
