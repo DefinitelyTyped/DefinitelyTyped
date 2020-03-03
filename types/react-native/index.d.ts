@@ -8630,7 +8630,9 @@ export namespace Animated {
     >
         extends React.FC<
             AnimatedProps<ComponentProps<T>> & {
-                ref?: React.Ref<AnimatedComponent<P>>;
+                ref?: React.Ref<
+                    AnimatedComponent<P extends React.ComponentClass<ComponentProps<P>> ? InstanceType<P> : P>
+                >;
             }
         > {
         getNode: () => P;
@@ -8644,9 +8646,7 @@ export namespace Animated {
     >(
         component: T,
     ): T extends React.ForwardRefExoticComponent<ComponentProps<T> & React.RefAttributes<infer P>>
-        ? P extends React.ComponentClass<ComponentProps<P>>
-            ? AnimatedForwardRefComponent<T, InstanceType<P>>
-            : P extends React.FunctionComponent<ComponentProps<P>>
+        ? P extends React.ComponentType<ComponentProps<P>> | React.Component<ComponentProps<P>>
             ? AnimatedForwardRefComponent<T, P>
             : never
         : AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
