@@ -5,3 +5,4 @@
 // TypeScript Version: 3.8
 
 export function go(..._: any[]): any[];
+export function add(a: any, b: any): any;
