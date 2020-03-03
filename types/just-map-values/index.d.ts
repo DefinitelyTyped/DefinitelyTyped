@@ -3,6 +3,6 @@
 // Definitions by: Roman Lerchster <https://github.com/wa4-fearless-otter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function map<O extends {}>(item: O, callback: (value: any, key: string, object: O) => any): {};
+declare function map<T extends {}>(item: T, callback: (value: any, key: string, object: T) => any): {};
 
 export = map;
