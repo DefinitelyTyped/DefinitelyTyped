@@ -3,6 +3,6 @@
 // Definitions by: Roman Lerchster <https://github.com/wa4-fearless-otter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function set(item: any[] | {}, target: string | Symbol | (string | Symbol)[], value: any): boolean;
+declare function set(item: any[] | {}, target: string | symbol | Array<string | symbol>, value: any): boolean;
 
 export = set;
