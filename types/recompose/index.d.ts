@@ -14,7 +14,7 @@
 declare module 'recompose' {
 
     import * as React from 'react';
-    import { ComponentType as Component, ForwardRefExoticComponent, ComponentClass, StatelessComponent, ValidationMap, JSXElementConstructor } from 'react';
+    import { ComponentType as Component, ComponentClass, StatelessComponent, ValidationMap, JSXElementConstructor } from 'react';
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
