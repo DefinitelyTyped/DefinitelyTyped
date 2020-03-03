@@ -142,7 +142,7 @@ declare module "pdfmake/build/pdfmake" {
         Double = "double",
         Wavy = "wavy"
     }
-    
+
     enum PageBreak {
         Before = "before",
         After = "after"
@@ -153,7 +153,6 @@ declare module "pdfmake/build/pdfmake" {
 		font?: any;
 		/** size of the font in pt */
 		fontSize?: number;
-		/**  */
 		fontFeatures?: any;
 		/** whether to use bold text (default: false) */
 		bold?: boolean;
@@ -180,7 +179,7 @@ declare module "pdfmake/build/pdfmake" {
 		/** the line height (default: 1) */
 		lineHeight?: number;
 		characterSpacing?: number;
-		noWrap?: boolean;	
+		noWrap?: boolean;
 		/** the color of the bullets in a buletted list */
 		markerColor?: string;
 		leadingIndent?: any;
@@ -218,7 +217,7 @@ declare module "pdfmake/build/pdfmake" {
         widths?: Array<string | number>;
     }
 
-    export interface Content {
+    interface Content {
 		layout?: Layout;
         style?: string | string[];
         margin?: Margins;
@@ -248,7 +247,7 @@ declare module "pdfmake/build/pdfmake" {
         title: Content;
     }
 
-    export interface TDocumentDefinitions {
+    interface TDocumentDefinitions {
         background?: string | ((currentPage: number, pageSize: PageSize) => string | Content | null);
         compress?: boolean;
         content: string | Content | Array<string | Content>;
@@ -343,21 +342,21 @@ declare module "pdfmake/build/pdfmake" {
         fonts: { [name: string]: TFontFamilyTypes };
         createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
 	}
-	
+
 	interface Watermark {
 		/** watermark text */
-		text?: string,
+		text?: string;
 		/** color of text */
-		color?: string,
+		color?: string;
 		/** opacity of text */
-		opacity?: number,
+		opacity?: number;
 		/** bold style of text */
-		bold?: boolean,
+		bold?: boolean;
 		/** italics style of text */
-		italics?: true,
+		italics?: true;
 		/** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
-		fontSize?: number,
+		fontSize?: number;
 		/** angle of text rotation (minimal version: 0.1.60) */
-		angle?: number
+		angle?: number;
 	}
 }

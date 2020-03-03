@@ -1321,7 +1321,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
         compress: false,
         content: ['This document does not use compression']
     },
-    //Table of Contents tests
+    // Table of Contents tests
     {
         content: [
             {
@@ -1347,16 +1347,16 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
             {
                 text: 'This is a header',
                 style: 'header',
-                tocItem: 'mainToc' //if is used id in toc
+                tocItem: 'mainToc' // if is used id in toc
             },
             {
                 text: 'This is a header',
                 style: 'header',
                 tocItem: ['mainToc', 'subToc'] // for multiple tocs
-            },
+            }
         ]
     },
-    //Watermark tests
+    // Watermark tests
     {
         content: "Watermark content",
         watermark: {
@@ -1369,12 +1369,12 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
             angle: 70
         }
     }
-]
+];
 
 const downloadPdf = () => {
     const pdf = pdfMake;
     pdf.vfs = pdfFonts.pdfMake.vfs;
-    
+
     for (const def of definitions) {
         pdfMake.createPdf(def).download();
     }
@@ -1383,7 +1383,7 @@ const downloadPdf = () => {
 const openPdf = () => {
     const pdf = pdfMake;
     pdf.vfs = pdfFonts.pdfMake.vfs;
-    
+
     for (const def of definitions) {
         pdfMake.createPdf(def).open();
     }
@@ -1392,7 +1392,7 @@ const openPdf = () => {
 const openPdfInSameWindow = () => {
     const pdf = pdfMake;
     pdf.vfs = pdfFonts.pdfMake.vfs;
-    
+
     for (const def of definitions) {
         pdfMake.createPdf(def).open({}, window);
     }
@@ -1401,7 +1401,7 @@ const openPdfInSameWindow = () => {
 const printPdf = () => {
     const pdf = pdfMake;
     pdf.vfs = pdfFonts.pdfMake.vfs;
-    
+
     for (const def of definitions) {
         pdfMake.createPdf(def).print();
     }
@@ -1410,7 +1410,7 @@ const printPdf = () => {
 const printPdfInSameWindow = () => {
     const pdf = pdfMake;
     pdf.vfs = pdfFonts.pdfMake.vfs;
-    
+
     for (const def of definitions) {
         pdfMake.createPdf(def).print({}, window);
     }
@@ -1424,9 +1424,9 @@ const pdfAsBaseSixtyFourData = () => {
         const pdfDocGenerator = pdfMake.createPdf(def);
         pdfDocGenerator.getBase64((data) => {
             alert(data);
-        });   
+        });
     }
-}
+};
 
 const pdfAsBuffer = () => {
     const pdf = pdfMake;
@@ -1436,9 +1436,9 @@ const pdfAsBuffer = () => {
         const pdfDocGenerator = pdfMake.createPdf(def);
         pdfDocGenerator.getBuffer((buffer) => {
             // ...
-        }); 
+        });
     }
-}
+};
 
 const pdfAsBlob = () => {
     const pdf = pdfMake;
@@ -1448,9 +1448,9 @@ const pdfAsBlob = () => {
         const pdfDocGenerator = pdfMake.createPdf(def);
         pdfDocGenerator.getBlob((blob) => {
             // ...
-        }); 
+        });
     }
-}
+};
 
 const getPdfKitDocumentObject = () => {
     const pdf = pdfMake;
@@ -1462,4 +1462,4 @@ const getPdfKitDocumentObject = () => {
             // ...
         });
     }
-}
+};
