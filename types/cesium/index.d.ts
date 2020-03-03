@@ -121,7 +121,7 @@ declare namespace Cesium {
         readonly isConstant: boolean;
         propertyNames: string[];
 
-        constructor(value: object, createPropertyCallback?: (value?: any) => void);
+        constructor(value?: object, createPropertyCallback?: (value?: any) => void);
 
         addProperty(propertyName: string, value?: any, createPropertyCallback?: (value?: any) => void): void;
         equals(other?: Property): boolean;
