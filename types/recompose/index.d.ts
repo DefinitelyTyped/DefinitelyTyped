@@ -14,7 +14,7 @@
 declare module 'recompose' {
 
     import * as React from 'react';
-    import { ComponentType as Component, ForwardRefExoticComponent, ComponentClass, StatelessComponent, ValidationMap } from 'react';
+    import { ComponentType as Component, ForwardRefExoticComponent, ComponentClass, StatelessComponent, ValidationMap, JSXElementConstructor } from 'react';
 
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
@@ -37,7 +37,7 @@ declare module 'recompose' {
     }
 
     interface ComponentEnhancer<TInner, TOutter> {
-        (component: Component<TInner>): ComponentClass<TOutter> | ForwardRefExoticComponent<TOutter>;
+        (component: JSXElementConstructor<TInner>): JSXElementConstructor<TOutter>;
     }
 
     // Injects props and removes them from the prop requirements.
