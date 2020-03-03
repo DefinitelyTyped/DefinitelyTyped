@@ -2,6 +2,8 @@ import { computed } from '@ember/object';
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import DS, { ChangedAttributes } from 'ember-data';
 import RSVP from 'rsvp';
+import { assertType } from './lib/assert';
+import Ember from 'ember';
 
 declare module 'ember-data/types/registries/model' {
     export default interface ModelRegistry {
@@ -39,10 +41,32 @@ const User = Model.extend({
 
 class Human extends Model {
     @attr() age: number;
-    @belongsTo('human') mother: Human;
+    @belongsTo('human') mother: DS.PromiseObject<Human>;
+    @belongsTo('human', { async: false }) motherSync: Human;
     // We should remove the direct use of `DS.PromiseManyArray` by creating and
     // exporting a type which represents `HasMany<Person>`.
-    @hasMany('person') children: DS.PromiseManyArray<Person>;
+    @hasMany('person') children: DS.ManyArray<Human>;
+    @hasMany('human', { async: false }) childrenSync: Ember.Array<Human>;
+
+    testOwnBelongsTo() {
+        assertType<DS.BelongsToReference<Human>>(
+            this.belongsTo('motherSync')
+        );
+
+        assertType<DS.BelongsToReference<Human>>(
+            this.belongsTo('mother')
+        );
+    }
+
+    testOwnHasMany() {
+        assertType<DS.HasManyReference<Human>>(
+            this.hasMany('childrenSync')
+        );
+
+        assertType<DS.HasManyReference<Human>>(
+            this.hasMany('children')
+        );
+    }
 }
 
 const user = User.create({ username: 'dwickern' });
@@ -78,3 +102,38 @@ reloaded = user.reload();
 reloaded = user.reload({});
 reloaded = user.reload({ adapterOptions: {} });
 reloaded = user.reload({ adapterOptions: { fastAsCanBe: 'yessirree' } });
+
+const human = Human.create();
+
+function testBelongsTo() {
+    assertType<DS.BelongsToReference<Human>>(
+        human.belongsTo('mother')
+    );
+
+    assertType<DS.BelongsToReference<Human>>(
+        human.belongsTo('motherSync')
+    );
+
+    assertType<DS.BelongsToReference<never>>(
+        human.belongsTo('children') // wrong relationship kind
+    );
+
+    human.belongsTo('undefined').value()!; // $ExpectError
+}
+
+function testHasMany() {
+    assertType<DS.HasManyReference<Human>>(
+        human.hasMany('children')
+    );
+
+    assertType<DS.HasManyReference<Human>>(
+        human.hasMany('childrenSync')
+    );
+
+    // errors
+    assertType<DS.HasManyReference<never>>(
+        human.hasMany('mother') // wrong relationship kind
+    );
+
+    human.hasMany('undefined').value()!; // $ExpectError
+}

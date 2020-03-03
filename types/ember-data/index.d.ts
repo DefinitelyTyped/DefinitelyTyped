@@ -23,7 +23,31 @@ import AdapterRegistry from 'ember-data/types/registries/adapter';
 type ModelKeys<Model extends DS.Model> = Exclude<keyof Model, keyof DS.Model>;
 
 type AttributesFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to attr properties only (TS 2.8)
-type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filter to hasMany/belongsTo properties only (TS 2.8)
+
+type MaybeModel<T> = T extends DS.Model ? T : never;
+
+type UnboxBelongsTo<T> =
+    T extends DS.PromiseObject<infer C> ? MaybeModel<C>
+      : T extends Ember.ComputedProperty<infer C & DS.PromiseObject<infer C>, infer C> ? MaybeModel<C>
+      : T extends Ember.ComputedProperty<infer C> ? MaybeModel<C>
+      : MaybeModel<T>;
+
+type UnboxHasMany<T> =
+    T extends DS.PromiseManyArray<infer C> ? MaybeModel<C>
+      : T extends Ember.Array<infer C> ? MaybeModel<C>
+      : T extends Ember.ComputedProperty<DS.PromiseManyArray<infer C>, Ember.Array<infer C>> ? MaybeModel<C>
+      : T extends Ember.ComputedProperty<DS.ManyArray<infer C>> ? MaybeModel<C>
+      : never;
+
+type BelongsToModels<Model extends DS.Model> = {
+    [k in keyof Model]: UnboxBelongsTo<Model[k]>
+};
+
+type HasManyModels<Model extends DS.Model> = {
+    [k in keyof Model]: UnboxHasMany<Model[k]>
+};
+
+type KeysForRelationships<Model extends DS.Model> = keyof BelongsToModels<Model> & keyof HasManyModels<Model>;
 
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
@@ -43,7 +67,7 @@ interface RelationshipMetaOptions {
     [k: string]: any;
 }
 interface RelationshipMeta<Model extends DS.Model> {
-    key: RelationshipsFor<Model>;
+    key: KeysForRelationships<Model>;
     kind: 'belongsTo' | 'hasMany';
     type: keyof ModelRegistry;
     options: RelationshipMetaOptions;
@@ -64,7 +88,7 @@ export namespace DS {
 
     interface RelationshipOptions<M extends Model> {
         async?: boolean;
-        inverse?: RelationshipsFor<M> | null;
+        inverse?: KeysForRelationships<M> | null;
         polymorphic?: boolean;
     }
 
@@ -546,11 +570,11 @@ export namespace DS {
         /**
          * Get the reference for the specified belongsTo relationship.
          */
-        belongsTo(name: RelationshipsFor<this>): BelongsToReference;
+        belongsTo<T extends Model, K extends keyof BelongsToModels<T>>(this: T, name: K): BelongsToReference<BelongsToModels<T>[K]>;
         /**
          * Get the reference for the specified hasMany relationship.
          */
-        hasMany(name: RelationshipsFor<this>): HasManyReference<any>;
+        hasMany<T extends Model, K extends keyof HasManyModels<T>>(this: T, name: K): HasManyReference<HasManyModels<T>[K]>;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship
@@ -725,7 +749,7 @@ export namespace DS {
      * addon author to perform meta-operations on a belongs-to
      * relationship.
      */
-    class BelongsToReference {
+    class BelongsToReference<T extends Model> {
         /**
          * This returns a string that represents how the reference will be
          * looked up when it is loaded. If the relationship has a link it will
@@ -762,7 +786,7 @@ export namespace DS {
          * relationship is not yet loaded. If the relationship is not loaded
          * it will always return `null`.
          */
-        value(): Model | null;
+        value(): T | null;
         /**
          * Loads a record in a belongs to relationship if it is not already
          * loaded. If the relationship is already loaded this method does not
@@ -1005,11 +1029,11 @@ export namespace DS {
         /**
          * Returns the current value of a belongsTo relationship.
          */
-        belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
+        belongsTo<L extends keyof BelongsToModels<ModelRegistry[K]>>(
             keyName: L,
             options?: {}
         ): Snapshot | null | undefined;
-        belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
+        belongsTo<L extends keyof BelongsToModels<ModelRegistry[K]>>(
             keyName: L,
             options: { id: true }
         ): string | null | undefined;
@@ -1017,11 +1041,11 @@ export namespace DS {
         /**
          * Returns the current value of a hasMany relationship.
          */
-        hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
+        hasMany<L extends keyof HasManyModels<ModelRegistry[K]>>(
             keyName: L,
             options?: { ids: false }
         ): Snapshot[] | undefined;
-        hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
+        hasMany<L extends keyof HasManyModels<ModelRegistry[K]>>(
             keyName: L,
             options: { ids: true }
         ): string[] | undefined;

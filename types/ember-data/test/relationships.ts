@@ -77,12 +77,18 @@ class Series extends DS.Model {
     title = DS.attr('string');
 }
 
+class Post extends DS.Model {
+    title = DS.attr('string');
+    comments = DS.hasMany('comment');
+}
+
 class RelationalPost extends DS.Model {
     title = DS.attr('string');
     tag = DS.attr('string');
     comments = DS.hasMany('comment', { async: true });
     relatedPosts = DS.hasMany('post');
-    series = DS.belongsTo('series');
+    series = DS.belongsTo('series', { async: true});
+    seriesSync = DS.belongsTo('series', { async: false});
 }
 
 declare module 'ember-data/types/registries/model' {
@@ -90,14 +96,26 @@ declare module 'ember-data/types/registries/model' {
         'relational-post': RelationalPost;
         comment: Comment;
         series: Series;
+        post: Post;
     }
 }
 
-let blogPost = store.peekRecord('relational-post', 1);
-blogPost!.get('comments').then((comments) => {
+let blogPost = store.peekRecord('relational-post', 1)!;
+blogPost.get('comments').then((comments) => {
     // now we can work with the comments
     let author: string = comments.get('firstObject')!.get('author');
 });
 
-blogPost!.hasMany('relatedPosts');
-blogPost!.belongsTo('series');
+assertType<DS.ManyArray<Post> | null>(
+    blogPost.hasMany('relatedPosts').value()
+);
+assertType<DS.BelongsToReference<Series> | null>(
+    blogPost.belongsTo('series')
+);
+
+assertType<DS.BelongsToReference<Series> | null>(
+    blogPost.belongsTo('seriesSync')
+);
+
+// $ExpectError
+blogPost.belongsTo('non-existing');
