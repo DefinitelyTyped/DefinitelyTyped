@@ -3,6 +3,7 @@
     "rules": {
         "no-redundant-jsdoc-2": false,
         "jsdoc-format": false,
-        "ban-types": false
+        "ban-types": false,
+        "no-duplicate-imports": false
     }
 }
