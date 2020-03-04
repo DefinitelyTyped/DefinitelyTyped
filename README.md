@@ -76,7 +76,7 @@ Version | Released | End of Support
 -- | -- | --
 2.8 | March 2018 | March 2020
 2.9 | May 2018 | May 2020
-3 | July 2018 | July 2020
+3.0 | July 2018 | July 2020
 3.1 | September 2018 | September 2020
 3.2 | November 2018 | November 2020
 3.3 | January 2019 | January 2020
