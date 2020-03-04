@@ -125,6 +125,8 @@ function TextUseWindowDimensions() {
     const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
+BackHandler.addEventListener("hardwareBackPress", () => true).remove();
+BackHandler.addEventListener("hardwareBackPress", () => false).remove();
 BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
 
 interface LocalStyles {
