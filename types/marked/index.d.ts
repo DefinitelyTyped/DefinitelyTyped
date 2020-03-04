@@ -18,7 +18,8 @@ export = marked;
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, callback?: (error: any | undefined, parseResult: string) => void): string | void;
+declare function marked(src: string): string;
+declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
 
 /**
  * Compiles markdown to HTML.
@@ -28,7 +29,8 @@ declare function marked(src: string, callback?: (error: any | undefined, parseRe
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string | void;
+declare function marked(src: string, options: marked.MarkedOptions): string;
+declare function marked(src: string, options: marked.MarkedOptions, callback: (error: any | undefined, parseResult: string) => void): void;
 
 declare namespace marked {
     const defaults: MarkedOptions;
