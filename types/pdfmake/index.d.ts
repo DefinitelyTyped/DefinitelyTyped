@@ -61,13 +61,13 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentInformation {
-		/** the title of the document */
-		title?: string;
-		/** the name of the author */
-		author?: string;
-		/** the subject of the document */
-		subject?: string;
-		/** keywords associated with the document */
+        /** the title of the document */
+        title?: string;
+        /** the name of the author */
+        author?: string;
+        /** the subject of the document */
+        subject?: string;
+        /** keywords associated with the document */
         keywords?: string;
     }
 
@@ -80,40 +80,40 @@ declare module "pdfmake/build/pdfmake" {
     type Margins = number | [number, number] | [number, number, number, number];
 
     interface Style {
-		/** name of the font */
-		font?: any;
-		/** size of the font in pt */
-		fontSize?: number;
-		fontFeatures?: any;
-		/** whether to use bold text (default: false) */
-		bold?: boolean;
-		/** whether to use italic text (default: false) */
-		italics?: boolean;
-		/** the alignment of the text */
-		alignment?: Alignment;
-		/** the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’) */
+        /** name of the font */
+        font?: any;
+        /** size of the font in pt */
+        fontSize?: number;
+        fontFeatures?: any;
+        /** whether to use bold text (default: false) */
+        bold?: boolean;
+        /** whether to use italic text (default: false) */
+        italics?: boolean;
+        /** the alignment of the text */
+        alignment?: Alignment;
+        /** the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’) */
         color?: string;
         /** optional space between columns */
-		columnGap?: any;
-		/** the background color of a table cell */
-		fillColor?: string;
-		/** the background opacity of a table cell */
-		fillOpacity?: string;
-		/** the text decoration to applu (‘underline’ or ‘lineThrough’ or ‘overline’) */
-		decoration?: Decoration;
-		/** (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’) */
-		decorationStyle?: DecorationStyle;
-		/** the color of the text decoration, see color */
-		decorationColor?: string;
-		/** the background color of the text */
-		background?: any;
-		/** the line height (default: 1) */
-		lineHeight?: number;
-		characterSpacing?: number;
-		noWrap?: boolean;
-		/** the color of the bullets in a buletted list */
-		markerColor?: string;
-		leadingIndent?: any;
+        columnGap?: any;
+        /** the background color of a table cell */
+        fillColor?: string;
+        /** the background opacity of a table cell */
+        fillOpacity?: string;
+        /** the text decoration to applu (‘underline’ or ‘lineThrough’ or ‘overline’) */
+        decoration?: Decoration;
+        /** (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’) */
+        decorationStyle?: DecorationStyle;
+        /** the color of the text decoration, see color */
+        decorationColor?: string;
+        /** the background color of the text */
+        background?: any;
+        /** the line height (default: 1) */
+        lineHeight?: number;
+        characterSpacing?: number;
+        noWrap?: boolean;
+        /** the color of the bullets in a buletted list */
+        markerColor?: string;
+        leadingIndent?: any;
         [additionalProperty: string]: any;
     }
 
@@ -149,7 +149,7 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface Content {
-		layout?: Layout;
+        layout?: Layout;
         style?: string | string[];
         margin?: Margins;
         text?: string | string[] | Content[];
@@ -272,22 +272,22 @@ declare module "pdfmake/build/pdfmake" {
         vfs: TFontFamily;
         fonts: { [name: string]: TFontFamilyTypes };
         createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
-	}
+    }
 
-	interface Watermark {
-		/** watermark text */
-		text?: string;
-		/** color of text */
-		color?: string;
-		/** opacity of text */
-		opacity?: number;
-		/** bold style of text */
-		bold?: boolean;
-		/** italics style of text */
-		italics?: true;
-		/** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
-		fontSize?: number;
-		/** angle of text rotation (minimal version: 0.1.60) */
-		angle?: number;
-	}
+    interface Watermark {
+        /** watermark text */
+        text?: string;
+        /** color of text */
+        color?: string;
+        /** opacity of text */
+        opacity?: number;
+        /** bold style of text */
+        bold?: boolean;
+        /** italics style of text */
+        italics?: true;
+        /** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
+        fontSize?: number;
+        /** angle of text rotation (minimal version: 0.1.60) */
+        angle?: number;
+    }
 }
