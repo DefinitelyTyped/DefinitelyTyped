@@ -1,4 +1,4 @@
-// Type definitions for bearcat-es6 0.6.1
+// Type definitions for bearcat-es6 0.6
 // Project: https://github.com/ChrisPei/bearcat-es6
 // Definitions by: Xin Li <https://github.com/xinxinran0221010>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,11 +9,11 @@
 import { EventEmitter } from 'events';
 
 declare namespace bearcat {
-    type CallbackFunc = Function;
-    type ParamClassFunc = Function;
-    type BeanPostProcessor = {
-        postProcessBeanFactory: Function
-    };
+    type CallbackFunc = () => void;
+    type ParamClassFunc = () => void;
+    interface BeanPostProcessor {
+        postProcessBeanFactory: CallbackFunc;
+    }
 
     interface Bearcat {
         opts: object;
@@ -1182,7 +1182,6 @@ declare namespace bearcat {
     }
 
     interface BootStrapLoader {
-
         /**
          * BootStrapLoader load script files.
          *
