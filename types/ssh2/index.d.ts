@@ -1517,7 +1517,7 @@ export interface SFTPWrapper extends events.EventEmitter {
      *
      * Returns `false` if you should wait for the `continue` event before sending any more traffic.
      */
-    realpath(path: string, callback: (err: Error | undefined, absPath: string) => void): boolean;
+    realpath(path: string, callback: (err: Error | undefined, absPath: string | undefined) => void): boolean;
 
     /**
      * (Client-only, OpenSSH extension)
