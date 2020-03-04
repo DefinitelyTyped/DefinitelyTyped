@@ -258,7 +258,11 @@ const test = () => (
         <Flex flexWrap="wrap" />
         <Flex flexWrap={['wrap']} />
         <Flex flexWrap={{ sm: 'wrap' }} />
-        // flexBasis (responsive)
+        // flexShrink
+        <Flex flexShrink={0} />
+        // flexGrow
+        <Flex flexGrow={0} />
+        // flexBasis
         <Flex flexBasis="auto" />
         // flexDirection (responsive)
         <Flex flexDirection="column" />
@@ -405,6 +409,8 @@ const test = () => (
         <Spacer marginRight={[1, 2, 3]} paddingRight={[1, 2, 3]} />
         <Spacer marginTop={[1, 2, 3]} paddingTop={[1, 2, 3]} />
         <Spacer marginBottom={[1, 2, 3]} paddingBottom={[1, 2, 3]} />
+        <Spacer marginX={[1, 2, 3]} paddingX={[1, 2, 3]} />
+        <Spacer marginY={[1, 2, 3]} paddingY={[1, 2, 3]} />
         // overflow
         <Box overflow="hidden" />
         <Box overflowX="auto" />
@@ -507,6 +513,11 @@ const customFontStyles = system({
     },
     letterSpacing: true,
 });
+
+const CustomFontGroup = compose(
+    customFontSize,
+    customFontSize,
+);
 
 const centerWithGenerics = style<boolean>({
     prop: 'center',

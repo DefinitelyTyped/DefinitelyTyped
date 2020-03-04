@@ -3,11 +3,12 @@
 // Definitions by: AryloYeung <https://github.com/Arylo>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="node" />
+import { EventEmitter } from 'events';
 
-declare class Keyv<TValue = any> extends NodeJS.EventEmitter {
+declare class Keyv<TValue = any> extends EventEmitter {
     /**
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */

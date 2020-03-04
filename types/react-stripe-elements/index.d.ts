@@ -1,4 +1,4 @@
-// Type definitions for react-stripe-elements 1.3
+// Type definitions for react-stripe-elements 6.0
 // Project: https://github.com/stripe/react-stripe-elements#readme
 // Definitions by: dan-j <https://github.com/dan-j>
 //                 Santiago Doldan <https://github.com/santiagodoldan>
@@ -9,13 +9,17 @@
 //                 Victor Irzak <https://github.com/virzak>
 //                 Alex Price <https://github.com/remotealex>
 //                 Maciej Dabek <https://github.com/bombek92>
+//                 Hiroshi Ioka <https://github.com/hirochachacha>
+//                 Austin Turner <https://github.com/paustint>
+//                 Benedikt Bauer <https://github.com/mastacheata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.5
 
 /// <reference types="stripe-v3" />
 import * as React from 'react';
 
 export namespace ReactStripeElements {
+    import BankAccountTokenOptions = stripe.BankAccountTokenOptions;
     type ElementChangeResponse = stripe.elements.ElementChangeResponse;
     type ElementsOptions = stripe.elements.ElementsOptions;
     // From https://stripe.com/docs/stripe-js/reference#element-types
@@ -26,14 +30,6 @@ export namespace ReactStripeElements {
     type SourceOptions = stripe.SourceOptions;
     type HTMLStripeElement = stripe.elements.Element;
 
-    /**
-     * There's a bug in @types/stripe which defines the property as
-     * `declined_code` (with a 'd') but it's in fact `decline_code`
-     */
-    type PatchedTokenResponse = TokenResponse & {
-        error?: { decline_code?: string };
-    };
-
     interface StripeProviderOptions {
         stripeAccount?: string;
     }
@@ -41,14 +37,24 @@ export namespace ReactStripeElements {
         | { apiKey: string; stripe?: never } & StripeProviderOptions
         | { apiKey?: never; stripe: stripe.Stripe | null } & StripeProviderOptions;
 
-    interface StripeProps {
+    interface StripeOverrideProps {
+        /*
+         * react-stripe-elements let's you use the same createToken function
+         * with either credit card or bank account options
+         * which one to choose depends solely on the inferred elements and can't be expressed in TypeScript
+         */
+        createToken(options?: TokenOptions | BankAccountTokenOptions): Promise<TokenResponse>;
         createSource(sourceData?: SourceOptions): Promise<SourceResponse>;
-        createToken(options?: TokenOptions): Promise<PatchedTokenResponse>;
-        paymentRequest: stripe.Stripe['paymentRequest'];
         createPaymentMethod(
             paymentMethodType: stripe.paymentMethod.paymentMethodType,
             data?: stripe.CreatePaymentMethodOptions,
         ): Promise<stripe.PaymentMethodResponse>;
+        createPaymentMethod(
+            paymentMethodType: stripe.paymentMethod.paymentMethodType,
+            element: HTMLStripeElement,
+            data?: stripe.CreatePaymentMethodOptions,
+        ): Promise<stripe.PaymentMethodResponse>;
+        createPaymentMethod(data: stripe.PaymentMethodData): Promise<stripe.PaymentMethodResponse>;
         handleCardPayment(
             clientSecret: string,
             options?: stripe.HandleCardPaymentWithoutElementsOptions,
@@ -59,12 +65,16 @@ export namespace ReactStripeElements {
         ): Promise<stripe.SetupIntentResponse>;
     }
 
+    interface StripeProps extends Omit<stripe.Stripe, keyof StripeOverrideProps>, StripeOverrideProps {
+    }
+
     interface InjectOptions {
         withRef?: boolean;
     }
 
     interface InjectedStripeProps {
-        stripe?: StripeProps;
+        stripe: StripeProps | null;
+        elements: stripe.elements.Elements | null;
     }
 
     interface ElementProps extends ElementsOptions {
@@ -83,9 +93,9 @@ export namespace ReactStripeElements {
         onReady?(el: HTMLStripeElement): void;
     }
 
-	interface PaymentRequestButtonElementProps extends ElementProps {
-		onClick?(event: any): void;
-	}
+    interface PaymentRequestButtonElementProps extends ElementProps {
+        onClick?(event: any): void;
+    }
 }
 
 export class StripeProvider extends React.Component<ReactStripeElements.StripeProviderProps> {}

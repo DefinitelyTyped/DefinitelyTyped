@@ -1,5 +1,4 @@
-import { EventsKey } from '../events';
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
 import ImageState from '../ImageState';
 import { Size } from '../size';
 
@@ -9,28 +8,26 @@ export interface Options {
     rotation: number;
     scale: number;
 }
-export default class ImageStyle {
+export default abstract class ImageStyle {
     constructor(options: Options);
     clone(): ImageStyle;
-    getAnchor(): number[];
-    getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
-    getHitDetectionImageSize(): Size;
-    getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
-    getImageSize(): Size;
-    getImageState(): ImageState;
+    abstract getAnchor(): number[];
+    abstract getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    abstract getHitDetectionImageSize(): Size;
+    abstract getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
+    abstract getImageSize(): Size;
+    abstract getImageState(): ImageState;
     getOpacity(): number;
-    getOrigin(): number[];
+    abstract getOrigin(): number[];
     getRotateWithView(): boolean;
     getRotation(): number;
     getScale(): number;
-    getSize(): Size;
-    getSnapToPixel(): boolean;
-    listenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): EventsKey | undefined;
-    load(): void;
+    abstract getSize(): Size;
+    abstract listenImageChange<T>(listener: (p0: BaseEvent) => void): void;
+    abstract load(): void;
     setOpacity(opacity: number): void;
     setRotateWithView(rotateWithView: boolean): void;
     setRotation(rotation: number): void;
     setScale(scale: number): void;
-    setSnapToPixel(snapToPixel: boolean): void;
-    unlistenImageChange<T>(listener: (this: T, p0: Event) => void, thisArg: T): void;
+    abstract unlistenImageChange<T>(listener: (p0: BaseEvent) => void): void;
 }

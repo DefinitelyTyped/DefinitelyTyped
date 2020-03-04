@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
+import { UserCodeInfo } from "adal-node";
+
 export class Client {
     constructor(kcsb: string | KustoConnectionStringBuilder);
     connectionString: KustoConnectionStringBuilder;
@@ -40,7 +43,7 @@ export class KustoConnectionStringBuilder {
     authorityId: string;
     static withAadApplicationCertificateAuthentication(connectionString: string, aadAppId: string, certificate: string, thumbprint: string, authorityId: string): KustoConnectionStringBuilder;
     static withAadApplicationKeyAuthentication(connectionString: string, aadAppId: string, appKey: string, authorityId: string): KustoConnectionStringBuilder;
-    static withAadDeviceAuthentication(connectionString: string, authorityId: string, authCallback?: any): KustoConnectionStringBuilder;
+    static withAadDeviceAuthentication(connectionString: string, authorityId: string, authCallback?: (tokenReponse: UserCodeInfo) => void): KustoConnectionStringBuilder;
     static withAadUserPasswordAuthentication(connectionString: string, userId: string, password: string, authorityId?: any): KustoConnectionStringBuilder;
     static withAadManagedIdentities(connectionString: string, msiEndpoint?: string, clientId?: string): KustoConnectionStringBuilder;
 }

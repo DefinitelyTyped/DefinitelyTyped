@@ -29,6 +29,7 @@
         "test/collection/updateX.ts",
         "test/collection/mapReduce.ts",
         "test/collection/aggregate.ts",
-        "test/collection/count.ts"
+        "test/collection/count.ts",
+        "test/collection/distinct.ts"
     ]
 }

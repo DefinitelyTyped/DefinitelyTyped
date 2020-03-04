@@ -4,6 +4,8 @@
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
 //                 Mikael Lirbank <https://github.com/lirbank>
+//                 Yuji Tabata <https://github.com/uztbt>
+//                 LBLZR_ <https://github.com/LaBlazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -184,6 +186,12 @@ export class AlertDialog extends Component<{
     onPostShow?(): void,
     onPreHide?(): void,
     onPostHide?(): void,
+}, any> {}
+
+export class AlertDialogButton extends Component<{
+    onClick?(): void,
+    modifier?: string,
+    disabled?: boolean,
 }, any> {}
 
 export class Dialog extends Component<{
@@ -438,6 +446,8 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    expandable?: boolean,
+    expanded?: boolean,
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 

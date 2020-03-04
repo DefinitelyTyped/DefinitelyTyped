@@ -13,7 +13,6 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
   // With all of the examples
   plugin = new GenerateSW({
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
     // Exclude assets that belong to these chunks:
@@ -84,9 +83,9 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
     }],
     navigateFallback: '/app-shell',
     // Exempt all URLs that start with /_ or contain admin anywhere:
-    navigateFallbackBlacklist: [/^\/_/, /admin/],
+    navigateFallbackDenylist: [/^\/_/, /admin/],
     // Include URLs that start with /pages:
-    navigateFallbackWhitelist: [/^\/pages/],
+    navigateFallbackAllowlist: [/^\/pages/],
     importScripts: ['push-notifications.abcd1234.js'],
     // This will ignore all parameters:
     ignoreUrlParametersMatching: [/./],
@@ -141,7 +140,6 @@ import { GenerateSW, InjectManifest } from 'workbox-webpack-plugin';
   // With all of the examples
   plugin = new InjectManifest({
     swDest: 'custom-sw-name.js',
-    importWorkboxFrom: 'local',
     // *Only* include assets that belong to these chunks:
     chunks: ['chunk-name-1', 'chunk-name-2'],
     // Exclude assets that belong to these chunks:

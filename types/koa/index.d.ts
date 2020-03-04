@@ -1,9 +1,10 @@
-// Type definitions for Koa 2.x
+// Type definitions for Koa 2.11.0
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
 //                 jKey Lu <https://github.com/jkeylu>
 //                 Brice Bernard <https://github.com/brikou>
 //                 harryparkdotio <https://github.com/harryparkdotio>
+//                 Wooram Jun <https://github.com/chatoo2412>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -12,7 +13,7 @@
     import * as Koa from "koa"
     const app = new Koa()
 
-    async function (ctx: Koa.Context, next: Function) {
+    async function (ctx: Koa.Context, next: Koa.Next) {
       // ...
     }
 
@@ -277,10 +278,11 @@ declare interface ContextDelegatedRequest {
     is(types: string[]): string | boolean;
 
     /**
-     * Return request header.
+     * Return request header. If the header is not set, will return an empty
+     * string.
      *
-     * The `Referrer` header field is special-cased,
-     * both `Referrer` and `Referer` are interchangeable.
+     * The `Referrer` header field is special-cased, both `Referrer` and
+     * `Referer` are interchangeable.
      *
      * Examples:
      *
@@ -291,7 +293,7 @@ declare interface ContextDelegatedRequest {
      *     // => "text/plain"
      *
      *     this.get('Something');
-     *     // => undefined
+     *     // => ''
      */
     get(field: string): string;
 }
@@ -437,6 +439,8 @@ declare class Application<
     CustomT = Application.DefaultContext
 > extends EventEmitter {
     proxy: boolean;
+    proxyIpHeader: string;
+    maxIpsCount: number;
     middleware: Application.Middleware<StateT, CustomT>[];
     subdomainOffset: number;
     env: string;
@@ -509,7 +513,7 @@ declare class Application<
      * Return a request handler callback
      * for node's native http/http2 server.
      */
-    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => void;
+    callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<void>;
 
     /**
      * Initialize a new context.
@@ -540,7 +544,12 @@ declare namespace Application {
     /**
      * This interface can be augmented by users to add types to Koa's default context
      */
-    interface DefaultContext extends DefaultContextExtends {}
+    interface DefaultContext extends DefaultContextExtends {
+        /**
+         * Custom properties.
+         */
+        [key: string]: any;
+    }
 
     type Middleware<
         StateT = DefaultState,
@@ -607,7 +616,11 @@ declare namespace Application {
         is(types: string[]): string;
 
         /**
-         * Return response header.
+         * Return response header. If the header is not set, will return an empty
+         * string.
+         *
+         * The `Referrer` header field is special-cased, both `Referrer` and
+         * `Referer` are interchangeable.
          *
          * Examples:
          *
@@ -616,6 +629,9 @@ declare namespace Application {
          *
          *     this.get('content-type');
          *     // => "text/plain"
+         *
+         *     this.get('Something');
+         *     // => ''
          */
         get(field: string): string;
 
@@ -680,10 +696,6 @@ declare namespace Application {
          * Default error handling.
          */
         onerror(err: Error): void;
-        /**
-         * Custom properties.
-         */
-        [key: string]: any;
     }
 
     interface Request extends BaseRequest {
@@ -728,6 +740,8 @@ declare namespace Application {
     } & CustomT;
 
     interface Context extends ParameterizedContext {}
+
+    type Next = () => Promise<any>;
 }
 
 export = Application;

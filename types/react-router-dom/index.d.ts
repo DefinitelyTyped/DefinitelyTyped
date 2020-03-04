@@ -5,6 +5,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Daniel Nixon <https://github.com/danielnixon>
+//                 Tony Ward <https://github.com/ynotdraw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -18,6 +19,7 @@ export {
     MemoryRouter,
     RedirectProps,
     Redirect,
+    RouteChildrenProps,
     RouteComponentProps,
     RouteProps,
     Route,

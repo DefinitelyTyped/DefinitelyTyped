@@ -29,6 +29,10 @@ geocoder.geocode(query, (err: any, entries: NodeGeocoder.Entry[]) => {
     console.log(JSON.stringify(entries, null, 2));
 });
 
+geocoder.geocode('Austin, TX, USA', (err: any, entries: NodeGeocoder.Entry[]) => {
+    console.log(JSON.stringify(entries, null, 2));
+});
+
 geocoder.batchGeocode([ 'Kraków', 'Warszawa' ]).then((entries) => {
     if (entries.length !== 2) {
         return;

@@ -1,5 +1,5 @@
 import { EventsKey } from '../events';
-import Event from '../events/Event';
+import BaseEvent from '../events/Event';
 import { ObjectEvent } from '../Object';
 import { ProjectionLike } from '../proj';
 import Projection from '../proj/Projection';
@@ -24,8 +24,9 @@ export interface Options {
     wrapX?: boolean;
     transition?: number;
     key?: string;
+    zDirection?: number;
 }
-export default class TileSource extends Source {
+export default abstract class TileSource extends Source {
     constructor(options: Options);
     protected tileCache: TileCache;
     protected tileGrid: TileGrid;
@@ -35,28 +36,38 @@ export default class TileSource extends Source {
     protected getTileCacheForProjection(projection: Projection): TileCache;
     protected setKey(key: string): void;
     canExpireCache(): boolean;
+    clear(): void;
     expireCache(projection: Projection, usedTiles: { [key: string]: TileRange }): void;
-    forEachLoadedTile(projection: Projection, z: number, tileRange: TileRange, callback: (p0: Tile) => boolean): boolean;
+    forEachLoadedTile(
+        projection: Projection,
+        z: number,
+        tileRange: TileRange,
+        callback: (p0: Tile) => boolean,
+    ): boolean;
     getGutterForProjection(projection: Projection): number;
     getOpaque(projection: Projection): boolean;
-    getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
+    getResolutions(): number[];
+    abstract getTile(z: number, x: number, y: number, pixelRatio: number, projection: Projection): Tile;
     getTileCoordForTileUrlFunction(tileCoord: TileCoord, opt_projection?: Projection): TileCoord;
     getTileGrid(): TileGrid;
     getTileGridForProjection(projection: Projection): TileGrid;
     getTilePixelRatio(pixelRatio: number): number;
     getTilePixelSize(z: number, pixelRatio: number, projection: Projection): Size;
-    useTile(z: number, x: number, y: number, projection: Projection): void;
+    abstract useTile(z: number, x: number, y: number, projection: Projection): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;
-    on(type: 'change', listener: (evt: Event) => void): EventsKey;
-    once(type: 'change', listener: (evt: Event) => void): EventsKey;
-    un(type: 'change', listener: (evt: Event) => void): void;
+    on(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'change', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'change', listener: (evt: BaseEvent) => void): void;
+    on(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    once(type: 'error', listener: (evt: BaseEvent) => void): EventsKey;
+    un(type: 'error', listener: (evt: BaseEvent) => void): void;
     on(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     once(type: 'propertychange', listener: (evt: ObjectEvent) => void): EventsKey;
     un(type: 'propertychange', listener: (evt: ObjectEvent) => void): void;
 }
-export class TileSourceEvent extends Event {
+export class TileSourceEvent extends BaseEvent {
     constructor();
     tile: Tile;
 }

@@ -476,6 +476,12 @@ function deepEqual3() {
 function deepInclude() {
     expect(['foo', 'bar']).to.deep.include(['bar', 'foo']);
     ['foo', 'bar'].should.deep.include(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.includes(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.includes(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contain(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contain(['bar', 'foo']);
+    expect(['foo', 'bar']).to.deep.contains(['bar', 'foo']);
+    ['foo', 'bar'].should.deep.contains(['bar', 'foo']);
     expect(['foo', 'bar']).not.to.deep.equal(['foo', 'baz']);
     ['foo', 'bar'].should.not.deep.equal(['foo', 'baz']);
 }
@@ -622,6 +628,10 @@ function ownProperty() {
     'test'.should.haveOwnProperty('length');
     expect({length: 12}).to.have.ownProperty('length');
     ({length: 12}).should.have.ownProperty('length');
+    expect({length: 12}).to.have.ownProperty('length', 12);
+    ({length: 12}).should.have.ownProperty('length', 12);
+    expect({length: 12}).to.have.ownProperty('length', 12, 'blah');
+    ({length: 12}).should.have.ownProperty('length', 12, 'blah');
 
     expect({length: 12}).to.not.have.ownProperty('length', 'blah');
     ({length: 12}).should.not.have.ownProperty('length', 'blah');
@@ -1684,15 +1694,15 @@ suite('assert', () => {
         assert.deepProperty(obj, 'foo.bar');
         assert.notDeepProperty(obj, 'foo.baz');
         assert.deepPropertyVal(obj, 'foo.bar', 'baz');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'flow');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'flow');
         assert.property(simpleObj, 'baz');
         assert.deepProperty(obj, 'foo.baz');
         assert.notProperty(obj, 'foo');
         assert.notDeepProperty(obj, 'foo.bar');
         assert.propertyVal(simpleObj, 'foo', 'ball');
         assert.deepPropertyVal(obj, 'foo.bar', 'ball');
-        assert.propertyNotVal(simpleObj, 'foo', 'bar');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'baz');
+        assert.notPropertyVal(simpleObj, 'foo', 'bar');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'baz');
     });
 
     test('throws', () => {

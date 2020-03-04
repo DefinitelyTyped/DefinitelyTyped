@@ -23,7 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "yargs.d.ts",
         "yargs-tests.ts"
     ]
 }

@@ -1,5 +1,5 @@
-import { ApplePay } from "..";
-import * as braintree from "..";
+import { ApplePay } from "braintree-web";
+import * as braintree from "braintree-web";
 
 let version: string = braintree.VERSION;
 

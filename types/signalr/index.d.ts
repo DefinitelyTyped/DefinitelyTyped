@@ -9,7 +9,7 @@
 
 
 declare namespace SignalR {
-    
+
     const enum ConnectionState {
         Connecting = 0,
         Connected = 1,
@@ -65,9 +65,9 @@ declare namespace SignalR {
             * Removes the callback invocation request from the server hub for the given event name.
             *
             * @param eventName The name of the hub event to unregister the callback for.
-            * @param callback The callback to be invoked.
+            * @param callback [Optional] The callback to unregister. If not provided, all callbacks previously registered under that event name will be unregistered.
             */
-            off(eventName: string, callback: (...msg: any[]) => void): Proxy;
+            off(eventName: string, callback?: (...msg: any[]) => void): Proxy;
             /**
             * Invokes a server hub method with the given arguments.
             *
@@ -178,7 +178,7 @@ declare namespace SignalR {
         protocol: string;
         host: string;
     }
-    
+
     interface ConnectionErrorContext {
         readyState: number;
         responseText: string;

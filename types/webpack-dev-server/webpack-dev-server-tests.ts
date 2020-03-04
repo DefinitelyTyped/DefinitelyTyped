@@ -18,6 +18,7 @@ const config: WebpackDevServer.Configuration = {
 
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
+    contentBasePublicPath: "/serve-content-base-at-this-url",
 
     public: 'public-host.ru',
     // Public host for server

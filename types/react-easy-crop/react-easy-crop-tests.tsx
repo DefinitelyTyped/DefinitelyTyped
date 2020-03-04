@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Cropper, { Area, Location, Size } from 'react-easy-crop';
+import Cropper, { Area, ImageSize, Location, Size } from 'react-easy-crop';
 
 interface State {
   imageSrc: string;
   crop: Location;
   zoom: number;
+  rotation: number;
   aspect: number;
   minZoom?: number;
   maxZoom?: number;
@@ -36,6 +37,7 @@ class App extends React.Component<{}, State> {
         'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000',
       crop: { x: 0, y: 0 },
       zoom: 1,
+      rotation: 0,
       aspect: 4 / 3,
       minZoom: 1,
       maxZoom: 10,
@@ -79,8 +81,25 @@ class App extends React.Component<{}, State> {
     this.setState({ zoom });
   }
 
+  onRotationChange = (rotation: number) => {
+    console.log(`onRotationChange: ${rotation}`);
+    this.setState({ rotation });
+  }
+
+  onInteractionStart = () => {
+    console.log('onInteractionStart');
+  }
+
+  onInteractionEnd = () => {
+    console.log('onInteractionEnd');
+  }
+
+  onImageLoaded = (imageSize: ImageSize) => {
+    console.log('onImageLoaded:', imageSize);
+  }
+
   onImgError = () => {
-    console.log(`onImgError`);
+    console.log('onImgError');
   }
 
   render() {
@@ -91,6 +110,7 @@ class App extends React.Component<{}, State> {
             image={this.state.imageSrc}
             crop={this.state.crop}
             zoom={this.state.zoom}
+            rotation={this.state.rotation}
             aspect={this.state.aspect}
             minZoom={this.state.minZoom}
             maxZoom={this.state.maxZoom}
@@ -102,6 +122,10 @@ class App extends React.Component<{}, State> {
             onCropChange={this.onCropChange}
             onCropComplete={this.onCropComplete}
             onZoomChange={this.onZoomChange}
+            onRotationChange={this.onRotationChange}
+            onInteractionStart={this.onInteractionStart}
+            onInteractionEnd={this.onInteractionEnd}
+            onImageLoaded={this.onImageLoaded}
             onImgError={this.onImgError}
             style={this.state.style}
             classes={this.state.classes}

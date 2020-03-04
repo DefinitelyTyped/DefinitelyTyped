@@ -28,9 +28,9 @@ declare namespace o {
         notEquals(value: T): AssertionDescriber;
 
         /** Asserts that two objects are recursively equal */
-        deepEquals(this: Assertion<object>, expected: T): AssertionDescriber;
+        deepEquals(expected: T): AssertionDescriber;
         /** Asserts that two objects are **not** recursively equal */
-        notDeepEquals(this: Assertion<object>, value: T): AssertionDescriber;
+        notDeepEquals(value: T): AssertionDescriber;
 
         /** Asserts that the function throws an error of a given type */
         throws(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber;
@@ -56,6 +56,9 @@ declare namespace o {
 
         /** Defines a test */
         (name: string, assertions: Definer): void;
+
+        /** Defines a test */
+        only(name: string, assertions: Definer): void;
 
         /** Defines a group of tests */
         spec(name: string, tests: () => void): void;

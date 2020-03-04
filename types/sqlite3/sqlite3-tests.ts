@@ -109,4 +109,8 @@ db.run("UPDATE tbl SET name = ?5 WHERE id = ?", {
   5: "bar"
 });
 
+db.each("select 1", err => {
+  db.interrupt();
+});
+
 db.close();

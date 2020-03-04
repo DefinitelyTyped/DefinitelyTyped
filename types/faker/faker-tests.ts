@@ -7,9 +7,12 @@ let resultDate: Date;
 import faker = require('faker');
 faker.locale = 'en';
 
+faker.seedValue === undefined;
+faker.seed(123);
+faker.seedValue === 123;
+
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
-resultStr = faker.address.zipCodeByState('AL');
 resultStr = faker.address.city();
 resultStr = faker.address.city(0);
 resultStr = faker.address.cityPrefix();
@@ -62,8 +65,6 @@ resultDate = faker.date.between('foo', 'bar');
 resultDate = faker.date.between(new Date(), new Date());
 resultDate = faker.date.recent();
 resultDate = faker.date.recent(100);
-resultDate = faker.date.soon();
-resultDate = faker.date.soon(30);
 resultStr = faker.date.month();
 resultStr = faker.date.month({
 	abbr: true,
@@ -88,10 +89,6 @@ resultStr = faker.finance.currencyCode();
 resultStr = faker.finance.currencyName();
 resultStr = faker.finance.currencySymbol();
 resultStr = faker.finance.bitcoinAddress();
-resultStr = faker.finance.creditCardNumber();
-resultStr = faker.finance.creditCardNumber('visa');
-resultStr = faker.finance.creditCardCVV();
-resultStr = faker.finance.ethereumAddress();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
 resultStr = faker.finance.bic();
@@ -116,11 +113,6 @@ resultStr = faker.helpers.randomize(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.slugify('foo bar quux');
 resultStr = faker.helpers.replaceSymbolWithNumber('foo# bar#');
 resultStr = faker.helpers.replaceSymbols('foo# bar? quux#');
-resultStr = faker.helpers.replaceCreditCardSymbols('6453-####-####-####-###L');
-resultStr = faker.helpers.replaceCreditCardSymbols('6453-****-****-****-***L', '*');
-resultStr = faker.helpers.repeatString('a');
-resultStr = faker.helpers.repeatString('a', 10);
-resultStr = faker.helpers.regexpStyleStringParse('#{3}test[1-5]');
 resultStrArr = faker.helpers.shuffle(['foo', 'bar', 'quux']);
 resultStr = faker.helpers.mustache('{{foo}}{{bar}}', {foo: 'x', bar: 'y'});
 
@@ -129,6 +121,7 @@ resultStr = card.name;
 resultStr = card.address.streetA;
 const contextualCard = faker.helpers.contextualCard();
 resultStr = contextualCard.name;
+resultStr = contextualCard.avatar;
 resultStr = contextualCard.address.suite;
 const userCard = faker.helpers.userCard();
 resultStr = userCard.name;
@@ -177,7 +170,6 @@ resultStr = faker.name.lastName(0);
 resultStr = faker.name.findName();
 resultStr = faker.name.findName('', '', 0);
 resultStr = faker.name.jobTitle();
-resultStr = faker.name.gender();
 resultStr = faker.name.prefix();
 resultStr = faker.name.suffix();
 resultStr = faker.name.title();
@@ -198,15 +190,9 @@ resultNum = faker.random.number({
 	max: 0,
 	precision: 0
 });
-resultNum = faker.random.float();
-resultNum = faker.random.float(0.001);
-resultNum = faker.random.float({
-  min: 0,
-  max: 0,
-  precision: 0.001
-});
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
@@ -219,8 +205,6 @@ resultStr = faker.random.image();
 resultStr = faker.random.locale();
 resultStr = faker.random.alphaNumeric();
 resultStr = faker.random.alphaNumeric(0);
-resultStr = faker.random.hexaDecimal();
-resultStr = faker.random.hexaDecimal(3);
 
 resultStr = faker.system.fileName("foo", "bar");
 resultStr = faker.system.commonFileName("foo", "bar");

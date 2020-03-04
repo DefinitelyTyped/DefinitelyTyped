@@ -3788,12 +3788,13 @@ interface WebTwain {
     ClearImageTags(sImageIndex: number): boolean;
 
     FilterImagesByTag(tagName: string): boolean;
+
+    SelectAllImages(): boolean;
 	
-	SelectAllImages(): boolean;
+    Invert(sImageIndex: number): boolean;
 	
-	Invert(sImageIndex: number): boolean;
-	
-	ConvertToBW(sImageIndex: number): boolean;
+    ConvertToBW(sImageIndex: number): boolean;
+
 
     /*ignored
     checkErrorString

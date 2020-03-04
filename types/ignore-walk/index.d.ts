@@ -8,9 +8,9 @@
 import { EventEmitter } from 'events';
 import { Stats } from 'fs';
 
-declare function walk(options?: walk.WalkerOptions, callback?: (results: Set<string>) => void): Promise<Set<string>>;
+declare function walk(options?: walk.WalkerOptions, callback?: (results: string[]) => void): Promise<string[]>;
 declare namespace walk {
-    function sync(options?: WalkerOptions): WalkerSync;
+    function sync(options?: WalkerOptions): string[];
 
     interface WalkerOptions {
         path?: string;

@@ -587,6 +587,12 @@ declare namespace PouchDB {
              * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
             prefix?: string;
+            /**
+             * Use a md5 hash to create a deterministic revision number for documents.
+             * Setting it to false will mean that the revision number will be a random UUID.
+             * Defaults to true.
+             */
+            deterministic_revs?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {

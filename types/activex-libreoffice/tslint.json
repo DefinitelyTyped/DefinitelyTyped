@@ -4,7 +4,6 @@
         "ban-types": false,
         "no-const-enum": false,
         "no-redundant-jsdoc": false,
-        "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false
     }
 }

@@ -59,7 +59,7 @@ describe("Included matchers:", () => {
         });
 
         it("should work for optional values", () => {
-            const opt: string | undefined = Math.random() > .5  ? "s" : undefined;
+            const opt: string | undefined = Math.random() > .5 ? "s" : undefined;
             expect(opt).toEqual(undefined);
         });
     });
@@ -113,6 +113,18 @@ describe("Included matchers:", () => {
 
         expect(a).toBeFalsy();
         expect(foo).not.toBeFalsy();
+    });
+
+    it("The 'toBeTrue' matcher is for matching with true", () => {
+        expect(true).toBeTrue();
+        expect(false).not.toBeTrue();
+        expect({}).not.toBeTrue();
+    });
+
+    it("The 'toBeFalse' matcher is for matching with false", () => {
+        expect(false).toBeFalse();
+        expect(true).not.toBeFalse();
+        expect(undefined).not.toBeFalse();
     });
 
     it("The 'toContain' matcher is for finding an item in an Array", () => {
@@ -179,6 +191,15 @@ describe("Included matchers:", () => {
         expect(foo).toThrowError(TypeError, "foo bar baz");
     });
 
+    it("The 'toBeInstanceOf' matcher is for testing if the actual is of the expected class", () => {
+        class MyClass { }
+
+        expect(new MyClass()).toBeInstanceOf(MyClass);
+        expect('foo').toBeInstanceOf(String);
+        expect(3).toBeInstanceOf(Number);
+        expect(new Error()).toBeInstanceOf(Error);
+    });
+
     it("async matchers", async () => {
         const badness = new Error("badness");
         await expectAsync(Promise.resolve()).toBeResolved();
@@ -187,6 +208,11 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.reject(badness)).toBeRejected();
         await expectAsync(Promise.reject(badness)).toBeRejected("bad mojo");
         await expectAsync(Promise.reject(badness)).toBeRejectedWith(badness);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, "badness");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error, /badness/);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(Error);
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError("badness");
+        await expectAsync(Promise.reject(badness)).toBeRejectedWithError(/badness/);
         await expectAsync(Promise.resolve()).withContext("additional info").toBeResolved();
     });
 
@@ -197,6 +223,10 @@ describe("Included matchers:", () => {
         await expectAsync(Promise.resolve(true)).not.toBeResolvedTo(false);
         await expectAsync(Promise.resolve()).not.toBeRejected();
         await expectAsync(Promise.reject(badness)).not.toBeRejectedWith(malady);
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(Error, "malady");
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(Error, /malady/);
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError("malady");
+        await expectAsync(Promise.reject(badness)).not.toBeRejectedWithError(/malady/);
         await expectAsync(Promise.reject(badness)).not.withContext("additional info").toBeResolved();
         await expectAsync(Promise.reject(badness)).withContext("additional info").not.toBeResolved();
     });
@@ -467,6 +497,53 @@ describe("A spy, when configured to fake a series of return values", () => {
         expect(foo.getBar()).toEqual("fetched first");
         expect(foo.getBar()).toEqual("fetched second");
         expect(foo.getBar()).toBeUndefined();
+    });
+});
+
+describe("A spy, when configured to fake a promised return value", () => {
+    const bar = 10;
+    const foo = {
+        getAsyncBar: () => {
+            return Promise.resolve(bar);
+        }
+    };
+
+    it("verifies return value type", () => {
+        spyOn(foo, "getAsyncBar").and.resolveTo(745);
+        spyOn(foo, "getAsyncBar").and.resolveTo("42"); // $ExpectError
+    });
+
+    it("tracks that the spy was called", async () => {
+        await foo.getAsyncBar();
+        expect(foo.getAsyncBar).toHaveBeenCalled();
+    });
+
+    it("when called returns the requested value", async () => {
+        spyOn(foo, "getAsyncBar").and.resolveTo(745);
+        await expectAsync(foo.getAsyncBar()).toBeResolvedTo(745);
+    });
+});
+
+describe("A spy, when configured to fake a promised rejection", () => {
+    const bar = 10;
+    const foo = {
+        getAsyncBar: () => {
+            return Promise.resolve(bar);
+        },
+        getBar: () => {
+            return bar;
+        }
+    };
+
+    it("verifies rejection value type", () => {
+        spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+        spyOn(foo, "getBar").and.rejectWith("42"); // $ExpectError
+    });
+
+    it("when called, it is rejected with the requested value", async () => {
+        spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+
+        await expectAsync(foo.getAsyncBar()).toBeRejectedWith("Error message");
     });
 });
 
@@ -991,7 +1068,7 @@ describe("jasmine.objectContaining", () => {
         };
 
         expect(nestedFoo).toEqual({
-            nested: jasmine.objectContaining({b: 2})
+            nested: jasmine.objectContaining({ b: 2 })
         });
     });
 
@@ -1326,25 +1403,25 @@ describe('better typed spys', () => {
             const spy = spyOn(foo, 'method');
             const spy2 = spyOn(foo, 'value'); // $ExpectError
 
-             // $ExpectType string
+            // $ExpectType string
             spy.calls.first().returnValue;
         });
         it('works on constructors', () => {
             class MyClass {
-                constructor(readonly foo: string) {}
+                constructor(readonly foo: string) { }
             }
             const namespace = { MyClass };
             const spy = spyOn(namespace, 'MyClass');
-            spy.and.returnValue({foo: 'test'});
+            spy.and.returnValue({ foo: 'test' });
             spy.and.returnValue({}); // $ExpectError
-            spy.and.returnValue({foo: 123}); // $ExpectError
+            spy.and.returnValue({ foo: 123 }); // $ExpectError
         });
         it('can allows overriding the generic', () => {
             class Base {
-                service() {}
+                service() { }
             }
             class Super extends Base {
-                service2() {}
+                service2() { }
             }
             spyOn<Base>(new Super(), 'service');
             spyOn<Base>(new Super(), 'service2'); // $ExpectError
@@ -1413,15 +1490,19 @@ describe("Randomize Tests", () => {
     it("should allow randomization of the order of tests", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
+            env.configure({
+                random: true
+            });
         }).not.toThrow();
     });
 
     it("should allow a seed to be passed in for randomization", () => {
         expect(() => {
             const env = jasmine.getEnv();
-            env.randomizeTests(true);
-            return env.seed(1234);
+            env.configure({
+                random: true,
+                seed: 1234
+            });
         }).not.toThrow();
     });
 });
@@ -1429,7 +1510,7 @@ describe("Randomize Tests", () => {
 // Dest spces copied from jasmine project (https://github.com/jasmine/jasmine/blob/master/spec/core/SpecSpec.js)
 describe("createSpyObj", function() {
     it("should create an object with spy methods and corresponding return values when you call jasmine.createSpyObj() with an object", function() {
-        const spyObj = jasmine.createSpyObj('BaseName', {method1: 42, method2: 'special sauce'});
+        const spyObj = jasmine.createSpyObj('BaseName', { method1: 42, method2: 'special sauce' });
 
         expect(spyObj.method1()).toEqual(42);
         expect(spyObj.method1.and.identity()).toEqual('BaseName.method1');
@@ -1447,7 +1528,7 @@ describe("createSpyObj", function() {
     });
 
     it("should allow you to omit the baseName and takes only an object", function() {
-        const spyObj = jasmine.createSpyObj({method1: 42, method2: 'special sauce'});
+        const spyObj = jasmine.createSpyObj({ method1: 42, method2: 'special sauce' });
 
         expect(spyObj.method1()).toEqual(42);
         expect(spyObj.method1.and.identity()).toEqual('unknown.method1');
@@ -1475,47 +1556,100 @@ describe("createSpyObj", function() {
             jasmine.createSpyObj('BaseName', {});
         }).toThrow("createSpyObj requires a non-empty array or object of method names to create spies for");
     });
+
+    it("creates an object with property names and return values if second object is passed", function() {
+        const spyObj = jasmine.createSpyObj('base', ['method1'], {
+            prop1: 'foo',
+            prop2: 37
+        });
+
+        expect(spyObj).toEqual({
+            method1: jasmine.any(Function)
+        });
+
+        expect(spyObj.prop1).toEqual('foo');
+        expect(spyObj.prop2).toEqual(37);
+        spyObj.prop2 = 4;
+        expect(spyObj.prop2).toEqual(37);
+    });
+
+    it("allows base name to be ommitted when assigning methods and properties", function() {
+        const spyObj = jasmine.createSpyObj({ m: 3 }, { p: 4 });
+
+        expect(spyObj.m()).toEqual(3);
+        expect(spyObj.p).toEqual(4);
+    });
+
+    it("allows methods and properties lists to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>(["method1"], ["property1"]);
+
+        expect(spyObj).toEqual({
+            method1: jasmine.any(Function),
+            method2: undefined as any,
+            property1: undefined as any,
+            property2: undefined as any
+        });
+    });
+
+    it("allows methods and properties objects to omit entries from typed object", function() {
+        interface Template {
+            method1(): number;
+            method2(): void;
+            readonly property1: string;
+            property2: number;
+        }
+        const spyObj = jasmine.createSpyObj<Template>({method1: 3}, {property1: "4"});
+
+        expect(spyObj.method1()).toEqual(3);
+        expect(spyObj.property1).toEqual("4");
+    });
 });
 
 describe('Static Matcher Test', function() {
     it('Falsy', () => {
-      expect({ value: null }).toEqual(
-        jasmine.objectContaining({
-          value: jasmine.falsy(),
-        })
-      );
+        expect({ value: null }).toEqual(
+            jasmine.objectContaining({
+                value: jasmine.falsy(),
+            })
+        );
     });
     it('Truthy', () => {
-      expect({ value: null }).toEqual(
-        jasmine.objectContaining({
-          value: jasmine.truthy(),
-        })
-      );
+        expect({ value: null }).toEqual(
+            jasmine.objectContaining({
+                value: jasmine.truthy(),
+            })
+        );
     });
     it('Empty', () => {
-      expect({ value: null }).toEqual(
-        jasmine.objectContaining({
-          value: jasmine.empty(),
-        })
-      );
+        expect({ value: null }).toEqual(
+            jasmine.objectContaining({
+                value: jasmine.empty(),
+            })
+        );
     });
     it('NotEmpty', () => {
-      expect({ value: null }).toEqual(
-        jasmine.objectContaining({
-          value: jasmine.notEmpty(),
-        })
-      );
+        expect({ value: null }).toEqual(
+            jasmine.objectContaining({
+                value: jasmine.notEmpty(),
+            })
+        );
     });
     it('Partial should OK', () => {
-      expect({ value: null, label: 'abcd' }).toEqual(
-        jasmine.objectContaining({
-          value: jasmine.anything(),
-        })
-      );
-      expect({ value: null }).toEqual(
-          jasmine.objectContaining({
-            value: 'any value should ok',
-          })
+        expect({ value: null, label: 'abcd' }).toEqual(
+            jasmine.objectContaining({
+                value: jasmine.anything(),
+            })
+        );
+        expect({ value: null }).toEqual(
+            jasmine.objectContaining({
+                value: 'any value should ok',
+            })
         );
     });
 });

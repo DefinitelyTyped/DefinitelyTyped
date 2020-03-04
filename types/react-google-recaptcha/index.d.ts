@@ -4,12 +4,14 @@
 //                 Tom Sturge <https://github.com/tomsturge>
 //                 Max Bo <https://github.com/MaxwellBo>
 //                 Meir Keller <https://github.com/meirkl>
+//                 Florian Roher <https://github.com/RohrerF>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import * as React from 'react';
 
 export default ReCAPTCHA;
+export { ReCAPTCHA };
 
 declare class ReCAPTCHA extends React.Component<ReCAPTCHAProps> {
 	/**
@@ -49,7 +51,13 @@ export interface ReCAPTCHAProps {
 	 * 	It will also be called with null, when captcha expires
 	 *  @param token string or null
 	 */
-	onChange?: (token: string|null) => void;
+    onChange?: (token: string|null) => void;
+
+    /**
+     *  if you are using the barebone component you need to provide access  to the google grecaptcha object.
+     */
+    grecaptcha?: object;
+
 	/**
 	 *  Optional light or dark theme of the widget
 	 *  @default "light"

@@ -37,6 +37,8 @@ export interface ValidateCallback<FormData, P, ErrorType> {
     nextProps: P & InjectedFormProps<FormData, P, ErrorType>;
     props: P & InjectedFormProps<FormData, P, ErrorType>;
     initialRender: boolean;
+    lastFieldValidatorKeys: string[];
+    fieldValidatorKeys: string[];
     structure: any;
 }
 
@@ -126,6 +128,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     shouldError?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldWarn?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldAsyncValidate?(params: AsyncValidateCallback<FormData, ErrorType>): boolean;
+    submitAsSideEffect?: boolean;
     touchOnBlur?: boolean;
     touchOnChange?: boolean;
     persistentSubmitErrors?: boolean;

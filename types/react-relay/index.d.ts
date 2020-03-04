@@ -1,4 +1,4 @@
-// Type definitions for react-relay 6.0
+// Type definitions for react-relay 7.0
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 //                 Matt Martin <https://github.com/voxmatt>
@@ -7,12 +7,15 @@
 //                 Cameron Knight <https://github.com/ckknight>
 //                 Kaare Hoff Skovgaard <https://github.com/kastermester>
 //                 Matt Krick <https://github.com/mattkrick>
+//                 Jared Kass <https://github.com/jdk243>
+//                 Renan Machado <https://github.com/renanmav>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 3.3
 
 import * as React from 'react';
 import {
     Environment,
+    IEnvironment,
     Variables,
     Disposable,
     Observer,
@@ -106,10 +109,8 @@ export {
 
 export type FetchPolicy = 'store-and-network' | 'network-only';
 
-declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<{
-    cacheConfig?: CacheConfig | null;
-    fetchPolicy?: FetchPolicy;
-    environment: Environment;
+interface QueryRendererProps<TOperation extends OperationType> {
+    environment: IEnvironment;
     query: GraphQLTaggedNode | null | undefined;
     render: (renderProps: {
         error: Error | null;
@@ -117,8 +118,19 @@ declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends 
         retry: (() => void) | null;
     }) => React.ReactNode;
     variables: TOperation['variables'];
-}> {}
+}
+declare class ReactRelayQueryRenderer<TOperation extends OperationType> extends React.Component<
+    {
+        cacheConfig?: CacheConfig | null;
+        fetchPolicy?: FetchPolicy;
+    } & QueryRendererProps<TOperation>
+> {}
 export { ReactRelayQueryRenderer as QueryRenderer };
+
+declare class ReactRelayLocalQueryRenderer<TOperation extends OperationType> extends React.Component<
+    QueryRendererProps<TOperation>
+> {}
+export { ReactRelayLocalQueryRenderer as LocalQueryRenderer };
 
 export const ReactRelayContext: React.Context<RelayContext | null>;
 

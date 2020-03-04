@@ -1,5 +1,9 @@
 // Examples from: https://developers.pendo.io/docs/?bash#agent-api
 
+pendo.initialize();
+
+pendo.initialize({});
+
 pendo.initialize({
     visitor: {
         id: "PUT_VISITOR_ID_HERE",

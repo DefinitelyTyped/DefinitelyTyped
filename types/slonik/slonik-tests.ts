@@ -20,13 +20,15 @@ import {
   sql,
   TypeParserType,
   UniqueIntegrityConstraintViolationError,
-  SqlTaggedTemplateType
+  SqlTaggedTemplateType,
+  QueryContextType,
+  InterceptorType
 } from 'slonik';
-import { ArrayTokenSymbol, TupleListTokenSymbol } from 'slonik/symbols';
+import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
 // make sure symbols are unique
 // $ExpectError
-const badSymbolAssignment: typeof ArrayTokenSymbol = TupleListTokenSymbol;
+const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
 const VALUE = 'foo';
 
@@ -133,11 +135,13 @@ createPool('postgres://localhost', {
         await connection.query(sql`SET auto_explain.log_min_duration=0`);
         await connection.query(sql`SET auto_explain.log_timing=true`);
         await connection.query(sql`SET client_min_messages=log`);
+
+        return null;
       },
       transformRow: (ctx, query, row, fields) => {
         ctx.queryId; // $ExpectType string
         query.sql; // $ExpectType string
-        fields[0].dataTypeID; // $ExpectType number
+        fields[0].dataTypeId; // $ExpectType number
         row.foo; // $ExpectType QueryResultRowColumnType
         return row;
       }
@@ -158,12 +162,26 @@ createPool('postgres://', {
   ]
 });
 
-const interceptors = [
+const interceptors: InterceptorType[] = [
     createBenchmarkingInterceptor(),
     createQueryNormalizationInterceptor(),
     createFieldNameTransformationInterceptor({
         format: 'CAMEL_CASE'
-    })
+    }),
+    {
+      afterQueryExecution: (queryContext) => {
+          // $ExpectType QueryContextType
+          queryContext;
+
+          // $ExpectType any
+          queryContext.sandbox.foo;
+
+          // $ExpectError
+          const foo = queryContext.sandbox + 1;
+
+          return null;
+      },
+    }
 ];
 
 const connection = createPool('postgres://', {
@@ -267,6 +285,23 @@ createTimestampWithTimeZoneTypeParser();
   const query0 = sql`SELECT ${'foo'} FROM bar`;
   // ExpectType SqlSqlTokenType
   const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
+
+  await connection.query(sql`
+    SELECT ${sql.identifier(['foo', 'a'])}
+    FROM (
+      VALUES
+      (
+        ${sql.join(
+          [
+            sql.join(['a1', 'b1', 'c1'], sql`, `),
+            sql.join(['a2', 'b2', 'c2'], sql`, `)
+          ],
+          sql`), (`
+        )}
+      )
+    ) foo(a, b, c)
+    WHERE foo.b IN (${sql.join(['c1', 'a2'], sql`, `)})
+  `);
 
   await connection.query(sql`
       SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
@@ -387,6 +422,10 @@ const samplesFromDocs = async () => {
   const sample2 = async () => {
     await connection.query(sql`
       SELECT (${sql.array([1, 2, 3], 'int4')})
+    `);
+
+    await connection.query(sql`
+      SELECT (${sql.array([1, 2, 3], sql`int[]`)})
     `);
   };
 

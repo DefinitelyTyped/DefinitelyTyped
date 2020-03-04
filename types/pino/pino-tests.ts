@@ -30,6 +30,14 @@ pino({
 });
 
 pino({
+    mixin() { return { customName: 'unknown', customId: 111 }; },
+});
+
+pino({
+    mixin: () => ({ customName: 'unknown', customId: 111 }),
+});
+
+pino({
     redact: { paths: [], censor: 'SECRET' },
 });
 
@@ -51,13 +59,24 @@ pino({
             },
             error(o) {
             }
+        },
+        serialize: true,
+        asObject: true,
+        transmit: {
+            level: 'fatal',
+            send: (level, logEvent) => {
+                level;
+                logEvent.bindings;
+                logEvent.level;
+                logEvent.ts;
+                logEvent.messages;
+            }
         }
     }
 });
 
 pino({ base: null });
 pino({ base: { foo: 'bar' }, changeLevelName: 'severity' });
-
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
 log.child({ a: 'property' }).info('hello child!');
@@ -69,6 +88,7 @@ child.level = 'info';
 child.info('hooray');
 log.info('nope nope nope');
 log.child({ foo: 'bar', level: 'debug' }).debug('debug!');
+child.bindings();
 const customSerializers = {
     test() {
         return 'this is my serializer';
@@ -145,12 +165,22 @@ const pretty = pino({
 		crlf: false,
 		errorLikeObjectKeys: ['err', 'error'],
 		errorProps: '',
+		messageFormat: false,
+		ignore: '',
 		levelFirst: false,
 		messageKey: 'msg',
-		timestampKey: "timestamp",
+		timestampKey: 'timestamp',
 		translateTime: 'UTC:h:MM:ss TT Z',
 		search: 'foo == `bar`'
 	}
+});
+
+const withTimeFn = pino({
+    timestamp: pino.stdTimeFunctions.isoTime,
+});
+
+const withNestedKey = pino({
+    nestedKey: 'payload',
 });
 
 // Properties/types imported from pino-std-serializers

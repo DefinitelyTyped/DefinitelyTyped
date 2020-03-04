@@ -6,8 +6,9 @@
 /// <reference types="node" />
 
 import * as WebSocket from 'ws';
+import { EventEmitter } from 'events';
 
-export class HybridConnectionWebSocketServer extends NodeJS.EventEmitter {
+export class HybridConnectionWebSocketServer extends EventEmitter {
     constructor(options: any);
     close(callback: () => void): void;
     listenUri: string;

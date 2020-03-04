@@ -3,31 +3,33 @@
 // Definitions by: Nick Whyte <https://github.com/nickw444>
 //                 Siggy Bilstein <https://github.com/sbilstein>
 //                 Douglas Nomizo <https://github.com/douglasnomizo>
+//                 Henry Myers <https://github.com/henrymyers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-type ElementType =
-    | "heading1"
-    | "heading2"
-    | "heading3"
-    | "heading4"
-    | "heading5"
-    | "heading6"
-    | "paragraph"
-    | "preformatted"
-    | "strong"
-    | "em"
-    | "list-item"
-    | "o-list-item"
-    | "group-list-item"
-    | "group-o-list-item"
-    | "image"
-    | "embed"
-    | "hyperlink"
-    | "label"
-    | "span";
+interface Elements {
+    heading1: 'heading1';
+    heading2: 'heading2';
+    heading3: 'heading3';
+    heading4: 'heading4';
+    heading5: 'heading5';
+    heading6: 'heading6';
+    paragraph: 'paragraph';
+    preformatted: 'preformatted';
+    strong: 'strong';
+    em: 'em';
+    listItem: 'list-item';
+    oListItem: 'o-list-item';
+    list: 'group-list-item';
+    oList: 'group-o-list-item';
+    image: 'image';
+    embed: 'embed';
+    hyperlink: 'hyperlink';
+    label: 'label';
+    span: 'span';
+}
 
-type Elements = {[key in ElementType]: string};
+type ElementType = Elements[keyof Elements];
 
 type HTMLSerializer<T> = (
     type: ElementType,

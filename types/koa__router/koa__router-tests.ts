@@ -25,6 +25,7 @@ router
           test1: ctx.router.url('user-accounts', { id: ctx.params.id }),
           test2: ctx.router.url('user-accounts', ctx.params.id),
           test3: ctx.router.url('user-accounts', [ctx.params.id]),
+          test4: ctx.router.url('users'),
         };
     })
     .get('user-accounts', '/users/:id/accounts', (ctx, next) => {
@@ -75,7 +76,7 @@ app.use(async (ctx: Koa.ParameterizedContext<MyState, MyContext>, next) => {
 
 const router3 = new Router();
 router3.get('/', (ctx) => {
-    ctx.foo = "bar";
+    ctx.state.foo = 'bar';
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });

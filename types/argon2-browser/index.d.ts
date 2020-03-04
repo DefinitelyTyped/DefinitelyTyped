@@ -1,4 +1,4 @@
-// Type definitions for argon2-browser 1.6
+// Type definitions for argon2-browser 1.12
 // Project: https://github.com/antelle/argon2-browser#readme
 // Definitions by: Ivan Gabriele <https://github.com/ivangabriele>
 //                 Brendan Early <https://github.com/mymindstorm>
@@ -11,6 +11,8 @@ export { };
 export function hash(
   options: Argon2BrowserHashOptions,
 ): Promise<Argon2BrowserHashResult>;
+
+export function unloadRuntime(): void;
 
 interface Argon2BrowserHashOptions {
   pass: string | Uint8Array;

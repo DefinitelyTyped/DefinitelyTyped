@@ -7,11 +7,13 @@ walk({
 });
 
 walk().then((results) => {
+  console.log(results[0]);
   console.log(results);
 });
 
 walk.sync({path: '/path/to/file'});
-walk.sync();
+const results = walk.sync();
+console.log(results[0]);
 
 const walker = new walk.WalkerSync();
 console.log((walker.start().result as string[]).filter(entry => entry.substring(0, 5) !== '.git/'));

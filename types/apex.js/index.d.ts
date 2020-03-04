@@ -2,7 +2,7 @@
 // Project: https://github.com/apex/node-apex
 // Definitions by: Yoriki Yamaguchi <https://github.com/y13i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.0
 
 /// <reference types="aws-lambda" />
 

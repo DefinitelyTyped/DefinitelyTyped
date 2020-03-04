@@ -1,6 +1,7 @@
-// Type definitions for @tryghost/content-api 1.2
+// Type definitions for @tryghost/content-api 1.3
 // Project: https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api
 // Definitions by: Kevin Nguyen <https://github.com/knguyen0125>
+//                 Anton Van Eechaute <https://github.com/antonve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type ArrayOrValue<T> = T | T[];
@@ -154,7 +155,7 @@ export interface Params {
     include?: ArrayOrValue<IncludeParam>;
     fields?: ArrayOrValue<FieldParam>;
     formats?: ArrayOrValue<FormatParam>;
-    filters?: ArrayOrValue<FilterParam>;
+    filter?: ArrayOrValue<FilterParam>;
     limit?: ArrayOrValue<LimitParam>;
     page?: ArrayOrValue<PageParam>;
     order?: ArrayOrValue<OrderParam>;
@@ -205,9 +206,9 @@ export interface GhostContentAPIOptions {
     /**
      * Version of GhostContentAPI
      *
-     * Supported Versions: 'v2', 'canary'
+     * Supported Versions: 'v2', 'v3', 'canary'
      */
-    version: 'v2' | 'canary';
+    version: 'v2' | 'v3' | 'canary';
     key: string;
     /** @deprecated since version v2 */
     host?: string;

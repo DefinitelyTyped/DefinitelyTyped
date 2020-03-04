@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-export as namespace Naja;
-
 interface FormsHandler {
     netteForms: object;
     initForms(element: Element): void;
@@ -39,9 +37,9 @@ export interface SnippetUpdateEvent extends Event {
     readonly snippet: HTMLElement;
 }
 
-export type SnippetUpdateListener = (
-    event: SnippetUpdateEvent,
-) => void | { handleEvent(event: SnippetUpdateEvent): void };
+export type SnippetUpdateListener =
+    | ((event: SnippetUpdateEvent) => Promise<void> | void)
+    | { handleEvent(event: SnippetUpdateEvent): Promise<void> | void };
 
 interface SnippetListeners {
     afterUpdate: SnippetUpdateListener;
@@ -128,7 +126,9 @@ export interface CompleteEvent<T extends object = any> extends Event {
     readonly options: Readonly<NajaOptions>;
 }
 
-export type NajaEventListener<T extends Event = Event> = (event: T) => void | { handleEvent(event: T): void };
+export type NajaEventListener<T extends Event = Event> =
+    | ((event: T) => Promise<void> | void)
+    | { handleEvent(event: T): Promise<void> | void };
 
 interface NajaEventsMap {
     init: NajaEventListener<InitEvent>;
@@ -148,9 +148,9 @@ interface NajaEventTarget extends EventTarget {
         listener: NajaEventsMap[K],
         options?: boolean | AddEventListenerOptions,
     ): void;
-    addEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject | null,
+    addEventListener<T extends Event>(
+        type: T['type'],
+        listener: NajaEventListener<T>,
         options?: boolean | AddEventListenerOptions,
     ): void;
     removeEventListener<K extends keyof NajaEventsMap>(
@@ -158,9 +158,9 @@ interface NajaEventTarget extends EventTarget {
         listener: NajaEventsMap[K],
         options?: boolean | AddEventListenerOptions,
     ): void;
-    removeEventListener(
-        type: string,
-        listener: EventListenerOrEventListenerObject | null,
+    removeEventListener<T extends Event>(
+        type: T['type'],
+        listener: NajaEventListener<T>,
         options?: boolean | AddEventListenerOptions,
     ): void;
 }
@@ -183,3 +183,4 @@ export interface Naja extends NajaEventTarget {
 declare const naja: Naja;
 
 export default naja;
+export as namespace naja;

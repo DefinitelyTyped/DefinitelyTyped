@@ -411,6 +411,18 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
+// render function tests
+// need the explicit type declaration for typescript < 3.1
+const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} } = () => null;
+// Warning: forwardRef render functions do not support propTypes or defaultProps
+// $ExpectError
+React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
+
+const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} } = () => null;
+// Warning: forwardRef render functions do not support propTypes or defaultProps
+// $ExpectError
+React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
+
 function RefCarryingComponent() {
     const ref = React.createRef<RefComponent>();
     // Without the explicit type argument, TypeScript infers `{ref: React.RefObject<RefComponent>}`
@@ -511,24 +523,32 @@ React.Children.forEach(children, (child) => { });
 const nChildren: number = React.Children.count(children);
 let onlyChild: React.ReactElement = React.Children.only(DOM.div()); // ok
 onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
-const childrenToArray: React.ReactChild[] = React.Children.toArray(children);
+const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined>> = React.Children.toArray(children);
 
 declare const numberChildren: number[];
+declare const nodeChildren: React.ReactNode;
 declare const elementChildren: JSX.Element[];
 declare const mixedChildren: Array<JSX.Element | string>;
 declare const singlePluralChildren: JSX.Element | JSX.Element[];
 declare const renderPropsChildren: () => JSX.Element;
 
+// $ExpectType null
+const mappedChildrenArray0 = React.Children.map(null, num => num);
+// $ExpectType undefined
+const mappedChildrenArray1 = React.Children.map(undefined, num => num);
 // $ExpectType number[]
 const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
 // $ExpectType Element[]
 const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
 // $ExpectType (string | Element)[]
 const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
-// $ExpectType (string | number | null)[]
+// $ExpectType Key[]
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);
+// The return type may not be an array
+// $ExpectError
+const mappedChildrenArray7 = React.Children.map(nodeChildren, node => node).map;
 
 //
 // Example from http://facebook.github.io/react/

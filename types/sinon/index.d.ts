@@ -1153,6 +1153,12 @@ declare namespace Sinon {
          */
         calledWithExactly(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
         /**
+         * Passes if spy was called at exactly once with the provided arguments and no others.
+         * @param spyOrSpyCall
+         * @param args
+         */
+        calledOnceWithExactly(spyOrSpyCall: SinonSpy | SinonSpyCall, ...args: any[]): void;
+        /**
          * Passes if spy was always called with the provided arguments and no others.
          */
         alwaysCalledWithExactly(spy: SinonSpy, ...args: any[]): void;

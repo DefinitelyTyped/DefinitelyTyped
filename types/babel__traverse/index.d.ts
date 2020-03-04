@@ -4,8 +4,9 @@
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Dean L. <https://github.com/dlgrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// Minimum TypeScript Version: 3.4
 
 import * as t from "@babel/types";
 
@@ -170,6 +171,8 @@ export interface VisitNodeObject<S, P> {
     exit?: VisitNodeFunction<S, P>;
 }
 
+export type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
+
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
     parent: Node;
@@ -271,7 +274,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple(nodes: Node[]): void;
+    replaceWithMultiple<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -426,6 +429,20 @@ export class NodePath<T = Node> {
 
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
+
+    /**
+     * Insert child nodes at the start of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    unshiftContainer<Nodes extends Node | Node[]>(listKey: string, nodes: Nodes): NodePaths<Nodes>;
+
+    /**
+     * Insert child nodes at the end of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    pushContainer(listKey: string, nodes: Node | Node[]): void;
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;

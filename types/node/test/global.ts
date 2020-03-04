@@ -50,3 +50,12 @@ const a: NodeJS.TypedArray = new Buffer(123);
     writableFinished = writable.writableFinished;
     writable.destroyed;
 }
+
+{
+  const obj = {
+    valueOf() {
+      return 'hello';
+    }
+  };
+  Buffer.from(obj);
+}

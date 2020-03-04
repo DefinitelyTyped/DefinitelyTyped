@@ -1,0 +1,1 @@
+createTransitionManager.d.ts

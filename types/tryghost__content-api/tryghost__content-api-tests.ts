@@ -1,6 +1,6 @@
 import GhostContentAPI, { PostOrPage } from '@tryghost/content-api';
 
-const api = GhostContentAPI({ url: 'test', version: 'v2', key: '' }); // $ExpectType GhostAPI
+const api = GhostContentAPI({ url: 'test', version: 'v3', key: '' }); // $ExpectType GhostAPI
 
 let pages: PostOrPage[];
 const pagesBrowsePromise = api.pages.browse(); // $ExpectType Promise<PagesObject>

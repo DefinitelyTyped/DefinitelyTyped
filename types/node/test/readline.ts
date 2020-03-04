@@ -72,6 +72,17 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 }
 
 {
+    const data: string | Buffer = "test";
+    rl.line; // $ExpectType string
+    rl.cursor; // $ExpectType number
+
+    rl.write(data);
+
+    rl.line; // $ExpectType string
+    rl.cursor; // $ExpectType number
+}
+
+{
     const strm: NodeJS.WritableStream = new stream.Writable();
     const x = 1;
     const y = 1;
@@ -186,4 +197,11 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
         //
         // }
     });
+}
+
+{
+    const rl = readline.createInterface({
+        input: process.stdin,
+    });
+    const pos: readline.CursorPos = rl.getCursorPos();
 }

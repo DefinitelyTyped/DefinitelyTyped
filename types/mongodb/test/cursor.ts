@@ -1,4 +1,4 @@
-import { connect, Cursor } from 'mongodb';
+import { connect, Cursor, ReadPreference } from 'mongodb';
 import { connectionString } from './index';
 
 async function run() {
@@ -25,7 +25,8 @@ async function run() {
   cursor = cursor.project({});
   cursor = cursor.returnKey({});
   cursor = cursor.setCursorOption('', {});
-  cursor = cursor.setReadPreference('');
+  cursor = cursor.setReadPreference('primary');
+  cursor = cursor.setReadPreference(ReadPreference.SECONDARY_PREFERRED);
   cursor = cursor.showRecordId({});
   cursor = cursor.skip(1);
   cursor = cursor.snapshot({});

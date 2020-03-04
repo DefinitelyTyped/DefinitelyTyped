@@ -71,6 +71,9 @@ import * as net from 'net';
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
     res.writeHead(200);
 
+    // writeProcessing
+    res.writeProcessing();
+
     // write string
     res.write('Part of my res.');
     // write buffer
@@ -117,6 +120,10 @@ import * as net from 'net';
 
     // path
     const path: string = req.path;
+    req.path = '/';
+
+    // method
+    const method: string = req.method;
 }
 
 {
@@ -139,6 +146,8 @@ import * as net from 'net';
     http.request({ agent: false });
     http.request({ agent });
     http.request({ agent: undefined });
+    // ensure compatibility with url.parse()
+    http.request(url.parse("http://www.example.org/xyz"));
 }
 
 {

@@ -6,31 +6,34 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
+declare global {
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
  * @param value A value to return from the task.
  */
-declare function complete(value?: any): void;
+function complete(value?: any): void;
 
 /**
  * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
  * @param description The description for the Task
  */
-declare function desc(description:string): void;
+function desc(description:string): void;
 
 /**
  * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.
  * @param name The name of the DiretoryTask
  */
-declare function directory(name:string): jake.DirectoryTask;
+function directory(name:string): jake.DirectoryTask;
 
 /**
  * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
  * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
  */
-declare function fail(...err:string[]): void;
-declare function fail(...err:Error[]): void;
-declare function fail(...err:any[]): void;
+function fail(...err:string[]): void;
+function fail(...err:Error[]): void;
+function fail(...err:any[]): void;
 
 /**
  * Creates a Jake FileTask.
@@ -39,7 +42,7 @@ declare function fail(...err:any[]): void;
  * @param action The action to perform for this task
  * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
  */
-declare function file(name:string, prereqs?:string[], action?:(this: jake.FileTask)=>void, opts?:jake.FileTaskOptions): jake.FileTask;
+function file(name:string, prereqs?:string[], action?:(this: jake.FileTask)=>void, opts?:jake.FileTaskOptions): jake.FileTask;
 
 /**
  * Creates Jake FileTask from regex patterns
@@ -49,14 +52,14 @@ declare function file(name:string, prereqs?:string[], action?:(this: jake.FileTa
  * @param action The action to perform for this task
  * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
  */
-declare function rule(pattern: RegExp, source: string | { (name: string): string; }, prereqs?: string[], action?: () => void, opts?: jake.TaskOptions): void;
+function rule(pattern: RegExp, source: string | { (name: string): string; }, prereqs?: string[], action?: () => void, opts?: jake.TaskOptions): void;
 
 /**
  * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces.
  * @param name The name of the namespace
  * @param scope The enclosing scope for the namespaced tasks
  */
-declare function namespace(name:string, scope:()=>void): void;
+function namespace(name:string, scope:()=>void): void;
 
 /**
  * @param name The name of the Task
@@ -64,20 +67,20 @@ declare function namespace(name:string, scope:()=>void): void;
  * @param action The action to perform for this task
  * @param opts
  */
-declare function task(name:string, prereqs?:string[], action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-declare function task(name:string, opts?:jake.TaskOptions, action?:(this: jake.Task, ...params:any[])=>any): jake.Task;
+function task(name:string, prereqs?:string[], action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+function task(name:string, action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
+function task(name:string, opts?:jake.TaskOptions, action?:(this: jake.Task, ...params:any[])=>any): jake.Task;
 
 /**
  * @param name The name of the NpmPublishTask
  * @param packageFiles The files to include in the package
  * @param definition A function that creates the package definition
  */
-declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
-declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
+function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
+function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
 
 
-declare namespace jake{
+namespace jake{
 
     ////////////////////////////////////////////////////////////////////////////////////
 	// File-utils //////////////////////////////////////////////////////////////////////
@@ -208,7 +211,7 @@ declare namespace jake{
 	 *
 	 * @event complete
 	 */
-	export class Task extends NodeJS.EventEmitter {
+	export class Task extends EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task
@@ -421,4 +424,5 @@ declare namespace jake{
 	export function setMaxListeners(n: number): void;
 	export function listeners(event: string): Function[];
 	export function emit(event: string, ...args: any[]): boolean;
+}
 }

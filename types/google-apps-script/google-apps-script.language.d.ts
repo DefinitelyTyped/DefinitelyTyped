@@ -1,15 +1,16 @@
-// Type definitions for Google Apps Script 2019-09-11
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Language {
-    export type LanguageAdvancedParameters = {
+  namespace Language {
+    interface LanguageAdvancedParameters {
       /** the content type of the text; supported values are 'text' (default) and 'html' */
-      contentType?: 'html'|'text'
+      contentType?: 'html'|'text';
     }
     /**
      * The Language service provides scripts a way to compute automatic translations of text.
@@ -18,11 +19,10 @@ declare namespace GoogleAppsScript {
      *     var spanish = LanguageApp.translate('This is a test', 'en', 'es');
      *     Logger.log(spanish);
      */
-    export interface LanguageApp {
+    interface LanguageApp {
       translate(text: string, sourceLanguage: string, targetLanguage: string): string;
       translate(text: string, sourceLanguage: string, targetLanguage: string, advancedArgs: LanguageAdvancedParameters): string;
     }
-
   }
 }
 

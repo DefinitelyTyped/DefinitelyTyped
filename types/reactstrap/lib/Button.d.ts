@@ -11,10 +11,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     tag?: string | React.ReactType;
     innerRef?: React.Ref<HTMLButtonElement>;
     onClick?: React.MouseEventHandler<any>;
-    size?: any;
+    size?: string;
     id?: string;
     style?: React.CSSProperties;
     cssModule?: CSSModule;
+    close?: boolean;
 }
 
 declare class Button<T = {[key: string]: any}> extends React.Component<ButtonProps> {}

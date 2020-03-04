@@ -18,16 +18,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "RSocketBinaryFraming.d.ts",
-        "RSocketBufferUtils.d.ts",
-        "RSocketClient.d.ts",
-        "RSocketEncoding.d.ts",
-        "RSocketFrame.d.ts",
-        "RSocketMachine.d.ts",
-        "RSocketResumableTransport.d.ts",
-        "RSocketSerialization.d.ts",
-        "RSocketServer.d.ts",
-        "RSocketVersion.d.ts"
+        "index.d.ts"
     ]
 }

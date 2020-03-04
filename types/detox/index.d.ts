@@ -1,16 +1,17 @@
-// Type definitions for detox 12.8
+// Type definitions for detox 14.5
 // Project: https://github.com/wix/detox
 // Definitions by: Tareq El-Masri <https://github.com/TareqElMasri>
 //                 Steve Chun <https://github.com/stevechun>
 //                 Hammad Jutt <https://github.com/hammadj>
+//                 pera <https://github.com/santiagofm>
+//                 Max Komarychev <https://github.com/maxkomarychev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
-    const detox: Detox.Detox;
     const device: Detox.Device;
+    const detox: Detox.Detox;
     const element: Detox.Element;
     const waitFor: Detox.WaitFor;
-    const expect: Detox.Expect<Detox.Expect<any>>;
+    const expect: Detox.Expect<Detox.Expect<Promise<void>>>;
     const by: Detox.Matchers;
 
     namespace Detox {
@@ -50,7 +51,7 @@ declare global {
             device: Device;
             element: Element;
             waitFor: WaitFor;
-            expect: Expect<Expect<any>>;
+            expect: Expect<Expect<Promise<void>>>;
             by: Matchers;
         }
 
@@ -135,34 +136,88 @@ declare global {
             setURLBlacklist(urls: string[]): Promise<void>;
             /**
              * Enable EarlGrey's synchronization mechanism (enabled by default). This is being reset on every new instance of the app.
-             * @example await device.enableSynchronization();
+             * @example
+             * await device.enableSynchronization();
              */
             enableSynchronization(): Promise<void>;
             /**
              * Disable EarlGrey's synchronization mechanism (enabled by default) This is being reset on every new instance of the app.
-             * @example await device.disableSynchronization();
+             * @example
+             * await device.disableSynchronization();
              */
             disableSynchronization(): Promise<void>;
             /**
              * Resets the Simulator to clean state (like the Simulator > Reset Content and Settings... menu item), especially removing previously set permissions.
-             * @example await device.resetContentAndSettings();
+             * @example
+             * await device.resetContentAndSettings();
              */
             resetContentAndSettings(): Promise<void>;
             /**
              * Returns the current device, ios or android.
-             * @example if (device.getPlatform() === 'ios') {
+             * @example
+             * if (device.getPlatform() === 'ios') {
              *     await expect(loopSwitch).toHaveValue('1');
              * }
              */
-            getPlatform(): "ios" | "android";
+            getPlatform(): 'ios' | 'android';
             /**
-             * Simulate press back button (Android Only)
+             * Takes a screenshot on the device and schedules putting it to the artifacts folder upon completion of the current test.
+             * @param text
+             * @example
+             * await device.takeScreenshot('tap on menu');
+             *
+             * • If the test passes, the screenshot will be put to <artifacts-location>/✓ Menu items should have Logout/tap on menu.png.
+             * • If the test fails, the screenshot will be put to <artifacts-location>/✗ Menu items should have Logout/tap on menu.png.
+             *
+             * > NOTE: At the moment, taking screenshots on-demand in --take-screenshots failing mode is not yet implemented.
              */
-            pressBack(): Promise<void>;
+            takeScreenshot(name: string): Promise<void>;
             /**
              * Simulate shake (iOS Only)
              */
             shake(): Promise<void>;
+            /**
+             * Toggles device enrollment in biometric auth (TouchID or FaceID) (iOS Only)
+             * @example
+             * await device.setBiometricEnrollment(true);
+             * // or
+             * await device.setBiometricEnrollment(false);
+             */
+            setBiometricEnrollment(enabled: true): Promise<void>;
+            /**
+             * Simulates the success of a face match via FaceID (iOS Only)
+             */
+            matchFace(): Promise<void>;
+            /**
+             * Simulates the failure of a face match via FaceID (iOS Only)
+             */
+            unmatchFace(): Promise<void>;
+            /**
+             * Simulates the success of a finger match via TouchID (iOS Only)
+             */
+            matchFinger(): Promise<void>;
+            /**
+             * Simulates the failure of a finger match via TouchID (iOS Only)
+             */
+            unmatchFinger(): Promise<void>;
+            /**
+             * Clears the simulator keychain (iOS Only)
+             */
+            clearKeychain(): Promise<void>;
+            /**
+             * Simulate press back button (Android Only)
+             * @example
+             * await device.pressBack();
+             */
+            pressBack(): Promise<void>;
+            /**
+             * (Android Only)
+             * Exposes UiAutomator's UiDevice API (https://developer.android.com/reference/android/support/test/uiautomator/UiDevice).
+             * This is not a part of the official Detox API,
+             * it may break and change whenever an update to UiDevice or UiAutomator gradle dependencies ('androidx.test.uiautomator:uiautomator') is introduced.
+             * UIDevice's autogenerated code reference: https://github.com/wix/Detox/blob/master/detox/src/android/espressoapi/UIDevice.js
+             */
+            getUiDevice(): Promise<void>;
         }
 
         type DetoxAny = Element & Actions<any> & WaitFor;
@@ -177,6 +232,7 @@ declare global {
              */
             atIndex(index: number): DetoxAny;
         }
+
         interface Matchers {
             (by: Matchers): Matchers;
 
@@ -232,7 +288,7 @@ declare global {
             and(by: Matchers): Matchers;
         }
         interface Expect<R> {
-            (element: Element): Expect<any>;
+            (element: Element): Expect<Promise<void>>;
             /**
              * Expect the view to be at least 75% visible.
              * @example await expect(element(by.id('UniqueId204'))).toBeVisible();
@@ -304,60 +360,71 @@ declare global {
         interface Actions<R> {
             /**
              * Simulate tap on an element
-             * @example await element(by.id('tappable')).tap();
+             * @example
+             * await element(by.id('tappable')).tap();
              */
             tap(): Promise<Actions<R>>;
             /**
              * Simulate long press on an element
-             * @example await element(by.id('tappable')).longPress();
+             * @example
+             * await element(by.id('tappable')).longPress();
              */
             longPress(): Promise<Actions<R>>;
             /**
              * Simulate multiple taps on an element.
-             * @param times number
-             * @example await element(by.id('tappable')).multiTap(3);
+             * @param times number of times to tap
+             * @example
+             * await element(by.id('tappable')).multiTap(3);
              */
             multiTap(times: number): Promise<Actions<R>>;
             /**
              * Simulate tap at a specific point on an element.
              * Note: The point coordinates are relative to the matched element and the element size could changes on different devices or even when changing the device font size.
              * @param point
-             * @example await element(by.id('tappable')).tapAtPoint({ x:5, y:10 });
+             * @example
+             * await element(by.id('tappable')).tapAtPoint({ x:5, y:10 });
              */
             tapAtPoint(point: { x: number; y: number }): Promise<Actions<R>>;
             /**
              * Use the builtin keyboard to type text into a text field.
              * @param text
-             * @example await element(by.id('textField')).typeText('passcode');
+             * @example
+             * await element(by.id('textField')).typeText('passcode');
              */
             typeText(text: string): Promise<Actions<R>>;
             /**
              * Paste text into a text field.
              * @param text
-             * @example await element(by.id('textField')).replaceText('passcode again');
+             * @example
+             * await element(by.id('textField')).replaceText('passcode again');
              */
             replaceText(text: string): Promise<Actions<R>>;
             /**
              * Clear text from a text field.
-             * @example await element(by.id('textField')).clearText();
+             * @example
+             * await element(by.id('textField')).clearText();
              */
             clearText(): Promise<Actions<R>>;
             /**
              * Taps the backspace key on the built-in keyboard.
-             * @example await element(by.id('textField')).tapBackspaceKey();
+             * @example
+             * await element(by.id('textField')).tapBackspaceKey();
              */
             tapBackspaceKey(): Promise<Actions<R>>;
             /**
              * Taps the return key on the built-in keyboard.
-             * @example await element(by.id('textField')).tapReturnKey();
+             * @example
+             * await element(by.id('textField')).tapReturnKey();
              */
             tapReturnKey(): Promise<Actions<R>>;
             /**
-             *
-             * @param pixels
-             * @param direction
+             * Scrolls a given amount of pixels in the provided direction, starting from the provided start positions.
+             * @param pixels - independent device pixels
+             * @param direction - left/right/up/down
+             * @param @optional startPositionX - the X starting scroll position, in percentage; valid input: `[0.0, 1.0]`, `NaN`; default: `NaN`—choose the best value automatically
+             * @param @optional startPositionY - the Y starting scroll position, in percentage; valid input: `[0.0, 1.0]`, `NaN`; default: `NaN`—choose the best value automatically
              * @example
-             * await element(by.id('scrollView')).scroll(100, 'down');
+             * await element(by.id('scrollView')).scroll(100, 'down', NaN, 0.85);
              * await element(by.id('scrollView')).scroll(100, 'up');
              */
             scroll(
@@ -369,41 +436,59 @@ declare global {
             /**
              * Scroll to edge.
              * @param edge
-             * @example await element(by.id('scrollView')).scrollTo('bottom');
+             * @example
+             * await element(by.id('scrollView')).scrollTo('bottom');
              * await element(by.id('scrollView')).scrollTo('top');
              */
             scrollTo(edge: Direction): Promise<Actions<R>>;
             /**
-             *
+             * Swipes in the provided direction at the provided speed, started from percentage.
              * @param direction
-             * @param speed
-             * @param percentage
-             * @example await element(by.id('scrollView')).swipe('down');
+             * @param speed default: `fast`
+             * @param @optional percentage screen percentage to swipe; valid input: `[0.0, 1.0]`
+             * @example
+             * await element(by.id('scrollView')).swipe('down');
              * await element(by.id('scrollView')).swipe('down', 'fast');
              * await element(by.id('scrollView')).swipe('down', 'fast', 0.5);
              */
-            swipe(
-                direction: Direction,
-                speed?: Speed,
-                percentage?: number
-            ): Promise<Actions<R>>;
+            swipe(direction: Direction, speed?: Speed, percentage?: number): Promise<Actions<R>>;
             /**
-             * (iOS Only) column - number of datepicker column (starts from 0) value - string value in setted column (must be correct)
-             * @param column
-             * @param value
-             * @example await expect(element(by.type('UIPickerView'))).toBeVisible();
+             * Sets a picker view’s column to the given value. This function supports both date pickers and general picker views. (iOS Only)
+             * @param column number of datepicker column (starts from 0)
+             * @param value string value in setted column (must be correct)
+             * @example a
+             * wait expect(element(by.type('UIPickerView'))).toBeVisible();
              * await element(by.type('UIPickerView')).setColumnToValue(1,"6");
              * await element(by.type('UIPickerView')).setColumnToValue(2,"34");
+             *
+             * > Note: When working with date pickers, you should always set an explicit locale when launching your app in order to prevent flakiness from different date and time styles.
+             * See [here](https://github.com/wix/Detox/blob/master/docs/APIRef.DeviceObjectAPI.md#9-launch-with-a-specific-language-ios-only) for more information.
              */
-            setColumnToValue(
-                column: number,
-                value: string
-            ): Promise<Actions<R>>;
+            setColumnToValue(column: number, value: string): Promise<Actions<R>>;
+            /**
+             * Sets the date of a date picker to a date generated from the provided string and date format. (iOS only)
+             * @param dateString string representing a date in the supplied `dateFormat`
+             * @param dateFormat format for the `dateString` supplied
+             * @example
+             * await expect(element(by.id('datePicker'))).toBeVisible();
+             * await element(by.id('datePicker')).setDatePickerDate('2019-02-06T05:10:00-08:00', "yyyy-MM-dd'T'HH:mm:ssZZZZZ");
+             */
+            setDatePickerDate(dateString: string, dateFormat: string): Promise<Actions<R>>;
+            /**
+             * Pinches in the given direction with speed and angle. (iOS only)
+             * @param direction
+             * @param speed
+             * @param angle value in radiant, default is `0`
+             * @example
+             * await expect(element(by.id('PinchableScrollView'))).toBeVisible();
+             * await element(by.id('PinchableScrollView')).pinchWithAngle('outward', 'slow', 0);
+             */
+            pinchWithAngle(direction: Direction, speed: Speed, angle: number): Promise<Actions<R>>;
         }
 
-        type Direction = "left" | "right" | "top" | "bottom" | "up" | "down";
-        type Orientation = "portrait" | "landscape";
-        type Speed = "fast" | "slow";
+        type Direction = 'left' | 'right' | 'top' | 'bottom' | 'up' | 'down';
+        type Orientation = 'portrait' | 'landscape';
+        type Speed = 'fast' | 'slow';
         interface LanguageAndLocale {
             language?: string;
             locale?: string;
@@ -427,7 +512,7 @@ declare global {
         /**
          *  Source for string definitions is https://github.com/wix/AppleSimulatorUtils
          */
-        interface  DevicePermissions {
+        interface DevicePermissions {
             location?: LocationPermission;
             notifications?: NotificationsPermission;
             calendar?: CalendarPermission;
@@ -444,8 +529,8 @@ declare global {
             speech?: SpeechPermission;
         }
 
-        type LocationPermission = "always" | "inuse" | "never" | "unset";
-        type PermissionState = "YES" | "NO" | "unset";
+        type LocationPermission = 'always' | 'inuse' | 'never' | 'unset';
+        type PermissionState = 'YES' | 'NO' | 'unset';
         type CameraPermission = PermissionState;
         type ContactsPermission = PermissionState;
         type CalendarPermission = PermissionState;

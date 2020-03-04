@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 12.11
+// Type definitions for non-npm package Node.js 13.7
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -24,6 +24,7 @@
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Nicolas Even <https://github.com/n-e>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Nikita Galkin <https://github.com/galkin>
 //                 Parambir Singh <https://github.com/parambirs>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Simon Schick <https://github.com/SimonSchick>
@@ -38,45 +39,34 @@
 //                 Marcin Kopacz <https://github.com/chyzwar>
 //                 Trivikram Kamat <https://github.com/trivikr>
 //                 Minh Son Nguyen <https://github.com/nguymin4>
+//                 Junxiao Shi <https://github.com/yoursunny>
+//                 Ilia Baryshnikov <https://github.com/qwelias>
+//                 ExE Boss <https://github.com/ExE-Boss>
+//                 Surasak Chaisurin <https://github.com/Ryan-Willpower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NOTE: These definitions support NodeJS and TypeScript 3.2.
+// NOTE: These definitions support NodeJS and TypeScript 3.5.
 
 // NOTE: TypeScript version-specific augmentations can be found in the following paths:
 //          - ~/base.d.ts         - Shared definitions common to all TypeScript versions
-//          - ~/index.d.ts        - Definitions specific to TypeScript 2.1
-//          - ~/ts3.2/index.d.ts  - Definitions specific to TypeScript 3.2
+//          - ~/index.d.ts        - Definitions specific to TypeScript 2.8
+//          - ~/ts3.5/index.d.ts  - Definitions specific to TypeScript 3.5
 
-// NOTE: Augmentations for TypeScript 3.2 and later should use individual files for overrides
-//       within the respective ~/ts3.2 (or later) folder. However, this is disallowed for versions
-//       prior to TypeScript 3.2, so the older definitions will be found here.
+// NOTE: Augmentations for TypeScript 3.5 and later should use individual files for overrides
+//       within the respective ~/ts3.5 (or later) folder. However, this is disallowed for versions
+//       prior to TypeScript 3.5, so the older definitions will be found here.
 
 // Base definitions for all NodeJS modules that are not specific to any version of TypeScript:
 /// <reference path="base.d.ts" />
 
-// TypeScript 2.1-specific augmentations:
-
 // Forward-declarations for needed types from es2015 and later (in case users are using `--lib es5`)
 // Empty interfaces are used here which merge fine with the real declarations in the lib XXX files
-// just to ensure the names are known and node typings can be sued without importing these libs.
+// just to ensure the names are known and node typings can be used without importing these libs.
 // if someone really needs these types the libs need to be added via --lib or in tsconfig.json
-interface MapConstructor { }
-interface WeakMapConstructor { }
-interface SetConstructor { }
-interface WeakSetConstructor { }
-interface Set<T> {}
-interface Map<K, V> {}
-interface ReadonlySet<T> {}
-interface Iterable<T> { }
-interface IteratorResult<T> { }
 interface AsyncIterable<T> { }
-interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
-}
 interface IterableIterator<T> { }
 interface AsyncIterableIterator<T> {}
 interface SymbolConstructor {
-    readonly iterator: symbol;
     readonly asyncIterator: symbol;
 }
 declare var Symbol: SymbolConstructor;
@@ -88,12 +78,6 @@ interface SharedArrayBuffer {
 }
 
 declare module "util" {
-    namespace inspect {
-        const custom: symbol;
-    }
-    namespace promisify {
-        const custom: symbol;
-    }
     namespace types {
         function isBigInt64Array(value: any): boolean;
         function isBigUint64Array(value: any): boolean;
