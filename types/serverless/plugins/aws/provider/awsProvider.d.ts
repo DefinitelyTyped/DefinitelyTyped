@@ -8,6 +8,7 @@ declare class Aws {
     getRegion(): string;
     getServerlessDeploymentBucketName(): string;
     getStage(): string;
+    getAccountId(): Promise<string>;
     request(
         service: string,
         method: string,
