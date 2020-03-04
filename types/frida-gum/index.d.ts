@@ -2,7 +2,7 @@
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// Minimum TypeScript Version: 3.5
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -4096,7 +4096,7 @@ declare namespace Java {
      *
      * @param className Canonical class name to get a wrapper for.
      */
-    function use(className: string): Wrapper;
+    function use<T extends Properties<T> = {}>(className: string): Wrapper<T>;
 
     /**
      * Opens the .dex file at `filePath`.
@@ -4214,10 +4214,12 @@ declare namespace Java {
         onComplete: () => void;
     }
 
+    type Properties<T> = Record<keyof T, MethodDispatcher | Field>;
+
     /**
      * Dynamically generated wrapper for any Java class, instance, or interface.
      */
-    interface Wrapper {
+    type Wrapper<T extends Properties<T> = {}> = T & {
         /**
          * Allocates and initializes a new instance of the given class.
          *
@@ -4259,7 +4261,7 @@ declare namespace Java {
          * Methods and fields.
          */
         [name: string]: any;
-    }
+    };
 
     interface MethodDispatcher extends Method {
         /**
@@ -4304,7 +4306,7 @@ declare namespace Java {
          * replace the original implementation. Assign `null` at a future point
          * to revert back to the original implementation.
          */
-        implementation: MethodImplementation | null;
+        implementation: MethodImplementation<any> | null;
 
         /**
          * Method return type.
@@ -4330,7 +4332,7 @@ declare namespace Java {
         clone: (options: NativeFunctionOptions) => Method;
     }
 
-    type MethodImplementation = (this: Wrapper, ...params: any[]) => any;
+    type MethodImplementation<T extends Properties<T> = {}> = (this: Wrapper<T>, ...params: any[]) => any;
 
     interface Field {
         /**
@@ -4545,7 +4547,7 @@ declare namespace Java {
          *
          * @param className Canonical class name to get a wrapper for.
          */
-        use(className: string): Wrapper;
+        use<T extends Properties<T> = {}>(className: string): Wrapper<T>;
 
         /**
          * Opens the .dex file at `filePath`.

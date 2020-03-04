@@ -57,6 +57,17 @@ Java.enumerateClassLoadersSync()
     .forEach(classLoader => {
         // $ExpectType ClassFactory
         const factory = Java.ClassFactory.get(classLoader);
-        // $ExpectType Wrapper
-        factory.use("java.lang.String");
+        interface StringProps {
+            substring: Java.MethodDispatcher;
+        }
+        // $ExpectType Wrapper<StringProps>
+        const JavaLangString = factory.use<StringProps>("java.lang.String");
+        // $ExpectType string
+        JavaLangString.$className;
+        // $ExpectType MethodDispatcher
+        JavaLangString.substring;
+        JavaLangString.substring.implementation = function(...args) {
+            // $ExpectType MethodDispatcher
+            this.substring;
+        } as Java.MethodImplementation<StringProps>;
     });
