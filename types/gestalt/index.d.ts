@@ -244,6 +244,7 @@ export interface FlyoutProps {
     idealDirection?: 'up' | 'right' | 'down' | 'left';
     positionRelativeToAnchor?: boolean;
     shouldFocus?: boolean;
+    showCaret?: boolean;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number;
 }
 
@@ -287,7 +288,6 @@ export interface HeaderProps {
     id?: string;
     overflow?: 'normal' | 'breakWord';
     size?: 'sm' | 'md' | 'lg';
-
     truncate?: boolean;
 }
 
@@ -520,7 +520,7 @@ export interface ImageProps {
     loading?: 'eager' | 'lazy' | 'auto';
     onError?: () => void;
     onLoad?: () => void;
-    size?: string;
+    sizes?: string;
     srcSet?: string;
 }
 
