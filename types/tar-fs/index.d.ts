@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import fs = require('fs');
-import tarStream = require('tar-stream');
+import { ReadStream } from 'fs';
+import * as tarStream from 'tar-stream';
 
 export function pack(cwd: string, opts?: PackOptions): tarStream.Pack;
 export function extract(cwd: string, opts?: ExtractOptions): tarStream.Extract;
@@ -22,7 +22,7 @@ export interface Options {
     ignore?: (name: string) => boolean;
     filter?: (name: string) => boolean;
     map?: (header: Headers) => Headers;
-    mapStream?: (fileStream: fs.ReadStream, header: Headers) => fs.ReadStream;
+    mapStream?: (fileStream: ReadStream, header: Headers) => ReadStream;
     dmode?: number;
     fmode?: number;
     readable?: boolean;
