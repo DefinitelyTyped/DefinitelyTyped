@@ -1,8 +1,9 @@
 // Type definitions for tar-fs 1.16
 // Project: https://github.com/mafintosh/tar-fs
 // Definitions by: Umoxfo <https://github.com/Umoxfo>
+//                 Chris Wiggins <https://github.com/chriswiggins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+// TypeScript Version: 2.9
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
@@ -33,7 +34,8 @@ export interface PackOptions extends Options {
     entries?: string[];
     dereference?: boolean;
     finalize?: boolean;
-    finish?: (pack: any) => void;
+    finish?: (pack: tarStream.Pack) => void;
+    pack?: tarStream.Pack;
 }
 
 export interface ExtractOptions extends Options {
