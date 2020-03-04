@@ -700,6 +700,8 @@ export interface SelectListProps {
     options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean;
     errorMessage?: string;
+    helperText?: string;
+    label?: string;
     name?: string;
     placeholder?: string;
     value?: string;
@@ -801,7 +803,8 @@ export interface TextAreaProps {
     onChange: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     disabled?: boolean;
     errorMessage?: string;
-    idealErrorDirection?: 'up' | 'right' | 'down' | 'left';
+    helperText?: string;
+    label?: string;
     name?: string;
     onBlur?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
     onFocus?: (args: { event: React.SyntheticEvent<HTMLTextAreaElement>; value: string }) => void;
@@ -822,7 +825,8 @@ export interface TextFieldProps {
     autoComplete?: 'current-password' | 'on' | 'off' | 'username' | 'new-password';
     disabled?: boolean;
     errorMessage?: string;
-    idealErrorDirection?: 'up' | 'right' | 'down' | 'left';
+    helperText?: string;
+    label?: string;
     name?: string;
     onBlur?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
