@@ -8,6 +8,9 @@
 
 import * as angular from 'angular';
 
+declare var _: string;
+export default _;
+
 export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
 export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
 export type IToastConfig = angular.toastr.IToastConfig;
