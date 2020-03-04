@@ -1,8 +1,9 @@
-// Type definitions for gestalt 1.11.1
+// Type definitions for gestalt 1.11
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
+//                 Muhammed Hafiz <https://github.com/zifahm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
