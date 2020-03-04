@@ -9,32 +9,40 @@ import { ComponentType } from 'react';
 
 export type QueryKey = string | [string, ...any[]] | false | null;
 
-export type QueryFunction<TResult = any, TArgs extends [string, ...any[]] = any> = (...args: TArgs) => Promise<TResult>;
+export type QueryFunction<TResult, TArgs extends any[] = any[]> = (key: string, ...args: TArgs) => Promise<TResult>;
 
-export type QueryFunctionArgs<T> = T extends any[] ? T :
-                    T extends (...args: any[]) => [string, ...any[]] ? ReturnType<T> :
-                    T extends (...args: any[]) => string ? [ReturnType<T>] :
-                    any;
+/**
+ * For given QueryKey get type of QueryKeyVariable (2nd element of tuple)
+ */
+export type QueryKeyVariables<T extends QueryKey> = T extends [string, infer U, ...any[]] ? U : any;
 
-export type OmitKey<T> = T extends [string, ...Array<(infer U)>] ? U : any;
+/**
+ * For given QueryKey get Tuple without first element
+ */
+export type QueryKeyVariablesArgs<T extends QueryKey> = T extends any[] ? TupleTail<T> : [];
+
+/**
+ * Tuple without first element
+ */
+export type TupleTail<A extends any[]> = ((...args: A) => any) extends (h: any, ...t: infer T) => any ? T : never;
 
 export function useQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: (...args: QueryFunctionArgs<TQueryKey>) => Promise<TResult>,
-    options?: QueryOptions<TResult>
-): QueryResult<TResult, TQueryKey>;
+    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    options?: QueryOptions<TResult>,
+): QueryResult<TResult, QueryKeyVariables<TQueryKey>>;
 
 export function usePaginatedQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: (...args: QueryFunctionArgs<TQueryKey>) => Promise<TResult>,
-    options?: QueryOptions<TResult>
+    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    options?: QueryOptions<TResult>,
 ): QueryResultPaginated<TResult, TQueryKey>;
 
 export function useInfiniteQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: (...args: QueryFunctionArgs<TQueryKey>) => Promise<TResult>,
-    options?: InfiniteQueryOptions<TResult, TQueryKey>
-): QueryResultInfinite<TResult, TQueryKey>;
+    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    options?: InfiniteQueryOptions<TResult, QueryKeyVariables<TQueryKey>>,
+): QueryResultInfinite<TResult, QueryKeyVariables<TQueryKey>>;
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
@@ -54,7 +62,7 @@ export interface QueryOptions<TResult> {
 }
 
 export interface InfiniteQueryOptions<TResult, TVariables> extends QueryOptions<TResult> {
-    getFetchMore?: ((lastGroup: TResult, allGroups: TResult[]) => OmitKey<TVariables>) | boolean;
+    getFetchMore?: ((lastGroup: TResult, allGroups: TResult[]) => TVariables) | boolean;
 }
 
 export interface QueryResult<TResult, TVariables> {
@@ -63,7 +71,11 @@ export interface QueryResult<TResult, TVariables> {
     error: null | Error;
     isFetching: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: OmitKey<TVariables>, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<any>;
+    refetch: (arg?: {
+        variables?: TVariables;
+        merge?: (...args: any[]) => any;
+        disableThrow?: boolean;
+    }) => Promise<any>;
 }
 
 export interface QueryResultPaginated<TResult, TVariables> {
@@ -73,7 +85,11 @@ export interface QueryResultPaginated<TResult, TVariables> {
     error: null | Error;
     isFetching: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: OmitKey<TVariables>, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<any>;
+    refetch: (arg?: {
+        variables?: TVariables;
+        merge?: (...args: any[]) => any;
+        disableThrow?: boolean;
+    }) => Promise<any>;
 }
 
 export interface QueryResultInfinite<TResult, TVariables> {
@@ -83,24 +99,26 @@ export interface QueryResultInfinite<TResult, TVariables> {
     isFetching: boolean;
     isFetchingMore: boolean;
     failureCount: number;
-    refetch: (arg?: {variables?: OmitKey<TVariables>, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<any>;
-    fetchMore: (variables?: OmitKey<TVariables>) => Promise<any>;
+    refetch: (arg?: {
+        variables?: TVariables;
+        merge?: (...args: any[]) => any;
+        disableThrow?: boolean;
+    }) => Promise<any>;
+    fetchMore: (variables?: TVariables) => Promise<any>;
     canFetchMore: boolean;
 }
 
 export function useMutation<TResults, TVariables extends object>(
     mutationFn: MutationFunction<TResults, TVariables>,
-    mutationOptions?: MutationOptions<TResults>
+    mutationOptions?: MutationOptions<TResults>,
 ): [MutateFunction<TResults, TVariables>, MutationResult<TResults>];
 
-export type MutationFunction<TResults, TVariables extends object> = (
-    variables: TVariables,
-) => Promise<TResults>;
+export type MutationFunction<TResults, TVariables extends object> = (variables: TVariables) => Promise<TResults>;
 
 export interface MutationOptions<TResult> {
-    onSuccess?: (data: TResult) => (Promise<any> | undefined);
-    onSettled?: (data: TResult, error: any) => (Promise<any> | undefined);
-    onError?: (error: any) => (Promise<any> | undefined);
+    onSuccess?: (data: TResult) => Promise<any> | undefined;
+    onSettled?: (data: TResult, error: any) => Promise<any> | undefined;
+    onError?: (error: any) => Promise<any> | undefined;
     throwOnError?: boolean;
     useErrorBoundary?: boolean;
 }
@@ -108,9 +126,9 @@ export interface MutationOptions<TResult> {
 export type MutateFunction<TResults, TVariables extends object> = (
     variables?: TVariables,
     options?: {
-        updateQuery?: string | [string, object],
+        updateQuery?: string | [string, object];
         waitForRefetchQueries?: boolean;
-    }
+    },
 ) => Promise<TResults>;
 
 export interface MutationResult<TResults> {
@@ -123,39 +141,32 @@ export interface MutationResult<TResults> {
 export namespace queryCache {
     function prefetchQuery<TResult, TQueryKey extends QueryKey>(
         queryKey: TQueryKey,
-        queryFn: QueryFunction<TResult, QueryFunctionArgs<TQueryKey>>,
-        options?: QueryOptions<TResult>
+        queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+        options?: QueryOptions<TResult>,
     ): Promise<TResult>;
 
     // tslint:disable:no-unnecessary-generics
-    function getQueryData<TResult>(
-        queryKey: QueryKey
-    ): TResult | undefined;
+    function getQueryData<TResult>(queryKey: QueryKey): TResult | undefined;
 
-    function setQueryData<TResult>(
-        queryKey: QueryKey,
-        updater: TResult | ((oldData: TResult) => TResult)
-    ): void;
+    function setQueryData<TResult>(queryKey: QueryKey, updater: TResult | ((oldData: TResult) => TResult)): void;
 
     function refetchQueries(
         queryKeyOrPredicateFn: QueryKey | ((query: QueryKey) => boolean),
         options?: {
-            exact?: boolean,
-            throwOnError?: boolean
-        }
+            exact?: boolean;
+            throwOnError?: boolean;
+        },
     ): Promise<void>;
 
     function removeQueries(
         queryKeyOrPredicateFn: QueryKey | ((query: QueryKey) => boolean),
         options?: {
-            exact?: boolean
+            exact?: boolean;
         },
     ): void;
 
     // TODO: type returned QueryObject
-    function getQuery(
-        queryKey: QueryKey
-    ): any;
+    function getQuery(queryKey: QueryKey): any;
 
     const isFetching: boolean;
 
@@ -167,7 +178,7 @@ export namespace queryCache {
 export function useIsFetching(): boolean;
 
 export const ReactQueryConfigProvider: React.ComponentType<{
-    config?: ReactQueryProviderConfig
+    config?: ReactQueryProviderConfig;
 }>;
 
 export interface ReactQueryProviderConfig {
@@ -188,4 +199,8 @@ export interface ReactQueryProviderConfig {
     queryFnParamsFilter?: (...args: any[]) => any[];
 }
 
-export function setConsole(console: Console): void;
+export function setConsole(console: {
+    log: (...args: any[]) => void;
+    warn: (...args: any[]) => void;
+    error: (...args: any[]) => void;
+}): void;

@@ -1,6 +1,10 @@
-import { useMutation, useQuery, useInfiniteQuery, QueryKey, QueryFunction, usePaginatedQuery } from "react-query";
+import { useMutation, useQuery, useInfiniteQuery, QueryKey, QueryFunction, usePaginatedQuery, QueryKeyVariablesArgs } from "react-query";
 
-const queryFn: QueryFunction<string, [string, number]> = (arg1: string, arg2: number) => Promise.resolve('string');
+const queryFn = () => Promise.resolve(true);
+const queryFn1: QueryFunction<boolean> = () => Promise.resolve(true);
+const queryFn2: QueryFunction<boolean> = () => Promise.resolve(true);
+const queryFn3: QueryFunction<boolean, [number, {foo: 'bar'}]> = (arg1: string, arg2: number, arg3: {foo: string}) => Promise.resolve(true);
+
 const queryKey1: QueryKey = 'key';
 const queryKey2: QueryKey = ['key', 1];
 const queryKey3: QueryKey = ['key', { foo: 'bar' }];
@@ -11,7 +15,7 @@ const invalidKey2: QueryKey = 123; // $ExpectError
 
 // Query - simple case
 const querySimple = useQuery('todos',
-    () => Promise.resolve('test'));
+    (key: string) => Promise.resolve(key));
 
 querySimple.status; // $ExpectType "loading" | "error" | "success"
 querySimple.data; // $ExpectType string | undefined
