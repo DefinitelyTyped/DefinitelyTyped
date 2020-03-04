@@ -424,7 +424,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                     ]
                 }
             },
-            { text: 'Column/row spans', pageBreak: pdfMake.PageBreak.Before, style: 'subheader' },
+            { text: 'Column/row spans', pageBreak: 'before', style: 'subheader' },
             'Each cell-element can set a rowSpan or colSpan',
             {
                 style: 'tableExample',
@@ -449,7 +449,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                     ]
                 }
             },
-            { text: 'Headers', pageBreak: pdfMake.PageBreak.Before, style: 'subheader' },
+            { text: 'Headers', pageBreak: 'before', style: 'subheader' },
             'You can declare how many rows should be treated as a header. Headers are',
             ' automatically repeated on the following pages',
             { text: ['It is also possible to set keepWithHeaderRows to make sure there will be no page-break'
@@ -483,7 +483,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                 ]
             },
             'with more options coming soon...\n\npdfmake currently has a few predefined styles (see them on the next page)',
-            { text: 'noBorders:', fontSize: 14, bold: true, pageBreak: pdfMake.PageBreak.Before, margin: [0, 0, 0, 8] },
+            { text: 'noBorders:', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
             {
                 style: 'tableExample',
                 table: {
@@ -498,7 +498,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: pdfMake.Layout.NoBorders
+                layout: 'noBorders'
             },
             { text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
             {
@@ -515,7 +515,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: pdfMake.Layout.HeaderLineOnly
+                layout: 'headerLineOnly'
             },
             { text: 'lightHorizontalLines:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
             {
@@ -531,7 +531,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                         ['Sample value 1', 'Sample value 2', 'Sample value 3'],
                     ]
                 },
-                layout: pdfMake.Layout.LightHorizontalLines
+                layout: 'lightHorizontalLines'
             },
             { text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
             {
@@ -585,7 +585,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
                     }
                 }
             },
-            { text: 'Optional border', fontSize: 14, bold: true, pageBreak: pdfMake.PageBreak.Before, margin: [0, 0, 0, 8] },
+            { text: 'Optional border', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
             'Each cell contains an optional border property: an array of 4 booleans for left border, top border, right border, bottom border.',
             {
                 style: 'tableExample',
@@ -1296,7 +1296,7 @@ const definitions: pdfMake.TDocumentDefinitions[] = [
             {
                 image: 'sampleImage.jpg',
                 fit: [100, 100],
-                pageBreak: pdfMake.PageBreak.After
+                pageBreak: 'after'
             },
             // Warning! Make sure to copy this definition and paste it to an
             // external text editor, as the online AceEditor has some troubles
