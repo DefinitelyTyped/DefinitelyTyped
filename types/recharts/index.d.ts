@@ -932,7 +932,7 @@ export type LabelListProps = {
     id?: string;
     offset?: number;
     position?: PositionType;
-} & ({ dataKey: string | number | RechartsFunction } | { valueAccessor: RechartsFunction });
+} & ({ dataKey: string | number | RechartsFunction, valueAccessor?: never } | { valueAccessor: RechartsFunction, dataKey?: never });
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 
