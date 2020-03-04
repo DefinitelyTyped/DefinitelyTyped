@@ -3795,7 +3795,6 @@ interface WebTwain {
 	
     ConvertToBW(sImageIndex: number): boolean;
 
-
     /*ignored
     checkErrorString
     first
