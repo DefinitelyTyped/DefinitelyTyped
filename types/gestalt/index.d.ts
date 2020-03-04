@@ -3,7 +3,6 @@
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
 //                 Calvin Chhour <https://github.com/calvinchhour>
-//                 Muhammed Hafiz <https://github.com/zifahm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
