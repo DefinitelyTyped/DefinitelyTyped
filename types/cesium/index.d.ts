@@ -123,11 +123,11 @@ declare namespace Cesium {
 
         constructor(value?: object, createPropertyCallback?: (value?: any) => void);
 
-        addProperty(propertyName: string, value?: any, createPropertyCallback?: (value?: any) => void): void;
+        addProperty(propertyName: string, value?: any, createPropertyCallback?: (value: any) => void): void;
         equals(other?: Property): boolean;
         getValue(time: JulianDate, result?: object): object;
         hasProperty(propertyName: string): boolean;
-        merge(source: object, createPropertyCallback?: (value?: any) => void): void;
+        merge(source: object, createPropertyCallback?: (value: any) => void): void;
         removeProperty(propertyName: string): void;
     }
 
