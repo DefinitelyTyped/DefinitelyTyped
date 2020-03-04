@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "fxjs-test.ts"
+        "fxjs-tests.ts"
     ]
 }
