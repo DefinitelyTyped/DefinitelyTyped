@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 15.0
+// Type definitions for non-npm package frida-gum 15.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
