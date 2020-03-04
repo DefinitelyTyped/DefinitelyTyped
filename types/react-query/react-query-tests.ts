@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useInfiniteQuery } from "react-query";
 
 const queryFn = () => Promise.resolve();
 
@@ -9,14 +9,14 @@ querySimple.data; // $ExpectType string | null
 querySimple.error; // $ExpectType Error | null
 querySimple.isLoading; // $ExpectType boolean
 querySimple.refetch(); // $ExpectType Promise<void>
-queryPaginated.fetchMore; // $ExpectError
-queryPaginated.canFetchMore; // $ExpectError
-queryPaginated.isFetchingMore; // $ExpectError
+querySimple.fetchMore; // $ExpectError
+querySimple.canFetchMore; // $ExpectError
+querySimple.isFetchingMore; // $ExpectError
 
 // Query Variables
 const param = 'test';
 const queryVariables = useQuery(['todos', {param}],
-    (variables) => Promise.resolve(variables.param === 'test'));
+    (key, variables) => Promise.resolve(variables.param === 'test'));
 
 queryVariables.data; // $ExpectType boolean | null
 queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<void>
@@ -33,8 +33,22 @@ const queryNested = useQuery(['key', {
     nested: {
         props: [1, 2]
     }
-}], (variables) => Promise.resolve(variables.nested.props[0]));
+}], (key, variables) => Promise.resolve(variables.nested.props[0]));
 queryNested.data; // $ExpectType number | null
+
+// Query key arrays
+useQuery(['todo', 123, {key: 'foo'}], (key, arg1, arg2) => {
+    key; // $ExpectType string
+    arg1; // $ExpectType number
+    return Promise.resolve();
+});
+
+// Query key arrays
+useQuery(['todo', 123], (key, arg1) => {
+    key; // $ExpectType string
+    arg1; // $ExpectType number
+    return Promise.resolve();
+})
 
 // Paginated mode
 const queryPaginated = useQuery('key', () => Promise.resolve({data: [1, 2, 3], next: true}), {
@@ -49,6 +63,16 @@ queryPaginated.isFetchingMore; // $ExpectType boolean
 
 // Paginated mode - check if getCanFetchMore is required
 useQuery('key', () => Promise.resolve(), {paginated: true}); // $ExpectError
+
+// Infinite query
+useInfiniteQuery(['projects', 0], (key, cursor) => {
+    return Promise.resolve({
+        nextCursor: cursor + 1
+    });
+}, {
+    getFetchMore: (lastGroup, allGroups) => lastGroup.nextCursor,
+})
+
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 1]);

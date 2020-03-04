@@ -7,23 +7,33 @@
 
 import { ComponentType } from 'react';
 
-// overloaded useQuery function with pagination
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options: QueryOptionsPaginated<TResult>
-): QueryResultPaginated<TResult, TVariables>;
+type Falsy = false | 0 | "" | null | undefined
 
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
+type Args<T> = T extends any[] ? T : T[];
+
+type TupleRest<T> = T extends [string, (infer U)] ? U : T;
+
+export function useQuery<TResult, TQueryKey extends ([string, ...any[]] | string)>(
+    queryKey: TQueryKey | (() => any[]) | Falsy,
+    queryFn: (...args: Args<TQueryKey>) => Promise<TResult>,
     options?: QueryOptions<TResult>
-): QueryResult<TResult, TVariables>;
+): QueryResult<TResult, any>;
 
-export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
-export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;
+export function usePaginatedQuery<TResult, TQueryKey extends ([string, ...any[]] | string)>(
+    queryKey: TQueryKey | (() => any[]) | Falsy,
+    queryFn: (...args: Args<TQueryKey>) => Promise<TResult>,
+    options?: QueryOptions<TResult>
+): PaginatedQueryResult<TResult, any>;
 
-export type QueryFunction<TResult, TVariables extends object> = (variables: TVariables) => Promise<TResult>;
+export function useInfiniteQuery<TResult, TQueryKey extends ([string, ...any[]] | string)>(
+    queryKey: TQueryKey | (() => any[]) | Falsy,
+    queryFn: (...args: Args<TQueryKey>) => Promise<TResult>,
+    options?: InfiniteQueryOptions<TResult, TQueryKey>
+): InfiniteQueryResult<TResult, any>;
+
+
+export type QueryKey<TVariables> = TVariables | false | null | (() => TVariables);
+export type QueryFunction<TVariables, TResult> = (...variables: TVariables[]) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
@@ -36,8 +46,14 @@ export interface QueryOptions<TResult> {
     refetchOnWindowFocus?: boolean;
     onError?: (err: any) => void;
     onSuccess?: (data: TResult) => void;
+    onSettled?: (data: TResult, err: any) => void;
     suspense?: boolean;
     initialData?: TResult;
+    refetchOnMount?: boolean;
+}
+
+export interface InfiniteQueryOptions<TResult, TVariables> extends QueryOptions<TResult> {
+    getFetchMore?: (lastGroup: TResult, allGroups: TResult[]) => TupleRest<TVariables>
 }
 
 export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
@@ -46,11 +62,20 @@ export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
 }
 
 export interface QueryResult<TResult, TVariables> {
-    data: null | TResult;
+    status: 'loading' | 'error' | 'success'
+    data: undefined | TResult;
     error: null | Error;
-    isLoading: boolean;
     isFetching: boolean;
-    isCached: boolean;
+    failureCount: number;
+    refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
+}
+
+export interface PaginatedQueryResult<TResult, TVariables> {
+    status: 'loading' | 'error' | 'success'
+    resolvedData: undefined | TResult;
+    latestData: undefined | TResult;
+    error: null | Error;
+    isFetching: boolean;
     failureCount: number;
     refetch: (arg?: {variables?: TVariables, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<void>;
 }
