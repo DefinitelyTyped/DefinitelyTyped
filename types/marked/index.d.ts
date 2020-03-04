@@ -309,9 +309,12 @@ declare namespace marked {
         headerPrefix?: string;
 
         /**
-         * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
+         * A function to highlight code blocks. The function can either be
+         * synchronous (returning a string) or asynchronous (callback invoked
+         * with an error if any occurred during highlighting and a string
+         * if highlighting was successful)
          */
-        highlight?(code: string, lang: string, callback?: (error: any | undefined, code: string) => void): string | void;
+        highlight?(code: string, lang: string, callback?: (error: any | undefined, code?: string) => void): string | void;
 
         /**
          * Set the prefix for code block classes.
