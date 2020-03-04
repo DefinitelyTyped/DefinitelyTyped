@@ -13,21 +13,20 @@ const invalidKey2: QueryKey = 123; // $ExpectError
 const querySimple = useQuery('todos',
     () => Promise.resolve('test'));
 
-querySimple.status; // $ExpectType 'loading' | 'error' | 'success'
-querySimple.data; // $ExpectType string | null
+querySimple.status; // $ExpectType "loading" | "error" | "success"
+querySimple.data; // $ExpectType string | undefined
 querySimple.error; // $ExpectType Error | null
 querySimple.isFetching; // $ExpectType boolean
-querySimple.failureCount; // $ExpectType boolean
-querySimple.refetch(); // $ExpectType Promise<void>
-
+querySimple.failureCount; // $ExpectType number
+querySimple.refetch(); // $ExpectType Promise<any>
 
 // Query Variables
 const param = 'test';
 const queryVariables = useQuery(['todos', {param}],
     (key, variables) => Promise.resolve(variables.param === 'test'));
 
-queryVariables.data; // $ExpectType boolean | null
-queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<void>
+queryVariables.data; // $ExpectType boolean | undefined
+queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<any>
 queryVariables.refetch({variables: {other: 'foo'}}); // $ExpectError
 
 // Query with falsey query key
@@ -39,29 +38,28 @@ const queryNested = useQuery(['key', {
         props: [1, 2]
     }
 }], (key, variables) => Promise.resolve(variables.nested.props[0]));
-queryNested.data; // $ExpectType number | null
+queryNested.data; // $ExpectType number | undefined
 
 // Query key arrays
 useQuery(['todo', 123, {key: 'foo'}], (key, arg1, arg2) => {
     key; // $ExpectType string
     arg1; // $ExpectType number
-    arg2; // $ExpectType {key: string}
+    arg2; // $ExpectType { key: string; }
     return Promise.resolve();
 });
 
 // Query with query key function
-useQuery(() => ['todo', 123, {key: 'foo'}], (key, arg1, arg2) => {
-    key; // $ExpectType string
-    arg1; // $ExpectType number
-    arg2; // $ExpectType {key: string};
-    return Promise.resolve()
-});
+useQuery(() => ['todo', 123, 'foo'], (
+    key, // $ExpectType string
+    arg1, // $ExpectType number
+    arg2, // $ExpectType string
+) => Promise.resolve());
 
 // Paginated Query
 const queryPaginated = usePaginatedQuery(['key', 0], (key, page) =>  Promise.resolve({data: [1, 2, 3]}));
-queryPaginated.resolvedData; // $ExpectType { data: number[]}[] | undefined
-queryPaginated.latestData; // $ExpectType { data: number[]}[] | undefined
-queryPaginated.error; // $ExpectType Error
+queryPaginated.resolvedData; // $ExpectType { data: number[]; } | undefined
+queryPaginated.latestData; // $ExpectType { data: number[]; } | undefined
+queryPaginated.error; // $ExpectType Error | null
 queryPaginated.isFetching; // $ExpectType boolean
 
 // Infinite Query
@@ -71,10 +69,10 @@ useInfiniteQuery(['projects', 0], (key, cursor) => {
     });
 }, {
     getFetchMore: (lastGroup, allGroups) => lastGroup.nextCursor,
-})
+});
 
 // Simple mutation
-const mutation = () => Promise.resolve(['foo', 1]);
+const mutation = () => Promise.resolve(['foo', 'bar']);
 
 const [mutate, {data, error, status}] = useMutation(mutation);
 mutate();
@@ -82,9 +80,8 @@ mutate(undefined, {
     updateQuery: 'query',
     waitForRefetchQueries: false
 });
-data; // $ExpectType [string, number] | undefined
+data; // $ExpectType string[] | undefined
 
 // Invalid mutatation funciton
 useMutation((arg1: string, arg2: string) => Promise.resolve()); // $ExpectError
 useMutation((arg1: string) => null); // $ExpectError
-

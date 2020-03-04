@@ -4,19 +4,19 @@
 //                 Jace Hensley <https://github.com/jacehensley>
 //                 Matteo Frana <https://github.com/matteofrana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// Minimum TypeScript Version: 3.0
 import { ComponentType } from 'react';
 
-export type QueryKey = string | [string, ...any[]] | false | null ;
+export type QueryKey = string | [string, ...any[]] | false | null;
 
 export type QueryFunction<TResult = any, TArgs extends [string, ...any[]] = any> = (...args: TArgs) => Promise<TResult>;
 
-type QueryFunctionArgs<T> = T extends any[] ? T :
+export type QueryFunctionArgs<T> = T extends any[] ? T :
                     T extends (...args: any[]) => [string, ...any[]] ? ReturnType<T> :
                     T extends (...args: any[]) => string ? [ReturnType<T>] :
                     any;
 
-type OmitKey<T> = T extends [string, ...Array<(infer U)>] ? U : any;
+export type OmitKey<T> = T extends [string, ...Array<(infer U)>] ? U : any;
 
 export function useQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
@@ -54,12 +54,12 @@ export interface QueryOptions<TResult> {
 }
 
 export interface InfiniteQueryOptions<TResult, TVariables> extends QueryOptions<TResult> {
-    getFetchMore?: ((lastGroup: TResult, allGroups: TResult[]) => OmitKey<TVariables>) | boolean
+    getFetchMore?: ((lastGroup: TResult, allGroups: TResult[]) => OmitKey<TVariables>) | boolean;
 }
 
 export interface QueryResult<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success'
-    data: undefined | TResult[];
+    status: 'loading' | 'error' | 'success';
+    data: undefined | TResult;
     error: null | Error;
     isFetching: boolean;
     failureCount: number;
@@ -67,7 +67,7 @@ export interface QueryResult<TResult, TVariables> {
 }
 
 export interface QueryResultPaginated<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success'
+    status: 'loading' | 'error' | 'success';
     resolvedData: undefined | TResult;
     latestData: undefined | TResult;
     error: null | Error;
@@ -77,7 +77,7 @@ export interface QueryResultPaginated<TResult, TVariables> {
 }
 
 export interface QueryResultInfinite<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success'
+    status: 'loading' | 'error' | 'success';
     data: TResult[];
     error: null | Error;
     isFetching: boolean;
@@ -85,7 +85,7 @@ export interface QueryResultInfinite<TResult, TVariables> {
     failureCount: number;
     refetch: (arg?: {variables?: OmitKey<TVariables>, merge?: (...args: any[]) => any, disableThrow?: boolean}) => Promise<any>;
     fetchMore: (variables?: OmitKey<TVariables>) => Promise<any>;
-    canFetchMore: boolean
+    canFetchMore: boolean;
 }
 
 export function useMutation<TResults, TVariables extends object>(
@@ -98,9 +98,9 @@ export type MutationFunction<TResults, TVariables extends object> = (
 ) => Promise<TResults>;
 
 export interface MutationOptions<TResult> {
-    onSuccess?: (data: TResult) => (Promise<any> | undefined),
-    onSettled?: (data: TResult, error: any) => (Promise<any> | undefined),
-    onError?: (error: any) => (Promise<any> | undefined),
+    onSuccess?: (data: TResult) => (Promise<any> | undefined);
+    onSettled?: (data: TResult, error: any) => (Promise<any> | undefined);
+    onError?: (error: any) => (Promise<any> | undefined);
     throwOnError?: boolean;
     useErrorBoundary?: boolean;
 }
@@ -114,51 +114,54 @@ export type MutateFunction<TResults, TVariables extends object> = (
 ) => Promise<TResults>;
 
 export interface MutationResult<TResults> {
-    status: 'idle' | 'loading' | 'error' | 'success'
+    status: 'idle' | 'loading' | 'error' | 'success';
     data: TResults | undefined;
     error: null | Error;
     promise: Promise<TResults>;
 }
 
 export namespace queryCache {
-
-    export function prefetchQuery<TResult, TQueryKey extends QueryKey>(
+    function prefetchQuery<TResult, TQueryKey extends QueryKey>(
         queryKey: TQueryKey,
         queryFn: QueryFunction<TResult, QueryFunctionArgs<TQueryKey>>,
         options?: QueryOptions<TResult>
     ): Promise<TResult>;
 
-    export function getQueryData<TResult>(
+    // tslint:disable:no-unnecessary-generics
+    function getQueryData<TResult>(
         queryKey: QueryKey
     ): TResult | undefined;
 
-    export function setQueryData<TResult>(
+    function setQueryData<TResult>(
         queryKey: QueryKey,
         updater: TResult | ((oldData: TResult) => TResult)
     ): void;
 
-    export function refetchQueries(
+    function refetchQueries(
         queryKeyOrPredicateFn: QueryKey | ((query: QueryKey) => boolean),
-        exact: boolean,
-        throwOnError: boolean
+        options?: {
+            exact?: boolean,
+            throwOnError?: boolean
+        }
     ): Promise<void>;
 
-    export function removeQueries(
+    function removeQueries(
         queryKeyOrPredicateFn: QueryKey | ((query: QueryKey) => boolean),
-        exact: boolean,
+        options?: {
+            exact?: boolean
+        },
     ): void;
 
     // TODO: type returned QueryObject
-    export function getQuery<TResult>(
+    function getQuery(
         queryKey: QueryKey
     ): any;
 
-    export const isFetching: boolean;
+    const isFetching: boolean;
 
-    export function subscribe(callback: (queryCache: any) => void): (unsubscribe: (...args: any[]) => void) => void;
+    function subscribe(callback: (queryCache: any) => void): (unsubscribe: (...args: any[]) => void) => void;
 
-    export function clear(): void;
-
+    function clear(): void;
 }
 
 export function useIsFetching(): boolean;
@@ -168,22 +171,21 @@ export const ReactQueryConfigProvider: React.ComponentType<{
 }>;
 
 export interface ReactQueryProviderConfig {
-    suspense?: false,
-    useErrorBoundary?: undefined,
-    throwOnError?: false,
-    refetchAllOnWindowFocus?: true,
-    queryKeySerializerFn?: (queryKey: QueryKey) => [string, any[]],
-    onSuccess?: () => {},
-    onError?: () => {},
-    onSettled?: () => {},
+    suspense?: false;
+    useErrorBoundary?: undefined;
+    throwOnError?: false;
+    refetchAllOnWindowFocus?: true;
+    queryKeySerializerFn?: (queryKey: QueryKey) => [string, any[]];
+    onSuccess?: () => {};
+    onError?: () => {};
+    onSettled?: () => {};
     retry?: number;
     retryDelay?: (attempt: number) => number;
     staleTime?: number;
     cacheTime?: number;
     refetchOnMount?: boolean;
     refetchInterval?: false | number;
-    queryFnParamsFilter?: (...args: any[]) => any[]
+    queryFnParamsFilter?: (...args: any[]) => any[];
 }
 
 export function setConsole(console: Console): void;
-
