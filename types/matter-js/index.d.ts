@@ -2140,6 +2140,22 @@ declare namespace Matter {
          */
         static clear(grid: Grid): void;
 
+
+        /**
+         * The width of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketWidth: number;
+
+        /**
+         * The height of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketHeight: number;
     }
 
     export interface IMouseConstraintDefinition {
