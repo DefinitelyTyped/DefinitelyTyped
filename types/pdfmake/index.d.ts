@@ -41,7 +41,7 @@ declare module "pdfmake/build/pdfmake" {
 
     type Alignment = "left" | "center" | "right";
 
-	type Decoration = "underline" | "lineThrough" | "overline";
+    type Decoration = "underline" | "lineThrough" | "overline";
 
     type DecorationStyle = "dashed" | "dotted" | "double" | "wavy";
 
