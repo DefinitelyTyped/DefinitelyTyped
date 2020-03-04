@@ -5,25 +5,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement } from "react";
-import { DomElement } from "htmlparser2";
+import { ReactElement } from 'react';
+import { Element } from 'htmlparser2';
 
 export interface Transform {
-    (node: DomElement, index: number, transform?: Transform): ReactElement | void | null;
+    (node: Element, index: number, transform?: Transform): ReactElement | void | null;
 }
 
 export interface Options {
     decodeEntities?: boolean;
     transform?: Transform;
-    preprocessNodes?(nodes: DomElement[]): any;
+    preprocessNodes?(nodes: Element[]): any;
 }
 
-export function convertNodeToElement(
-    node: DomElement,
-    index: number,
-    transform: Transform,
-): ReactElement;
+export function convertNodeToElement(node: Element, index: number, transform: Transform): ReactElement;
 
-export function processNodes(nodes: DomElement[], transform: Transform): ReactElement[];
+export function processNodes(nodes: Element[], transform: Transform): ReactElement[];
 
 export default function HtmlParser(html: string, options?: Options): ReactElement[];
