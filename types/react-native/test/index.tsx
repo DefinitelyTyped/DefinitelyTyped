@@ -127,7 +127,8 @@ function TextUseWindowDimensions() {
 
 BackHandler.addEventListener("hardwareBackPress", () => true).remove();
 BackHandler.addEventListener("hardwareBackPress", () => false).remove();
-BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
+BackHandler.addEventListener("hardwareBackPress", () => undefined).remove();
+BackHandler.addEventListener("hardwareBackPress", () => null).remove();
 
 interface LocalStyles {
     container: ViewStyle;

@@ -7009,8 +7009,8 @@ export type BackPressEventName = 'hardwareBackPress';
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined | void): NativeEventSubscription;
-    removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined | void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
+    removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
 export interface ButtonProps {
