@@ -1,4 +1,3 @@
-import assert = require("assert");
 import fs = require("fs");
 import path = require("path");
 import util = require("util");
@@ -32,6 +31,8 @@ import dns = require("dns");
 import timers = require("timers");
 import dgram = require("dgram");
 import perf_hooks = require("perf_hooks");
+
+declare const assert: any;
 
 export {
     assert,
