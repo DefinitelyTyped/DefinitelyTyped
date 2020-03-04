@@ -19,6 +19,7 @@
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
 //                 Hammad Jutt <https://github.com/hammadj>
 //                 Dhruv Jain <https://github.com/maddhruv>
+//                 Jeffrey Cherewaty <https://github.com/cherewaty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -229,7 +230,9 @@ export interface MarginProps<ThemeType extends Theme = RequiredTheme>
     | 'mr'
     | 'marginRight'
     | 'my'
-    | 'mx'> {
+    | 'marginY'
+    | 'mx'
+    | 'marginX'> {
 }
 
 export interface MarginTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'mt' | 'marginTop'> {
@@ -263,7 +266,9 @@ export interface PaddingProps<ThemeType extends Theme = RequiredTheme>
     | 'pr'
     | 'paddingRight'
     | 'py'
-    | 'px'> {
+    | 'paddingY'
+    | 'px'
+    | 'paddingX'> {
 }
 
 export interface PaddingTopProps<ThemeType extends Theme = RequiredTheme> extends Pick<SpaceProps<ThemeType>, 'pt' | 'paddingTop'> {

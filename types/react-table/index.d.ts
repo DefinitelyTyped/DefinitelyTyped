@@ -3,6 +3,7 @@
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
 //                 Michael Stramel <https://github.com/stramel>
 //                 gargroh <https://github.com/gargroh>
+//                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 // reflects react-table@7.0.0-rc.15

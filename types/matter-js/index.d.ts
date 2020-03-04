@@ -3170,6 +3170,9 @@ declare namespace Matter {
         pairs: Array<IPair>;
     }
 
+    export interface IMouseEvent<T> extends IEvent<T> {
+        name: 'mousedown' | 'mousemove' | 'mouseup';
+    }
 
     export class Events {
 
@@ -3381,7 +3384,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3389,7 +3392,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3397,7 +3400,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
 
         static on(obj: any, name: string, callback: (e: any) => void): void;

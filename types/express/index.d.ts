@@ -2,6 +2,7 @@
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 China Medical University Hospital <https://github.com/CMUH>
+//                 Puneet Arora <https://github.com/puneetar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -99,7 +100,7 @@ declare namespace e {
     interface Request<P extends core.Params = core.ParamsDictionary> extends core.Request<P> { }
     interface RequestHandler<P extends core.Params = core.ParamsDictionary> extends core.RequestHandler<P> { }
     interface RequestParamHandler extends core.RequestParamHandler { }
-    export interface Response extends core.Response { }
+    export interface Response<ResBody = any> extends core.Response<ResBody> { }
     interface Router extends core.Router { }
     interface Send extends core.Send { }
 }
