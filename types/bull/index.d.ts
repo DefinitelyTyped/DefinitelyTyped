@@ -747,6 +747,16 @@ declare namespace Bull {
     clean(grace: number, status?: JobStatusClean, limit?: number): Promise<Array<Job<T>>>;
 
     /**
+     * Returns a promise that marks the start of a transaction block.
+     */
+    multi(): Redis.Pipeline;
+
+    /**
+     * Returns the queue specific key.
+     */
+    toKey(queueType: string): string;
+
+    /**
      * Listens to queue events
      */
     on(event: string, callback: (...args: any[]) => void): this;

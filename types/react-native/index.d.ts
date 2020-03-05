@@ -32,6 +32,8 @@
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
+//                 Dominique Richard <https://github.com/doumart>
+//                 Mohamed Shaban <https://github.com/drmas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -992,6 +994,21 @@ export interface TextInputIOSProps {
     keyboardAppearance?: 'default' | 'light' | 'dark';
 
     /**
+     * Provide rules for your password.
+     * For example, say you want to require a password with at least eight characters consisting of a mix of uppercase and lowercase letters, at least one number, and at most two consecutive characters.
+     * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
+     */
+    passwordRules?: string | null;
+
+    /**
+     * If `true`, allows TextInput to pass touch events to the parent component.
+     * This allows components to be swipeable from the TextInput on iOS,
+     * as is the case on Android by default.
+     * If `false`, TextInput always asks to handle the input (except when disabled).
+     */
+    rejectResponderTermination?: boolean | null;
+
+    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1193,14 +1210,18 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardType =
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
-    | 'number-pad'
     | 'name-phone-pad'
-    | 'decimal-pad'
     | 'twitter'
     | 'web-search';
 export type KeyboardTypeAndroid = 'visible-password';
@@ -2193,6 +2214,12 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityViewIsModal?: boolean;
+
+    /**
+     * When accessibile is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
+     * @platform ios
+     */
+    onAccessibilityEscape?: () => void;
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
@@ -5156,7 +5183,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: StyleProp<T>): T;
+    export function flatten<T>(style?: StyleProp<T>): T extends (infer U)[] ? U : T;
 
     /**
      * Combines two styles such that style2 will override any styles in style1.
@@ -6855,22 +6882,27 @@ export interface AlertStatic {
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
 
 /**
- * AppStateIOS can tell you if the app is in the foreground or background,
+ * AppState can tell you if the app is in the foreground or background,
  * and notify you when the state changes.
  *
- * AppStateIOS is frequently used to determine the intent and proper behavior
+ * AppState is frequently used to determine the intent and proper behavior
  * when handling push notifications.
  *
- * iOS App States
+ * App State Events
+ *      change - This even is received when the app state has changed.
+ *      focus [Android] - Received when the app gains focus (the user is interacting with the app).
+ *      blur [Android] - Received when the user is not actively interacting with the app.
+ *
+ * App States
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
- *      inactive - This is a transition state that currently never happens for typical React Native apps.
+ *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
- * @see https://facebook.github.io/react-native/docs/appstateios.html#content
+ * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
-export type AppStateEvent = 'change' | 'memoryWarning';
+export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
 export type AppStateStatus = 'active' | 'background' | 'inactive';
 
 export interface AppStateStatic {
@@ -6968,12 +7000,17 @@ export type BackPressEventName = 'hardwareBackPress';
  * Detect hardware back button presses, and programmatically invoke the
  * default back button functionality to exit the app if there are no
  * listeners or if none of the listeners return true.
- * Methods don't have more detailed documentation as of 0.25.
+* The event subscriptions are called in reverse order
+ * (i.e. last registered subscription first), and if one subscription
+ * returns true then subscriptions registered earlier
+ * will not be called.
+ *
+ * @see https://reactnative.dev/docs/backhandler.html
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
-    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
+    removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
 export interface ButtonProps {
@@ -7081,22 +7118,6 @@ export interface CameraRollStatic {
      * @deprecated use saveToCameraRoll instead
      */
     saveImageWithTag(tag: string): Promise<string>;
-
-    /**
-     * Saves the photo or video to the camera roll / gallery.
-     *
-     * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
-     *
-     * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
-     * or a local video file URI (remote or data URIs are not supported for saving video at this time).
-     *
-     * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
-     * it will be treated as a photo. To override the automatic choice, you can pass an optional
-     * `type` parameter that must be one of 'photo' or 'video'.
-     *
-     * Returns a Promise which will resolve with the new URI.
-     */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
      * Saves the photo or video to the camera roll / gallery.
@@ -8898,7 +8919,14 @@ export const DeviceEventEmitter: DeviceEventEmitterStatic;
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter { }
+export interface NativeEventEmitter extends EventEmitter {
+    new(subscriber?: EventSubscriptionVendor | null): NativeEventEmitter;
+
+    /**
+     * @param eventType  name of the event whose registered listeners to remove
+     */
+    removeAllListeners(eventType: string): void;
+}
 export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of

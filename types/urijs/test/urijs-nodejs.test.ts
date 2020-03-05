@@ -1,3 +1,5 @@
+import URI = require('urijs');
+import * as URITemplate from 'urijs/src/URITemplate';
 declare var $: (arg?: any) => JQuery;
 
 // Scope it so doesn't name conflict with other tests.
@@ -41,7 +43,7 @@ declare var $: (arg?: any) => JQuery;
     URI('http://example.org/foo/hello.html').addSearch('foo', 'bar');
     URI('http://example.org/foo/hello.html').addSearch({ foo: 'bar' });
 
-    let uri: uri.URI = $('a').uri();
+    let uri: URI = $('a').uri();
 
     URI('http://example.org/foo/hello.html').segment('bar');
     URI('http://example.org/foo/hello.html').segment(0, 'bar');
@@ -68,7 +70,7 @@ declare var $: (arg?: any) => JQuery;
     ```
     */
     URI(
-      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag',
+      'http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag'
     ).equals(
       URI.expand!('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
         p: ['foo', 'bar.html'],

@@ -1694,15 +1694,15 @@ suite('assert', () => {
         assert.deepProperty(obj, 'foo.bar');
         assert.notDeepProperty(obj, 'foo.baz');
         assert.deepPropertyVal(obj, 'foo.bar', 'baz');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'flow');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'flow');
         assert.property(simpleObj, 'baz');
         assert.deepProperty(obj, 'foo.baz');
         assert.notProperty(obj, 'foo');
         assert.notDeepProperty(obj, 'foo.bar');
         assert.propertyVal(simpleObj, 'foo', 'ball');
         assert.deepPropertyVal(obj, 'foo.bar', 'ball');
-        assert.propertyNotVal(simpleObj, 'foo', 'bar');
-        assert.deepPropertyNotVal(simpleObj, 'foo.bar', 'baz');
+        assert.notPropertyVal(simpleObj, 'foo', 'bar');
+        assert.notDeepPropertyVal(simpleObj, 'foo.bar', 'baz');
     });
 
     test('throws', () => {

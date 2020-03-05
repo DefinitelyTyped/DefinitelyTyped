@@ -1,4 +1,4 @@
-// Type definitions for node-notifier 5.4.0
+// Type definitions for node-notifier 6.0
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
 //                 Lorenzo Rapetti <https://github.com/loryman>
@@ -100,7 +100,7 @@ declare module "node-notifier/notifiers/notificationcenter" {
              * The amount of seconds before the notification closes.
              * Takes precedence over wait if both are defined.
              */
-            timeout?: number;
+            timeout?: number | false;
             /** Label for cancel button */
             closeLabel?: string;
             /** Action label or list of labels in case of dropdown. */

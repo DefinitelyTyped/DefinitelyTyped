@@ -23,6 +23,7 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
+    NativeEventEmitter,
     Dimensions,
     Image,
     ImageStyle,
@@ -125,7 +126,10 @@ function TextUseWindowDimensions() {
     const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
-BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
+BackHandler.addEventListener("hardwareBackPress", () => true).remove();
+BackHandler.addEventListener("hardwareBackPress", () => false).remove();
+BackHandler.addEventListener("hardwareBackPress", () => undefined).remove();
+BackHandler.addEventListener("hardwareBackPress", () => null).remove();
 
 interface LocalStyles {
     container: ViewStyle;
@@ -372,6 +376,8 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -674,6 +680,9 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
+const nativeEventEmitter: NativeEventEmitter = NativeEventEmitter;
+nativeEventEmitter.removeAllListeners("event");
+
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
 
@@ -859,6 +868,8 @@ class AccessibilityTest extends React.Component {
                 accessibilityStates={["selected"]}
                 accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
+                onMagicTap={() => {}}
+                onAccessibilityEscape={() => {}}
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
                     Text

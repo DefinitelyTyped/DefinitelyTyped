@@ -1158,7 +1158,7 @@ declare namespace MangoPay {
     type OtherData = BaseData & OtherDetails;
 
     type Data = OtherData | CAData | GBData | IBANData | USData;
-    type DataIntersection = OtherData & CAData & GBData & IBANData & USData;
+    type DataIntersection = OtherData & CAData & GBData & IBANData & USData & { Type: never };
     type CreationDetails =
       | OtherDetails
       | CADetails

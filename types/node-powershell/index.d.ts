@@ -32,6 +32,21 @@ declare module 'node-powershell' {
              * Determines whether to load the Windows PS profile
              */
             noProfile?: boolean;
+
+            /**
+             * Instructs the Shell the use pwsh as the PowerShell runspace
+             */
+            pwsh?: boolean;
+
+            /**
+             * Instruct the Shell to use pwsh-preview as the PowerShell runspace.
+             */
+            pwshPrev?: boolean;
+
+            /**
+             * Determines whether to log verbose to the console.
+             */
+            verbose?: boolean;
         }
 
         export interface ShellStream {

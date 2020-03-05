@@ -1,10 +1,11 @@
-// Type definitions for braintree 2.20
+// Type definitions for braintree 2.22
 // Project: https://github.com/braintree/braintree_node
 // Definitions by: Sam Rubin <https://github.com/smrubin>,
 //                 Mohamed Elsharnouby <https://github.com/sharno>,
 //                 Aaron Rose <https://github.com/acdr>
+//                 Sanders DeNardi <https://github.com/sedenardi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -42,7 +43,7 @@ declare namespace braintree {
         customer: CustomerGateway;
         discount: DiscountGateway;
         dispute: DisputeGateway;
-        merchantAccountGateway: MerchantAccountGateway;
+        merchantAccount: MerchantAccountGateway;
         paymentMethod: PaymentMethodGateway;
         paymentMethodNonce: PaymentMethodNonceGateway;
         plan: PlanGateway;
@@ -54,6 +55,8 @@ declare namespace braintree {
         webhookNotification: WebhookNotificationGateway;
         webhookTesting: WebhookTestingGateway;
     }
+
+    export function connect(config: GatewayConfig): BraintreeGateway;
 
     interface ValidatedResponse<T> {
         success: boolean;
@@ -634,37 +637,41 @@ declare namespace braintree {
      */
 
     export class MerchantAccount {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessResponse;
         currencyIsoCode: string;
         default: boolean;
         funding: MerchantFunding;
         id: string;
-        individual: MerchantIndividual;
+        individual: MerchantIndividualResponse;
         masterMerchantAccount?: MerchantAccount;
         status: MerchantAccountStatus;
     }
 
     export interface MerchantAccountCreateRequest {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessRequest;
         funding: MerchantFunding;
-        id: string;
-        individual: MerchantIndividual;
+        id?: string;
+        individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
-        status: MerchantAccountStatus;
         tosAccepted: boolean;
     }
 
     export interface MerchantAccountUpdateRequest {
-        business?: MerchantBusiness;
+        business?: MerchantBusinessRequest;
         funding: MerchantFunding;
         id: string;
-        individual: MerchantIndividual;
+        individual: MerchantIndividualRequest;
         masterMerchantAccountId: string;
-        status: MerchantAccountStatus;
     }
 
-    export interface MerchantBusiness {
+    export interface MerchantBusinessRequest {
         address?: MerchantAddressDetails;
+        dbaName?: string;
+        legalName?: string;
+        taxId?: string;
+    }
+
+    export interface MerchantBusinessResponse {
         addressDetails?: MerchantAddressDetails;
         dbaName?: string;
         legalName?: string;
@@ -688,7 +695,18 @@ declare namespace braintree {
         routingNumber?: string;
     }
 
-    export interface MerchantIndividual {
+    export interface MerchantIndividualRequest {
+        address: MerchantAddressDetails;
+        dateOfBirth: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+        phone?: string;
+        ssn?: string;
+        ssnLast4?: string;
+    }
+
+    export interface MerchantIndividualResponse {
         addressDetails: MerchantAddressDetails;
         dateOfBirth: string;
         email: string;
@@ -828,6 +846,14 @@ declare namespace braintree {
         | 'SamsungPayCard';
 
     /**
+     * Account Updater
+     */
+    export class AccountUpdaterDailyReport {
+        reportDate: Date;
+        reportUrl: string;
+    }
+
+    /**
      * Webhooks
      */
 
@@ -868,8 +894,16 @@ declare namespace braintree {
 
     export interface AccountUpdaterNotification extends BaseWebhookNotification {
         kind: AccountUpdaterNotificationKind;
-        reportDate: Date;
-        reportUrl: string;
+        accountUpdaterDailyReport: AccountUpdaterDailyReport;
+    }
+
+    export interface PaymentMethodNotification extends BaseWebhookNotification {
+        kind: PaymentMethodNotificationKind;
+        revokedPaymentMethodMetadata: {
+            token: string;
+            customerId: string;
+            revokedPaymentMethod: PaymentMethod;
+        };
     }
 
     export type WebhookNotification =
@@ -878,7 +912,8 @@ declare namespace braintree {
         | SubMerchantAccountDeclinedNotification
         | SubscriptionNotification
         | DisputeNotification
-        | AccountUpdaterNotification;
+        | AccountUpdaterNotification
+        | PaymentMethodNotification;
 
     export type AccountUpdaterNotificationKind =
         | 'account_updater_daily_report';
@@ -908,6 +943,9 @@ declare namespace braintree {
         | 'transaction_settled'
         | 'transaction_settlement_declined';
 
+    export type PaymentMethodNotificationKind =
+        | 'payment_method_revoked_by_customer';
+
     export type WebhookNotificationKind =
         | AccountUpdaterNotificationKind
         | DisputeNotificationKind
@@ -915,6 +953,7 @@ declare namespace braintree {
         | SubMerchantAccountApprovedNotificationKind
         | SubMerchantAccountDeclinedNotificationKind
         | TransactionNotificationKind
+        | PaymentMethodNotificationKind
         | 'check'
         | 'connected_merchant_paypal_status_changed'
         | 'connected_merchant_status_transitioned'
@@ -926,7 +965,6 @@ declare namespace braintree {
         | 'partner_merchant_connected'
         | 'partner_merchant_disconnected'
         | 'partner_merchant_declined'
-        | 'payment_method_revoked_by_customer'
         | 'oauth_access_revoked'
         | 'recipient_updated_granted_payment_method';
 

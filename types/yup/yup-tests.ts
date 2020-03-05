@@ -63,6 +63,25 @@ const node: ObjectSchema<any> = yup.object().shape({
     id: yup.number(),
     child: yup.lazy(() => node.default(undefined)),
 });
+
+// ObjectSchema.fields
+const fieldsTestSchema = yup.object().shape({
+  s: yup.string(),
+  n: yup.number(),
+  m: yup.mixed(),
+  b: yup.boolean(),
+  d: yup.date(),
+  a: yup.array(),
+  o: yup.object()
+});
+const stringField: Schema<string> = fieldsTestSchema.fields.s;
+const numberField: Schema<number> = fieldsTestSchema.fields.n;
+const mixedField: Schema<any> = fieldsTestSchema.fields.m;
+const booleanField: Schema<boolean> = fieldsTestSchema.fields.b;
+const dateField: Schema<Date> = fieldsTestSchema.fields.d;
+const arrayField: Schema<any[]> = fieldsTestSchema.fields.a;
+const objectField: Schema<object> = fieldsTestSchema.fields.o;
+
 const renderable = yup.lazy(value => {
     switch (typeof value) {
         case 'number':
@@ -446,7 +465,7 @@ const description: SchemaDescription = {
     label: 'label',
     meta: { key: 'value' },
     tests: [
-        { name: 'test1', params: {} },
+        { name: 'test1', params: {param1: 'param1'} },
         { name: 'test2', params: {} },
     ],
     fields: {
@@ -476,6 +495,8 @@ const description: SchemaDescription = {
         },
      },
 };
+
+const param1: any = description.tests[0].params.param1;
 
 const testOptions: TestOptions = {
     name: 'name',
@@ -823,3 +844,9 @@ function wrapper<T>(b: boolean, msx: MixedSchema<T>): MixedSchema<T> {
 
 const resultingSchema1 = wrapper<string | number>(false, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number>
 const resultingSchema2 = wrapper<string | number>(true, yup.mixed().oneOf(['1', 2])); // $ExpectType MixedSchema<string | number | null>
+
+const arrayOfStringsSchema = yup.array().of(yup.string());
+type ArrayOfStrings = yup.InferType<typeof arrayOfStringsSchema>;
+function returnTheArray(data: ArrayOfStrings): any[] {
+  return data;
+}

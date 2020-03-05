@@ -5,29 +5,37 @@
 //                 CrossR <https://github.com/CrossR>
 //                 Mike Wickett <https://github.com/mwickett>
 //                 Hitomi Hatsukaze <https://github.com/htkzhtm>
+//                 Ezra Celli <https://github.com/ezracelli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace marked;
 
 export = marked;
 /**
- * Compiles markdown to HTML.
+ * Compiles markdown to HTML synchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Optional hash of options
+ * @return String of compiled HTML
+ */
+declare function marked(src: string, options?: marked.MarkedOptions): string;
+
+/**
+ * Compiles markdown to HTML asynchronously.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
- * @return String of compiled HTML
  */
-declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): string;
+declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML.
+ * Compiles markdown to HTML asynchronously.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
- * @return String of compiled HTML
  */
-declare function marked(src: string, options?: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void): string;
+declare function marked(src: string, options: marked.MarkedOptions, callback: (error: any | undefined, parseResult: string) => void): void;
 
 declare namespace marked {
     const defaults: MarkedOptions;
@@ -306,9 +314,12 @@ declare namespace marked {
         headerPrefix?: string;
 
         /**
-         * A function to highlight code blocks. The function takes three arguments: code, lang, and callback.
+         * A function to highlight code blocks. The function can either be
+         * synchronous (returning a string) or asynchronous (callback invoked
+         * with an error if any occurred during highlighting and a string
+         * if highlighting was successful)
          */
-        highlight?(code: string, lang: string, callback?: (error: any | undefined, code: string) => void): string;
+        highlight?(code: string, lang: string, callback?: (error: any | undefined, code?: string) => void): string | void;
 
         /**
          * Set the prefix for code block classes.

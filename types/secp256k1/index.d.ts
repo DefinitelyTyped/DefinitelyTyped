@@ -128,12 +128,12 @@ export function ecdsaSign(message: Uint8Array, privateKey: Uint8Array, options?:
  * - Compute point `R = (s^-1 * m * G + s^-1 * r * Q)`. Reject if `R` is infinity.
  * - Signature is valid if R's `x` coordinate equals to `r`.
  */
-export function ecdsaVerify(message: Uint8Array, signature: Uint8Array, publicKey: Uint8Array): boolean;
+export function ecdsaVerify(signature: Uint8Array, message: Uint8Array, publicKey: Uint8Array): boolean;
 
 /**
  * Recover an ECDSA public key from a signature.
  */
-export function ecdsaRecover(message: Uint8Array, signature: Uint8Array, recovery: number, compressed?: boolean): Uint8Array;
+export function ecdsaRecover(signature: Uint8Array, recovery: number, message: Uint8Array, compressed?: boolean): Uint8Array;
 
 /**
  * Compute an EC Diffie-Hellman secret and applied sha256 to compressed public key.

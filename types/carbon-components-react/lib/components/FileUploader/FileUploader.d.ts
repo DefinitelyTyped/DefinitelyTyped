@@ -56,7 +56,9 @@ interface FileUploaderInheritedProps extends
     Omit<ReactLabelAttr, "onChange">,
     EmbeddedIconProps,
     SharedProps
-{ }
+{
+    onChange?(event: React.ChangeEvent<HTMLInputElement>): void,
+}
 
 export interface FileUploaderProps extends FileUploaderInheritedProps {
     buttonLabel?: string,

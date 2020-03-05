@@ -21,7 +21,7 @@ declare module "child_process" {
         readonly killed: boolean;
         readonly pid: number;
         readonly connected: boolean;
-        kill(signal?: NodeJS.Signals | number): void;
+        kill(signal?: NodeJS.Signals | number): boolean;
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;
         send(message: Serializable, sendHandle?: SendHandle, callback?: (error: Error | null) => void): boolean;
         send(message: Serializable, sendHandle?: SendHandle, options?: MessageOptions, callback?: (error: Error | null) => void): boolean;
