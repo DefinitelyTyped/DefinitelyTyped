@@ -91,7 +91,7 @@ const zoneType: string | undefined = moment.tz('2013-11-18 11:55').tz();
 
 const zones1: string[] = moment.tz.zonesForCountry("US");
 
-const zones2: moment.tz.MomentZoneOffset[] = moment.tz.zonesForCountry("CN", true);
+const zones2: moment.MomentZoneOffset[] = moment.tz.zonesForCountry("CN", true);
 
 const zones3: string[] = moment.tz.zonesForCountry("GB", false);
 
