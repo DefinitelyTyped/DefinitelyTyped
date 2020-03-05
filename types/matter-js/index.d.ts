@@ -1,9 +1,10 @@
-// Type definitions for Matter.js - 0.10.1
+// Type definitions for Matter.js - 0.14.2
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
 //                 Piotr Pietrzak <https://github.com/hasparus>,
 //                 Dale Whinham <https://github.com/dwhinham>
+//                 slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -2439,6 +2440,13 @@ declare namespace Matter {
          * default undefined
          */
         background?: string
+
+        /**
+         * Sets wireframe background if `render.options.wireframes` is enabled
+         * @type string
+         * default undefined
+         */
+        wireframeBackground?: string
     }
 
     /**
@@ -3162,6 +3170,9 @@ declare namespace Matter {
         pairs: Array<IPair>;
     }
 
+    export interface IMouseEvent<T> extends IEvent<T> {
+        name: 'mousedown' | 'mousemove' | 'mouseup';
+    }
 
     export class Events {
 
@@ -3373,7 +3384,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3381,7 +3392,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3389,7 +3400,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
 
         static on(obj: any, name: string, callback: (e: any) => void): void;

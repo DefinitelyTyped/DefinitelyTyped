@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Amazon Connect Streams API 1.3
+// Type definitions for Amazon Connect Streams API 1.4
 // Project: https://github.com/aws/amazon-connect-streams
 // Definitions by: Andy Hopper <https://github.com/andyhopp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

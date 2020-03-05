@@ -57,6 +57,12 @@ brush = brush.filter(function(d, i, group) {
 let filterFn: (this: SVGGElement, d: BrushDatum, index: number, group: SVGGElement[]) => boolean;
 filterFn = brush.filter();
 
+// keyModifiers() ----------------------------------------------------------------
+
+// chainable
+brush = brush.keyModifiers(true);
+const keyModifiers: boolean = brush.keyModifiers();
+
 // handleSize() ----------------------------------------------------------------
 
 // chainable

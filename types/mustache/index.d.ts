@@ -3,7 +3,9 @@
 // Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
 //                 Manuel Thalmann <https://github.com/manuth>,
 //                 Phillip Johnsen <https://github.com/phillipj>
+//                 Steve Dignam <https://github.com/sbdchd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.7
 
 /**
  * Provides the functionality to render templates with `{{mustaches}}`.
@@ -81,7 +83,7 @@ interface MustacheStatic {
      * @param tags
      * The tags to use.
      */
-    parse(template: string, tags?: OpeningAndClosingTags): any;
+    parse(template: string, tags?: OpeningAndClosingTags): TemplateSpans;
 
     /**
      * Renders the `template` with the given `view` and `partials` using the default writer.
@@ -337,6 +339,31 @@ declare class MustacheWriter {
      */
     rawValue(token: string[]): string;
 }
+
+type RAW_VALUE = "text";
+type ESCAPED_VALUE = "name";
+type UNESCAPED_VALUE = "&";
+type SECTION = "#";
+type INVERTED = "^";
+type COMMENT = "!";
+type PARTIAL = ">";
+type EQUAL = "=";
+
+type TemplateSpanType =
+    | RAW_VALUE
+    | ESCAPED_VALUE
+    | SECTION
+    | UNESCAPED_VALUE
+    | INVERTED
+    | COMMENT
+    | PARTIAL
+    | EQUAL;
+
+type TemplateSpans = Array<
+    | [TemplateSpanType, string, number, number]
+    | [TemplateSpanType, string, number, number, TemplateSpans, number]
+    | [TemplateSpanType, string, number, number, string, number, boolean]
+>;
 
 /**
  * An array of two strings, representing the opening and closing tags respectively, to be used in the templates being rendered.

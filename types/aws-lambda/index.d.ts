@@ -34,9 +34,9 @@
 //                 Marian Zange <https://github.com/marianzange>
 //                 Alexander Pepper <https://github.com/apepper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
-export * from "./hander";
+export * from "./handler";
 export * from "./common/api-gateway";
 export * from "./common/cloudfront";
 export * from "./trigger/alb";

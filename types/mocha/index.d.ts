@@ -232,6 +232,13 @@ declare class Mocha {
     run(fn?: (failures: number) => void): Mocha.Runner;
 
     /**
+     * Loads ESM (and CJS) test files asynchronously.
+     *
+     * @see https://mochajs.org/api/mocha#loadFilesAsync
+     */
+    loadFilesAsync(): Promise<void>;
+
+    /**
      * Load registered files.
      *
      * @see https://mochajs.org/api/mocha#loadFiles
@@ -2261,8 +2268,15 @@ declare namespace Mocha {
         /** Enable growl support. */
         growl?: boolean;
 
-        /** Emit color output. */
+        /**
+         * Emit color output.
+         *
+         * @deprecated use `color` instead.
+         */
         useColors?: boolean;
+
+        /** Color TTY output from reporter */
+        color?: boolean;
 
         /** Use inline diffs rather than +/-. */
         inlineDiffs?: boolean;

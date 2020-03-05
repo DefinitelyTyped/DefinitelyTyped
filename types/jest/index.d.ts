@@ -1051,6 +1051,11 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
+     * Represents a function that has been spied on.
+     */
+    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+
+    /**
      * Wrap a function with mock definitions
      *
      * @example

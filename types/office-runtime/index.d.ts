@@ -5,7 +5,7 @@
 //                 Michelle Scharlock <https://github.com/mscharlock>,
 //                 David Chesnut <https://github.com/davidchesnut>,
 //                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Sudhi Ramamurthy <https://github.com/sumurthy>
+//                 Sudhi Ramamurthy <https://github.com/sumurthy>,
 //                 Ricky Kirkham <https://github.com/rick-kirkham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.4

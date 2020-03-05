@@ -1,7 +1,7 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "ban-types": false,
-    "prefer-method-signature": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "prefer-method-signature": false
+    }
 }

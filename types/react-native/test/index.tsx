@@ -125,7 +125,10 @@ function TextUseWindowDimensions() {
     const {width, height, scale, fontScale} = useWindowDimensions()
 }
 
-BackHandler.addEventListener("hardwareBackPress", () => {}).remove();
+BackHandler.addEventListener("hardwareBackPress", () => true).remove();
+BackHandler.addEventListener("hardwareBackPress", () => false).remove();
+BackHandler.addEventListener("hardwareBackPress", () => undefined).remove();
+BackHandler.addEventListener("hardwareBackPress", () => null).remove();
 
 interface LocalStyles {
     container: ViewStyle;
@@ -372,6 +375,8 @@ function appStateListener(state: string) {
 function appStateTest() {
     console.log("Current state: " + AppState.currentState);
     AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
 // ViewPagerAndroid
@@ -859,6 +864,8 @@ class AccessibilityTest extends React.Component {
                 accessibilityStates={["selected"]}
                 accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
+                onMagicTap={() => {}}
+                onAccessibilityEscape={() => {}}
             >
                 <Text accessibilityTraits={["key", "text"]} accessibilityIgnoresInvertColors>
                     Text

@@ -118,7 +118,7 @@ declare module "crypto" {
     const fips: boolean;
 
     function createHash(algorithm: string, options?: HashOptions): Hash;
-    function createHmac(algorithm: string, key: BinaryLike, options?: stream.TransformOptions): Hmac;
+    function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
 
     type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
     type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
@@ -230,17 +230,17 @@ declare module "crypto" {
 
     function createDecipheriv(
         algorithm: CipherCCMTypes,
-        key: BinaryLike,
+        key: CipherKey,
         iv: BinaryLike | null,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
         algorithm: CipherGCMTypes,
-        key: BinaryLike,
+        key: CipherKey,
         iv: BinaryLike | null,
         options?: CipherGCMOptions,
     ): DecipherGCM;
-    function createDecipheriv(algorithm: string, key: BinaryLike, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
+    function createDecipheriv(algorithm: string, key: CipherKey, iv: BinaryLike | null, options?: stream.TransformOptions): Decipher;
 
     class Decipher extends stream.Transform {
         private constructor();

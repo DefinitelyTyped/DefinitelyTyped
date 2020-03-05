@@ -31,14 +31,7 @@ export interface TransitionActions {
     exit?: boolean;
 }
 
-export type TransitionStatus =
-    typeof ENTERING |
-    typeof ENTERED |
-    typeof EXITING |
-    typeof EXITED |
-    typeof UNMOUNTED;
-export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
-export interface TransitionProps extends TransitionActions {
+interface BaseTransitionProps {
     /**
      * Show the component; triggers the enter or exit states
      */
@@ -59,34 +52,6 @@ export interface TransitionProps extends TransitionActions {
      * component after it finishes exiting.
      */
     unmountOnExit?: boolean;
-
-    /**
-     * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
-     *
-     * You may specify a single timeout for all transitions:
-     * ```js
-     *   timeout={500}
-     * ```
-     * or individually:
-     * ```js
-     * timeout={{
-     *  appear: 500,
-     *  enter: 300,
-     *  exit: 500,
-     * }}
-     * ```
-     * - appear defaults to the value of `enter`
-     * - enter defaults to `0`
-     * - exit defaults to `0`
-     */
-    timeout: number | { appear?: number, enter?: number, exit?: number };
-
-    /**
-     * Add a custom transition end trigger. Called with the transitioning DOM
-     * node and a done callback. Allows for more fine grained transition end
-     * logic. Note: Timeouts are still used as a fallback if provided.
-     */
-    addEndListener?: EndHandler;
 
     /**
      * Callback fired before the "entering" status is applied. An extra
@@ -140,6 +105,75 @@ export interface TransitionProps extends TransitionActions {
     children?: TransitionChildren;
     [ prop: string ]: any;
 }
+
+export type TransitionStatus =
+    typeof ENTERING |
+    typeof ENTERED |
+    typeof EXITING |
+    typeof EXITED |
+    typeof UNMOUNTED;
+export type TransitionChildren = ReactNode | ((status: TransitionStatus) => ReactNode);
+
+interface TimeoutProps extends BaseTransitionProps {
+    /**
+     * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
+     *
+     * You may specify a single timeout for all transitions:
+     * ```js
+     *   timeout={500}
+     * ```
+     * or individually:
+     * ```js
+     * timeout={{
+     *  appear: 500,
+     *  enter: 300,
+     *  exit: 500,
+     * }}
+     * ```
+     * - appear defaults to the value of `enter`
+     * - enter defaults to `0`
+     * - exit defaults to `0`
+     */
+    timeout: number | { appear?: number, enter?: number, exit?: number };
+
+    /**
+     * Add a custom transition end trigger. Called with the transitioning DOM
+     * node and a done callback. Allows for more fine grained transition end
+     * logic. Note: Timeouts are still used as a fallback if provided.
+     */
+    addEndListener?: EndHandler;
+}
+
+interface EndListenerProps extends BaseTransitionProps {
+    /**
+     * The duration of the transition, in milliseconds. Required unless addEndListener is provided.
+     *
+     * You may specify a single timeout for all transitions:
+     * ```js
+     *   timeout={500}
+     * ```
+     * or individually:
+     * ```js
+     * timeout={{
+     *  appear: 500,
+     *  enter: 300,
+     *  exit: 500,
+     * }}
+     * ```
+     * - appear defaults to the value of `enter`
+     * - enter defaults to `0`
+     * - exit defaults to `0`
+     */
+    timeout?: number | { appear?: number, enter?: number, exit?: number };
+    /**
+     * Add a custom transition end trigger. Called with the transitioning DOM
+     * node and a done callback. Allows for more fine grained transition end
+     * logic. Note: Timeouts are still used as a fallback if provided.
+     */
+    addEndListener: EndHandler;
+}
+
+export type TransitionProps = TimeoutProps | EndListenerProps;
 
 /**
  * The Transition component lets you describe a transition from one component
