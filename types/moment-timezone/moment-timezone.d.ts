@@ -16,7 +16,7 @@ declare module 'moment' {
     utcOffset(timestamp: number): number;
     parse(timestamp: number): number;
   }
-    
+
   interface MomentZoneOffset {
       name: string;
       offset: number;
@@ -47,9 +47,9 @@ declare module 'moment' {
     load(data: { version: string; links: string[]; zones: string[] }): void;
 
     names(): string[];
-    zonesForCountry<T extends true>(country: string, with_offset: T ): T extends true ? MomentZoneOffset[] : never;
-    zonesForCountry<T extends false>(country: string, with_offset?: T ): T extends false ? string[] : never;
-    zonesForCountry(country: string, with_offset?: boolean ): MomentZoneOffset[] | string[];
+    zonesForCountry<T extends true>(country: string, with_offset: T): T extends true ? MomentZoneOffset[] : never;
+    zonesForCountry<T extends false>(country: string, with_offset?: T): T extends false ? string[] : never;
+    zonesForCountry(country: string, with_offset?: boolean): MomentZoneOffset[] | string[];
     countries(): string[];
     guess(ignoreCache?: boolean): string;
 
