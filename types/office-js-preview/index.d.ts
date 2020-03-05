@@ -11216,7 +11216,7 @@ declare namespace Office {
         /**
          * On send, adds the specified content to the end of the item body, after any signature.
          * 
-         * **Important**: To use `appendOnSend`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
          * [Api set: Mailbox Preview]
          * 
@@ -11245,7 +11245,7 @@ declare namespace Office {
         /**
          * On send, adds the specified content to the end of the item body, after any signature.
          * 
-         * **Important**: To use `appendOnSend`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
          * [Api set: Mailbox Preview]
          * 
