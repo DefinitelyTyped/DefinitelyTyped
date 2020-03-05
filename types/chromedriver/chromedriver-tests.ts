@@ -23,3 +23,9 @@ promise
 
 chromeDriver.start(['a', 'b', 'c'], false);
 chromeDriver.stop();
+
+const promiseWithNoArgs = chromeDriver.start([], true);
+
+const promiseWithNullArgs = chromeDriver.start(null, true);
+
+const promiseWithUndefinedArgs = chromeDriver.start(undefined, true);
