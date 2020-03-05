@@ -1,4 +1,4 @@
-// Type definitions for chess.js 0.10
+// Type definitions for chess.js 0.10.3
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
 //                 Zachary Svoboda <https://github.com/zacnomore>
