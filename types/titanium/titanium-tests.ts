@@ -32,7 +32,7 @@ function test_tableview() {
 			text: 'Row ' + (i + 1)
 		});
 		const image = Ti.UI.createImageView({
-			url: 'KS_nav_ui.png'
+			image: 'KS_nav_ui.png'
 		});
 		const button = Ti.UI.createButton({
 			right: 10,
@@ -84,4 +84,9 @@ function test_network() {
 	client.open('GET', url);
 	// Send the request.
 	client.send();
+}
+
+function test_android_r() {
+	const systemAcon = Ti.Android.R.drawable.icon;
+	const appIcon = Ti.App.Android.R.drawable.icon;
 }
