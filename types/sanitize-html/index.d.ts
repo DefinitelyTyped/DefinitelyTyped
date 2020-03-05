@@ -12,56 +12,62 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { ParserOptions, DomHandlerOptions } from 'htmlparser2';
+import { ParserOptions, DomHandlerOptions } from "htmlparser2";
 
 export = sanitize;
 
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
 declare namespace sanitize {
-    type Attributes = { [attr: string]: string };
+  type Attributes = { [attr: string]: string };
 
-    type Tag = { tagName: string; attribs: Attributes; text?: string };
 
-    type Transformer = (tagName: string, attribs: Attributes) => Tag;
+  type Tag = { tagName: string; attribs: Attributes; text?: string; };
 
-    type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
 
-    interface IDefaults {
-        allowedAttributes: { [index: string]: AllowedAttribute[] };
-        allowedSchemes: string[];
-        allowedSchemesByTag: { [index: string]: string[] };
-        allowedTags: string[];
-        selfClosing: string[];
-    }
+  type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
-    interface IFrame {
-        tag: string;
-        attribs: { [index: string]: string };
-        text: string;
-        tagPosition: number;
-    }
+  type AllowedAttribute = string | { name: string; multiple?: boolean; values: string[] };
 
-    interface IOptions {
-        allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
-        allowedStyles?: { [index: string]: { [index: string]: RegExp[] } };
-        allowedClasses?: { [index: string]: string[] } | boolean;
-        allowedIframeHostnames?: string[];
-        allowIframeRelativeUrls?: boolean;
-        allowedSchemes?: string[] | boolean;
-        allowedSchemesByTag?: { [index: string]: string[] } | boolean;
-        allowedSchemesAppliedToAttributes?: string[];
-        allowProtocolRelative?: boolean;
-        allowedTags?: string[] | boolean;
-        textFilter?: (text: string) => string;
-        exclusiveFilter?: (frame: IFrame) => boolean;
-        nonTextTags?: string[];
-        selfClosing?: string[];
-        transformTags?: { [tagName: string]: string | Transformer };
-        parser?: Options;
-    }
+  interface IDefaults {
+    allowedAttributes: { [index: string]: AllowedAttribute[] };
+    allowedSchemes: string[];
+    allowedSchemesByTag: { [index: string]: string[] };
+    allowedTags: string[];
+    selfClosing: string[];
+  }
 
-    var defaults: IDefaults;
 
-    function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
+  interface IFrame {
+    tag: string;
+    attribs: { [index: string]: string };
+    text: string;
+    tagPosition: number;
+  }
+
+
+  interface IOptions {
+    allowedAttributes?: { [index: string]: AllowedAttribute[] } | boolean;
+    allowedStyles?:  { [index: string]: { [index: string]: RegExp[] } };
+    allowedClasses?: { [index: string]: string[] } | boolean;
+    allowedIframeHostnames?: string[];
+    allowIframeRelativeUrls?: boolean;
+    allowedSchemes?: string[] | boolean;
+    allowedSchemesByTag?: { [index: string]: string[] } | boolean;
+    allowedSchemesAppliedToAttributes?: string[];
+    allowProtocolRelative?: boolean;
+    allowedTags?: string[] | boolean;
+    textFilter?: (text: string) => string; 
+    exclusiveFilter?: (frame: IFrame) => boolean;
+    nonTextTags?: string[];
+    selfClosing?: string[];
+    transformTags?: { [tagName: string]: string | Transformer };
+    parser?: ParserOptions & DomHandlerOptions;
+  }
+
+
+  var defaults: IDefaults;
+
+
+  function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }
