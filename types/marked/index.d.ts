@@ -16,6 +16,7 @@ export = marked;
  *
  * @param src String of markdown source to be compiled
  * @param options Optional hash of options
+ * @return String of compiled HTML
  */
 declare function marked(src: string, options?: marked.MarkedOptions): string;
 
@@ -23,11 +24,17 @@ declare function marked(src: string, options?: marked.MarkedOptions): string;
  * Compiles markdown to HTML asynchronously.
  *
  * @param src String of markdown source to be compiled
- * @param options Optional hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
- * @return String of compiled HTML
  */
 declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
+
+/**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options
+ * @param callback Function called when the markdownString has been fully parsed when using async highlighting
+ */
 declare function marked(src: string, options: marked.MarkedOptions, callback: (error: any | undefined, parseResult: string) => void): void;
 
 declare namespace marked {
