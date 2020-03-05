@@ -678,6 +678,7 @@ export interface PlotData {
 	orientation: 'v' | 'h';
 	width: number | number[];
 	boxmean: boolean | 'sd';
+	opacity: number;
 	colorscale: ColorScale;
 	zsmooth: 'fast' | 'best' | false;
 	ygap: number;
