@@ -3714,7 +3714,7 @@ declare namespace chrome.identity {
  * @since Chrome 6.
  */
 declare namespace chrome.idle {
-    export type IdleState = 'active' | 'idle' | 'locked';                                                            
+    export type IdleState = 'active' | 'idle' | 'locked';
     export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> { }
 
     /**
