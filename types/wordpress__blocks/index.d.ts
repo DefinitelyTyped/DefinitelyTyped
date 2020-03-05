@@ -272,6 +272,12 @@ export namespace AttributeSource {
               default?: string;
           });
 
+    interface Children {
+        source: 'children';
+        type: 'array';
+        selector?: string;
+    }
+
     interface HTML {
         source: 'html';
         type: 'string';
@@ -327,6 +333,7 @@ export namespace AttributeSource {
 
 export type BlockAttribute<T> =
     | AttributeSource.Attribute
+    | AttributeSource.Children
     | AttributeSource.HTML
     | AttributeSource.Meta
     | AttributeSource.Query<T>
