@@ -1,9 +1,6 @@
-import { useMutation, useQuery, useInfiniteQuery, QueryKey, QueryFunction, usePaginatedQuery, QueryKeyVariablesArgs } from "react-query";
+import { useMutation, useQuery, useInfiniteQuery, QueryKey, usePaginatedQuery } from "react-query";
 
 const queryFn = () => Promise.resolve(true);
-const queryFn1: QueryFunction<boolean> = () => Promise.resolve(true);
-const queryFn2: QueryFunction<boolean> = () => Promise.resolve(true);
-const queryFn3: QueryFunction<boolean, [number, {foo: 'bar'}]> = (arg1: string, arg2: number, arg3: {foo: string}) => Promise.resolve(true);
 
 const queryKey1: QueryKey = 'key';
 const queryKey2: QueryKey = ['key', 1];
@@ -26,12 +23,28 @@ querySimple.refetch(); // $ExpectType Promise<any>
 
 // Query Variables
 const param = 'test';
-const queryVariables = useQuery(['todos', {param}],
-    (key, variables) => Promise.resolve(variables.param === 'test'));
+const queryResult = useQuery(['todos', {param}],
+    (key, variables) => Promise.resolve([param]));
 
-queryVariables.data; // $ExpectType boolean | undefined
-queryVariables.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<any>
-queryVariables.refetch({variables: {other: 'foo'}}); // $ExpectError
+queryResult.data; // $ExpectType string[] | undefined
+queryResult.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<any>
+queryResult.refetch({variables: {other: 'foo'}}); // $ExpectError
+
+// Discriminated union over status
+if (queryResult.status === 'loading') {
+    queryResult.data; // $ExpectType undefined
+    queryResult.error; // $ExpectType null
+}
+
+if (queryResult.status === 'error') {
+    queryResult.data; // $ExpectType undefined
+    queryResult.error; // $ExpectType Error
+}
+
+if (queryResult.status === 'success') {
+    queryResult.data; // $ExpectType string[]
+    queryResult.error; // $ExpectType null
+}
 
 // Query with falsey query key
 useQuery(false && ['foo', { bar: 'baz' }], queryFn);

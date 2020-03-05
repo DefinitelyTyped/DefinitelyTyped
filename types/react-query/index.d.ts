@@ -9,8 +9,6 @@ import { ComponentType } from 'react';
 
 export type QueryKey = string | [string, ...any[]] | false | null;
 
-export type QueryFunction<TResult, TArgs extends any[] = any[]> = (key: string, ...args: TArgs) => Promise<TResult>;
-
 /**
  * For given QueryKey get type of QueryKeyVariable (2nd element of tuple)
  */
@@ -28,21 +26,21 @@ export type TupleTail<A extends any[]> = ((...args: A) => any) extends (h: any, 
 
 export function useQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: QueryOptions<TResult>,
-): QueryResult<TResult, QueryKeyVariables<TQueryKey>>;
+): QueryState<TResult, QueryKeyVariables<TQueryKey>>;
 
 export function usePaginatedQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: QueryOptions<TResult>,
-): QueryResultPaginated<TResult, TQueryKey>;
+): PaginatedQueryState<TResult, TQueryKey>;
 
 export function useInfiniteQuery<TResult, TQueryKey extends QueryKey>(
     queryKey: TQueryKey | (() => TQueryKey),
-    queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+    queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
     options?: InfiniteQueryOptions<TResult, QueryKeyVariables<TQueryKey>>,
-): QueryResultInfinite<TResult, QueryKeyVariables<TQueryKey>>;
+): InfiniteQueryState<TResult, QueryKeyVariables<TQueryKey>>;
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
@@ -65,10 +63,30 @@ export interface InfiniteQueryOptions<TResult, TVariables> extends QueryOptions<
     getFetchMore?: ((lastGroup: TResult, allGroups: TResult[]) => TVariables) | boolean;
 }
 
-export interface QueryResult<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success';
-    data: undefined | TResult;
-    error: null | Error;
+export type QueryState<TResult, TVariables> =
+    | QueryLoadingState<TVariables>
+    | QueryErrorState<TVariables>
+    | QuerySuccessState<TResult, TVariables>;
+
+export interface QueryLoadingState<TVariables> extends QueryBaseState<TVariables> {
+    status: 'loading';
+    data: undefined;
+    error: null;
+}
+
+export interface QueryErrorState<TVariables> extends QueryBaseState<TVariables> {
+    status: 'error';
+    data: undefined;
+    error: Error;
+}
+
+export interface QuerySuccessState<TResult, TVariables> extends QueryBaseState<TVariables> {
+    status: 'success';
+    data: TResult;
+    error: null;
+}
+
+export interface QueryBaseState<TVariables> {
     isFetching: boolean;
     failureCount: number;
     refetch: (arg?: {
@@ -78,24 +96,56 @@ export interface QueryResult<TResult, TVariables> {
     }) => Promise<any>;
 }
 
-export interface QueryResultPaginated<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success';
-    resolvedData: undefined | TResult;
-    latestData: undefined | TResult;
-    error: null | Error;
-    isFetching: boolean;
-    failureCount: number;
-    refetch: (arg?: {
-        variables?: TVariables;
-        merge?: (...args: any[]) => any;
-        disableThrow?: boolean;
-    }) => Promise<any>;
+export type PaginatedQueryState<TResult, TVariables> =
+    | PaginatedQueryLoadingState<TVariables>
+    | PaginatedQueryErrorState<TVariables>
+    | PaginatedQuerySuccessState<TResult, TVariables>;
+
+export interface PaginatedQueryLoadingState<TVariables> extends QueryBaseState<TVariables> {
+    status: 'loading';
+    resolvedData: undefined;
+    latestData: undefined;
+    error: null;
 }
 
-export interface QueryResultInfinite<TResult, TVariables> {
-    status: 'loading' | 'error' | 'success';
+export interface PaginatedQueryErrorState<TVariables> extends QueryBaseState<TVariables> {
+    status: 'error';
+    resolvedData: undefined;
+    latestData: undefined;
+    error: Error;
+}
+
+export interface PaginatedQuerySuccessState<TResult, TVariables> extends QueryBaseState<TVariables> {
+    status: 'success';
+    resolvedData: TResult;
+    latestData: TResult;
+    error: null;
+}
+
+export type InfiniteQueryState<TResult, TVariables> =
+    | InfiniteQuerySuccessState<TResult, TVariables>
+    | InfiniteQueryErrorState<TVariables>
+    | InfiniteQueryLoadingState<TVariables>;
+
+export interface InfiniteQueryLoadingState<TVariables> extends InfiniteQueryBaseState<TVariables> {
+    status: 'loading';
+    data: [];
+    error: null;
+}
+
+export interface InfiniteQueryErrorState<TVariables> extends InfiniteQueryBaseState<TVariables> {
+    status: 'error';
+    data: [];
+    error: Error;
+}
+
+export interface InfiniteQuerySuccessState<TResult, TVariables> extends InfiniteQueryBaseState<TVariables> {
+    status: 'success';
     data: TResult[];
-    error: null | Error;
+    error: null;
+}
+
+export interface InfiniteQueryBaseState<TVariables> {
     isFetching: boolean;
     isFetchingMore: boolean;
     failureCount: number;
@@ -111,7 +161,7 @@ export interface QueryResultInfinite<TResult, TVariables> {
 export function useMutation<TResults, TVariables extends object>(
     mutationFn: MutationFunction<TResults, TVariables>,
     mutationOptions?: MutationOptions<TResults>,
-): [MutateFunction<TResults, TVariables>, MutationResult<TResults>];
+): [MutateFunction<TResults, TVariables>, MutationState<TResults>];
 
 export type MutationFunction<TResults, TVariables extends object> = (variables: TVariables) => Promise<TResults>;
 
@@ -131,7 +181,7 @@ export type MutateFunction<TResults, TVariables extends object> = (
     },
 ) => Promise<TResults>;
 
-export interface MutationResult<TResults> {
+export interface MutationState<TResults> {
     status: 'idle' | 'loading' | 'error' | 'success';
     data: TResults | undefined;
     error: null | Error;
@@ -141,7 +191,7 @@ export interface MutationResult<TResults> {
 export namespace queryCache {
     function prefetchQuery<TResult, TQueryKey extends QueryKey>(
         queryKey: TQueryKey,
-        queryFn: QueryFunction<TResult, QueryKeyVariablesArgs<TQueryKey>>,
+        queryFn: (key: string, ...args: QueryKeyVariablesArgs<TQueryKey>) => Promise<TResult>,
         options?: QueryOptions<TResult>,
     ): Promise<TResult>;
 
@@ -182,10 +232,10 @@ export const ReactQueryConfigProvider: React.ComponentType<{
 }>;
 
 export interface ReactQueryProviderConfig {
-    suspense?: false;
+    suspense?: boolean;
     useErrorBoundary?: undefined;
-    throwOnError?: false;
-    refetchAllOnWindowFocus?: true;
+    throwOnError?: boolean;
+    refetchAllOnWindowFocus?: boolean;
     queryKeySerializerFn?: (queryKey: QueryKey) => [string, any[]];
     onSuccess?: () => {};
     onError?: () => {};
