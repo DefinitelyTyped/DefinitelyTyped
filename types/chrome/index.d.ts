@@ -4139,7 +4139,7 @@ declare namespace chrome.input.ime {
  * The chrome.loginState API provides a way to query information about the current session state.
  */
 declare namespace chrome.loginState {
-    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> {}
+    export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
 
     /** Possible session states. */
     export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
@@ -4273,7 +4273,7 @@ declare namespace chrome.management {
          * Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
          */
         showConfirmDialog?: boolean;
-    }chrome.
+    }
 
     export interface ManagementDisabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> { }
 
