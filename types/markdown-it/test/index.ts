@@ -94,7 +94,7 @@ import LinkifyIt = require('linkify-it');
     const plugin2 = (md: MarkdownIt, param1?: string, param2?: number) => {};
     const plugin3 = (md: MarkdownIt, ...params: any[]) => {};
     const plugin4: MarkdownIt.PluginWithOptions<{ foo: boolean; bar: number }> = (md, options) => {};
-    const plugin5: MarkdownIt.PluginWithParams<[boolean, string, number]> = (md, flag, str, num) => {};
+    const plugin5: MarkdownIt.PluginWithParams = (md, flag?: boolean, str?: string, num?: number) => {};
 
     const md = MarkdownIt()
         .use(plugin)

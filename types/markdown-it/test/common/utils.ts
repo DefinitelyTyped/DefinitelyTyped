@@ -1,6 +1,10 @@
 import utils = require('markdown-it/lib/common/utils');
 
 import entities = require('markdown-it/lib/common/entities');
+import htmlBlocks = require('markdown-it/lib/common/html_blocks');
+import htmlRE = require('markdown-it/lib/common/html_re');
+import StateBlock = require('markdown-it/lib/rules_block/state_block');
+import StateInline = require('markdown-it/lib/rules_inline/state_inline');
 
 utils.lib.mdurl.parse('https://github.com/markdown-it/markdown-it', true);
 
@@ -21,3 +25,18 @@ utils.escapeRE('foobar');
 utils.normalizeReference('foobar');
 
 const encoded = '<div>foo&bar</div>'.replace(entities.amp, `&amp;`);
+
+const blocks: string[] = htmlBlocks;
+
+declare const stateBlock: StateBlock;
+{
+    const re = new RegExp(htmlRE.HTML_OPEN_CLOSE_TAG_RE.source + '\\s*$');
+}
+
+declare const stateInline: StateInline;
+{
+    const match = stateInline.src.slice(stateInline.pos).match(htmlRE.HTML_TAG_RE);
+    if (match) {
+        stateInline.pos += match[0].length;
+    }
+}

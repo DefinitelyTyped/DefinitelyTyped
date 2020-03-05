@@ -92,7 +92,7 @@ declare namespace MarkdownIt {
 
     type PluginSimple = (md: MarkdownIt) => void;
     type PluginWithOptions<T = any> = (md: MarkdownIt, options?: T) => void;
-    type PluginWithParams<T extends any[] = any[]> = (md: MarkdownIt, ...params: Partial<T>) => void;
+    type PluginWithParams = (md: MarkdownIt, ...params: any[]) => void;
 }
 
 interface MarkdownItConstructor {
@@ -267,7 +267,7 @@ interface MarkdownIt {
      */
     use(plugin: MarkdownIt.PluginSimple): this;
     use<T = any>(plugin: MarkdownIt.PluginWithOptions<T>, options?: T): this;
-    use<T extends any[] = any[]>(plugin: MarkdownIt.PluginWithParams<T>, ...params: Partial<T>): this;
+    use(plugin: MarkdownIt.PluginWithParams, ...params: any[]): this;
 
     /**
      * *internal*
