@@ -1,9 +1,10 @@
-// Type definitions for moment-timezone.js 0.5
+// Type definitions for moment-timezone.js 0.5.28
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 //                 Alan Brazil Lins <https://github.com/alanblins>
 //                 Agustin Carrasco <https://github.com/asermax>
 //                 Borys Kupar <https://github.com/borys-kupar>
+//                 Anthony Rainer <https://github.com/pristinesource>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import moment = require('./moment-timezone');
