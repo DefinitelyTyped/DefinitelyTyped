@@ -8920,7 +8920,7 @@ export const DeviceEventEmitter: DeviceEventEmitterStatic;
  * a subset of the standard EventEmitter node module API.
  */
 export interface NativeEventEmitter extends EventEmitter {
-    new(subscriber?: EventSubscriptionVendor): NativeEventEmitter;
+    new(subscriber?: EventSubscriptionVendor | null): NativeEventEmitter;
 
     /**
      * @param eventType  name of the event whose registered listeners to remove
