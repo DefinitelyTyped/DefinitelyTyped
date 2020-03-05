@@ -429,7 +429,7 @@ export class LazyList extends Component<{
     calculateItemHeight(rowIndex: number): any,
 }, any> { }
 
-export class List <T> extends Component<{
+export class List<T> extends Component<{
     modifier?: string,
     dataSource?: T[],
     renderRow?(row: T, index?: number): JSX.Element | undefined,
