@@ -9,6 +9,7 @@
 //                 Robert Gajda <https://github.com/RunAge>,
 //                 Nico Flaig <https://github.com/nflaig>,
 //                 Linus Unnebäck <https://github.com/LinusU>
+//                 Ivan Sieder <https://github.com/ivansieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -91,7 +92,7 @@ export type VerifyErrors =
     | TokenExpiredError;
 export type VerifyCallback = (
     err: VerifyErrors,
-    decoded: object | string,
+    decoded: object,
 ) => void;
 
 export type SignCallback = (

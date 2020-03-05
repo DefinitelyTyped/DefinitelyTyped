@@ -100,11 +100,13 @@ declare namespace webpack {
          * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
          * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
          *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-preload" Compile for Electron for renderer process, providing a target using NodeTemplatePlugin with asyncChunkLoading set to true,
+         *   FunctionModulePlugin for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
          * - "electron-main" Compile for Electron for main process.
          * - "atom" Alias for electron-main.
          * - "electron" Alias for electron-main.
          */
-        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-preload' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */

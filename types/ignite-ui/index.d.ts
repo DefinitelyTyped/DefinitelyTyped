@@ -1,4 +1,4 @@
-// Type definitions for Ignite UI 19.1
+// Type definitions for Ignite UI 19.2
 // Project: https://github.com/IgniteUI/ignite-ui
 // Definitions by: Ignite UI <https://github.com/IgniteUI>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -798,8 +798,8 @@ class DataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -1386,8 +1386,8 @@ class RemoteDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -1862,8 +1862,8 @@ class JSONDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -2441,8 +2441,8 @@ class RESTDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -2928,8 +2928,8 @@ class JSONPDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -3392,8 +3392,8 @@ class XmlDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -3868,8 +3868,8 @@ class FunctionDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -4344,8 +4344,8 @@ class HtmlTableDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -4808,8 +4808,8 @@ class ArrayDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -5783,8 +5783,8 @@ class TreeHierarchicalDataSource {
 	 * 1. fire the databinding event
 	 * 2. based on the data source type (see analyzeDataSource()), do the following:
 	 * 3. if type is HtmlTable, parse the table and set the data and dataView respectively.
-	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do their own paging, filtering or sorting
-	 * in that case, then they should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
+	 * if the type is Function, call it, apply Paging/Filtering/Sorting, and set this._dataView . If the developer wants to do his own paging, filtering or sorting
+	 * in that case, then he should handle the PageIndexChanging and/or DataFiltering, and/or ColumnSorting client-side events, and cancel them.
 	 * if no paging/sorting/filtering are enabled, use just this._data to save space
 	 * if the data source is of type RemoteUrl, use jQuery's $.ajax API to trigger a remote request to the service. Use the param() API to encode the URL
 	 * if the data source is invalid, throw an exception
@@ -21104,150 +21104,6 @@ interface JQuery {
 	igPieChart(optionLiteral: 'option', optionName: string, optionValue: any): JQuery;
 	igPieChart(methodName: string, ...methodParams: any[]): any;
 }
-interface LegendItemMouseLeftButtonDownEvent {
-	(event: Event, ui: LegendItemMouseLeftButtonDownEventUIParam): void;
-}
-
-interface LegendItemMouseLeftButtonDownEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseLeftButtonUpEvent {
-	(event: Event, ui: LegendItemMouseLeftButtonUpEventUIParam): void;
-}
-
-interface LegendItemMouseLeftButtonUpEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseEnterEvent {
-	(event: Event, ui: LegendItemMouseEnterEventUIParam): void;
-}
-
-interface LegendItemMouseEnterEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
-interface LegendItemMouseLeaveEvent {
-	(event: Event, ui: LegendItemMouseLeaveEventUIParam): void;
-}
-
-interface LegendItemMouseLeaveEventUIParam {
-	/**
-	 * Used to get reference to current legend object.
-	 */
-	legend?: any;
-
-	/**
-	 * Used to get reference to chart owner object.
-	 */
-	chart?: any;
-
-	/**
-	 * Used to get reference to current series owner object.
-	 */
-	series?: any;
-
-	/**
-	 * Used to get legend item brush.
-	 */
-	actualItemBrush?: any;
-
-	/**
-	 * Used to get series owner brush.
-	 */
-	actualSeriesBrush?: any;
-
-	/**
-	 * Used to get reference to chart item related to event.
-	 */
-	item?: any;
-}
-
 interface IgChartLegend {
 	/**
 	 * Type of the legend.
@@ -21255,90 +21111,18 @@ interface IgChartLegend {
 	 * Valid values:
 	 * "item" Specify the legend as item legend. It displays a legend item for each pie in the igPieChart control.
 	 * "legend" Specify the legend as legend. It is supported by all types of series in the igDataChart control.
-	 * "scale" Specify the legend as a scale legend. It displays a color/size scale for the bubble series.
 	 */
 	type?: string;
-
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
 	width?: string|number;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
+	 *
+	 * Valid values:
+	 * "null"
 	 */
 	height?: string|number;
-
-	/**
-	 * The swatch used to style this widget
-	 */
-	theme?: string;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 */
-	locale?: any;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 */
-	language?: string;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 */
-	regional?: string|Object;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeftButtonDown?: LegendItemMouseLeftButtonDownEvent;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeftButtonUp?: LegendItemMouseLeftButtonUpEvent;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseEnter?: LegendItemMouseEnterEvent;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	legendItemMouseLeave?: LegendItemMouseLeaveEvent;
 
 	/**
 	 * Option for igChartLegend
@@ -21346,53 +21130,22 @@ interface IgChartLegend {
 	[optionName: string]: any;
 }
 interface IgChartLegendMethods {
-	exportVisualData(): void;
-
-	/**
-	 * Destroys the widget.
-	 */
+	getLegend(): void;
 	destroy(): void;
 
 	/**
-	 * Returns the element holding the legend.
-	 */
-	widget(): void;
-
-	/**
-	 * Returns the ID of the DOM element holding the legend.
+	 * Returns the ID of the parent div element bounding the ruler and the tooltip container
 	 */
 	id(): string;
-
-	/**
-	 * Changes the all locales contained into a specified container to the language specified in [options.language](ui.igwidget#options:language)
-	 * Note that this method is for rare scenarios, use [language](ui.igwidget#options:language) or [locale](ui.igwidget#options:locale) option setter
-	 *
-	 * @param $container Optional parameter - if not set it would use the element of the widget as $container
-	 */
-	changeLocale($container: Object): void;
-
-	/**
-	 * Changes the widget language to global language. Global language is the value in $.ig.util.language
-	 */
-	changeGlobalLanguage(): void;
-
-	/**
-	 * Changes the widget regional settins to global regional settings. Global regional settings are container in $.ig.util.regional
-	 */
-	changeGlobalRegional(): void;
 }
 interface JQuery {
 	data(propertyName: "igChartLegend"): IgChartLegendMethods;
 }
 
 interface JQuery {
-	igChartLegend(methodName: "exportVisualData"): void;
+	igChartLegend(methodName: "getLegend"): void;
 	igChartLegend(methodName: "destroy"): void;
-	igChartLegend(methodName: "widget"): void;
 	igChartLegend(methodName: "id"): string;
-	igChartLegend(methodName: "changeLocale", $container: Object): void;
-	igChartLegend(methodName: "changeGlobalLanguage"): void;
-	igChartLegend(methodName: "changeGlobalRegional"): void;
 
 	/**
 	 * Type of the legend.
@@ -21408,193 +21161,25 @@ interface JQuery {
 
 	igChartLegend(optionLiteral: 'option', optionName: "type", optionValue: string): void;
 
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 */
-
 	igChartLegend(optionLiteral: 'option', optionName: "width"): string|number;
-
-	/**
-	 * The width of the legend. It can be set as a number in pixels, string (px) or percentage (%).
-	 *
-	 * @optionValue New value to be set.
-	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "width", optionValue: string|number): void;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
 	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "height"): string|number;
 
 	/**
-	 * The height of the legend. It can be set as a number in pixels, string (px) or percentage (%).
+	 * This is the total height of the grid, including all UI elements - scroll container with data rows, header, footer, filter row -  (if any), etc.null will stretch vertically to fit data, no other height are defined
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
 
 	igChartLegend(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
-
-	/**
-	 * The swatch used to style this widget
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "theme"): string;
-
-	/**
-	 * The swatch used to style this widget
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "theme", optionValue: string): void;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "locale"): any;
-
-	/**
-	 * Set/Get the locale setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "locale", optionValue: any): void;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "language"): string;
-
-	/**
-	 * Set/Get the locale language setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "language", optionValue: string): void;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 */
-
-	igChartLegend(optionLiteral: 'option', optionName: "regional"): string|Object;
-
-	/**
-	 * Set/Get the regional setting for the widget.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-
-	igChartLegend(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonDown"): LegendItemMouseLeftButtonDownEvent;
-
-	/**
-	 * Occurs when the left mouse button is pressed while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonDown", optionValue: LegendItemMouseLeftButtonDownEvent): void;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonUp"): LegendItemMouseLeftButtonUpEvent;
-
-	/**
-	 * Occurs when the left mouse button is released while the mouse pointer is over an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeftButtonUp", optionValue: LegendItemMouseLeftButtonUpEvent): void;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseEnter"): LegendItemMouseEnterEvent;
-
-	/**
-	 * Occurs when the left mouse pointer enters an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseEnter", optionValue: LegendItemMouseEnterEvent): void;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeave"): LegendItemMouseLeaveEvent;
-
-	/**
-	 * Occurs when the left mouse pointer leaves an element of this legend.
-	 * Function takes arguments evt and ui.
-	 * Use ui.legend to get reference to current legend object.
-	 * Use ui.chart to get reference to chart owner object.
-	 * Use ui.series to get reference to current series owner object.
-	 * Use ui.actualItemBrush to get legend item brush.
-	 * Use ui.actualSeriesBrush to get series owner brush.
-	 * Use ui.item to get reference to chart item related to event.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igChartLegend(optionLiteral: 'option', optionName: "legendItemMouseLeave", optionValue: LegendItemMouseLeaveEvent): void;
 	igChartLegend(options: IgChartLegend): JQuery;
 	igChartLegend(optionLiteral: 'option', optionName: string): any;
 	igChartLegend(optionLiteral: 'option', options: IgChartLegend): JQuery;
@@ -26012,44 +25597,6 @@ interface IgDoughnutChart {
 	pixelScalingRatio?: number;
 
 	/**
-	 * Gets sets template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 */
-	tooltipTemplate?: string;
-
-	/**
-	 * Gets sets maximum number of displayed records in chart.
-	 */
-	maxRecCount?: number;
-
-	/**
-	 * Gets sets a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 */
-	dataSource?: any;
-
-	/**
-	 * Gets sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 */
-	dataSourceType?: string;
-
-	/**
-	 * Gets sets url which is used for sending JSON on request for remote data.
-	 */
-	dataSourceUrl?: string;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 */
-	responseTotalRecCountKey?: string;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 */
-	responseDataKey?: string;
-
-	/**
 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
 	 * Function takes arguments evt and ui.
 	 * Use ui.element to get reference to tooltip DOM element.
@@ -26113,47 +25660,6 @@ interface IgDoughnutChart {
 	holeDimensionsChanged?: HoleDimensionsChangedEvent;
 
 	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	dataBinding?: DataBindingEvent;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	dataBound?: DataBoundEvent;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 */
-	updateTooltip?: UpdateTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 */
-	hideTooltip?: HideTooltipEvent;
-
-	/**
 	 * Option for igDoughnutChart
 	 */
 	[optionName: string]: any;
@@ -26211,98 +25717,6 @@ interface IgDoughnutChartMethods {
 	 * @param series Optional. The series name. If not provided an array of series data sources is returned.
 	 */
 	getData(series: string): Object;
-
-	/**
-	 * Find index of item within actual data used by chart.
-	 *
-	 * @param item The reference to item.
-	 */
-	findIndexOfItem(item: Object): number;
-
-	/**
-	 * Get item within actual data used by chart. That is similar to this.getData()[ index ].
-	 *
-	 * @param index Index of data item.
-	 */
-	getDataItem(index: Object): Object;
-
-	/**
-	 * Adds a new item to the data source and notifies the chart.
-	 *
-	 * @param item The item that we want to add to the data source.
-	 */
-	addItem(item: Object): Object;
-
-	/**
-	 * Inserts a new item to the data source and notifies the chart.
-	 *
-	 * @param item the new item that we want to insert in the data source.
-	 * @param index The index in the data source where the new item will be inserted.
-	 */
-	insertItem(item: Object, index: number): Object;
-
-	/**
-	 * Deletes an item from the data source and notifies the chart.
-	 *
-	 * @param index The index in the data source from where the item will be been removed.
-	 */
-	removeItem(index: number): Object;
-
-	/**
-	 * Updates an item in the data source and notifies the chart.
-	 *
-	 * @param index The index of the item in the data source that we want to change.
-	 * @param item The new item object that will be set in the data source.
-	 */
-	setItem(index: number, item: Object): Object;
-
-	/**
-	 * Notifies the chart that an item has been set in an associated data source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source that has been changed.
-	 * @param newItem the new item that has been set in the collection.
-	 * @param oldItem the old item that has been overwritten in the collection.
-	 */
-	notifySetItem(dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
-
-	/**
-	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 */
-	notifyClearItems(dataSource: Object): Object;
-
-	/**
-	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source where the new item has been inserted.
-	 * @param newItem the new item that has been set in the collection.
-	 */
-	notifyInsertItem(dataSource: Object, index: number, newItem: Object): Object;
-
-	/**
-	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * It's not necessary to notify more than one target of a change if they share the same items source.
-	 *
-	 * @param dataSource The data source in which the change happened.
-	 * @param index The index in the items source from where the old item has been removed.
-	 * @param oldItem the old item that has been removed from the collection.
-	 */
-	notifyRemoveItem(dataSource: Object, index: number, oldItem: Object): Object;
-
-	/**
-	 * Get reference to chart object.
-	 */
-	chart(): Object;
-
-	/**
-	 * Binds data to the chart
-	 */
-	dataBind(): void;
 }
 interface JQuery {
 	data(propertyName: "igDoughnutChart"): IgDoughnutChartMethods;
@@ -26318,18 +25732,6 @@ interface JQuery {
 	igDoughnutChart(methodName: "flush"): void;
 	igDoughnutChart(methodName: "destroy"): void;
 	igDoughnutChart(methodName: "getData", series: string): Object;
-	igDoughnutChart(methodName: "findIndexOfItem", item: Object): number;
-	igDoughnutChart(methodName: "getDataItem", index: Object): Object;
-	igDoughnutChart(methodName: "addItem", item: Object): Object;
-	igDoughnutChart(methodName: "insertItem", item: Object, index: number): Object;
-	igDoughnutChart(methodName: "removeItem", index: number): Object;
-	igDoughnutChart(methodName: "setItem", index: number, item: Object): Object;
-	igDoughnutChart(methodName: "notifySetItem", dataSource: Object, index: number, newItem: Object, oldItem: Object): Object;
-	igDoughnutChart(methodName: "notifyClearItems", dataSource: Object): Object;
-	igDoughnutChart(methodName: "notifyInsertItem", dataSource: Object, index: number, newItem: Object): Object;
-	igDoughnutChart(methodName: "notifyRemoveItem", dataSource: Object, index: number, oldItem: Object): Object;
-	igDoughnutChart(methodName: "chart"): Object;
-	igDoughnutChart(methodName: "dataBind"): void;
 
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
@@ -26446,96 +25848,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDoughnutChart(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
-
-	/**
-	 * Gets  template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate"): string;
-
-	/**
-	 * Sets template for tooltip associated with chart item.
-	 * Example: "Value: $(ValueMemberPathInDataSource)"
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "tooltipTemplate", optionValue: string): void;
-
-	/**
-	 * Gets  maximum number of displayed records in chart.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount"): number;
-
-	/**
-	 * Sets maximum number of displayed records in chart.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "maxRecCount", optionValue: number): void;
-
-	/**
-	 * Gets  a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource"): any;
-
-	/**
-	 * Sets a valid data source.
-	 * That can be instance of array or primitives, array of objects, instance of $.ig.DataSource, or any other data accepted by $.ig.DataSource.
-	 * Note: if it is set to string and "dataSourceType" option is not set, then $.ig.JSONPDataSource is used.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSource", optionValue: any): void;
-
-	/**
-	 * Gets  data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType"): string;
-
-	/**
-	 * Sets data source type (such as "json", "xml", etc). Please refer to the documentation of $.ig.DataSource and its type property
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceType", optionValue: string): void;
-
-	/**
-	 * Gets  url which is used for sending JSON on request for remote data.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
-
-	/**
-	 * Sets url which is used for sending JSON on request for remote data.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataSourceUrl", optionValue: string): void;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey"): string;
-
-	/**
-	 * See $.ig.DataSource. property in the response specifying the total number of records on the server.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseTotalRecCountKey", optionValue: string): void;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey"): string;
-
-	/**
-	 * See $.ig.DataSource. This is basically the property in the responses where data records are held, if the response is wrapped.
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "responseDataKey", optionValue: string): void;
 
 	/**
 	 * Event fired when the mouse has hovered on a series and the tooltip is about to show
@@ -26676,96 +25988,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igDoughnutChart(optionLiteral: 'option', optionName: "holeDimensionsChanged", optionValue: HoleDimensionsChangedEvent): void;
-
-	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding"): DataBindingEvent;
-
-	/**
-	 * Event which is raised before data binding.
-	 * Return false in order to cancel data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBinding", optionValue: DataBindingEvent): void;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound"): DataBoundEvent;
-
-	/**
-	 * Event which is raised after data binding.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.data to obtain reference to array actual data which is displayed by chart.
-	 * Use ui.dataSource to obtain reference to instance of $.ig.DataSource.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "dataBound", optionValue: DataBoundEvent): void;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip"): UpdateTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is updated.
-	 * Return false in order to cancel updating and hide tooltip.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.text to obtain html of tooltip. Value of that member can be modified. If modified value is null or empty string, then current content of tooltip keeps old value.
-	 * Use ui.item to obtain reference to item. Value of that member can be modified or replaced by custom item.
-	 * Use ui.x to obtain left position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.y to obtain top position of tooltip in pixels relative to widget. Value of that member can be modified.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip. Value of that member can be replaced by custom element.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "updateTooltip", optionValue: UpdateTooltipEvent): void;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip"): HideTooltipEvent;
-
-	/**
-	 * Event which is raised before tooltip is hidden.
-	 * Return false in order to cancel hiding and keep tooltip visible.
-	 * Function takes first argument null and second argument ui.
-	 * Use ui.owner to obtain reference to chart widget.
-	 * Use ui.item to obtain reference to item.
-	 * Use ui.element to obtain reference to jquery object which represents tooltip or value of ui.element from last updateTooltip event. Value of that member can be replaced by custom element.
-	 *
-	 * @optionValue Define event handler function.
-	 */
-	igDoughnutChart(optionLiteral: 'option', optionName: "hideTooltip", optionValue: HideTooltipEvent): void;
 	igDoughnutChart(options: IgDoughnutChart): JQuery;
 	igDoughnutChart(optionLiteral: 'option', optionName: string): any;
 	igDoughnutChart(optionLiteral: 'option', options: IgDoughnutChart): JQuery;
@@ -62044,6 +61266,7 @@ interface IgGridRowSelectors {
 }
 interface IgGridRowSelectorsMethods {
 	destroy(): void;
+	rsRenderColgroup(): void;
 
 	/**
 	 * Changes the all locales into the widget element to the language specified in [options.language](ui.iggridrowselectors#options:language)
@@ -62057,6 +61280,7 @@ interface JQuery {
 
 interface JQuery {
 	igGridRowSelectors(methodName: "destroy"): void;
+	igGridRowSelectors(methodName: "rsRenderColgroup"): void;
 	igGridRowSelectors(methodName: "changeLocale"): void;
 
 	/**
@@ -70558,7 +69782,7 @@ interface IgLinearGaugeMethods {
 	 * @param x The x coordinate of the point.
 	 * @param y The y coordinate of the point.
 	 */
-	needleContainsPoint(x: number, y: number): void;
+	needleContainsPoint(x: number, y: number): boolean;
 
 	/**
 	 * Returns information about how the linear gauge is rendered.
@@ -70608,7 +69832,7 @@ interface JQuery {
 	igLinearGauge(methodName: "removeRange", value: Object): void;
 	igLinearGauge(methodName: "updateRange", value: Object): void;
 	igLinearGauge(methodName: "getValueForPoint", x: Object, y: Object): number;
-	igLinearGauge(methodName: "needleContainsPoint", x: number, y: number): void;
+	igLinearGauge(methodName: "needleContainsPoint", x: number, y: number): boolean;
 	igLinearGauge(methodName: "exportVisualData"): Object;
 	igLinearGauge(methodName: "flush"): void;
 	igLinearGauge(methodName: "destroy"): void;
@@ -80845,7 +80069,7 @@ interface IgRadialGaugeMethods {
 	 * @param x
 	 * @param y
 	 */
-	needleContainsPoint(x: Object, y: Object): void;
+	needleContainsPoint(x: Object, y: Object): boolean;
 
 	/**
 	 * Exports the visual data for the radial gauge.
@@ -80899,7 +80123,7 @@ interface JQuery {
 	igRadialGauge(methodName: "unscaleValue", value: Object): void;
 	igRadialGauge(methodName: "getValueForPoint", x: Object, y: Object): number;
 	igRadialGauge(methodName: "getPointForValue", value: Object, extent: Object): void;
-	igRadialGauge(methodName: "needleContainsPoint", x: Object, y: Object): void;
+	igRadialGauge(methodName: "needleContainsPoint", x: Object, y: Object): boolean;
 	igRadialGauge(methodName: "exportVisualData"): void;
 	igRadialGauge(methodName: "flush"): void;
 	igRadialGauge(methodName: "destroy"): void;
@@ -91955,6 +91179,22 @@ interface IgSpreadsheetBrushes {
 	[optionName: string]: any;
 }
 
+interface ContextMenuOpeningEvent {
+	(event: Event, ui: ContextMenuOpeningEventUIParam): void;
+}
+
+interface ContextMenuOpeningEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get the [area](ig.spreadsheet.SpreadsheetContextMenuArea) for which the menu is being displayed.
+	 */
+	menuArea?: string;
+}
+
 interface ActivePaneChangedEvent {
 	(event: Event, ui: ActivePaneChangedEventUIParam): void;
 }
@@ -92322,15 +91562,14 @@ interface IgSpreadsheet {
 	areHeadersVisible?: boolean;
 
 	/**
-	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
-	 *
-	 * Valid values:
-	 * "down" The cell below should be activated.
-	 * "right" The cell to the right should be activated
-	 * "up" The cell above should be activated.
-	 * "left" The cell to the left should be activated
 	 */
 	enterKeyNavigationDirection?: string;
 
@@ -92382,12 +91621,10 @@ interface IgSpreadsheet {
 
 	/**
 	 * Returns or sets a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
-	 *
-	 * Valid values:
-	 * "normal" The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
-	 * "extendSelection" The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
-	 * "addToSelection" New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 */
 	selectionMode?: string;
 
@@ -92433,6 +91670,11 @@ interface IgSpreadsheet {
 	 *
 	 */
 	regional?: string|Object;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 */
+	contextMenuOpening?: ContextMenuOpeningEvent;
 
 	/**
 	 * Invoked when an action is executed on the Spreadsheet.
@@ -92821,21 +92063,29 @@ interface JQuery {
 	igSpreadsheet(optionLiteral: 'option', optionName: "areHeadersVisible", optionValue: boolean): void;
 
 	/**
-	 * Returns  an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns  an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection"): string;
 
 	/**
-	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
+	 * Returns or sets an enumeration indicating the direction of the cell adjacent to the activeCell that should be activated when the enter key is pressed.
+	 * This property is only used if the isEnterKeyNavigationEnabled is set to true. Also, the reverse direction is
 	 * navigated when Shift + Enter are pressed.
+	 * down  The cell below should be activated.
+	 * right  The cell to the right should be activated
+	 * up  The cell above should be activated.
+	 * left  The cell to the left should be activated
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection", optionValue: string): void;
 
 	/**
@@ -92946,18 +92196,22 @@ interface JQuery {
 
 	/**
 	 * Returns  a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode"): string;
 
 	/**
 	 * Returns or sets a value indicating how the selection is updated when interacting with the cells via the mouse or keyboard.
+	 * normal  The selection is replaced when dragging the mouse to select a cell or range of cells. Similarly when navigating via the keyboard a new selection is created. One may add a new range by holding the Ctrl key and using the mouse and one may alter the selection range containing the active cell by holding the Shift key down while clicking with the mouse or navigating with the keyboard such as with the arrow keys.
+	 * extendSelection  The selection range in the cellRanges representing the active cell is updated as one uses the mouse to select a cell or navigating via the keyboard.
+	 * addToSelection  New cell ranges are added to the cellRanges without needing to hold down the ctrl key when dragging via the mouse and a range is added with the first arrow key navigation after entering the mode. One can enter the mode by pressing Shift+F8.
 	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
-
 	igSpreadsheet(optionLiteral: 'option', optionName: "selectionMode", optionValue: string): void;
 
 	/**
@@ -93061,6 +92315,18 @@ interface JQuery {
 	 */
 
 	igSpreadsheet(optionLiteral: 'option', optionName: "regional", optionValue: string|Object): void;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "contextMenuOpening"): ContextMenuOpeningEvent;
+
+	/**
+	 * Invoked when a contextmenu is being opened for the Spreadsheet.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "contextMenuOpening", optionValue: ContextMenuOpeningEvent): void;
 
 	/**
 	 * Invoked when an action is executed on the Spreadsheet.
@@ -95916,6 +95182,11 @@ interface NodeDroppingEvent {
 
 interface NodeDroppingEventUIParam {
 	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the target node data-path attribute.
 	 */
 	path?: string;
@@ -95954,6 +95225,11 @@ interface NodeDroppingEventUIParam {
 	 * Gets a reference to the draggable element (the node).
 	 */
 	draggable?: string;
+
+	/**
+	 * Gets a reference to the source node object about to be dropped.
+	 */
+	sourceNode?: any;
 }
 
 interface NodeDroppedEvent {
@@ -95962,6 +95238,11 @@ interface NodeDroppedEvent {
 
 interface NodeDroppedEventUIParam {
 	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
 	 * Gets the target node data-path attribute.
 	 */
 	path?: string;
@@ -96000,6 +95281,11 @@ interface NodeDroppedEventUIParam {
 	 * Gets a reference to the draggable element (the node).
 	 */
 	draggable?: string;
+
+	/**
+	 * Gets a reference to the dropped source node object.
+	 */
+	sourceNode?: any;
 }
 
 interface IgTree {
@@ -105148,6 +104434,7 @@ interface IgTreeGridRowSelectorsMethods {
 	 * @param rowId
 	 */
 	checkStateById(rowId: Object): string;
+	rsRenderColgroup(): void;
 }
 interface JQuery {
 	data(propertyName: "igTreeGridRowSelectors"): IgTreeGridRowSelectorsMethods;
@@ -105164,6 +104451,7 @@ interface JQuery {
 	igTreeGridRowSelectors(methodName: "partiallyCheckedRows"): any[];
 	igTreeGridRowSelectors(methodName: "uncheckedRows"): any[];
 	igTreeGridRowSelectors(methodName: "checkStateById", rowId: Object): string;
+	igTreeGridRowSelectors(methodName: "rsRenderColgroup"): void;
 
 	/**
 	 * Determines row numbering format.

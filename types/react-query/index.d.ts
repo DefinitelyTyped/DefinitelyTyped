@@ -7,18 +7,18 @@
 
 import { ComponentType } from 'react';
 
+// overloaded useQuery function with pagination
+export function useQuery<TResult, TVariables extends object>(
+    queryKey: QueryKey<TVariables>,
+    queryFn: QueryFunction<TResult, TVariables>,
+    options: QueryOptionsPaginated<TResult>
+): QueryResultPaginated<TResult, TVariables>;
+
 export function useQuery<TResult, TVariables extends object>(
     queryKey: QueryKey<TVariables>,
     queryFn: QueryFunction<TResult, TVariables>,
     options?: QueryOptions<TResult>
 ): QueryResult<TResult, TVariables>;
-
-// overloaded useQuery function with pagination
-export function useQuery<TResult, TVariables extends object>(
-    queryKey: QueryKey<TVariables>,
-    queryFn: QueryFunction<TResult, TVariables>,
-    options?: QueryOptionsPaginated<TResult>
-): QueryResultPaginated<TResult, TVariables>;
 
 export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
 export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;

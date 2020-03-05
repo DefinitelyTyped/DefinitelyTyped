@@ -720,6 +720,11 @@ export interface ReferenceDotProps extends EventAttributes, Partial<Presentation
 
 export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
+export interface SegmentItem {
+    x: number | string;
+    y: number | string;
+}
+
 export interface ReferenceLineProps extends Partial<PresentationAttributes<number | string, number | string>> {
     className?: number | string;
     viewBox?: ViewBox;
@@ -730,6 +735,7 @@ export interface ReferenceLineProps extends Partial<PresentationAttributes<numbe
     ifOverflow?: IfOverflowType;
     x?: number | string;
     y?: number | string;
+    segment?: Readonly<[SegmentItem, SegmentItem]>;
     label?: string | number | ContentRenderer<any> | React.ReactElement;
     xAxisId?: string | number;
     yAxisId?: string | number;

@@ -65,6 +65,7 @@ export interface CognitoUserPoolTriggerEvent {
         privateChallengeParameters?: { [key: string]: string };
         challengeAnswer?: string;
         password?: string;
+        clientMetadata?: { [key: string]: string };
     };
     response: {
         autoConfirmUser?: boolean;
