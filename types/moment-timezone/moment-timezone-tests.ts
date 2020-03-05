@@ -95,4 +95,4 @@ const zones2: moment.MomentZoneOffset[] = moment.tz.zonesForCountry("CN", true);
 
 const zones3: string[] = moment.tz.zonesForCountry("GB", false);
 
-const countries: string[] = moment.countries();
+const countries: string[] = moment.tz.countries();
