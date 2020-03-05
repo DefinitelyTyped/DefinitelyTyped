@@ -200,3 +200,6 @@ chess.history({ verbose: false });
 
 // $ExpectType Move[]
 chess.history({ verbose: true });
+
+// $ExpectType Array<Array<{ type: PieceType, color: 'w' | 'b' } | null>>
+chess.reset();

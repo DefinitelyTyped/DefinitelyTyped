@@ -1,10 +1,11 @@
 // Type definitions for chess.js 0.10
 // Project: https://github.com/jhlywa/chess.js
 // Definitions by: Jacob Fischer <https://github.com/JacobFischer>
+//                 Zachary Svoboda <https://github.com/zacnomore>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * One of the possible sqaures on a chess board in san format,
+ * One of the possible squares on a chess board in san format,
  * e.g. "a8" to "h1".
  */
 export type Square =
@@ -15,8 +16,17 @@ export type Square =
     "a4" | "b4" | "c4" | "d4" | "e4" | "f4" | "g4" | "h4" |
     "a3" | "b3" | "c3" | "d3" | "e3" | "f3" | "g3" | "h3" |
     "a2" | "b2" | "c2" | "d2" | "e2" | "f2" | "g2" | "h2" |
-    "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1"
-;
+    "a1" | "b1" | "c1" | "d1" | "e1" | "f1" | "g1" | "h1";
+
+/**
+ * - "p" for Pawn
+ * - "n" for Knight
+ * - "b" for Bishop
+ * - "r" for Rook
+ * - "q" for Queen
+ * - "k" for King
+ */
+export type PieceType = "p" | "n" | "b" | "r" | "q" | "k";
 
 /**
  * Partial data about a chess move including the from and to square, and if a
@@ -37,12 +47,8 @@ export interface ShortMove {
 
     /**
      * If this move results in a promotion, this will have the unit promotion.
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
      */
-    promotion?: "n" | "b" | "r" | "q";
+    promotion?: Exclude<PieceType, 'p'>;
 }
 
 /**
@@ -61,40 +67,23 @@ export interface Move extends ShortMove {
 
     /**
      * The type of the piece that moved
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
-     * - "k" for King
      */
-    piece: "p" | "n" | "b" | "r" | "q" | "k";
+    piece: PieceType;
 
     /** The Standard Algebraic Notation (SAN) representation of the move */
     san: string;
 
     /**
-     * If an enemy piece was captured this is their type.
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
+     * If an enemy piece was captured this is their type
      */
-    captured?: "p" | "n" | "b" | "r" | "q";
+    captured?: Exclude<PieceType, 'k'>;
 }
 
 export interface Piece {
     /**
      * The type of the piece to place
-     * - "p" for Pawn
-     * - "n" for Knight
-     * - "b" for Bishop
-     * - "r" for Rook
-     * - "q" for Queen
-     * - "k" for King
      */
-    type: "p" | "n" | "b" | "r" | "q" | "k";
+    type: PieceType;
 
     /**
      * The color of the piece
@@ -506,6 +495,8 @@ export interface ChessInstance {
          */
         verbose?: boolean;
     }): string[] | Move[];
+
+    board(): Array<Array<{ type: PieceType, color: 'w' | 'b' } | null>>;
 }
 
 /**
