@@ -12,24 +12,22 @@ export as namespace marked;
 
 export = marked;
 /**
- * Compiles markdown to HTML.
+ * Compiles markdown to HTML synchronously.
  *
  * @param src String of markdown source to be compiled
- * @param callback Function called when the markdownString has been fully parsed when using async highlighting
- * @return String of compiled HTML
+ * @param options Optional hash of options
  */
-declare function marked(src: string): string;
-declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
+declare function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML.
+ * Compiles markdown to HTML asynchronously.
  *
  * @param src String of markdown source to be compiled
- * @param options Hash of options
+ * @param options Optional hash of options
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
  * @return String of compiled HTML
  */
-declare function marked(src: string, options: marked.MarkedOptions): string;
+declare function marked(src: string, callback: (error: any | undefined, parseResult: string) => void): void;
 declare function marked(src: string, options: marked.MarkedOptions, callback: (error: any | undefined, parseResult: string) => void): void;
 
 declare namespace marked {
