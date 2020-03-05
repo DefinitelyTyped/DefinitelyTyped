@@ -11214,7 +11214,7 @@ declare namespace Office {
      */
     interface Body {
         /**
-         * On send, adds the specified content to the end of the item body, after any signature.
+         * Appends on send the specified content to the end of the item body, after any signature.
          * 
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
@@ -11228,11 +11228,11 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
-         * - `DataExceedsMaximumSize`: The data parameter is longer than 1,000,000 characters.
+         * - `DataExceedsMaximumSize`: The data parameter is longer than 5,000 characters.
          * 
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the `data` parameter is in plain text.
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
          * 
-         * @param data - The string to be added to the end of the body. The string is limited to 1,000,000 characters.
+         * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          *        `coercionType`: The desired format for the data to be appended. The string in the `data` parameter will be converted to this format.
@@ -11243,7 +11243,7 @@ declare namespace Office {
          */
         appendOnSendAsync(data: string, options: Office.AsyncContextOptions & CoercionTypeOptions, callback: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * On send, adds the specified content to the end of the item body, after any signature.
+         * Appends on send the specified content to the end of the item body, after any signature.
          * 
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
@@ -11257,11 +11257,11 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
-         * - `DataExceedsMaximumSize`: The data parameter is longer than 1,000,000 characters.
+         * - `DataExceedsMaximumSize`: The data parameter is longer than 5,000 characters.
          * 
-         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the `data` parameter is in plain text.
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
          * 
-         * @param data - The string to be added to the end of the body. The string is limited to 1,000,000 characters.
+         * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
          * 
