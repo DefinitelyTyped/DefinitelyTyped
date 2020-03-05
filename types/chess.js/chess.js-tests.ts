@@ -202,4 +202,4 @@ chess.history({ verbose: false });
 chess.history({ verbose: true });
 
 // $ExpectType Array<Array<{ type: PieceType, color: 'w' | 'b' } | null>>
-chess.reset();
+chess.board();
