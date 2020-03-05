@@ -187,6 +187,17 @@ export interface DownloadImgopts {
 	filename: string;
 }
 
+export interface PolarLayout {
+	domain: Partial<Domain>;
+	sector: number[];
+	hole: number;
+	bgcolor: Color;
+	radialaxis: Partial<LayoutAxis>;
+	angularaxis: Partial<LayoutAxis>;
+	gridshape: 'circular' | 'linear';
+	uirevision: string | number;
+}
+
 export type Root = string | HTMLElement;
 
 export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
@@ -302,6 +313,15 @@ export interface Layout {
 		xside: "bottom" | "bottom plot" | "top plot" | "top";
 		yside: "left" | "left plot" | "right plot" | "right";
 	}>;
+	polar: Partial<PolarLayout>;
+	polar2: Partial<PolarLayout>;
+	polar3: Partial<PolarLayout>;
+	polar4: Partial<PolarLayout>;
+	polar5: Partial<PolarLayout>;
+	polar6: Partial<PolarLayout>;
+	polar7: Partial<PolarLayout>;
+	polar8: Partial<PolarLayout>;
+	polar9: Partial<PolarLayout>;
 }
 
 export interface Legend extends Label {
@@ -320,7 +340,7 @@ export type AxisType = '-' | 'linear' | 'log' | 'date' | 'category';
 export interface Axis {
 	visible: boolean;
 	color: Color;
-	title: string;
+	title: string | Partial<DataTitle>;
 	titlefont: Partial<Font>;
 	type: AxisType;
 	autorange: true | false | 'reversed';
@@ -341,7 +361,9 @@ export interface Axis {
 	showspikes: boolean;
 	spikecolor: Color;
 	spikethickness: number;
-	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array';
+	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' |
+	'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
+	'mean descending' | 'median ascending' | 'median descending';
 	categoryarray: any[];
 	tickfont: Partial<Font>;
 	tickangle: number;
@@ -382,7 +404,7 @@ export interface LayoutAxis extends Axis {
 	spikedash: string;
 	spikemode: string;
 	anchor: 'free' | AxisName;
-	side: 'top' | 'bottom' | 'left' | 'right';
+	side: 'top' | 'bottom' | 'left' | 'right' | 'clockwise' | 'counterclockwise';
 	overlaying: 'free' | AxisName;
 	layer: 'above traces' | 'below traces';
 	domain: number[];
@@ -391,6 +413,7 @@ export interface LayoutAxis extends Axis {
 	rangeselector: Partial<RangeSelector>;
 	automargin: boolean;
 	autotick: boolean;
+	angle: any;
 }
 
 export interface SceneAxis extends Axis {
@@ -1312,6 +1335,8 @@ export interface Scene {
 export interface Domain {
 	x: number[];
 	y: number[];
+	row: number;
+	column: number;
 }
 
 export interface Frame {
