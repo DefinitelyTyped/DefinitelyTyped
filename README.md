@@ -64,11 +64,11 @@ If you still can't find it, check if it [bundles](http://www.typescriptlang.org/
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
-#### Older versions of Typescript (2.7 and earlier)
+#### Older versions of TypeScript (2.7 and earlier)
 
-Definitely Typed only tests packages on versions of Typescript that are less than 2 years old.
+Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 Currently versions 2.8 and above are tested.
-If you're using Typescript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new Typescript features.
+If you're using TypeScript 2.0 to 2.7, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -86,8 +86,8 @@ Version | Released | End of Support
 3.7 | November 2019 | November 2021
 3.8 | February 2020 | February 2022
 
-`@types` packages have tags for versions of Typescript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
-For example, if you run `npm dist-tags @types/react`, you'll see that Typescript 2.5 can use types for react@16.0, whereas Typescript 2.6 and 2.7 can use types for react@16.4:
+`@types` packages have tags for versions of TypeScript that they explicitly support, so you can usually get older versions of packages that predate the 2-year window.
+For example, if you run `npm dist-tags @types/react`, you'll see that TypeScript 2.5 can use types for react@16.0, whereas TypeScript 2.6 and 2.7 can use types for react@16.4:
 
 |Tag | Version|
 |----|---------|
@@ -100,7 +100,7 @@ For example, if you run `npm dist-tags @types/react`, you'll see that Typescript
 | ... | ... |
 
 
-#### Typescript 1.*
+#### TypeScript 1.*
 
 * Manually download from the `master` branch of this repository and place them in your project
 * ~~[Typings](https://github.com/typings/typings)~~ (use preferred alternatives, typings is deprecated)
@@ -350,7 +350,7 @@ This is a commonly cited [Stack Overflow answer](https://stackoverflow.com/quest
 It is more appropriate to import the module using the `import foo = require("foo");` syntax.
 Nevertheless, if you want to use a default import like `import foo from "foo";` you have two options:
 - you can use the [`--allowSyntheticDefaultImports` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) if your module runtime supports an interop scheme for non-ECMAScript modules, i.e. if default imports work in your environment (e.g. Webpack, SystemJS, esm).
-- you can use the [`--esModuleInterop` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) if you want TypeScript to take care of non-ECMAScript interop (since Typescript 2.7).
+- you can use the [`--esModuleInterop` compiler option](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) if you want TypeScript to take care of non-ECMAScript interop (since TypeScript 2.7).
 
 #### A package uses `export =`, but I prefer to use default imports. Can I change `export =` to `export default`?
 
