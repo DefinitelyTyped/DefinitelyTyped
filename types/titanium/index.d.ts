@@ -3,6 +3,7 @@
 // Definitions by: Axway Appcelerator <https://github.com/appcelerator>
 //                 Jan Vennemann <https://github.com/janvennemann>
 //                 Sergey Volkov <https://github.com/drauggres>
+//                 Mathias Lorenzen <https://github.com/ffMathy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1403,6 +1404,7 @@ interface ListDataItem {
 	 */
 	template?: string | number;
 
+	[index: string]: any;
 }
 /**
  * The arguments for the <Titanium.UI.ListView.prefetch> and <Titanium.UI.ListView.cancelprefetch> events.
@@ -47596,7 +47598,7 @@ declare namespace Titanium {
 			/**
 			 * Replaces an existing section.
 			 */
-			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation: ListViewAnimationProperties): void;
+			replaceSectionAt(sectionIndex: number, section: Titanium.UI.ListSection, animation?: ListViewAnimationProperties): void;
 
 			/**
 			 * Scrolls to a specific item.
