@@ -41,7 +41,7 @@ declare namespace bearcat {
          * @param   opts.BEARCAT_FUNCTION_STRING     setup bearcat to use func.toString for $ based annotation
          *
          * @return  bearcat object
-         * @api public
+         * @api     public
          */
         createApp(configLocations: string[], opts: object): Bearcat;
 
@@ -51,7 +51,7 @@ declare namespace bearcat {
          * Bearcat start app.
          *
          * @param   cb start callback function
-         * @api public
+         * @api     public
          */
         start(cb?: CallbackFunc): void;
 
@@ -59,15 +59,15 @@ declare namespace bearcat {
          * Bearcat stop app.
          * it will stop internal applicationContext, destroy all singletonBeans
          *
-         * @api public
+         * @api     public
          */
         stop(): void;
 
         /**
          * Bearcat get beanFactory instance.
          *
-         * @return   beanFactory instance
-         * @api public
+         * @return  beanFactory instance
+         * @api     public
          */
         getBeanFactory(): BeanFactory;
 
@@ -75,7 +75,7 @@ declare namespace bearcat {
          * Bearcat get applicationContext.
          *
          * @return   applicationContext
-         * @api public
+         * @api     public
          */
         getApplicationContext(): ApplicationContext;
 
@@ -83,7 +83,7 @@ declare namespace bearcat {
          * Bearcat get bean from IoC container through meta argument.
          *
          * @param   meta meta object
-         * @api public
+         * @api     public
          */
         getBeanByMeta(meta: object): object | null;
 
@@ -91,7 +91,7 @@ declare namespace bearcat {
          * Bearcat get bean from IoC container through $ annotation function.
          *
          * @param   func $ annotation function
-         * @api public
+         * @api     public
          */
         getBeanByFunc(func: ParamClassFunc): object | null;
 
@@ -103,8 +103,8 @@ declare namespace bearcat {
          *      bearcat.use(['car']);
          *      bearcat.use('car');
          *
-         * @param  ids async loading beans id
-         * @api public
+         * @param   ids async loading beans id
+         * @api     public
          */
         use(ids: string | string[]): void;
 
@@ -113,7 +113,7 @@ declare namespace bearcat {
          *
          * @param   ids async loading beans id
          * @param   cb callback with loaded bean instances
-         * @api public
+         * @api     public
          */
         async(ids: string | string[], cb?: CallbackFunc): void;
 
@@ -122,25 +122,17 @@ declare namespace bearcat {
          *
          * @param   func $ annotation function
          * @param   context context object
-         * @api public
+         * @api     public
          */
         module(func: ParamClassFunc, context?: object | null): object | void;
 
         /**
          * Bearcat define module(bean).
          *
-         * Examples:
-         *
-         *    bearcat.define('car', function(exports, module) {
-         *	     module.exports = function() {
-         *	         console.log('run car...')
-         *       }
-         *    }, typeof module !== 'undefined' ? module : {});
-         *
-         * @param     id
+         * @param   id
          * @param   factory function
-         * @param     context object
-         * @api public
+         * @param   context object
+         * @api     public
          */
         define(id: string, factory: ParamClassFunc, context: object | null): void;
 
@@ -152,7 +144,7 @@ declare namespace bearcat {
          *      var Car = bearcat.require('car');
          *
          * @param   id
-         * @api public
+         * @api     public
          */
         require(id: string): any;
 
@@ -161,7 +153,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  bean
-         * @api public
+         * @api     public
          */
         getBean(beanName: string | object | ParamClassFunc): object | null;
 
@@ -175,9 +167,9 @@ declare namespace bearcat {
          *      var Car = bearcat.getFunction("car");
          *
          *
-         * @param     beanName
+         * @param   beanName
          * @return  bean constructor function
-         * @api public
+         * @api     public
          */
         getFunction(beanName: string): ConstructorFunction | null;
 
@@ -191,9 +183,9 @@ declare namespace bearcat {
          *      var Car = bearcat.getClass("car");
          *
          *
-         * @param     beanName
+         * @param   beanName
          * @return  bean constructor function
-         * @api public
+         * @api     public
          */
         getClass(beanName: string): ConstructorFunction | null;
 
@@ -221,10 +213,10 @@ declare namespace bearcat {
          *      bearcat.call("car", this);
          *
          *
-         * @param     beanName
-         * @param     context
-         * @param     args
-         * @api public
+         * @param   beanName
+         * @param   context
+         * @param   args
+         * @api     public
          */
         call(beanName: string, context?: object | null, ...args: any[]): void;
 
@@ -238,9 +230,9 @@ declare namespace bearcat {
          *      var carModel = bearcat.getModel("car");
          *
          *
-         * @param     modelId
-         * @return    model
-         * @api public
+         * @param   modelId
+         * @return  model
+         * @api     public
          */
         getModel(modelId: string): object;
 
@@ -257,7 +249,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @param   fnName routeName
-         * @api public
+         * @api     public
          */
         getRoute(beanName: string, fnName: string): ConstructorFunction;
     }
@@ -286,7 +278,7 @@ declare namespace bearcat {
         /**
          * ApplicationContext init.
          *
-         * @api public
+         * @api     public
          */
         init(): void;
 
@@ -294,56 +286,56 @@ declare namespace bearcat {
          * ApplicationContext set container startUpDate.
          *
          * @param   startUpDate
-         * @api public
+         * @api     public
          */
         setStartupDate(startUpDate: number): void;
 
         /**
          * ApplicationContext get container startUpDate.
          *
-         * @return   startUpDate
-         * @api public
+         * @return  startUpDate
+         * @api     public
          */
         getStartupDate(): number;
 
         /**
          * ApplicationContext get resourceLoader.
          *
-         * @return   resourceLoader
-         * @api public
+         * @return  resourceLoader
+         * @api     public
          */
         getResourceLoader(): ResourceLoader;
 
         /**
          * ApplicationContext get asyncScriptLoader.
          *
-         * @return   asyncScriptLoader
-         * @api public
+         * @return  asyncScriptLoader
+         * @api     public
          */
         getAsyncScriptLoader(): AsyncScriptLoader;
 
         /**
          * ApplicationContext get bootStrapLoader.
          *
-         * @return   bootStrapLoader
-         * @api public
+         * @return  bootStrapLoader
+         * @api     public
          */
         getBootStrapLoader(): BootStrapLoader;
 
         /**
          * ApplicationContext get metaObjects resource from contextPath.
          *
-         * @param    cpath contextPath
-         * @return   metaObjects
-         * @api public
+         * @param   cpath contextPath
+         * @return  metaObjects
+         * @api     public
          */
         getResource(cpath: string): object;
 
         /**
          * ApplicationContext get contextPath locations.
          *
-         * @return   contextPath locations
-         * @api public
+         * @return  contextPath locations
+         * @api     public
          */
         getConfigLocations(): string[];
 
@@ -351,15 +343,15 @@ declare namespace bearcat {
          * ApplicationContext add beanFactoryPostProcessor.
          *
          * @param   beanFactoryPostProcessor
-         * @api public
+         * @api     public
          */
         addBeanFactoryPostProcessor(beanFactoryPostProcessor: BeanPostProcessor): void;
 
         /**
          * ApplicationContext get beanFactoryPostProcessors.
          *
-         * @return   beanFactoryPostProcessors
-         * @api public
+         * @return  beanFactoryPostProcessors
+         * @api     public
          */
         getBeanFactoryProcessors(): BeanPostProcessor[];
 
@@ -368,82 +360,82 @@ declare namespace bearcat {
          * refresh beanFactory, preIntialize singleton Beans
          *
          * @param   cb callback function
-         * @api public
+         * @api     public
          */
         refresh(cb?: CallbackFunc): void;
 
         /**
          * ApplicationContext cancel refresh.
          *
-         * @api publish
+         * @api     publish
          */
         cancelRefresh(): void;
 
         /**
          * ApplicationContext destroy.
          *
-         * @api public
+         * @api     public
          */
         destroy(): void;
 
         /**
          * ApplicationContext check whether applicationContext is active or not.
          *
-         * @api public
+         * @api     public
          */
         isActive(): boolean;
 
         /**
          * ApplicationContext getBean through beanName from applicationContext.
          *
-         * @param    beanName
-         * @return   beanObject
-         * @api public
+         * @param   beanName
+         * @return  beanObject
+         * @api     public
          */
         getBean(beanName: string): object;
 
         /**
          * ApplicationContext getBean through metaObject from applicationContext.
          *
-         * @param    meta metaObject
-         * @return   beanObject
-         * @api public
+         * @param   meta metaObject
+         * @return  beanObject
+         * @api     public
          */
         getBeanByMeta(meta: object): object;
 
         /**
          * ApplicationContext getBean through $ annotation function from applicationContext.
          *
-         * @param    func $ annotation function
-         * @return     beanObject
-         * @api public
+         * @param   func $ annotation function
+         * @return  beanObject
+         * @api     public
          */
         getBeanByFunc(func: ConstructorFunction): object;
 
         /**
          * ApplicationContext getModel through modelId.
          *
-         * @param      modelId
-         * @return     model
-         * @api public
+         * @param   modelId
+         * @return  model
+         * @api     public
          */
         getModel(modelId: string): object;
 
         /**
          * ApplicationContext getModelDefinition through modelId.
          *
-         * @param      modelId
-         * @return     modelDefinition
-         * @api public
+         * @param   modelId
+         * @return  modelDefinition
+         * @api     public
          */
         getModelDefinition(modelId: string): object;
 
         /**
          * ApplicationContext get bean contructor function.
          *
-         * @param     beanName
+         * @param   beanName
          * @return  bean constructor function
-         * @api public
+         * @api     public
          */
         getBeanFunction(beanName: string): ConstructorFunction;
 
@@ -459,53 +451,53 @@ declare namespace bearcat {
         /**
          * ApplicationContext do extend bean.
          *
-         * @param     beanName
-         * @param     superBeanName
-         * @api public
+         * @param   beanName
+         * @param   superBeanName
+         * @api     public
          */
         doExtendBean(beanName: string, superBeanName: string): void;
 
         /**
          * ApplicationContext add module(bean) to IoC container through $ annotation function from applicationContext.
          *
-         * @param    func $ annotation function
-         * @param    context
-         * @api public
+         * @param   func $ annotation function
+         * @param   context
+         * @api     public
          */
         module(func: ConstructorFunction, context?: object | null): void;
 
         /**
          * ApplicationContext service locator pattern define module.
          *
-         * @param      id
-         * @param    factory factory function
-         * @param    context context object
-         * @api public
+         * @param   id
+         * @param   factory factory function
+         * @param   context context object
+         * @api     public
          */
         define(id: string, factory: ConstructorFunction, context?: object | null): void;
 
         /**
          * ApplicationContext service locator pattern define module.
          *
-         * @param      id
-         * @api public
+         * @param   id
+         * @api     public
          */
         require(id: string): any;
 
         /**
          * ApplicationContext add startup loaded bean ids.
          *
-         * @param    ids loaded bean ids
-         * @api public
+         * @param   ids loaded bean ids
+         * @api     public
          */
         use(ids: string[]): void;
 
         /**
          * ApplicationContext async load bean with bean ids.
          *
-         * @param       ids bean ids
-         * @param    cb callback function
-         * @api public
+         * @param   ids bean ids
+         * @param   cb callback function
+         * @api     public
          */
         async(ids: string[], cb?: CallbackFunc): void;
 
@@ -513,8 +505,8 @@ declare namespace bearcat {
          * ApplicationContext check ApplicationContext contains bean or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  a boolean value that contains bean or not
+         * @api     public
          */
         containsBean(beanName: string): boolean;
 
@@ -522,8 +514,8 @@ declare namespace bearcat {
          * ApplicationContext check bean is a singleton or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  a boolean value that is a singleton or not
+         * @api     public
          */
         isSingleton(beanName: string): boolean;
 
@@ -531,8 +523,8 @@ declare namespace bearcat {
          * ApplicationContext check bean is a prototype or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  a boolean value that is a prototype or not
+         * @api     public
          */
         isPrototype(beanName: string): boolean;
 
@@ -540,8 +532,8 @@ declare namespace bearcat {
          * ApplicationContext check ApplicationContext contains beanName beanDefinition or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  a boolean value that contains beanName beanDefinition or not
+         * @api     public
          */
         containsBeanDefinition(beanName: string): boolean;
 
@@ -549,14 +541,14 @@ declare namespace bearcat {
          * ApplicationContext check whether applicationContext is running or not.
          *
          * @return  true|false
-         * @api public
+         * @api     public
          */
         isRunning(): boolean;
 
         /**
          * ApplicationContext close beanFactory.
          *
-         * @api public
+         * @api     public
          */
         closeBeanFactory(): void;
 
@@ -564,7 +556,7 @@ declare namespace bearcat {
          * ApplicationContext check whether applicationContext has beanFactory or not.
          *
          * @return  true|false
-         * @api public
+         * @api     public
          */
         hasBeanFactory(): boolean;
 
@@ -572,7 +564,7 @@ declare namespace bearcat {
          * ApplicationContext getBeanFactory.
          *
          * @return  beanFactory
-         * @api public
+         * @api     public
          */
         getBeanFactory(): BeanFactory;
 
@@ -580,7 +572,7 @@ declare namespace bearcat {
          * ApplicationContext getModuleFactory.
          *
          * @return  moduleFactory
-         * @api public
+         * @api     public
          */
         getModuleFactory(): ModuleFactory;
 
@@ -589,7 +581,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  beanDefinition
-         * @api public
+         * @api     public
          */
         getBeanDefinition(beanName: string): object;
 
@@ -597,15 +589,15 @@ declare namespace bearcat {
          * ApplicationContext remove beanDefinition from ApplicationContext.
          *
          * @param   beanName
-         * @api public
+         * @api     public
          */
         removeBeanDefinition(beanName: string): void;
 
         /**
          * ApplicationContext set env.
          *
-         * @param  env
-         * @api public
+         * @param   env
+         * @api     public
          */
         setEnv(env: string): void;
 
@@ -613,15 +605,15 @@ declare namespace bearcat {
          * ApplicationContext get env.
          *
          * @return  env
-         * @api public
+         * @api     public
          */
         getEnv(): string;
 
         /**
          * ApplicationContext set config path.
          *
-         * @param  cpath config path
-         * @api public
+         * @param   cpath config path
+         * @api     public
          */
         setConfigPath(cpath: string): void;
 
@@ -629,15 +621,15 @@ declare namespace bearcat {
          * ApplicationContext get config path.
          *
          * @return  config path
-         * @api public
+         * @api     public
          */
         getConfigPath(): string;
 
         /**
          * ApplicationContext set hot reload path.
          *
-         * @param  hpath hot reload path
-         * @api public
+         * @param   hpath hot reload path
+         * @api     public
          */
         setHotPath(hpath: string): void;
 
@@ -645,7 +637,7 @@ declare namespace bearcat {
          * ApplicationContext get hot reload path.
          *
          * @return  hpath hot reload path
-         * @api public
+         * @api     public
          */
         getHotPath(): string;
 
@@ -653,7 +645,7 @@ declare namespace bearcat {
          * ApplicationContext get base path.
          *
          * @return  base path
-         * @api public
+         * @api     public
          */
         getBase(): string;
     }
@@ -675,7 +667,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  bean object
-         * @api public
+         * @api     public
          */
         getBean(beanName: string): object;
 
@@ -685,7 +677,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  bean proxy object
-         * @api public
+         * @api     public
          */
         getBeanProxy(beanName: string): object;
 
@@ -694,7 +686,7 @@ declare namespace bearcat {
          *
          * @param   modelId
          * @return  model proxy object
-         * @api public
+         * @api     public
          */
         getModelProxy(modelId: string): object;
 
@@ -703,7 +695,7 @@ declare namespace bearcat {
          *
          * @param   cid
          * @return  constraint bean object
-         * @api public
+         * @api     public
          */
         getConstraint(cid: string): object;
 
@@ -712,7 +704,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  beanDefinition
-         * @api public
+         * @api     public
          */
         setParentBean(beanName: string): object;
 
@@ -720,7 +712,7 @@ declare namespace bearcat {
          * BeanFactory register beans through metaObjects into BeanFactory.
          *
          * @param   metaObjects
-         * @api public
+         * @api     public
          */
         registerBeans(metaObjects: object): void;
 
@@ -729,7 +721,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @param   metaObject
-         * @api public
+         * @api     public
          */
         registerBean(beanName: string, metaObject: object): void;
 
@@ -739,7 +731,7 @@ declare namespace bearcat {
          * @param   beanName bean id
          * @param   modelId  model id
          * @param   metaObject
-         * @api public
+         * @api     public
          */
         registerModel(beanName: string, modelId: string, metaObject: object): void;
 
@@ -749,7 +741,7 @@ declare namespace bearcat {
          * @param   beanName bean id
          * @param   cid      constraint id
          * @param   metaObject
-         * @api public
+         * @api     public
          */
         registerConstraint(beanName: string, cid: string, metaObject: object): void;
 
@@ -757,14 +749,14 @@ declare namespace bearcat {
          * BeanFactory instantiating singletion beans in advance.
          *
          * @param   cb callback function
-         * @api public
+         * @api     public
          */
         preInstantiateSingletons(cb?: CallbackFunc): void;
 
         /**
          * BeanFactory add beanPostProcessor to BeanFactory.
          * @param   beanPostProcessor
-         * @api public
+         * @api     public
          */
         addBeanPostProcessor(beanPostProcessor: BeanPostProcessor): void;
 
@@ -778,14 +770,14 @@ declare namespace bearcat {
         /**
          * BeanFactory destroy singletons.
          *
-         * @api public
+         * @api     public
          */
         destroySingletons(): void;
 
         /**
          * BeanFactory destroy BeanFactory.
          *
-         * @api public
+         * @api     public
          */
         destroyBeanFactory(): void;
 
@@ -793,7 +785,7 @@ declare namespace bearcat {
          * BeanFactory destroy singleton.
          *
          * @param   beanName
-         * @api public
+         * @api     public
          */
         destroySingleton(beanName: string): void;
 
@@ -802,7 +794,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @param   beanObject
-         * @api public
+         * @api     public
          */
         destroyBean(beanName: string, beanObject: object): void;
 
@@ -810,8 +802,8 @@ declare namespace bearcat {
          * BeanFactory check bean is a singleton or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  true | false
+         * @api     public
          */
         isSingleton(beanName: string): boolean;
 
@@ -819,8 +811,8 @@ declare namespace bearcat {
          * BeanFactory check bean is a prototype or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  true | false
+         * @api     public
          */
         isPrototype(beanName: string): boolean;
 
@@ -828,8 +820,8 @@ declare namespace bearcat {
          * BeanFactory check BeanFactory contains bean or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  true | false
+         * @api     public
          */
         containsBean(beanName: string): boolean;
 
@@ -838,16 +830,16 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  bean constructor function
-         * @api public
+         * @api     public
          */
         getBeanFunction(beanName: string): ConstructorFunction;
 
         /**
          * BeanFactory set bean contructor function.
          *
-         * @param     beanName
+         * @param   beanName
          * @param   func bean constructor function
-         * @api public
+         * @api     public
          */
         setBeanFunction(beanName: string, func: ConstructorFunction): void;
 
@@ -855,25 +847,25 @@ declare namespace bearcat {
          * BeanFactory remove bean contructor function from BeanFactory.
          *
          * @param   beanName
-         * @api public
+         * @api     public
          */
         removeFunction(beanName: string): void;
 
         /**
          * BeanFactory get init method.
          *
-         * @param     beanName
+         * @param   beanName
          * @return  bean init method
-         * @api public
+         * @api     public
          */
         getInitCb(beanName: string): CallbackFunc;
 
         /**
          * BeanFactory set init method.
          *
-         * @param     beanName
+         * @param   beanName
          * @param   initCb bean init method
-         * @api public
+         * @api     public
          */
         setInitCb(beanName: string, initCb: CallbackFunc): void;
 
@@ -882,7 +874,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  beanDefinition
-         * @api public
+         * @api     public
          */
         getBeanDefinition(beanName: string): object;
 
@@ -890,7 +882,7 @@ declare namespace bearcat {
          * BeanFactory get beanDefinitions.
          *
          * @return  beanDefinitions
-         * @api public
+         * @api     public
          */
         getBeanDefinitions(): object;
 
@@ -898,7 +890,7 @@ declare namespace bearcat {
          * BeanFactory remove beanDefinition from BeanFactory.
          *
          * @param   beanName
-         * @api public
+         * @api     public
          */
         removeBeanDefinition(beanName: string): void;
 
@@ -906,8 +898,8 @@ declare namespace bearcat {
          * BeanFactory check BeanFactory contains beanName beanDefinition or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  true | false
+         * @api     public
          */
         containsBeanDefinition(beanName: string): boolean;
 
@@ -915,7 +907,7 @@ declare namespace bearcat {
          * BeanFactory get aspects.
          *
          * @return  aspects
-         * @api public
+         * @api     public
          */
         getAspects(): object[];
 
@@ -924,7 +916,7 @@ declare namespace bearcat {
          *
          * @param   modelId
          * @return  modelDefinition
-         * @api public
+         * @api     public
          */
         getModelDefinition(modelId: string): object;
 
@@ -932,7 +924,7 @@ declare namespace bearcat {
          * BeanFactory get modelDefinitions.
          *
          * @return  modelDefinition map
-         * @api public
+         * @api     public
          */
         getModelDefinitions(): object;
 
@@ -941,7 +933,7 @@ declare namespace bearcat {
          *
          * @param   cid
          * @return  getConstraintDefinition
-         * @api public
+         * @api     public
          */
         getConstraintDefinition(cid: string): object;
 
@@ -950,16 +942,16 @@ declare namespace bearcat {
          *
          * @param   table name
          * @param   modelDefinition
-         * @api public
+         * @api     public
          */
         setTableModelMap(table: string, modelDefinition: object): void;
 
         /**
          * BeanFactory get modelDefinition by table.
          *
-         * @param    table name
-         * @return   modelDefinition
-         * @api public
+         * @param   table name
+         * @return  modelDefinition
+         * @api     public
          */
         getModelDefinitionByTable(table: string): object;
     }
@@ -973,7 +965,7 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @param   beanObject
-         * @api public
+         * @api     public
          */
         addSingleton(beanName: string, beanObject: object): void;
 
@@ -981,8 +973,8 @@ declare namespace bearcat {
          * SingletonBeanFactory check SingletonBeanFactory contains singleton or not.
          *
          * @param   beanName
-         * @return
-         * @api public
+         * @return  true | false
+         * @api     public
          */
         containsSingleton(beanName: string): boolean;
 
@@ -991,14 +983,14 @@ declare namespace bearcat {
          *
          * @param   beanName
          * @return  singletonObject
-         * @api public
+         * @api     public
          */
         getSingleton(beanName: string): object;
 
         /**
          * SingletonBeanFactory get all singleton names from SingletonBeanFactory.
          *
-         * @api public
+         * @api     public
          */
         getSingletonNames(): string[];
 
@@ -1006,7 +998,7 @@ declare namespace bearcat {
          * SingletonBeanFactory remove singleton from SingletonBeanFactory.
          *
          * @param   beanName
-         * @api public
+         * @api     public
          */
         removeSingleton(beanName: string): void;
     }
@@ -1027,8 +1019,8 @@ declare namespace bearcat {
         /**
          * ResourceLoader get config loader.
          *
-         * @return   config loader
-         * @api public
+         * @return  config loader
+         * @api     public
          */
         getConfigLoader(): ConfigLoader;
 
@@ -1036,16 +1028,16 @@ declare namespace bearcat {
          * ResourceLoader add context load path.
          *
          * @param   cpath context load path
-         * @api public
+         * @api     public
          */
         addLoadPath(cpath: string): void;
 
         /**
          * ResourceLoader load metaObjects from context path.
          *
-         * @param    cpath context load path
-         * @return   metaObjects
-         * @api public
+         * @param   cpath context load path
+         * @return  metaObjects
+         * @api     public
          */
         load(cpath: string): object;
     }
@@ -1054,27 +1046,27 @@ declare namespace bearcat {
         /**
          * ConfigLoader get meta loader.
          *
-         * @return   meta loader
-         * @api public
+         * @return  meta loader
+         * @api     public
          */
         getMetaLoader(): MetaLoader;
 
         /**
          * ConfigLoader get meta objects from context path.
          *
-         * @param    cpath context path
-         * @return   meta objects
-         * @api public
+         * @param   cpath context path
+         * @return  meta objects
+         * @api     public
          */
         getResources(cpath: string): object;
 
         /**
          * ConfigLoader get recursive scan paths and metaObjects in context.json.
          *
-         * @param    cpath context path
-         * @param     scanPaths scan paths
-         * @param    metaObjects
-         * @api public
+         * @param   cpath context path
+         * @param   scanPaths scan paths
+         * @param   metaObjects
+         * @api     public
          */
         getRecursiveScanPath(cpath: string, scanPaths: string[], metaObjects: object): void;
     }
@@ -1085,26 +1077,26 @@ declare namespace bearcat {
         /**
          * MetaLoader load metaObjects from meta path.
          *
-         * @param    mpath
-         * @return   meta objects
-         * @api public
+         * @param   mpath
+         * @return  meta objects
+         * @api     public
          */
         load(mpath: string): object;
 
         /**
          * MetaLoader set metaObject to beanName.
          *
-         * @param    beanName
-         * @param    metaObject
-         * @api public
+         * @param   beanName
+         * @param   metaObject
+         * @api     public
          */
         setMetaObject(beanName: string, metaObject: object): void;
 
         /**
          * MetaLoader get metaObjects.
          *
-         * @return    metaObjects
-         * @api public
+         * @return  metaObjects
+         * @api     public
          */
         getMetaObjects(): object;
     }
@@ -1117,81 +1109,81 @@ declare namespace bearcat {
         /**
          * AsyncScriptLoader get loaded beans list.
          *
-         * @return    loaded beans
-         * @api public
+         * @return  loaded beans
+         * @api     public
          */
         getLoadBeans(): object[];
 
         /**
          * AsyncScriptLoader load beans asynchronously.
          *
-         * @param       ids loaded beans ids
-         * @param    cb callback function
-         * @api public
+         * @param   ids loaded beans ids
+         * @param   cb callback function
+         * @api     public
          */
         load(ids: string[], cb?: CallbackFunc): void;
 
         /**
          * AsyncScriptLoader save load script with uri meta.
          *
-         * @param    uri
-         * @param    meta
-         * @api public
+         * @param   uri
+         * @param   meta
+         * @api     public
          */
         save(uri: string, meta: object): void;
 
         /**
          * AsyncScriptLoader register script with id, meta.
          *
-         * @param    id
-         * @param    beanMeta
-         * @api public
+         * @param   id
+         * @param   beanMeta
+         * @api     public
          */
         module(id: string, beanMeta: object): void;
 
         /**
          * AsyncScriptLoader resolve uri path with refUri.
          *
-         * @param    id
-         * @param    refUri
-         * @return   resolved path
-         * @api public
+         * @param   id
+         * @param   refUri
+         * @return  resolved path
+         * @api     public
          */
         resolve(id: string, refUri: string): string;
 
         /**
          * AsyncScriptLoader resolve deps through bean meta.
          *
-         * @param    beanMeta
-         * @return     resolved deps
-         * @api public
+         * @param   beanMeta
+         * @return  resolved deps
+         * @api     public
          */
         resolveDeps(beanMeta: object): string[];
 
         /**
          * AsyncScriptLoader get bean path through bean id.
          *
-         * @param    id
-         * @return   bean path
-         * @api public
+         * @param   id
+         * @return  bean path
+         * @api     public
          */
         getPathById(id: string): string;
 
         /**
          * AsyncScriptLoader get script from cache or new.
          *
-         * @param    uri
-         * @param     deps id
-         * @return   module
-         * @api public
+         * @param   uri
+         * @param   deps id
+         * @return  module
+         * @api     public
          */
         get(uri: string, deps: string[]): object;
 
         /**
          * AsyncScriptLoader set applicationContext reference.
          *
-         * @param    applicationContext
-         * @api public
+         * @param   applicationContext
+         * @api     public
          */
         setApplicationContext(applicationContext: ApplicationContext): void;
     }
@@ -1200,8 +1192,8 @@ declare namespace bearcat {
         /**
          * BootStrapLoader load script files.
          *
-         * @api public
-         * @param idPaths
+         * @param   idPaths
+         * @api     public
          */
         load(idPaths: string[]): void;
     }
