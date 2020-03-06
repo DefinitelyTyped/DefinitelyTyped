@@ -117,7 +117,7 @@ declare namespace bearcat {
          *      bearcat.use(['car']);
          *      bearcat.use('car');
          *
-         * @param  {Array|String} ids async loading beans id
+         * @param  ids async loading beans id
          * @api public
          */
         use(ids: string | string[]): void;
@@ -131,8 +131,8 @@ declare namespace bearcat {
          *		  // car is ready
          *	  });
          *
-         * @param  {Array|String} ids async loading beans id
-         * @param      cb callback with loaded bean instances
+         * @param   ids async loading beans id
+         * @param   cb callback with loaded bean instances
          * @api public
          */
         async(ids: string | string[], cb?: CallbackFunc): void;
@@ -251,9 +251,9 @@ declare namespace bearcat {
          *      bearcat.extend("bus", "car");
          *
          *
-         * @param          beanName
-         * @param  {String|Array}   superBeanName or superBeanName array
-         * @api public
+         * @param  beanName
+         * @param  superBeanName or superBeanName array
+         * @api    public
          */
         extend(beanName: string, superBeanName: string | string[]): void;
 
@@ -495,9 +495,9 @@ declare namespace bearcat {
         /**
          * ApplicationContext extend bean.
          *
-         * @param          beanName
-         * @param  {String|Array}   superBeanName or superBeanName array
-         * @api public
+         * @param   beanName
+         * @param   superBeanName or superBeanName array
+         * @api     public
          */
         extendBean(beanName: string, superBeanName: string | string[]): void;
 
