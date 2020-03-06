@@ -2,7 +2,7 @@
 // Project: https://github.com/theganyo/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.4
 
 /* =================== USAGE ===================
 

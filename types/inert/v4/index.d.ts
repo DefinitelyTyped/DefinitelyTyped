@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/inert/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.4
 
 import * as hapi from 'hapi';
 

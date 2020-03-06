@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/glue
 // Definitions by: Greg Jednaszewski <https://github.com/gjednaszewski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 3.4
 
 import { Server, ServerConnectionOptions, ServerOptions } from "hapi";
 
