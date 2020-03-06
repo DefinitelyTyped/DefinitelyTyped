@@ -900,11 +900,11 @@ declare namespace Office {
          * 
          * **Requirement set**: TBD
          *
-         * You can add multiple event handlers for the specified eventType as long as the name of each event handler function is unique.
+         * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
          *
          * @param eventType Specifies the type of event to add. This must be `Office.EventType.DialogParentMessageReceived`.
-         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}
-         * @param options Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
          * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
          */
         addHandlerAsync(eventType: Office.EventType, handler: (result: any) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
@@ -1690,7 +1690,7 @@ declare namespace Office {
          * 
          * **Requirement set**: TBD
          * 
-         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can serialized to a string including JSON and XML can be sent.
+         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
          */
         messageChild(message: string): void;
         /**
