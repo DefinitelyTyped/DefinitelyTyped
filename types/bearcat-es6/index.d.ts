@@ -1074,7 +1074,7 @@ declare namespace bearcat {
          * @return  {Object} config loader
          * @api public
          */
-        getConfigLoader(): object;
+        getConfigLoader(): ConfigLoader;
 
         /**
          * ResourceLoader add context load path.
@@ -1092,6 +1092,67 @@ declare namespace bearcat {
          * @api public
          */
         load(cpath: string): object;
+    }
+
+    interface ConfigLoader {
+        /**
+         * ConfigLoader get meta loader.
+         *
+         * @return  {Object} meta loader
+         * @api public
+         */
+        getMetaLoader(): MetaLoader;
+
+        /**
+         * ConfigLoader get meta objects from context path.
+         *
+         * @param   {String} cpath context path
+         * @return  {Object} meta objects
+         * @api public
+         */
+        getResources(cpath : string): object;
+
+        /**
+         * ConfigLoader get recursive scan paths and metaObjects in context.json.
+         *
+         * @param   {String} cpath context path
+         * @param   {Array}  scanPaths scan paths
+         * @param   {Object} metaObjects
+         * @api public
+         */
+        getRecursiveScanPath(cpath: string, scanPaths: string[], metaObjects: object): void;
+    }
+
+    interface MetaLoader {
+        metaObjects: object;
+
+        /**
+         * MetaLoader load metaObjects from meta path.
+         *
+         * @param   {String} mpath
+         * @return  {Object} meta objects
+         * @api public
+         */
+        load(mpath: string): object;
+
+        /**
+         * MetaLoader set metaObject to beanName.
+         *
+         * @param   {String} beanName
+         * @param   {Object} metaObject
+         * @api public
+         */
+        setMetaObject(beanName: string, metaObject: object): void;
+
+        /**
+         * MetaLoader get metaObjects.
+         *
+         * @return   {Object} metaObjects
+         * @api public
+         */
+        getMetaObjects(): object;
+
+
     }
 
     interface AsyncScriptLoader {
