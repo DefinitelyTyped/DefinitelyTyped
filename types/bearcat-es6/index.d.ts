@@ -82,13 +82,6 @@ declare namespace bearcat {
         /**
          * Bearcat get bean from IoC container through meta argument.
          *
-         * Examples:
-         *
-         *      bearcat.getBeanByMeta({
-         *		 id: "car",
-         *		 func: Car // Car is a function constructor
-         *	  });
-         *
          * @param   meta meta object
          * @api public
          */
@@ -96,13 +89,6 @@ declare namespace bearcat {
 
         /**
          * Bearcat get bean from IoC container through $ annotation function.
-         *
-         * Examples:
-         *
-         *      bearcat.getBeanByFunc(function() {
-         *		 $id = "car";
-         *		 $scope = "prototype";
-         *	  });
          *
          * @param   func $ annotation function
          * @api public
@@ -125,12 +111,6 @@ declare namespace bearcat {
         /**
          * Bearcat async loading beans.
          *
-         * Examples:
-         *
-         *      bearcat.async(['car'], function(car) {
-         *		  // car is ready
-         *	  });
-         *
          * @param   ids async loading beans id
          * @param   cb callback with loaded bean instances
          * @api public
@@ -139,13 +119,6 @@ declare namespace bearcat {
 
         /**
          * Bearcat add module(bean) to IoC container through $ annotation function.
-         *
-         * Examples:
-         *
-         *      bearcat.module(function() {
-         *		 $id = "car";
-         *		 $scope = "prototype";
-         *	  });
          *
          * @param   func $ annotation function
          * @param   context context object
@@ -185,24 +158,6 @@ declare namespace bearcat {
 
         /**
          * Bearcat get bean from IoC container through beanName or meta argument.
-         *
-         * Examples:
-         *
-         *
-         *      // through beanName
-         *      var car = bearcat.getBean("car");
-         *
-         *      // through meta
-         *      var car = bearcat.getBean({
-         *		 id: "car",
-         *		 func: Car // Car is a function constructor
-         *	  });
-         *
-         *      // through $ annotation func
-         *      var car = bearcat.getBean(function() {
-         *		 $id = "car";
-         *		 $scope = "prototype";
-         *	  });
          *
          * @param   beanName
          * @return  bean

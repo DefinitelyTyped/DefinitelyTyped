@@ -11,8 +11,8 @@ bearcat.start(() => {
     bearcat.define('testId', EF, null);
     bearcat.require('testId');
     bearcat.getBean('testId');
-    bearcat.getFunction('testId');      // $ExpectType Function | null
-    bearcat.getClass('testId');         // $ExpectType Function | null
+    bearcat.getFunction('testId');      // $ExpectType ConstructorFunction | null
+    bearcat.getClass('testId');         // $ExpectType ConstructorFunction | null
     bearcat.extend('testSubId', 'testId');
     bearcat.call('testId', null);
     bearcat.getModel('testSubId');
