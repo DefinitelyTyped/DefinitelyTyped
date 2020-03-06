@@ -1,7 +1,6 @@
-import PiCamera from 'pi-camera';
+import PiCamera = require('pi-camera');
 
-// tslint:disable-next-line no-console
-const log = console.log;
+declare function log(msg: string | number | boolean): string;
 
 const camera = new PiCamera({
     mode: 'photo',
