@@ -13,10 +13,6 @@ import { Server } from 'http';
 import { Express } from 'express';
 
 declare namespace Hubot {
-    interface UnknownData {
-        [key: string]: unknown;
-    }
-
     class Adapter extends EventEmitter {
         constructor(robot: Robot);
 
@@ -33,7 +29,7 @@ declare namespace Hubot {
         http(url: string): ScopedClient;
 
         users(): User[];
-        userForId(id: string, options?: UnknownData): User;
+        userForId(id: string, options?: {}): User;
         userForName(name: string): User | null;
         usersForRawFuzzyName(fuzzyName: string): User[];
         usersForFuzzyName(fuzzyName: string): User[];
@@ -66,16 +62,16 @@ declare namespace Hubot {
         close(): void;
         setAutoSave(enabled: boolean): void;
         resetSaveInterval(seconds: number): void;
-        mergeData(data: UnknownData): void;
+        mergeData(data: {}): void;
         users(): User[];
-        userForId(id: string, options?: UnknownData): User;
+        userForId(id: string, options?: {}): User;
         userForName(name: string): User | null;
         usersForRawFuzzyName(fuzzyName: string): User[];
         usersForFuzzyName(fuzzyName: string): User[];
     }
 
     class User {
-        constructor(id: string, options?: UnknownData);
+        constructor(id: string, options?: {});
         id: string;
         name: string;
         set(key: string, value: any): this;
@@ -199,19 +195,19 @@ declare namespace Hubot {
 
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         catchAll(callback: ListenerCallback<A, CatchAllMessage>): void;
-        catchAll(options: UnknownData, callback: ListenerCallback<A, CatchAllMessage>): void;
+        catchAll(options: {}, callback: ListenerCallback<A, CatchAllMessage>): void;
         emit(event: string | symbol, ...args: unknown[]): void;
         enter(callback: ListenerCallback<A, EnterMessage>): void;
-        enter(options: UnknownData, callback: ListenerCallback<A, EnterMessage>): void;
+        enter(options: {}, callback: ListenerCallback<A, EnterMessage>): void;
         error(cb: (error: Error) => void): void;
         hear(regex: RegExp, callback: ListenerCallback<A, TextMessage>): void;
-        hear(regex: RegExp, options: UnknownData, callback: ListenerCallback<A, TextMessage>): void;
+        hear(regex: RegExp, options: {}, callback: ListenerCallback<A, TextMessage>): void;
         helpCommands(): string[];
         http(url: string, options?: HttpOptions): ScopedClient;
         leave(callback: ListenerCallback<A, LeaveMessage>): void;
-        leave(options: UnknownData, callback: ListenerCallback<A, LeaveMessage>): void;
+        leave(options: {}, callback: ListenerCallback<A, LeaveMessage>): void;
         listen(matcher: (message: Message) => boolean, callback: ListenerCallback<A>): void;
-        listen(matcher: (message: Message) => boolean, options: UnknownData, callback: ListenerCallback<A>): void;
+        listen(matcher: (message: Message) => boolean, options: {}, callback: ListenerCallback<A>): void;
         listenerMiddleware(middleware: MiddlewareHandler<A>): void;
         loadExternalScripts(packages: string[]): void;
         loadFile(directory: string, fileName: string): void;
@@ -222,14 +218,14 @@ declare namespace Hubot {
         receiveMiddleware(middleware: MiddlewareHandler<A>): void;
         reply(envelope: Envelope, ...strings: string[]): void;
         respond(regex: RegExp, callback: ListenerCallback<A, TextMessage>): void;
-        respond(regex: RegExp, options: UnknownData, callback: ListenerCallback<A, TextMessage>): void;
+        respond(regex: RegExp, options: {}, callback: ListenerCallback<A, TextMessage>): void;
         respondPattern(regex: RegExp): RegExp;
         responseMiddleware(middleware: MiddlewareHandler<A>): void;
         run(): void;
         send(envelope: Envelope, ...strings: string[]): void;
         shutdown(): void;
         topic(callback: ListenerCallback<A, TopicMessage>): void;
-        topic(options: UnknownData, callback: ListenerCallback<A, TopicMessage>): void;
+        topic(options: {}, callback: ListenerCallback<A, TopicMessage>): void;
     }
 }
 
