@@ -3,9 +3,9 @@ import { ComponentType, HTMLProps } from '@wordpress/element';
 declare namespace Button {
     interface BaseProps {
         /**
-         * Renders a default button style.
+         * Renders a secondary button style.
          */
-        isDefault?: boolean;
+        isSecondary?: boolean;
         /**
          * Renders a primary button style.
          */
