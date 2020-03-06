@@ -728,6 +728,11 @@ export class ExtendedTileLayer extends L.TileLayer {
 		newCoords.z = coords.z;
 		return super.createTile(newCoords, done);
 	}
+
+	getTileUrl(coords: L.Coords) {
+		return super.getTileUrl(coords);
+	}
+
 	_abortLoading() {
 		// adapted from TileLayer's implementation
 		for (const i in this._tiles) {
