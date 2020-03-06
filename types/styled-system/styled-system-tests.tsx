@@ -220,6 +220,7 @@ const test = () => (
         <Box display={{ sm: 'block', md: 'inline-block' }} />
         // maxWidth (responsive)
         <Box maxWidth={1024} />
+        <Box maxWidth={null} />
         <Box maxWidth={[768, null, null, 1024]} />
         <Box maxWidth={{ sm: 768, lg: 1024 }} />
         // minWidth (responsive)
