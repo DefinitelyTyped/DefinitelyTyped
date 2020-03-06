@@ -5,8 +5,9 @@
 //                 Simon Schick <https://github.com/SimonSchick>
 //                 Rodrigo Saboya <https://github.com/saboya>
 //                 Silas Rech <https://github.com/lenovouser>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
