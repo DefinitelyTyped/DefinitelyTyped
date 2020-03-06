@@ -7,7 +7,6 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
-import { FunctionExpression } from '../estree';
 
 declare namespace bearcat {
     type CallbackFunc = () => void;
