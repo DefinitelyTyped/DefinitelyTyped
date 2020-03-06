@@ -7,10 +7,12 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
+import { FunctionExpression } from '../estree';
 
 declare namespace bearcat {
     type CallbackFunc = () => void;
     type ParamClassFunc = () => void;
+    type ConstructorFunction = (...params: any[]) => any | (new (...params: any[]) => any);
     interface BeanPostProcessor {
         postProcessBeanFactory: CallbackFunc;
     }
@@ -223,7 +225,7 @@ declare namespace bearcat {
          * @return {Function} bean constructor function
          * @api public
          */
-        getFunction(beanName: string): Function | null;
+        getFunction(beanName: string): ConstructorFunction | null;
 
         /**
          * Bearcat get bean constructor function from IoC container through beanName, the same as bearcat.getFunction.
@@ -239,7 +241,7 @@ declare namespace bearcat {
          * @return {Function} bean constructor function
          * @api public
          */
-        getClass(beanName: string): Function | null;
+        getClass(beanName: string): ConstructorFunction | null;
 
         /**
          * Bearcat shim to enable function inherits.
@@ -303,7 +305,7 @@ declare namespace bearcat {
          * @param  {String} fnName routeName
          * @api public
          */
-        getRoute(beanName: string, fnName: string): Function;
+        getRoute(beanName: string, fnName: string): ConstructorFunction;
     }
 
     interface ApplicationContext extends EventEmitter {
@@ -462,7 +464,7 @@ declare namespace bearcat {
          * @return  {Object}   beanObject
          * @api public
          */
-        getBeanByFunc(func: Function): object;
+        getBeanByFunc(func: ConstructorFunction): object;
 
         /**
          * ApplicationContext getModel through modelId.
@@ -489,7 +491,7 @@ declare namespace bearcat {
          * @return {Function} bean constructor function
          * @api public
          */
-        getBeanFunction(beanName: string): Function;
+        getBeanFunction(beanName: string): ConstructorFunction;
 
         /**
          * ApplicationContext extend bean.
@@ -516,7 +518,7 @@ declare namespace bearcat {
          * @param   {Object} context
          * @api public
          */
-        module(func: Function, context?: object | null): void;
+        module(func: ConstructorFunction, context?: object | null): void;
 
         /**
          * ApplicationContext service locator pattern define module.
@@ -526,7 +528,7 @@ declare namespace bearcat {
          * @param   {Object} context context object
          * @api public
          */
-        define(id: string, factory: Function, context?: object | null): void;
+        define(id: string, factory: ConstructorFunction, context?: object | null): void;
 
         /**
          * ApplicationContext service locator pattern define module.
@@ -884,7 +886,7 @@ declare namespace bearcat {
          * @return {Function} bean constructor function
          * @api public
          */
-        getBeanFunction(beanName: string): Function;
+        getBeanFunction(beanName: string): ConstructorFunction;
 
         /**
          * BeanFactory set bean contructor function.
@@ -893,7 +895,7 @@ declare namespace bearcat {
          * @param  {Function} func bean constructor function
          * @api public
          */
-        setBeanFunction(beanName: string, func: Function): void;
+        setBeanFunction(beanName: string, func: ConstructorFunction): void;
 
         /**
          * BeanFactory remove bean contructor function from BeanFactory.
@@ -910,7 +912,7 @@ declare namespace bearcat {
          * @return {Function} bean init method
          * @api public
          */
-        getInitCb(beanName: string): Function;
+        getInitCb(beanName: string): CallbackFunc;
 
         /**
          * BeanFactory set init method.
@@ -919,7 +921,7 @@ declare namespace bearcat {
          * @param  {Function} initCb bean init method
          * @api public
          */
-        setInitCb(beanName: string, initCb: Function): void;
+        setInitCb(beanName: string, initCb: CallbackFunc): void;
 
         /**
          * BeanFactory get beanDefinition.
@@ -1110,7 +1112,7 @@ declare namespace bearcat {
          * @return  {Object} meta objects
          * @api public
          */
-        getResources(cpath : string): object;
+        getResources(cpath: string): object;
 
         /**
          * ConfigLoader get recursive scan paths and metaObjects in context.json.
@@ -1151,8 +1153,6 @@ declare namespace bearcat {
          * @api public
          */
         getMetaObjects(): object;
-
-
     }
 
     interface AsyncScriptLoader {
