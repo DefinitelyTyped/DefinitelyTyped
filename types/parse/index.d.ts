@@ -660,6 +660,7 @@ namespace Parse {
         each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.EachOptions): Promise<void>;
         endsWith<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, suffix: string): this;
         equalTo<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K, value: T['attributes'][K] | (T['attributes'][K] extends Object ? Pointer : never)): this;
+        exclude<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K | K[]): this;
         exists<K extends (keyof T['attributes'] | keyof BaseAttributes)>(key: K): this;
         find(options?: Query.FindOptions): Promise<T[]>;
         first(options?: Query.FirstOptions): Promise<T | undefined>;
