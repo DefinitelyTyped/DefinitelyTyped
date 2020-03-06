@@ -8,7 +8,7 @@ import Vue from 'vue';
 import { Component } from 'vue/types/options';
 import { CalendarProps } from './options';
 
-interface CalendarComponent extends Vue {
+export interface FullCalendarComponent extends Vue {
     buildCalendarOptions: () => void;
     recordDirtyOption: (optionName: any, newVal: any) => void;
     renderDirty: () => void;
@@ -16,7 +16,5 @@ interface CalendarComponent extends Vue {
 }
 
 declare const FullCalendar: Component<any, any, any, CalendarProps>;
-
 export function install(Vue: () => any): void;
-export type FullCalendarComponent = CalendarComponent;
 export default FullCalendar;
