@@ -59,6 +59,7 @@ declare namespace prompts {
         title: string;
         value: any;
         disable?: boolean;
+        description?: string;
     }
 
     interface Options {
