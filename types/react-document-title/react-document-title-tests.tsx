@@ -9,12 +9,12 @@ class TitleTest extends React.Component<any, any> {
 
 class TitleTestOneChild extends React.Component<any, any> {
     render() {
-        return <DocumentTitle title="Test">A Child</Document Title>;
+        return <DocumentTitle title="Test">A Child</DocumentTitle>;
     }
 }
 
 class TitleTestOneReactChild extends React.Component<any, any> {
     render() {
-        return <DocumentTitle title="Test"><div>A Child</div></Document Title>;
+        return <DocumentTitle title="Test"><div>A Child</div></DocumentTitle>;
     }
 }
