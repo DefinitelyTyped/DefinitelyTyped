@@ -1,4 +1,4 @@
-// Type definitions for gestalt 1.11
+// Type definitions for gestalt 1.15
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -674,6 +674,7 @@ export interface SearchFieldProps {
     onBlur?: (args: { event: React.SyntheticEvent<HTMLInputElement> }) => void;
     onFocus?: (args: { value: string; syntheticEvent: React.SyntheticEvent<HTMLInputElement> }) => void;
     placeholder?: string;
+    size?: 'md' | 'lg';
     value?: string;
 }
 
@@ -705,6 +706,7 @@ export interface SelectListProps {
     label?: string;
     name?: string;
     placeholder?: string;
+    size?: 'md' | 'lg';
     value?: string;
 }
 
@@ -756,6 +758,7 @@ export interface TabsProps {
     activeTabIndex: number;
     onChange: (args: { event: React.SyntheticEvent<React.MouseEvent>; activeTabIndex: number }) => void;
     tabs: ReadonlyArray<{ text: any; href: string }>;
+    size?: 'md' | 'lg';
     wrap?: boolean;
 }
 
@@ -833,6 +836,7 @@ export interface TextFieldProps {
     onFocus?: (args: { event: React.SyntheticEvent<React.FocusEvent<HTMLInputElement>>; value: string }) => void;
     onKeyDown?: (args: { event: React.SyntheticEvent<React.KeyboardEvent<HTMLInputElement>>; value: string }) => void;
     placeholder?: string;
+    size?: 'md' | 'lg';
     type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url';
     value?: string;
 }
