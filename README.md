@@ -79,7 +79,7 @@ Version | Released | End of Support
 3.0 | July 2018 | July 2020
 3.1 | September 2018 | September 2020
 3.2 | November 2018 | November 2020
-3.3 | January 2019 | January 2020
+3.3 | January 2019 | January 2021
 3.4 | March 2019 | March 2021
 3.5 | May 2019 | May 2021
 3.6 | August 2019 | August 2021
