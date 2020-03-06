@@ -9,15 +9,15 @@ const config1: op.ProtectionConfig = {
     maxRssBytes: 321,
     errorPropagationMode: true,
     logging: console.log,
-    logStatsOnReq: false
+    logStatsOnReq: false,
 };
 
 const config2: op.ProtectionConfig = {
-    logging: false
+    logging: false,
 };
 
 const config3: op.ProtectionConfig = {
-    logging: 'warn'
+    logging: 'warn',
 };
 
 const instance = op('koa');

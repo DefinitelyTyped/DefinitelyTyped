@@ -39,7 +39,13 @@ declare namespace protect {
     }
 }
 
-declare function protect(framework: protect.KoaFrameworkSelection, config?: protect.ProtectionConfig): protect.KoaProtectionInstance;
-declare function protect(framework: protect.HttpFrameworkSelection, config?: protect.ProtectionConfig): protect.HttpProtectionInstance;
+declare function protect(
+    framework: protect.KoaFrameworkSelection,
+    config?: protect.ProtectionConfig,
+): protect.KoaProtectionInstance;
+declare function protect(
+    framework: protect.HttpFrameworkSelection,
+    config?: protect.ProtectionConfig,
+): protect.HttpProtectionInstance;
 
 export = protect;
