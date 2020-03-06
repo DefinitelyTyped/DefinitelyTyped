@@ -2,6 +2,7 @@
 // Project: https://github.com/hapijs/catbox-memcached#readme
 // Definitions by: Avery Fay <https://github.com/btmorex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 import { CacheKey, ClientApi, ClientOptions } from '@hapi/catbox';
 

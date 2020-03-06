@@ -4,7 +4,7 @@
 //                 Todd Bealmear <https://github.com/todd>
 //                 Matt Jeanes <https://github.com/BlooJeans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 /// <reference types='node' />
 

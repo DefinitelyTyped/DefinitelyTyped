@@ -3,7 +3,7 @@
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
+// TypeScript Version: 3.4
 
 import { AuthMode, Server, Request, Plugin, AuthCredentials } from '@hapi/hapi';
 

@@ -4,7 +4,7 @@
 //                 Silas Rech <https://github.com/lenovouser>
 //                 Avery Fay <https://github.com/btmorex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.4
 
 import { Plugin, Server, ServerOptions } from "@hapi/hapi";
 

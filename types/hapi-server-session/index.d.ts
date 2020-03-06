@@ -2,6 +2,7 @@
 // Project: https://github.com/btmorex/hapi-server-session
 // Definitions by: Avery Fay <https://github.com/btmorex>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.4
 
 import { BinaryLike } from 'crypto';
 import { CachePolicyOptions, Plugin, ServerStateCookieOptions } from '@hapi/hapi';
