@@ -13,6 +13,7 @@ export interface HasAttributes {
 }
 
 export interface Node extends HasAttributes {
+    id: string;
 }
 
 export interface Edge extends HasAttributes {
