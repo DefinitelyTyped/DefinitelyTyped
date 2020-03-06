@@ -4,7 +4,7 @@ declare namespace Button {
     interface BaseProps {
         /**
          * Renders a default button style.
-         * @deprecated
+         * @deprecated Use isSecondary instead
          */
         isDefault?: boolean;
         /**
