@@ -5183,7 +5183,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: StyleProp<T>): T;
+    export function flatten<T>(style?: StyleProp<T>): T extends (infer U)[] ? U : T;
 
     /**
      * Combines two styles such that style2 will override any styles in style1.
@@ -7000,12 +7000,17 @@ export type BackPressEventName = 'hardwareBackPress';
  * Detect hardware back button presses, and programmatically invoke the
  * default back button functionality to exit the app if there are no
  * listeners or if none of the listeners return true.
- * Methods don't have more detailed documentation as of 0.25.
+* The event subscriptions are called in reverse order
+ * (i.e. last registered subscription first), and if one subscription
+ * returns true then subscriptions registered earlier
+ * will not be called.
+ *
+ * @see https://reactnative.dev/docs/backhandler.html
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
-    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
+    removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
 export interface ButtonProps {
@@ -8914,7 +8919,14 @@ export const DeviceEventEmitter: DeviceEventEmitterStatic;
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter { }
+export interface NativeEventEmitter extends EventEmitter {
+    new(subscriber?: EventSubscriptionVendor | null): NativeEventEmitter;
+
+    /**
+     * @param eventType  name of the event whose registered listeners to remove
+     */
+    removeAllListeners(eventType: string): void;
+}
 export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
