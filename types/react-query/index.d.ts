@@ -135,7 +135,7 @@ export const queryCache: {
         queryFn: QueryFunction<TResult, TVariables>,
         options?: PrefetchQueryOptions<TResult>,
     ) => Promise<TResult>;
-    getQueryData: (queryKey: QueryKey<any>) => Promise<any | null>;
+    getQueryData: <TResult, TVariables extends object>(queryKey: QueryKey<TVariables>) => Promise<TResult | null>;
     setQueryData: (
         queryKey: string | [string, object],
         data: any,
@@ -144,7 +144,7 @@ export const queryCache: {
         },
     ) => void | Promise<void>;
     refetchQueries: (
-        predicate: ((queryKey: QueryKey<any>) => boolean) | QueryKey<any>,
+        predicate: (<TVariables extends object>(queryKey: QueryKey<TVariables>) => boolean) | QueryKey<object>,
         options?: {
             exact?: boolean;
             throwOnError?: boolean;
@@ -152,18 +152,18 @@ export const queryCache: {
         },
     ) => Promise<void>;
     removeQueries: (
-        predicate: ((queryKey: QueryKey<any>) => boolean) | QueryKey<any>,
+        predicate: (<TVariables extends object>(queryKey: QueryKey<TVariables>) => boolean) | QueryKey<object>,
         options?: {
             force?: boolean;
         },
     ) => void;
-    getQuery: (queryKey: QueryKey<any>) => Promise<any | null>;
+    getQuery: <TResult, TVariables extends object>(queryKey: QueryKey<TVariables>) => Promise<TResult | null>;
     isFetching: number;
-    subscribe: (callback: Cache) => Promise<any | null>;
-    clear: () => Array<string>;
+    subscribe: <TResult>(callback: Cache) => Promise<TResult | null>;
+    clear: () => string[];
 };
 
-interface Cache {
+export interface Cache {
     queries: object;
     isFetching: number;
 }
