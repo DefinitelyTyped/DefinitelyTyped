@@ -6,7 +6,7 @@
 
 /// <reference types="jquery"/>
 
-interface ICropperOptions {
+interface CropperOptions {
     viewMode?: number;
     dragMode?: string;
     initialAspectRatio?: number;
@@ -49,6 +49,6 @@ interface ICropperOptions {
 }
 
 interface JQuery {
-    cropper(options?: ICropperOptions): JQuery;
+    cropper(options?: CropperOptions): JQuery;
     cropper(method: string, ...arguments: any[]): JQuery;
 }
