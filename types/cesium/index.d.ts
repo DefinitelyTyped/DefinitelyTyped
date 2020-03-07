@@ -1,4 +1,4 @@
-// Type definitions for cesium 1.67
+// Type definitions for cesium 1.66
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
