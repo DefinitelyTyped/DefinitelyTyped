@@ -116,6 +116,21 @@ declare namespace Cesium {
         setTemplateValues(params: any, useAsDefault?: boolean): void;
     }
 
+    class PropertyBag {
+        readonly definitionChanged: Event;
+        readonly isConstant: boolean;
+        propertyNames: string[];
+
+        constructor(value?: object, createPropertyCallback?: (value?: any) => void);
+
+        addProperty(propertyName: string, value?: any, createPropertyCallback?: (value: any) => void): void;
+        equals(other?: Property): boolean;
+        getValue(time: JulianDate, result?: object): object;
+        hasProperty(propertyName: string): boolean;
+        merge(source: object, createPropertyCallback?: (value: any) => void): void;
+        removeProperty(propertyName: string): void;
+    }
+
     class ArcGisImageServerTerrainProvider extends TerrainProvider {
         constructor(options: { url: string; token?: string; proxy?: any; tilingScheme?: TilingScheme; ellipsoid?: Ellipsoid; credit?: Credit | string });
     }
@@ -2246,7 +2261,7 @@ declare namespace Cesium {
         polyline: PolylineGraphics;
         polylineVolume: PolylineVolumeGraphics;
         position: PositionProperty;
-        properties: any;
+        properties: PropertyBag;
         propertyNames: any[];
         rectangle: RectangleGraphics;
         show: boolean;
@@ -2276,6 +2291,7 @@ declare namespace Cesium {
           polygon?: PolygonGraphics;
           polyline?: PolylineGraphics;
           polylineVolume?: PolylineVolumeGraphics;
+          properties?: PropertyBag;
           rectangle?: RectangleGraphics;
           wall?: WallGraphics
         });
@@ -2477,7 +2493,7 @@ declare namespace Cesium {
     }
 
     class ModelGraphics {
-        articulations: any; // PropertyBag
+        articulations: PropertyBag;
         clampAnimations: Property | boolean;
         clippingPlanes: Property | ClippingPlaneCollection;
         color: Property | Color;
@@ -2491,7 +2507,7 @@ declare namespace Cesium {
         lightColor: Property | Cartesian3;
         maximumScale: Property | number;
         minimumPixelSize: Property | number;
-        nodeTransformations: any; // PropertyBag
+        nodeTransformations: PropertyBag;
         runAnimations: Property | boolean;
         scale: Property | number;
         shadows: Property | ShadowMode;
@@ -2518,8 +2534,8 @@ declare namespace Cesium {
           imageBasedLightingFactor?: Property | Cartesian2;
           lightColor?: Property | Cartesian3;
           distanceDisplayCondition?: Property | DistanceDisplayCondition;
-          nodeTransformations?: any; // PropertyBag
-          articulations?: any; // PropertyBag
+          nodeTransformations?: PropertyBag;
+          articulations?: PropertyBag;
           clippingPlanes?: Property | ClippingPlaneCollection;
         });
         clone(result?: ModelGraphics): ModelGraphics;

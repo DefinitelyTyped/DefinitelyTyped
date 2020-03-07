@@ -869,6 +869,7 @@ describe('', () => {
         expect([]).toContain({});
         expect(['abc']).toContain('abc');
         expect(['abc']).toContain('def');
+        expect('abc').toContain('bc');
 
         expect([]).toContainEqual({});
         expect(['abc']).toContainEqual('def');

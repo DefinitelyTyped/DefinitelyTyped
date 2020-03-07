@@ -1,9 +1,10 @@
-// Type definitions for Matter.js - 0.10.1
+// Type definitions for Matter.js - 0.14.2
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771>,
 //                 Piotr Pietrzak <https://github.com/hasparus>,
 //                 Dale Whinham <https://github.com/dwhinham>
+//                 slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = Matter;
@@ -1702,7 +1703,7 @@ declare namespace Matter {
         * @type number
         * @default 2
         */
-        lineWidth: number;
+        lineWidth?: number;
 
         /**
          * A `String` that defines the stroke style to use when rendering the constraint outline.
@@ -1712,7 +1713,7 @@ declare namespace Matter {
         * @type string
         * @default a random colour
         */
-        strokeStyle: string;
+        strokeStyle?: string;
 
         /**
          * A flag that indicates if the constraint should be rendered.
@@ -1721,7 +1722,27 @@ declare namespace Matter {
         * @type boolean
         * @default true
         */
-        visible: boolean;
+        visible?: boolean;
+
+        /**
+         * A `Boolean` that defines if the constraint's anchor points should be rendered.
+         *
+        * @property render.anchors
+        * @type boolean
+        * @default true
+        */
+        anchors?: boolean;
+
+        /**
+         * A String that defines the constraint rendering type. The possible values are
+         * 'line', 'pin', 'spring'. An appropriate render type will be automatically
+         * chosen unless one is given in options.
+         *
+        * @property render.type
+        * @type string
+        * @default 'line'
+        */
+        type?: 'line' | 'pin' | 'spring';
     }
 
 
@@ -2139,6 +2160,22 @@ declare namespace Matter {
          */
         static clear(grid: Grid): void;
 
+
+        /**
+         * The width of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketWidth: number;
+
+        /**
+         * The height of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketHeight: number;
     }
 
     export interface IMouseConstraintDefinition {
@@ -2439,6 +2476,13 @@ declare namespace Matter {
          * default undefined
          */
         background?: string
+
+        /**
+         * Sets wireframe background if `render.options.wireframes` is enabled
+         * @type string
+         * default undefined
+         */
+        wireframeBackground?: string
     }
 
     /**
@@ -3162,6 +3206,9 @@ declare namespace Matter {
         pairs: Array<IPair>;
     }
 
+    export interface IMouseEvent<T> extends IEvent<T> {
+        name: 'mousedown' | 'mousemove' | 'mouseup';
+    }
 
     export class Events {
 
@@ -3373,7 +3420,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3381,7 +3428,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3389,7 +3436,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
 
         static on(obj: any, name: string, callback: (e: any) => void): void;

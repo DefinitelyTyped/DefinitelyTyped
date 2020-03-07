@@ -32,6 +32,10 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
             callback(null, [['test'], 'test']);
         }
     });
+    result = readline.createInterface({
+        input,
+        tabSize: 4
+    });
 }
 
 {

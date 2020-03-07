@@ -24,6 +24,7 @@ export namespace Plaid {
         onEvent?: OnEvent;
         onLoad?: OnLoad;
         language?: Language;
+        linkCustomizationName?: string;
         countryCodes?: Country[];
         webhook?: string;
         userLegalName?: string;

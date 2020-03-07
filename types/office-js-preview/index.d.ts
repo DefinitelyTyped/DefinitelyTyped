@@ -1,6 +1,6 @@
 // Type definitions for Office.js 1.0
 // Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Kim Brandl <https://github.com/kbrandl>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>
+// Definitions by: OfficeDev <https://github.com/OfficeDev>, Michael Zlatkovsky <https://github.com/Zlatkovsky>, Ricky Kirkham <https://github.com/Rick-Kirkham>, Alex Jerabek <https://github.com/AlexJerabek>, Elizabeth Samuel <https://github.com/ElizabethSamuel-MSFT>, Sudhi Ramamurthy <https://github.com/sumurthy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -892,6 +892,23 @@ declare namespace Office {
      */
     interface UI {
         /**
+         * Adds an event handler to the object using the specified event type.
+         * 
+         * @beta
+         *
+         * @remarks
+         * 
+         * **Requirement set**: TBD
+         *
+         * You can add multiple event handlers for the specified event type as long as the name of each event handler function is unique.
+         *
+         * @param eventType Specifies the type of event to add. This must be `Office.EventType.DialogParentMessageReceived`.
+         * @param handler The event handler function to add, whose only parameter is of type {@link Office.DialogParentMessageReceivedEventArgs}.
+         * @param options Optional. Provides an option for preserving context data of any type, unchanged, for use in a callback.
+         * @param callback Optional. A function that is invoked when the handler registration returns, whose only parameter is of type {@link Office.AsyncResult}.
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (result: any) => void, options?: Office.AsyncContextOptions, callback?: (result: AsyncResult<void>) => void): void;
+        /**
         * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
         *
         * @remarks
@@ -1665,6 +1682,18 @@ declare namespace Office {
          */
         addEventHandler(eventType: Office.EventType, handler: Function): void;
         /**
+         * Delivers a message from the host page, such as a task pane or a UI-less function file, to a dialog that was opened from the page. 
+         * 
+         * @beta
+         * 
+         * @remarks
+         * 
+         * **Requirement set**: TBD
+         * 
+         * @param message Accepts a message from the host page to deliver to the dialog. Anything that can be serialized to a string, including JSON and XML, can be sent.
+         */
+        messageChild(message: string): void;
+        /**
          * FOR INTERNAL USE ONLY. DO NOT CALL IN YOUR CODE.
          */
         sendMessage(name: string): void;
@@ -1898,9 +1927,15 @@ declare namespace Office {
          */
         DialogEventReceived,
         /**
-         * Triggers when Dialog sends a message via MessageParent.
+         * Triggers when a dialog sends a message via `messageParent`.
          */
         DialogMessageReceived,
+        /**
+         * Triggers when a host page sends a message to a child dialog box with `messageChild`.
+         * 
+         * @beta 
+         */
+        DialogParentMessageReceived,
         /**
          * Triggers when a document-level selection happens.
          * 

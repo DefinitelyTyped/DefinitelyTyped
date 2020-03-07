@@ -3714,7 +3714,8 @@ declare namespace chrome.identity {
  * @since Chrome 6.
  */
 declare namespace chrome.idle {
-    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
+    export type IdleState = 'active' | 'idle' | 'locked';
+    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> { }
 
     /**
      * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
@@ -3723,7 +3724,7 @@ declare namespace chrome.idle {
      * @param callback The callback parameter should be a function that looks like this:
      * function( IdleState newState) {...};
      */
-    export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
+    export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25.
