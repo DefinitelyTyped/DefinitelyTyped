@@ -7,12 +7,13 @@ interface TestState {
     c: string;
 }
 const middleware = createStateSyncMiddleware({
-        channel: 'test',
-        predicate: (action) => true,
-        blacklist: [],
-        whitelist: [],
-        broadcastChannelOption: {}
-    });
+    channel: 'test',
+    predicate: (action) => true,
+    blacklist: [],
+    whitelist: [],
+    broadcastChannelOption: {},
+    prepareState: (state) => state,
+});
 
 function rootReducer(state: TestState, action: Action): TestState {
     return state;
