@@ -1,4 +1,4 @@
-// Type definitions for cesium 1.66
+// Type definitions for cesium 1.67
 // Project: http://cesiumjs.org
 // Definitions by: Aigars Zeiza <https://github.com/Zuzon>
 //                 Harry Nicholls <https://github.com/hnipps>
@@ -9,6 +9,7 @@
 //                 Joey Rafidi <https://github.com/jrafidi>
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -425,6 +426,51 @@ declare namespace Cesium {
         constructor(options: { url: string; proxy?: Proxy; requestVertexNormals?: boolean; requestWaterMask?: boolean; ellipsoid?: Ellipsoid; credit?: Credit | string });
     }
 
+    /**
+     * A 3D Tiles tileset represented by an Entity.
+     * The tileset modelMatrix is determined by the containing Entity position and orientation or is left unset if position is undefined.
+     */
+    class Cesium3DTilesetGraphics {
+        constructor(options?: Cesium3DTilesetGraphicsOptions);
+        /**
+         * Duplicates this instance.
+         */
+        clone(result?: Cesium3DTilesetGraphics): Cesium3DTilesetGraphics;
+        /**
+         * Assigns each unassigned property on this object to the value of the same property on the provided source object.
+         */
+        merge(source: Cesium3DTilesetGraphics): void;
+        /**
+         * Gets the event that is raised whenever a property or sub-property is changed or modified.
+         */
+        readonly definitionChanged: Event;
+        /**
+         * Gets or sets the maximum screen space error used to drive level of detail refinement.
+         * @default true
+         */
+        maximumScreenSpaceError: Property;
+        /**
+         * Gets or sets the string Property specifying the URI of the glTF asset.
+         */
+        uri: Property;
+    }
+
+    interface Cesium3DTilesetGraphicsOptions {
+        /**
+         * A boolean Property specifying the visibility of the tilese
+         * @default true
+         */
+        show?: boolean | Property;
+        /**
+         * A string or Resource Property specifying the URI of the tileset.
+         */
+        uri?: string | Property;
+        /**
+         * A number or Property specifying the maximum screen space error used to drive level of detail refinement.
+         */
+        maximumScreenSpaceError?: number | Property;
+    }
+
     class CircleGeometry extends Packable {
         constructor(options: {
             center: Cartesian3;
@@ -649,6 +695,10 @@ declare namespace Cesium {
                 maximumAlpha?: number
             }, result?: Color): Color;
         static fromRgba(rgba: number): Color;
+        /**
+         * Computes the linear interpolation or extrapolation at t between the provided colors.
+         */
+        static lerp(start: Color, end: Color, t: number, result: Color): Color;
         static mod(left: Color, right: Color, result?: Color): Color;
         static multiply(left: Color, right: Color, result?: Color): Color;
         static multiplyByScalar(color: Color, scalar: number, result?: Color): Color;
@@ -3625,6 +3675,11 @@ declare namespace Cesium {
         progressiveResolutionHeightFraction: number;
         shadow: ShadowMode;
         show: boolean;
+        /**
+         * Optimization option.
+         * Determines if level of detail skipping should be applied during the traversal.
+         * @default false
+         */
         skipLevelOfDetail: boolean;
         skipLevels: number;
         skipScreenSpaceErrorFactor: number;
@@ -3660,6 +3715,11 @@ declare namespace Cesium {
             foveatedMinimumScreenSpaceErrorRelaxation?: number;
             foveatedInterpolationCallback?: Cesium3DTileset;
             foveatedTimeDelay?: number;
+            /**
+             * Optimization option.
+             * Determines if level of detail skipping should be applied during the traversal.
+             * @default false
+             */
             skipLevelOfDetail?: boolean;
             baseScreenSpaceError?: number;
             skipScreenSpaceErrorFactor?: number;
@@ -5207,6 +5267,9 @@ declare namespace Cesium {
 
     function getImagePixels(image: HTMLImageElement): number[];
 
+    /**
+     * @deprecated use Array.isArray
+     */
     function isArray(value: any): boolean;
 
     function isLeapYear(year: number): boolean;
