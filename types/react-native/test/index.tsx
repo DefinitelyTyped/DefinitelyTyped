@@ -93,6 +93,7 @@ import {
     YellowBox,
     useWindowDimensions,
     Appearance,
+    useColorScheme,
 } from "react-native";
 
 declare module "react-native" {
@@ -1050,6 +1051,7 @@ const YellowBoxTest = () => <YellowBox />;
 
 // Appearance
 const DarkMode = () => {
+    const color = useColorScheme();
     const isDarkMode = Appearance.getColorScheme() === 'dark';
 
     Appearance.addChangeListener(({ colorScheme }) => {
@@ -1059,6 +1061,10 @@ const DarkMode = () => {
     Appearance.removeChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
     });
+
+    React.useEffect(() => {
+        console.log('-color', color);
+    }, [color]);
 
     return (
         <Text>
