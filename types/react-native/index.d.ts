@@ -8221,11 +8221,11 @@ export interface VibrationStatic {
     cancel(): void;
 }
 
-export namespace Appearance {
-    type ColorSchemeName = 'light' | 'dark';
+type ColorSchemeName = 'light' | 'dark'  | null | undefined;
 
+export namespace Appearance {
     type AppearancePreferences = {
-        colorScheme: ColorSchemeName | null | undefined;
+        colorScheme: ColorSchemeName;
     };
 
     type AppearanceListener = (preferences: AppearancePreferences) => void;
@@ -8238,7 +8238,7 @@ export namespace Appearance {
      *
      * Example: `const colorScheme = Appearance.getColorScheme();`
      */
-    export function getColorScheme(): ColorSchemeName | null | undefined;
+    export function getColorScheme(): ColorSchemeName;
 
     /**
      * Add an event handler that is fired when appearance preferences change.
@@ -8250,6 +8250,12 @@ export namespace Appearance {
      */
     export function removeChangeListener(listener: AppearanceListener): EventSubscription;
 }
+
+/**
+ * A new useColorScheme hook is provided as the preferred way of accessing
+ * the user's preferred color scheme (aka Dark Mode).
+ */
+export function useColorScheme(): ColorSchemeName;
 
 /**
  * This class implements common easing functions. The math is pretty obscure,
