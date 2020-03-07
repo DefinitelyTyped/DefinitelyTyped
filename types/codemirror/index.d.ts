@@ -993,6 +993,10 @@ declare namespace CodeMirror {
         /** Controls whether drag-and - drop is enabled. On by default. */
         dragDrop?: boolean;
 
+        /** When set (default is null) only files whose type is in the array can be dropped into the editor.
+        The strings should be MIME types, and will be checked against the type of the File object as reported by the browser. */
+        allowDropFileTypes?: Array<string>;
+
         /** When given , this will be called when the editor is handling a dragenter , dragover , or drop event.
         It will be passed the editor instance and the event object as arguments.
         The callback can choose to handle the event itself , in which case it should return true to indicate that CodeMirror should not do anything further. */
@@ -1024,6 +1028,10 @@ declare namespace CodeMirror {
         which causes the cursor to not reach all the way to the bottom of the line, looks better */
         cursorHeight?: number;
 
+        /** Controls whether, when the context menu is opened with a click outside of the current selection,
+        the cursor is moved to the point of the click. Defaults to true. */
+        resetSelectionOnContextMenu?: boolean;
+
         /** Highlighting is done by a pseudo background - thread that will work for workTime milliseconds,
         and then use timeout to sleep for workDelay milliseconds.
         The defaults are 200 and 300, you can change these options to make the highlighting more or less aggressive. */
@@ -1042,6 +1050,10 @@ declare namespace CodeMirror {
         this will change the way the document looks. You can set this option to false to disable this behavior. */
         flattenSpans?: boolean;
 
+        /** When enabled (off by default), an extra CSS class will be added to each token, indicating the (inner) mode that produced it, prefixed with "cm-m-".
+        For example, tokens from the XML mode will get the cm-m-xml class. */
+        addModeClass?: boolean;
+
         /** When highlighting long lines, in order to stay responsive, the editor will give up and simply style
         the rest of the line as plain text when it reaches a certain position. The default is 10000.
         You can set this to Infinity to turn off this behavior. */
@@ -1053,11 +1065,17 @@ declare namespace CodeMirror {
         and thus the browser's text search works on it. This will have bad effects on performance of big documents. */
         viewportMargin?: number;
 
+        /** Specifies whether or not spellcheck will be enabled on the input. */
+        spellcheck?: boolean;
+
+        /** Specifies whether or not autocorrect will be enabled on the input. */
+        autocorrect?: boolean;
+
+        /** Specifies whether or not autocapitalization will be enabled on the input. */
+        autocapitalize?: boolean;
+
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
-
-        /** Optional value to be used in conjunction with CodeMirror’s placeholder add-on. */
-        placeholder?: string;
     }
 
     interface TextMarkerOptions {
