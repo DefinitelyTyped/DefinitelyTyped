@@ -79,3 +79,12 @@ const tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
     loadSiblings: false,
     cullWithChildrenBounds: true
 }));
+
+// Cesium3DTilesetGraphics
+const options = {
+    uri: '0',
+    show: false,
+    maximumScreenSpaceError: 2
+};
+
+ const tilesetModel = new Cesium.Cesium3DTilesetGraphics(options);

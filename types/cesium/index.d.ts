@@ -450,6 +450,11 @@ declare namespace Cesium {
          */
         maximumScreenSpaceError: Property;
         /**
+         * Gets or sets the boolean Property specifying the visibility of the model.
+         * @default true
+         */
+        show: Property;
+        /**
          * Gets or sets the string Property specifying the URI of the glTF asset.
          */
         uri: Property;
