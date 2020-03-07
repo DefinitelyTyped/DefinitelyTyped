@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 /**
- * @see https://www.layui.com/doc/modules/html
+ * @see https://www.layui.com/doc/modules/layer.html
  */
 declare const layer: layer.Layer;
 
