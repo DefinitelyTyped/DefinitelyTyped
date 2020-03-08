@@ -13,6 +13,7 @@ const test1 = (
         defaultCountry="NZ"
         countries={['NZ', 'US', 'FR']}
         placeholder="Place holder"
+        international={true}
     >
         <div>panel 1</div>
         <div>panel 2</div>
