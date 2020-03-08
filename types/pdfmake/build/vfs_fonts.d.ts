@@ -1,4 +1,5 @@
-export let pdfMake: {
-    vfs: any;
-    [name: string]: any;
-};
+import { TFontDictionnary } from '../interfaces';
+
+export namespace pdfMake {
+    let vfs: TFontDictionnary;
+}
