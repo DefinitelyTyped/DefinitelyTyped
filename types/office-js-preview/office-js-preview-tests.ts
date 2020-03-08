@@ -328,6 +328,11 @@ async function testOfficeDirectApis() {
         tabs: [
             {
                 id: 'test-id',
+                controls: [
+                {
+                    id: 'button-1',
+                    visible: true,
+                }]
             },
         ],
     });

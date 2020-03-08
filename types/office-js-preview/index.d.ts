@@ -590,10 +590,6 @@ declare namespace Office {
          */
         id: string;
         /**
-         * Specifies whether the tab is visible. The default is true.
-         */
-        visible?: boolean;
-        /**
          * Specifies the controls in the tab, such as menu items, buttons, etc.
          */
         controls?: Control[];
@@ -614,16 +610,7 @@ declare namespace Office {
          * Indicates whether the control should be enabled or disabled. The default is true.
          */
         enabled?: boolean;
-    }
-    /**
-     * Represents a gallery that displays a collection of related items or controls in the ribbon.
-     */
-    interface Gallery extends Control {
-        /**
-         * Used to refresh the gallery control including optional data to be passed to the gallery control at the time of refresh action.
-         */
-        refreshData?: { [key: string]: string | null };
-    }    
+    }   
     /**
      * Represents the runtime environment of the add-in and provides access to key objects of the API. 
      * The current context exists as a property of Office. It is accessed using `Office.context`.
