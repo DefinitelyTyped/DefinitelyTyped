@@ -30,7 +30,7 @@ interface MessageDAO {
     _id: string;
     text: string;
 }
-    
+
 const Rooms = new Mongo.Collection<RoomDAO>('rooms');
 let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
@@ -45,20 +45,13 @@ var Monkeys = new Mongo.Collection<MonkeyDAO>('monkeys');
 
 /**
  * From Core, Meteor.startup section
- * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find(), Collection.rawCollection()
+ * Tests Meteor.isServer, Meteor.startup, Collection.insert(), Collection.find()
  */
 if (Meteor.isServer) {
     Meteor.startup(function () {
         if (Rooms.find().count() === 0) {
             Rooms.insert({ name: "Initial room" });
         }
-
-        Rooms.rawDatabase().stats().then(
-            stats => console.log('stats', stats),
-            error => console.error('stats', error)
-        );
-
-        Rooms.rawCollection().aggregate([{$group: {_id: null, names: {$addToSet: '$name'}}}]).toArray().then();
     });
 }
 
@@ -219,7 +212,7 @@ interface PostDAO {
     _id: string;
     title: string;
     body: string;
-} 
+}
 
 var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });

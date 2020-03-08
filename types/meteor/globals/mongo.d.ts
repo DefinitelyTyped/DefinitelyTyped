@@ -1,4 +1,3 @@
-import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
 // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
 declare type UnionOmit<T, K extends keyof any> = T extends T ? Pick<T, Exclude<keyof T, K>> : never;
 
@@ -165,8 +164,8 @@ declare module Mongo {
             transform?: Function | null;
         }): T | undefined;
         insert(doc: OptionalId<T>, callback?: Function): string;
-        rawCollection(): MongoCollection<T>;
-        rawDatabase(): MongoDb;
+        rawCollection(): any;
+        rawDatabase(): any;
         remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
         update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
             multi?: boolean;
