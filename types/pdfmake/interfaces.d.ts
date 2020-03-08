@@ -60,8 +60,14 @@ export type PredefinedPageSize =
 
 export type PageOrientation = 'portrait' | 'landscape';
 
-export interface TFontFamily {
-    [fontName: string]: string;
+export type Size =
+    | number // absolute
+    | 'auto'
+    | '*'
+    | string; // percentage
+
+export interface TFontDictionnary {
+    [fontName: string]: TFontFamilyTypes;
 }
 
 export interface TFontFamilyTypes {
@@ -76,180 +82,405 @@ export interface TDocumentInformation {
     author?: string;
     subject?: string;
     keywords?: string;
+    creator?: string;
+    producer?: string;
+    creationDate?: Date;
+    modDate?: Date;
+    trapped?: string;
 }
 
-export type TDocumentHeaderFooterFunction = (
+export type DynamicContent = (
     currentPage: number,
     pageCount: number,
-    pageSize?: { width: number; height: number }
-) => any;
+    pageSize: ContextPageSize,
+) => Content | null | undefined;
+
+export type DynamicBackground = (currentPage: number, pageSize: ContextPageSize) => Content | null | undefined;
 
 export type Margins = number | [number, number] | [number, number, number, number];
 
-export type Alignment = "left" | "right" | "justify" | "center" | string;
+export type Decoration = 'underline' | 'lineThrough' | 'overline';
+export type DecorationStyle = 'dashed' | 'dotted' | 'double' | 'wavy';
+
+export type Alignment = 'left' | 'right' | 'justify' | 'center';
+
+export type DynamicRowSize = (row: number) => number | 'auto';
+
+export interface CustomTableLayout {
+    hLineWidth?: DynamicLayout<number>;
+    vLineWidth?: DynamicLayout<number>;
+    hLineColor?: string | DynamicLayout<string>;
+    vLineColor?: string | DynamicLayout<string>;
+    hLineStyle?: DynamicLayout<LineStyle>;
+    vLineStyle?: DynamicLayout<LineStyle>;
+    fillColor?: string | DynamicLayout<string>;
+    paddingLeft?: number | DynamicLayout<number>;
+    paddingRight?: number | DynamicLayout<number>;
+    paddingTop?: DynamicLayout<number>;
+    paddingBottom?: DynamicLayout<number>;
+    fillOpacity?: number | DynamicLayout<number>;
+    defaultBorder?: boolean;
+}
+
+export type DynamicLayout<T> = (rowIndex: number, node: ContentTable, columnIndex: number) => T | null | undefined;
+
+export interface LineStyle {
+    dash?: {
+        length: number;
+        space?: number;
+    };
+}
+
+export type TableCell =
+    | {} // Used when another cell spans over this cell
+    | (Content & {
+          rowSpan?: number;
+          colSpan?: number;
+          border?: [boolean, boolean, boolean, boolean];
+          borderColor?: [string, string, string, string];
+          fillOpacity?: number;
+      });
+
+export interface Table {
+    body: TableCell[][];
+    widths?: Size[];
+    heights?: number | number[] | DynamicRowSize;
+    headerRows?: number;
+    dontBreakRows?: boolean;
+    keepWithHeaderRows?: number;
+    layout?: TableLayout;
+}
+
+export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
+export type TableLayout = PredefinedTableLayout | CustomTableLayout;
 
 export interface Style {
-    font?: any;
+    font?: string;
     fontSize?: number;
-    fontFeatures?: any;
+    fontFeatures?: PDFKit.Mixins.OpenTypeFeatures[];
+    lineHeight?: number;
     bold?: boolean;
     italics?: boolean;
     alignment?: Alignment;
     color?: string;
-    columnGap?: any;
-    fillColor?: string;
-    decoration?: any;
-    decorationany?: any;
-    decorationColor?: string;
-    background?: any;
-    lineHeight?: number;
-    characterSpacing?: number;
-    noWrap?: boolean;
+    background?: string;
     markerColor?: string;
-    leadingIndent?: any;
-    [additionalProperty: string]: any;
-}
-
-export type TableRowFunction = (row: number) => number;
-
-export interface TableLayoutFunctions {
-    hLineWidth?: (i: number, node: any) => number;
-    vLineWidth?: (i: number, node: any) => number;
-    hLineColor?: (i: number, node: any) => string;
-    vLineColor?: (i: number, node: any) => string;
-    fillColor?: (i: number, node: any) => string;
-    paddingLeft?: (i: number, node: any) => number;
-    paddingRight?: (i: number, node: any) => number;
-    paddingTop?: (i: number, node: any) => number;
-    paddingBottom?: (i: number, node: any) => number;
-}
-
-export interface TableCell {
-    text: string;
-    rowSpan?: number;
-    colSpan?: number;
-    fillColor?: string;
-    border?: [boolean, boolean, boolean, boolean];
-}
-
-export interface Table {
-    body: Content[][] | TableCell[][];
-    dontBreakRows?: boolean;
-    headerRows?: number;
-    heights?: Array<string | number> | TableRowFunction;
-    layout?: string | TableLayoutFunctions;
-    widths?: Array<string | number>;
-}
-
-export interface Content {
-    style?: string | string[];
+    decoration?: Decoration;
+    decorationStyle?: DecorationStyle;
+    decorationColor?: string;
     margin?: Margins;
-    text?: string | string[] | Content[];
-    columns?: Content[];
-    stack?: Content[];
-    image?: string;
-    width?: string | number;
-    height?: string | number;
+    preserveLeadingSpaces?: boolean;
+    opacity?: number;
+    characterSpacing?: number;
+    leadingIndent?: number;
+    // Table-cell properties:
+    noWrap?: boolean;
+    fillColor?: string;
+    fillOpacity?: number;
+    columnGap?: Size;
+    // These properties appear in the documentation but don't do anything:
+    // tableCellPadding?: unknown;
+    // cellBorder?: unknown;
+    // headerCellBorder?: unknown;
+    // oddRowCellBorder?: unknown;
+    // evenRowCellBorder?: unknown;
+    // tableBorder?: unknown;
+}
+
+export type Content =
+    | string
+    | ArrayOfContent
+    | ContentText
+    | ContentColumns
+    | ContentStack
+    | ContentUnorderedList
+    | ContentOrderedList
+    | ContentTable
+    | ContentAnchor
+    | ContentPageReference
+    | ContentTextReference
+    | ContentToc
+    | ContentTocItem
+    | ContentImage
+    | ContentSvg
+    | ContentQr
+    | ContentCanvas;
+
+// not exported, only used to prevent Content from circularly referencing itself
+interface ArrayOfContent extends Array<Content> {}
+
+export interface ContentText extends ContentLink, ContentBase {
+    text: Content;
+}
+
+export interface ContentColumns extends ContentBase {
+    columns: Column[];
+}
+
+export interface ContentStack extends ContentBase {
+    stack: Content[];
+}
+
+export interface ContentOrderedList extends ContentBase {
+    ol: OrderedListElement[];
+    type?: OrderedListType;
+    markerColor?: string;
+    separator?: string | [string, string];
+    reversed?: boolean;
+    start?: number;
+}
+
+export interface ContentUnorderedList extends ContentBase {
+    ul: UnorderedListElement[];
+    type?: UnorderedListType;
+    markerColor?: string;
+}
+
+export interface ContentCanvas extends ContentBase {
+    canvas: CanvasElement[];
+}
+
+export interface ContentSvg extends ContentBase {
+    svg: string;
+    width?: number;
+    height?: number;
     fit?: [number, number];
-    pageBreak?: "before" | "after";
-    alignment?: Alignment;
-    table?: Table;
-    ul?: Content[];
-    ol?: Content[];
-    [additionalProperty: string]: any;
+}
+
+export interface ContentImage extends ContentLink, ContentBase {
+    image: string;
+    width?: number;
+    height?: number;
+    fit?: [number, number];
+}
+
+export interface ContentTable extends ContentBase {
+    table: Table;
+    layout?: TableLayout;
+}
+
+export interface ContentAnchor extends ContentBase {
+    text: string | ContentAnchor;
+    id: string;
+}
+
+export interface ContentTocItem extends ContentBase {
+    text: string | ContentTocItem;
+    tocItem: boolean | string | string[];
+    tocStyle?: string | string[] | Style;
+    tocNumberStyle?: string | string[] | Style;
+    tocMargin?: Margins;
+}
+
+export interface ContentPageReference extends ContentBase {
+    pageReference: string;
+}
+
+export interface ContentTextReference extends ContentBase {
+    textReference: string;
+}
+
+export interface ContentToc extends ContentBase {
+    toc: TableOfContent;
+}
+
+export interface ContentQr extends ContentBase {
+    qr: string;
+    foreground?: string;
+    fit?: number;
+    version?: number;
+    eccLevel?: 'L' | 'M' | 'Q' | 'H';
+    mode?: 'numeric' | 'alphanumeric' | 'octet';
+    mask?: number;
+}
+
+export interface ContentBase extends Style {
+    style?: string | string[] | Style;
+    absolutePosition?: { x: number; y: number };
+    relativePosition?: { x: number; y: number };
+    pageBreak?: 'before' | 'after';
+    pageOrientation?: PageOrientation;
+    headlineLevel?: number;
+}
+
+export interface ContentLink {
+    link?: string;
+    linkToPage?: number;
+    linkToDestination?: string;
+}
+
+export interface TableOfContent {
+    title?: Content;
+    textMargin?: Margins;
+    textStyle?: string | string[] | Style;
+    numberStyle?: string | string[] | Style;
+    id?: string;
+}
+
+export type Column = Content & {
+    width?: Size;
+};
+
+export type OrderedListType = 'lower-alpha' | 'upper-alpha' | 'lower-roman' | 'upper-roman' | 'none';
+export type OrderedListElement = Content & {
+    counter?: number;
+    listType?: OrderedListType;
+};
+
+export type UnorderedListType = 'square' | 'circle' | 'none';
+export type UnorderedListElement = Content & {
+    listType?: UnorderedListType;
+};
+
+export type CanvasElement = CanvasRect | CanvasPolyline | CanvasLine | CanvasEllipse;
+
+export interface CanvasRect extends CanvasLineElement, CanvasFilledElement {
+    type: 'rect';
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    r?: number;
+}
+
+export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
+    type: 'polyline';
+    points: Array<{ x: number; y: number }>;
+    closePath?: boolean;
+    lineCap?: 'round' | 'square';
+}
+
+export interface CanvasLine extends CanvasLineElement {
+    type: 'line';
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    lineCap?: 'round' | 'square';
+}
+
+export interface CanvasEllipse extends CanvasLineElement, CanvasFilledElement {
+    type: 'ellipse';
+    x: number;
+    y: number;
+    r1: number;
+    r2?: number;
+}
+
+export interface CanvasFilledElement {
+    color?: string;
+    fillOpacity?: number;
+    linearGradient?: string[];
+}
+
+export interface CanvasLineElement {
+    lineWidth?: number;
+    lineColor?: string;
+    dash?: {
+        length: number;
+        space?: number;
+    };
+}
+
+export interface StyleDictionnary {
+    [name: string]: Style;
+}
+
+export type PDFVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
+
+export interface Watermark {
+    text: string;
+    opacity?: number;
+    angle?: number;
+    font?: string;
+    fontSize?: number;
+    color?: string;
+    bold?: boolean;
+    italics?: boolean;
 }
 
 export interface TDocumentDefinitions {
-    background?: string | ((currentPage: number, pageSize: PageSize) => string | Content | null);
+    content: Content;
+    background?: DynamicBackground | Content;
     compress?: boolean;
-    content: string | Content | Array<string | Content>;
     defaultStyle?: Style;
-    footer?: TDocumentHeaderFooterFunction | Content | string;
-    header?: TDocumentHeaderFooterFunction | Content | string;
+    footer?: DynamicContent | Content;
+    header?: DynamicContent | Content;
     images?: { [key: string]: string };
     info?: TDocumentInformation;
     pageBreakBefore?: (
-        currentNode?: CurrentNode,
-        followingNodesOnPage?: any,
-        nodesOnNextPage?: any,
-        previousNodesOnPage?: any
+        currentNode: Node,
+        followingNodesOnPage: Node[],
+        nodesOnNextPage: Node[],
+        previousNodesOnPage: Node[],
     ) => boolean;
     pageMargins?: Margins;
     pageOrientation?: PageOrientation;
-    pageSize?: PageSize | { width: number; height: number };
-    styles?: Style;
+    pageSize?: PageSize;
+    styles?: StyleDictionnary;
+    userPassword?: string;
+    ownerPassword?: string;
+    permissions?: PDFKit.DocumentPermissions;
+    version?: PDFVersion;
+    watermark?: string | Watermark;
 }
 
-export interface CurrentNode {
-    id: string;
-    headlineLevel: string;
-    text: string | string[] | Content[];
-    ul: Content[];
-    ol: Content[];
-    table: Table;
-    image: string;
-    qr: string;
-    canvas: string;
-    columns: Content[];
-    style: string | string[];
-    pageOrientation: PageOrientation;
+export interface Node {
+    text?: Content;
+    ul?: UnorderedListElement[];
+    ol?: OrderedListElement[];
+    table?: Table;
+    image?: string;
+    qr?: string;
+    canvas?: CanvasElement;
+    svg?: string;
+    columns?: Column[];
+    id?: string;
+    headlineLevel?: number;
+    style?: string | string[] | Style;
+    pageBreak?: 'before' | 'after';
+    pageOrientation?: PageOrientation;
     pageNumbers: number[];
     pages: number;
     stack: boolean;
     startPosition: {
         pageNumber: number;
         pageOrientation: PageOrientation;
+        pageInnerHeight: number;
+        pageInnerWidth: number;
         left: number;
-        right: number;
+        top: number;
         verticalRatio: number;
         horizontalRatio: number;
     };
 }
 
-export interface Pagesize {
+export interface ContextPageSize {
     height: number;
     width: number;
     orientation: PageOrientation;
 }
 
-export interface Page {
-    items: any[];
-    pageSize: Pagesize;
-}
-
 export interface BufferOptions {
+    fontLayoutCache?: boolean;
+    bufferPages?: boolean;
+    tableLayouts?: TableLayout;
     autoPrint?: boolean;
+    progressCallback?: (progress: number) => void;
 }
-
-export type CreatedPdfDownloadParams = (
-    defaultFileName?: string,
-    cb?: () => void,
-    options?: BufferOptions
-) => void;
-
-export type CreatedPdfOpenPrintParams = (
-    options?: BufferOptions,
-    win?: Window | null
-) => void;
-
-export type CreatedPdfBufferParams = (
-    cb: (result: any, pages: Page[]) => void,
-    options?: BufferOptions
-) => void;
 
 export interface TCreatedPdf {
-    download: CreatedPdfDownloadParams;
-    getBlob: CreatedPdfBufferParams;
-    getBase64: CreatedPdfBufferParams;
-    getBuffer: CreatedPdfBufferParams;
-    getDataUrl: CreatedPdfBufferParams;
-    getStream: CreatedPdfBufferParams; // minimal version 0.1.41
-    open: CreatedPdfOpenPrintParams;
-    print: CreatedPdfOpenPrintParams;
+    download(cb?: () => void, options?: BufferOptions): void;
+    download(defaultFileName: string, cb?: () => void, options?: BufferOptions): void;
+
+    getBlob(cb: (result: Blob) => void, options?: BufferOptions): void;
+    getBase64(cb: (result: string) => void, options?: BufferOptions): void;
+    getBuffer(cb: (result: Buffer) => void, options?: BufferOptions): void;
+    getDataUrl(cb: (result: string) => void, options?: BufferOptions): void;
+    getStream(options?: BufferOptions): PDFKit.PDFDocument;
+    open(options?: BufferOptions, win?: Window | null): void;
+    print(options?: BufferOptions, win?: Window | null): void;
 }
 
-export interface pdfMakeStatic {
-    vfs: TFontFamily;
-    fonts: { [name: string]: TFontFamilyTypes };
-    createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
-}
+// disable automatic exporting
+export {};
