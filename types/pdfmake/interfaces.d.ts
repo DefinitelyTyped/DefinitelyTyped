@@ -1,3 +1,6 @@
+/// <reference types="node" />
+/// <reference types="pdfkit" />
+
 export enum PageSize {
     A0_x_4 = "4A0",
     A0_x_2 = "2A0",
