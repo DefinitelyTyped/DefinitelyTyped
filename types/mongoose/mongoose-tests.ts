@@ -1302,6 +1302,29 @@ query.lean() // true
 query.lean(false)
 query.lean({})
 
+interface Location1 extends mongoose.Document {
+    name: string;
+    address: string;
+    rating: number;
+    reviews: any[];
+};
+var locQuery = <mongoose.DocumentQuery<Location1, Location1>>{};
+async function leanTests() {
+    var location = await locQuery.lean().exec();
+    if (location) {
+        // $ExpectType ObjectId
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+}
+
 /*
  * section schema/array.js
  * http://mongoosejs.com/docs/api.html#schema-array-js
@@ -1829,12 +1852,6 @@ interface ModelUser {
   name: string;
   abctest: string;
 }
-MongoModel.findOne({ type: 'iphone' }).select('name').lean().exec()
-.then(function(doc: ModelUser) {
-  doc._id;
-  doc.name;
-  doc.abctest;
-});
 MongoModel.findOneAndRemove({}, {}, cb);
 MongoModel.findOneAndRemove({}, {});
 MongoModel.findOneAndRemove({}, cb);
@@ -2026,6 +2043,20 @@ LocModel.findOne({}, function (err, doc) {
     doc.openingTimes;
   }
 });
+LocModel
+    .findOne({ name: 'foo' })
+    .lean()
+    .exec()
+    .then(function(doc) {
+        if (doc) {
+            // $ExpectType ObjectId
+            doc._id;
+            // $ExpectType string
+            doc.name;
+            // $ExpectError
+            doc.unknown;
+        }
+    });
 LocModel.findOneAndRemove()
   .exec(function (err, location) {
     if (location) {
