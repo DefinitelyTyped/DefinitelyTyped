@@ -58,7 +58,9 @@ async function testFunc(): Promise<mongodb.MongoClient> {
 
 mongodb.connect(
   connectionString,
-  (err: mongodb.MongoError, client: mongodb.MongoClient) => {},
+  (err: mongodb.MongoError, client: mongodb.MongoClient) => {
+      err.hasErrorLabel('label'); // $ExpectType boolean
+  },
 );
 mongodb.connect(
   connectionString,

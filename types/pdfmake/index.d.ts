@@ -4,6 +4,7 @@
 //                 Rajab Shakirov <https://github.com/radziksh>
 //                 Enzo Volkmann <https://github.com/evolkmann>
 //                 Andi Pätzold <https://github.com/andipaetzold>
+//                 Neal Mummau <https://github.com/nmummau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -26,61 +27,25 @@ declare module "pdfmake/build/pdfmake" {
         vfs?: any
     ): TCreatedPdf;
 
-    enum PageSize {
-        A0_x_4 = "4A0",
-        A0_x_2 = "2A0",
-        AO = "A0",
-        A1 = "A1",
-        A2 = "A2",
-        A3 = "A3",
-        A4 = "A4",
-        A5 = "A5",
-        A6 = "A6",
-        A7 = "A7",
-        A8 = "A8",
-        A9 = "A9",
-        A1O = "A10",
-        BO = "B0",
-        B1 = "B1",
-        B2 = "B2",
-        B3 = "B3",
-        B4 = "B4",
-        B5 = "B5",
-        B6 = "B6",
-        B7 = "B7",
-        B8 = "B8",
-        B9 = "B9",
-        B1O = "B10",
-        CO = "C0",
-        C1 = "C1",
-        C2 = "C2",
-        C3 = "C3",
-        C4 = "C4",
-        C5 = "C5",
-        C6 = "C6",
-        C7 = "C7",
-        C8 = "C8",
-        C9 = "C9",
-        C1O = "C10",
-        RA1 = "RA1",
-        RA2 = "RA2",
-        RA3 = "RA3",
-        RA4 = "RA4",
-        SRA1 = "SRA1",
-        SRA2 = "SRA2",
-        SRA3 = "SRA3",
-        SRA4 = "SRA4",
-        EXECUTIVE = "EXECUTIVE",
-        FOLIO = "FOLIO",
-        LEGAL = "LEGAL",
-        LETTER = "LETTER",
-        TABLOID = "TABLOID"
-    }
+    type PageSize =
+        "4A0"|"2A0"|"A0"|"A1"|"A2"|"A3"|"A4"|"A5"|"A6"|"A7"|"A8"|"A9"|"A10"|
+        "B0"|"B1"|"B2"|"B3"|"B4"|"B5"|"B6"|"B7"|"B8"|"B9"|"B10"|
+        "C0"|"C1"|"C2"|"C3"|"C4"|"C5"|"C6"|"C7"|"C8"|"C9"|"C10"|
+        "RA1"|"RA2"|"RA3"|"RA4"|
+        "SRA1"|"SRA2"|"SRA3"|"SRA4"|
+        "EXECUTIVE"|"FOLIO"|"LEGAL"|"LETTER"|"TABLOID";
 
-    enum PageOrientation {
-        PORTRAIT = "PORTRAIT",
-        LANDSCAPE = "LANDSCAPE"
-    }
+    type PageOrientation = "portrait" | "landscape";
+
+    type Layout = "noBorders" | "headerLineOnly" | "lightHorizontalLines";
+
+    type Alignment = "left" | "center" | "right";
+
+    type Decoration = "underline" | "lineThrough" | "overline";
+
+    type DecorationStyle = "dashed" | "dotted" | "double" | "wavy";
+
+    type PageBreak = "before" | "after";
 
     let pdfMake: pdfMakeStatic;
 
@@ -96,9 +61,13 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface TDocumentInformation {
+        /** the title of the document */
         title?: string;
+        /** the name of the author */
         author?: string;
+        /** the subject of the document */
         subject?: string;
+        /** keywords associated with the document */
         keywords?: string;
     }
 
@@ -110,25 +79,39 @@ declare module "pdfmake/build/pdfmake" {
 
     type Margins = number | [number, number] | [number, number, number, number];
 
-    type Alignment = "left" | "right" | "justify" | "center" | string;
-
     interface Style {
+        /** name of the font */
         font?: any;
+        /** size of the font in pt */
         fontSize?: number;
         fontFeatures?: any;
+        /** whether to use bold text (default: false) */
         bold?: boolean;
+        /** whether to use italic text (default: false) */
         italics?: boolean;
+        /** the alignment of the text */
         alignment?: Alignment;
+        /** the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’) */
         color?: string;
+        /** optional space between columns */
         columnGap?: any;
+        /** the background color of a table cell */
         fillColor?: string;
-        decoration?: any;
-        decorationany?: any;
+        /** the background opacity of a table cell */
+        fillOpacity?: string;
+        /** the text decoration to applu (‘underline’ or ‘lineThrough’ or ‘overline’) */
+        decoration?: Decoration;
+        /** (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’) */
+        decorationStyle?: DecorationStyle;
+        /** the color of the text decoration, see color */
         decorationColor?: string;
+        /** the background color of the text */
         background?: any;
+        /** the line height (default: 1) */
         lineHeight?: number;
         characterSpacing?: number;
         noWrap?: boolean;
+        /** the color of the bullets in a buletted list */
         markerColor?: string;
         leadingIndent?: any;
         [additionalProperty: string]: any;
@@ -166,21 +149,33 @@ declare module "pdfmake/build/pdfmake" {
     }
 
     interface Content {
+        layout?: Layout;
         style?: string | string[];
         margin?: Margins;
         text?: string | string[] | Content[];
         columns?: Content[];
         stack?: Content[];
         image?: string;
+        svg?: string;
         width?: string | number;
         height?: string | number;
         fit?: [number, number];
-        pageBreak?: "before" | "after";
+        pageBreak?: PageBreak;
         alignment?: Alignment;
         table?: Table;
+        /** to treat a paragraph as a bulleted list, set an array of items under the ul key */
         ul?: Content[];
+        /** for numbered lists set the ol key */
         ol?: Content[];
+        qr?: string;
+        toc?: TableOfContent;
+        tocItem?: boolean | string | string[];
         [additionalProperty: string]: any;
+    }
+
+    interface TableOfContent {
+        id?: string;
+        title: Content;
     }
 
     interface TDocumentDefinitions {
@@ -202,6 +197,7 @@ declare module "pdfmake/build/pdfmake" {
         pageOrientation?: PageOrientation;
         pageSize?: PageSize | { width: number; height: number };
         styles?: Style;
+        watermark?: Watermark;
     }
 
     interface CurrentNode {
@@ -276,5 +272,22 @@ declare module "pdfmake/build/pdfmake" {
         vfs: TFontFamily;
         fonts: { [name: string]: TFontFamilyTypes };
         createPdf(documentDefinitions: TDocumentDefinitions): TCreatedPdf;
+    }
+
+    interface Watermark {
+        /** watermark text */
+        text?: string;
+        /** color of text */
+        color?: string;
+        /** opacity of text */
+        opacity?: number;
+        /** bold style of text */
+        bold?: boolean;
+        /** italics style of text */
+        italics?: true;
+        /** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
+        fontSize?: number;
+        /** angle of text rotation (minimal version: 0.1.60) */
+        angle?: number;
     }
 }

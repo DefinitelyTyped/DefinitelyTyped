@@ -9,6 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
+import { OptionsReceived as PrettyFormatOptions } from 'pretty-format';
 import { queries, Queries, BoundFunction } from '@testing-library/dom';
 import { act as reactAct } from 'react-dom/test-utils';
 
@@ -17,7 +18,11 @@ export * from '@testing-library/dom';
 export type RenderResult<Q extends Queries = typeof queries> = {
     container: HTMLElement;
     baseElement: HTMLElement;
-    debug: (baseElement?: HTMLElement | DocumentFragment | Array<HTMLElement | DocumentFragment>) => void;
+    debug: (
+      baseElement?: HTMLElement | DocumentFragment | Array<HTMLElement | DocumentFragment>,
+      maxLength?: number,
+      options?: PrettyFormatOptions
+    ) => void;
     rerender: (ui: React.ReactElement) => void;
     unmount: () => boolean;
     asFragment: () => DocumentFragment;
