@@ -1291,7 +1291,10 @@ declare namespace chrome.cookies {
         httpOnly: boolean;
         /** True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS). */
         secure: boolean;
-        /** The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests). **/
+        /**
+         * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
+         * @since Chrome 51.
+         */
         sameSite: SameSiteStatus
     }
 
@@ -1339,7 +1342,10 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
-        /** Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute. **/
+        /**
+         * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
+         * @since Chrome 51.
+         */
         sameSite?: SameSiteStatus
     }
 
