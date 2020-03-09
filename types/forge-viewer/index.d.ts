@@ -351,6 +351,13 @@ declare namespace Autodesk {
           useAsDefault(): boolean;
         }
 
+        interface Endpoint {
+            getApiEndpoint(): string;
+            getEndpointAndApi(): string;
+            setEndpointAndApi(endpoint: string, api: string): void;
+        }
+
+        let endpoint: Endpoint;
         let theExtensionManager: ExtensionManager;
 
         interface InitializerOptions {
