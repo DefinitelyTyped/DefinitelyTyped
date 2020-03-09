@@ -23,11 +23,30 @@ import { Accounts } from "meteor/accounts-base";
 import { BrowserPolicy } from "meteor/browser-policy-common";
 import { DDPRateLimiter } from "meteor/ddp-rate-limiter";
 
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        interface User {
+            // One of the tests assigns a new property to the user so it has to be typed
+            dexterity?: number;
+        }
+    }
+}
+
 // Avoid conflicts between `meteor-tests.ts` and `globals/meteor-tests.ts`.
 namespace MeteorTests {
 
-var Rooms = new Mongo.Collection('rooms');
-var Messages = new Mongo.Collection('messages');
+interface RoomDAO {
+    _id: string;
+    name: string;
+}
+
+interface MessageDAO {
+    _id: string;
+    text: string;
+}
+    
+const Rooms = new Mongo.Collection<RoomDAO>('rooms');
+let Messages = new Mongo.Collection<MessageDAO>('messages');
 interface MonkeyDAO {
     _id: string;
     name: string;
@@ -61,8 +80,10 @@ Meteor.publish("adminSecretInfo", function () {
     return Rooms.find({ admin: this.userId }, { fields: { secretInfo: 1 } });
 });
 
-Meteor.publish("roomAndMessages", function (roomId: string) {
+Meteor.publish("roomAndMessages", function (roomId: unknown) {
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     return [
         Rooms.find({ _id: roomId }, { fields: { secretInfo: 0 } }),
         Messages.find({ roomId: roomId })
@@ -72,9 +93,11 @@ Meteor.publish("roomAndMessages", function (roomId: string) {
 /**
  * Also from Publish and Subscribe, Meteor.publish section
  */
-Meteor.publish("counts-by-room", function (roomId: string) {
+Meteor.publish("counts-by-room", function (roomId: unknown) {
     var self = this;
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     var count = 0;
     var initializing = true;
     var handle = Messages.find({ roomId: roomId }).observeChanges({
@@ -131,9 +154,14 @@ Tracker.autorun(function () {
  * From Methods, Meteor.methods section
  */
 Meteor.methods({
-    foo: function (arg1: string, arg2: number[]) {
+    foo: function (arg1: unknown, arg2: unknown) {
         check(arg1, String);
         check(arg2, [Number]);
+
+        // $ExpectType string
+        arg1;
+        // $ExpectType number[]
+        arg2;
 
         var you_want_to_throw_an_error = true;
         if (you_want_to_throw_an_error)
@@ -184,11 +212,9 @@ var result = Meteor.call('foo', 1, 2);
 interface ChatroomsDAO {
     _id?: string;
 }
-interface MessagesDAO {
-    _id?: string;
-}
+
 var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
-Messages = new Mongo.Collection<MessagesDAO>("messages");
+Messages = new Mongo.Collection<MessageDAO>("messages");
 
 var myMessages: any[] = Messages.find({ userId: Session.get('myUserId') }).fetch();
 
@@ -196,7 +222,13 @@ Messages.insert({ text: "Hello, world!" });
 
 Messages.update(myMessages[0]._id, { $set: { important: true } });
 
-var Posts = new Mongo.Collection("posts");
+interface PostDAO {
+    _id: string;
+    title: string;
+    body: string;
+} 
+
+var Posts : Mongo.Collection<iPost> | Mongo.Collection<PostDAO> = new Mongo.Collection<PostDAO>("posts");
 Posts.insert({ title: "Hello world", body: "First post" });
 
 // Couldn't find assert() in the meteor docs
@@ -213,7 +245,7 @@ Posts.insert({ title: "Hello world", body: "First post" });
  **/
 
 class Animal {
-    constructor(doc: any) {}
+    constructor(public doc: any) {}
 }
 
 interface AnimalDAO {
@@ -235,9 +267,16 @@ Animals.findOne({ name: "raptor" }).makeNoise(); // prints "roar"
 /**
  * From Collections, Collection.insert section
  */
+
+interface ListDAO {
+    _id: string;
+    list?: string;
+    name: string;
+}
+
 // DA: I added the variable declaration statements to make this work
-var Lists = new Mongo.Collection('Lists');
-var Items = new Mongo.Collection('Lists');
+var Lists = new Mongo.Collection<ListDAO>('Lists');
+var Items = new Mongo.Collection<ListDAO>('Lists');
 
 var groceriesId = Lists.insert({ name: "Groceries" });
 Items.insert({ list: groceriesId, name: "Watercress" });
@@ -246,7 +285,13 @@ Items.insert({ list: groceriesId, name: "Persimmons" });
 /**
  * From Collections, collection.update section
  */
-var Players = new Mongo.Collection('Players');
+
+interface Players {
+  score: number
+  badges: string[]
+}
+
+var Players: Mongo.Collection<Players> = new Mongo.Collection('Players');
 
 Template['adminDashboard'].events({
     'click .givePoints': function () {
@@ -261,6 +306,17 @@ Meteor.methods({
     declareWinners: function () {
         Players.update({ score: { $gt: 10 } },
             { $addToSet: { badges: "Winner" } },
+            { multi: true });
+    }
+});
+
+/**
+ * Also from Collections, collection.update section
+ */
+Meteor.methods({
+    declareWinners: function () {
+        Players.update({ score: { $gt: 10 } },
+            { $addToSet: { badges: {$each: ["Winner", "Super"]} } },
             { multi: true });
     }
 });
@@ -328,10 +384,12 @@ Posts.deny({
 /**
  * From Collections, cursor.forEach section
  */
-var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 });
+var topPosts = Posts.find({}, { sort: { score: -1 }, limit: 5 })as Mongo.Cursor<PostDAO | iPost>;
 var count = 0;
-topPosts.forEach(function (post: { title: string }) {
-    console.log("Title of post " + count + ": " + post.title);
+topPosts.forEach(function (post) {
+    if ('title' in post) {
+        console.log("Title of post " + count + ": " + post.title);
+    }
     count += 1;
 });
 
@@ -383,19 +441,19 @@ Comments.find({ viewNumber: { $gt: 100 } });
 Comments.find({ viewNumber: { $not: { $lt: 100, $gt: 1000 } } });
 Comments.find({ tags: { $in: [ "tag-1", "tag-2", "tag-3" ] } });
 Comments.find({ $or: [ { text: "hello" }, { text: "world" } ] });
-Comments.find({ $or: [ 
-    { text: "hello" }, 
-    { text: "world", viewNumber: { $gt: 0 } } 
+Comments.find({ $or: [
+    { text: "hello" },
+    { text: "world", viewNumber: { $gt: 0 } }
 ], authorId: "test-author-id" });
-Comments.find({ $and: [ 
-    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] }, 
+Comments.find({ $and: [
+    { $or: [{ authorId: "author-id-1" }, { authorId: "author-id-2" }] },
     { $or: [{ tags: "tag-1" }, { tags: "tag-2" }] }
 ]});
 
-Comments.find({ inlineLinks: { $exists: true, $type: "array" } });
-Comments.find({ inlineLinks: { $elemMatch: { 
-    objectType: InlineObjectType.Image, 
-    objectUrl: { $regex: "https://(www\.?)youtube\.com" } 
+Comments.find({ $query: { inlineLinks: { $exists: true, $type: "array" } } });
+Comments.find({ inlineLinks: { $elemMatch: {
+    objectType: InlineObjectType.Image,
+    objectUrl: { $regex: "https://(www\.?)youtube\.com" }
 } } });
 Comments.find({ "inlineLinks.objectType": InlineObjectType.Person });
 Comments.find({ tags: "tag-1" });
@@ -492,7 +550,7 @@ Accounts.validateNewUser(function (user: { username: string }) {
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any, dexterity: number }) {
+Accounts.onCreateUser(function (options: { profile: any }, user) {
     var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
     user.dexterity = d6() + d6() + d6();
     // We still want the default hook's 'profile' behavior.
@@ -506,7 +564,7 @@ Accounts.onCreateUser(function (options: { profile: any }, user: { profile: any,
  */
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
-Accounts.emailTemplates.enrollAccount.subject = function (user: { profile: { name: string } }) {
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
     return "Welcome to Awesome Town, " + user.profile.name;
 };
 Accounts.emailTemplates.enrollAccount.text = function (user: any, url: string) {
@@ -560,14 +618,16 @@ var body = Template.body;
  */
 var Chats = new Mongo.Collection('chats');
 
-Meteor.publish("chats-in-room", function (roomId: string) {
+Meteor.publish("chats-in-room", function (roomId: unknown) {
     // Make sure roomId is a string, not an arbitrary mongo selector object.
     check(roomId, String);
+    // $ExpectType string
+    roomId;
     return Chats.find({ room: roomId });
 });
 
 Meteor.methods({
-    addChat: function (roomId: string, message: { text: string, timestamp: Date, tags: string }) {
+    addChat: function (roomId: unknown, message: unknown) {
         check(roomId, String);
         check(message, {
             text: String,
@@ -576,7 +636,14 @@ Meteor.methods({
             tags: Match.Optional('Test String')
         });
 
-        // ... do something with the message ...
+        // $ExpectType string
+        roomId;
+        // $ExpectType string
+        message.text;
+        // $ExpectType Date
+        message.timestamp;
+        // $ExpectType "Test String"
+        message.tags;
     }
 });
 
@@ -584,8 +651,9 @@ Meteor.methods({
  * From Match patterns section
  */
 var pat = { name: Match.Optional('test') };
-check({ name: "something" }, pat) // OK
+check({ name: "test" }, pat) // OK
 check({}, pat) // OK
+check({ name: "something" }, pat) // Throws an exception
 check({ name: undefined }, pat) // Throws an exception
 
 // Outside an object
@@ -709,7 +777,7 @@ Accounts.onPageLoadLogin(function () {
 });
 
 // Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
-var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
+var loginOpts = {
     requestPermissions: ["a", "b"],
     requestOfflineToken: true,
     loginUrlParameters: { asdf: 1, qwer: "1234" },
@@ -717,7 +785,7 @@ var loginOpts = <Meteor.LoginWithExternalServiceOptions>{
     loginStyle: "Bold and powerful",
     redirectUrl: "popup",
     profile: "asdfasdf"
-};
+} as Meteor.LoginWithExternalServiceOptions;
 Meteor.loginWithMeteorDeveloperAccount(loginOpts, function (error: Meteor.Error) { });
 
 Accounts.emailTemplates.siteName = "AwesomeSite";
@@ -751,6 +819,43 @@ var handle = Accounts.validateLoginAttempt(function (attemptInfoObject: Accounts
 });
 handle.stop();
 
+if (Meteor.isServer) {
+    Accounts.registerLoginHandler('impersonate', (options: { targetUserId: string }) => {
+        const currentUser = Meteor.userId();
+        if (!currentUser) {
+            return { error: 'No user was logged in' };
+        }
+
+        const isSuperUser = (userId: string) => true;
+
+        if (!isSuperUser(currentUser)) {
+            const errMsg = `User ${currentUser} tried to impersonate but is not allowed`;
+            return { error: errMsg };
+        }
+        // By returning an object with userId, the session will now be logged in as that user
+        return { userId: options.targetUserId };
+    });
+}
+
+if (Meteor.isClient) {
+    Accounts.callLoginMethod({
+        methodName: 'impersonate',
+        methodArguments: [{ targetUserId: 'abc123' }],
+        userCallback: (...args: any[]) => {
+            const error = args[0];
+            if (!error) {
+                console.error(error);
+            }
+        },
+    });
+}
+
+if (Meteor.isServer) {
+    const check = Accounts._checkPassword(Meteor.users.findOne({}), 'abc123');
+    if (check.error) {
+        console.error('incorrect password');
+    }
+}
 
 // Covers https://github.com/meteor-typings/meteor/issues/8
 const publicSetting = Meteor.settings.public['somePublicSetting'];
@@ -760,7 +865,7 @@ const deeperPrivateSetting = Meteor.settings['somePrivateSettings']['deeperSetti
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/9
-const username = (<HTMLInputElement>Template.instance().find('#username')).value;
+const username = (Template.instance().find('#username') as HTMLInputElement).value;
 
 
 // Covers https://github.com/meteor-typings/meteor/issues/3
@@ -795,3 +900,10 @@ const collectionWithoutConnection = new Mongo.Collection<MonkeyDAO>("monkey", {
 });
 
 }  // End of namespace
+
+// absoluteUrl
+Meteor.absoluteUrl('/sub', {rootUrl: 'http://wonderful.com'});
+Meteor.absoluteUrl.defaultOptions = {
+  rootUrl: 'http://123.com',
+  secure: false
+};

@@ -3,7 +3,8 @@
 // Definitions by: Ben Swartz <https://github.com/bensw>,
 //                 Bas Pennings <https://github.com/basp>,
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Matt Bishop <https://github.com/mattbishop>
+//                 Matt Bishop <https://github.com/mattbishop>,
+//                 Leonardo Testa <https://github.com/testica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -12,7 +13,7 @@ declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
 		setLocale(locale: string): void;
-		
+
 		address: {
 			zipCode(format?: string): string;
 			city(format?: number): string;
@@ -68,7 +69,6 @@ declare namespace Faker {
 			future(years?: number, refDate?: string|Date): Date;
 			between(from: string|number|Date, to: string|Date): Date;
 			recent(days?: number): Date;
-			soon(days?: number): Date;
 			month(options?: { abbr?: boolean, context?: boolean }): string;
 			weekday(options?: { abbr?: boolean, context?: boolean }): string;
 		};
@@ -78,6 +78,7 @@ declare namespace Faker {
 		finance: {
 			account(length?: number): string;
 			accountName(): string;
+			routingNumber(): string;
 			mask(length?: number, parens?: boolean, elipsis?: boolean): string;
 			amount(min?: number, max?: number, dec?: number, symbol?: string): string;
 			transactionType(): string;
@@ -85,10 +86,17 @@ declare namespace Faker {
 			currencyName(): string;
 			currencySymbol(): string;
 			bitcoinAddress(): string;
-			ethereumAddress(): string;
 			iban(formatted?: boolean): string
 			bic(): string
 		};
+
+		git: {
+			branch(): string;
+			commitEntry(options?: { merge: boolean }): string;
+			commitMessage(): string;
+			commitSha(): string;
+			shortSha(): string;
+		}
 
 		hacker: {
 			abbreviation(): string;
@@ -117,7 +125,7 @@ declare namespace Faker {
 		image: {
 			image(): string;
 			avatar(): string;
-			imageUrl(width?: number, height?: number, category?: string): string;
+			imageUrl(width?: number, height?: number, category?: string, randomize?: boolean, https?: boolean): string;
 			abstract(width?: number, height?: number): string;
 			animals(width?: number, height?: number): string;
 			business(width?: number, height?: number): string;
@@ -184,10 +192,11 @@ declare namespace Faker {
 		};
 
 		random: {
-			number(max: number): number;
+			number(max?: number): number;
 			number(options?: { min?: number, max?: number, precision?: number }): number;
 			arrayElement(): string;
 			arrayElement<T>(array: T[]): T;
+			arrayElement<T>(array: ReadonlyArray<T>): T;
 			objectElement(object?: { [key: string]: any }, field?: "key"): string;
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;
@@ -197,7 +206,6 @@ declare namespace Faker {
 			image(): string;
 			locale(): string;
 			alphaNumeric(count?: number): string;
-			hexaDecimal(count?: number): string;
 		};
 
 		system: {
@@ -214,6 +222,17 @@ declare namespace Faker {
 		};
 
 		seed(value: number): void;
+		seedValue?: number;
+
+		vehicle: {
+			vehicle(): string;
+			manufacturer(): string;
+			model(): string;
+			type(): string;
+			fuel(): string;
+			vin(): string;
+			color(): string;
+		}
 	}
 
 	interface Card {
@@ -261,6 +280,7 @@ declare namespace Faker {
 	interface ContextualCard {
 		name: string;
 		username: string;
+		avatar: string;
 		email: string;
 		dob: Date;
 		phone: string;

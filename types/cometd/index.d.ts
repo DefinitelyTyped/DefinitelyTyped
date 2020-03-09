@@ -1,6 +1,10 @@
 // Type definitions for CometD 4.0
-// Project: http://cometd.org
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Daniel Perez Alvarez <https://github.com/unindented>, Alex Henry <https://github.com/alxHenry>
+// Project: https://cometd.org
+// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
+//                 Daniel Perez Alvarez <https://github.com/unindented>
+//                 Alex Henry <https://github.com/alxHenry>
+//                 Harald Gliebe <https://github.com/hagl>
+//                 P.J. Swesey <https://github.com/swese44>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -67,14 +71,68 @@ export interface Configuration {
      * CometD may fail to remain within the max URI length when encoded in JSON.
      */
     maxURILength?: number;
+    /**
+     * Uses the scheduler service available in Web Workers via Worker.setTimeout(fn, delay) rather
+     * than using that available via Window.setTimeout(fn, delay). Browsers are now throttling the
+     * Window scheduler in background tabs to save battery in mobile devices, so the Window scheduler
+     * events are delayed by possibly several seconds, causing CometD sessions to timeout on the
+     * server. The Worker scheduler is not throttled and guarantees that scheduler events happen
+     * on time.
+     */
+    useWorkerScheduler?: boolean;
 }
 
-export interface Message {
+export type ConnectionType = 'long-polling' | 'callback-polling' | 'iframe' | 'flash';
+export type ReconnectAdvice = 'retry' | 'handshake' | 'none';
+
+export interface BaseMessage {
     successful: boolean;
-    data: any;
+    channel: string;
+    id?: string;
+    clientId?: string;
+    advice?: {
+        reconnect?: ReconnectAdvice;
+        timeout?: number;
+        interval?: number;
+        'multiple-clients'?: boolean;
+        hosts?: string[];
+    };
+    connectionType?: ConnectionType;
+    timestamp?: string;
+    data?: any;
+    error?: string;
+    ext?: any;
+    version?: string;
+    minimumVersion?: string;
 }
+
+export interface SuccessfulHandshakeMessage extends BaseMessage {
+    successful: true;
+    version: string;
+    supportedConnectionTypes: ConnectionType[];
+    clientId: string;
+    authSuccessful?: true;
+    reestablish: boolean;
+}
+
+export interface UnsuccessfulHandshakeMessage extends BaseMessage {
+    successful: false;
+    error: string;
+    supportedConnectionTypes?: ConnectionType[];
+    reestablish?: undefined;
+}
+
+export type HandshakeMessage = SuccessfulHandshakeMessage | UnsuccessfulHandshakeMessage;
+
+export interface SubscribeMessage extends BaseMessage {
+    subscription: string;
+}
+
+export type Message = BaseMessage | HandshakeMessage | SubscribeMessage;
 
 export type Listener = (message: Message) => void;
+export type HandshakeListener = (message: HandshakeMessage) => void;
+export type SubscribeListener = (message: SubscribeMessage) => void;
 export type Callback = (data: any) => void;
 
 export interface SubscriptionHandle {
@@ -88,6 +146,8 @@ export interface SubscriptionHandle {
 export interface Extension {
     incoming?: Listener;
     outgoing?: Listener;
+    registered?: (name: string, cometd: CometD) => void;
+    unregistered?: () => void;
 }
 
 export class CometD {
@@ -146,7 +206,7 @@ export class CometD {
      *
      * @param handshakeCallback a function to be invoked when the handshake is acknowledged
      */
-    handshake(handshakeCallback: Listener): void;
+    handshake(handshakeCallback: HandshakeListener): void;
 
     /**
      * Establishes the Bayeux communication with the Bayeux server via a handshake and a subsequent
@@ -155,7 +215,7 @@ export class CometD {
      * @param handshakeProps an object to be merged with the handshake message
      * @param handshakeCallback a function to be invoked when the handshake is acknowledged
      */
-    handshake(handshakeProps: object, handshakeCallback: Listener): void;
+    handshake(handshakeProps: object, handshakeCallback: HandshakeListener): void;
 
     /**
      * Disconnects from the Bayeux server.
@@ -243,7 +303,7 @@ export class CometD {
      * @param subscribeCallback a function to be invoked when the subscription is acknowledged
      * @return the subscription handle to be passed to `unsubscribe`
      */
-    subscribe(channel: string, callback: Callback, subscribeCallback?: Listener): SubscriptionHandle;
+    subscribe(channel: string, callback: Callback, subscribeCallback?: SubscribeListener): SubscriptionHandle;
 
     /**
      * Subscribes to the given channel, performing the given callback in the given scope when a
@@ -264,7 +324,12 @@ export class CometD {
      * @param subscribeCallback a function to be invoked when the subscription is acknowledged
      * @return the subscription handle to be passed to `unsubscribe`
      */
-    subscribe(channel: string, callback: Callback, subscribeProps: object, subscribeCallback?: Listener): SubscriptionHandle;
+    subscribe(
+        channel: string,
+        callback: Callback,
+        subscribeProps: object,
+        subscribeCallback?: SubscribeListener,
+    ): SubscriptionHandle;
 
     /**
      * Unsubscribes the subscription obtained with a call to `subscribe`.
@@ -272,7 +337,7 @@ export class CometD {
      * @param subscription the subscription to unsubscribe.
      * @param unsubscribeCallback a function to be invoked when the unsubscription is acknowledged
      */
-    unsubscribe(subscription: SubscriptionHandle, unsubscribeCallback?: Listener): void;
+    unsubscribe(subscription: SubscriptionHandle, unsubscribeCallback?: SubscribeListener): void;
 
     /**
      * Unsubscribes the subscription obtained with a call to `subscribe`.
@@ -281,7 +346,11 @@ export class CometD {
      * @param unsubscribeProps an object to be merged with the unsubscribe message
      * @param unsubscribeCallback a function to be invoked when the unsubscription is acknowledged
      */
-    unsubscribe(subscription: SubscriptionHandle, unsubscribeProps: object, unsubscribeCallback?: Listener): void;
+    unsubscribe(
+        subscription: SubscriptionHandle,
+        unsubscribeProps: object,
+        unsubscribeCallback?: SubscribeListener,
+    ): void;
 
     /**
      * Resubscribes as necessary in case of a re-handshake.
@@ -335,7 +404,7 @@ export class CometD {
         data: ArrayBuffer | DataView | Uint8Array | Uint16Array | Uint32Array,
         last: boolean,
         meta?: object,
-        callback?: Listener
+        callback?: Listener,
     ): void;
 
     /**
@@ -396,7 +465,7 @@ export class CometD {
      *
      * @param level the log level string
      */
-    setLogLevel(level: "error" | "warn" | "info" | "debug"): void;
+    setLogLevel(level: 'error' | 'warn' | 'info' | 'debug'): void;
 
     /**
      * Registers an extension whose callbacks are called for every incoming message (that comes from
@@ -472,5 +541,10 @@ export class CometD {
      * @param isListener whether it was a listener
      * @param message the message received from the Bayeux server
      */
-    onListenerException: (exception: any, subscriptionHandle: SubscriptionHandle, isListener: boolean, message: string) => void;
+    onListenerException: (
+        exception: any,
+        subscriptionHandle: SubscriptionHandle,
+        isListener: boolean,
+        message: string,
+    ) => void;
 }

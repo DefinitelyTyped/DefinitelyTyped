@@ -6,11 +6,7 @@
 
 import * as React from "react";
 
-export as namespace QrReader;
-
-export default QrReader;
-
-export namespace QrReader {
+declare namespace QrReader {
   interface props {
     onScan: (data: string | null) => void;
     onError: (err: any) => void;
@@ -26,5 +22,8 @@ export namespace QrReader {
   }
 }
 
-declare class QrReader extends React.Component<QrReader.props> {
-}
+export as namespace QrReader;
+
+declare class QrReader extends React.Component<QrReader.props> {}
+
+export = QrReader;

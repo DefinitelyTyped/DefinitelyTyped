@@ -3,15 +3,14 @@
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>
 //                 Adi Dahiya <https://github.com/adidahiya>
 //                 Jason Killian <https://github.com/JKillian>
-//                 Sean Kelley <https://github.com/seansfkelley>
 //                 Michal Adamczyk <https://github.com/mradamczyk>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
+//                 Josh McCullough <https://github.com/joshmccullough>
+//                 uhyo <https://github.com/uhyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-type ClassNamesFn = (...classes: classNames.ClassValue[]) => string;
-
-type ClassNamesExport = ClassNamesFn & { default: ClassNamesFn };
+import { ClassValue, ClassNamesExport } from './types';
 
 declare const classNames: ClassNamesExport;
 

@@ -1,5 +1,5 @@
 import { AddressInfo } from 'net';
-import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
+import { SMTPServer, SMTPServerAddress, SMTPServerAuthentication, SMTPServerAuthenticationResponse, SMTPServerDataStream, SMTPServerOptions, SMTPServerSession } from 'smtp-server';
 import { Readable } from 'stream';
 
 function test_with_handlers_as_options() {
@@ -42,8 +42,13 @@ function test_with_handlers_as_options() {
         callback();
     }
 
-    function onData(stream: Readable, session: SMTPServerSession, callback: (err?: Error) => void): void {
+    function onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error) => void): void {
         console.log(`[${session.id}] onData started`);
+
+        if (stream.sizeExceeded) {
+            callback(new Error('Message too big'));
+            return;
+        }
 
         let messageLength = 0;
 

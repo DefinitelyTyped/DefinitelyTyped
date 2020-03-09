@@ -18,8 +18,8 @@ declare interface Platform {
         version?: string;
         toString(): string;
     };
-    parse?(ua: string): Platform;
-    toString?(): string;
+    parse(ua: string): Platform;
+    toString(): string;
 }
 
 declare var platform: Platform;

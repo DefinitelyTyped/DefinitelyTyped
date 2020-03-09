@@ -1,5 +1,5 @@
 // Type definitions for json-schema 4.0, 6.0 and 7.0
-// Project: https://www.npmjs.com/package/json-schema
+// Project: https://github.com/kriszyp/json-schema
 // Definitions by: Boris Cherny <https://github.com/bcherny>
 //                 Cyrille Tuzi <https://github.com/cyrilletuzi>
 //                 Lucian Buzzo <https://github.com/lucianbuzzo>
@@ -21,16 +21,28 @@ export type JSONSchema4TypeName = 'string' | 'number' | 'integer' | 'boolean'
 export type JSONSchema4Type = any[] | boolean | number | null | object | string
 
 /**
+ * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-04/schema#'
+ * - 'http://json-schema.org/draft-04/hyper-schema#'
+ * - 'http://json-schema.org/draft-03/schema#'
+ * - 'http://json-schema.org/draft-03/hyper-schema#'
+ *
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
+ */
+export type JSONSchema4Version = string;
+
+/**
  * JSON Schema V4
  * @see https://tools.ietf.org/html/draft-zyp-json-schema-04
  */
 export interface JSONSchema4 {
     id?: string
     $ref?: string
-    $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-04/schema#' | 'http://json-schema.org/draft-04/hyper-schema#'
-    | 'http://json-schema.org/draft-03/schema#' | 'http://json-schema.org/draft-03/hyper-schema#'
-    | string
+    $schema?: JSONSchema4Version
 
     /**
      * This attribute is a string that provides a short description of the
@@ -211,6 +223,19 @@ export type JSONSchema6TypeName = 'string' | 'number' | 'integer' | 'boolean' | 
 export type JSONSchema6Type = any[] | boolean | number | null | object | string
 
 /**
+ * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-06/schema#'
+ * - 'http://json-schema.org/draft-06/hyper-schema#'
+ *
+ * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
+ */
+export type JSONSchema6Version = string;
+
+/**
  * JSON Schema V6
  * @see https://tools.ietf.org/html/draft-wright-json-schema-validation-01
  */
@@ -218,8 +243,7 @@ export type JSONSchema6Definition = JSONSchema6 | boolean;
 export interface JSONSchema6 {
     $id?: string
     $ref?: string
-    $schema?: 'http://json-schema.org/schema#' | 'http://json-schema.org/hyper-schema#' |
-    'http://json-schema.org/draft-06/schema#' | 'http://json-schema.org/draft-06/hyper-schema#'
+    $schema?: JSONSchema6Version
 
     /**
      * Must be strictly greater than 0.
@@ -498,16 +522,20 @@ export type JSONSchema7Type = JSONSchema7Array[] | boolean | number | null | obj
 
 // Workaround for infinite type recursion
 // https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
-export interface JSONSchema7Array extends Array<JSONSchema7Type> {}
+export interface JSONSchema7Array extends Array<JSONSchema7Type> { }
 
 /**
  * Meta schema
+ *
+ * Recommended values:
+ * - 'http://json-schema.org/schema#'
+ * - 'http://json-schema.org/hyper-schema#'
+ * - 'http://json-schema.org/draft-07/schema#'
+ * - 'http://json-schema.org/draft-07/hyper-schema#'
+ *
  * @see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01#section-5
  */
-export type JSONSchema7Version = 'http://json-schema.org/schema#'
-    | 'http://json-schema.org/hyper-schema#'
-    | 'http://json-schema.org/draft-07/schema#'
-    | 'http://json-schema.org/draft-07/hyper-schema#';
+export type JSONSchema7Version = string;
 
 /**
  * JSON Schema v7
@@ -614,3 +642,33 @@ export interface JSONSchema7 {
     writeOnly?: boolean;
     examples?: JSONSchema7Type;
 }
+
+export interface ValidationResult {
+    valid: boolean;
+    errors: ValidationError[];
+}
+
+export interface ValidationError {
+    property: string;
+    message: string;
+}
+
+/**
+ * To use the validator call JSONSchema.validate with an instance object and an optional schema object.
+ * If a schema is provided, it will be used to validate. If the instance object refers to a schema (self-validating),
+ * that schema will be used to validate and the schema parameter is not necessary (if both exist,
+ * both validations will occur).
+ */
+export function validate(instance: {}, schema: JSONSchema4 | JSONSchema6 | JSONSchema7): ValidationResult;
+
+/**
+ * The checkPropertyChange method will check to see if an value can legally be in property with the given schema
+ * This is slightly different than the validate method in that it will fail if the schema is readonly and it will
+ * not check for self-validation, it is assumed that the passed in value is already internally valid.
+ */
+export function checkPropertyChange(value: any, schema: JSONSchema4 | JSONSchema6 | JSONSchema7, property: string): ValidationResult;
+
+/**
+ * This checks to ensure that the result is valid and will throw an appropriate error message if it is not.
+ */
+export function mustBeValid(result: ValidationResult): void;

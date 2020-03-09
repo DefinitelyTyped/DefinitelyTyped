@@ -1,8 +1,9 @@
-// Type definitions for W3C Web USB API 1.0
+// Type definitions for non-npm package W3C Web USB API 1.0
 // Project: https://wicg.github.io/webusb/
 // Definitions by: Lars Knudsen <https://github.com/larsgk>
+//                 Rob Moran <https://github.com/thegecko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 type USBDirection = "in" | "out";
 type USBEndpointType = "bulk" | "interrupt" | "isochronous";
@@ -107,12 +108,14 @@ declare class USBIsochronousOutTransferResult {
 }
 
 declare class USB extends EventTarget {
-    onconnect(): (this: this, ev: Event) => any;
-    ondisconnect(): (this: this, ev: Event) => any;
+    onconnect: ((this: this, ev: USBConnectionEvent) => any) | null;
+    ondisconnect: ((this: this, ev: USBConnectionEvent) => any) | null;
     getDevices(): Promise<USBDevice[]>;
     requestDevice(options?: USBDeviceRequestOptions): Promise<USBDevice>;
-
     addEventListener(type: "connect" | "disconnect", listener: (this: this, ev: USBConnectionEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: "connect" | "disconnect", callback: (this: this, ev: USBConnectionEvent) => any, useCapture?: boolean): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
 }
 
 declare class USBDevice {

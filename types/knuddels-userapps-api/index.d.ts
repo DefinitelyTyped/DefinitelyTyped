@@ -1,22 +1,22 @@
-// Type definitions for Knuddels UserApps API 1.00109481
+// Type definitions for non-npm package Knuddels UserApps API 1.00119839
 // Project: https://developer.knuddels.de
 // Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // helper types
-export type JsonData = string | number | boolean | Date | Json | JsonArray;
-export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable;
-export type KnuddelsSerializable = string | number | boolean | User | BotUser;
+export type JsonData = string | number | boolean | Date | Json | JsonArray | undefined;
+export type KnuddelsJsonData = string | number | boolean | Date | KnuddelsJson | KnuddelsJsonArray | KnuddelsSerializable | undefined;
+export type KnuddelsSerializable = string | number | boolean | User | BotUser | undefined;
 export type KnuddelsEvent = string | Json | KnuddelsEventArray;
 
 // helper interfaces
 declare global {
 	interface Json {
-		[x: string]: JsonData;
+		[x: string]: JsonData | undefined;
 	}
 
 	interface KnuddelsJson {
-		[x: string]: KnuddelsJsonData;
+		[x: string]: KnuddelsJsonData | undefined;
 	}
 
 	interface JsonArray extends Array<JsonData> {
@@ -1026,12 +1026,12 @@ declare global {
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getAppViewMode
 			 * @since Applet: 9.0byl
 			 */
-			getAppViewMode(): void;
+			getAppViewMode(): string;
 			/**
 			 * @see https://developer.knuddels.de/docs/classes/Client.HostFrame.html#method_getBrowserType
 			 * @since Applet: 9.0bzp
 			 */
-			getBrowserType(): void;
+			getBrowserType(): string;
 		}
 	}
 
@@ -1620,6 +1620,10 @@ declare global {
 		 * @see https://developer.knuddels.de/docs/classes/KnuddelTransferDisplayType.html#property_Post
 		 */
 		static readonly Post: KnuddelTransferDisplayType;
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/KnuddelTransferDisplayType.html#property_Silent
+		 */
+		static readonly Silent: KnuddelTransferDisplayType;
 	}
 
 	/**
@@ -1817,6 +1821,10 @@ declare global {
 		 */
 		getText(): string;
 		/**
+		 * @see https://developer.knuddels.de/docs/classes/Message.html#method_getRawText
+		 */
+		getRawText(): string;
+		/**
 		 * @see https://developer.knuddels.de/docs/classes/Message.html#method_getCreationDate
 		 */
 		getCreationDate(): Date;
@@ -1967,12 +1975,20 @@ declare global {
 	 * @see https://developer.knuddels.de/docs/classes/PublicActionMessage.html
 	 */
 	class PublicActionMessage extends Message {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/PublicActionMessage.html#method_getFunctionName
+		 */
+		getFunctionName(): string;
 	}
 
 	/**
 	 * @see https://developer.knuddels.de/docs/classes/PublicEventMessage.html
 	 */
 	class PublicEventMessage extends Message {
+		/**
+		 * @see https://developer.knuddels.de/docs/classes/PublicEventMessage.html#method_getFunctionName
+		 */
+		getFunctionName(): string;
 	}
 
 	/**

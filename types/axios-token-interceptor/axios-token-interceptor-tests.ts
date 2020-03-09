@@ -2,17 +2,22 @@ import tokenProvider = require('axios-token-interceptor');
 
 tokenProvider(); // $ExpectError
 
-const validOptions = {
+const validOptions1 = {
+	getToken: () => 'qwerty',
+};
+tokenProvider(validOptions1); // $ExpectType TokenProvider
+
+const validOptions2 = {
 	getToken: () => Promise.resolve('qwerty'),
 };
-tokenProvider(validOptions); // $ExpectType TokenProvider
+tokenProvider(validOptions2); // $ExpectType TokenProvider
 
-tokenCache(); // $ExpectError
+tokenProvider.tokenCache(); // $ExpectError
 
-const getToken = Promise.resolve('qwerty');
+const validCacheGetter = () => Promise.resolve('qwerty');
 const validCacheOptions = {
 	maxAge: 3600,
 };
-const cache = tokenProvider.tokenCache(getToken, validCacheOptions); // $Expect TokenCache
+const cache = tokenProvider.tokenCache(validCacheGetter, validCacheOptions); // $Expect TokenCache
 
 cache.reset(); // $ExpectType void

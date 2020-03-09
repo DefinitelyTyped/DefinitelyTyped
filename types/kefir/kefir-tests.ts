@@ -1,6 +1,6 @@
 
 import * as Kefir from 'kefir';
-import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'kefir';
+import { Observable, Pool, Stream, Property, Event, Emitter } from 'kefir';
 
 //Create a stream
 {
@@ -24,7 +24,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 		});
 	}
 	let stream07: Stream<number, void> = Kefir.fromCallback<number>(callback => setTimeout(() => callback(1), 1000));
-	let stream08: Stream<number, void> = Kefir.fromNodeCallback<number, void>(callback => setTimeout(() => callback(null, 1), 1000));
+	let stream08: Stream<number, Error> = Kefir.fromNodeCallback<number, Error>(callback => setTimeout(() => callback(null, 1), 1000));
 	let stream09: Stream<MouseEvent, void> = Kefir.fromEvents<MouseEvent, void>(document.body, 'click');
 	let stream10: Stream<number, void> = Kefir.stream<number, void>(emitter => {
 		let count = 0;
@@ -130,7 +130,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 		var myTransducer: any;
 		let observable28: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3, 4, 5, 6]).transduce<number>(myTransducer);
 	}
-	let observable28: Stream<number | string, void> =  Kefir.sequentially(100, [0, 1, 2, 3]).withHandler<number | string, void>((emitter: Emitter<string | number, void>, event: Event<number>) => {
+	let observable28: Stream<number | string, void> =  Kefir.sequentially(100, [0, 1, 2, 3]).withHandler<number | string, void>((emitter: Emitter<string | number, void>, event: Event<number, void>) => {
 		if (event.type === 'end') {
 			emitter.emit('bye');
 			emitter.end();
@@ -141,6 +141,9 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 			}
 		}
 	});
+	type First = 'first';
+	type Second = 'second';
+	let observable32: Stream<First, void> = Kefir.sequentially<First | Second>(100, ['first', 'second']).filter((value): value is First => value === 'first');
 }
 
 // Combine observables
@@ -177,7 +180,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 		let a: Stream<number, void> = Kefir.sequentially(100, [0, 1, 2]);
 		let b: Stream<number, void> = Kefir.sequentially(100, [0, 1, 2]).delay(30);
 		let c: Observable<number, void> = Kefir.sequentially(100, [0, 1, 2]).delay(60);
-		let pool: ObservablePool<number, void> = Kefir.pool<number, void>();
+		let pool: Pool<number, void> = Kefir.pool<number, void>();
 		pool.plug(a);
 		pool.plug(b);
 		pool.plug(c);
@@ -207,7 +210,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	{
 		let a: Property<number, void>  = Kefir.sequentially(200, [2, 3]).toProperty(() => 1);
 		let b: Stream<number, void>  = Kefir.interval(100, 0).delay(40).take(5);
-		let observable02: Property<number, void> = a.sampledBy<number, void, number>(b)
+		let observable02: Property<number, void> = a.sampledBy(b)
 	}
 	{
 		let foo: Stream<number, void>  = Kefir.sequentially(100, [1, 2, 3, 4]);
@@ -216,8 +219,8 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	}
 	{
 		let foo: Stream<number, void>  = Kefir.sequentially(100, [1, 2, 3, 4]);
-		let bar: Stream<number, void>  = Kefir.later(250, 0);
-		let observable04: Stream<number, void> = foo.takeUntilBy<number, void>(bar);
+		let bar: Stream<string, void>  = Kefir.later(250, 'hello');
+		let observable04: Stream<number, void> = foo.takeUntilBy<string, void>(bar);
 	}
 	{
 		let foo: Stream<number, void>  = Kefir.sequentially(100, [1, 2, 3, 4, 5, 6, 7, 8]).delay(40);

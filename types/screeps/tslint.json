@@ -1,12 +1,11 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "no-redundant-jsdoc-2": false,
-        "dt-header": false,
-        "no-empty-interface": false,
-        "no-unnecessary-generics": false,
-        "no-misused-new": false,
         "no-any-union": false,
-        "no-redundant-undefined": false
+        "no-empty-interface": false,
+        "no-misused-new": false,
+        "no-redundant-jsdoc-2": false,
+        "no-redundant-undefined": false,
+        "no-unnecessary-generics": false
     }
 }

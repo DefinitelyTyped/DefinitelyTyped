@@ -1,0 +1,55 @@
+{
+    "files": [
+        "index.d.ts",
+        "node-tests.ts",
+        "test/assert.ts",
+        "test/buffer.ts",
+        "test/child_process.ts",
+        "test/cluster.ts",
+        "test/crypto.ts",
+        "test/dgram.ts",
+        "test/events.ts",
+        "test/global.ts",
+        "test/http.ts",
+        "test/http2.ts",
+        "test/net.ts",
+        "test/os.ts",
+        "test/path.ts",
+        "test/perf_hooks.ts",
+        "test/process.ts",
+        "test/querystring.ts",
+        "test/readline.ts",
+        "test/repl.ts",
+        "test/stream.ts",
+        "test/tls.ts",
+        "test/tty.ts",
+        "test/util.ts",
+        "test/v8.ts",
+        "test/worker_threads.ts",
+        "test/zlib.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "node": [
+                "node/v11"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

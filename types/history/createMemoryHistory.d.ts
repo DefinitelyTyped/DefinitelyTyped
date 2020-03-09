@@ -14,4 +14,6 @@ export interface MemoryHistory<HistoryLocationState = LocationState> extends His
   canGo(n: number): boolean;
 }
 
-export default function createMemoryHistory(options?: MemoryHistoryBuildOptions): MemoryHistory;
+export default function createMemoryHistory<S = LocationState>(
+  options?: MemoryHistoryBuildOptions,
+): MemoryHistory<S>;

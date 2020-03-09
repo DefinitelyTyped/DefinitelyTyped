@@ -101,7 +101,7 @@ interface DurandalSystemModule {
 
     /**
      * Creates a deferred object which can be used to create a promise. Optionally pass a function action to perform which will be passed an object used in resolving the promise.
-     * @param {function} [action] The action to defer. You will be passed the deferred object as a paramter.
+     * @param {function} [action] The action to defer. You will be passed the deferred object as a parameter.
      * @returns {Deferred} The deferred object.
      */
     defer<T>(action?: (dfd: DurandalDeferred<T>) => void): DurandalDeferred<T>;
@@ -823,7 +823,7 @@ declare module 'plugins/history' {
      * Get the cross-browser normalized URL fragment, either from the URL, the hash, or the override.
      * @param {string} fragment The fragment.
      * @param {boolean} forcePushState Should we force push state?
-     * @returns {string} he fragment.
+     * @returns {string} The fragment.
      */
     export function getFragment(fragment: string, forcePushState: boolean): string;
 

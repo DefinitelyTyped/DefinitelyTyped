@@ -1,8 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "strict-export-declare-modifiers": false,
-        "no-duplicate-imports": false,
-        "no-declare-current-package": false
+        "no-declare-current-package": false,
+        "npm-naming": false
     }
 }

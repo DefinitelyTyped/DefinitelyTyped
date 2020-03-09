@@ -1,0 +1,16 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "callable-types": false,
+        "dt-header": false,
+        "jsdoc-format": false,
+        "no-angle-bracket-type-assertion": false,
+        "no-redundant-jsdoc": false,
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "only-arrow-functions": false,
+        "prefer-method-signature": false,
+        "strict-export-declare-modifiers": false,
+        "unified-signatures": false
+    }
+}

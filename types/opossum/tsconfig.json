@@ -4,6 +4,7 @@
         "lib": [
             "es6"
         ],
+        "target": "es5",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

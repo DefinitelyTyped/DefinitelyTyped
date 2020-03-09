@@ -6,10 +6,10 @@ type UploadedFile = fileUpload.UploadedFile;
 
 const app: express.Express = express();
 
-app.use(fileUpload({debug: true}));
+app.use(fileUpload({ debug: true }));
 
 function isUploadedFile(file: UploadedFile | UploadedFile[]): file is UploadedFile {
-    return typeof file === 'object' && (<UploadedFile> file).name !== undefined;
+    return typeof file === 'object' && (file as UploadedFile).name !== undefined;
 }
 
 const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
@@ -17,10 +17,10 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
         const fileField = req.files.field;
         if (isUploadedFile(fileField)) {
             console.log(fileField.name);
-            fileField.mv('/tmp/test', (err) => {
-               if (err) {
-                   console.log('Error while copying file to target location');
-               }
+            fileField.mv('/tmp/test', err => {
+                if (err) {
+                    console.log('Error while copying file to target location');
+                }
             });
         }
 
@@ -34,3 +34,24 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
 };
 
 app.post('/upload', uploadHandler);
+app.use(fileUpload({ safeFileNames: /\\/g }));
+app.use(fileUpload({ safeFileNames: true }));
+app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
+app.use(fileUpload({ safeFileNames: true, preserveExtension: 2 }));
+app.use(fileUpload({ abortOnLimit: true }));
+app.use(fileUpload({ responseOnLimit: 'Size Limit reached' }));
+app.use(fileUpload({ limitHandler: true }));
+app.use(
+    fileUpload({
+        limitHandler: (req, res, next) => {
+            if (req.files) {
+                if (isUploadedFile(req.files.field)) {
+                    console.log(req.files.field.name);
+                }
+            }
+            next();
+        },
+    }),
+);
+app.use(fileUpload({ useTempFiles: true, tempFileDir: 'temp2/' }));
+app.use(fileUpload({ parseNested: true }));

@@ -37,6 +37,8 @@ export interface ValidateCallback<FormData, P, ErrorType> {
     nextProps: P & InjectedFormProps<FormData, P, ErrorType>;
     props: P & InjectedFormProps<FormData, P, ErrorType>;
     initialRender: boolean;
+    lastFieldValidatorKeys: string[];
+    fieldValidatorKeys: string[];
     structure: any;
 }
 
@@ -111,7 +113,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     initialValues?: Partial<FormData>;
     keepDirtyOnReinitialize?: boolean;
     updateUnregisteredFields?: boolean;
-    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>): void;
+    onChange?(values: Partial<FormData>, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P, ErrorType>, previousValues: Partial<FormData>): void;
     onSubmit?: FormSubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType> | SubmitHandler<FormData, P & InjectedFormProps<FormData, P, ErrorType>, ErrorType>;
     onSubmitFail?(
         errors: FormErrors<FormData, ErrorType> | undefined,
@@ -126,6 +128,7 @@ export interface ConfigProps<FormData = {}, P = {}, ErrorType = string> {
     shouldError?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldWarn?(params: ValidateCallback<FormData, P, ErrorType>): boolean;
     shouldAsyncValidate?(params: AsyncValidateCallback<FormData, ErrorType>): boolean;
+    submitAsSideEffect?: boolean;
     touchOnBlur?: boolean;
     touchOnChange?: boolean;
     persistentSubmitErrors?: boolean;

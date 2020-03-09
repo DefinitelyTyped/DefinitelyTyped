@@ -9,13 +9,13 @@
 import * as React from "react";
 import { History } from "history";
 
-export interface WizardStepObject {
+export interface StepObject {
     id: string;
 }
 
 export interface WizardContext {
-    step: WizardStepObject;
-    steps: WizardStepObject[];
+    step: StepObject;
+    steps: StepObject[];
     history: History;
     next: () => void;
     previous: () => void;
@@ -41,14 +41,29 @@ export interface WizardProps {
 
 export const Wizard: React.ComponentType<WizardProps>;
 
+export type WizardContextRenderProps =
+    | { render?: (wizard: WizardContext) => React.ReactNode }
+    | { children: (wizard: WizardContext) => React.ReactNode };
+
+export const WithWizard: React.ComponentType<WizardContextRenderProps>;
+
 export interface StepsProps {
-    step?: WizardStepObject;
+    step?: StepObject;
 }
 
 export const Steps: React.ComponentType<StepsProps>;
 
-export type StepProps = { id: string } & (
-    | { render?: (wizard: WizardContext) => React.ReactNode }
-    | { children: (wizard: WizardContext) => React.ReactNode });
+export type StepProps = StepObject & WizardContextRenderProps;
 
+/**
+ * In addition to id, any additional props added to <Step> will be available on each step object.
+ * This can be used to add names, descriptions, or other metadata to each step.
+ * To use this feature globally in your project you need to augment the StepObject
+ * @example
+ * declare module "react-albus" {
+ *   interface StepObject {
+ *     propName: string;
+ *   }
+ * }
+ */
 export const Step: React.ComponentType<StepProps>;

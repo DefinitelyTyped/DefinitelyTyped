@@ -1,13 +1,21 @@
-// Type definitions for pouchdb-core 6.4
-// Project: https://pouchdb.com/
+// Type definitions for pouchdb-core 7.0
+// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
 //                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
-//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>
+//                 Tobias Bales <https://github.com/TobiasBales>, Sebastián Ramírez <https://github.com/tiangolo>,
+//                 Katy Moe <https://github.com/kmoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
+/// <reference types="node-fetch" />
+
+interface Blob {
+    readonly size: number;
+    readonly type: string;
+    slice(start?: number, end?: number, contentType?: string): Blob;
+}
 
 interface Buffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
@@ -81,6 +89,11 @@ interface EventEmitter {
     eventNames(): Array<string | symbol>;
 }
 
+type Fetch = (
+    url: string | Request,
+    opts?: RequestInit
+) => Promise<Response>;
+
 declare namespace PouchDB {
     namespace Core {
         interface Error {
@@ -104,7 +117,7 @@ declare namespace PouchDB {
         type AttachmentData = string | Blob | Buffer;
 
         interface Options {
-          ajax?: Configuration.RemoteRequesterConfiguration;
+          fetch?: Fetch;
         }
 
         interface BasicResponse {
@@ -234,7 +247,10 @@ declare namespace PouchDB {
 
         type PostDocument<Content extends {}> = NewDocument<Content> & {
             filters?: {[filterName: string]: string};
-            views?: {[viewName: string]: string};
+            views?: {[viewName: string]: {
+                map: string,
+                reduce?: string
+            }};
 
             /** You can update an existing doc using _rev */
             _rev?: RevisionId;
@@ -281,6 +297,11 @@ declare namespace PouchDB {
              * Causes poor performance on IndexedDB and LevelDB.
              */
             skip?: number;
+            /**
+             * Include an update_seq value indicating which sequence id
+             * of the underlying database the view reflects.
+             */
+            update_seq?: boolean;
         }
         interface AllDocsWithKeyOptions extends AllDocsOptions {
             /** Constrain results to documents matching this key. */
@@ -312,6 +333,7 @@ declare namespace PouchDB {
             /** The `skip` if provided, or in CouchDB the actual offset */
             offset: number;
             total_rows: number;
+            update_seq?: number | string;
             rows: Array<{
                 /** Only present if `include_docs` was `true`. */
                 doc?: ExistingDocument<Content & AllDocsMeta>;
@@ -560,35 +582,21 @@ declare namespace PouchDB {
              * ex_ new PouchDB("dbName", {size:100});
              */
             size?: number;
-        }
-
-        interface RemoteRequesterConfiguration {
             /**
-             * Time before HTTP requests time out (in ms).
+             * A special constructor option, which appends a prefix to the database name
+             * and can be helpful for URL-based or file-based LevelDOWN path names.
              */
-            timeout?: number;
+            prefix?: string;
             /**
-             * Appends a random string to the end of all HTTP GET requests to avoid
-             * them being cached on IE. Set this to true to prevent this happening.
-             */
-            cache?: boolean;
-            /**
-             * HTTP headers to add to requests.
-             */
-            headers?: {
-                [name: string]: string;
-            };
-
-            /**
-             * Enables transferring cookies and HTTP Authorization information.
-             *
+             * Use a md5 hash to create a deterministic revision number for documents.
+             * Setting it to false will mean that the revision number will be a random UUID.
              * Defaults to true.
              */
-            withCredentials?: boolean;
+            deterministic_revs?: boolean;
         }
 
         interface RemoteDatabaseConfiguration extends CommonDatabaseConfiguration {
-            ajax?: RemoteRequesterConfiguration;
+            fetch?: Fetch;
 
             auth?: {
                 username?: string;
@@ -608,6 +616,8 @@ declare namespace PouchDB {
         plugin(plugin: Plugin): Static;
 
         version: string;
+
+        fetch: Fetch;
 
         on(event: 'created' | 'destroyed', listener: (dbName: string) => any): this;
 

@@ -25,9 +25,8 @@ sharp('3-channel-rgb-input.png')
 sharp('input.png')
     .rotate(180)
     .resize(300)
-    .flatten()
-    .background('#ff6600')
-    .overlayWith('overlay.png', { gravity: sharp.gravity.southeast })
+    .flatten({ background: "#ff6600" })
+    .composite([{ input: 'overlay.png',  gravity: sharp.gravity.southeast }])
     .sharpen()
     .withMetadata()
     .webp({
@@ -46,6 +45,10 @@ sharp('input.jpg')
         // output.jpg is a 300 pixels wide and 200 pixels high image
         // containing a scaled and cropped version of input.jpg
     });
+
+sharp('input.jpg')
+    .resize({width: 300})
+    .toFile('output.jpg');
 
 sharp({
     create: {
@@ -72,14 +75,14 @@ sharp.queue.on('change', (queueLength: number) => {
     console.log(`Queue contains ${queueLength} task(s)`);
 });
 
-let pipeline: sharp.SharpInstance = sharp().rotate();
+let pipeline: sharp.Sharp = sharp().rotate();
 pipeline.clone().resize(800, 600).pipe(writableStream);
 pipeline.clone().extract({ left: 20, top: 20, width: 100, height: 100 }).pipe(writableStream);
 readableStream.pipe(pipeline);
 // firstWritableStream receives auto-rotated, resized readableStream
 // secondWritableStream receives auto-rotated, extracted region of readableStream
 
-const image: sharp.SharpInstance = sharp(input);
+const image: sharp.Sharp = sharp(input);
 image
     .metadata()
     .then<Buffer|undefined>((metadata: sharp.Metadata) => {
@@ -121,8 +124,7 @@ sharp(input)
 // Resize to 140 pixels wide, then add 10 transparent pixels
 // to the top, left and right edges and 20 to the bottom edge
 sharp(input)
-    .resize(140)
-    .background({ r: 0, g: 0, b: 0, alpha: 0 })
+    .resize(140, null, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .extend({ top: 10, bottom: 20, left: 10, right: 10 });
 
 sharp(input)
@@ -149,11 +151,11 @@ sharp('input.tiff')
 
 sharp(input)
     .resize(200, 300, {
+        fit: "contain",
+        position: "north",
         kernel: sharp.kernel.lanczos2,
-        interpolator: sharp.interpolator.nohalo
+        background: "white"
     })
-    .background('white')
-    .embed()
     .toFile('output.tiff')
     .then(() => {
         // output.tiff is a 200 pixels wide and 300 pixels high image
@@ -162,8 +164,10 @@ sharp(input)
     });
 
 transformer = sharp()
-    .resize(200, 200)
-    .crop(sharp.strategy.entropy)
+    .resize(200, 200, {
+        fit: "cover",
+        position: sharp.strategy.entropy
+    })
     .on('error', (err: Error) => {
         console.log(err);
     });
@@ -172,9 +176,11 @@ transformer = sharp()
 readableStream.pipe(transformer).pipe(writableStream);
 
 sharp('input.gif')
-    .resize(200, 300)
-    .background({ r: 0, g: 0, b: 0, alpha: 0 })
-    .embed()
+    .resize(200, 300, {
+        fit: "contain",
+        position: "north",
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
+    })
     .toFormat(sharp.format.webp)
     .toBuffer((err: Error, outputBuffer: Buffer) => {
         if (err) {
@@ -185,8 +191,7 @@ sharp('input.gif')
     });
 
 sharp(input)
-    .resize(200, 200)
-    .max()
+    .resize(200, 200, { fit: "inside" })
     .toFormat('jpeg')
     .toBuffer()
     .then((outputBuffer: Buffer) => {
@@ -232,3 +237,19 @@ const vipsVersion: string = sharp.versions.vips;
 if (sharp.versions.cairo) {
     const cairoVersion: string = sharp.versions.cairo;
 }
+
+sharp('input.gif')
+    .linear(1)
+    .linear(1, 0)
+    .linear(null, 0)
+
+    .recomb([
+        [0.3588, 0.7044, 0.1368],
+        [0.2990, 0.5870, 0.1140],
+        [0.2392, 0.4696, 0.0912],
+    ])
+
+    .modulate({ brightness: 2 })
+    .modulate({ hue: 180 })
+    .modulate({ brightness: 0.5, saturation: 0.5, hue: 90 })
+;

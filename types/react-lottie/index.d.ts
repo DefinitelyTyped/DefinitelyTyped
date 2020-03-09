@@ -7,11 +7,12 @@
 
 import * as React from 'react';
 
-interface Options {
+export interface Options {
     /**
      * Defines if the animation should play only once or repeatedly in an endless loop
+     * or the number of loops that should be completed before the animation ends
      */
-    loop?: boolean;
+    loop?: boolean | number;
     /**
      * Defines if the animation should immediately play when the component enters the DOM
      */
@@ -21,7 +22,7 @@ interface Options {
      */
     animationData: any;
     rendererSettings?: {
-        preserveAspectRatio?: boolean;
+        preserveAspectRatio?: string;
         /**
          * The canvas context
          */
@@ -41,7 +42,7 @@ interface Options {
     };
 }
 
-interface EventListener {
+export interface EventListener {
     /**
      * The event sent by Lottie
      */
@@ -61,7 +62,7 @@ interface EventListener {
     callback: () => void;
 }
 
-interface LottieProps {
+export interface LottieProps {
     /**
      * Object representing animation settings
      */

@@ -1,58 +1,12 @@
-// Type definitions for dateformat v1.0.12
+// Type definitions for dateformat 3.0
 // Project: https://github.com/felixge/node-dateformat
 // Definitions by: Kombu <https://github.com/aicest>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-/**
- * dateFormat.masks
- *
- * Predefined Formats
- *
- * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L107
- */
-interface DateFormatMasks {
-    default: string;
-    shortDate: string;
-    mediumDate: string;
-    longDate: string;
-    fullDate: string;
-    shortTime: string;
-    mediumTime: string;
-    longTime: string;
-    isoDate: string;
-    isoTime: string;
-    isoDateTime: string;
-    isoUtcDateTime: string;
-    expiresHeaderFormat: string;
-    [key: string]: string;
-}
-
-/**
- * dateFormat.i18n
- *
- * Internationalization strings
- *
- * Example:
- *
- * ```
- * dateFormat.i18n = {
- *   dayNames: [
- *     'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
- *     'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
- *   ],
- *   monthNames: [
- *     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
- *     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
- *   ]
- * }
- * ```
- *
- * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L124
- */
-interface DateFormatI18n {
-    dayNames: string[];
-    monthNames: string[];
-}
+export as namespace dateFormat;
+export = dateFormat;
 
 /**
  * dateFormat()
@@ -64,14 +18,69 @@ interface DateFormatI18n {
  *
  * https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L18
  */
-interface DateFormatStatic {
-    (date?: Date | string | number, mask?: string, utc?: boolean, gmt?: boolean): string;
-    (mask?: string, utc?: boolean, gmt?: boolean): string;
-    masks: DateFormatMasks;
-    i18n: DateFormatI18n;
-}
+declare function dateFormat(
+    date?: Date | string | number,
+    mask?: string,
+    utc?: boolean,
+    gmt?: boolean
+): string;
+declare function dateFormat(mask?: string, utc?: boolean, gmt?: boolean): string;
 
-declare module 'dateformat' {
-    const dateFormat: DateFormatStatic;
-    export = dateFormat;
+declare namespace dateFormat {
+    const masks: DateFormatMasks;
+    let i18n: DateFormatI18n;
+
+    /**
+     * dateFormat.masks
+     *
+     * Predefined Formats
+     *
+     * @see https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L107
+     */
+    interface DateFormatMasks {
+        default: string;
+        shortDate: string;
+        mediumDate: string;
+        longDate: string;
+        fullDate: string;
+        shortTime: string;
+        mediumTime: string;
+        longTime: string;
+        isoDate: string;
+        isoTime: string;
+        isoDateTime: string;
+        isoUtcDateTime: string;
+        expiresHeaderFormat: string;
+        [key: string]: string;
+    }
+
+    /**
+     * dateFormat.i18n
+     *
+     * Internationalization strings
+     *
+     * Example:
+     *
+     * @example ```
+     * dateFormat.i18n = {
+     *     dayNames: [
+     *         'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+     *         'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+     *     ],
+     *     monthNames: [
+     *         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+     *         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+     *     ],
+     *     timeNames: [
+     *         'a', 'p', 'am', 'pm', 'A', 'P', 'AM', 'PM'
+     *     ]
+     * };```
+     *
+     * @see https://github.com/felixge/node-dateformat/blob/master/lib/dateformat.js#L124
+     */
+    interface DateFormatI18n {
+        dayNames: string[];
+        monthNames: string[];
+        timeNames: string[];
+    }
 }

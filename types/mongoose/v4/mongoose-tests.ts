@@ -133,6 +133,7 @@ conn1.openSet('mongodb://localhost/test', 'db', {
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+conn1.deleteModel('myModel');
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
@@ -505,7 +506,10 @@ doc.update(doc, {
 }, cb).cursor();
 doc.validate({}, function (err) {});
 doc.validate().then(null).catch(null);
-doc.validateSync(['path1', 'path2']).stack;
+var documentValidationError = doc.validateSync(['path1', 'path2']);
+if (documentValidationError) {
+    documentValidationError.stack
+}
 /* practical examples */
 var MyModel = mongoose.model('test', new mongoose.Schema({
   name: {
@@ -1490,7 +1494,7 @@ MongoModel.populate(users, { path: 'weapon' }, function (err, users) {
 MongoModel.remove({ title: 'baby born from alien father' }, cb);
 MongoModel.remove({_id: '999'}).exec().then(cb).catch(cb);
 MongoModel.update({ age: { $gt: 18 } }, { oldEnough: true }, cb);
-MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true }, cb);
+MongoModel.update({ name: 'Tobi' }, { ferret: true }, { multi: true, arrayFilters: [{ element: { $gte: 100 } }] }, cb);
 MongoModel.where('age').gte(21).lte(65).exec(cb);
 MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();

@@ -14,16 +14,8 @@ import {
   UncontrolledProps as TooltipUncontrolledProps
 } from './Tooltip';
 
-declare var UncontrolledAlert: React.StatelessComponent<AlertUncontrolledProps>;
-declare var UncontrolledButtonDropdown: React.StatelessComponent<ButtonDropdownUncontrolledProps>;
-declare var UncontrolledDropdown: React.StatelessComponent<DropdownUncontrolledProps>;
-declare var UncontrolledNavDropdown: React.StatelessComponent<NavDropdownUncontrolledProps>;
-declare var UncontrolledTooltip: React.StatelessComponent<TooltipUncontrolledProps>;
-
-export {
-  UncontrolledAlert,
-  UncontrolledButtonDropdown,
-  UncontrolledDropdown,
-  UncontrolledNavDropdown,
-  UncontrolledTooltip
-}
+export const UncontrolledAlert: React.StatelessComponent<AlertUncontrolledProps>;
+export const UncontrolledButtonDropdown: React.StatelessComponent<ButtonDropdownUncontrolledProps>;
+export const UncontrolledDropdown: React.StatelessComponent<DropdownUncontrolledProps>;
+export const UncontrolledNavDropdown: React.StatelessComponent<NavDropdownUncontrolledProps>;
+export const UncontrolledTooltip: React.StatelessComponent<TooltipUncontrolledProps>;

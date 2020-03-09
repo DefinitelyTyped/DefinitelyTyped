@@ -1,6 +1,7 @@
-// Type definitions for node-notifier
+// Type definitions for node-notifier 6.0
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
+//                 Lorenzo Rapetti <https://github.com/loryman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -14,12 +15,30 @@ declare module "node-notifier" {
 
     namespace nodeNotifier {
         interface NodeNotifier extends NodeJS.EventEmitter {
+            notify(
+                notification?: NotificationCenter.Notification,
+                callback?: NotificationCallback
+            ): NotificationCenter;
+            notify(
+                notification?: WindowsToaster.Notification,
+                callback?: NotificationCallback
+            ): WindowsToaster;
+            notify(
+                notification?: WindowsBalloon.Notification,
+                callback?: NotificationCallback
+            ): WindowsBalloon;
+            notify(
+                notification?: NotifySend.Notification,
+                callback?: NotificationCallback
+            ): NotifySend;
+            notify(notification?: Growl.Notification, callback?: NotificationCallback): Growl;
             notify(notification?: Notification, callback?: NotificationCallback): NodeNotifier;
-            NotificationCenter: NotificationCenter;
-            NotifySend: NotifySend;
-            WindowsToaster: WindowsToaster;
-            WindowsBalloon: WindowsBalloon;
-            Growl: Growl;
+            notify(notification?: string, callback?: NotificationCallback): NodeNotifier;
+            NotificationCenter: typeof NotificationCenter;
+            NotifySend: typeof NotifySend;
+            WindowsToaster: typeof WindowsToaster;
+            WindowsBalloon: typeof WindowsBalloon;
+            Growl: typeof Growl;
         }
 
         interface Notification {
@@ -27,15 +46,25 @@ declare module "node-notifier" {
             message?: string;
             /** Absolute path (not balloons) */
             icon?: string;
-            /** Only Notification Center or Windows Toasters */
-            sound?: boolean;
             /** Wait with callback until user action is taken on notification */
             wait?: boolean;
         }
 
-        interface NotificationCallback {
-            (err: any, response: any): any;
-        }
+        interface NotificationMetadata {
+            activationType?: string;
+            activationAt?: string;
+            deliveredAt?: string;
+            activationValue?: string;
+            activationValueIndex?: string;
+          }
+
+          interface NotificationCallback {
+            (
+              err: Error | null,
+              response: string,
+              metadata?: NotificationMetadata,
+            ): void;
+          }
 
         interface Option {
             withFallback?: boolean;
@@ -58,11 +87,31 @@ declare module "node-notifier/notifiers/notificationcenter" {
 
     namespace NotificationCenter {
         interface Notification extends notifier.Notification {
+            /**
+             * Case Sensitive string for location of sound file, or use one of macOS' native sounds.
+             */
+            sound?: boolean | string;
             subtitle?: string;
             /** Attach image? (Absolute path) */
             contentImage?: string;
             /** URL to open on click */
             open?: string;
+            /**
+             * The amount of seconds before the notification closes.
+             * Takes precedence over wait if both are defined.
+             */
+            timeout?: number | false;
+            /** Label for cancel button */
+            closeLabel?: string;
+            /** Action label or list of labels in case of dropdown. */
+            actions?: string | string[];
+            /** Label to be used if there are multiple actions */
+            dropdownLabel?: string;
+            /**
+             * If notification should take input.
+             * Value passed as third argument in callback and event emitter.
+             */
+            reply?: boolean;
         }
     }
 
@@ -101,7 +150,27 @@ declare module "node-notifier/notifiers/toaster" {
 
     class WindowsToaster {
         constructor(option?: notifier.Option);
-        notify(notification?: notifier.Notification, callback?: notifier.NotificationCallback): WindowsToaster;
+        notify(notification?: WindowsToaster.Notification, callback?: notifier.NotificationCallback): WindowsToaster;
+    }
+
+    namespace WindowsToaster {
+        interface Notification extends notifier.Notification {
+            /**
+             * Defined by http://msdn.microsoft.com/en-us/library/windows/apps/hh761492.aspx
+             */
+            sound?: boolean | string;
+            /** ID to use for closing notification. */
+            id?: number;
+            /** App.ID and app Name. Defaults to no value, causing SnoreToast text to be visible. */
+            appID?: string;
+            /** Refer to previously created notification to close. */
+            remove?: number;
+            /**
+             * Creates a shortcut <path> in the start menu which point to the
+             * executable <application>, appID used for the notifications.
+            */
+            install?: string;
+        }
     }
 
     export = WindowsToaster;
@@ -122,19 +191,13 @@ declare module "node-notifier/notifiers/growl" {
             port?: number;
         }
 
-        interface Notification {
-            title?: string;
-            message?: string;
-            /** Absolute path (not balloons) */
-            icon?: string;
-            /** Wait with callback until user action is taken on notification */
-            wait?: boolean;
+        interface Notification extends notifier.Notification {
             /** whether or not to sticky the notification (defaults to false) */
-             sticky?: boolean;
+            sticky?: boolean;
             /** type of notification to use (defaults to the first registered type) */
-            label: string;
+            label?: string;
             /** the priority of the notification from lowest (-2) to highest (2) */
-            priority: number;
+            priority?: number;
         }
     }
 
@@ -153,12 +216,12 @@ declare module "node-notifier/notifiers/balloon" {
         interface Notification {
             title?: string;
             message?: string;
-            /** Only Notification Center or Windows Toasters */
-            sound?: boolean;
             /** How long to show balloons in ms */
             time?: number;
             /** Wait with callback until user action is taken on notification */
             wait?: boolean;
+            /** The notification type */
+            type?: 'info' | 'warn' | 'error';
         }
     }
 

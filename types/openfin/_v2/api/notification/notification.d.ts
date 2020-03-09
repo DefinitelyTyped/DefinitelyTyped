@@ -1,6 +1,7 @@
 import { Base, EmitterBase } from '../base';
 import { Identity } from '../../identity';
 import Transport from '../../transport/transport';
+import { NotificationEvents } from '../events/notifications';
 export declare class NotificationOptions {
     url: string;
     message: string;
@@ -21,15 +22,14 @@ export interface NotificationCallback {
  * are controlled by the runtime.
  * @class
  * @alias Notification
+ * @hideconstructor
  */
-export declare class _Notification extends EmitterBase {
+export declare class _Notification extends EmitterBase<NotificationEvents> {
     private listenerList;
     private unhookAllListeners;
-    private buildLocalPayload;
     protected options: NotificationOptions;
     protected generalListener: (msg: any) => void;
     protected notificationId: number;
-    protected onmessage: (message: any) => boolean;
     constructor(wire: Transport, options: NotificationOptions);
     url: string;
     timeout: number | string;
@@ -57,6 +57,9 @@ export declare class _Notification extends EmitterBase {
      */
     close(): Promise<void>;
 }
+/**
+ * @lends Notification
+ */
 export default class _NotificationModule extends Base {
     private nextNoteId;
     private genNoteId;
@@ -67,5 +70,12 @@ export default class _NotificationModule extends Base {
         click: string;
         message: string;
     };
+    /**
+     * Creates a new Notification.
+     * @param { object } options
+     * @return {_Notification}
+     * @tutorial Notification.create
+     * @static
+     */
     create(options: any): _Notification;
 }

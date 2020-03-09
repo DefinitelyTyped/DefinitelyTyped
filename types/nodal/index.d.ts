@@ -339,7 +339,7 @@ export class Database {
 }
 
 export class GraphQuery {
-  private 'constructor';
+  private ['constructor'];
   identifier: string;
   name: string;
   Model: typeof Model;
@@ -434,7 +434,7 @@ export interface ICalculations {
   [calculations: string]: ICalculation;
 }
 export class Model {
-  'constructor': typeof Model;
+  ['constructor']: typeof Model;
   db: Database | any;
   schema: {
     table: string;
@@ -903,7 +903,7 @@ export interface IOptions {
   via: string;
 }
 export class RelationshipPath {
-  private 'constructor';
+  private ['constructor'];
   path: (RelationshipEdge | RelationshipNode)[];
   constructor(path: (RelationshipEdge | RelationshipNode)[]);
   toString(): string;

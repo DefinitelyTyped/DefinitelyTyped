@@ -1,0 +1,12 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "no-empty-interface": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
+        "no-var-keyword": false,
+        "one-variable-per-declaration": false,
+        "only-arrow-functions": false
+    }
+}

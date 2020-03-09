@@ -1,13 +1,14 @@
-// Type definitions for Google Apps Script 2018-07-11
+// Type definitions for Google Apps Script 2020-01-02
 // Project: https://developers.google.com/apps-script/
-// Definitions by: motemen <https://github.com/motemen/>
+// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
+//                 motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
-  export module Document {
+  namespace Document {
     /**
      * An enumeration of the element attributes.
      *
@@ -23,8 +24,7 @@ declare namespace GoogleAppsScript {
      *       .insertText(0, 'Hello\n')
      *       .setAttributes(0, 4, highlightStyle);
      */
-    export enum Attribute { BACKGROUND_COLOR, BOLD, BORDER_COLOR, BORDER_WIDTH, CODE, FONT_FAMILY, FONT_SIZE, FOREGROUND_COLOR, HEADING, HEIGHT, HORIZONTAL_ALIGNMENT, INDENT_END, INDENT_FIRST_LINE, INDENT_START, ITALIC, GLYPH_TYPE, LEFT_TO_RIGHT, LINE_SPACING, LINK_URL, LIST_ID, MARGIN_BOTTOM, MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, NESTING_LEVEL, MINIMUM_HEIGHT, PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, PAGE_HEIGHT, PAGE_WIDTH, SPACING_AFTER, SPACING_BEFORE, STRIKETHROUGH, UNDERLINE, VERTICAL_ALIGNMENT, WIDTH }
-
+    enum Attribute { BACKGROUND_COLOR, BOLD, BORDER_COLOR, BORDER_WIDTH, CODE, FONT_FAMILY, FONT_SIZE, FOREGROUND_COLOR, HEADING, HEIGHT, HORIZONTAL_ALIGNMENT, INDENT_END, INDENT_FIRST_LINE, INDENT_START, ITALIC, GLYPH_TYPE, LEFT_TO_RIGHT, LINE_SPACING, LINK_URL, LIST_ID, MARGIN_BOTTOM, MARGIN_LEFT, MARGIN_RIGHT, MARGIN_TOP, NESTING_LEVEL, MINIMUM_HEIGHT, PADDING_BOTTOM, PADDING_LEFT, PADDING_RIGHT, PADDING_TOP, PAGE_HEIGHT, PAGE_WIDTH, SPACING_AFTER, SPACING_BEFORE, STRIKETHROUGH, UNDERLINE, VERTICAL_ALIGNMENT, WIDTH }
     /**
      * An element representing a document body. The Body may contain ListItem, Paragraph, Table, and TableOfContents elements. For more information on document
      * structure, see the guide to extending
@@ -39,7 +39,7 @@ declare namespace GoogleAppsScript {
      *     body.appendParagraph("A paragraph.");
      *     body.appendPageBreak();
      */
-    export interface Body {
+    interface Body extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -59,19 +59,19 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
-      getHeadingAttributes(paragraphHeading: ParagraphHeading): Object;
+      getHeadingAttributes(paragraphHeading: ParagraphHeading): any;
       getImages(): InlineImage[];
       getListItems(): ListItem[];
-      getMarginBottom(): Number;
-      getMarginLeft(): Number;
-      getMarginRight(): Number;
-      getMarginTop(): Number;
+      getMarginBottom(): number;
+      getMarginLeft(): number;
+      getMarginRight(): number;
+      getMarginTop(): number;
       getNumChildren(): Integer;
-      getPageHeight(): Number;
-      getPageWidth(): Number;
+      getPageHeight(): number;
+      getPageWidth(): number;
       getParagraphs(): Paragraph[];
       getParent(): ContainerElement;
       getTables(): Table[];
@@ -92,24 +92,23 @@ declare namespace GoogleAppsScript {
       insertTable(childIndex: Integer, table: Table): Table;
       removeChild(child: Element): Body;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): Body;
-      setHeadingAttributes(paragraphHeading: ParagraphHeading, attributes: Object): Body;
-      setMarginBottom(marginBottom: Number): Body;
-      setMarginLeft(marginLeft: Number): Body;
-      setMarginRight(marginRight: Number): Body;
-      setMarginTop(marginTop: Number): Body;
-      setPageHeight(pageHeight: Number): Body;
-      setPageWidth(pageWidth: Number): Body;
+      setAttributes(attributes: any): Body;
+      setHeadingAttributes(paragraphHeading: ParagraphHeading, attributes: any): Body;
+      setMarginBottom(marginBottom: number): Body;
+      setMarginLeft(marginLeft: number): Body;
+      setMarginRight(marginRight: number): Body;
+      setMarginTop(marginTop: number): Body;
+      setPageHeight(pageHeight: number): Body;
+      setPageWidth(pageWidth: number): Body;
       setText(text: string): Body;
       setTextAlignment(textAlignment: TextAlignment): Body;
-      getFootnotes(): Footnote[];
-      getLinkUrl(): string;
-      getNextSibling(): Element;
-      getPreviousSibling(): Element;
-      isAtDocumentEnd(): boolean;
-      setLinkUrl(url: string): Body;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): Body;
     }
-
     /**
      * An object representing a bookmark.
      *
@@ -119,17 +118,16 @@ declare namespace GoogleAppsScript {
      *     var bookmark = doc.addBookmark(cursor);
      *     Logger.log(bookmark.getId());
      */
-    export interface Bookmark {
+    interface Bookmark {
       getId(): string;
       getPosition(): Position;
       remove(): void;
     }
-
     /**
      * A generic element that may contain other elements. All elements that may contain child elements,
      * such as Paragraph, inherit from ContainerElement.
      */
-    export interface ContainerElement {
+    interface ContainerElement extends Element {
       asBody(): Body;
       asEquation(): Equation;
       asFooterSection(): FooterSection;
@@ -148,7 +146,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -163,11 +161,10 @@ declare namespace GoogleAppsScript {
       merge(): ContainerElement;
       removeFromParent(): ContainerElement;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): ContainerElement;
+      setAttributes(attributes: any): ContainerElement;
       setLinkUrl(url: string): ContainerElement;
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
     }
-
     /**
      * A document, containing rich text and elements such as tables and lists.
      *
@@ -179,7 +176,7 @@ declare namespace GoogleAppsScript {
      *     // Create and open a document.
      *     doc = DocumentApp.create("Document Title");
      */
-    export interface Document {
+    interface Document {
       addBookmark(position: Position): Bookmark;
       addEditor(emailAddress: string): Document;
       addEditor(user: Base.User): Document;
@@ -201,11 +198,13 @@ declare namespace GoogleAppsScript {
       getFootnotes(): Footnote[];
       getHeader(): HeaderSection;
       getId(): string;
+      getLanguage(): string;
       getName(): string;
       getNamedRangeById(id: string): NamedRange;
       getNamedRanges(): NamedRange[];
       getNamedRanges(name: string): NamedRange[];
       getSelection(): Range;
+      getSupportedLanguageCodes(): string[];
       getUrl(): string;
       getViewers(): Base.User[];
       newPosition(element: Element, offset: Integer): Position;
@@ -216,10 +215,10 @@ declare namespace GoogleAppsScript {
       removeViewer(user: Base.User): Document;
       saveAndClose(): void;
       setCursor(position: Position): Document;
+      setLanguage(languageCode: string): Document;
       setName(name: string): Document;
       setSelection(range: Range): Document;
     }
-
     /**
      * The document service creates and opens Documents that can be edited.
      *
@@ -229,10 +228,9 @@ declare namespace GoogleAppsScript {
      *     // Create and open a document.
      *     doc = DocumentApp.create('Document Name');
      */
-    export interface DocumentApp {
+    interface DocumentApp {
       Attribute: typeof Attribute;
       ElementType: typeof ElementType;
-      FontFamily: typeof FontFamily;
       GlyphType: typeof GlyphType;
       HorizontalAlignment: typeof HorizontalAlignment;
       ParagraphHeading: typeof ParagraphHeading;
@@ -244,8 +242,8 @@ declare namespace GoogleAppsScript {
       getUi(): Base.Ui;
       openById(id: string): Document;
       openByUrl(url: string): Document;
+      /** @deprecated DO NOT USE */ FontFamily: typeof FontFamily;
     }
-
     /**
      * A generic element. Document contents are
      * represented as elements. For example, ListItem, Paragraph, and Table are
@@ -299,7 +297,7 @@ declare namespace GoogleAppsScript {
      * UnsupportedElementAn element representing a region that is unknown or cannot be affected by a script, such as a
      * page number.
      */
-    export interface Element {
+    interface Element {
       asBody(): Body;
       asEquation(): Equation;
       asEquationFunction(): EquationFunction;
@@ -321,7 +319,7 @@ declare namespace GoogleAppsScript {
       asTableRow(): TableRow;
       asText(): Text;
       copy(): Element;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -329,9 +327,8 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): Element;
       removeFromParent(): Element;
-      setAttributes(attributes: Object): Element;
+      setAttributes(attributes: any): Element;
     }
-
     /**
      * An enumeration of all the element types.
      *
@@ -343,14 +340,13 @@ declare namespace GoogleAppsScript {
      *       firstChild.asParagraph().setHeading(DocumentApp.ParagraphHeading.HEADING1);
      *     }
      */
-    export enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
-
+    enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
     /**
      * An element representing a mathematical expression. An Equation may contain EquationFunction, EquationSymbol, and Text elements. For more information on
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface Equation {
+    interface Equation extends Element {
       clear(): Equation;
       copy(): Equation;
       editAsText(): Text;
@@ -358,7 +354,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -373,16 +369,15 @@ declare namespace GoogleAppsScript {
       merge(): Equation;
       removeFromParent(): Equation;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): Equation;
+      setAttributes(attributes: any): Equation;
       setLinkUrl(url: string): Equation;
       setTextAlignment(textAlignment: TextAlignment): Equation;
     }
-
     /**
      * An element representing a function in a mathematical Equation. An EquationFunction may contain EquationFunction, EquationFunctionArgumentSeparator, EquationSymbol, and Text elements. For more
      * information on document structure, see the guide to extending Google Docs.
      */
-    export interface EquationFunction {
+    interface EquationFunction extends Element {
       clear(): EquationFunction;
       copy(): EquationFunction;
       editAsText(): Text;
@@ -390,7 +385,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getCode(): string;
@@ -406,19 +401,18 @@ declare namespace GoogleAppsScript {
       merge(): EquationFunction;
       removeFromParent(): EquationFunction;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): EquationFunction;
+      setAttributes(attributes: any): EquationFunction;
       setLinkUrl(url: string): EquationFunction;
       setTextAlignment(textAlignment: TextAlignment): EquationFunction;
     }
-
     /**
      * An element representing a function separator in a mathematical Equation. An EquationFunctionArgumentSeparator cannot contain any other element. For more information on
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface EquationFunctionArgumentSeparator {
+    interface EquationFunctionArgumentSeparator extends Element {
       copy(): EquationFunctionArgumentSeparator;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -426,16 +420,15 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): EquationFunctionArgumentSeparator;
       removeFromParent(): EquationFunctionArgumentSeparator;
-      setAttributes(attributes: Object): EquationFunctionArgumentSeparator;
+      setAttributes(attributes: any): EquationFunctionArgumentSeparator;
     }
-
     /**
      * An element representing a symbol in a mathematical Equation. An EquationSymbol
      * cannot contain any other element. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface EquationSymbol {
+    interface EquationSymbol extends Element {
       copy(): EquationSymbol;
-      getAttributes(): Object;
+      getAttributes(): any;
       getCode(): string;
       getNextSibling(): Element;
       getParent(): ContainerElement;
@@ -444,9 +437,8 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): EquationSymbol;
       removeFromParent(): EquationSymbol;
-      setAttributes(attributes: Object): EquationSymbol;
+      setAttributes(attributes: any): EquationSymbol;
     }
-
     /**
      *
      * Deprecated. The methods getFontFamily() and setFontFamily(String) now use string
@@ -474,13 +466,12 @@ declare namespace GoogleAppsScript {
      *     var b = a + text.length - 1;
      *     body.editAsText().setFontFamily(a, b, DocumentApp.FontFamily.COMIC_SANS_MS);
      */
-    export enum FontFamily { AMARANTH, ARIAL, ARIAL_BLACK, ARIAL_NARROW, ARVO, CALIBRI, CAMBRIA, COMIC_SANS_MS, CONSOLAS, CORSIVA, COURIER_NEW, DANCING_SCRIPT, DROID_SANS, DROID_SERIF, GARAMOND, GEORGIA, GLORIA_HALLELUJAH, GREAT_VIBES, LOBSTER, MERRIWEATHER, PACIFICO, PHILOSOPHER, POIRET_ONE, QUATTROCENTO, ROBOTO, SHADOWS_INTO_LIGHT, SYNCOPATE, TAHOMA, TIMES_NEW_ROMAN, TREBUCHET_MS, UBUNTU, VERDANA }
-
+    enum FontFamily { AMARANTH, ARIAL, ARIAL_BLACK, ARIAL_NARROW, ARVO, CALIBRI, CAMBRIA, COMIC_SANS_MS, CONSOLAS, CORSIVA, COURIER_NEW, DANCING_SCRIPT, DROID_SANS, DROID_SERIF, GARAMOND, GEORGIA, GLORIA_HALLELUJAH, GREAT_VIBES, LOBSTER, MERRIWEATHER, PACIFICO, PHILOSOPHER, POIRET_ONE, QUATTROCENTO, ROBOTO, SHADOWS_INTO_LIGHT, SYNCOPATE, TAHOMA, TIMES_NEW_ROMAN, TREBUCHET_MS, UBUNTU, VERDANA }
     /**
      * An element representing a footer section. A Document typically contains at most one FooterSection. The FooterSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface FooterSection {
+    interface FooterSection extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -498,7 +489,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getImages(): InlineImage[];
@@ -523,17 +514,16 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): FooterSection;
       removeFromParent(): FooterSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): FooterSection;
+      setAttributes(attributes: any): FooterSection;
       setText(text: string): FooterSection;
       setTextAlignment(textAlignment: TextAlignment): FooterSection;
-      getFootnotes(): Footnote[];
-      getLinkUrl(): string;
-      getNextSibling(): Element;
-      getPreviousSibling(): Element;
-      isAtDocumentEnd(): boolean;
-      setLinkUrl(url: string): FooterSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FooterSection;
     }
-
     /**
      * An element representing a footnote. Each Footnote is contained within a ListItem
      * or Paragraph and has a corresponding FootnoteSection element for the footnote's
@@ -541,9 +531,9 @@ declare namespace GoogleAppsScript {
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface Footnote {
+    interface Footnote extends Element {
       copy(): Footnote;
-      getAttributes(): Object;
+      getAttributes(): any;
       getFootnoteContents(): FootnoteSection;
       getNextSibling(): Element;
       getParent(): ContainerElement;
@@ -551,15 +541,14 @@ declare namespace GoogleAppsScript {
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): Footnote;
-      setAttributes(attributes: Object): Footnote;
+      setAttributes(attributes: any): Footnote;
     }
-
     /**
      * An element representing a footnote section. A FootnoteSection contains the text that
      * corresponds to a Footnote. The FootnoteSection may contain ListItem or
      * Paragraph elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface FootnoteSection {
+    interface FootnoteSection extends Element {
       appendParagraph(paragraph: Paragraph): Paragraph;
       appendParagraph(text: string): Paragraph;
       clear(): FootnoteSection;
@@ -569,7 +558,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getNextSibling(): Element;
@@ -585,15 +574,14 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): FootnoteSection;
       removeFromParent(): FootnoteSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): FootnoteSection;
+      setAttributes(attributes: any): FootnoteSection;
       setText(text: string): FootnoteSection;
       setTextAlignment(textAlignment: TextAlignment): FootnoteSection;
-      getFootnotes(): Footnote[];
-      getLinkUrl(): string;
-      isAtDocumentEnd(): boolean;
-      setLinkUrl(url: string): FootnoteSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): FootnoteSection;
     }
-
     /**
      * An enumeration of the supported glyph types.
      *
@@ -609,13 +597,12 @@ declare namespace GoogleAppsScript {
      *      body.appendListItem("Item 2").setNestingLevel(1).setIndentStart(72)
      *          .setGlyphType(DocumentApp.GlyphType.SQUARE_BULLET);
      */
-    export enum GlyphType { BULLET, HOLLOW_BULLET, SQUARE_BULLET, NUMBER, LATIN_UPPER, LATIN_LOWER, ROMAN_UPPER, ROMAN_LOWER }
-
+    enum GlyphType { BULLET, HOLLOW_BULLET, SQUARE_BULLET, NUMBER, LATIN_UPPER, LATIN_LOWER, ROMAN_UPPER, ROMAN_LOWER }
     /**
      * An element representing a header section. A Document typically contains at most one HeaderSection. The HeaderSection may contain ListItem, Paragraph, and
      * Table elements. For more information on document structure, see the guide to extending Google Docs.
      */
-    export interface HeaderSection {
+    interface HeaderSection extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -633,7 +620,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getImages(): InlineImage[];
@@ -658,17 +645,16 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): HeaderSection;
       removeFromParent(): HeaderSection;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): HeaderSection;
+      setAttributes(attributes: any): HeaderSection;
       setText(text: string): HeaderSection;
       setTextAlignment(textAlignment: TextAlignment): HeaderSection;
-      getFootnotes(): Footnote[];
-      getLinkUrl(): string;
-      getNextSibling(): Element;
-      getPreviousSibling(): Element;
-      isAtDocumentEnd(): boolean;
-      setLinkUrl(url: string): HeaderSection;
+      /** @deprecated DO NOT USE */ getFootnotes(): Footnote[];
+      /** @deprecated DO NOT USE */ getLinkUrl(): string;
+      /** @deprecated DO NOT USE */ getNextSibling(): Element;
+      /** @deprecated DO NOT USE */ getPreviousSibling(): Element;
+      /** @deprecated DO NOT USE */ isAtDocumentEnd(): boolean;
+      /** @deprecated DO NOT USE */ setLinkUrl(url: string): HeaderSection;
     }
-
     /**
      * An enumeration of the supported horizontal alignment types.
      *
@@ -691,36 +677,34 @@ declare namespace GoogleAppsScript {
      *     // Right align the second cell.
      *     par3.setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
      */
-    export enum HorizontalAlignment { LEFT, CENTER, RIGHT, JUSTIFY }
-
+    enum HorizontalAlignment { LEFT, CENTER, RIGHT, JUSTIFY }
     /**
      * An element representing an horizontal rule. A HorizontalRule can be contained within a
      * ListItem or Paragraph, but cannot itself contain any other element. For more
      * information on document structure, see the guide to extending Google Docs.
      */
-    export interface HorizontalRule {
+    interface HorizontalRule extends Element {
       copy(): HorizontalRule;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): HorizontalRule;
-      setAttributes(attributes: Object): HorizontalRule;
+      setAttributes(attributes: any): HorizontalRule;
     }
-
     /**
      * An element representing an embedded drawing. An InlineDrawing can be contained within a
      * ListItem or Paragraph, unless the ListItem or Paragraph is within
      * a FootnoteSection. An InlineDrawing cannot itself contain any other element. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface InlineDrawing {
+    interface InlineDrawing extends Element {
       copy(): InlineDrawing;
       getAltDescription(): string;
       getAltTitle(): string;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -730,21 +714,20 @@ declare namespace GoogleAppsScript {
       removeFromParent(): InlineDrawing;
       setAltDescription(description: string): InlineDrawing;
       setAltTitle(title: string): InlineDrawing;
-      setAttributes(attributes: Object): InlineDrawing;
+      setAttributes(attributes: any): InlineDrawing;
     }
-
     /**
      * An element representing an embedded image. An InlineImage can be contained within a
      * ListItem or Paragraph, unless the ListItem or Paragraph is within
      * a FootnoteSection. An InlineImage cannot itself contain any other element. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface InlineImage {
+    interface InlineImage extends Element {
       copy(): InlineImage;
       getAltDescription(): string;
       getAltTitle(): string;
       getAs(contentType: string): Base.Blob;
-      getAttributes(): Object;
+      getAttributes(): any;
       getBlob(): Base.Blob;
       getHeight(): Integer;
       getLinkUrl(): string;
@@ -758,12 +741,11 @@ declare namespace GoogleAppsScript {
       removeFromParent(): InlineImage;
       setAltDescription(description: string): InlineImage;
       setAltTitle(title: string): InlineImage;
-      setAttributes(attributes: Object): InlineImage;
+      setAttributes(attributes: any): InlineImage;
       setHeight(height: Integer): InlineImage;
       setLinkUrl(url: string): InlineImage;
       setWidth(width: Integer): InlineImage;
     }
-
     /**
      * An element representing a list item. A ListItem is a Paragraph that is associated
      * with a list ID. A ListItem may contain Equation, Footnote, HorizontalRule, InlineDrawing, InlineImage, PageBreak, and Text
@@ -795,7 +777,7 @@ declare namespace GoogleAppsScript {
      *     var item2 = body.appendListItem('Item 2');
      *     item2.setListId(item1);
      */
-    export interface ListItem {
+    interface ListItem extends Element {
       addPositionedImage(image: Base.BlobSource): PositionedImage;
       appendHorizontalRule(): HorizontalRule;
       appendInlineImage(image: Base.BlobSource): InlineImage;
@@ -812,15 +794,15 @@ declare namespace GoogleAppsScript {
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
       getAlignment(): HorizontalAlignment;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getGlyphType(): GlyphType;
       getHeading(): ParagraphHeading;
-      getIndentEnd(): Number;
-      getIndentFirstLine(): Number;
-      getIndentStart(): Number;
-      getLineSpacing(): Number;
+      getIndentEnd(): number;
+      getIndentFirstLine(): number;
+      getIndentStart(): number;
+      getLineSpacing(): number;
       getLinkUrl(): string;
       getListId(): string;
       getNestingLevel(): Integer;
@@ -830,8 +812,8 @@ declare namespace GoogleAppsScript {
       getPositionedImage(id: string): PositionedImage;
       getPositionedImages(): PositionedImage[];
       getPreviousSibling(): Element;
-      getSpacingAfter(): Number;
-      getSpacingBefore(): Number;
+      getSpacingAfter(): number;
+      getSpacingBefore(): number;
       getText(): string;
       getTextAlignment(): TextAlignment;
       getType(): ElementType;
@@ -850,23 +832,22 @@ declare namespace GoogleAppsScript {
       removePositionedImage(id: string): boolean;
       replaceText(searchPattern: string, replacement: string): Element;
       setAlignment(alignment: HorizontalAlignment): ListItem;
-      setAttributes(attributes: Object): ListItem;
+      setAttributes(attributes: any): ListItem;
       setGlyphType(glyphType: GlyphType): ListItem;
       setHeading(heading: ParagraphHeading): ListItem;
-      setIndentEnd(indentEnd: Number): ListItem;
-      setIndentFirstLine(indentFirstLine: Number): ListItem;
-      setIndentStart(indentStart: Number): ListItem;
+      setIndentEnd(indentEnd: number): ListItem;
+      setIndentFirstLine(indentFirstLine: number): ListItem;
+      setIndentStart(indentStart: number): ListItem;
       setLeftToRight(leftToRight: boolean): ListItem;
-      setLineSpacing(multiplier: Number): ListItem;
+      setLineSpacing(multiplier: number): ListItem;
       setLinkUrl(url: string): ListItem;
       setListId(listItem: ListItem): ListItem;
       setNestingLevel(nestingLevel: Integer): ListItem;
-      setSpacingAfter(spacingAfter: Number): ListItem;
-      setSpacingBefore(spacingBefore: Number): ListItem;
+      setSpacingAfter(spacingAfter: number): ListItem;
+      setSpacingBefore(spacingBefore: number): ListItem;
       setText(text: string): void;
       setTextAlignment(textAlignment: TextAlignment): ListItem;
     }
-
     /**
      * A Range that has a name and ID to allow later retrieval. Names are not
      * necessarily unique; several different ranges in the same document may share the same name, much
@@ -885,31 +866,29 @@ declare namespace GoogleAppsScript {
      *     }
      *     doc.addNamedRange('myUniquePrefix-tables', rangeBuilder.build());
      */
-    export interface NamedRange {
+    interface NamedRange {
       getId(): string;
       getName(): string;
       getRange(): Range;
       remove(): void;
     }
-
     /**
      * An element representing a page break. A PageBreak can be contained within a ListItem or Paragraph, unless the ListItem or Paragraph is within a
      * Table, HeaderSection, FooterSection, or FootnoteSection. A PageBreak cannot itself contain any other element. For more information on document structure,
      * see the guide to extending Google
      * Docs.
      */
-    export interface PageBreak {
+    interface PageBreak extends Element {
       copy(): PageBreak;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
       getType(): ElementType;
       isAtDocumentEnd(): boolean;
       removeFromParent(): PageBreak;
-      setAttributes(attributes: Object): PageBreak;
+      setAttributes(attributes: any): PageBreak;
     }
-
     /**
      * An element representing a paragraph. A Paragraph may contain Equation, Footnote, HorizontalRule, InlineDrawing, InlineImage, PageBreak,
      * and Text elements. For more information on document structure, see the guide to extending Google Docs.
@@ -930,7 +909,7 @@ declare namespace GoogleAppsScript {
      *     // Append a regular paragraph.
      *     body.appendParagraph("This is a typical paragraph.");
      */
-    export interface Paragraph {
+    interface Paragraph extends Element {
       addPositionedImage(image: Base.BlobSource): PositionedImage;
       appendHorizontalRule(): HorizontalRule;
       appendInlineImage(image: Base.BlobSource): InlineImage;
@@ -947,14 +926,14 @@ declare namespace GoogleAppsScript {
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
       getAlignment(): HorizontalAlignment;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getHeading(): ParagraphHeading;
-      getIndentEnd(): Number;
-      getIndentFirstLine(): Number;
-      getIndentStart(): Number;
-      getLineSpacing(): Number;
+      getIndentEnd(): number;
+      getIndentFirstLine(): number;
+      getIndentStart(): number;
+      getLineSpacing(): number;
       getLinkUrl(): string;
       getNextSibling(): Element;
       getNumChildren(): Integer;
@@ -962,8 +941,8 @@ declare namespace GoogleAppsScript {
       getPositionedImage(id: string): PositionedImage;
       getPositionedImages(): PositionedImage[];
       getPreviousSibling(): Element;
-      getSpacingAfter(): Number;
-      getSpacingBefore(): Number;
+      getSpacingAfter(): number;
+      getSpacingBefore(): number;
       getText(): string;
       getTextAlignment(): TextAlignment;
       getType(): ElementType;
@@ -982,20 +961,19 @@ declare namespace GoogleAppsScript {
       removePositionedImage(id: string): boolean;
       replaceText(searchPattern: string, replacement: string): Element;
       setAlignment(alignment: HorizontalAlignment): Paragraph;
-      setAttributes(attributes: Object): Paragraph;
+      setAttributes(attributes: any): Paragraph;
       setHeading(heading: ParagraphHeading): Paragraph;
-      setIndentEnd(indentEnd: Number): Paragraph;
-      setIndentFirstLine(indentFirstLine: Number): Paragraph;
-      setIndentStart(indentStart: Number): Paragraph;
+      setIndentEnd(indentEnd: number): Paragraph;
+      setIndentFirstLine(indentFirstLine: number): Paragraph;
+      setIndentStart(indentStart: number): Paragraph;
       setLeftToRight(leftToRight: boolean): Paragraph;
-      setLineSpacing(multiplier: Number): Paragraph;
+      setLineSpacing(multiplier: number): Paragraph;
       setLinkUrl(url: string): Paragraph;
-      setSpacingAfter(spacingAfter: Number): Paragraph;
-      setSpacingBefore(spacingBefore: Number): Paragraph;
+      setSpacingAfter(spacingAfter: number): Paragraph;
+      setSpacingBefore(spacingBefore: number): Paragraph;
       setText(text: string): void;
       setTextAlignment(textAlignment: TextAlignment): Paragraph;
     }
-
     /**
      * An enumeration of the standard paragraph headings.
      *
@@ -1015,8 +993,7 @@ declare namespace GoogleAppsScript {
      *     var par3 = body.appendParagraph("Text");
      *     par3.setHeading(DocumentApp.ParagraphHeading.NORMAL);
      */
-    export enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
-
+    enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
     /**
      * A reference to a location in the document, relative to a specific element. The user's cursor is
      * represented as a Position, among other uses. Scripts can only access the cursor of the
@@ -1037,7 +1014,7 @@ declare namespace GoogleAppsScript {
      *       DocumentApp.getUi().alert('Cannot find a cursor.');
      *     }
      */
-    export interface Position {
+    interface Position {
       getElement(): Element;
       getOffset(): Integer;
       getSurroundingText(): Text;
@@ -1046,7 +1023,6 @@ declare namespace GoogleAppsScript {
       insertInlineImage(image: Base.BlobSource): InlineImage;
       insertText(text: string): Text;
     }
-
     /**
      * Fixed position image anchored to a Paragraph. Unlike an InlineImage, a PositionedImage is
      * not an Element. It does not have a
@@ -1067,29 +1043,27 @@ declare namespace GoogleAppsScript {
      *         .setTopOffset(60)
      *         .setLeftOffset(40);
      */
-    export interface PositionedImage {
+    interface PositionedImage {
       getAs(contentType: string): Base.Blob;
       getBlob(): Base.Blob;
       getHeight(): Integer;
       getId(): string;
       getLayout(): PositionedLayout;
-      getLeftOffset(): Number;
+      getLeftOffset(): number;
       getParagraph(): Paragraph;
-      getTopOffset(): Number;
+      getTopOffset(): number;
       getWidth(): Integer;
       setHeight(height: Integer): PositionedImage;
       setLayout(layout: PositionedLayout): PositionedImage;
-      setLeftOffset(offset: Number): PositionedImage;
-      setTopOffset(offset: Number): PositionedImage;
+      setLeftOffset(offset: number): PositionedImage;
+      setTopOffset(offset: number): PositionedImage;
       setWidth(width: Integer): PositionedImage;
     }
-
     /**
      * An enumeration that specifies how to lay out a PositionedImage in relation to surrounding
      * text.
      */
-    export enum PositionedLayout { ABOVE_TEXT, BREAK_BOTH, BREAK_LEFT, BREAK_RIGHT, WRAP_TEXT }
-
+    enum PositionedLayout { ABOVE_TEXT, BREAK_BOTH, BREAK_LEFT, BREAK_RIGHT, WRAP_TEXT }
     /**
      * A range of elements in a document. The user's selection is represented as a Range, among
      * other uses. Scripts can only access the selection of the user who is running the script, and only
@@ -1116,11 +1090,10 @@ declare namespace GoogleAppsScript {
      *       }
      *     }
      */
-    export interface Range {
+    interface Range {
       getRangeElements(): RangeElement[];
-      getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
-
     /**
      * A builder used to construct Range objects from document elements.
      *
@@ -1133,7 +1106,7 @@ declare namespace GoogleAppsScript {
      *     }
      *     doc.setSelection(rangeBuilder.build());
      */
-    export interface RangeBuilder {
+    interface RangeBuilder {
       addElement(element: Element): RangeBuilder;
       addElement(textElement: Text, startOffset: Integer, endOffsetInclusive: Integer): RangeBuilder;
       addElementsBetween(startElement: Element, endElementInclusive: Element): RangeBuilder;
@@ -1141,21 +1114,19 @@ declare namespace GoogleAppsScript {
       addRange(range: Range): RangeBuilder;
       build(): Range;
       getRangeElements(): RangeElement[];
-      getSelectedElements(): RangeElement[];
+      /** @deprecated DO NOT USE */ getSelectedElements(): RangeElement[];
     }
-
     /**
      * A wrapper around an Element with a possible start and end offset. These offsets allow a
      * range of characters within a Text
      * element to be represented in search results, document selections, and named ranges.
      */
-    export interface RangeElement {
+    interface RangeElement {
       getElement(): Element;
       getEndOffsetInclusive(): Integer;
       getStartOffset(): Integer;
       isPartial(): boolean;
     }
-
     /**
      * An element representing a table. A Table may only contain TableRow elements. For
      * more information on document structure, see the guide to extending Google Docs.
@@ -1174,7 +1145,7 @@ declare namespace GoogleAppsScript {
      *     // Build a table from the array.
      *     body.appendTable(cells);
      */
-    export interface Table {
+    interface Table extends Element {
       appendTableRow(): TableRow;
       appendTableRow(tableRow: TableRow): TableRow;
       clear(): Table;
@@ -1184,13 +1155,13 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getBorderColor(): string;
-      getBorderWidth(): Number;
+      getBorderWidth(): number;
       getCell(rowIndex: Integer, cellIndex: Integer): TableCell;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
-      getColumnWidth(columnIndex: Integer): Number;
+      getColumnWidth(columnIndex: Integer): number;
       getLinkUrl(): string;
       getNextSibling(): Element;
       getNumChildren(): Integer;
@@ -1208,19 +1179,18 @@ declare namespace GoogleAppsScript {
       removeFromParent(): Table;
       removeRow(rowIndex: Integer): TableRow;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): Table;
+      setAttributes(attributes: any): Table;
       setBorderColor(color: string): Table;
-      setBorderWidth(width: Number): Table;
-      setColumnWidth(columnIndex: Integer, width: Number): Table;
+      setBorderWidth(width: number): Table;
+      setColumnWidth(columnIndex: Integer, width: number): Table;
       setLinkUrl(url: string): Table;
       setTextAlignment(textAlignment: TextAlignment): Table;
     }
-
     /**
      * An element representing a table cell. A TableCell is always contained within a TableRow and may contain ListItem, Paragraph, or Table elements. For
      * more information on document structure, see the guide to extending Google Docs.
      */
-    export interface TableCell {
+    interface TableCell extends Element {
       appendHorizontalRule(): HorizontalRule;
       appendImage(image: Base.BlobSource): InlineImage;
       appendImage(image: InlineImage): InlineImage;
@@ -1238,7 +1208,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getBackgroundColor(): string;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
@@ -1246,10 +1216,10 @@ declare namespace GoogleAppsScript {
       getLinkUrl(): string;
       getNextSibling(): Element;
       getNumChildren(): Integer;
-      getPaddingBottom(): Number;
-      getPaddingLeft(): Number;
-      getPaddingRight(): Number;
-      getPaddingTop(): Number;
+      getPaddingBottom(): number;
+      getPaddingLeft(): number;
+      getPaddingRight(): number;
+      getPaddingTop(): number;
       getParent(): ContainerElement;
       getParentRow(): TableRow;
       getParentTable(): Table;
@@ -1259,7 +1229,7 @@ declare namespace GoogleAppsScript {
       getTextAlignment(): TextAlignment;
       getType(): ElementType;
       getVerticalAlignment(): VerticalAlignment;
-      getWidth(): Number;
+      getWidth(): number;
       insertHorizontalRule(childIndex: Integer): HorizontalRule;
       insertImage(childIndex: Integer, image: Base.BlobSource): InlineImage;
       insertImage(childIndex: Integer, image: InlineImage): InlineImage;
@@ -1275,25 +1245,24 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): TableCell;
       removeFromParent(): TableCell;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): TableCell;
+      setAttributes(attributes: any): TableCell;
       setBackgroundColor(color: string): TableCell;
       setLinkUrl(url: string): TableCell;
-      setPaddingBottom(paddingBottom: Number): TableCell;
-      setPaddingLeft(paddingLeft: Number): TableCell;
-      setPaddingRight(paddingTop: Number): TableCell;
-      setPaddingTop(paddingTop: Number): TableCell;
+      setPaddingBottom(paddingBottom: number): TableCell;
+      setPaddingLeft(paddingLeft: number): TableCell;
+      setPaddingRight(paddingTop: number): TableCell;
+      setPaddingTop(paddingTop: number): TableCell;
       setText(text: string): TableCell;
       setTextAlignment(textAlignment: TextAlignment): TableCell;
       setVerticalAlignment(alignment: VerticalAlignment): TableCell;
-      setWidth(width: Number): TableCell;
+      setWidth(width: number): TableCell;
     }
-
     /**
      * An element containing a table of contents. A TableOfContents may contain ListItem, Paragraph, and Table elements, although the contents of a TableOfContents are usually generated automatically by Google Docs. For more information on
      * document structure, see the guide to
      * extending Google Docs.
      */
-    export interface TableOfContents {
+    interface TableOfContents extends Element {
       clear(): TableOfContents;
       copy(): TableOfContents;
       editAsText(): Text;
@@ -1301,7 +1270,7 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
@@ -1315,17 +1284,16 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       removeFromParent(): TableOfContents;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): TableOfContents;
+      setAttributes(attributes: any): TableOfContents;
       setLinkUrl(url: string): TableOfContents;
       setTextAlignment(textAlignment: TextAlignment): TableOfContents;
     }
-
     /**
      * An element representing a table row. A TableRow is always contained within a Table and may only contain TableCell elements. For more information on document
      * structure, see the guide to extending
      * Google Docs.
      */
-    export interface TableRow {
+    interface TableRow extends Element {
       appendTableCell(): TableCell;
       appendTableCell(textContents: string): TableCell;
       appendTableCell(tableCell: TableCell): TableCell;
@@ -1336,12 +1304,12 @@ declare namespace GoogleAppsScript {
       findElement(elementType: ElementType, from: RangeElement): RangeElement;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getCell(cellIndex: Integer): TableCell;
       getChild(childIndex: Integer): Element;
       getChildIndex(child: Element): Integer;
       getLinkUrl(): string;
-      getMinimumHeight(): Integer;
+      getMinimumHeight(): number;
       getNextSibling(): Element;
       getNumCells(): Integer;
       getNumChildren(): Integer;
@@ -1360,12 +1328,11 @@ declare namespace GoogleAppsScript {
       removeChild(child: Element): TableRow;
       removeFromParent(): TableRow;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(attributes: Object): TableRow;
+      setAttributes(attributes: any): TableRow;
       setLinkUrl(url: string): TableRow;
-      setMinimumHeight(minHeight: Integer): TableRow;
+      setMinimumHeight(minHeight: number): TableRow;
       setTextAlignment(textAlignment: TextAlignment): TableRow;
     }
-
     /**
      * An element representing a rich text region. All text in a Document is contained within Text elements.
      * A Text element can be contained within an Equation, EquationFunction,
@@ -1387,15 +1354,15 @@ declare namespace GoogleAppsScript {
      *     // Make the first half of the document blue.
      *     text.setForegroundColor(0, text.getText().length / 2, '#00FFFF');
      */
-    export interface Text {
+    interface Text extends Element {
       appendText(text: string): Text;
       copy(): Text;
       deleteText(startOffset: Integer, endOffsetInclusive: Integer): Text;
       editAsText(): Text;
       findText(searchPattern: string): RangeElement;
       findText(searchPattern: string, from: RangeElement): RangeElement;
-      getAttributes(): Object;
-      getAttributes(offset: Integer): Object;
+      getAttributes(): any;
+      getAttributes(offset: Integer): any;
       getBackgroundColor(): string;
       getBackgroundColor(offset: Integer): string;
       getFontFamily(): string;
@@ -1427,8 +1394,8 @@ declare namespace GoogleAppsScript {
       merge(): Text;
       removeFromParent(): Text;
       replaceText(searchPattern: string, replacement: string): Element;
-      setAttributes(startOffset: Integer, endOffsetInclusive: Integer, attributes: Object): Text;
-      setAttributes(attributes: Object): Text;
+      setAttributes(startOffset: Integer, endOffsetInclusive: Integer, attributes: any): Text;
+      setAttributes(attributes: any): Text;
       setBackgroundColor(startOffset: Integer, endOffsetInclusive: Integer, color: string): Text;
       setBackgroundColor(color: string): Text;
       setBold(bold: boolean): Text;
@@ -1451,7 +1418,6 @@ declare namespace GoogleAppsScript {
       setUnderline(underline: boolean): Text;
       setUnderline(startOffset: Integer, endOffsetInclusive: Integer, underline: boolean): Text;
     }
-
     /**
      * An enumeration of the type of text alignments.
      *
@@ -1459,15 +1425,14 @@ declare namespace GoogleAppsScript {
      *     var text = DocumentApp.getActiveDocument().getBody().getParagraphs()[0].editAsText();
      *     text.setTextAlignment(0, 0, DocumentApp.TextAlignment.SUPERSCRIPT);
      */
-    export enum TextAlignment { NORMAL, SUPERSCRIPT, SUBSCRIPT }
-
+    enum TextAlignment { NORMAL, SUPERSCRIPT, SUBSCRIPT }
     /**
      * An element representing a region that is unknown or cannot be affected by a script, such as a
      * page number.
      */
-    export interface UnsupportedElement {
+    interface UnsupportedElement extends Element {
       copy(): UnsupportedElement;
-      getAttributes(): Object;
+      getAttributes(): any;
       getNextSibling(): Element;
       getParent(): ContainerElement;
       getPreviousSibling(): Element;
@@ -1475,9 +1440,8 @@ declare namespace GoogleAppsScript {
       isAtDocumentEnd(): boolean;
       merge(): UnsupportedElement;
       removeFromParent(): UnsupportedElement;
-      setAttributes(attributes: Object): UnsupportedElement;
+      setAttributes(attributes: any): UnsupportedElement;
     }
-
     /**
      * An enumeration of the supported vertical alignment types.
      *
@@ -1497,8 +1461,7 @@ declare namespace GoogleAppsScript {
      *     // Align the third cell's contents to the bottom.
      *     table.getCell(0, 2).setVerticalAlignment(DocumentApp.VerticalAlignment.BOTTOM);
      */
-    export enum VerticalAlignment { BOTTOM, CENTER, TOP }
-
+    enum VerticalAlignment { BOTTOM, CENTER, TOP }
   }
 }
 

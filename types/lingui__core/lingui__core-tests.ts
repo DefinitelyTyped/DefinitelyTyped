@@ -4,6 +4,7 @@ import {
     Catalog,
     Catalogs,
     MessageOptions,
+    MessageDescriptor,
     LanguageData,
     I18n,
     date,
@@ -15,6 +16,13 @@ const age = 12;
 const templateResult: string = i18n.t`${age} years old`;
 const templateIdResult: string = i18n.t('templateId')`${age} years old`;
 const translateResult: string = i18n._('age', { age }, { defaults: '{age} years old' });
+
+const descriptorBasicResult = i18n._({ id: 'basicDescriptor' });
+const descriptorResult = i18n._({
+    id: 'ageDescriptor',
+    defaults: '{age} years old',
+    values: { age }
+});
 
 const count = 42;
 
@@ -80,8 +88,17 @@ const catalog: Catalog = {
         }
     }
 };
+
+function missingFn(language: string, id: string) {
+   return id;
+}
+
 const catalogs: Catalogs = { es: catalog };
 const setupResult: I18n = setupI18n({ catalogs, language: 'es' });
+const setupResultLocales: I18n = setupI18n({ locales: ['en-UK', 'ar-AS'] });
+const setupResultMissingText: I18n = setupI18n({ missing: 'missing' });
+const setupResultMissingFn: I18n = setupI18n({ missing: missingFn });
+const setupResultCombined: I18n = setupI18n({ catalogs, language: 'de', locales: ['en-UK', 'ar-AS'], missing: missingFn });
 
 const formattedDate: string = date('en', { timeZone: 'UTC' })(new Date());
 const formattedNumber: string = number('en', { style: 'currency', currency: 'EUR' })(1234.56);

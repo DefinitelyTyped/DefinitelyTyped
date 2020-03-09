@@ -5,11 +5,9 @@ Physijs.scripts.ammo = 'examples/js/ammo.js';
 
 var initScene, render, applyForce, setMousePosition, mouse_position,
     ground_material, box_material,
-    projector, renderer, render_stats, physics_stats, scene, ground, light, camera, box, boxes = [];
+    renderer, render_stats, physics_stats, scene, ground, light, camera, box, boxes = [];
 
 initScene = function() {
-    projector = new THREE.Projector;
-
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
@@ -135,7 +133,7 @@ setMousePosition = function(evt) {
         -((evt.clientY / renderer.dom.clientHeight) * 2 - 1),
         .5
     );
-    projector.unprojectVector(vector, camera);
+    vector.unproject(camera);
     vector.sub(camera.position).normalize();
 
     var coefficient = (box.position.y - camera.position.y) / vector.y

@@ -1,4 +1,4 @@
-// Type definitions for @ember/component 3.0
+// Type definitions for non-npm package @ember/component 3.0
 // Project: https://emberjs.com/api/ember/3.4/modules/@ember%2Fcomponent
 // Definitions by: Mike North <https://github.com/mike-north>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,9 +17,9 @@ interface TemplateFactory {
 }
 
 /**
- * A view that is completely isolated. Property access in its templates go to the view object
- * and actions are targeted at the view object. There is no access to the surrounding context or
- * outer controller; all contextual information is passed in.
+ * A component is an isolated piece of UI, represented by a template and an
+ * optional class. When a component has a class, its template's `this` value
+ * is an instance of the component class.
  */
 export default class Component extends CoreView.extend(
     ViewMixin,

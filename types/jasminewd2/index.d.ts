@@ -3,7 +3,7 @@
 // Definitions by: Sammy Jelin <https://github.com/sjelin>
 //                 George Kalpakas <https://github.com/gkalpak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.8
 
 /// <reference types="jasmine" />
 
@@ -45,6 +45,14 @@ declare namespace jasmine {
     toEqual(expected: Expected<ArrayLike<T>>, expectationFailOutput?: any): Promise<void>;
     toContain(expected: T, expectationFailOutput?: any): Promise<void>;
     not: ArrayLikeMatchers<T>;
+  }
+
+  // Add definition to be compatible with latest jasmine v3 types.
+  // Even though library is not compatible with jasmine v3, there is no suitable way to configure that now here.
+  // See for more detail: https://github.com/microsoft/dtslint/issues/253
+  interface FunctionMatchers<Fn extends (...args: any[]) => any> extends Matchers<any> {
+    toHaveBeenCalledWith(...params: any[]): boolean;
+    toHaveBeenCalledWith(...params: any[]): Promise<void>;
   }
 
   function addMatchers(matchers: AsyncCustomMatcherFactories): void;

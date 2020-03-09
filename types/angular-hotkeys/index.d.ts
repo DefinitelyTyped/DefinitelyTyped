@@ -1,5 +1,5 @@
 // Type definitions for angular-hotkeys 1.7
-// Project: https://github.com/chieffancypants/angular-hotkeys
+// Project: https://github.com/chieffancypants/angular-hotkeys, https://chieffancypants.github.io/angular-hotkeys
 // Definitions by: Jason Zhao <https://github.com/jlz27>
 //                 Stefan Steinhart <https://github.com/reppners>
 //                 Cyril Gandon <https://github.com/cyrilgandon>

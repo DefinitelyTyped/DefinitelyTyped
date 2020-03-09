@@ -2,18 +2,26 @@
 // Project: https://github.com/feross/express-sitemap-xml
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as express from 'express';
 
-export interface Sitemap {
-    [url: string]: string;
-}
-
-declare function expressSitemapXml(getUrls: (() => (string[] | Promise<string[]>)), base: string): express.RequestHandler;
+declare function expressSitemapXml(getUrls: (() => (expressSitemapXml.SitemapLeaf[] | Promise<expressSitemapXml.SitemapLeaf[]>)), base: string): express.RequestHandler;
 
 declare namespace expressSitemapXml {
-    function buildSitemaps(urls: string[], base: string): Promise<Sitemap>;
+    interface LeafObject {
+        changeFreq?: string;
+        lastMod?: string | Date;
+        url: string;
+    }
+
+    type SitemapLeaf = string | LeafObject;
+
+    interface Sitemap {
+        [leaf: string]: string;
+    }
+
+   function buildSitemaps(urls: SitemapLeaf[], base: string): Promise<Sitemap>;
 }
 
-export default expressSitemapXml;
+export = expressSitemapXml;

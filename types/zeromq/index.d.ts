@@ -11,6 +11,8 @@
 
 /// <reference types="node" />
 
+import { EventEmitter } from 'events';
+
 export interface SocketTypes {
     pub: number;
     xpub: number;
@@ -58,21 +60,79 @@ export interface SocketOptions {
     zap_domain: number;
 }
 
-export class Socket {
+/**
+ * Export all option names at the global level
+ */
+export const ZMQ_HWM: number;
+export const ZMQ_SWAP: number;
+export const ZMQ_AFFINITY: number;
+export const ZMQ_IDENTITY: number;
+export const ZMQ_SUBSCRIBE: number;
+export const ZMQ_UNSUBSCRIBE: number;
+export const ZMQ_RATE: number;
+export const ZMQ_RECOVERY_IVL: number;
+export const ZMQ_MCAST_LOOP: number;
+export const ZMQ_SNDBUF: number;
+export const ZMQ_RCVBUF: number;
+export const ZMQ_RCVMORE: number;
+export const ZMQ_FD: number;
+export const ZMQ_EVENTS: number;
+export const ZMQ_TYPE: number;
+export const ZMQ_LINGER: number;
+export const ZMQ_RECONNECT_IVL: number;
+export const ZMQ_BACKLOG: number;
+export const ZMQ_RECOVERY_IVL_MSEC: number;
+export const ZMQ_RECONNECT_IVL_MAX: number;
+export const ZMQ_MAXMSGSIZE: number;
+export const ZMQ_SNDHWM: number;
+export const ZMQ_RCVHWM: number;
+export const ZMQ_MULTICAST_HOPS: number;
+export const ZMQ_RCVTIMEO: number;
+export const ZMQ_SNDTIMEO: number;
+export const ZMQ_IPV4ONLY: number;
+export const ZMQ_LAST_ENDPOINT: number;
+export const ZMQ_ROUTER_MANDATORY: number;
+export const ZMQ_TCP_KEEPALIVE: number;
+export const ZMQ_TCP_KEEPALIVE_CNT: number;
+export const ZMQ_TCP_KEEPALIVE_IDLE: number;
+export const ZMQ_TCP_KEEPALIVE_INTVL: number;
+export const ZMQ_TCP_ACCEPT_FILTER: number;
+export const ZMQ_DELAY_ATTACH_ON_CONNECT: number;
+export const ZMQ_XPUB_VERBOSE: number;
+export const ZMQ_ROUTER_RAW: number;
+export const ZMQ_IPV6: number;
+export const ZMQ_MECHANISM: number;
+export const ZMQ_PLAIN_SERVER: number;
+export const ZMQ_PLAIN_USERNAME: number;
+export const ZMQ_PLAIN_PASSWORD: number;
+export const ZMQ_CURVE_SERVER: number;
+export const ZMQ_CURVE_PUBLICKEY: number;
+export const ZMQ_CURVE_SECRETKEY: number;
+export const ZMQ_CURVE_SERVERKEY: number;
+export const ZMQ_ZAP_DOMAIN: number;
+export const ZMQ_HEARTBEAT_IVL: number;
+export const ZMQ_HEARTBEAT_TTL: number;
+export const ZMQ_HEARTBEAT_TIMEOUT: number;
+export const ZMQ_CONNECT_TIMEOUT: number;
+export const ZMQ_IO_THREADS: number;
+export const ZMQ_MAX_SOCKETS: number;
+export const ZMQ_ROUTER_HANDOVER: number;
+
+export class Socket extends EventEmitter {
     /**
      * Set `opt` to `val`.
      *
      * @param opt Option
      * @param val Value
      */
-    setsocketopt(opt: number|string, val: any): Socket;
+    setsockopt(opt: number|string, val: any): Socket;
 
     /**
      * Get socket `opt`.
      *
      * @param opt Option number
      */
-    getsocketopt(opt: number|string): any;
+    getsockopt(opt: number|string): any;
 
     /**
      * Async bind.
@@ -157,15 +217,18 @@ export class Socket {
     monitor(interval?: number, numOfEvents?: number): Socket;
 
     /**
+     * Disable monitoring of a Socket release idle handler
+     * and close the socket
+     *
+     * @return for chaining
+     */
+    unmonitor(): Socket;
+
+    /**
      * Close the socket.
      *
      */
     close(): Socket;
-
-    /**
-     * Socket event - 'message'
-     */
-    on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
     pause(): void;
     resume(): void;

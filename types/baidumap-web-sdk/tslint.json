@@ -1,15 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // All are TODOs
-        "eofline": false,
-        "comment-format": false,
         "dt-header": false,
-        "max-line-length": false,
-        "member-access": false,
-        "no-namespace": false,
-        "no-useless-files": false,
-        "no-var": false,
-        "semicolon": false
+        "no-unnecessary-class": false
     }
 }

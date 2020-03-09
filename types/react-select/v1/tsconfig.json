@@ -1,8 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "lib/Option/index.d.ts",
-        "lib/utils/defaultMenuRenderer/index.d.ts",
         "react-select-tests.tsx"
     ],
     "compilerOptions": {
@@ -12,7 +10,7 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
+        "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
         "baseUrl": "../../",

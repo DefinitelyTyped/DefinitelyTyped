@@ -1,11 +1,12 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "object-literal-shorthand": false,
-        "object-literal-key-quote": false,
+        "no-any": false,
         "no-empty-interface": false,
-        "prefer-method-signature": false,
+        "npm-naming": false,
+        "object-literal-key-quote": false,
         "object-literal-key-quotes": false,
-        "no-any": false
+        "object-literal-shorthand": false,
+        "prefer-method-signature": false
     }
 }

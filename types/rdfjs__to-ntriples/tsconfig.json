@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rdfjs/to-ntriples": [
+                "rdfjs__to-ntriples"
+            ],
+            "@rdfjs/to-ntriples/*": [
+                "rdfjs__to-ntriples/*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "rdfjs__to-ntriples-tests.ts"
+    ]
+}

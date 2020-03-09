@@ -1,18 +1,31 @@
 // Type definitions for @babel/traverse 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse
+// Project: https://github.com/babel/babel/tree/master/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 //                 Ryan Petrich <https://github.com/rpetrich>
 //                 Melvin Groenhoff <https://github.com/mgroenhoff>
+//                 Dean L. <https://github.com/dlgrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// Minimum TypeScript Version: 3.4
 
 import * as t from "@babel/types";
 
 export type Node = t.Node;
 
-export default function traverse<S>(parent: Node | Node[], opts: TraverseOptions<S>, scope: Scope, state: S, parentPath?: NodePath): void;
-export default function traverse(parent: Node | Node[], opts: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
+export default function traverse<S>(
+    parent: Node | Node[],
+    opts: TraverseOptions<S>,
+    scope: Scope | undefined,
+    state: S,
+    parentPath?: NodePath,
+): void;
+export default function traverse(
+    parent: Node | Node[],
+    opts: TraverseOptions,
+    scope?: Scope,
+    state?: any,
+    parentPath?: NodePath,
+): void;
 
 export interface TraverseOptions<S = Node> extends Visitor<S> {
     scope?: Scope;
@@ -90,11 +103,16 @@ export class Scope {
 
     removeData(key: string): void;
 
-    push(opts: any): void;
+    push(opts: {
+        id: t.LVal,
+        init?: t.Expression,
+        unique?: boolean,
+        kind?: "var" | "let" | "const",
+    }): void;
 
     getProgramParent(): Scope;
 
-    getFunctionParent(): Scope;
+    getFunctionParent(): Scope | null;
 
     getBlockParent(): Scope;
 
@@ -138,18 +156,22 @@ export class Binding {
     constantViolations: NodePath[];
 }
 
-export type Visitor<S = Node> = VisitNodeObject<Node> & {
-    [P in Node["type"]]?: VisitNode<S, Extract<Node, { type: P; }>>;
+export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
+    [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type; }>>;
+} & {
+    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>
 };
 
-export type VisitNode<T, P> = VisitNodeFunction<T, P> | VisitNodeObject<T>;
+export type VisitNode<S, P> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
-export type VisitNodeFunction<T, P> = (this: T, path: NodePath<P>, state: any) => void;
+export type VisitNodeFunction<S, P> = (this: S, path: NodePath<P>, state: S) => void;
 
-export interface VisitNodeObject<T> {
-    enter?(path: NodePath<T>, state: any): void;
-    exit?(path: NodePath<T>, state: any): void;
+export interface VisitNodeObject<S, P> {
+    enter?: VisitNodeFunction<S, P>;
+    exit?: VisitNodeFunction<S, P>;
 }
+
+export type NodePaths<T extends Node | Node[]> = T extends Node[] ? { [K in keyof T]: NodePath<T[K]> } : [NodePath<T>];
 
 export class NodePath<T = Node> {
     constructor(hub: Hub, parent: Node);
@@ -252,7 +274,7 @@ export class NodePath<T = Node> {
      *  - Insert the provided nodes after the current node.
      *  - Remove the current node.
      */
-    replaceWithMultiple(nodes: Node[]): void;
+    replaceWithMultiple<Nodes extends Node[]>(nodes: Nodes): NodePaths<Nodes>;
 
     /**
      * Parse a string as an expression and replace the current node with the result.
@@ -407,6 +429,20 @@ export class NodePath<T = Node> {
 
     /** Update all sibling node paths after `fromIndex` by `incrementBy`. */
     updateSiblingKeys(fromIndex: number, incrementBy: number): void;
+
+    /**
+     * Insert child nodes at the start of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    unshiftContainer<Nodes extends Node | Node[]>(listKey: string, nodes: Nodes): NodePaths<Nodes>;
+
+    /**
+     * Insert child nodes at the end of the current node.
+     * @param listKey - The key at which the child nodes are stored (usually body).
+     * @param nodes - the nodes to insert.
+     */
+    pushContainer(listKey: string, nodes: Node | Node[]): void;
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;

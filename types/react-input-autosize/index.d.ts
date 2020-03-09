@@ -9,7 +9,7 @@ import * as React from 'react';
 
 export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputElement>, React.ClassAttributes<HTMLInputElement> {
     inputClassName?: string;
-    inputRef?: React.Ref<HTMLInputElement>;
+    inputRef?: (instance: HTMLInputElement | null) => void;
     inputStyle?: React.CSSProperties;
     minWidth?: string | number;
     onAutosize?: (inputWidth: string | number) => void;
@@ -17,6 +17,7 @@ export interface AutosizeInputProps extends React.InputHTMLAttributes<HTMLInputE
 }
 
 declare class AutosizeInput extends React.Component<AutosizeInputProps> {
+    copyInputStyles(): void;
     getInput(): HTMLInputElement;
 }
 

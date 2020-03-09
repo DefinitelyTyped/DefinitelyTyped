@@ -25,6 +25,7 @@ declare namespace BPMNModdle {
 
     interface TypeDerived {
         $type: ElementType;
+        $parent: TypeDerived;
     }
     interface BaseElement extends TypeDerived {
         /**
@@ -275,14 +276,14 @@ declare namespace BPMNModdle {
         source: LinkEventDefinition;
     }
     interface MessageEventDefinition extends EventDefinition {
-        nessageRef: Message;
+        messageRef: Message;
         operationRef: Operation;
     }
     interface ConditionalEventDefinition extends EventDefinition {
         condition: Expression;
     }
     interface SignalEventDefinition extends EventDefinition {
-        singalRef: Signal;
+        signalRef: Signal;
     }
     interface Signal extends RootElement {
         structureRef: ItemDefinition;

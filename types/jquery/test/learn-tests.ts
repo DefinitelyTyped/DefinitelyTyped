@@ -7,6 +7,7 @@ interface JQuery {
 }
 
 interface GreenifyPlugin {
+    // tslint:disable-next-line:callable-types
     (this: JQuery): void;
 }
 
@@ -19,24 +20,6 @@ jQuery("a").greenify(); // Makes all the links green.
 // https://learn.jquery.com/events/event-extensions/
 
 // Events
-
-function fixHooks() {
-    function setHook() {
-        jQuery.event.fixHooks.drop = {
-            props: ["dataTransfer"]
-        };
-    }
-
-    function conflictResolution() {
-        if (jQuery.event.fixHooks.drop) {
-            throw new Error("Someone else took the jQuery.event.fixHooks.drop hook!");
-        }
-
-        jQuery.event.fixHooks.drop = {
-            props: ["dataTransfer"]
-        };
-    }
-}
 
 function special() {
     function defineSpecialEvent() {
@@ -52,7 +35,7 @@ function special() {
             bindType: "click",
             handle(event) {
                 const handleObj = event.handleObj;
-                const targetData = jQuery.data(event.target);
+                const targetData = jQuery.data(event.target as Element);
                 let ret = null;
 
                 // If a multiple of the click count, run the handler

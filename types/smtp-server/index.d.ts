@@ -1,10 +1,10 @@
-// Type definitions for smtp-server 3.4
-// Project: https://github.com/nodemailer/smtp-server
+// Type definitions for smtp-server 3.5
+// Project: https://github.com/nodemailer/smtp-server, https://github.com/andris9/smtp-server
 // Definitions by: markisme <https://github.com/markisme>
 //                 taisiias <https://github.com/Taisiias>
 //                 Piotr Roszatycki <https://github.com/dex4er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 3.3
 
 /// <reference types="node" />
 /// <reference types="nodemailer" />
@@ -12,7 +12,7 @@
 import { EventEmitter } from 'events';
 import * as net from 'net';
 import * as shared from 'nodemailer/lib/shared';
-import { Readable } from 'stream';
+import { PassThrough } from 'stream';
 import * as tls from 'tls';
 
 export type ms = number;
@@ -113,6 +113,19 @@ export interface SMTPServerSession {
     tlsOptions: tls.TlsOptions;
 }
 
+export interface SMTPServerDataStream extends PassThrough {
+    /**
+     * number of bytes read from DATA stream
+     */
+    byteLength: number;
+    /**
+     * boolean, if set to true, the message was oversized.
+     * When creating the server you can define maximum allowed message size with
+     * the size option, see RFC1870 for details.
+     */
+    sizeExceeded: boolean;
+}
+
 export interface SMTPServerEnvelope {
     /**
      * includes an address object or is set to false
@@ -136,12 +149,6 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     secure?: boolean;
     /** indicate an TLS server where TLS is handled upstream */
     secured?: boolean;
-    /** optional private keys in PEM format */
-    key?: string | string[] | Buffer | Buffer[] | Array<{ pem: string | Buffer, passphrase: string }>;
-    /** optional cert chains in PEM format */
-    cert?: string | string[] | Buffer | Buffer[];
-    /** optionally override the trusted CA certificates */
-    ca?: string | string[] | Buffer | Buffer[];
     /**
      * optional hostname of the server,
      * used for identifying to the client (defaults to os.hostname())
@@ -270,7 +277,7 @@ export interface SMTPServerOptions extends tls.TlsOptions {
     /**
      * the callback to handle incoming messages ([see details](https://github.com/andris9/smtp-server#processing-incoming-message))
      */
-    onData?(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onData?(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /**
      * the callback that informs about closed client connection
      */
@@ -310,7 +317,7 @@ export class SMTPServer extends EventEmitter {
     /** Override this */
     onConnect(session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
-    onData(stream: Readable, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
+    onData(stream: SMTPServerDataStream, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */
     onMailFrom(address: SMTPServerAddress, session: SMTPServerSession, callback: (err?: Error | null) => void): void;
     /** Override this */

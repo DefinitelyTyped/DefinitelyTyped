@@ -6,6 +6,7 @@ declare namespace ButtonToolbar {
         block?: boolean;
         bsSize?: Sizes;
         bsStyle?: string;
+        bsClass?: string;
         justified?: boolean;
         vertical?: boolean;
     }

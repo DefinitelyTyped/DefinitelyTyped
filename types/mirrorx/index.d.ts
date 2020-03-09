@@ -2,7 +2,7 @@
 // Project: https://github.com/mirrorjs/mirror
 // Definitions by: Aaronphy <https://github.com/aaronphy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.0
 
 import * as H from 'history';
 
@@ -147,7 +147,7 @@ export interface Renderer {
   ): React.Component<P, React.ComponentState> | Element | void;
 
   (
-    element: Array<React.ReactElement<any>>,
+    element: React.ReactElement[],
     container: Element | null,
     callback?: () => void
   ): React.Component<any, React.ComponentState> | Element | void;

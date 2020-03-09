@@ -1,4 +1,4 @@
-// Type definitions for Google TaskQueue API v1beta2 1.0
+// Type definitions for non-npm package Google TaskQueue API v1beta2 1.0
 // Project: https://developers.google.com/appengine/docs/python/taskqueue/rest
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

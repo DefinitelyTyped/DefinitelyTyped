@@ -1,7 +1,12 @@
-// Type definitions for object-hash v1.2.0
+// Type definitions for object-hash v1.3.1
 // Project: https://github.com/puleos/object-hash
-// Definitions by: Michael Zabka <https://github.com/misak113>
+// Definitions by: Michael Zabka <https://github.com/misak113>, Artur Diniz <https://github.com/artdiniz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+interface IStream {
+    update?(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+    write?(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
+}
 
 import HashStatic = ObjectHash.HashStatic;
 export = HashStatic;
@@ -15,34 +20,12 @@ declare namespace ObjectHash {
 		ignoreUnknown?: boolean;
 		replacer?: (value: any) => any;
 		respectFunctionProperties?: boolean;
-		respectFunctionNames?: boolean;
+        respectFunctionNames?: boolean;
+        respectType?: boolean;
 		unorderedArrays?: boolean;
-		unorderedSets?: boolean;
+        unorderedSets?: boolean;
+        unorderedObjects?: boolean;
 		excludeKeys?: (key: string) => boolean;
-	}
-
-	interface HashTableItem {
-		value: any;
-		count: number;
-	}
-
-	interface HashTableItemWithKey extends HashTableItem {
-		hash: string;
-	}
-
-	export interface HashTable {
-		add(...values: any[]): HashTable;
-		remove(...values: any[]): HashTable;
-		hasKey(key: string): boolean;
-		getValue(key: string): any;
-		getCount(key: string): number;
-		table(): { [key: string]: HashTableItem };
-		toArray(): HashTableItemWithKey[];
-		reset(): HashTable;
-	}
-
-	export interface HashTableStatic {
-		(options?: IOptions): HashTable;
 	}
 
 	export interface Hash {
@@ -51,7 +34,8 @@ declare namespace ObjectHash {
 		keys(object: any): string;
 		MD5(object: any): string;
 		keysMD5(object: any): string;
-		HashTable: HashTableStatic;
+		writeToStream(value: any, stream: IStream): void;
+		writeToStream(value: any, options: IOptions, stream: IStream): void;
 	}
 
 	export var HashStatic: Hash;

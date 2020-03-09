@@ -1,14 +1,15 @@
-import { parse } from "@babel/parser";
-import traverse, { Visitor } from "@babel/traverse";
+import traverse, { Visitor, NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
     Identifier: {
-        enter() {
+        enter(path) {
+            const x: NodePath<t.Identifier> = path;
             console.log("Entered!");
         },
-        exit() {
+        exit(path) {
+            const x: NodePath<t.Identifier> = path;
             console.log("Exited!");
         }
     }
@@ -21,11 +22,7 @@ const MyVisitor2: Visitor = {
 };
 
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse
-const code = `function square(n) {
-    return n * n;
-}`;
-
-const ast = parse(code);
+declare const ast: t.Node;
 
 traverse(ast, {
     enter(path) {
@@ -74,6 +71,9 @@ const v1: Visitor = {
             return a + b;
         }`);
 
+        path.get('body').unshiftContainer('body', t.expressionStatement(t.stringLiteral("Start of function")));
+        path.get('body').pushContainer('body', t.expressionStatement(t.stringLiteral("End of function")));
+
         path.insertBefore(t.expressionStatement(t.stringLiteral("Because I'm easy come, easy go.")));
         path.insertAfter(t.expressionStatement(t.stringLiteral("A little high, little low.")));
         path.remove();
@@ -94,10 +94,60 @@ const v1: Visitor = {
 
         const id = path.scope.generateUidIdentifierBasedOnNode(path.node.id!);
         path.remove();
-        path.scope.parent.push({ id, init: path.node });
+        path.scope.parent.push({ id });
+        path.scope.parent.push({ id, init: t.stringLiteral('foo'), kind: "const" });
 
         path.scope.rename("n", "x");
         path.scope.rename("n");
+    },
+    ExportDefaultDeclaration(path) {
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.replaceWithMultiple<[t.StringLiteral, t.BooleanLiteral]>([
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
+    },
+    Program(path) {
+        {
+            const [newPath] = path.unshiftContainer('body', t.stringLiteral('hello'));
+            // $ExpectType NodePath<StringLiteral>
+            newPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral | StringLiteral>
+            booleanPath;
+        }
+        {
+            const [stringPath, booleanPath] = path.unshiftContainer<[t.StringLiteral, t.BooleanLiteral]>('body', [
+                t.stringLiteral('hello'),
+                t.booleanLiteral(false)
+            ]);
+            // $ExpectType NodePath<StringLiteral>
+            stringPath;
+            // $ExpectType NodePath<BooleanLiteral>
+            booleanPath;
+        }
     }
 };
 
@@ -109,7 +159,51 @@ const BindingKindTest: Visitor = {
         kind === 'const';
         kind === 'let';
         kind === 'var';
-        // The following should fail when uncommented
-        // kind === 'anythingElse';
+        // $ExpectError
+        kind === 'anythingElse';
     },
+};
+
+interface SomeVisitorState { someState: string; }
+
+const VisitorStateTest: Visitor<SomeVisitorState> = {
+    enter(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    exit(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    Identifier(path, state) {
+        // $ExpectType SomeVisitorState
+        state;
+        // $ExpectType SomeVisitorState
+        this;
+    },
+    FunctionDeclaration: {
+        enter(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        },
+        exit(path, state) {
+            // $ExpectType SomeVisitorState
+            state;
+            // $ExpectType SomeVisitorState
+            this;
+        }
+    }
+};
+
+traverse(ast, VisitorStateTest, undefined, { someState: "test" });
+
+const VisitorAliasTest: Visitor = {
+    Function() {},
+    Expression() {},
 };

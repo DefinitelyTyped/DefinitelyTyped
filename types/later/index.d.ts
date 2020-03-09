@@ -1,5 +1,5 @@
 // Type definitions for LaterJS 1.2
-// Project: http://bunkat.github.io/later/
+// Project: http://bunkat.github.io/later/, https://github.com/bunkat/later
 // Definitions by: Jason D Dryhurst-Smith <https://github.com/jasond-s>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -146,7 +146,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the next valid range or ranges of the current schedule,
@@ -158,7 +158,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid instance or instances of the current schedule,
@@ -170,7 +170,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid instance can occur
          * @param dateTo: The latest a valid instance can occur
          */
-        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
 
         /**
          * Finds the previous valid range or ranges of the current schedule,
@@ -182,7 +182,7 @@ declare namespace later {
          * @param dateFrom: The earliest a valid range can occur
          * @param dateTo: The latest a valid range can occur
          */
-        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
+        prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[] | Date;
     }
 
     interface RecurrenceBuilder extends ScheduleData {
