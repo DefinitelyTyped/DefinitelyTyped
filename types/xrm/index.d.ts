@@ -3780,7 +3780,7 @@ declare namespace Xrm {
              */
             getSelectedStage(): Stage;
 
-                        /**
+            /**
              * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called before the
              * business process flow status changes.
              * @param handler The function will be added to the bottom of the event
@@ -3840,7 +3840,7 @@ declare namespace Xrm {
              */
             addOnStageSelected(handler: Events.ContextSensitiveHandler): void;
 
-                        /**
+            /**
              * Use this to remove a function as an event handler for the OnPreProcessStatusChange event.
              * @param handler If an anonymous function is set using the addOnPreProcessStatusChange method it
              *                cannot be removed using this method.
@@ -5344,10 +5344,10 @@ declare namespace XrmEnum {
         Finished = "finished"
     }
 
-    /**
-     * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
-     * @see {@link Xrm.Url.CmdBarDisplay}
-     */
+     /**
+      * Constant Enum: Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+      * @see {@link Xrm.Url.CmdBarDisplay}
+      */
     const enum CmdBarDisplay {
         True = "true",
         False = "false"
