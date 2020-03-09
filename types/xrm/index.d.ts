@@ -4425,31 +4425,31 @@ declare namespace Xrm {
         }
 
         interface PageInputEntityList {
-            pageType: "entitylist",
+            pageType: "entitylist";
             /**
              * The logical name of the entity to load in the list control.
              * */
-            entityName: string,
+            entityName: string;
             /**
              * The ID of the view to load. If you don't specify it, navigates to the default main view for the entity.
              * */
-            viewId?: string,
+            viewId?: string;
             /**
              * Type of view to load. Specify "savedquery" or "userquery".
              * */
-            viewType?: "savedquery" |"userquery"
+            viewType?: "savedquery" |"userquery";
         }
 
         interface PageInputHtmlWebResource {
-            pageType: "webresource",
+            pageType: "webresource";
             /**
              * The name of the web resource to load.
              * */
-            webresourceName: string,
+            webresourceName: string;
             /**
              * The data to pass to the web resource.
              * */
-            data?: string
+            data?: string;
         }
 
         /**
@@ -4457,34 +4457,34 @@ declare namespace Xrm {
          * */
         interface NavigationOptions {
             /**
-             * Number. Specify 1 to open the page inline; 2 to open the page in a dialog.
+             * Specify 1 to open the page inline; 2 to open the page in a dialog.
              * Entity lists can only be opened inline; web resources can be opened either inline or in a dialog.
              * */
-            target: 1 | 2,
+            target: 1 | 2;
             /**
-             * Number or Object. The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+             * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
              * */
-            width?: number | Xrm.Navigation.NavigationOptions.SizeValue, 
+            width?: number | NavigationOptions.SizeValue;
             /**
-            * Number or Object. The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+            * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
             * */
-            height?: number | Xrm.Navigation.NavigationOptions.SizeValue,
+            height?: number | NavigationOptions.SizeValue;
             /**
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
              * */
-            position?: 1 | 2
+            position?: 1 | 2;
         }
 
         namespace NavigationOptions {
             interface SizeValue {
                 /**
-                 * Number. The numerical value
+                 * The numerical value
                  * */
-                value: number,
+                value: number;
                 /**
                  * The unit of measurement. Specify "%" or "px". Default value is "px"
                  * */
-                unit: "%" | "px"
+                unit: "%" | "px";
             }
         }
     }
@@ -4493,13 +4493,12 @@ declare namespace Xrm {
      * Interface for the Xrm.Navigation API
      */
     interface Navigation {
-
         /**
          * Navigates to the specified page.
          * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
          * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
-        navigateTo(pageInput: Xrm.Navigation.PageInputEntityList | Xrm.Navigation.PageInputHtmlWebResource, navigationOptions?: Xrm.Navigation.NavigationOptions): Async.PromiseLike<any>;
+        navigateTo(pageInput: Navigation.PageInputEntityList | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
 
         /**
          * Displays an alert dialog containing a message and a button.
