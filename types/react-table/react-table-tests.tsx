@@ -445,7 +445,8 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : (
+                                                // For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
