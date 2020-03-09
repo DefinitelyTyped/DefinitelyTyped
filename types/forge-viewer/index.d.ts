@@ -972,6 +972,12 @@ declare namespace Autodesk {
             class Viewer3DImpl {
                 constructor(thecanvas: any, theapi: any);
 
+                camera: THREE.Camera;
+                canvas: HTMLCanvasElement;
+                model: any;
+                scene: THREE.Scene;
+                sceneAfter: THREE.Scene;
+                selector: any;
                 visibilityManager: VisibilityManager;
 
                 addOverlay(overlayName: string, mesh: any): void;
@@ -982,10 +988,6 @@ declare namespace Autodesk {
                 initialize(needsClear: boolean, needsRender: boolean, overlayDirty: boolean): void;
                 invalidate(needsClear: boolean, needsRender?: boolean, overlayDirty?: boolean): void;
                 setLightPreset(index: number, force?: boolean): void;
-                selector: any;
-                model: any;
-                scene: THREE.Scene;
-                sceneAfter: THREE.Scene;
                 viewportToClient(viewportX: number, viewportY: number): THREE.Vector3;
                 modelqueue(): any;
                 matman(): any;
@@ -995,7 +997,6 @@ declare namespace Autodesk {
                 removeOverlay(name: string, mesh: any): any;
                 getFitBounds(p: boolean): THREE.Box3;
                 rayIntersect(ray: THREE.Ray): HitTestResult;
-
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setViewFromCamera(camera: THREE.Camera, skipTransition?: boolean, useExactCamera?: boolean): void;
