@@ -1339,8 +1339,8 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
-        /** The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute. **/
-        sameSite: SameSiteStatus
+        /** Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute. **/
+        sameSite?: SameSiteStatus
     }
 
     export interface Details {
