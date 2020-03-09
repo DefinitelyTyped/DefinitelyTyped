@@ -14,10 +14,10 @@ import Promise = require('bluebird');
 import https = require('https');
 import { Appender } from 'log4js';
 import { EventEmitter } from 'events';
-import * as karmaConstants from './lib/constants';
+import * as constants from './lib/constants';
 import { VERSION } from './lib/constants';
 
-export { karmaConstants as constants, VERSION };
+export { constants, VERSION };
 /**
  * `start` method is deprecated since 0.13. It will be removed in 0.14.
  * Please use
