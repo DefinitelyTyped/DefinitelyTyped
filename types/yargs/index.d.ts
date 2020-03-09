@@ -145,9 +145,9 @@ declare namespace yargs {
          * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
-        command<U = T>(command: string | ReadonlyArray<string>, description: string, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<U>;
-        command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
+        command<U = T>(command: string | ReadonlyArray<string>, description: string | false, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<U>;
+        command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string | false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        command<U>(command: string | ReadonlyArray<string>, description: string | false, module: CommandModule<T, U>): Argv<U>;
         command<U = T>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: BuilderCallback<T, U>, handler?: (args: Arguments<U>) => void): Argv<T>;
         command<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: false, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
