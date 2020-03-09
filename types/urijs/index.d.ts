@@ -42,9 +42,13 @@ declare const URI: {
     decode(str: string): string;
     decodeQuery(qry: string): string;
 
+    duplicateQueryParameters: boolean;
+
     encode(str: string): string;
     encodeQuery(qry: string): string;
     encodeReserved(str: string): string;
+
+    escapeQuerySpace: boolean;
 
     /**
      * @description Wrapper for `URITemplate#expand`. Only present after
@@ -106,6 +110,8 @@ declare namespace URI {
     }
 
     interface Parts extends URIOptions {
+        duplicateQueryParameters: boolean;
+        escapeQuerySpace: boolean;
         preventInvalidHostname: boolean;
     }
 }
@@ -132,6 +138,8 @@ interface URI {
     duplicateQueryParameters(val: boolean): URI;
 
     equals(url?: string | URI): boolean;
+
+    escapeQuerySpace(val: boolean): URI;
 
     filename(file?: boolean): string;
     filename(file: string): URI;
@@ -193,6 +201,8 @@ interface URI {
     port(port: string): URI;
     protocol(): string;
     protocol(protocol: string): URI;
+
+    preventInvalidHostname(val: boolean): URI;
 
     query(): string;
     query(qry: string | object): URI;
