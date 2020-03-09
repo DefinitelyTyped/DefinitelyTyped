@@ -16,15 +16,3 @@ declare const classNames: ClassNamesExport;
 
 export = classNames;
 export as namespace classNames;
-
-declare namespace classNames {
-	type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | boolean;
-
-	interface ClassDictionary {
-		[id: string]: any;
-	}
-
-	// This is the only way I found to break circular references between ClassArray and ClassValue
-	// https://github.com/Microsoft/TypeScript/issues/3496#issuecomment-128553540
-	interface ClassArray extends Array<ClassValue> { } // tslint:disable-line no-empty-interface
-}
