@@ -1003,6 +1003,18 @@
             "asOfVersion": "2.0.1"
         },
         {
+            "libraryName": "domhandler",
+            "typingsPackageName": "domhandler",
+            "sourceRepoURL": "https://github.com/fb55/domhandler",
+            "asOfVersion": "3.0.0"
+        },
+        {
+            "libraryName": "domutils",
+            "typingsPackageName": "domutils",
+            "sourceRepoURL": "https://github.com/fb55/domutils",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "dot-case",
             "typingsPackageName": "dot-case",
             "sourceRepoURL": "https://github.com/blakeembrey/dot-case",
