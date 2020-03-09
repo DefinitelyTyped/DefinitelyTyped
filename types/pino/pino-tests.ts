@@ -77,6 +77,7 @@ pino({
 
 pino({ base: null });
 pino({ base: { foo: 'bar' }, changeLevelName: 'severity' });
+pino({ base: { foo: 'bar' }, levelKey: 'severity' });
 if ('pino' in log) console.log(`pino version: ${log.pino}`);
 
 log.child({ a: 'property' }).info('hello child!');
