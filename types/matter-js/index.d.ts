@@ -1703,7 +1703,7 @@ declare namespace Matter {
         * @type number
         * @default 2
         */
-        lineWidth: number;
+        lineWidth?: number;
 
         /**
          * A `String` that defines the stroke style to use when rendering the constraint outline.
@@ -1713,7 +1713,7 @@ declare namespace Matter {
         * @type string
         * @default a random colour
         */
-        strokeStyle: string;
+        strokeStyle?: string;
 
         /**
          * A flag that indicates if the constraint should be rendered.
@@ -1722,7 +1722,27 @@ declare namespace Matter {
         * @type boolean
         * @default true
         */
-        visible: boolean;
+        visible?: boolean;
+
+        /**
+         * A `Boolean` that defines if the constraint's anchor points should be rendered.
+         *
+        * @property render.anchors
+        * @type boolean
+        * @default true
+        */
+        anchors?: boolean;
+
+        /**
+         * A String that defines the constraint rendering type. The possible values are
+         * 'line', 'pin', 'spring'. An appropriate render type will be automatically
+         * chosen unless one is given in options.
+         *
+        * @property render.type
+        * @type string
+        * @default 'line'
+        */
+        type?: 'line' | 'pin' | 'spring';
     }
 
 
@@ -2140,6 +2160,22 @@ declare namespace Matter {
          */
         static clear(grid: Grid): void;
 
+
+        /**
+         * The width of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketWidth: number;
+
+        /**
+         * The height of a single grid bucket.
+         *
+        * @property type
+        * @type number
+        */
+        bucketHeight: number;
     }
 
     export interface IMouseConstraintDefinition {

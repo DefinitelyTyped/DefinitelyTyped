@@ -1,7 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
-const definitions = [
+const definitions: pdfMake.TDocumentDefinitions[] = [
     {
         content: [
             'First paragraph',
@@ -1320,15 +1320,146 @@ const definitions = [
     {
         compress: false,
         content: ['This document does not use compression']
+    },
+    // Table of Contents tests
+    {
+        content: [
+            {
+                toc: {
+                    title: {text: 'INDEX', style: 'header'}
+                }
+            }
+        ]
+    },
+    {
+        content: [
+            {
+                toc: {
+                    id: 'mainToc',
+                    title: {text: 'INDEX', style: 'header'}
+                }
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: true,
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: 'mainToc' // if is used id in toc
+            },
+            {
+                text: 'This is a header',
+                style: 'header',
+                tocItem: ['mainToc', 'subToc'] // for multiple tocs
+            }
+        ]
+    },
+    // Watermark tests
+    {
+        content: "Watermark content",
+        watermark: {
+            text: "Test Environment",
+            color: "red",
+            opacity: 0.3,
+            bold: true,
+            italics: true,
+            fontSize: 20,
+            angle: 70
+        }
     }
 ];
 
-const createPdf = () => {
-  const pdf = pdfMake;
-  pdf.vfs = pdfFonts.pdfMake.vfs;
+const downloadPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
 
-  for (const definition of definitions) {
-      const typedDefinition: pdfMake.TDocumentDefinitions = definition;
-      pdfMake.createPdf(typedDefinition).download();
-  }
+    for (const def of definitions) {
+        pdfMake.createPdf(def).download();
+    }
+};
+
+const openPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        pdfMake.createPdf(def).open();
+    }
+};
+
+const openPdfInSameWindow = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        pdfMake.createPdf(def).open({}, window);
+    }
+};
+
+const printPdf = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        pdfMake.createPdf(def).print();
+    }
+};
+
+const printPdfInSameWindow = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        pdfMake.createPdf(def).print({}, window);
+    }
+};
+
+const pdfAsBaseSixtyFourData = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBase64((data) => {
+            alert(data);
+        });
+    }
+};
+
+const pdfAsBuffer = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBuffer((buffer) => {
+            // ...
+        });
+    }
+};
+
+const pdfAsBlob = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getBlob((blob) => {
+            // ...
+        });
+    }
+};
+
+const getPdfKitDocumentObject = () => {
+    const pdf = pdfMake;
+    pdf.vfs = pdfFonts.pdfMake.vfs;
+
+    for (const def of definitions) {
+        const pdfDocGenerator = pdfMake.createPdf(def);
+        pdfDocGenerator.getStream((gs) => {
+            // ...
+        });
+    }
 };

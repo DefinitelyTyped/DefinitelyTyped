@@ -18,6 +18,7 @@
 //                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
 //                 Eliot Ball <https://github.com/eliotball>
 //                 Ville Kentta <https://github.com/vkentta>
+//                 Fabien Caylus <https://github.com/fcaylus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -920,20 +921,18 @@ export interface LabelProps extends Partial<PresentationAttributes> {
 
 export class LabelList extends React.Component<LabelListProps> { }
 
-export interface LabelListProps {
+export type LabelListProps = {
     angle?: number;
     children?: React.ReactNode[] | React.ReactNode;
     className?: string;
     clockWise?: boolean;
     content?: React.ReactElement | ContentRenderer<LabelProps>;
     data?: number;
-    dataKey: string | number | RechartsFunction;
     formatter?: LabelFormatter;
     id?: string;
     offset?: number;
     position?: PositionType;
-    valueAccessor?: RechartsFunction;
-}
+} & ({ dataKey: string | number | RechartsFunction, valueAccessor?: never } | { valueAccessor: RechartsFunction, dataKey?: never });
 
 export type AxisDomain = string | number | ContentRenderer<any> | 'auto' | 'dataMin' | 'dataMax';
 

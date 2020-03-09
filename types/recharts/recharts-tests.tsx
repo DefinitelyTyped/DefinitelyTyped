@@ -213,7 +213,7 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList dataKey="uv" position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
