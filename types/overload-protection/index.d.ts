@@ -15,7 +15,7 @@ declare namespace protect {
         maxHeapUsedBytes?: number;
         maxRssBytes?: number;
         errorPropagationMode?: boolean;
-        logging?: boolean | string | (() => void);
+        logging?: boolean | string | ((msg: string) => void);
         logStatsOnReq?: false;
     }
 
