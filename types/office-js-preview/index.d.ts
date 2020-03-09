@@ -11253,6 +11253,8 @@ declare namespace Office {
          * 
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
+         * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
+         * 
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -11263,7 +11265,7 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
-         * - `DataExceedsMaximumSize`: The data parameter is longer than 5,000 characters.
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 5,000 characters.
          * 
          * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
          * 
@@ -11282,6 +11284,8 @@ declare namespace Office {
          * 
          * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
          * 
+         * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
+         * 
          * [Api set: Mailbox Preview]
          * 
          * @remarks
@@ -11292,7 +11296,7 @@ declare namespace Office {
          * 
          * **Errors**:
          * 
-         * - `DataExceedsMaximumSize`: The data parameter is longer than 5,000 characters.
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 5,000 characters.
          * 
          * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
          * 
