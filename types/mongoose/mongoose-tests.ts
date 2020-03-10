@@ -1303,14 +1303,14 @@ query.lean(false)
 query.lean({})
 
 interface Location1 extends mongoose.Document {
+    _id: mongoose.Types.ObjectId;
     name: string;
     address: string;
     rating: number;
     reviews: any[];
 };
-var locQuery = <mongoose.DocumentQuery<Location1, Location1>>{};
-async function leanTests() {
-    var location = await locQuery.lean().exec();
+var loc1Query = <mongoose.DocumentQuery<Location1, Location1>>{};
+loc1Query.lean().then(location => {
     if (location) {
         // $ExpectType ObjectId
         location._id;
@@ -1323,7 +1323,28 @@ async function leanTests() {
         // $ExpectError
         location.save();
     }
-}
+});
+
+interface Location2 extends mongoose.Document {
+    _id: string;
+    name: string;
+    rating: number;
+};
+var loc2Query = <mongoose.DocumentQuery<Location2, Location2>>{};
+loc2Query.lean().then(location => {
+    if (location) {
+        // $ExpectType string
+        location._id;
+        // $ExpectType string
+        location.name;
+        // $ExpectType number
+        location.rating;
+        // $ExpectError
+        location.unknown;
+        // $ExpectError
+        location.save();
+    }
+});
 
 /*
  * section schema/array.js
@@ -1965,6 +1986,7 @@ MongoModel.find({
 .exec();
 /* practical example */
 interface Location extends mongoose.Document {
+  _id: mongoose.Types.ObjectId;
   name: string;
   address: string;
   rating: number;

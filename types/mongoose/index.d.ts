@@ -79,7 +79,7 @@ declare module "mongoose" {
   type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
 
   /* Helper type to extract a definition type from a Document type */
-  type DocumentDefinition<T> = Omit<T, keyof Document> & { _id: mongodb.ObjectId };
+  type DocumentDefinition<T> = Omit<T, Exclude<keyof Document, '_id'>>;
 
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
