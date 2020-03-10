@@ -18,6 +18,8 @@ FR.onloadend = () => {
 	var hash = CryptoJS.SHA1(CryptoJS.lib.WordArray.create(FR.result)).toString()
 }
 
+var randomWordArrayEncoded = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
+
 // Ciphers
 var encrypted: CryptoJS.WordArray;
 var decrypted: CryptoJS.DecryptedMessage;
