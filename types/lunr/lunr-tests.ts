@@ -22,6 +22,7 @@ function basic_test() {
             title: "Bar",
             body: "Bar bar bar!"
         });
+        this.use((builder: lunr.Builder) => builder.field("text"));
     });
 
     index.search("foo");
