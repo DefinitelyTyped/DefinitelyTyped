@@ -89,7 +89,7 @@ export class App extends React.Component<AppProps, AppState> {
                                     tab: <Tab label="Home" icon="md-home" />
                                 },
                                 {
-                                    content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
+                                    content: <div>Tab 2 {activeIndex === 1 ? "(Active)" : null} </div>,
                                     tab: <Tab label="Settings" icon="md-settings" />
                                 }]
                             }
