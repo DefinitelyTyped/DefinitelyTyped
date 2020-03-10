@@ -193,8 +193,7 @@ export namespace queryCache {
         options?: QueryOptions<TResult>,
     ): Promise<TResult>;
 
-    // tslint:disable:no-unnecessary-generics
-    function getQueryData<TResult>(queryKey: QueryKey): TResult | undefined;
+    function getQueryData(queryKey: QueryKey): unknown;
 
     function setQueryData<TResult>(queryKey: QueryKey, updater: TResult | ((oldData: TResult) => TResult)): void;
 
