@@ -547,6 +547,26 @@ describe("A spy, when configured to fake a promised rejection", () => {
     });
 });
 
+describe("resolveTo / rejectWith", () => {
+    it("resolves to empty parameter", (done) => {
+        const spy = jasmine.createSpy('resolve').and.resolveTo();
+        spy().then(() => {
+            done();
+        }).catch(() => {
+            done.fail();
+        });
+    });
+
+    it("rejects with empty parameter", (done) => {
+        const spy = jasmine.createSpy('reject').and.rejectWith();
+        spy().then(() => {
+            done.fail();
+        }).catch(() => {
+            done();
+        });
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", () => {
     var foo: any, bar: any, fetchedBar: any;
 
