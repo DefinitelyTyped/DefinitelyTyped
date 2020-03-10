@@ -14,6 +14,8 @@ import {
     Hooks,
     IdType,
     Row,
+    UseColumnOrderInstanceProps,
+    UseColumnOrderState,
     useExpanded,
     UseExpandedInstanceProps,
     UseExpandedOptions,
@@ -25,6 +27,9 @@ import {
     UseFiltersInstanceProps,
     UseFiltersOptions,
     UseFiltersState,
+    UseGlobalFiltersInstanceProps,
+    UseGlobalFiltersOptions,
+    UseGlobalFiltersState,
     useGroupBy,
     UseGroupByCellProps,
     UseGroupByColumnOptions,
@@ -37,11 +42,20 @@ import {
     UsePaginationInstanceProps,
     UsePaginationOptions,
     UsePaginationState,
+    UseResizeColumnsColumnOptions,
+    UseResizeColumnsColumnProps,
+    UseResizeColumnsOptions,
+    UseResizeColumnsState,
     useRowSelect,
     UseRowSelectInstanceProps,
     UseRowSelectOptions,
     UseRowSelectRowProps,
     UseRowSelectState,
+    UseRowStateCellProps,
+    UseRowStateInstanceProps,
+    UseRowStateOptions,
+    UseRowStateRowProps,
+    UseRowStateState,
     useSortBy,
     UseSortByColumnOptions,
     UseSortByColumnProps,
@@ -56,48 +70,63 @@ declare module 'react-table' {
 
     interface TableOptions<D extends object>
         extends UseExpandedOptions<D>,
-            UseFiltersOptions<D>,
-            UseGroupByOptions<D>,
-            UsePaginationOptions<D>,
-            UseRowSelectOptions<D>,
-            UseSortByOptions<D> {
+              UseFiltersOptions<D>,
+              UseGlobalFiltersOptions<D>,
+              UseGroupByOptions<D>,
+              UsePaginationOptions<D>,
+              UseResizeColumnsOptions<D>,
+              UseRowSelectOptions<D>,
+              UseRowStateOptions<D>,
+              UseSortByOptions<D> {
         updateMyData: (rowIndex: number, columnId: string, value: any) => void;
     }
 
     interface TableInstance<D extends object = {}>
-        extends UseExpandedInstanceProps<D>,
-            UseFiltersInstanceProps<D>,
-            UseGroupByInstanceProps<D>,
-            UsePaginationInstanceProps<D>,
-            UseRowSelectInstanceProps<D>,
-            UseSortByInstanceProps<D> {
+        extends UseColumnOrderInstanceProps<D>,
+              UseExpandedInstanceProps<D>,
+              UseFiltersInstanceProps<D>,
+              UseGlobalFiltersInstanceProps<D>,
+              UseGroupByInstanceProps<D>,
+              UsePaginationInstanceProps<D>,
+              UseRowSelectInstanceProps<D>,
+              UseRowStateInstanceProps<D>,
+              UseSortByInstanceProps<D> {
         editable: boolean;
     }
 
     interface TableState<D extends object = {}>
-        extends UseExpandedState<D>,
-            UseFiltersState<D>,
-            UseGroupByState<D>,
-            UsePaginationState<D>,
-            UseRowSelectState<D>,
-            UseSortByState<D> {}
+        extends UseColumnOrderState<D>,
+              UseExpandedState<D>,
+              UseFiltersState<D>,
+              UseGlobalFiltersState<D>,
+              UseGroupByState<D>,
+              UsePaginationState<D>,
+              UseResizeColumnsState<D>,
+              UseRowSelectState<D>,
+              UseRowStateState<D>,
+              UseSortByState<D> {}
 
     interface Column<D extends object = {}>
         extends UseFiltersColumnOptions<D>,
-            UseGroupByColumnOptions<D>,
-            UseSortByColumnOptions<D> {}
+              UseGroupByColumnOptions<D>,
+              UseResizeColumnsColumnOptions<D>,
+              UseSortByColumnOptions<D> {}
 
     interface ColumnInstance<D extends object = {}>
         extends UseFiltersColumnProps<D>,
-            UseGroupByColumnProps<D>,
-            UseSortByColumnProps<D> {}
+              UseGroupByColumnProps<D>,
+              UseResizeColumnsColumnProps<D>,
+              UseSortByColumnProps<D> {}
 
-    interface Cell<D extends object = {}> extends UseGroupByCellProps<D> {}
+    interface Cell<D extends object = {}>
+        extends UseGroupByCellProps<D>,
+                UseRowStateCellProps<D> {}
 
     interface Row<D extends object = {}>
         extends UseExpandedRowProps<D>,
-            UseGroupByRowProps<D>,
-            UseRowSelectRowProps<D> {}
+              UseGroupByRowProps<D>,
+              UseRowSelectRowProps<D>,
+              UseRowStateRowProps<D> {}
 }
 
 interface Data {

@@ -247,7 +247,6 @@ export interface UseTableRowProps<D extends object> {
     original: D;
     id: string;
     subRows: Array<Row<D>>;
-    state: object;
 }
 
 export interface UseTableCellProps<D extends object> {
