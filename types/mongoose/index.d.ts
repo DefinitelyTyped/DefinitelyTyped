@@ -75,6 +75,12 @@ declare module "mongoose" {
   import stream = require('stream');
   import mongoose = require('mongoose');
 
+  // We can use TypeScript Omit once minimum required TypeScript Version is above 3.5
+  type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
+
+  /* Helper type to extract a definition type from a Document type */
+  type DocumentDefinition<T> = Omit<T, keyof Document> & { _id: mongodb.ObjectId };
+
   /**
    * Gets and optionally overwrites the function used to pluralize collection names
    * @param fn function to use for pluralization of collection names
@@ -2042,7 +2048,7 @@ declare module "mongoose" {
      * getters/setters or other Mongoose magic applied.
      * @param {Boolean|Object} bool defaults to true
      */
-    lean<P = any>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
+    lean<P = DocumentDefinition<DocType>>(bool?: boolean | object): Query<T extends Array<any> ? P[] : (P | null)> & QueryHelpers;
 
     /** Specifies the maximum number of documents the query will return. Cannot be used with distinct() */
     limit(val: number): this;
