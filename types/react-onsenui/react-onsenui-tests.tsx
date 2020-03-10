@@ -3,14 +3,14 @@ import * as ReactDOM from "react-dom";
 import {
     SplitterSide, Splitter, SplitterContent,
     Page, Input, Button, Radio, Checkbox, Select, Switch, SearchInput,
-    List, ListItem
+    List, ListItem, Tabbar, Tab
 } from "react-onsenui";
 
 class AppState {
     isOpen = false;
 }
 
-interface AppProps {} // tslint:disable-line no-empty-interface
+interface AppProps { } // tslint:disable-line no-empty-interface
 
 interface Place {
     id: number;
@@ -35,14 +35,14 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ isOpen: false });
     }
 
-    onChange(event: React.ChangeEvent<HTMLInputElement>) {}
-    onBlur(event: React.FocusEvent<HTMLInputElement>) {}
-    onFocus(event: React.FocusEvent<HTMLInputElement>) {}
-    onClick(event: React.MouseEvent<HTMLButtonElement>) {}
-    onRadioChange(event: Event) {}
-    onCheckboxChange(event: Event) {}
-    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
-    onSearchInputChange(event: Event) {}
+    onChange(event: React.ChangeEvent<HTMLInputElement>) { }
+    onBlur(event: React.FocusEvent<HTMLInputElement>) { }
+    onFocus(event: React.FocusEvent<HTMLInputElement>) { }
+    onClick(event: React.MouseEvent<HTMLButtonElement>) { }
+    onRadioChange(event: Event) { }
+    onCheckboxChange(event: Event) { }
+    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) { }
+    onSearchInputChange(event: Event) { }
 
     render() {
         return (
@@ -80,7 +80,21 @@ export class App extends React.Component<AppProps, AppState> {
                                 </ListItem>
                             )}
                         />
-					</Page>
+                        <Tabbar
+                            position='bottom'
+                            index={0}
+                            renderTabs={(activeIndex, tabbar) => [
+                                {
+                                    content: <div>Tab 2 {activeIndex==0 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Home" icon="md-home" />
+                                },
+                                {
+                                    content: <div>Tab 2 {activeIndex==0 ? "(Active)" : null} </div>,
+                                    tab: <Tab label="Settings" icon="md-settings" />
+                                }]
+                            }
+                        />
+                    </Page>
                 </SplitterContent>
             </Splitter>
         );
