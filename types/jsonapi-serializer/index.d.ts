@@ -18,10 +18,10 @@ export interface SerializerOptions {
     included?: boolean;
     id?: string;
     attributes?: string[];
-    topLevelLinks?: { [key: string]: string | (() => string) };
-    dataLinks?: { [key: string]: string | (() => string) };
+    topLevelLinks?: { [key: string]: string | ((...args: any[]) => any) };
+    dataLinks?: { [key: string]: string | ((...args: any[]) => any) };
     dataMeta?: (() => void) | object;
-    relationshipLinks?: { [key: string]: string | (() => string) };
+    relationshipLinks?: { [key: string]: string | ((...args: any[]) => any) };
     relationshipMeta?: object;
     ignoreRelationshipData?: boolean;
     keyForAttribute?: string | KeyForAttribute;
