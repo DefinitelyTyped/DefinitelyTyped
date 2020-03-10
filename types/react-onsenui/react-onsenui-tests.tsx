@@ -10,7 +10,7 @@ class AppState {
     isOpen = false;
 }
 
-interface AppProps { } // tslint:disable-line no-empty-interface
+interface AppProps {} // tslint:disable-line no-empty-interface
 
 interface Place {
     id: number;
@@ -35,14 +35,14 @@ export class App extends React.Component<AppProps, AppState> {
         this.setState({ isOpen: false });
     }
 
-    onChange(event: React.ChangeEvent<HTMLInputElement>) { }
-    onBlur(event: React.FocusEvent<HTMLInputElement>) { }
-    onFocus(event: React.FocusEvent<HTMLInputElement>) { }
-    onClick(event: React.MouseEvent<HTMLButtonElement>) { }
-    onRadioChange(event: Event) { }
-    onCheckboxChange(event: Event) { }
-    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) { }
-    onSearchInputChange(event: Event) { }
+    onChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onBlur(event: React.FocusEvent<HTMLInputElement>) {}
+    onFocus(event: React.FocusEvent<HTMLInputElement>) {}
+    onClick(event: React.MouseEvent<HTMLButtonElement>) {}
+    onRadioChange(event: Event) {}
+    onCheckboxChange(event: Event) {}
+    onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
+    onSearchInputChange(event: Event) {}
 
     render() {
         return (
