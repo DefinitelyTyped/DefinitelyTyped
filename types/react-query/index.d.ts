@@ -3,6 +3,7 @@
 // Definitions by: Lukasz Fiszer <https://github.com/lukaszfiszer>
 //                 Jace Hensley <https://github.com/jacehensley>
 //                 Matteo Frana <https://github.com/matteofrana>
+//                 Oscar te Giffel <https://github.com/oscarteg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ComponentType } from 'react';
@@ -23,7 +24,7 @@ export function useQuery<TResult, TVariables extends object>(
 export type QueryKey<TVariables> = string | [string, TVariables] | false | null | QueryKeyFunction<TVariables>;
 export type QueryKeyFunction<TVariables> = () => string | [string, TVariables] | false | null;
 
-export type QueryFunction<TResult, TVariables extends object> = (variables: TVariables) => Promise<TResult>;
+export type QueryFunction<TResult, TVariables extends object> = (key: QueryKey<TVariables>, variables: TVariables) => Promise<TResult>;
 
 export interface QueryOptions<TResult> {
     manual?: boolean;
