@@ -85,11 +85,11 @@ export class App extends React.Component<AppProps, AppState> {
                             index={0}
                             renderTabs={(activeIndex, tabbar) => [
                                 {
-                                    content: <div>Tab 2 {activeIndex==0 ? "(Active)" : null} </div>,
+                                    content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
                                     tab: <Tab label="Home" icon="md-home" />
                                 },
                                 {
-                                    content: <div>Tab 2 {activeIndex==0 ? "(Active)" : null} </div>,
+                                    content: <div>Tab 2 {activeIndex === 0 ? "(Active)" : null} </div>,
                                     tab: <Tab label="Settings" icon="md-settings" />
                                 }]
                             }
