@@ -9,6 +9,7 @@
 //                 Joey Rafidi <https://github.com/jrafidi>
 //                 Morgan Snyder <https://github.com/morgansierrasnyder>
 //                 Federico Giacomini <https://github.com/crocsx>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1067,6 +1068,203 @@ declare namespace Cesium {
         constructor();
         findTimeInterval(time: number): number;
         evaluate(time: number, result?: Cartesian3): Cartesian3;
+    }
+
+    /**
+     * Provides tiled imagery hosted by Mapbox
+     */
+    class MapboxImageryProvider extends MapboxProviderCommonApi {
+        constructor(options?: MapboxImageryProviderOptions);
+    }
+
+    /**
+     * Provides tiled imagery hosted by Mapbox.
+     */
+    class MapboxStyleImageryProvider extends MapboxProviderCommonApi {
+        constructor(options?: MapboxStyleImageryProviderOptions);
+    }
+
+    abstract class MapboxProviderCommonApi {
+        /**
+         * Gets the credits to be displayed when a given tile is displayed.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate.
+         * @param level - The tile level;
+         */
+        getTileCredits(x: number, y: number, level: number): Credit[];
+        /**
+         * Asynchronously determines what features, if any, are located at a given longitude and latitude within a tile.
+         * This function should not be called before provider ready returns true.
+         * This function is optional, so it may not exist on all ImageryProviders.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate
+         * @param level - The tile level
+         * @param longitude - The longitude at which to pick features
+         * @param latitude - The latitude at which to pick features
+         */
+        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]> | undefined;
+        /**
+         * Requests the image for a given tile.
+         * This function should not be called before provider ready returns true.
+         * @param x - The tile X coordinate
+         * @param y - The tile Y coordinate
+         * @param level - The tile level
+         * @param request - The request object. Intended for internal use only.
+         */
+        requestImage(x: number, y: number, level: number, request?: Request): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
+        /**
+         * Gets the credit to display when this imagery provider is active. Typically this is used to credit the source of the imagery.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly credit: Credit;
+        /**
+         * Gets an event that is raised when the imagery provider encounters an asynchronous error..
+         * By subscribing to the event, you will be notified of the error and can potentially recover from it.
+         * Event listeners are passed an instance of TileProviderError.
+         */
+        readonly errorEvent: Event;
+        /**
+         * Gets a value indicating whether or not the images provided by this imagery provider include an alpha channel.
+         * If this property is false, an alpha channel, if present, will be ignored.
+         * If this property is true, any images without an alpha channel will be treated as if their alpha is 1.0 everywhere.
+         * When this property is false, memory usage and texture upload time are reduced.
+         */
+        readonly hasAlphaChannel: boolean;
+        /**
+         * Gets the maximum level-of-detail that can be requested.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly maximumLevel: number;
+        /**
+         * Gets the minimum level-of-detail that can be requested.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         * Generally, a minimum level should only be used when the rectangle of the imagery is small enough
+         * that the number of tiles at the minimum level is small.
+         * An imagery provider with more than a few tiles at the minimum level will lead to rendering problems.
+         */
+        readonly minimumLevel: number;
+        /**
+         * Gets the proxy used by this provider.
+         */
+        readonly proxy: Proxy;
+        /**
+         * Gets a value indicating whether or not the provider is ready for use.
+         */
+        readonly ready: boolean;
+        /**
+         * Gets a promise that resolves to true when the provider is ready for use.
+         */
+        readonly readyPromise: Promise<boolean>;
+        /**
+         * Gets the rectangle, in radians, of the imagery provided by the instance.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly rectangle: Rectangle;
+        /**
+         * Gets the tile discard policy.
+         * If not undefined, the discard policy is responsible for filtering out "missing" tiles via its shouldDiscardImage function.
+         * If this function returns undefined, no tiles are filtered.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileDiscardPolicy: TileDiscardPolicy;
+        /**
+         * Gets the height of each tile, in pixels.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileHeight: number;
+        /**
+         * Gets the width of each tile, in pixels.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tileWidth: number;
+        /**
+         * Gets the tiling scheme used by the provider.
+         * This function should not be called before MapboxImageryProvider#ready returns true.
+         */
+        readonly tilingScheme: TilingScheme;
+        /**
+         * Gets the URL of the Mapbox server.
+         */
+        readonly url: string;
+    }
+
+    interface MapboxProviderCommonOptions {
+        /**
+         * The ellipsoid.
+         * If not specified, the WGS84 ellipsoid is used
+         */
+        ellipsoid?: Ellipsoid;
+        /**
+         * The minimum level-of-detail supported by the imagery provider.
+         * Take care when specifying this that the number of tiles at the minimum level is small, such as four or less.
+         * A larger number is likely to result in rendering problems
+         * @default 0
+         */
+        minimumLevel?: number;
+        /**
+         * The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit
+         * @default undefined
+         */
+        maximumLevel?: number;
+        /**
+         * The rectangle, in radians, covered by the image
+         * @defualt Rectangle.MAX_VALUE
+         */
+        rectangle?: Rectangle;
+        /**
+         * A credit for the data source, which is displayed on the canvas
+         */
+        credit?: Credit | string;
+    }
+    interface MapboxImageryProviderOptions extends MapboxProviderCommonOptions {
+        /**
+         * The public access token for the imagery
+         */
+        accessToken?: string;
+        /**
+         * The format of the image request
+         * @default 'png'
+         */
+        format?: string;
+        /**
+         * The Mapbox Map ID
+         */
+        mapId: string;
+        /**
+         * The Mapbox server url
+         * @default 'https://api.mapbox.com/v4/'
+         */
+        url?: string;
+    }
+
+    interface MapboxStyleImageryProviderOptions extends MapboxProviderCommonOptions {
+        /**
+         * The Mapbox server url
+         * @default 'https://api.mapbox.com/styles/v1/'
+         */
+        url?: Resource | string;
+        /**
+         * The username of the map account.
+         * @default 'mapbox'
+         */
+        username?: string;
+        /**
+         * The Mapbox Style ID.
+         */
+        styleId: string;
+        /**
+         * The public access token for the imagery.
+         */
+        accessToken?: string;
+        /**
+         * The size of the image tiles
+         * @default 512
+         */
+        tilesize?: number;
+        /**
+         * Determines if tiles are rendered at a @2x scale factor
+         */
+        scaleFactor?: boolean;
     }
 
     class MapProjection {
