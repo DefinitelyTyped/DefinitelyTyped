@@ -10803,6 +10803,8 @@ declare namespace Office {
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
          * Gets the MIME content type of the attachment.
+         * 
+         * This property is only available in Read mode.
          */
         contentType: string;
         /**
