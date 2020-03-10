@@ -3,7 +3,6 @@ import UserData = MobileMessagingCordova.UserData;
 import MobileMessagingError = MobileMessagingCordova.MobileMessagingError;
 import Installation = MobileMessagingCordova.Installation;
 import PersonalizeContext = MobileMessagingCordova.PersonalizeContext;
-import DefaultMessageStorage = MobileMessagingCordova.DefaultMessageStorage;
 
 MobileMessaging.init({
         applicationCode: 'some-code',
