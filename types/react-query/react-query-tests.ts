@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useInfiniteQuery, QueryKey, usePaginatedQuery } from "react-query";
+import { useMutation, useQuery, useInfiniteQuery, QueryKey, usePaginatedQuery, queryCache } from 'react-query';
 
 const queryFn = () => Promise.resolve(true);
 
@@ -19,7 +19,7 @@ querySimple.data; // $ExpectType string | undefined
 querySimple.error; // $ExpectType Error | null
 querySimple.isFetching; // $ExpectType boolean
 querySimple.failureCount; // $ExpectType number
-querySimple.refetch(); // $ExpectType Promise<any>
+querySimple.refetch({force: true, thrownOnError: true}); // $ExpectType void
 
 // Query Variables
 const param = 'test';
@@ -27,8 +27,6 @@ const queryResult = useQuery(['todos', {param}],
     (key, variables) => Promise.resolve([param]));
 
 queryResult.data; // $ExpectType string[] | undefined
-queryResult.refetch({variables: {param: 'foo'}}); // $ExpectType Promise<any>
-queryResult.refetch({variables: {other: 'foo'}}); // $ExpectError
 
 // Discriminated union over status
 if (queryResult.status === 'loading') {
@@ -80,13 +78,16 @@ queryPaginated.error; // $ExpectType Error | null
 queryPaginated.isFetching; // $ExpectType boolean
 
 // Infinite Query
-useInfiniteQuery(['projects', 0], (key, cursor) => {
+const infiniteQuery = useInfiniteQuery(['projects', 0], (key, cursor) => {
     return Promise.resolve({
         nextCursor: cursor + 1
     });
 }, {
     getFetchMore: (lastGroup, allGroups) => lastGroup.nextCursor,
 });
+
+infiniteQuery.fetchMore(10);
+infiniteQuery.fetchMore({ page: 20 }); // $ExpectError
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 'bar']);
