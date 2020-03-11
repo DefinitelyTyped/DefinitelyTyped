@@ -39,9 +39,13 @@ export interface TFontFamilyTypes {
 }
 
 export interface TDocumentInformation {
+    /** the title of the document */
     title?: string;
+    /** the name of the author */
     author?: string;
+    /** the subject of the document */
     subject?: string;
+    /** keywords associated with the document */
     keywords?: string;
     creator?: string;
     producer?: string;
@@ -116,18 +120,30 @@ export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHoriz
 export type TableLayout = PredefinedTableLayout | CustomTableLayout;
 
 export interface Style {
+    /** name of the font */
     font?: string;
+    /** size of the font in pt */
     fontSize?: number;
     fontFeatures?: PDFKit.Mixins.OpenTypeFeatures[];
+    /** the line height (default: 1) */
     lineHeight?: number;
+    /** whether to use bold text (default: false) */
     bold?: boolean;
+    /** whether to use italic text (default: false) */
     italics?: boolean;
+    /** the alignment of the text */
     alignment?: Alignment;
+    /** the color of the text (color name e.g., ‘blue’ or hexadecimal color e.g., ‘#ff5500’) */
     color?: string;
+    /** the background color of the text */
     background?: string;
+    /** the color of the bullets in a buletted list */
     markerColor?: string;
+    /** the text decoration to applu (‘underline’ or ‘lineThrough’ or ‘overline’) */
     decoration?: Decoration;
+    /** (‘dashed’ or ‘dotted’ or ‘double’ or ‘wavy’) */
     decorationStyle?: DecorationStyle;
+    /** the color of the text decoration, see color */
     decorationColor?: string;
     margin?: Margins;
     preserveLeadingSpaces?: boolean;
@@ -136,8 +152,11 @@ export interface Style {
     leadingIndent?: number;
     // Table-cell properties:
     noWrap?: boolean;
+    /** the background color of a table cell */
     fillColor?: string;
+    /** the background opacity of a table cell */
     fillOpacity?: number;
+    /** optional space between columns */
     columnGap?: Size;
     // These properties appear in the documentation but don't do anything:
     // tableCellPadding?: unknown;
@@ -182,6 +201,7 @@ export interface ContentStack extends ContentBase {
     stack: Content[];
 }
 
+/** for numbered lists set the ol key */
 export interface ContentOrderedList extends ContentBase {
     ol: OrderedListElement[];
     type?: OrderedListType;
@@ -191,6 +211,7 @@ export interface ContentOrderedList extends ContentBase {
     start?: number;
 }
 
+/** to treat a paragraph as a bulleted list, set an array of items under the ul key */
 export interface ContentUnorderedList extends ContentBase {
     ul: UnorderedListElement[];
     type?: UnorderedListType;
@@ -350,13 +371,20 @@ export interface StyleDictionnary {
 export type PDFVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
 
 export interface Watermark {
+    /** watermark text */
     text: string;
+    /** opacity of text */
     opacity?: number;
+    /** angle of text rotation (minimal version: 0.1.60) */
     angle?: number;
     font?: string;
+    /** own font size of text (ideal size is calculated automatically) (minimal version: 0.1.60) */
     fontSize?: number;
+    /** color of text */
     color?: string;
+    /** bold style of text */
     bold?: boolean;
+    /** italics style of text */
     italics?: boolean;
 }
 
