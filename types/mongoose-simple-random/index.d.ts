@@ -10,7 +10,7 @@ declare namespace pluginFunc { }
 export = pluginFunc;
 
 declare module "mongoose" {
-    interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
+    interface Model<T extends MongooseDocument> extends NodeJS.EventEmitter, ModelProperties {
         findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res?: T[]) => void)
             : void;
     }
