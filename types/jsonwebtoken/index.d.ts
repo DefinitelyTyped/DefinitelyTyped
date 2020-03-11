@@ -90,9 +90,9 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback = (
+export type VerifyCallback<T> = (
     err: VerifyErrors,
-    decoded: object,
+    decoded: T,
 ) => void;
 
 export type SignCallback = (
@@ -180,16 +180,16 @@ export function verify<T extends object>(token: string, secretOrPublicKey: Secre
  * [options] - Options for the verification
  * callback - Callback to get the decoded token on
  */
-export function verify(
+export function verify<T extends object>(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback<T>,
 ): void;
-export function verify(
+export function verify<T extends object>(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
     options?: VerifyOptions,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback<T>,
 ): void;
 
 /**
