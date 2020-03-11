@@ -90,7 +90,7 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback<T> = (
+export type VerifyCallback<T extends object> = (
     err: VerifyErrors,
     decoded: T,
 ) => void;
