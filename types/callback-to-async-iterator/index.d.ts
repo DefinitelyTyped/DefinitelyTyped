@@ -10,4 +10,7 @@ export interface AsyncifyOptions<T> {
     buffering: boolean;
 }
 
-export function callbackToAsyncIterator<T>(listener: (callback: (message: T) => void) => void, options?: AsyncifyOptions<T>): AsyncIterator<T>;
+export function callbackToAsyncIterator<T>(
+    listener: (callback: (message: T) => void) => void,
+    options?: AsyncifyOptions<T>,
+): AsyncIterator<T>;
