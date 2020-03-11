@@ -57,17 +57,13 @@ jwt.sign(testObject, cert, { algorithm: "RS256" }, (
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
  */
 // verify a token symmetric
-jwt.verify(token, "shhhhh", (err, decoded) => {
-    const result = decoded as TestObject;
-
-    console.log(result.foo); // bar
+jwt.verify<TestObject>(token, "shhhhh", (err, decoded) => {
+    console.log(decoded.foo); // bar
 });
 
 // use external time for verifying
-jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
-    const result = decoded as TestObject;
-
-    console.log(result.foo); // bar
+jwt.verify<TestObject>(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
+    console.log(decoded.foo); // bar
 });
 
 // invalid token
@@ -77,18 +73,14 @@ jwt.verify(token, "wrong-secret", (err, decoded) => {
 });
 
 // verify with encrypted RSA SHA256 private key
-jwt.verify(token, secret, (err, decoded) => {
-    const result = decoded as TestObject;
-
-    console.log(result.foo); // bar
+jwt.verify<TestObject>(token, secret, (err, decoded) => {
+    console.log(decoded.foo); // bar
 });
 
 // verify a token asymmetric
 cert = fs.readFileSync("public.pem"); // get public key
-jwt.verify(token, cert, (err, decoded) => {
-    const result = decoded as TestObject;
-
-    console.log(result.foo); // bar
+jwt.verify<TestObject>(token, cert, (err, decoded) => {
+    console.log(decoded.foo); // bar
 });
 
 // verify a token assymetric with async key fetch function
@@ -98,10 +90,8 @@ function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
     callback(null, cert);
 }
 
-jwt.verify(token, getKey, (err, decoded) => {
-    const result = decoded as TestObject;
-
-    console.log(result.foo); // bar
+jwt.verify<TestObject>(token, getKey, (err, decoded) => {
+    console.log(decoded.foo); // bar
 });
 
 // verify audience
