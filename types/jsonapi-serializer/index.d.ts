@@ -13,7 +13,7 @@ export interface Relation {
     included?: boolean;
 }
 
-export type LinkFunction = (...records: any[]) => any
+export type LinkFunction = (...records: any[]) => any;
 
 export interface SerializerOptions {
     ref?: (() => void) | boolean | string;
