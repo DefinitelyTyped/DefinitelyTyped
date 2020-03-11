@@ -161,7 +161,7 @@ declare module "crypto" {
         asymmetricKeySize?: number;
         export(options: KeyExportOptions<'pem'>): string | Buffer;
         export(options?: KeyExportOptions<'der'>): Buffer;
-        symmetricKeySize?: number;
+        symmetricSize?: number;
         type: KeyObjectType;
     }
 
