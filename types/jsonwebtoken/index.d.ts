@@ -169,7 +169,7 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify<T>(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): T | string;
+export function verify<T extends object>(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): T | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
