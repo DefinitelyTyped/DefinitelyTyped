@@ -1,5 +1,5 @@
 import { RedisClient } from 'redis';
-import IORedis from 'ioredis';
+import IORedis = require('ioredis');
 import RedisStore from 'rate-limit-redis';
 import { Store } from 'express-rate-limit';
 

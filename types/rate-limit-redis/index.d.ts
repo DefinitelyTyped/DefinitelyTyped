@@ -7,7 +7,7 @@
 // TypeScript Version: 2.7
 
 import { RedisClient } from 'redis';
-import IORedis from 'ioredis';
+import IORedis = require('ioredis');
 import { Store } from 'express-rate-limit';
 
 interface RedisStoreOptions {
