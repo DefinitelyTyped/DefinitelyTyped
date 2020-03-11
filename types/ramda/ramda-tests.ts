@@ -228,8 +228,8 @@ class F2 {
             return Promise.resolve(user.followers);
         },
     };
-    const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.then, [db.getUserById, db.getFollowers]);
-    const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.then)([db.getUserById, db.getFollowers]);
+    const followersForUser: (userName: string) => Promise<string[]> = R.pipeWith(R.andThen, [db.getUserById, db.getFollowers]);
+    const followersForUser2: (userName: string) => Promise<string[]> = R.pipeWith(R.andThen)([db.getUserById, db.getFollowers]);
 };
 
 function square(x: number) {
@@ -631,13 +631,13 @@ type Pair = KeyValuePair<string, number>;
     const getMemberName: (email: string) => Promise<{ firstName: string, lastName: string }> = R.pipe(
         makeQuery,
         fetchMember,
-        R.then(R.pick(['firstName', 'lastName'])),
+        R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
     const getMemberTitle: (email: string) => Promise<string> = R.pipe(
         makeQuery,
         fetchMember,
-        R.then(getTitleAsync),
+        R.andThen(getTitleAsync),
     );
 };
 
@@ -771,13 +771,13 @@ type Pair = KeyValuePair<string, number>;
     const recoverFromFailure: (id: string) => Promise<{ firstName: string; lastName: string; }> = R.pipe(
       failedFetch,
       R.otherwise(useDefault),
-      R.then(R.pick(['firstName', 'lastName'])),
+      R.andThen(R.pick(['firstName', 'lastName'])),
     );
 
     const recoverFromFailureByAlternative: (id: string) => Promise<Person> = R.pipe(
       failedFetch,
       R.otherwise(useDefault),
-      R.then(loadAlternative),
+      R.andThen(loadAlternative),
     );
 };
 
