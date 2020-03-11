@@ -2,6 +2,7 @@
 // Project: https://github.com/withspectrum/callback-to-async-iterator#readme
 // Definitions by: Zachary Svoboda <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.6
 
 export interface AsyncifyOptions<T> {
     onClose: () => void | T;
@@ -9,4 +10,4 @@ export interface AsyncifyOptions<T> {
     buffering: boolean;
 }
 
-export function callbackToAsyncIterator<T>(listener: (callback: () => T) => void, options?: AsyncifyOptions<T>): AsyncIterator<T>;
+export function callbackToAsyncIterator<T>(listener: (callback: (message: T) => void) => void, options?: AsyncifyOptions<T>): AsyncIterator<T>;
