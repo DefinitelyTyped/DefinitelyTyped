@@ -2,7 +2,6 @@ import * as React from "react";
 
 export type LinkProps = {
     className?: string;
-    customStyles?: {[x: string]: any};
     disabled?: boolean;
     disableStyles?: boolean;
     ref?: React.Ref<HTMLAnchorElement>;

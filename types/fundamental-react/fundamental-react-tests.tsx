@@ -1,7 +1,5 @@
 import {
     ActionBar,
-    Alert,
-    Badge,
     Breadcrumb,
     Button,
     ButtonGroup,
@@ -9,14 +7,13 @@ import {
     ComboboxInput,
     Counter,
     DatePicker,
-    Dropdown,
+    Dialog,
     FormFieldset,
     FormGroup,
     FormInput,
     FormItem,
     FormLabel,
     FormLegend,
-    FormMessage,
     FormRadioGroup,
     FormRadioItem,
     FormSelect,
@@ -27,12 +24,9 @@ import {
     Image,
     InlineHelp,
     InputGroup,
-    Label,
     LayoutGrid,
-    ListGroup,
     LocalizationEditor,
     Menu,
-    Modal,
     MultiInput,
     Pagination,
     Panel,
@@ -40,161 +34,20 @@ import {
     SearchInput,
     Shellbar,
     SideNav,
-    Status,
+    Switch,
     Tab,
     TabGroup,
     Table,
     Tile,
     Time,
     TimePicker,
-    Toggle,
     Token,
-    TreeView
+    TreeView,
+    Checkbox
 } from "fundamental-react";
 import * as React from "react";
 
-const actionBars = (
-    <div>
-        <ActionBar>
-            <ActionBar.Back onClick={function w() {}} />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Button>Button</Button>
-                <Button option="emphasized">Button</Button>
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar>
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Button>Button</Button>
-                <Button option="emphasized">Button</Button>
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar>
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Page Title"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar>
-            <ActionBar.Back />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Action Bar with description and back button"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-
-        <ActionBar ref={React.createRef()}>
-            <ActionBar.Back />
-            <ActionBar.Header
-                description="Action Bar Description"
-                title="Action Bar with description and back button"
-            />
-            <ActionBar.Actions>
-                <Popover
-                    body={
-                        <Menu>
-                            <Menu.List>
-                                <Menu.Item url="/">Option 1</Menu.Item>
-                                <Menu.Item url="/">Option 2</Menu.Item>
-                                <Menu.Item url="/">Option 3</Menu.Item>
-                                <Menu.Item url="/">Option 4</Menu.Item>
-                            </Menu.List>
-                        </Menu>
-                    }
-                    control={<Button glyph="vertical-grip" option="light" />}
-                    placement="bottom-end"
-                />
-            </ActionBar.Actions>
-        </ActionBar>
-    </div>
-);
-
-const alerts = (
-    <div>
-        <Alert dismissible link="#" linkText=" link">
-            Default alert with a
-        </Alert>
-
-        <Alert dismissible type="warning">
-            <h3>A dismissible error type alert with template.</h3>
-            <p>More information...</p>
-        </Alert>
-
-        <Alert dismissible type="error">
-            <Icon glyph="message-error" />
-            Error Message.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-
-        <Alert dismissible type="success">
-            <Icon glyph="message-success" />
-            Message Success.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-
-        <Alert dismissible type="information">
-            <Icon glyph="message-information" />
-            Information Message.
-            <a className="fd-link" href="#">
-                Learn More
-            </a>
-        </Alert>
-    </div>
-);
-
-const badge = <Badge type="success">Default</Badge>;
-
 const counter = <Counter>101</Counter>;
-
-const label = <Label type="success">Default</Label>;
-
-const status = <Status type="warning">Default</Status>;
 
 const breadcrumb = (
     <Breadcrumb>
@@ -343,6 +196,7 @@ const calendars = (
 
 const comboboxInput = (
     <ComboboxInput
+        list=''
         menu={
             <Menu>
                 <Menu.List>
@@ -425,155 +279,6 @@ const datePickers = (
     </div>
 );
 
-const dropdowns = (
-    <div>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={<Button>Select</Button>}
-                id="jhqD0555"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact>
-                        Select
-                    </Button>
-                }
-                id="jhqD0556"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button glyph="filter">
-                        Select
-                    </Button>
-                }
-                id="jhqD0557"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact glyph="filter">
-                        Select
-                    </Button>
-                }
-                id="jhqD0558"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown standard>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button type="standard">
-                        Select
-                    </Button>
-                }
-                id="jhqD0559"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown standard>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button compact type="standard">
-                        Select
-                    </Button>
-                }
-                id="jhqD0560"
-                noArrow
-            />
-        </Dropdown>
-        <Dropdown>
-            <Popover
-                body={
-                    <Menu>
-                        <Menu.List>
-                            <Menu.Item url="/">Option 1</Menu.Item>
-                            <Menu.Item url="/">Option 2</Menu.Item>
-                            <Menu.Item url="/">Option 3</Menu.Item>
-                            <Menu.Item url="/">Option 4</Menu.Item>
-                        </Menu.List>
-                    </Menu>
-                }
-                control={
-                    <Button disabled glyph="filter">
-                        Select
-                    </Button>
-                }
-                disabled
-                id="jhqD0561"
-                noArrow
-            />
-        </Dropdown>
-    </div>
-);
-
 const forms = (
     <div>
         <FormSet>
@@ -638,10 +343,6 @@ const forms = (
             <FormItem>
                 <FormLabel htmlFor="input-5">Input with Help Message</FormLabel>
                 <FormInput id="input-5" type="text" />
-                <FormMessage type="help">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -652,10 +353,6 @@ const forms = (
                     placeholder="Field placeholder text"
                     type="text"
                 />
-                <FormMessage>
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -678,10 +375,6 @@ const forms = (
                     state="invalid"
                     type="text"
                 />
-                <FormMessage type="error">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -693,10 +386,6 @@ const forms = (
                     state="warning"
                     type="text"
                 />
-                <FormMessage type="warning">
-                    Pellentesque metus lacus commodo eget justo ut rutrum varius
-                    nunc
-                </FormMessage>
             </FormItem>
         </FormSet>
         <FormSet>
@@ -839,7 +528,7 @@ const forms = (
             </FormItem>
             <FormItem isCheck isInline>
                 <FormLabel htmlFor="checkbox-6">
-                    <FormInput
+                    <Checkbox
                         id="checkbox-6"
                         name="checkbox-name-6"
                         type="checkbox"
@@ -1137,73 +826,6 @@ const inputGroup = (
     </div>
 );
 
-const listGroups = (
-    <div>
-        <ListGroup>
-            <ListGroup.Item>
-                <a
-                    style={{
-                        cursor: "pointer"
-                    }}
-                >
-                    List item 1
-                </a>
-            </ListGroup.Item>
-            <ListGroup.Item>List item 2</ListGroup.Item>
-            <ListGroup.Item>
-                <a
-                    style={{
-                        cursor: "pointer"
-                    }}
-                >
-                    List item 3
-                </a>
-            </ListGroup.Item>
-            <ListGroup.Item>List item 4</ListGroup.Item>
-        </ListGroup>
-        <ListGroup>
-            <ListGroup.Item>
-                List item 1
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 2
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 3
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                List item 4
-                <ListGroup.ItemActions>
-                    <Button glyph="edit" option="light" />
-                </ListGroup.ItemActions>
-            </ListGroup.Item>
-        </ListGroup>
-        <ListGroup>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 1</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 2</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 3</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-            <ListGroup.Item>
-                <ListGroup.ItemCheckbox>List item 4</ListGroup.ItemCheckbox>
-            </ListGroup.Item>
-        </ListGroup>
-    </div>
-);
-
 const localizationEditors = (
     <div>
         <LocalizationEditor
@@ -1313,13 +935,13 @@ const menus = (
         </Menu>
         <Menu>
             <Menu.List>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
-                <Menu.Item separator>
+                <Menu.Item>
                     <Menu.Item url="/">Option 1</Menu.Item>
                 </Menu.Item>
                 <Menu.Item>
@@ -1346,12 +968,12 @@ const menus = (
     </div>
 );
 
-const modals = (
+const dialogs = (
     <div>
         <button className="fd-button" onClick={function w() {}}>
             Show Information Modal
         </button>
-        <Modal onClose={function w() {}} title="Product Added">
+        <Dialog actions={[]} onClose={function w() {}} title="Product Added">
             <div>
                 <b>The new product have been added to your catalog.</b>
                 <br />
@@ -1365,16 +987,16 @@ const modals = (
                 <br />
                 <br />
             </div>
-        </Modal>
-        <Modal
-            actions={
+        </Dialog>
+        <Dialog
+            actions={[
                 <>
                     <Button onClick={function w() {}} type="standard">
                         No Way
                     </Button>
                     <Button onClick={function w() {}}>Sure</Button>
                 </>
-            }
+            ]}
             onClose={function w() {}}
             title="Delete"
         >
@@ -1382,16 +1004,16 @@ const modals = (
                 Do you want to delete item
                 <b>X</b>?
             </div>
-        </Modal>
-        <Modal
-            actions={
+        </Dialog>
+        <Dialog
+            actions={[
                 <>
                     <Button onClick={function w() {}} type="standard">
                         Cancel
                     </Button>
                     <Button onClick={function w() {}}>Invite</Button>
                 </>
-            }
+            ]}
             onClose={function w() {}}
             title="Invite user"
         >
@@ -1406,7 +1028,7 @@ const modals = (
                     />
                 </div>
             </div>
-        </Modal>
+        </Dialog>
     </div>
 );
 const multiInputs = (
@@ -1982,7 +1604,8 @@ const popovers = (
         </div>
         <div>
             <Button onClick={function w() {}}>Show Modal</Button>
-            <Modal
+            <Dialog
+                actions={[]}
                 bodyProps={{
                     style: {
                         height: "200px",
@@ -2028,7 +1651,7 @@ const popovers = (
                 <br />
                 <br />
                 <br />
-            </Modal>
+            </Dialog>
         </div>
     </div>
 );
@@ -2272,10 +1895,10 @@ const shellbars = (
                     name: "Application D"
                 }
             ]}
-            productSwitcher={{
+            productSwitch={{
                 label: "Product Switcher"
             }}
-            productSwitcherList={[
+            productSwitchList={[
                 {
                     callback: function w() {},
                     glyph: "home",
@@ -2571,7 +2194,7 @@ const sideNavs = (
                 />
             </SideNav.List>
         </SideNav>
-        <SideNav icons selectedId="item-2">
+        <SideNav selectedId="item-2">
             <SideNav.List>
                 <SideNav.ListItem glyph="home" id="item-1" url="#" />
                 <SideNav.ListItem glyph="home" id="item-2" url="#" />
@@ -2892,30 +2515,11 @@ const timePickers = (
     </div>
 );
 
-const toggles = (
+const switches = (
     <div>
-        <Toggle id="Yj07w604" size="xs">
-            Extra Small toggle
-        </Toggle>
-        <Toggle checked id="Yj07w605" size="s">
-            Small toggle
-        </Toggle>
-        <Toggle id="Yj07w606">Normal toggle</Toggle>
-        <Toggle checked id="Yj07w607" size="l">
-            Large toggle
-        </Toggle>
-        <Toggle disabled id="Yj07w608" size="xs">
-            Extra Small toggle
-        </Toggle>
-        <Toggle checked disabled id="Yj07w609" size="s">
-            Small toggle
-        </Toggle>
-        <Toggle disabled id="Yj07w610">
-            Normal toggle
-        </Toggle>
-        <Toggle checked disabled id="Yj07w611" size="l">
-            Large toggle
-        </Toggle>
+        <Switch>
+            switch
+        </Switch>
     </div>
 );
 
