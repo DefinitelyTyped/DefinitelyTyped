@@ -156,34 +156,49 @@ export interface InfiniteQueryBaseState<TVariable> {
     canFetchMore: boolean;
 }
 
-export function useMutation<TResults, TVariables extends object>(
-    mutationFn: MutationFunction<TResults, TVariables>,
+export function useMutation<TResults, TVariables>(
+    mutationFn: (variable: TVariables) => Promise<TResults>,
     mutationOptions?: MutationOptions<TResults>,
 ): [MutateFunction<TResults, TVariables>, MutationState<TResults>];
 
-export type MutationFunction<TResults, TVariables extends object> = (variables: TVariables) => Promise<TResults>;
+export type MutateFunction<TResults, TVariables> = (
+    variables?: TVariables,
+    options?: MutationOptions<TResults>,
+) => Promise<TResults>;
 
 export interface MutationOptions<TResult> {
     onSuccess?: (data: TResult) => Promise<any> | void;
-    onSettled?: (data: TResult, error: any) => Promise<any> | void;
     onError?: (error: any) => Promise<any> | void;
+    onSettled?: (data: TResult, error: any) => Promise<any> | void;
     throwOnError?: boolean;
     useErrorBoundary?: boolean;
 }
 
-export type MutateFunction<TResults, TVariables extends object> = (
-    variables?: TVariables,
-    options?: {
-        updateQuery?: string | [string, object];
-        waitForRefetchQueries?: boolean;
-    },
-) => Promise<TResults>;
+export type MutationState<TResults> =
+    MutationIdleLoadingState |
+    MutationErrorState |
+    MutationSuccessState<TResults>
+;
 
-export interface MutationState<TResults> {
-    status: 'idle' | 'loading' | 'error' | 'success';
-    data: TResults | undefined;
-    error: null | Error;
-    promise: Promise<TResults>;
+export interface MutationIdleLoadingState {
+    status: 'idle' | 'loading';
+    data: undefined;
+    error: null;
+    reset(): void;
+}
+
+export interface MutationErrorState {
+    status: 'error';
+    data: undefined;
+    error: any;
+    reset(): void;
+}
+
+export interface MutationSuccessState<TResult> {
+    status: 'success';
+    data: TResult;
+    error: null;
+    reset(): void;
 }
 
 export namespace queryCache {

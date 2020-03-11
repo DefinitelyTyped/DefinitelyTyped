@@ -91,14 +91,45 @@ infiniteQuery.fetchMore({ page: 20 }); // $ExpectError
 
 // Simple mutation
 const mutation = () => Promise.resolve(['foo', 'bar']);
-
-const [mutate, {data, error, status}] = useMutation(mutation);
+const [mutate, mutationState] = useMutation(mutation);
 mutate();
-mutate(undefined, {
-    updateQuery: 'query',
-    waitForRefetchQueries: false
-});
-data; // $ExpectType string[] | undefined
+// TODO: handle invalid argument passed to mutationFn
+// mutate('arg'); // $ExpectError
+mutationState.data; // $ExpectType string[] | undefined
+
+// Discriminated union over status
+if (mutationState.status === 'idle') {
+    mutationState.data; // $ExpectType undefined
+    mutationState.error; // $ExpectType null
+}
+
+if (mutationState.status === 'loading') {
+    mutationState.data; // $ExpectType undefined
+    mutationState.error; // $ExpectType null
+}
+
+if (mutationState.status === 'error') {
+    mutationState.data; // $ExpectType undefined
+    mutationState.error; // $ExpectType any
+}
+
+if (mutationState.status === 'success') {
+    mutationState.data; // $ExpectType string[]
+    mutationState.error; // $ExpectType null
+}
+
+// Mutation variables
+const [mutateWithVars] = useMutation((variable: number) => Promise.resolve());
+// TODO: handle required argument of mutationFn
+// mutateWithVars(); // $ExpectError
+mutateWithVars(1);
+mutateWithVars(1, 2); // $ExpectError
+mutateWithVars('foo'); // $ExpectError
+
+// Mutate fn with optional vars
+const [mutateWithOptionalVar] = useMutation((variable: number = 1) => Promise.resolve());
+mutateWithVars();
+mutateWithVars(1);
 
 // Invalid mutatation funciton
 useMutation((arg1: string, arg2: string) => Promise.resolve()); // $ExpectError
