@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import database = require('mime-db');
+import { MimeEntry } from 'mime-db';
 
 /**
  *
@@ -21,7 +21,7 @@ export interface MimosOptions {
     override: {[index: string]: MimosOptionsValue};
 }
 
-export interface MimosOptionsValue extends database.MimeEntry {
+export interface MimosOptionsValue extends MimeEntry {
     /** specify the type value of result objects, defaults to key. See the example below for more clarification. */
     type?: string;
     /** method with signature function(mime) when this mime type is found in the database, this function will run. This allows you make customizations to mime based on developer criteria. */
