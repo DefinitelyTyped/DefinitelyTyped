@@ -4136,21 +4136,27 @@ declare namespace chrome.input.ime {
 // LoginState
 ////////////////////
 /**
- * The chrome.loginState API provides a way to query information about the current session state.
+ * Use the chrome.loginState API to read and monitor the login state.
+ * Permissions: "loginState"
+ * @since Chrome 78.
+ * Important: This API works only on Chrome OS.
  */
 declare namespace chrome.loginState {
     export interface SessionStateChangedEvent extends chrome.events.Event<(sessionState: SessionState) => void> { }
 
+    /** Possible profile types. */
+    export type ProfileType = 'SIGNIN_PROFILE'|'USER_PROFILE';
+
     /** Possible session states. */
     export type SessionState = 'UNKNOWN'|'IN_OOBE_SCREEN'|'IN_LOGIN_SCREEN'|'IN_SESSION'|'IN_LOCK_SCREEN';
 
-    /** Checks whether the caller extension is running in the login screen profile. */
-    export function isRunningInLoginProfile(callback: (isRunningInLoginProfile: boolean) => void): void;
+    /** Gets the type of the profile the extension is in. */
+    export function getProfileType(callback: (profileType: ProfileType) => void): void;
 
     /** Gets the current session state. */
     export function getSessionState(callback: (sessionState: SessionState) => void): void;
 
-    /** Fired when the session state changes. */
+    /** Dispatched when the session state changes. sessionState is the new session state.*/
     export const onSessionStateChanged: SessionStateChangedEvent;
 }
 
