@@ -19,6 +19,8 @@ export type PredefinedPageSize =
 
 export type PageOrientation = 'portrait' | 'landscape';
 
+export type PageBreak = 'before' | 'after';
+
 export type Size =
     | number // absolute
     | 'auto'
@@ -257,7 +259,7 @@ export interface ContentBase extends Style {
     style?: string | string[] | Style;
     absolutePosition?: { x: number; y: number };
     relativePosition?: { x: number; y: number };
-    pageBreak?: 'before' | 'after';
+    pageBreak?: PageBreak;
     pageOrientation?: PageOrientation;
     headlineLevel?: number;
 }
@@ -397,7 +399,7 @@ export interface Node {
     id?: string;
     headlineLevel?: number;
     style?: string | string[] | Style;
-    pageBreak?: 'before' | 'after';
+    pageBreak?: PageBreak;
     pageOrientation?: PageOrientation;
     pageNumbers: number[];
     pages: number;
