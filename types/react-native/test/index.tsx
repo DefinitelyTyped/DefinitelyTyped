@@ -438,6 +438,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 ListFooterComponentStyle={{ padding: 8 }}
                 ListHeaderComponent={null}
                 ListHeaderComponentStyle={{ padding: 8 }}
+                fadingEdgeLength={200}
             />
         );
     }
@@ -544,6 +545,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             style={[scrollViewStyle1.scrollView, scrollViewStyle2]}
                             onScrollToTop={() => {}}
                             scrollToOverflowEnabled={true}
+                            fadingEdgeLength={200}
                         />
                     );
                 }}

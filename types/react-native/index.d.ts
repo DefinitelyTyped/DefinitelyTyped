@@ -34,6 +34,7 @@
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
+//                 André Krüger <https://github.com/akrger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -4040,6 +4041,18 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * This may improve scroll performance for large lists.
      */
     removeClippedSubviews?: boolean;
+
+    /**
+     * Fades out the edges of the the scroll content.
+     *
+     * If the value is greater than 0, the fading edges will be set accordingly
+     * to the current scroll direction and position,
+     * indicating if there is more content to show.
+     *
+     * The default value is 0.
+     * @platform android
+     */
+    fadingEdgeLength?: number;
 }
 
 export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>> {
@@ -6272,6 +6285,18 @@ export interface ScrollViewPropsAndroid {
      * Enables nested scrolling for Android API level 21+. Nested scrolling is supported by default on iOS.
      */
     nestedScrollEnabled?: boolean;
+
+    /**
+     * Fades out the edges of the the scroll content.
+     *
+     * If the value is greater than 0, the fading edges will be set accordingly
+     * to the current scroll direction and position,
+     * indicating if there is more content to show.
+     *
+     * The default value is 0.
+     * @platform android
+     */
+    fadingEdgeLength?: number
 }
 
 export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollViewPropsAndroid, Touchable {
