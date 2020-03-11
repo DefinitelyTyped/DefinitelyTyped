@@ -563,7 +563,7 @@ import { promisify } from 'util';
 {
     const keyObject = crypto.createSecretKey(Buffer.from('asdf')); // $ExpectType KeyObject
     keyObject instanceof crypto.KeyObject;
-    assert.equal(keyObject.symmetricSize, 4);
+    assert.equal(keyObject.symmetricKeySize, 4);
     assert.equal(keyObject.type, "secret");
 }
 
