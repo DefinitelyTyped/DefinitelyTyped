@@ -11249,6 +11249,73 @@ declare namespace Office {
      */
     interface Body {
         /**
+         * Appends on send the specified content to the end of the item body, after any signature.
+         * 
+         * If the user is running add-ins that implement the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
+         * append on send runs before on-send functionality.
+         * 
+         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * 
+         * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 5,000 characters.
+         * 
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
+         * 
+         * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
+         * @param options - Optional. An object literal that contains one or more of the following properties.
+         *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
+         *        `coercionType`: The desired format for the data to be appended. The string in the `data` parameter will be converted to this format.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
+         * 
+         * @beta
+         */
+        appendOnSendAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
+         * Appends on send the specified content to the end of the item body, after any signature.
+         * 
+         * If the user is running add-ins that implement the
+         * {@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins?tabs=windows | on-send feature using `ItemSend` in the manifest},
+         * append on send runs before on-send functionality.
+         * 
+         * **Important**: To use `appendOnSendAsync`, the `AppendOnSend` extended permission must be included in the `ExtendedPermissions` node of the manifest.
+         * 
+         * **Note**: To clear data from a previous `appendOnSendAsync` call, you can call it again with the `data` parameter set to `null`.
+         * 
+         * [Api set: Mailbox Preview]
+         * 
+         * @remarks
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: `ReadWriteItem`
+         * 
+         * **{@link https://docs.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         * 
+         * **Errors**:
+         * 
+         * - `DataExceedsMaximumSize`: The `data` parameter is longer than 5,000 characters.
+         * 
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` but the message body is in plain text.
+         * 
+         * @param data - The string to be added to the end of the body. The string is limited to 5,000 characters.
+         * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
+         *                             of type `Office.AsyncResult`. Any errors encountered will be provided in the `asyncResult.error` property.
+         * 
+         * @beta
+         */
+        appendOnSendAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
+        /**
          * Returns the current body in a specified format.
          *
          * This method returns the entire current body in the format specified by `coercionType`.
@@ -11405,7 +11472,7 @@ declare namespace Office {
          * 
          * - `DataExceedsMaximumSize`: The data parameter is longer than 1,000,000 characters.
          * 
-         * - `InvalidFormatError`: The options.coercionType parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
          * 
          * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options - Optional. An object literal that contains one or more of the following properties.
