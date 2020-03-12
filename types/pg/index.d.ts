@@ -26,6 +26,7 @@ export interface ClientConfig {
     ssl?: boolean | ConnectionOptions;
     query_timeout?: number;
     keepAliveInitialDelayMillis?: number;
+    idle_in_transaction_session_timeout?: number;
 }
 
 export type ConnectionConfig = ClientConfig;
