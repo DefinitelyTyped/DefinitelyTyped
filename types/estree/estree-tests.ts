@@ -31,7 +31,7 @@ declare var baseExpression: ESTree.BaseExpression;
 declare var thisExpression: ESTree.ThisExpression;
 declare var arrayExpression: ESTree.ArrayExpression;
 declare var objectExpression: ESTree.ObjectExpression;
-declare var property: ESTree.Property;
+declare var property: ESTree.Property | ESTree.SpreadElement;
 declare var functionExpression: ESTree.FunctionExpression;
 declare var sequenceExpression: ESTree.SequenceExpression;
 declare var unaryExpression: ESTree.UnaryExpression;
@@ -181,9 +181,11 @@ var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement
 var objectExpression: ESTree.ObjectExpression;
 property = objectExpression.properties[0];
 string = property.type;
-expression = property.key;
-expressionOrPattern = property.value;
-string = property.kind;
+if (property.type === 'Property') {
+  expression = property.key;
+  expressionOrPattern = property.value;
+  string = property.kind;
+}
 
 // FunctionExpression
 var functionExpression: ESTree.FunctionExpression;
