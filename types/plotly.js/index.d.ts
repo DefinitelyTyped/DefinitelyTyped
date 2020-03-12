@@ -18,7 +18,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as _d3 from "d3";
+/// <reference types="geojson" />
+
+import * as _d3 from 'd3';
+
 export as namespace Plotly;
 
 export interface StaticPlots {
@@ -82,7 +85,7 @@ export interface PlotSelectionEvent {
 export type PlotRestyleEvent = [
 	any,		// update object -- attribute updated: new value
 	number[]	// array of traces updated
-];
+	];
 
 export interface PlotAxis {
 	range: [number, number];
@@ -157,20 +160,33 @@ export interface BeforePlotEvent {
 
 export interface PlotlyHTMLElement extends HTMLElement {
 	on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+
 	on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
+
 	on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
+
 	on(event: 'plotly_relayout', callback: (event: PlotRelayoutEvent) => void): void;
+
 	on(event: 'plotly_clickannotation', callback: (event: ClickAnnotationEvent) => void): void;
+
 	on(event: 'plotly_animatingframe', callback: (event: FrameAnimationEvent) => void): void;
+
 	on(event: 'plotly_legendclick' | 'plotly_legenddoubleclick', callback: (event: LegendClickEvent) => boolean): void;
+
 	on(event: 'plotly_sliderchange', callback: (event: SliderChangeEvent) => void): void;
+
 	on(event: 'plotly_sliderend', callback: (event: SliderEndEvent) => void): void;
+
 	on(event: 'plotly_sliderstart', callback: (event: SliderStartEvent) => void): void;
+
 	on(event: 'plotly_event', callback: (data: any) => void): void;
+
 	on(event: 'plotly_beforeplot', callback: (event: BeforePlotEvent) => boolean): void;
+
 	on(event: 'plotly_afterexport' | 'plotly_afterplot' | 'plotly_animated' | 'plotly_animationinterrupted' | 'plotly_autosize' |
 		'plotly_beforeexport' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_framework' | 'plotly_redraw' |
 		'plotly_transitioning' | 'plotly_transitioninterrupted', callback: () => void): void;
+
 	removeAllListeners: (handler: string) => void;
 }
 
@@ -201,22 +217,39 @@ export interface PolarLayout {
 export type Root = string | HTMLElement;
 
 export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+
 export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
+
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
+
 export function purge(root: Root): void;
+
 export const d3: typeof _d3;
+
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+
 export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+
 export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
+
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
+
 export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
+
 export function extendTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+
 export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
+
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
+
 export function react(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
+
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 
 // Layout
@@ -277,7 +310,7 @@ export interface Layout {
 	'yaxis.title': string;
 	ternary: {}; // TODO
 	geo: {}; // TODO
-	mapbox: {}; // TODO
+	mapbox: Partial<Mapbox>;
 	radialaxis: Partial<Axis>;
 	angularaxis: {}; // TODO
 	dragmode: 'zoom' | 'pan' | 'select' | 'lasso' | 'orbit' | 'turntable' | false;
@@ -298,20 +331,20 @@ export interface Layout {
 	hiddenlabels: string[];
 	grid: Partial<{
 		rows: number;
-		roworder: "top to bottom" | "bottom to top";
+		roworder: 'top to bottom' | 'bottom to top';
 		columns: number;
 		subplots: string[];
 		xaxes: string[];
 		yaxes: string[];
-		pattern: "independent" | "coupled";
+		pattern: 'independent' | 'coupled';
 		xgap: number;
 		ygap: number;
 		domain: Partial<{
 			x: number[];
 			y: number[];
 		}>;
-		xside: "bottom" | "bottom plot" | "top plot" | "top";
-		yside: "left" | "left plot" | "right plot" | "right";
+		xside: 'bottom' | 'bottom plot' | 'top plot' | 'top';
+		yside: 'left' | 'left plot' | 'right plot' | 'right';
 	}>;
 	polar: Partial<PolarLayout>;
 	polar2: Partial<PolarLayout>;
@@ -322,6 +355,73 @@ export interface Layout {
 	polar7: Partial<PolarLayout>;
 	polar8: Partial<PolarLayout>;
 	polar9: Partial<PolarLayout>;
+}
+
+export type LatLon = [number, number];
+
+export interface Mapbox {
+	accessToken: string;
+	bearing: number;
+	center: {
+		lat?: number;
+		lon?: number;
+	};
+	domain: Partial<MapboxDomain>;
+	layers: Array<Partial<MapboxLayer>>;
+	pitch: number;
+	style:
+		| 'basic'
+		| 'streets'
+		| 'outdoors'
+		| 'light'
+		| 'dark'
+		| 'satellite'
+		| 'satellite-streets';
+	uirevision: string | number;
+	zoom: number;
+}
+
+export interface MapboxDomain {
+	x: LatLon;
+	y: LatLon;
+	row: number;
+	column: number;
+}
+
+export interface MapboxLayer {
+	below: string;
+	coordinates: [LatLon, LatLon, LatLon, LatLon];
+	color: Color;
+	circle: {
+		radius: number;
+	};
+	fill: Color;
+	line: {
+		width: number;
+	};
+	visible: boolean;
+	opacity: number;
+	minzoom: number;
+	maxzoom: number;
+	name: string;
+	sourcetype: 'geojson' | 'vector' | 'raster' | 'image';
+	source: string | string[] | GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+	sourcelayer: string;
+	sourceattribution: string;
+	symbol: {
+		icon: string;
+		iconsize: number;
+		text: string;
+		textfont: {
+			family: string;
+			size: number;
+			color: Color;
+		}
+		textposition: 'top left' | 'top center' | 'top right' | 'middle left' | 'middle center' | 'middle right' | 'bottom left' | 'bottom center' | 'bottom right';
+		placement: 'point' | 'line' | 'line-center';
+	};
+	type: 'fill' | 'line' | 'symbol' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap' | 'hillshade';
+	templateitemname: string;
 }
 
 export interface Legend extends Label {
@@ -362,8 +462,8 @@ export interface Axis {
 	spikecolor: Color;
 	spikethickness: number;
 	categoryorder: 'trace' | 'category ascending' | 'category descending' | 'array' | 'total ascending' | 'total descending' |
-	'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
-	'mean descending' | 'median ascending' | 'median descending';
+		'min ascending' | 'min descending' | 'max ascending' | 'max descending' | 'sum ascending' | 'sum descending' | 'mean ascending' |
+		'mean descending' | 'median ascending' | 'median descending';
 	categoryarray: any[];
 	tickfont: Partial<Font>;
 	tickangle: number;
@@ -388,8 +488,24 @@ export interface Axis {
 	calendar: Calendar;
 }
 
-export type Calendar = 'gregorian' | 'chinese' | 'coptic' | 'discworld' | 'ethiopian' | 'hebrew' | 'islamic' | 'julian' | 'mayan' |
-	'nanakshahi' | 'nepali' | 'persian' | 'jalali' | 'taiwan' | 'thai' | 'ummalqura';
+export type Calendar =
+	'gregorian'
+	| 'chinese'
+	| 'coptic'
+	| 'discworld'
+	| 'ethiopian'
+	| 'hebrew'
+	| 'islamic'
+	| 'julian'
+	| 'mayan'
+	|
+	'nanakshahi'
+	| 'nepali'
+	| 'persian'
+	| 'jalali'
+	| 'taiwan'
+	| 'thai'
+	| 'ummalqura';
 
 export type AxisName =
 	| 'x' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9'
@@ -436,11 +552,11 @@ export interface Shape {
 	path: string;
 	// x-reference is assigned to the x-values
 	xref: 'x' | 'paper';
-	xsizemode: "scaled" | "pixel";
+	xsizemode: 'scaled' | 'pixel';
 	xanchor: number | string;
 	// y-reference is assigned to the plot paper [0,1]
 	yref: 'paper' | 'y';
-	ysizemode: "scaled" | "pixel";
+	ysizemode: 'scaled' | 'pixel';
 	yanchor: number | string;
 	x0: Datum;
 	y0: Datum;
@@ -520,6 +636,7 @@ export interface GaugeLine {
 	color: Color;
 	width: number;
 }
+
 export interface Threshold {
 	line: Partial<GaugeLine>;
 	value: number;
@@ -531,6 +648,7 @@ export interface GaugeBar {
 	line: Partial<GaugeLine>;
 	thickness: number;
 }
+
 export interface Gauge {
 	shape: 'angular' | 'bullet';
 	bar: Partial<GaugeBar>;
@@ -538,7 +656,7 @@ export interface Gauge {
 	bordercolor: Color;
 	borderwidth: number;
 	axis: Partial<Axis>;
-	steps: Array<{range: number[], color: Color}>;
+	steps: Array<{ range: number[], color: Color }>;
 	threshold: Partial<Threshold>;
 }
 
@@ -558,9 +676,9 @@ export interface Delta {
 }
 
 export interface DataTitle {
-		text: string;
-		font: Partial<Font>;
-		position: "top left" | "top center" | "top right" | "middle center" | "bottom left" | "bottom center" | "bottom right";
+	text: string;
+	font: Partial<Font>;
+	position: 'top left' | 'top center' | 'top right' | 'middle center' | 'bottom left' | 'bottom center' | 'bottom right';
 }
 
 export interface PlotNumber {
@@ -573,7 +691,16 @@ export interface PlotNumber {
 // Data
 
 export type Datum = string | number | Date | null;
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export type TypedArray =
+	Int8Array
+	| Uint8Array
+	| Int16Array
+	| Uint16Array
+	| Int32Array
+	| Uint32Array
+	| Uint8ClampedArray
+	| Float32Array
+	| Float64Array;
 
 export interface ErrorOptions {
 	visible: boolean;
@@ -597,15 +724,20 @@ export type ErrorBar = Partial<ErrorOptions> & ({
 export type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
 export type Data = Partial<PlotData>;
-export type Color = string | number | Array<string | number | undefined | null> | Array<Array<string | number | undefined | null>>;
+export type Color =
+	string
+	| number
+	| Array<string | number | undefined | null>
+	| Array<Array<string | number | undefined | null>>;
 export type ColorScale = string | string[] | Array<[number, string]>;
 export type DataTransform = Partial<Transform>;
 export type ScatterData = PlotData;
+
 // Bar Scatter
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
-	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
+		'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' | 'scattermapbox' |
+		'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -615,6 +747,8 @@ export interface PlotData {
 	xaxis: string;
 	yaxis: string;
 	text: string | string[];
+	lat: number[];
+	lon: number[];
 	line: Partial<ScatterLine>;
 	'line.color': Color;
 	'line.width': number;
@@ -643,25 +777,25 @@ export interface PlotData {
 	'marker.pad.l': number;
 	'marker.pad.r': number;
 	mode: 'lines' | 'markers' | 'text' | 'lines+markers' | 'text+markers' | 'text+lines' | 'text+lines+markers' | 'none'
-	| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
+		| 'gauge' | 'number' | 'delta' | 'number+delta' | 'gauge+number' | 'gauge+number+delta' | 'gauge+delta';
 	hoveron: 'points' | 'fills';
 	hoverinfo: 'all' | 'name' | 'none' | 'skip' | 'text' |
-	'x' | 'x+text' | 'x+name' |
-	'x+y' | 'x+y+text' | 'x+y+name' |
-	'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
-	'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
-	'y+z' | 'y+z+text' | 'y+z+name' |
-	'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
-	'z+x' | 'z+x+text' | 'z+x+name' |
-	'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
-	'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
+		'x' | 'x+text' | 'x+name' |
+		'x+y' | 'x+y+text' | 'x+y+name' |
+		'x+y+z' | 'x+y+z+text' | 'x+y+z+name' |
+		'y+name' | 'y+x' | 'y+text' | 'y+x+text' | 'y+x+name' |
+		'y+z' | 'y+z+text' | 'y+z+name' |
+		'y+x+z' | 'y+x+z+text' | 'y+x+z+name' |
+		'z+x' | 'z+x+text' | 'z+x+name' |
+		'z+y+x' | 'z+y+x+text' | 'z+y+x+name' |
+		'z+x+y' | 'z+x+y+text' | 'z+x+y+name';
 	hoverlabel: Partial<HoverLabel>;
 	hovertemplate: string | string[];
 	textinfo: 'label' | 'label+text' | 'label+value' | 'label+percent' | 'label+text+value'
-	| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
-	| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
-	textposition: "top left" | "top center" | "top right" | "middle left"
-	| "middle center" | "middle right" | "bottom left" | "bottom center" | "bottom right" | "inside";
+		| 'label+text+percent' | 'label+value+percent' | 'text' | 'text+value' | 'text+percent'
+		| 'text+value+percent' | 'value' | 'value+percent' | 'percent' | 'none';
+	textposition: 'top left' | 'top center' | 'top right' | 'middle left'
+		| 'middle center' | 'middle right' | 'bottom left' | 'bottom center' | 'bottom right' | 'inside';
 	fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
 	fillcolor: string;
 	showlegend: boolean;
@@ -1035,7 +1169,7 @@ export interface Label {
 
 export interface HoverLabel extends Label {
 	/** Sets the horizontal alignment of the text content within hover label box. */
-	align: "left" | "right" | "auto";
+	align: 'left' | 'right' | 'auto';
 
 	/**
 	 * Sets the default length (in number of characters) (default 15) of the trace name
@@ -1382,10 +1516,10 @@ export interface Transition {
 	 * Sets the easing function of the slider transition
 	 */
 	easing: 'linear' | 'quad' | 'cubic' | 'sin' | 'exp' | 'circle' | 'elastic' | 'back' | 'bounce' | 'linear-in' |
-	'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
-	'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
-	'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
-	'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
+		'quad-in' | 'cubic-in' | 'sin-in' | 'exp-in' | 'circle-in' | 'elastic-in' | 'back-in' | 'bounce-in' |
+		'linear-out' | 'quad-out' | 'cubic-out' | 'sin-out' | 'exp-out' | 'circle-out' | 'elastic-out' | 'back-out' |
+		'bounce-out' | 'linear-in-out' | 'quad-in-out' | 'cubic-in-out' | 'sin-in-out' | 'exp-in-out' |
+		'circle-in-out' | 'elastic-in-out' | 'back-in-out' | 'bounce-in-out';
 }
 
 export interface SliderStep {
