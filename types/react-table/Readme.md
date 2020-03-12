@@ -56,6 +56,7 @@ import {
   UseFiltersInstanceProps,
   UseFiltersOptions,
   UseFiltersState,
+  UseGlobalFiltersColumnOptions,
   UseGlobalFiltersInstanceProps,
   UseGlobalFiltersOptions,
   UseGlobalFiltersState,
@@ -141,6 +142,7 @@ declare module 'react-table' {
 
   export interface Column<D extends object = {}>
     extends UseFiltersColumnOptions<D>,
+      UseGlobalFiltersColumnOptions<D>,
       UseGroupByColumnOptions<D>,
       UseResizeColumnsColumnOptions<D>,
       UseSortByColumnOptions<D> {}

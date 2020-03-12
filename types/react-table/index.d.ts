@@ -6,7 +6,7 @@
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0-rc.16
+// reflects react-table@7.0.0 - (prepping for stable 7.0.0 release https://github.com/tannerlinsley/react-table/issues/1964)
 
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
@@ -15,7 +15,17 @@
 // no-unnecessary-generics is disabled because many of these definitions are either used in a generic
 // context or the signatures are required to match for declaration merging
 
-import { ComponentType, DependencyList, EffectCallback, MouseEvent, ReactElement, ReactNode, ReactText, ReactFragment, CSSProperties } from 'react';
+import {
+    ComponentType,
+    DependencyList,
+    EffectCallback,
+    MouseEvent,
+    ReactElement,
+    ReactNode,
+    ReactText,
+    ReactFragment,
+    CSSProperties,
+} from 'react';
 
 export {};
 
@@ -237,7 +247,7 @@ export interface UseTableColumnProps<D extends object> {
     depth: number; // not documented
     index: number; // not documented
     placeholderOf?: ColumnInstance;
- }
+}
 
 export interface UseTableRowProps<D extends object> {
     cells: Array<Cell<D>>;
@@ -457,11 +467,16 @@ export type UseGlobalFiltersOptions<D extends object> = Partial<{
     manualGlobalFilter: boolean;
     filterTypes: FilterTypes<D>;
     autoResetGlobalFilter?: boolean;
+    disableGlobalFilter?: boolean;
 }>;
 
 export interface UseGlobalFiltersState<D extends object> {
     globalFilter: any;
 }
+
+export type UseGlobalFiltersColumnOptions<D extends object> = Partial<{
+    disableGlobalFilter?: boolean;
+}>;
 
 export interface UseGlobalFiltersInstanceProps<D extends object> {
     preGlobalFilteredRows: Array<Row<D>>;
@@ -820,7 +835,7 @@ export function loopHooks(hooks: Hooks, ...args: any[]): void;
 export function ensurePluginOrder<D extends object = {}>(
     plugins: Array<PluginHook<D>>,
     befores: string[],
-    pluginName: string
+    pluginName: string,
 ): void;
 
 export function functionalUpdate<D extends object = {}>(
