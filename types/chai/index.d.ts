@@ -417,7 +417,7 @@ declare namespace Chai {
          * @param operator   Comparison operator, if not strict equality.
          * @remarks Node.js assert module-compatible.
          */
-        fail<T>(actual?: T, expected?: T, message?: string, operator?: Operator): never;
+        fail<T>(actual: T, expected: T, message?: string, operator?: Operator): never;
 
         /**
          * Asserts that object is truthy.
