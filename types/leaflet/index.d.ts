@@ -1906,6 +1906,8 @@ export class Marker<P = any> extends Layer {
     options: MarkerOptions;
     dragging?: Handler;
     feature?: geojson.Feature<geojson.Point, P>;
+
+    protected _shadow: HTMLElement | undefined;
 }
 
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;

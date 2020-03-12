@@ -10803,6 +10803,8 @@ declare namespace Office {
         attachmentType: MailboxEnums.AttachmentType | string;
         /**
          * Gets the MIME content type of the attachment.
+         * 
+         * This property is only available in Read mode.
          */
         contentType: string;
         /**
@@ -11027,7 +11029,7 @@ declare namespace Office {
          * 
          * - `DataExceedsMaximumSize`: The data parameter is longer than 1,000,000 characters.
          * 
-         * - `InvalidFormatError`: The options.coercionType parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
+         * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
          * 
          * @param data - The string that will replace the existing body. The string is limited to 1,000,000 characters.
          * @param options - Optional. An object literal that contains one or more of the following properties.
