@@ -9,6 +9,7 @@
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
 //                 GP <https://github.com/paambaati>
+//                 Marcell Toth <https://github.com/marcelltoth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -37,6 +38,7 @@ declare namespace sanitize {
     allowedSchemesByTag: { [index: string]: string[] };
     allowedTags: string[];
     selfClosing: string[];
+    disallowedTagsMode: 'discard';
   }
 
 
@@ -65,6 +67,7 @@ declare namespace sanitize {
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
     parser?: Options;
+    disallowedTagsMode?: 'escape' | 'recursiveEscape' | 'discard';
   }
 
 
