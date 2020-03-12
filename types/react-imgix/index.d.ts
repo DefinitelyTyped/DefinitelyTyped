@@ -208,6 +208,7 @@ type ImgixHTMLAttributes = React.ImgHTMLAttributes<HTMLImageElement> | React.Sou
 
 interface CommonProps {
   className?: string;
+    alt?: string;
   onMounted?: (ref?: React.RefObject<HTMLPictureElement | HTMLImageElement | HTMLSourceElement>) => void;
   htmlAttributes?: ImgixHTMLAttributes;
 }
