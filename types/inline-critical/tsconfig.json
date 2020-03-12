@@ -2,15 +2,14 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
+        "esModuleInterop": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -20,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-data-grid-tests.tsx"
+        "inline-critical-tests.ts"
     ]
 }

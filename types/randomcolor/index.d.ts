@@ -18,6 +18,5 @@ interface RandomColorOptionsMultiple extends RandomColorOptionsSingle {
 	count: number;
 }
 
-declare module "randomcolor" {
-	export = randomColor;
-}
+export = randomColor;
+export as namespace randomColor;

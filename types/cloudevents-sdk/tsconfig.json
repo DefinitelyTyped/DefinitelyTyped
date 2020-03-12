@@ -2,24 +2,21 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",
-        "react-data-grid-tests.tsx"
+        "cloudevents-sdk-tests.ts"
     ]
 }

@@ -9,6 +9,17 @@ const viewer = new Cesium.Viewer('#cesium', {
     geocoder: false,
 });
 
+// Mapbox tile provider
+const mapboxImagery = new Cesium.MapboxImageryProvider({
+    mapId: 'mapbox.streets',
+    accessToken: 'thisIsMyAccessToken'
+});
+// Mapbox style provider
+const mapboxStyle = new Cesium.MapboxStyleImageryProvider({
+    styleId: 'streets-v11',
+    accessToken: 'thisIsMyAccessToken'
+});
+
 const midnight = Cesium.JulianDate.fromDate(new Date(2018, 5, 14));
 const prop = new Cesium.SampledPositionProperty();
 
