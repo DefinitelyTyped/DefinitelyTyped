@@ -519,6 +519,11 @@ export interface ImportSpecifier extends BaseModuleSpecifier {
   imported: Identifier;
 }
 
+export interface ImportExpression extends BaseExpression {
+  type: "ImportExpression";
+  source: Expression;
+}
+
 export interface ImportDefaultSpecifier extends BaseModuleSpecifier {
   type: "ImportDefaultSpecifier";
 }
