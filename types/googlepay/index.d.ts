@@ -15,8 +15,69 @@ declare namespace google.payments.api {
 
     type EnvironmentType = 'PRODUCTION' | 'TEST';
 
+    type TransactionState = 'SUCCESS' | 'ERROR';
+
+    type PaymentAuthorizationResult = PaymentAuthorizationSuccessResult | PaymentAuthorizationErrorResult | PaymentDataError;
+
+    interface PaymentDataError {
+        reason: string;
+        message: string;
+        intent: string;
+    }
+
+    interface BasePaymentAuthorizationResult {
+        transactionState: TransactionState;
+    }
+
+    interface PaymentAuthorizationSuccessResult extends BasePaymentAuthorizationResult {
+        transactionState: 'SUCCESS';
+    }
+
+    interface PaymentAuthorizationErrorResult extends BasePaymentAuthorizationResult {
+        transactionState: 'ERROR';
+        error: PaymentDataError;
+    }
+
+    type OnPaymentAuthorized = (paymentData: PaymentData) => Promise<PaymentAuthorizationResult>;
+
+    interface ShippingOptionsData {
+        id: string;
+    }
+
+    interface ShippingOptions extends ShippingOptionsData {
+        label: string;
+        description: string;
+    }
+
+    interface ShippingOptionParameters {
+        defaultSelectedOptionId: string;
+        shippingOptions: ShippingOptionsData[];
+    }
+
+    interface IntermediatePaymentData {
+        callbackTrigger?: string;
+        shippingAddress?: IntermediateAddress;
+        shippingOptionData?: ShippingOptionsData;
+    }
+
+    interface PaymentDataRequestUpdate {
+        newTransactionInfo?: TransactionInfo;
+        newShippingOptions?: ShippingOptionParameters;
+        error?: PaymentDataError;
+    }
+
+    type PaymentDataRequestResult = PaymentDataRequestUpdate | PaymentDataError;
+
+    type OnPaymentDataChanged = (intermediatePaymentData: IntermediatePaymentData) => Promise<PaymentDataRequestResult>;
+
+    interface PaymentDataCallbacks {
+        onPaymentAuthorized: OnPaymentAuthorized;
+        onPaymentDataChanged: OnPaymentDataChanged;
+    }
+
     interface PaymentOptions {
         environment?: EnvironmentType;
+        paymentDataCallbacks?: PaymentDataCallbacks;
     }
 
     type ButtonColor = 'default' | 'black' | 'white';
@@ -91,6 +152,8 @@ declare namespace google.payments.api {
         phoneNumberRequired?: boolean;
     }
 
+    type CallbackIntent = "SHIPPING_ADDRESS" | "SHIPPING_OPTION" | "PAYMENT_AUTHORIZATION";
+
     interface PaymentDataRequest extends ApiVersion {
         merchantInfo: MerchantInfo;
         allowedPaymentMethods: PaymentMethod[];
@@ -98,6 +161,7 @@ declare namespace google.payments.api {
         emailRequired?: boolean;
         shippingAddressRequired?: boolean;
         shippingAddressParameters?: ShippingAddressParameters;
+        callbackIntents?: CallbackIntent[];
     }
 
     interface PaymentData extends ApiVersion {
@@ -185,7 +249,7 @@ declare namespace google.payments.api {
         billingAddress?: Address;
     }
 
-    type Address = AddressMin | AddressFull;
+    type Address = AddressMin | AddressFull | IntermediateAddress;
 
     interface AddressMin {
         name: string;
@@ -201,6 +265,13 @@ declare namespace google.payments.api {
         locality: string;
         administrativeArea: string;
         sortingCode: string;
+    }
+
+    interface IntermediateAddress {
+        administrativeArea: string;
+        countryCode: string;
+        locality: string;
+        postalCode: string;
     }
 
     type ErrorStatusCode = 'BUYER_ACCOUNT_ERROR' | 'CANCELED' | 'DEVELOPER_ERROR' | 'INTERNAL_ERROR';
