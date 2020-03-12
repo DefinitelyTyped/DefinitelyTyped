@@ -72,7 +72,7 @@ declare namespace google.payments.api {
 
     interface PaymentDataCallbacks {
         onPaymentAuthorized: OnPaymentAuthorized;
-        onPaymentDataChanged: OnPaymentDataChanged;
+        onPaymentDataChanged?: OnPaymentDataChanged;
     }
 
     interface PaymentOptions {

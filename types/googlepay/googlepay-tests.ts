@@ -27,7 +27,20 @@ const tokenizationSpecification: google.payments.api.PaymentMethodTokenizationSp
     }
 };
 
-const getGooglePaymentsClient = (env?: google.payments.api.EnvironmentType) => new google.payments.api.PaymentsClient({ environment: env });
+function onPaymentAuthorizedCallback(paymentData: google.payments.api.PaymentData): Promise<google.payments.api.PaymentAuthorizationResult> {
+    return new Promise<google.payments.api.PaymentAuthorizationResult>((resolve, reject) => {
+        resolve({ transactionState: "SUCCESS" });
+    });
+}
+
+function getGooglePaymentsClient(env?: google.payments.api.EnvironmentType) {
+    return new google.payments.api.PaymentsClient({
+        environment: env,
+        paymentDataCallbacks: {
+            onPaymentAuthorized: onPaymentAuthorizedCallback
+        }
+    });
+}
 
 function onGooglePayLoaded() {
     const client = getGooglePaymentsClient();
