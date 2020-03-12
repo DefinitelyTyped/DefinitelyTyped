@@ -1,9 +1,18 @@
-// Type definitions for sparql-http-client 1.2
+// Type definitions for sparql-http-client 2.0
 // Project: https://github.com/zazuko/sparql-http-client
 // Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+import Client = require('./Client')
+
+declare namespace Client {
+  
+}
+
+export = Client
+
+/*
 import { Term } from 'rdf-js';
 import { URL } from 'url';
 
@@ -51,3 +60,4 @@ declare class SparqlHttp<TResponse extends Response = Response> implements Sparq
 }
 
 export = SparqlHttp;
+*/
