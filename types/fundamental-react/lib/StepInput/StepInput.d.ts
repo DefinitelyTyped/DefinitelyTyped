@@ -8,7 +8,7 @@ export interface StepInputProps {
     placeholder?: string;
     readOnly?: boolean;
     validationState?: {
-        state?: any;
+        state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
     value?: number;

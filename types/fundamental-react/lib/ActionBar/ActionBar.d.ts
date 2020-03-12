@@ -14,7 +14,7 @@ export type ActionBarProps = {
     headingLevel?: any,
     titleProps?: any,
     onBackClick?: (...args: any[]) => any
-  } & React.HTMLAttributes<HTMLDivElement>;
+  } & Pick<React.HTMLAttributes<HTMLDivElement>, Exclude<keyof React.HTMLAttributes<HTMLDivElement>, 'children'>>;
 
 export const ActionBar: React.FunctionComponent<ActionBarProps> & {
     displayName: "ActionBar";

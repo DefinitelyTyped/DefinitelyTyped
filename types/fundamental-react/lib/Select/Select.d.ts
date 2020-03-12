@@ -8,7 +8,7 @@ export interface SelectProps {
     id?: string;
     placeholder?: string;
     validationState?: {
-        state?: any;
+        state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
     onClick?: (...args: any[]) => any;

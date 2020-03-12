@@ -16,7 +16,7 @@ export type InputGroupProps = {
     disabled?: boolean;
     disableStyles?: boolean;
     validationState?: {
-        state?: any;
+        state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
     props?: any;

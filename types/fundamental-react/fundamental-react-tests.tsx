@@ -8,6 +8,7 @@ import {
     Counter,
     DatePicker,
     Dialog,
+    Checkbox,
     FormFieldset,
     FormGroup,
     FormInput,
@@ -22,18 +23,24 @@ import {
     Icon,
     Identifier,
     Image,
+    InfoLabel,
     InlineHelp,
     InputGroup,
     LayoutGrid,
+    Link,
+    List,
     LocalizationEditor,
     Menu,
+    MessageStrip,
     MultiInput,
     Pagination,
     Panel,
     Popover,
     SearchInput,
+    Select,
     Shellbar,
     SideNav,
+    StepInput,
     Switch,
     Tab,
     TabGroup,
@@ -43,11 +50,55 @@ import {
     TimePicker,
     Token,
     TreeView,
-    Checkbox
 } from "fundamental-react";
 import * as React from "react";
 
 const counter = <Counter>101</Counter>;
+
+const actionBars = (
+    <div>
+        <ActionBar
+            actions={(
+                <Popover
+                    body={
+                        <Menu>
+                            <Menu.List>
+                                <Menu.Item url='#'>Option 1</Menu.Item>
+                                <Menu.Item url='#'>Option 2</Menu.Item>
+                                <Menu.Item url='#'>Option 3</Menu.Item>
+                                <Menu.Item url='#'>Option 4</Menu.Item>
+                            </Menu.List>
+                        </Menu>
+                    }
+                    control={<Button glyph='vertical-grip' option='transparent' />}
+                    placement='bottom-end' />
+            )}
+            description={'Action Bar Description'}
+            title={'Page Title'}
+        />
+        <ActionBar
+            actions={(
+                <>
+                    <Button>Button</Button>
+                    <Button option='emphasized'>Button</Button>
+                </>
+            )}
+            description={'Action Bar Description'}
+            title={'Page Title'}
+        />
+        <ActionBar
+            actions={(
+                <>
+                    <Button>Button</Button>
+                    <Button option='emphasized'>Button</Button>
+                </>
+            )}
+            description={'Action Bar Description'}
+            onBackClick={() => null}
+            title={'Page Title'}
+        />
+    </div>
+);
 
 const breadcrumb = (
     <Breadcrumb>
@@ -63,7 +114,7 @@ const buttons = (
             Emphasized Button
         </Button>
         <Button onClick={function w() {}}>Regular Button</Button>
-        <Button onClick={function w() {}} option="light">
+        <Button onClick={function w() {}} option="transparent">
             Light Button
         </Button>
         <Button>Action Button</Button>
@@ -75,7 +126,7 @@ const buttons = (
             Add to Cart
         </Button>
         <Button glyph="cart">Add to Cart</Button>
-        <Button glyph="filter" option="light">
+        <Button glyph="filter" option="transparent">
             Add to Cart
         </Button>
         <Button glyph="accept" option="emphasized" type="positive">
@@ -92,7 +143,7 @@ const buttons = (
         <br />
         <Button glyph="cart" option="emphasized" />
         <Button glyph="cart" />
-        <Button glyph="filter" option="light" />
+        <Button glyph="filter" option="transparent" />
         <Button glyph="accept" option="emphasized" type="positive" />
         <Button glyph="decline" option="emphasized" type="negative" />
         <Button glyph="alert" option="emphasized" type="medium" />
@@ -112,11 +163,11 @@ const buttons = (
         <Button disabled>Disabled State</Button>
         <br />
         <br />
-        <Button option="light">Normal State</Button>
-        <Button option="light" selected>
+        <Button option="transparent">Normal State</Button>
+        <Button option="transparent" selected>
             Selected State
         </Button>
-        <Button disabled option="light">
+        <Button disabled option="transparent">
             Disabled State
         </Button>
         <br />
@@ -226,7 +277,7 @@ const contextualMenus = (
                     </Menu.List>
                 </Menu>
             }
-            control={<Button glyph="vertical-grip" option="light" />}
+            control={<Button glyph="vertical-grip" option="transparent" />}
             noArrow
         />
         <Popover
@@ -254,7 +305,7 @@ const contextualMenus = (
                     </Menu.List>
                 </Menu>
             }
-            control={<Button option="light">More</Button>}
+            control={<Button option="transparent">More</Button>}
             noArrow
         />
     </div>
@@ -276,6 +327,70 @@ const datePickers = (
         />
         <DatePicker disableFutureDates enableRangeSelection />
         <DatePicker compact disablePastDates enableRangeSelection />
+    </div>
+);
+
+const dialogs = (
+    <div>
+        <button className="fd-button" onClick={function w() {}}>
+            Show Information Modal
+        </button>
+        <Dialog actions={[]} onClose={function w() {}} title="Product Added">
+            <div>
+                <b>The new product have been added to your catalog.</b>
+                <br />
+                <br />
+                Automatic Product ID:
+                <b>PD-3465334</b>
+                <br />
+                <br />
+                Expiration date:
+                <b>13/03/2018</b>
+                <br />
+                <br />
+            </div>
+        </Dialog>
+        <Dialog
+            actions={[
+                <>
+                    <Button onClick={function w() {}} type="standard">
+                        No Way
+                    </Button>
+                    <Button onClick={function w() {}}>Sure</Button>
+                </>
+            ]}
+            onClose={function w() {}}
+            title="Delete"
+        >
+            <div>
+                Do you want to delete item
+                <b>X</b>?
+            </div>
+        </Dialog>
+        <Dialog
+            actions={[
+                <>
+                    <Button onClick={function w() {}} type="standard">
+                        Cancel
+                    </Button>
+                    <Button onClick={function w() {}}>Invite</Button>
+                </>
+            ]}
+            onClose={function w() {}}
+            title="Invite user"
+        >
+            <div className="fd-form__group">
+                <div className="fd-form__item">
+                    <label className="fd-form__label is-required">Email</label>
+                    <input
+                        className="fd-form__control"
+                        onChange={function w() {}}
+                        type="text"
+                        value=""
+                    />
+                </div>
+            </div>
+        </Dialog>
     </div>
 );
 
@@ -661,6 +776,26 @@ const images = (
     </div>
 );
 
+const infoLabels = (
+    <div>
+        <InfoLabel>Default</InfoLabel>
+        <InfoLabel glyph='key'>Icon</InfoLabel>
+        <InfoLabel glyph='upload-to-cloud' />
+        <InfoLabel numeric>1</InfoLabel>
+        <InfoLabel numeric>10000</InfoLabel>
+        <InfoLabel color={1}>Default</InfoLabel>
+        <InfoLabel color={2}>Default</InfoLabel>
+        <InfoLabel color={3}>Default</InfoLabel>
+        <InfoLabel color={4}>Default</InfoLabel>
+        <InfoLabel color={5}>Default</InfoLabel>
+        <InfoLabel color={6}>Default</InfoLabel>
+        <InfoLabel color={7}>Default</InfoLabel>
+        <InfoLabel color={8}>Default</InfoLabel>
+        <InfoLabel color={9}>Default</InfoLabel>
+        <InfoLabel color={10}>Default</InfoLabel>
+    </div>
+);
+
 const inlineHelp = (
     <div>
         Bottom Right (Default)
@@ -789,7 +924,7 @@ const inputGroup = (
             <FormLabel>Input with text action</FormLabel>
             <FormItem>
                 <InputGroup actions inputValue="1234567890">
-                    <Button option="light">Button</Button>
+                    <Button option="transparent">Button</Button>
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -799,7 +934,7 @@ const inputGroup = (
             <FormLabel>Input with text action</FormLabel>
             <FormItem>
                 <InputGroup actions compact inputValue="1234567890">
-                    <Button option="light">Button</Button>
+                    <Button option="transparent">Button</Button>
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -809,7 +944,7 @@ const inputGroup = (
             <FormLabel>Input with icon text action</FormLabel>
             <FormItem>
                 <InputGroup actions>
-                    <Button glyph="navigation-down-arrow" option="light" />
+                    <Button glyph="navigation-down-arrow" option="transparent" />
                 </InputGroup>
             </FormItem>
         </FormGroup>
@@ -819,10 +954,40 @@ const inputGroup = (
             <FormLabel>Input with icon text action</FormLabel>
             <FormItem>
                 <InputGroup actions compact>
-                    <Button glyph="navigation-down-arrow" option="light" />
+                    <Button glyph="navigation-down-arrow" option="transparent" />
                 </InputGroup>
             </FormItem>
         </FormGroup>
+    </div>
+);
+
+const links = (
+    <div>
+        <Link href='#'>Default Link</Link>
+        <Link disabled href='#'>Disabled Link</Link>
+    </div>
+);
+
+const lists = (
+    <div>
+        <List compact noBorder>
+            <List.Header>List Header</List.Header>
+            <List.Item>
+                <List.Text>List Item 1</List.Text>
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 2</List.Text>
+                <List.Icon glyph='navigation-right-arrow' />
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 3</List.Text>
+                <List.Text secondary>secondary</List.Text>
+            </List.Item>
+            <List.Item>
+                <List.Text>List Item 4</List.Text>
+            </List.Item>
+            <List.Footer>List Footer</List.Footer>
+        </List>
     </div>
 );
 
@@ -968,69 +1133,27 @@ const menus = (
     </div>
 );
 
-const dialogs = (
+const messageStrips = (
     <div>
-        <button className="fd-button" onClick={function w() {}}>
-            Show Information Modal
-        </button>
-        <Dialog actions={[]} onClose={function w() {}} title="Product Added">
-            <div>
-                <b>The new product have been added to your catalog.</b>
-                <br />
-                <br />
-                Automatic Product ID:
-                <b>PD-3465334</b>
-                <br />
-                <br />
-                Expiration date:
-                <b>13/03/2018</b>
-                <br />
-                <br />
-            </div>
-        </Dialog>
-        <Dialog
-            actions={[
-                <>
-                    <Button onClick={function w() {}} type="standard">
-                        No Way
-                    </Button>
-                    <Button onClick={function w() {}}>Sure</Button>
-                </>
-            ]}
-            onClose={function w() {}}
-            title="Delete"
-        >
-            <div>
-                Do you want to delete item
-                <b>X</b>?
-            </div>
-        </Dialog>
-        <Dialog
-            actions={[
-                <>
-                    <Button onClick={function w() {}} type="standard">
-                        Cancel
-                    </Button>
-                    <Button onClick={function w() {}}>Invite</Button>
-                </>
-            ]}
-            onClose={function w() {}}
-            title="Invite user"
-        >
-            <div className="fd-form__group">
-                <div className="fd-form__item">
-                    <label className="fd-form__label is-required">Email</label>
-                    <input
-                        className="fd-form__control"
-                        onChange={function w() {}}
-                        type="text"
-                        value=""
-                    />
-                </div>
-            </div>
-        </Dialog>
+        <MessageStrip
+            dismissible
+            link='#'
+            linkText='link'>
+            Default MessageStrip
+        </MessageStrip>
+        <MessageStrip
+            dismissible
+            link='#'
+            linkText='Learn More'
+            type='error'>
+            Error Message.
+        </MessageStrip>
+        <MessageStrip noGlyph>
+            Error Message with no icon
+        </MessageStrip>
     </div>
 );
+
 const multiInputs = (
     <div>
         <MultiInput
@@ -1287,7 +1410,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top-start"
@@ -1308,7 +1431,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top"
@@ -1329,7 +1452,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-up-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="top-end"
@@ -1352,7 +1475,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left-start"
@@ -1373,7 +1496,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right-start"
@@ -1396,7 +1519,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left"
@@ -1417,7 +1540,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right"
@@ -1440,7 +1563,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-left-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="left-end"
@@ -1461,7 +1584,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-right-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="right-end"
@@ -1484,7 +1607,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom-start"
@@ -1505,7 +1628,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom"
@@ -1526,7 +1649,7 @@ const popovers = (
                         control={
                             <Button
                                 glyph="navigation-down-arrow"
-                                option="light"
+                                option="transparent"
                             />
                         }
                         placement="bottom-end"
@@ -1750,6 +1873,26 @@ const searchInputs = (
                 }
             ]}
         />
+    </div>
+);
+
+const selects = (
+    <div>
+        <Select placeholder='Select'>
+            <List>
+                <List.Item>
+                    <List.Text>List Item 1</List.Text>
+                </List.Item>
+            </List>
+        </Select>
+
+        <Select compact validationState={{state: 'warning', text: 'Validated'}}>
+            <List>
+                <List.Item>
+                    <List.Text>List Item 1</List.Text>
+                </List.Item>
+            </List>
+        </Select>
     </div>
 );
 
@@ -2206,6 +2349,19 @@ const sideNavs = (
     </div>
 );
 
+const stepInputs = (
+    <div>
+        <StepInput disabled value={10} />
+        <StepInput readOnly value={10} />
+        <StepInput
+            placeholder='Error'
+            validationState={{
+                state: 'error',
+                text: 'Test validation state'
+            }} />
+    </div>
+);
+
 const tables = (
     <div>
         <Table
@@ -2260,7 +2416,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2291,7 +2447,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2322,7 +2478,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2353,7 +2509,7 @@ const tables = (
                                 </Menu>
                             }
                             control={
-                                <Button glyph="vertical-grip" option="light" />
+                                <Button glyph="vertical-grip" option="transparent" />
                             }
                             placement="bottom-end"
                         />
@@ -2436,7 +2592,7 @@ const tiles = (
                             </Menu.List>
                         </Menu>
                     }
-                    control={<Button glyph="vertical-grip" option="light" />}
+                    control={<Button glyph="vertical-grip" option="transparent" />}
                     placement="bottom-end"
                 />
             </Tile.Actions>

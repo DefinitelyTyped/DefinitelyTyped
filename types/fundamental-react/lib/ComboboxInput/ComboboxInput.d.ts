@@ -14,7 +14,7 @@ export type ComboboxInputProps = {
     placeholder?: string;
     popoverProps?: object;
     validationState?: {
-        state?: string;
+        state?: 'error' | 'warning' | 'information' | 'success';
         text?: string
     }
 } & { [x: string]: any };

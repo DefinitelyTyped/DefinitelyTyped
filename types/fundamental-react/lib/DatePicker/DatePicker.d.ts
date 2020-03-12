@@ -11,7 +11,7 @@ export type DatePickerProps = CalendarBaseProps & {
     locale?: string;
     onBlur?: ({date, formattedDate}: {date: Date, formattedDate: string}) => void;
     validationState?: {
-        state?: string;
+        state?: 'error' | 'warning' | 'information' | 'success';
         text?: string
     }
 } & { [x: string]: any };

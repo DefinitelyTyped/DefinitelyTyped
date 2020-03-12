@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type ButtonOptions = "emphasized" | "light";
+export type ButtonOptions = "emphasized" | "transparent";
 
 export type ButtonTypes = "standard" | "positive" | "negative" | "medium";
 
