@@ -5,6 +5,7 @@
 //                 Filip Stanis <https://github.com/fstanis>
 //                 Alexandre Couret <https://github.com/ozotek>
 //                 Sergi Ferriz <https://github.com/mumpo>
+//                 Wesley Burlani <https://github.com/wesleyburlani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google.payments.api {

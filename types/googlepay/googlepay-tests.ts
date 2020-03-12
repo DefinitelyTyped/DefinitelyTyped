@@ -97,7 +97,8 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
             checkoutOption: 'COMPLETE_IMMEDIATE_PURCHASE'
         },
         allowedPaymentMethods,
-        shippingAddressRequired: true
+        shippingAddressRequired: true,
+        callbackIntents: ["PAYMENT_AUTHORIZATION"]
     };
 }
 
