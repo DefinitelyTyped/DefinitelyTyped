@@ -387,6 +387,7 @@ export type UpdateOperator = "++" | "--";
 
 export interface ForOfStatement extends BaseForXStatement {
   type: "ForOfStatement";
+  await: boolean;
 }
 
 export interface Super extends BaseNode {
