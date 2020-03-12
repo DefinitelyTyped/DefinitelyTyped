@@ -355,7 +355,7 @@ export type Literal = SimpleLiteral | RegExpLiteral;
 
 export interface SimpleLiteral extends BaseNode, BaseExpression {
   type: "Literal";
-  value: string | boolean | number | null;
+  value: string | boolean | null | number | RegExp | bigint;
   raw?: string;
 }
 
@@ -367,6 +367,14 @@ export interface RegExpLiteral extends BaseNode, BaseExpression {
     flags: string;
   };
   raw?: string;
+}
+
+export interface BigIntLiteral extends BaseNode, BaseExpression {
+  type: "Literal";
+  /** In environments that don't support BigInt values, value property will be null as the BigInt value can't be represented natively. */
+  value: bigint | null;
+  /** the string representation of the BigInt value. It doesn't include the suffix n. */
+  bigint: string;
 }
 
 export type UnaryOperator =
