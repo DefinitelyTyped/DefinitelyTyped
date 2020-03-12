@@ -72,6 +72,16 @@ docker.getEvents(
     },
 );
 
+docker.getEvents(
+    {
+        since: new Date().getTime() / 1000,
+        filters: { event: ['pull'] },
+    },
+    (err, stream) => {
+        // NOOP
+    },
+);
+
 docker.getEvents((err, stream) => {
     // NOOP
 });

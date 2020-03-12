@@ -944,7 +944,35 @@ declare namespace Dockerode {
     interface GetEventsOptions {
         since?: number;
         until?: number;
-        filters?: string;
+        filters?:
+            | string
+            | {
+                  config?: string;
+                  container?: string[];
+                  daemon?: string[];
+                  event?: string[];
+                  image?: string[];
+                  label?: string[];
+                  network?: string[];
+                  node?: string[];
+                  plugin?: string[];
+                  scope?: Array<'local' | 'swarm'>;
+                  secret?: string[];
+                  service?: string[];
+                  type?: Array<
+                      | 'container'
+                      | 'image'
+                      | 'volume'
+                      | 'network'
+                      | 'daemon'
+                      | 'plugin'
+                      | 'service'
+                      | 'node'
+                      | 'secret'
+                      | 'config'
+                  >;
+                  volume?: string[];
+              };
     }
 
     interface SecretVersion {
