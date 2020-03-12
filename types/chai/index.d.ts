@@ -105,7 +105,7 @@ declare namespace Chai {
     export interface ExpectStatic {
         (val: any, message?: string): Assertion;
         fail(message?: string): never;
-        fail(actual?: any, expected?: any, message?: string, operator?: Operator): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     export interface AssertStatic extends Assert {
