@@ -27,7 +27,7 @@ export type Size =
     | '*'
     | string; // percentage
 
-export interface TFontDictionnary {
+export interface TFontDictionary {
     [fontName: string]: TFontFamilyTypes;
 }
 
@@ -364,7 +364,7 @@ export interface CanvasLineElement {
     };
 }
 
-export interface StyleDictionnary {
+export interface StyleDictionary {
     [name: string]: Style;
 }
 
@@ -406,7 +406,7 @@ export interface TDocumentDefinitions {
     pageMargins?: Margins;
     pageOrientation?: PageOrientation;
     pageSize?: PageSize;
-    styles?: StyleDictionnary;
+    styles?: StyleDictionary;
     userPassword?: string;
     ownerPassword?: string;
     permissions?: PDFKit.DocumentPermissions;

@@ -2,10 +2,10 @@ import PdfPrinter = require('pdfmake');
 import {
     BufferOptions,
     TDocumentDefinitions,
-    TFontDictionnary,
+    TFontDictionary,
 } from 'pdfmake/interfaces';
 
-const fonts: TFontDictionnary = {
+const fonts: TFontDictionary = {
     Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',
         bold: 'fonts/Roboto-Medium.ttf',

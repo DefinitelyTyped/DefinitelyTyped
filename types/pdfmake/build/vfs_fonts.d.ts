@@ -1,5 +1,5 @@
-import { TFontDictionnary } from '../interfaces';
+import { TFontDictionary } from '../interfaces';
 
 export namespace pdfMake {
-    let vfs: TFontDictionnary;
+    let vfs: TFontDictionary;
 }
