@@ -170,7 +170,7 @@ declare namespace Chai {
     interface Should extends ShouldAssertion {
         not: ShouldAssertion;
         fail(message?: string): never;
-        fail(actual?: any, expected?: any, message?: string, operator?: Operator): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     interface ShouldThrow {
