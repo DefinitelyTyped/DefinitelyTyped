@@ -1,22 +1,21 @@
 import * as React from "react";
 
-export type FormInputProps = {
+export interface StepInputProps {
     className?: string;
-    compact?: boolean;
     disabled?: boolean;
     disableStyles?: boolean;
-    id?: string;
-    name?: string;
+    localizedText?: any;
     placeholder?: string;
     readOnly?: boolean;
-    type?: string;
     validationState?: {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    value?: string | number;
-} & { [x: string]: any };
+    value?: number;
+}
 
-declare const FormInput: React.FunctionComponent<FormInputProps>;
+declare const StepInput: React.FunctionComponent<StepInputProps> & {
+    displayName: "StepInput";
+};
 
-export default FormInput;
+export default StepInput;

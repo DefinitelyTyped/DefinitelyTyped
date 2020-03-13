@@ -1,22 +1,21 @@
 import * as React from "react";
 
-export type FormInputProps = {
+export interface SelectProps {
     className?: string;
     compact?: boolean;
     disabled?: boolean;
     disableStyles?: boolean;
     id?: string;
-    name?: string;
     placeholder?: string;
-    readOnly?: boolean;
-    type?: string;
     validationState?: {
         state?: 'error' | 'warning' | 'information' | 'success';
         text?: string;
     };
-    value?: string | number;
-} & { [x: string]: any };
+    onClick?: (...args: any[]) => any;
+}
 
-declare const FormInput: React.FunctionComponent<FormInputProps>;
+declare const Select: React.FunctionComponent<SelectProps> & {
+    displayName: "Select";
+};
 
-export default FormInput;
+export default Select;

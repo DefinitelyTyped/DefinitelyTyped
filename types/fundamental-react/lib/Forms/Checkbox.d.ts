@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export type FormRadioItemProps = {
+export type CheckboxProps = {
     checked?: boolean;
     className?: string;
     compact?: boolean;
@@ -8,14 +8,17 @@ export type FormRadioItemProps = {
     disabled?: boolean;
     disableStyles?: boolean;
     id?: string;
+    indeterminate?: boolean;
     inline?: boolean;
     inputProps?: any;
+    labelClasses?: string;
     labelProps?: any;
     name?: string;
     state?: any;
     value?: string;
+    onChange?: (...args: any[]) => any;
 } & { [x: string]: any };
 
-declare const FormRadioItem: React.FunctionComponent<FormRadioItemProps>;
+declare const Checkbox: React.FunctionComponent<CheckboxProps>;
 
-export default FormRadioItem;
+export default Checkbox;
