@@ -1,4 +1,4 @@
-// Type definitions for @testing-library/dom 6.14
+// Type definitions for @testing-library/dom 7.0
 // Project: https://github.com/testing-library/dom-testing-library
 // Definitions by: Alex Krolick <https://github.com/alexkrolick>
 //                 Kent C Dodds <https://github.com/kentcdodds>
@@ -21,6 +21,7 @@ export * from './queries';
 export * from './query-helpers';
 export * from './screen';
 export * from './wait';
+export * from './wait-for';
 export * from './wait-for-dom-change';
 export * from './wait-for-element';
 export * from './wait-for-element-to-be-removed';
