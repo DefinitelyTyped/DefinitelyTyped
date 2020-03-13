@@ -227,8 +227,10 @@ export namespace queryCache {
         },
     ): void;
 
-    // TODO: type returned QueryObject
+    // TODO: type returned QueryObject when react-query#246 is resolved
     function getQuery(queryKey: QueryKey): unknown;
+
+    function getQueries(queryKey: QueryKey): unknown[];
 
     const isFetching: boolean;
 
