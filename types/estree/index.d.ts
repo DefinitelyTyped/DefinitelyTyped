@@ -226,7 +226,7 @@ type Expression =
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
     TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
-    AwaitExpression;
+    AwaitExpression | ImportExpression;
 
 export interface BaseExpression extends BaseNode { }
 
