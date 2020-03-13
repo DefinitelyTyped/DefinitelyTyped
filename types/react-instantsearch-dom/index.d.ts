@@ -21,6 +21,8 @@ export { Index } from 'react-instantsearch-core';
 export { InstantSearch } from 'react-instantsearch-core';
 export { InstantSearchProps } from 'react-instantsearch-core';
 export { Configure } from 'react-instantsearch-core';
+export { ExperimentalConfigureRelatedItems } from 'react-instantsearch-core';
+export { QueryRuleContext } from 'react-instantsearch-core';
 
 // Connectors
 export { connectAutoComplete } from 'react-instantsearch-core';
@@ -45,6 +47,9 @@ export { connectSortBy } from 'react-instantsearch-core';
 export { connectStateResults } from 'react-instantsearch-core';
 export { connectStats } from 'react-instantsearch-core';
 export { connectToggleRefinement } from 'react-instantsearch-core';
+export { EXPERIMENTAL_connectConfigureRelatedItems } from 'react-instantsearch-core';
+export { connectHitInsights } from 'react-instantsearch-core';
+export { connectQueryRules } from 'react-instantsearch-core';
 
 // DOM
 interface CommonWidgetProps {
@@ -121,3 +126,36 @@ export class Stats extends React.Component<{
   };
 }> {}
 export class ToggleRefinement extends React.Component<any> {}
+
+export class VoiceSearch extends React.Component<any> {}
+
+export class QueryRuleCustomData extends React.Component<any> {}
+
+// helper functions
+export function getInsightsAnonymousUserToken(): string | undefined;
+export function createClassNames(baseName: string): (...elements: string[]) => string | string[];
+
+export type VoiceSearchHelperParams = {
+  searchAsYouSpeak: boolean;
+  language?: string;
+  onQueryChange: (query: string) => void;
+  onStateChange: () => void;
+};
+
+export type Status = 'initial' | 'askingPermission' | 'waiting' | 'recognizing' | 'finished' | 'error';
+
+export type VoiceListeningState = {
+  status: Status;
+  transcript: string;
+  isSpeechFinal: boolean;
+  errorCode?: SpeechRecognitionErrorCode;
+};
+
+export type VoiceSearchHelper = {
+  getState: () => VoiceListeningState;
+  isBrowserSupported: () => boolean;
+  isListening: () => boolean;
+  toggleListening: () => void;
+  dispose: () => void;
+};
+export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;

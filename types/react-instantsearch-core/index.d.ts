@@ -170,6 +170,9 @@ export function translatable(defaultTranslations: {
  */
 export class Configure extends React.Component<any, any> {}
 
+export class ExperimentalConfigureRelatedItems extends React.Component<any, any> {}
+export class QueryRuleContext extends React.Component<any, any> {}
+
 // Connectors
 export interface AutocompleteProvided<TDoc = BasicDoc> {
   hits: Array<Hit<TDoc>>;
@@ -696,6 +699,11 @@ interface HighlightResultPrimitive {
   matchedWords: string[];
   fullyHighlighted?: boolean;
 }
+
+export function EXPERIMENTAL_connectConfigureRelatedItems(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectQueryRules(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectHitInsights(Composed: React.ComponentType<any>): React.ComponentClass<any>;
+export function connectVoiceSearch(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
 // Turn off automatic exports - so we don't export internal types like Omit<>
 export {};
