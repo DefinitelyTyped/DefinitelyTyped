@@ -12906,8 +12906,8 @@ declare namespace Office {
          * Disables the Outlook client signature.
          *  
          * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Replies/Forwards" sections
-         * for the user's email address to "(none)", effectively disabling the signature.
-         * For Outlook on the web, the API should disable the signature option for new mails or forwards. 
+         * for the sending account to "(none)", effectively disabling the signature.
+         * For Outlook on the web, the API should disable the signature option for new mails, replies, and forwards. 
          * If the signature is selected, this API call should disable it. 
          *
          * [Api set: Mailbox Preview]
@@ -12926,8 +12926,8 @@ declare namespace Office {
          * Disables the Outlook client signature.
          *  
          * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Replies/Forwards" sections
-         * for the user's email address to "(none)", effectively disabling the signature.
-         * For Outlook on the web, the API should disable the signature option for new mails or forwards. 
+         * for the sending account to "(none)", effectively disabling the signature.
+         * For Outlook on the web, the API should disable the signature option for new mails, replies, and forwards. 
          * If the signature is selected, this API call should disable it. 
          *
          * [Api set: Mailbox Preview]
