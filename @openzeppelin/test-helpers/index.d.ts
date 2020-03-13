@@ -3,6 +3,7 @@
 // Definitions by: John Kim <https://github.com/johnplutusds/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="bn.js"/>
 ///// <reference types="truffle-typings"/>
 
 /*
