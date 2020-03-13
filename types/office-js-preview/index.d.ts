@@ -11601,7 +11601,7 @@ declare namespace Office {
          * 
          * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
          *
-         * @param data - The string that will be appended to the body of the mail. This string is limited to 30,000 characters.
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
          * @param options - Optional. An object literal that contains one or more of the following properties.
          *        `asyncContext`: Developers can provide any object they wish to access in the callback method.
          *        `coercionType`: The format the signature should be set to. If Text, the method sets the signature to plain text,
@@ -11627,7 +11627,7 @@ declare namespace Office {
          * 
          * - `InvalidFormatError`: The `options.coercionType` parameter is set to `Office.CoercionType.Html` and the message body is in plain text.
          *
-         * @param data - The string that will be appended to the body of the mail. This string is limited to 30,000 characters.
+         * @param data - The string that represents the signature to be set in the body of the mail. This string is limited to 30,000 characters.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter
          *                             of type `Office.AsyncResult`.
          */
@@ -12903,9 +12903,9 @@ declare namespace Office {
          */
         convertToUtcClientTime(input: LocalClientTime): Date;
         /**
-         * Disables the Outlook Native Signature.
+         * Disables the Outlook client signature.
          *  
-         * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Forward" sections
+         * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Replies/Forwards" sections
          * for the user's email address to "(none)", effectively disabling the signature.
          * For Outlook on the web, the API should disable the signature option for new mails or forwards. 
          * If the signature is selected, this API call should disable it. 
@@ -12923,9 +12923,9 @@ declare namespace Office {
          */
         disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
         /**
-         * Disables the Outlook Native Signature.
+         * Disables the Outlook client signature.
          *  
-         * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Forward" sections
+         * For Windows and Mac rich clients, this API sets the signature under the "New Message" and "Replies/Forwards" sections
          * for the user's email address to "(none)", effectively disabling the signature.
          * For Outlook on the web, the API should disable the signature option for new mails or forwards. 
          * If the signature is selected, this API call should disable it. 
@@ -13210,8 +13210,8 @@ declare namespace Office {
         /**
          * Gets if the client signature is enabled.
          * 
-         * For Windows and Mac rich clients, if the signature is set to a template in a new email, forward, or reply
-         * for the add-in user's email address, the API call should return `true`.
+         * For Windows and Mac rich clients, the API call should return `true` if the default signature for new messages, replies, or forwards is set
+         * to a template for the sending Outlook account.
          * For Outlook on the web, the API call should return `true` if the signature is enabled for compose types `newMail`, `reply`, or `forward`.
          * If the settings are set to "(none)" in Mac or Windows rich clients or disabled in Outlook on the Web, the API call should return `false`.
          *
@@ -13232,8 +13232,8 @@ declare namespace Office {
         /**
          * Gets if the client signature is enabled.
          * 
-         * For Windows and Mac rich clients, if the signature is set to a template in a new email, forward, or reply
-         * for the add-in user's email address, the API call should return `true`.
+         * For Windows and Mac rich clients, the API call should return `true` if the default signature for new messages, replies, or forwards is set
+         * to a template for the sending Outlook account.
          * For Outlook on the web, the API call should return `true` if the signature is enabled for compose types `newMail`, `reply`, or `forward`.
          * If the settings are set to "(none)" in Mac or Windows rich clients or disabled in Outlook on the Web, the API call should return `false`.
          *
@@ -14106,7 +14106,7 @@ declare namespace Office {
          */
         getAttachmentsAsync(callback?: (asyncResult: Office.AsyncResult<AttachmentDetails[]>) => void): void;
         /**
-         * Specifies the type of message compose and its coercion type. The message can be new, a reply, or a forward.
+         * Specifies the type of message compose and its coercion type. The message can be new, or a reply or forward.
          * The coercion type can be HTML or plain text.
          * 
          * @returns
@@ -14128,7 +14128,7 @@ declare namespace Office {
          */
         getComposeTypeAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<any>) => void): void;
         /**
-         * Specifies the type of message compose and its coercion type. The message can be new, a reply, or a forward.
+         * Specifies the type of message compose and its coercion type. The message can be new, or a reply or forward.
          * The coercion type can be HTML or plain text.
          * 
          * @returns
