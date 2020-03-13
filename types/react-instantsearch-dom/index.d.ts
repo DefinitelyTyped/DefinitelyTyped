@@ -1,4 +1,4 @@
-// Type definitions for react-instantsearch 5.2
+// Type definitions for react-instantsearch 6.3
 // Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react, https://community.algolia.com/react-instantsearch/
 // Definitions by: Gordon Burgett <https://github.com/gburgett>
 //                 Justin Powell <https://github.com/jpowell>
@@ -17,6 +17,9 @@ export { HIGHLIGHT_TAGS } from 'react-instantsearch-core';
 export { translatable } from 'react-instantsearch-core';
 
 // Widget
+export { Index } from 'react-instantsearch-core';
+export { InstantSearch } from 'react-instantsearch-core';
+export { InstantSearchProps } from 'react-instantsearch-core';
 export { Configure } from 'react-instantsearch-core';
 
 // Connectors
@@ -51,43 +54,11 @@ interface CommonWidgetProps {
    *
    * https://community.algolia.com/react-instantsearch/guide/i18n.html
    */
-  translations?: { [key: string]: string | ((...args: any[]) => any) };
-}
-
-interface InstantSearchBaseProps {
-  indexName: string;
-  createURL?: (...args: any[]) => any;
-  searchState?: any;
-  refresh?: boolean;
-  onSearchStateChange?: (...args: any[]) => any;
-  onSearchParameters?: (...args: any[]) => any;
-  resultsState?: any;
-  stalledSearchDelay?: number;
-  root?: {
-    Root: string | ((...args: any[]) => any);
-    props?: object;
+  translations?: {
+    [key: string]: string | ((...args: any[]) => any);
   };
 }
 
-export interface UsingSearchClientProps extends InstantSearchBaseProps {
-  searchClient: any;
-}
-
-export interface UsingManualInfoProps extends InstantSearchBaseProps {
-  apiKey: string;
-  appId: string;
-  algoliaClient?: any;
-}
-
-export type InstantSearchProps = UsingSearchClientProps | UsingManualInfoProps;
-
-/**
- * <InstantSearch> is the root component of all React InstantSearch implementations. It provides all the connected components (aka widgets) a means to interact with the searchState.
- *
- * https://community.algolia.com/react-instantsearch/widgets/%3CInstantSearch%3E.html
- */
-export class InstantSearch extends React.Component<InstantSearchProps> {}
-export class Index extends React.Component<any> {}
 export class Breadcrumb extends React.Component<any> {}
 export class ClearRefinements extends React.Component<any> {}
 export class CurrentRefinements extends React.Component<any> {}
@@ -144,5 +115,9 @@ export class SortBy extends React.Component<any> {}
 /**
  * The Stats component displays the total number of matching hits and the time it took to get them (time spent in the Algolia server).
  */
-export class Stats extends React.Component<{translations?: { [key: string]: (n: number, ms: number) => string }}> {}
+export class Stats extends React.Component<{
+  translations?: {
+    [key: string]: (n: number, ms: number) => string;
+  };
+}> {}
 export class ToggleRefinement extends React.Component<any> {}
