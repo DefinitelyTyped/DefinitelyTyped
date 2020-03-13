@@ -680,8 +680,13 @@ const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
-const nativeEventEmitter: NativeEventEmitter = NativeEventEmitter;
+const nativeEventEmitter = new NativeEventEmitter();
 nativeEventEmitter.removeAllListeners("event");
+
+class CustomEventEmitter extends NativeEventEmitter {}
+
+const customEventEmitter = new CustomEventEmitter();
+customEventEmitter.addListener("event", () => {});
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
