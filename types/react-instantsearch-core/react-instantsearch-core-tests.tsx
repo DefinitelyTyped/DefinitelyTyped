@@ -471,7 +471,7 @@ import {
         onSubmit(e);
       }
       return false;
-    };
+    }
 
     onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const { onChange } = this.props;
@@ -482,7 +482,7 @@ import {
       if (onChange) {
         onChange(event);
       }
-    };
+    }
 
     onReset = (event: React.FormEvent<HTMLFormElement>) => {
       const { refine, onReset } = this.props;
@@ -494,7 +494,7 @@ import {
       if (onReset) {
         onReset(event);
       }
-    };
+    }
 
     render() {
       const { className, translate, loadingIndicator, submit, reset } = this.props;
