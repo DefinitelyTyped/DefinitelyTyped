@@ -32,7 +32,7 @@ function test_tableview() {
 			text: 'Row ' + (i + 1)
 		});
 		const image = Ti.UI.createImageView({
-			url: 'KS_nav_ui.png'
+			image: 'KS_nav_ui.png'
 		});
 		const button = Ti.UI.createButton({
 			right: 10,
@@ -84,4 +84,61 @@ function test_network() {
 	client.open('GET', url);
 	// Send the request.
 	client.send();
+}
+
+function test_android_r() {
+	const systemAcon = Ti.Android.R.drawable.icon;
+	const appIcon = Ti.App.Android.R.drawable.icon;
+}
+
+function test_events() {
+	const view = Ti.UI.createView();
+	view.addEventListener('click', e => {
+		console.log(e.x, e.y);
+	});
+	view.fireEvent('click');
+}
+
+function test_listdataitem() {
+	const items1: ListDataItem[] = [
+		{
+			properties: {
+				itemId: 'test',
+				title: 'Jon Doe'
+			}
+		}
+	];
+	const section1 = Ti.UI.createListSection({
+		items: items1
+	});
+
+	const template = {
+		childTemplates: [
+			{
+				type: 'Ti.UI.Label',
+				bindId: 'title',
+				properties: {
+					color: 'black'
+				}
+			}
+		]
+	};
+	const items2: ListDataItem[] = [
+		{
+			template: 'custom',
+			title: { text: 'Jane Doe' },
+			properties: {
+				accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE
+			}
+		}
+	];
+	const section2 = Ti.UI.createListSection({
+		items: items2,
+	});
+
+	const list = Ti.UI.createListView({
+		templates: { custom: template },
+		sections: [section1]
+	});
+	list.replaceSectionAt(0, section2);
 }

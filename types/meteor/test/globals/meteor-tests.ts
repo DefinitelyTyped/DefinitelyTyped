@@ -494,6 +494,14 @@ Meteor.publish("userData", function () {
         { fields: { 'other': 1, 'things': 1 } });
 });
 
+/**
+ * `null` can be passed as the first argument
+ * `is_auto` can be passed as an option
+ */
+Meteor.publish(null, function () {
+    return 3;
+}, { is_auto : true });
+
 Meteor.users.deny({ update: function () { return true; } });
 
 /**

@@ -1266,6 +1266,9 @@ declare namespace chrome.contextMenus {
  * Permissions:  "cookies", host permissions
  */
 declare namespace chrome.cookies {
+    /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
+    export type SameSiteStatus = 'unspecified' | 'no_restriction' | 'lax' | 'strict';
+
     /** Represents information about an HTTP cookie. */
     export interface Cookie {
         /** The domain of the cookie (e.g. "www.google.com", "example.com"). */
@@ -1288,6 +1291,11 @@ declare namespace chrome.cookies {
         httpOnly: boolean;
         /** True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS). */
         secure: boolean;
+        /**
+         * The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
+         * @since Chrome 51.
+         */
+        sameSite: SameSiteStatus
     }
 
     /** Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window. */
@@ -1334,6 +1342,11 @@ declare namespace chrome.cookies {
         httpOnly?: boolean;
         /** Optional. Whether the cookie should be marked as Secure. Defaults to false.  */
         secure?: boolean;
+        /**
+         * Optional. The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
+         * @since Chrome 51.
+         */
+        sameSite?: SameSiteStatus
     }
 
     export interface Details {
@@ -3714,7 +3727,8 @@ declare namespace chrome.identity {
  * @since Chrome 6.
  */
 declare namespace chrome.idle {
-    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }
+    export type IdleState = 'active' | 'idle' | 'locked';
+    export interface IdleStateChangedEvent extends chrome.events.Event<(newState: IdleState) => void> { }
 
     /**
      * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
@@ -3723,7 +3737,7 @@ declare namespace chrome.idle {
      * @param callback The callback parameter should be a function that looks like this:
      * function( IdleState newState) {...};
      */
-    export function queryState(detectionIntervalInSeconds: number, callback: (newState: string) => void): void;
+    export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25.

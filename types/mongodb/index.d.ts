@@ -28,6 +28,7 @@
 //                 Alberto Silva <https://github.com/albertossilva>
 //                 Rauno Viskus <https://github.com/Rauno56>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -224,10 +225,20 @@ export interface MongoCallback<T> {
 
 export type WithTransactionCallback<T> = (session: ClientSession) => Promise<T>;
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoError.html */
+/**
+ * Creates a new MongoError
+ * see {@link http://mongodb.github.io/node-mongodb-native/3.5/api/MongoError.html}
+ */
 export class MongoError extends Error {
     constructor(message: string);
-    static create(options: object): MongoError;
+    /**
+     * @deprecated
+     */
+    static create(options: string): MongoError;
+    /**
+     * Checks the error to see if it has an error label
+     */
+    hasErrorLabel(label: string): boolean;
     code?: number;
     /**
      * While not documented, the 'errmsg' prop is AFAIK the only way to find out
@@ -251,14 +262,20 @@ export class MongoError extends Error {
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoNetworkError.html */
+/**
+ * An error indicating an issue with the network, including TCP errors and timeouts
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoNetworkError.html}
+ */
 export class MongoNetworkError extends MongoError {
     constructor(message: string);
     errorLabels: string[];
 }
 
 
-/** http://mongodb.github.io/node-mongodb-native/3.1/api/MongoParseError.html */
+/**
+ * An error used when attempting to parse a value (like a connection string)
+ * see {@link https://mongodb.github.io/node-mongodb-native/3.5/api/MongoParseError.html}
+ */
 export class MongoParseError extends MongoError {
     constructor(message: string);
 }
@@ -1279,10 +1296,10 @@ export type PullAllOperator<TSchema> = ({
 export type UpdateQuery<TSchema> = {
     /** https://docs.mongodb.com/manual/reference/operator/update-field/ */
     $currentDate?: OnlyFieldsOfType<TSchema, Date, true | { $type: 'date' | 'timestamp' }>;
-    $inc?: OnlyFieldsOfType<TSchema, number>;
+    $inc?: OnlyFieldsOfType<TSchema, number | undefined>;
     $min?: MatchKeysAndValues<TSchema>;
     $max?: MatchKeysAndValues<TSchema>;
-    $mul?: OnlyFieldsOfType<TSchema, number>;
+    $mul?: OnlyFieldsOfType<TSchema, number | undefined>;
     $rename?: { [key: string]: string };
     $set?: MatchKeysAndValues<TSchema>;
     $setOnInsert?: MatchKeysAndValues<TSchema>;

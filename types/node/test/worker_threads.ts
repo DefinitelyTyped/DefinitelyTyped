@@ -1,6 +1,7 @@
 import * as workerThreads from "worker_threads";
 import assert = require("assert");
 import { createContext } from "vm";
+import { Readable } from "stream";
 
 {
     if (workerThreads.isMainThread) {
@@ -53,6 +54,9 @@ import { createContext } from "vm";
 
 {
     const w = new workerThreads.Worker(__filename);
+    w.getHeapSnapshot().then((stream: Readable) => {
+        //
+    });
     w.terminate().then(() => {
         // woot
     });
