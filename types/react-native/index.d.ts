@@ -166,7 +166,14 @@ interface EmitterSubscription extends EventSubscription {
     remove(): void;
 }
 
-interface EventEmitterListener {
+declare class EventEmitter {
+    /**
+     *
+     * @param subscriber - Optional subscriber instance
+     *   to use. If omitted, a new subscriber will be created for the emitter.
+     */
+    constructor(subscriber?: EventSubscriptionVendor | null);
+
     /**
      * Adds a listener to be invoked when events of the specified type are
      * emitted. An optional calling context may be provided. The data arguments
@@ -179,15 +186,6 @@ interface EventEmitterListener {
      *   listener
      */
     addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
-}
-
-interface EventEmitter extends EventEmitterListener {
-    /**
-     *
-     * @param subscriber - Optional subscriber instance
-     *   to use. If omitted, a new subscriber will be created for the emitter.
-     */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter;
 
     /**
      * Similar to addListener, except that the listener is removed after it is
@@ -5748,11 +5746,24 @@ export type PromiseTask = {
 
 export type Handle = number;
 
-export interface InteractionManagerStatic extends EventEmitterListener {
+export interface InteractionManagerStatic {
     Events: {
         interactionStart: string;
         interactionComplete: string;
     };
+
+    /**
+     * Adds a listener to be invoked when events of the specified type are
+     * emitted. An optional calling context may be provided. The data arguments
+     * emitted will be passed to the listener function.
+     *
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke when the specified event is
+     *   emitted
+     * @param context - Optional context object to use when invoking the
+     *   listener
+     */
+    addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
 
     /**
      * Schedule a function to run after all interactions have completed.
@@ -8915,19 +8926,18 @@ export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 //////////// Plugins //////////////
 
 export const DeviceEventEmitter: DeviceEventEmitterStatic;
+
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter {
-    new(subscriber?: EventSubscriptionVendor | null): NativeEventEmitter;
-
+export class NativeEventEmitter extends EventEmitter {
     /**
      * @param eventType  name of the event whose registered listeners to remove
      */
     removeAllListeners(eventType: string): void;
 }
-export const NativeEventEmitter: NativeEventEmitter;
+
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTNativeAppEventEmitter.
