@@ -203,6 +203,7 @@ export type Refinement = {
   value: RefinementValue;
 } & (
   | {
+      items: undefined;
       currentRefinement: string;
     }
   | {
