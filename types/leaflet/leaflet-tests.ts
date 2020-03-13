@@ -661,6 +661,8 @@ L.Util.create({});
 L.Util.create(null, { foo: { writable: true, value: 'bar' } });
 
 L.Util.bind(() => {}, {});
+const fnWithArguments = (done: L.DoneCallback, tile: HTMLElement): void => {};
+L.Util.bind(fnWithArguments, {}, {} as L.DoneCallback, {} as HTMLElement);
 L.Util.stamp({});
 L.Util.throttle(() => {}, 123, {});
 L.Util.wrapNum(123, []);
