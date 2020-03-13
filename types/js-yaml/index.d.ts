@@ -49,7 +49,7 @@ export interface LoadOptions {
 	/** compatibility with JSON.parse behaviour. */
 	json?: boolean;
 	/** listener for parse events */
-	listener?: (eventType: EventType, state: State) => void;
+	listener?(this: State, eventType: EventType, state: State): void;
 }
 
 export type EventType = 'open' | 'close';
