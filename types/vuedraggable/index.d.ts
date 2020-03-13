@@ -6,9 +6,11 @@
 
 import { VueConstructor } from 'vue';
 
-declare module 'vuedraggable' {
-  interface DraggableConstructor extends VueConstructor {
-  }
+interface DraggableConstructor extends VueConstructor {
+  props: any;
+  data: () => any;
+  watch: any;
+  methods: any;
 }
 
 export default draggable;

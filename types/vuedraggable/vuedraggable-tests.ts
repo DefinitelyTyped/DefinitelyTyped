@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 
 new Vue({
     el: '#app',
@@ -10,4 +10,4 @@ new Vue({
     data: {
         list: []
     }
-})
+});
