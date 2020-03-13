@@ -86,6 +86,7 @@ declare var exportSpecifier: ESTree.ExportSpecifier;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
+declare var importExpression: ESTree.ImportExpression;
 
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
@@ -432,6 +433,9 @@ switch (node.type) {
   case 'AwaitExpression':
     awaitExpression = node;
     break;
+  case 'ImportExpression':
+    importExpression = node;
+    break;
   // end narrowing of Expression
 
   case 'Property':
@@ -642,6 +646,9 @@ switch (expression.type) {
     break;
   case 'AwaitExpression':
     awaitExpression = expression;
+    break;
+  case 'ImportExpression':
+    importExpression = expression;
     break;
   default:
     never = expression;
