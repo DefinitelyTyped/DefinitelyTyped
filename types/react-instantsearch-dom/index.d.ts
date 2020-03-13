@@ -135,27 +135,28 @@ export class QueryRuleCustomData extends React.Component<any> {}
 export function getInsightsAnonymousUserToken(): string | undefined;
 export function createClassNames(baseName: string): (...elements: string[]) => string | string[];
 
-export type VoiceSearchHelperParams = {
+export interface VoiceSearchHelperParams {
   searchAsYouSpeak: boolean;
   language?: string;
   onQueryChange: (query: string) => void;
   onStateChange: () => void;
-};
+}
 
 export type Status = 'initial' | 'askingPermission' | 'waiting' | 'recognizing' | 'finished' | 'error';
 
-export type VoiceListeningState = {
+export interface VoiceListeningState {
   status: Status;
   transcript: string;
   isSpeechFinal: boolean;
   errorCode?: any;
-};
+}
 
-export type VoiceSearchHelper = {
+export interface VoiceSearchHelper {
   getState: () => VoiceListeningState;
   isBrowserSupported: () => boolean;
   isListening: () => boolean;
   toggleListening: () => void;
   dispose: () => void;
-};
+}
+
 export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;
