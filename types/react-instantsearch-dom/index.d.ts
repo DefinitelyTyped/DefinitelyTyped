@@ -148,7 +148,7 @@ export type VoiceListeningState = {
   status: Status;
   transcript: string;
   isSpeechFinal: boolean;
-  errorCode?: SpeechRecognitionErrorCode;
+  errorCode?: any;
 };
 
 export type VoiceSearchHelper = {
