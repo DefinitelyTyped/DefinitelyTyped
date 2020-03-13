@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "npm-registry-fetch": ["npm-registry-fetch/v4"]
@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "pacote-tests.ts"
+        "npm-registry-fetch-tests.ts"
     ]
 }
