@@ -24,6 +24,18 @@ interface event {
 
 export const event: event;
 
+interface metric {
+    send(metric: string, points: number | number[], callback: (err: Error | null, res: "ok") => void): void;
+    send(metric: string, points: number | number[], extra: {
+            type?: 'gauge' | 'rate' | 'count',
+            metric_type?: 'gauge' | 'count',
+            host?: string,
+            tags?: ReadonlyArray<string>,
+        }, callback: (err: Error | null, res: "ok") => void): void;
+}
+
+export const metric: metric;
+
 export interface EventCreateResponse {
     ok: boolean;
     event: {

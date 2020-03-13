@@ -39,6 +39,15 @@ async function testByRole() {
     console.assert(await findByRole(element, 'button', { hidden: true }, { timeout: 10 }) !== null);
 
     console.assert(queryAllByRole(document.body, 'progressbar', {queryFallbacks: true}).length === 1);
+
+    // `name` option
+    console.assert(queryByRole(element, 'button', { name: 'Logout' }) === null);
+    console.assert(queryByRole(element, 'button', { name: /^Log/ }) === null);
+    console.assert(
+        queryByRole(element, 'button', {
+            name: (name, element) => name === 'Login' && element.hasAttribute('disabled'),
+        }) === null,
+    );
 }
 
 function testA11yHelper() {

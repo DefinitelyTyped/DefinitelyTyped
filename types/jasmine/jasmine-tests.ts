@@ -547,6 +547,26 @@ describe("A spy, when configured to fake a promised rejection", () => {
     });
 });
 
+describe("resolveTo / rejectWith", () => {
+    it("resolves to empty parameter", (done) => {
+        const spy = jasmine.createSpy('resolve').and.resolveTo();
+        spy().then(() => {
+            done();
+        }).catch(() => {
+            done.fail();
+        });
+    });
+
+    it("rejects with empty parameter", (done) => {
+        const spy = jasmine.createSpy('reject').and.rejectWith();
+        spy().then(() => {
+            done.fail();
+        }).catch(() => {
+            done();
+        });
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", () => {
     var foo: any, bar: any, fetchedBar: any;
 
@@ -1357,6 +1377,10 @@ declare namespace jasmine {
         toBeGoofy(expected?: Expected<T>): boolean;
         toBeWithinRange(expected?: Expected<T>, floor?: number, ceiling?: number): boolean;
     }
+
+    interface AsyncMatchers<T, U> {
+        toBeEight(): Promise<void>;
+    }
 }
 
 describe("Custom matcher: 'toBeGoofy'", () => {
@@ -1402,6 +1426,51 @@ describe("Custom matcher: 'toBeGoofy'", () => {
 
         expect(result.pass).toBe(false);
         expect(result.message).toBe(`Expected ${actual} to be goofy, but it was not very goofy`);
+    });
+});
+
+describe("Custom async matcher: 'toBeEight'", () => {
+    beforeEach(() => {
+        jasmine.addAsyncMatchers({
+            toBeEight: () => {
+                return {
+                    // tslint:disable-next-line:no-any
+                    compare: async (input: any) => {
+                        return {
+                            pass: input === 8,
+                            message: `${JSON.stringify(input)} is not 8`,
+                        };
+                    },
+                };
+            },
+        });
+
+        // $ExpectError
+        jasmine.addAsyncMatchers({
+            toBeBadlyTyped: () => {
+                return {
+                    compare: () => {
+                        return {
+                            pass: true,
+                            message: 'I am not an async function / not returning promise!',
+                        };
+                    },
+                };
+            },
+        });
+    });
+
+    it("works in positive case", async () => {
+        await expectAsync(8).toBeEight();
+    });
+
+    it("works in negative case", async () => {
+        await expectAsync("seven").not.toBeEight();
+    });
+
+    it("fails correctly", async () => {
+        // This compiles, but the test fails at runtime (as {} isn't 8).
+        await expectAsync({}).toBeEight();
     });
 });
 

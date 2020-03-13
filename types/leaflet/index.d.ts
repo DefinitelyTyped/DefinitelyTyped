@@ -806,6 +806,7 @@ export interface TileLayerOptions extends GridLayerOptions {
 export class TileLayer extends GridLayer {
     constructor(urlTemplate: string, options?: TileLayerOptions);
     setUrl(url: string, noRedraw?: boolean): this;
+    getTileUrl(coords: L.Coords): string;
 
     protected _abortLoading(): void;
     protected _getZoomForUrl(): number;
@@ -1905,6 +1906,8 @@ export class Marker<P = any> extends Layer {
     options: MarkerOptions;
     dragging?: Handler;
     feature?: geojson.Feature<geojson.Point, P>;
+
+    protected _shadow: HTMLElement | undefined;
 }
 
 export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;

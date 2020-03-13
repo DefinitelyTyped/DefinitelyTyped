@@ -1,4 +1,5 @@
 import { RedisClient } from 'redis';
+import IORedis = require('ioredis');
 import RedisStore from 'rate-limit-redis';
 import { Store } from 'express-rate-limit';
 
@@ -25,4 +26,14 @@ store = new RedisStore({
 // $ExpectType Store
 store = new RedisStore({
     client: new RedisClient({}),
+});
+
+// $ExpectType Store
+store = new RedisStore({
+    client: new IORedis({}),
+});
+
+// $ExpectType Store
+store = new RedisStore({
+    redisURL: 'redis://localhost:6379',
 });

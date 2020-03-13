@@ -25,6 +25,8 @@ import {
     UseFiltersInstanceProps,
     UseFiltersOptions,
     UseFiltersState,
+    UseGlobalFiltersOptions,
+    UseGlobalFiltersColumnOptions,
     useGroupBy,
     UseGroupByCellProps,
     UseGroupByColumnOptions,
@@ -49,6 +51,7 @@ import {
     UseSortByOptions,
     UseSortByState,
     useTable,
+    useGlobalFilter,
 } from 'react-table';
 
 declare module 'react-table' {
@@ -57,6 +60,7 @@ declare module 'react-table' {
     interface TableOptions<D extends object>
         extends UseExpandedOptions<D>,
             UseFiltersOptions<D>,
+            UseGlobalFiltersOptions<D>,
             UseGroupByOptions<D>,
             UsePaginationOptions<D>,
             UseRowSelectOptions<D>,
@@ -84,6 +88,7 @@ declare module 'react-table' {
 
     interface Column<D extends object = {}>
         extends UseFiltersColumnOptions<D>,
+            UseGlobalFiltersColumnOptions<D>,
             UseGroupByColumnOptions<D>,
             UseSortByColumnOptions<D> {}
 
@@ -360,6 +365,7 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
         },
         useGroupBy,
         useFilters,
+        useGlobalFilter,
         useSortBy,
         useExpanded,
         usePagination,
@@ -439,7 +445,8 @@ function Table({ columns, data, updateMyData, skipPageReset }: Table<Data>) {
                                                 // If the cell is aggregated, use the Aggregated
                                                 // renderer for cell
                                                 cell.render('Aggregated')
-                                            ) : cell.isPlaceholder ? null : (// For cells with repeated values, render null
+                                            ) : cell.isPlaceholder ? null : (
+                                                // For cells with repeated values, render null
                                                 // Otherwise, just render the regular cell
                                                 cell.render('Cell', { editable: true })
                                             )}
@@ -625,6 +632,7 @@ const Component = (props: {}) => {
                         // Aggregate the average age of visitors
                         aggregate: 'average',
                         Aggregated: ({ cell: { value } }: CellProps<Data>) => `${value} (avg)`,
+                        disableGlobalFilter: true,
                     },
                     {
                         Header: 'Visits',

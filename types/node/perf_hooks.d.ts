@@ -27,11 +27,18 @@ declare module 'perf_hooks' {
         readonly entryType: EntryType;
 
         /**
-         * When performanceEntry.entryType is equal to 'gc', the performance.kind property identifies
+         * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
          * the type of garbage collection operation that occurred.
-         * The value may be one of perf_hooks.constants.
+         * See perf_hooks.constants for valid values.
          */
         readonly kind?: number;
+
+        /**
+         * When `performanceEntry.entryType` is equal to 'gc', the `performance.flags`
+         * property contains additional information about garbage collection operation.
+         * See perf_hooks.constants for valid values.
+         */
+        readonly flags?: number;
     }
 
     interface PerformanceNodeTiming extends PerformanceEntry {
@@ -237,6 +244,14 @@ declare module 'perf_hooks' {
         const NODE_PERFORMANCE_GC_MINOR: number;
         const NODE_PERFORMANCE_GC_INCREMENTAL: number;
         const NODE_PERFORMANCE_GC_WEAKCB: number;
+
+        const NODE_PERFORMANCE_GC_FLAGS_NO: number;
+        const NODE_PERFORMANCE_GC_FLAGS_CONSTRUCT_RETAINED: number;
+        const NODE_PERFORMANCE_GC_FLAGS_FORCED: number;
+        const NODE_PERFORMANCE_GC_FLAGS_SYNCHRONOUS_PHANTOM_PROCESSING: number;
+        const NODE_PERFORMANCE_GC_FLAGS_ALL_AVAILABLE_GARBAGE: number;
+        const NODE_PERFORMANCE_GC_FLAGS_ALL_EXTERNAL_MEMORY: number;
+        const NODE_PERFORMANCE_GC_FLAGS_SCHEDULE_IDLE: number;
     }
 
     const performance: Performance;

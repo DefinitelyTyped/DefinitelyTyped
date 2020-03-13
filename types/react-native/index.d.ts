@@ -462,7 +462,7 @@ export type AppConfig = {
     run?: Runnable;
 };
 
-// https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
+// https://github.com/facebook/react-native/blob/master/Libraries/ReactNative/AppRegistry.js
 /**
  * `AppRegistry` is the JS entry point to running all React Native apps.  App
  * root components should register themselves with
@@ -8919,7 +8919,14 @@ export const DeviceEventEmitter: DeviceEventEmitterStatic;
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter { }
+export interface NativeEventEmitter extends EventEmitter {
+    new(subscriber?: EventSubscriptionVendor | null): NativeEventEmitter;
+
+    /**
+     * @param eventType  name of the event whose registered listeners to remove
+     */
+    removeAllListeners(eventType: string): void;
+}
 export const NativeEventEmitter: NativeEventEmitter;
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of

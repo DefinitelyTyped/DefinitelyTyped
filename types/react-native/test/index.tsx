@@ -23,6 +23,7 @@ import {
     DataSourceAssetCallback,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
+    NativeEventEmitter,
     Dimensions,
     Image,
     ImageStyle,
@@ -678,6 +679,9 @@ const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
 deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
+
+const nativeEventEmitter: NativeEventEmitter = NativeEventEmitter;
+nativeEventEmitter.removeAllListeners("event");
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
