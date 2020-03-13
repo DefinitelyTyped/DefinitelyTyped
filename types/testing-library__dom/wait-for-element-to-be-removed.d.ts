@@ -1,3 +1,7 @@
+export function waitForElementToBeRemoved(
+    element: HTMLElement
+): Promise<void>;
+
 export function waitForElementToBeRemoved<T>(
     callback: (() => T) | T,
     options?: {

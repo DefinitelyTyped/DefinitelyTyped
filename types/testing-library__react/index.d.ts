@@ -7,6 +7,7 @@
 //                 Ifiok Jr. <https://github.com/ifiokjr>
 //                 Daniel Afonso <https://github.com/danieljcafonso>
 //                 Tim Swalling <https://github.com/timswalling>
+//                 Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -47,6 +48,9 @@ export function render<Q extends Queries>(ui: React.ReactElement, options: Rende
 
 /**
  * Unmounts React trees that were mounted with render.
+ * @note As a general reminder, you should _NOT_ need to use `cleanup` at all as this is done
+ * automatically for you (unless you're using `@testing-library/react/pure` in which case you know
+ * what you're doing... keep using cleanup).
  */
 export function cleanup(): Promise<void>;
 

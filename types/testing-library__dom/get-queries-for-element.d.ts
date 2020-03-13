@@ -1,4 +1,3 @@
-import { Matcher } from './matches';
 import * as queries from './queries';
 
 export type BoundFunction<T> = T extends (

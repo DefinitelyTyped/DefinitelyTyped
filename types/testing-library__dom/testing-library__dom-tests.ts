@@ -1,6 +1,16 @@
 import { fireEvent, isInaccessible, queries, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/dom';
 
-const { getByText, queryByText, findByText, getAllByText, queryAllByText, findAllByText, queryAllByRole, queryByRole, findByRole } = queries;
+const {
+    getByText,
+    queryByText,
+    findByText,
+    getAllByText,
+    queryAllByText,
+    findAllByText,
+    queryAllByRole,
+    queryByRole,
+    findByRole,
+} = queries;
 
 async function testQueries() {
     // element queries
@@ -35,10 +45,10 @@ async function testByRole() {
     console.assert(screen.queryByRole('button') === null);
     console.assert(screen.queryByRole('button', { hidden: true }) !== null);
 
-    console.assert(await findByRole(element, 'button', undefined, { timeout: 10 }) === null);
-    console.assert(await findByRole(element, 'button', { hidden: true }, { timeout: 10 }) !== null);
+    console.assert((await findByRole(element, 'button', undefined, { timeout: 10 })) === null);
+    console.assert((await findByRole(element, 'button', { hidden: true }, { timeout: 10 })) !== null);
 
-    console.assert(queryAllByRole(document.body, 'progressbar', {queryFallbacks: true}).length === 1);
+    console.assert(queryAllByRole(document.body, 'progressbar', { queryFallbacks: true }).length === 1);
 
     // `name` option
     console.assert(queryByRole(element, 'button', { name: 'Logout' }) === null);
@@ -68,7 +78,8 @@ function eventTest() {
     // ChildNode
     const child = document.createElement('div');
     element.appendChild(child);
-    if (!element.firstChild) { // Narrow Type
+    if (!element.firstChild) {
+        // Narrow Type
         throw new Error(`Can't find firstChild`);
     }
     fireEvent.click(element.firstChild);
@@ -80,9 +91,18 @@ async function testWaitFors() {
     await waitFor(() => getByText(element, 'apple'));
     await waitFor(() => getAllByText(element, 'apple'));
     const result: HTMLSpanElement = await waitFor(() => getByText(element, 'apple'));
-    if (!result) { // Use value
+    if (!result) {
+        // Use value
         throw new Error(`Can't find result`);
     }
+
+    const mutationObserverOptions: MutationObserverInit = {};
+    await waitFor(
+        () => {
+            /* assertions */
+        },
+        { mutationObserverOptions },
+    );
 
     element.innerHTML = '<span>apple</span>';
 

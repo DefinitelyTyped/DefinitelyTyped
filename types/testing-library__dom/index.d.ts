@@ -7,6 +7,7 @@
 //                 Ronald Rey <https://github.com/reyronald>
 //                 Justin Hall <https://github.com/wKovacs64>
 //                 Wesley Tsai <https://github.com/wezleytsai>
+//                 Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
