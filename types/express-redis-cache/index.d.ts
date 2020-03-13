@@ -55,13 +55,13 @@ declare namespace expressRedisCache {
         [statusCode: string]: number;
     }
 
-    type ExpireOption = number | ExpirationConfig;
     type ExpirationPolicy = (req: express.Request, res: express.Response) => number;
+    type ExpireOption = number | ExpirationConfig | ExpirationPolicy;
 
     interface Options {
         auth_pass?: string;
         client?: redis.RedisClient;
-        expire?: number;
+        expire?: ExpireOption;
         host?: string;
         port?: string | number;
         prefix?: string;
@@ -69,7 +69,7 @@ declare namespace expressRedisCache {
 
     interface RouteOptions {
         name?: string;
-        expire?: ExpireOption | ExpirationPolicy;
+        expire?: ExpireOption;
         binary?: boolean;
     }
 }
