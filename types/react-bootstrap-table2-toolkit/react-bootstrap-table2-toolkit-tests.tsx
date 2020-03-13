@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { render } from 'react-dom';
 import BootstrapTable, {
-    ColumnFormatter,
     CellAlignment,
-    HeaderFormatter,
     ColumnDescription,
-    RowSelectionType,
+    HeaderFormatter,
+    ColumnFormatter,
 } from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import { render } from 'react-dom';
+import ToolkitProvider, { InjectedSearchProps } from 'react-bootstrap-table2-toolkit';
 
 interface Product {
     id: number;
@@ -16,6 +17,7 @@ interface Product {
     inStockStatus?: number;
     sales?: number;
 }
+
 const products: Product[] = [
     {
         id: 1,
@@ -76,62 +78,26 @@ const productColumns: Array<ColumnDescription<Product>> = [
 ];
 
 /**
- * Basic table test with custom header and cell formatters
+ * Toolkit with custom search test test
  */
-render(
-    <BootstrapTable data={products} bootstrap4 striped={true} hover={true} keyField="id" columns={productColumns} />,
-    document.getElementById('app'),
-);
 
-/**
- * Basic table with custom data indicator and caption
- */
-render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        striped={true}
-        hover={true}
-        keyField="id"
-        noDataIndication={() => <div>No data available</div>}
-        caption={<span>Amazing table</span>}
-        columns={productColumns}
-    />,
-    document.getElementById('app'),
-);
+const CustomSearch = (props: InjectedSearchProps) => {
+    return (
+        <span>
+            <input value={props.searchText} onChange={e => props.onSearch(e.currentTarget.value)} />
+            <button onClick={props.onClear}>Clear Search</button>
+        </span>
+    );
+};
 
-/**
- * Basic table with custom data indicator and caption
- */
 render(
-    <BootstrapTable
-        data={products}
-        bootstrap4
-        keyField="id"
-        columns={productColumns}
-        selectRow={{
-            mode: RowSelectionType.ROW_SELECT_SINGLE,
-        }}
-    />,
-    document.getElementById('app'),
-);
-
-/**
- * Event handling table test
- */
-render(
-    <BootstrapTable
-        data={products}
-        rowEvents={{
-            onClick: (e, row, rowIndex) => {
-                typeof row.inStockStatus === 'number';
-            },
-            onDoubleClick: (e, row, rowIndex) => {},
-            onMouseEnter: (e, row, rowIndex) => {},
-            onMouseLeave: (e, row, rowIndex) => {},
-        }}
-        keyField="id"
-        columns={productColumns}
-    />,
+    <ToolkitProvider data={products} keyField="id" columns={productColumns}>
+        {({ baseProps, searchProps }) => (
+            <>
+                <CustomSearch {...searchProps} />
+                <BootstrapTable {...baseProps} pagination={paginationFactory({ sizePerPage: 10, page: 1 })} />
+            </>
+        )}
+    </ToolkitProvider>,
     document.getElementById('app'),
 );

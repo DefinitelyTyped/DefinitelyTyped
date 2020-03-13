@@ -47,7 +47,7 @@ export enum CellAlignment {
 /**
  * Filter comparators used for table filters
  */
-export enum FilterComparator {
+declare enum FilterComparator {
     LIKE = 'LIKE',
     EQ = '=',
     NE = '!=',
@@ -90,8 +90,8 @@ export type TableChangeState<T> = {
     };
 };
 
-export type HeaderFormatter<C> = (
-    column: C,
+export type HeaderFormatter<T> = (
+    column: ColumnDescription<T>,
     colIndex: number,
     components: {
         sortElement: JSX.Element;
@@ -106,17 +106,21 @@ export type ColumnFormatter<R, E = any, C = any> = (
     formatExtraData: E,
 ) => JSX.Element | string | boolean | React.ReactText;
 
-export interface ColumnDescription<T = any, E = any> {
-    isDummyField?: boolean;
-    dataField: string;
+export type ColumnDescription<T = any, E = any> = (
+    | { isDummyField: true; dataField?: string; formatter?: ColumnFormatter<T, E, never> }
+    | { dataField: T[keyof T] | string; formatter?: ColumnFormatter<T, E, T[keyof T]> }
+) & {
     hidden?: boolean;
-    text: string; // | JSX.Element;
+    /**
+     * Column header field
+     */
+    text: string;
     sort?: boolean;
     sortFunc?: ColumnSortFunc<T>;
     searchable?: boolean;
     align?: CellAlignment;
     headerStyle?: React.CSSProperties | (() => React.CSSProperties);
-    formatter?: ColumnFormatter<T, E, T[keyof T]>;
+
     tooltipDataField?: string;
     editable?: boolean | ((cell: any, row: T, rowIndex: number, colIndex: number) => boolean);
     editor?: { type: string; options?: [{ value: string; label: string }] };
@@ -139,7 +143,7 @@ export interface ColumnDescription<T = any, E = any> {
     footerTitle?: boolean;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void };
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment);
-}
+};
 
 /**
  * Generic row event handler
@@ -303,7 +307,7 @@ export interface BootstrapTableProps<T extends object = any> {
     columns: Array<ColumnDescription<T>>;
     bootstrap4?: boolean;
     remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
-    noDataIndication?: ReactElement | JSX.Element;
+    noDataIndication?: () => JSX.Element | JSX.Element;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -320,7 +324,7 @@ export interface BootstrapTableProps<T extends object = any> {
      */
     caption?: JSX.Element | string;
     pagination?: { options?: PaginationOptions };
-    filter?: TableColumnFilterProps;
+    filter?: unknown;
     cellEdit?: any;
     selectRow?: SelectRowProps<T>;
     expandRow?: ExpandRowProps<T>;
@@ -391,7 +395,8 @@ export interface ExpandRowProps<T> {
     className: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
 }
 
-export type TableColumnFilterProps = Partial<{
+export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{
+    id: string;
     /**
      *  custom the input placeholder
      */
@@ -403,11 +408,8 @@ export type TableColumnFilterProps = Partial<{
     /**
      *  default filtering value
      */
-    defaultValue: string | number;
-    /**
-     *  default is Comparator.LIKE
-     */
-    comparator: FilterComparator;
+    defaultValue: any;
+
     /**
      *  your custom styles on input
      */
@@ -416,77 +418,13 @@ export type TableColumnFilterProps = Partial<{
      *  how long will trigger filtering after user typing, default is 500 ms
      */
     delay: number;
+    /*
+     * export filter function to allow users to access filter method externally.
+     */
+    getFilter: (filter: FT) => void;
+
+    /**
+     * Register a listener which will be called when column filter being triggered. If you return an array value, react-bootstrap-table2 will adopt this value as the final filtered result.
+     */
+    onFilter: (filterValue: FT) => void | Array<T>;
 }>;
-
-export type TextFilterProps = TableColumnFilterProps &
-    Partial<{
-        /**
-         *  default is false, and true will only work when comparator is LIKE
-         */
-        caseSensitive: boolean;
-    }>;
-
-export type SelectFilterOptions = { [index: number]: string } | { value: number; label: string }[];
-export type SelectFilterProps = TableColumnFilterProps & {
-    options: SelectFilterOptions | (() => SelectFilterOptions);
-};
-export type MultiselectFilterProps = SelectFilterProps;
-export type NumberFilterProps = TableColumnFilterProps;
-
-export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
-export function textFiler(props: Partial<TextFilterProps>): TableColumnFilterProps;
-export function selectFilter(props: Partial<SelectFilterProps>): TableColumnFilterProps;
-
-/**
- * declaration for table pagination sub module and factory
- */
-declare module 'react-bootstrap-table2-paginator' {
-    function paginationFactory(options: Partial<PaginationOptions>): { options?: PaginationOptions };
-    export default paginationFactory;
-}
-/**
- * declaration for table filter sub module
- */
-declare module 'react-bootstrap-table2-filter' {
-    function filterFactory(props: {}): any;
-    export default filterFactory;
-}
-
-/**
- * declaration for table toolkit sub module
- */
-declare module 'react-bootstrap-table2-toolkit' {
-    export interface InjectedSearchProps {
-        searchText: string;
-        onSearch: (val: string) => void;
-        onClear: () => void;
-    }
-
-    export type SearchMartchProps<T> = {
-        searchText: string;
-        value: string;
-        column: ColumnDescription<T>;
-        row: T;
-    };
-
-    export type TableSearchProps<T> = Partial<{
-        searchFormatted: boolean;
-        defaultSearch: string;
-        placeholder: string;
-        onColumnMatch: (props: SearchMartchProps<T>) => void;
-        customMatchFunc: (props: SearchMartchProps<T>) => boolean;
-    }>;
-
-    export type TableToolkitProps<T extends object = any> = {
-        bootstrap4?: boolean;
-        search?: TableSearchProps<T> | boolean;
-        keyField: keyof T | string;
-        data: T[];
-        ref?: any;
-        columns: ColumnDescription<T>[];
-        children: (props: { baseProps: BootstrapTableProps<T>; searchProps: InjectedSearchProps }) => JSX.Element;
-    };
-
-    function ToolkitProvider<T extends object = any>(props: TableToolkitProps<T>): JSX.Element;
-    export default ToolkitProvider;
-}
