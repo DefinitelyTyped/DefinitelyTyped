@@ -808,6 +808,8 @@ export class TileLayer extends GridLayer {
     setUrl(url: string, noRedraw?: boolean): this;
     getTileUrl(coords: L.Coords): string;
 
+    protected _tileOnLoad(done: L.DoneCallback, tile: HTMLElement): void;
+    protected _tileOnError(done: L.DoneCallback, tile: HTMLElement, e: Error): void;
     protected _abortLoading(): void;
     protected _getZoomForUrl(): number;
 

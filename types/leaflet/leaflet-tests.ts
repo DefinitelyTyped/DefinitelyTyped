@@ -741,6 +741,16 @@ export class ExtendedTileLayer extends L.TileLayer {
 		return super.createTile(newCoords, done);
 	}
 
+	overrideCreateTile(coords: L.Coords, done: L.DoneCallback) {
+		// adapted from TileLayer's implementation
+		const tile = document.createElement('img');
+
+		L.DomEvent.on(tile, 'load', L.Util.bind(this._tileOnLoad, this, done, tile));
+		L.DomEvent.on(tile, 'error', L.Util.bind(this._tileOnError, this, done, tile));
+
+		return tile;
+	}
+
 	getTileUrl(coords: L.Coords) {
 		return super.getTileUrl(coords);
 	}
