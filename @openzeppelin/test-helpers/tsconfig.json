@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "commonjs",
+        "strict": true,
+        "moduleResolution": "node",
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es2015", "esnext.asynciterable"],
+        "sourceMap": true,
+        "typeRoots": ["./types", "./node_modules/@types"],
+        "types": ["node", "truffle-typings", "truffle-contracts", "chai-bignumber", "@openzeppelin/test-helpers"],
+        "baseUrl": ".",
+        "paths": {
+            "@testUtils/*" : [ "testUtils/*" ],
+            "@gen/*" : [ "gen/*" ]
+        },
+
+        // MUST: For web3js
+        // the mismatch between how commonjs export stuff module.exports
+        // = something and how ES6 export stuff export default something.
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
+
+        // tsyringe
+        //    "experimentalDecorators": true,
+        //    "emitDecoratorMetadata": true
+
+
+    },
+    "include": ["**/*.ts", "./types/*.ts"],
+    "exclude": ["node_modules", "example", "build"]
+}
