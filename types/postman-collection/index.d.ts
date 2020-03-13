@@ -359,7 +359,7 @@ export class HeaderList extends PropertyList<Header> {
 
 export interface ItemDefinition extends PropertyDefinition {
   request?: RequestDefinition;
-  responses?: ResponseDefinition[];
+  response?: ResponseDefinition[];
   events?: EventDefinition[];
 }
 
