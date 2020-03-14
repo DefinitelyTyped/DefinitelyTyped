@@ -28,12 +28,16 @@ declare namespace PinoHttp {
         genReqId?: GenReqId;
         useLevel?: Level;
         stream?: DestinationStream;
-        autoLogging?: boolean;
+        autoLogging?: boolean | autoLoggingOptions;
         customLogLevel?: (res: ServerResponse, error: Error) => Level;
     }
 
     interface GenReqId {
         (req: IncomingMessage): ReqId;
+    }
+
+    interface autoLoggingOptions {
+        ignorePaths?: string[];
     }
 }
 
