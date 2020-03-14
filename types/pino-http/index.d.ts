@@ -1,4 +1,4 @@
-// Type definitions for pino-http 4.3
+// Type definitions for pino-http 4.4
 // Project: https://github.com/pinojs/pino-http#readme
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
