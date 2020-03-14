@@ -562,7 +562,7 @@ declare namespace Chart {
         backdropPaddingX?: number;
         backdropPaddingY?: number;
         beginAtZero?: boolean;
-        callback?(value: any, index: any, values: any): string | number;
+        callback?(value: number, index: number, values: number[]): string | number | null;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
