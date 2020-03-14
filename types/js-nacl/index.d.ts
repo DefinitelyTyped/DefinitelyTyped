@@ -116,6 +116,9 @@ export interface Nacl {
   crypto_box_seed_keypair: (seed: Uint8Array) => BoxKeyPair;
   crypto_box_keypair_from_raw_sk: (seed: Uint8Array) => BoxKeyPair;
 
+  // random
+  random_bytes: (length: number) => Uint8Array;
+
   // TODO: crypto_stream
   // crypto_stream_random_nonce: () => Nonce;
   // crypto_stream: (len: number, nonce: Nonce, key: StreamKey) => Stream;
