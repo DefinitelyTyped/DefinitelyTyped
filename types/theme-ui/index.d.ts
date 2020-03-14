@@ -1,4 +1,4 @@
-// Type definitions for theme-ui 0.3.1
+// Type definitions for theme-ui 0.3
 // Project: https://github.com/system-ui/theme-ui#readme
 // Definitions by: Erik Stockmeier <https://github.com/erikdstock>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
