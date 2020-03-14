@@ -1,4 +1,4 @@
-// Type definitions for theme-ui 0.3
+// Type definitions for theme-ui 0.4
 // Project: https://github.com/system-ui/theme-ui#readme
 // Definitions by: Erik Stockmeier <https://github.com/erikdstock>
 //                 Ifiok Jr. <https://github.com/ifiokjr>
@@ -7,6 +7,7 @@
 //                 Justin Hall <https://github.com/wKovacs64>
 //                 Prateek Kathal <https://github.com/prateekkathal>
 //                 Piotr Monwid-Olechnowicz <https://github.com/hasparus>
+//                 Leo Lin <https://github.com/leocantthinkfoaname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -195,7 +196,8 @@ export const Styled: {
 
 interface ThemeUIContext {
     theme: Theme;
-    components: { [P in keyof IntrinsicSxElements]: SxComponent<IntrinsicSxElements[P]> };
+    colorMode: string;
+    setColorMode: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Context: React.Context<ThemeUIContext>;
