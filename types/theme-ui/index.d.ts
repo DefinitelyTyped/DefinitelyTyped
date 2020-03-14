@@ -9,7 +9,7 @@
 //                 Piotr Monwid-Olechnowicz <https://github.com/hasparus>
 //                 Leo Lin <https://github.com/leocantthinkfoaname>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// Minimum TypeScript Version: 3.7
 
 import { SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
