@@ -19,7 +19,9 @@ export const Component = () => {
                 Works
             </Styled>
             <div sx={{ bg: 'red' }}>
-                <h1 sx={{ color: theme.colors?.primary }}>Current color mode: {colorMode}</h1>
+                <h1 sx={{ color: theme ? (theme.colors ? theme.colors.primary : '') : '' }}>
+                    Current color mode: {colorMode}
+                </h1>
                 <Flex sx={{ backgroundColor: 'pink' }} />
                 <button onClick={() => setColorMode('another-theme')}>Change Mode</button>
             </div>
