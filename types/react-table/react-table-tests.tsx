@@ -1,8 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
-// test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
-
 import {
     Cell,
     CellProps,
@@ -14,6 +11,8 @@ import {
     Hooks,
     IdType,
     Row,
+    UseColumnOrderInstanceProps,
+    UseColumnOrderState,
     useExpanded,
     UseExpandedInstanceProps,
     UseExpandedOptions,
@@ -25,8 +24,11 @@ import {
     UseFiltersInstanceProps,
     UseFiltersOptions,
     UseFiltersState,
-    UseGlobalFiltersOptions,
+    useGlobalFilter,
     UseGlobalFiltersColumnOptions,
+    UseGlobalFiltersInstanceProps,
+    UseGlobalFiltersOptions,
+    UseGlobalFiltersState,
     useGroupBy,
     UseGroupByCellProps,
     UseGroupByColumnOptions,
@@ -39,11 +41,20 @@ import {
     UsePaginationInstanceProps,
     UsePaginationOptions,
     UsePaginationState,
+    UseResizeColumnsColumnOptions,
+    UseResizeColumnsColumnProps,
+    UseResizeColumnsOptions,
+    UseResizeColumnsState,
     useRowSelect,
     UseRowSelectInstanceProps,
     UseRowSelectOptions,
     UseRowSelectRowProps,
     UseRowSelectState,
+    UseRowStateCellProps,
+    UseRowStateInstanceProps,
+    UseRowStateOptions,
+    UseRowStateRowProps,
+    UseRowStateState,
     useSortBy,
     UseSortByColumnOptions,
     UseSortByColumnProps,
@@ -51,8 +62,9 @@ import {
     UseSortByOptions,
     UseSortByState,
     useTable,
-    useGlobalFilter,
 } from 'react-table';
+
+// test heavily based up https://github.com/tannerlinsley/react-table/blob/master/examples/kitchen-sink-controlled/src/App.js
 
 declare module 'react-table' {
     // take this file as-is, or comment out the sections that don't apply to your plugin configuration
@@ -63,46 +75,58 @@ declare module 'react-table' {
             UseGlobalFiltersOptions<D>,
             UseGroupByOptions<D>,
             UsePaginationOptions<D>,
+            UseResizeColumnsOptions<D>,
             UseRowSelectOptions<D>,
+            UseRowStateOptions<D>,
             UseSortByOptions<D> {
         updateMyData: (rowIndex: number, columnId: string, value: any) => void;
     }
 
     interface TableInstance<D extends object = {}>
-        extends UseExpandedInstanceProps<D>,
+        extends UseColumnOrderInstanceProps<D>,
+            UseExpandedInstanceProps<D>,
             UseFiltersInstanceProps<D>,
+            UseGlobalFiltersInstanceProps<D>,
             UseGroupByInstanceProps<D>,
             UsePaginationInstanceProps<D>,
             UseRowSelectInstanceProps<D>,
+            UseRowStateInstanceProps<D>,
             UseSortByInstanceProps<D> {
         editable: boolean;
     }
 
     interface TableState<D extends object = {}>
-        extends UseExpandedState<D>,
+        extends UseColumnOrderState<D>,
+            UseExpandedState<D>,
             UseFiltersState<D>,
+            UseGlobalFiltersState<D>,
             UseGroupByState<D>,
             UsePaginationState<D>,
+            UseResizeColumnsState<D>,
             UseRowSelectState<D>,
+            UseRowStateState<D>,
             UseSortByState<D> {}
 
     interface Column<D extends object = {}>
         extends UseFiltersColumnOptions<D>,
             UseGlobalFiltersColumnOptions<D>,
             UseGroupByColumnOptions<D>,
+            UseResizeColumnsColumnOptions<D>,
             UseSortByColumnOptions<D> {}
 
     interface ColumnInstance<D extends object = {}>
         extends UseFiltersColumnProps<D>,
             UseGroupByColumnProps<D>,
+            UseResizeColumnsColumnProps<D>,
             UseSortByColumnProps<D> {}
 
-    interface Cell<D extends object = {}> extends UseGroupByCellProps<D> {}
+    interface Cell<D extends object = {}> extends UseGroupByCellProps<D>, UseRowStateCellProps<D> {}
 
     interface Row<D extends object = {}>
         extends UseExpandedRowProps<D>,
             UseGroupByRowProps<D>,
-            UseRowSelectRowProps<D> {}
+            UseRowSelectRowProps<D>,
+            UseRowStateRowProps<D> {}
 }
 
 interface Data {

@@ -6,7 +6,7 @@
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
-// reflects react-table@7.0.0 - (prepping for stable 7.0.0 release https://github.com/tannerlinsley/react-table/issues/1964)
+// reflects react-table@7.0.0
 
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
@@ -257,7 +257,6 @@ export interface UseTableRowProps<D extends object> {
     original: D;
     id: string;
     subRows: Array<Row<D>>;
-    state: object;
 }
 
 export interface UseTableCellProps<D extends object> {
