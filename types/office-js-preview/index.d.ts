@@ -18052,6 +18052,700 @@ declare namespace Excel {
     function getDataCommonPostprocess(response: any, callArgs: any): any;
     /**
      *
+     * Enum representing all accepted conditions by which a date filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum DateFilterCondition {
+        /**
+         * DateFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`, `exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Date is before comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        before = "Before",
+        /**
+         * Date is before or equal to comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        beforeOrEqualTo = "BeforeOrEqualTo",
+        /**
+         * Date is after comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        after = "After",
+        /**
+         * Date is after or equal to comparator date.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`wholeDays`}.
+         *
+         */
+        afterOrEqualTo = "AfterOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` dates.
+                    
+                    Required Criteria: {`lowerBound`, `upperBound`}.
+                    Optional Criteria: {`wholeDays`, `exclusive`}.
+         *
+         */
+        between = "Between",
+        /**
+         * Date is tomorrow.
+         *
+         */
+        tomorrow = "Tomorrow",
+        /**
+         * Date is today.
+         *
+         */
+        today = "Today",
+        /**
+         * Date is yesterday.
+         *
+         */
+        yesterday = "Yesterday",
+        /**
+         * Date is next week.
+         *
+         */
+        nextWeek = "NextWeek",
+        /**
+         * Date is this week.
+         *
+         */
+        thisWeek = "ThisWeek",
+        /**
+         * Date is last week.
+         *
+         */
+        lastWeek = "LastWeek",
+        /**
+         * Date is next month.
+         *
+         */
+        nextMonth = "NextMonth",
+        /**
+         * Date is this month.
+         *
+         */
+        thisMonth = "ThisMonth",
+        /**
+         * Date is last month.
+         *
+         */
+        lastMonth = "LastMonth",
+        /**
+         * Date is next quarter.
+         *
+         */
+        nextQuarter = "NextQuarter",
+        /**
+         * Date is this quarter.
+         *
+         */
+        thisQuarter = "ThisQuarter",
+        /**
+         * Date is last quarter.
+         *
+         */
+        lastQuarter = "LastQuarter",
+        /**
+         * Date is next year.
+         *
+         */
+        nextYear = "NextYear",
+        /**
+         * Date is this year.
+         *
+         */
+        thisYear = "ThisYear",
+        /**
+         * Date is last year.
+         *
+         */
+        lastYear = "LastYear",
+        /**
+         * Date is in the same year to date.
+         *
+         */
+        yearToDate = "YearToDate",
+        /**
+         * Date is in Quarter 1.
+         *
+         */
+        allDatesInPeriodQuarter1 = "AllDatesInPeriodQuarter1",
+        /**
+         * Date is in Quarter 2.
+         *
+         */
+        allDatesInPeriodQuarter2 = "AllDatesInPeriodQuarter2",
+        /**
+         * Date is in Quarter 3.
+         *
+         */
+        allDatesInPeriodQuarter3 = "AllDatesInPeriodQuarter3",
+        /**
+         * Date is in Quarter 4.
+         *
+         */
+        allDatesInPeriodQuarter4 = "AllDatesInPeriodQuarter4",
+        /**
+         * Date is in January.
+         *
+         */
+        allDatesInPeriodJanuary = "AllDatesInPeriodJanuary",
+        /**
+         * Date is in February.
+         *
+         */
+        allDatesInPeriodFebruary = "AllDatesInPeriodFebruary",
+        /**
+         * Date is in March.
+         *
+         */
+        allDatesInPeriodMarch = "AllDatesInPeriodMarch",
+        /**
+         * Date is in April.
+         *
+         */
+        allDatesInPeriodApril = "AllDatesInPeriodApril",
+        /**
+         * Date is in May.
+         *
+         */
+        allDatesInPeriodMay = "AllDatesInPeriodMay",
+        /**
+         * Date is in June.
+         *
+         */
+        allDatesInPeriodJune = "AllDatesInPeriodJune",
+        /**
+         * Date is in July.
+         *
+         */
+        allDatesInPeriodJuly = "AllDatesInPeriodJuly",
+        /**
+         * Date is in August.
+         *
+         */
+        allDatesInPeriodAugust = "AllDatesInPeriodAugust",
+        /**
+         * Date is in September.
+         *
+         */
+        allDatesInPeriodSeptember = "AllDatesInPeriodSeptember",
+        /**
+         * Date is in October.
+         *
+         */
+        allDatesInPeriodOctober = "AllDatesInPeriodOctober",
+        /**
+         * Date is in November.
+         *
+         */
+        allDatesInPeriodNovember = "AllDatesInPeriodNovember",
+        /**
+         * Date is in December.
+         *
+         */
+        allDatesInPeriodDecember = "AllDatesInPeriodDecember"
+    }
+    /**
+     *
+     * Enum representing all accepted conditions by which a label filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+                `PivotFilter.criteria.exclusive` can be set to true to invert many of these conditions.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum LabelFilterCondition {
+        /**
+         * LabelFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Label begins with substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        beginsWith = "BeginsWith",
+        /**
+         * Label ends with substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        endsWith = "EndsWith",
+        /**
+         * Label contains substring criterion.
+                    
+                    Required Criteria: {`substring`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        contains = "Contains",
+        /**
+         * Greater than comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        greaterThan = "GreaterThan",
+        /**
+         * Greater than or equal to comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        greaterThanOrEqualTo = "GreaterThanOrEqualTo",
+        /**
+         * Less than comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        lessThan = "LessThan",
+        /**
+         * Less than or equal to comparator criterion.
+                    
+                    Required Criteria: {`comparator`}.
+         *
+         */
+        lessThanOrEqualTo = "LessThanOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` criteria.
+                    
+                    Required Criteria: {`lowerBound`, `upperBound`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        between = "Between"
+    }
+    /**
+     *
+     * Configurable template for a date filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface PivotDateFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        comparator?: Excel.FilterDatetime;
+        /**
+         *
+         * Indicates the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        condition: Excel.DateFilterCondition | "Unknown" | "Equals" | "Before" | "BeforeOrEqualTo" | "After" | "AfterOrEqualTo" | "Between" | "Tomorrow" | "Today" | "Yesterday" | "NextWeek" | "ThisWeek" | "LastWeek" | "NextMonth" | "ThisMonth" | "LastMonth" | "NextQuarter" | "ThisQuarter" | "LastQuarter" | "NextYear" | "ThisYear" | "LastYear" | "YearToDate" | "AllDatesInPeriodQuarter1" | "AllDatesInPeriodQuarter2" | "AllDatesInPeriodQuarter3" | "AllDatesInPeriodQuarter4" | "AllDatesInPeriodJanuary" | "AllDatesInPeriodFebruary" | "AllDatesInPeriodMarch" | "AllDatesInPeriodApril" | "AllDatesInPeriodMay" | "AllDatesInPeriodJune" | "AllDatesInPeriodJuly" | "AllDatesInPeriodAugust" | "AllDatesInPeriodSeptember" | "AllDatesInPeriodOctober" | "AllDatesInPeriodNovember" | "AllDatesInPeriodDecember";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        lowerBound?: Excel.FilterDatetime;
+        /**
+         *
+         * The upper-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        upperBound?: Excel.FilterDatetime;
+        /**
+         *
+         * For `Equals`, `Before`, `After`, and `Between` filter conditions, indicates if comparisons should be made as whole days.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        wholeDays?: boolean;
+    }
+    /**
+     *
+     * A simple enum that represents a type of filter for a PivotField.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum PivotFilterType {
+        /**
+         * PivotFilterType is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Filters based on the value of a PivotItem with respect to a DataPivotHierarchy.
+         *
+         */
+        value = "Value",
+        /**
+         * Filters specific manually selected PivotItems from the PivotTable.
+         *
+         */
+        manual = "Manual",
+        /**
+         * Filters PivotItems based on their labels.
+                    Note: A PivotField cannot simultaneously have a label filter and a date filter applied.
+         *
+         */
+        label = "Label",
+        /**
+         * Filters PivotItems with a date in place of a label.
+                    Note: A PivotField cannot simultaneously have a label filter and a date filter applied.
+         *
+         */
+        date = "Date"
+    }
+    /**
+     *
+     * An interface representing all PivotFilters currently applied to a given PivotField.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface PivotFilters {
+        /**
+         *
+         * The PivotField's currently applied date filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        dateFilter?: Excel.PivotDateFilter;
+        /**
+         *
+         * The PivotField's currently applied label filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelFilter?: Excel.PivotLabelFilter;
+        /**
+         *
+         * The PivotField's currently applied manual filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        manualFilter?: Excel.PivotManualFilter;
+        /**
+         *
+         * The PivotField's currently applied value filter. Null if none is applied.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        valueFilter?: Excel.PivotValueFilter;
+    }
+    /**
+     *
+     * Configurable template for a label filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface PivotLabelFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        comparator?: string;
+        /**
+         *
+         * Indicates the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        condition: Excel.LabelFilterCondition | "Unknown" | "Equals" | "BeginsWith" | "EndsWith" | "Contains" | "GreaterThan" | "GreaterThanOrEqualTo" | "LessThan" | "LessThanOrEqualTo" | "Between";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the Between filter condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        lowerBound?: string;
+        /**
+         *
+         * The substring used for `BeginsWith`, `EndsWith`, and `Contains` filter conditions.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        substring?: string;
+        /**
+         *
+         * The upper-bound of the range for the Between filter condition.
+                    Note: A numeric string is treated as a number when being compared against other numeric strings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        upperBound?: string;
+    }
+    /**
+     *
+     * Configurable template for a manual filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface PivotManualFilter {
+        /**
+         *
+         * A list of selected items to manually filter. These must be existing and valid items from the chosen field.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        selectedItems?: (string | PivotItem)[];
+    }
+    /**
+     *
+     * Configurable template for a value filter to apply to a PivotField.
+                The `condition` defines what criteria need to be set in order for the filter to operate.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    interface PivotValueFilter {
+        /**
+         *
+         * The comparator is the static value to which other values are compared. The type of comparison is defined by the condition.
+                    For example, if comparator is "50" and condition is "GreaterThan", all item values that are not greater than 50 will be removed by the filter.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        comparator?: number;
+        /**
+         *
+         * Indicates the condition for the filter, which defines the necessary filtering criteria.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        condition: Excel.ValueFilterCondition | "Unknown" | "Equals" | "GreaterThan" | "GreaterThanOrEqualTo" | "LessThan" | "LessThanOrEqualTo" | "Between" | "TopN" | "BottomN";
+        /**
+         *
+         * If true, filter *excludes* items that meet criteria. The default is false (filter to include items that meet criteria).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        exclusive?: boolean;
+        /**
+         *
+         * The lower-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        lowerBound?: number;
+        /**
+         *
+         * Indicates whether the filter is for the top/bottom N items, top/bottom N percent, or top/bottom N sum.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        selectionType?: Excel.TopBottomSelectionType | "Items" | "Percent" | "Sum";
+        /**
+         *
+         * The "N" threshold number of items, percent, or sum to be filtered for a Top/Bottom filter condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        threshold?: number;
+        /**
+         *
+         * The upper-bound of the range for the `Between` filter condition.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        upperBound?: number;
+        /**
+         *
+         * Name of the chosen "value" in the field by which to filter.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        value: string;
+    }
+    /**
+     *
+     * A simple enum for Top/Bottom filters to select whether to filter by the top N or bottom N percent, number, or sum of values.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum TopBottomSelectionType {
+        /**
+         * Filter the top/bottom N number of items as measured by the chosen value.
+         *
+         */
+        items = "Items",
+        /**
+         * Filter the top/bottom N percent of items as measured by the chosen value.
+         *
+         */
+        percent = "Percent",
+        /**
+         * Filter the top/bottom N sum as measured by the chosen value.
+         *
+         */
+        sum = "Sum"
+    }
+    /**
+     *
+     * Enum representing all accepted conditions by which a value filter can be applied.
+                Used to configure the type of PivotFilter that is applied to the field.
+                `PivotFilter.exclusive` can be set to true to invert many of these conditions.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum ValueFilterCondition {
+        /**
+         * ValueFilterCondition is unknown or unsupported.
+         *
+         */
+        unknown = "Unknown",
+        /**
+         * Equals comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        equals = "Equals",
+        /**
+         * Greater than comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        greaterThan = "GreaterThan",
+        /**
+         * Greater than or equal to comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        greaterThanOrEqualTo = "GreaterThanOrEqualTo",
+        /**
+         * Less than comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        lessThan = "LessThan",
+        /**
+         * Less than or equal to comparator criterion.
+                    
+                    Required Criteria: {`value`, `comparator`}.
+         *
+         */
+        lessThanOrEqualTo = "LessThanOrEqualTo",
+        /**
+         * Between `lowerBound` and `upperBound` criteria.
+                    
+                    Required Criteria: {`value`, `lowerBound`, `upperBound`}.
+                    Optional Criteria: {`exclusive`}.
+         *
+         */
+        between = "Between",
+        /**
+         * In top N (`threshold`) [items, percent, sum] of value category.
+                    
+                    Required Criteria: {`value`, `threshold`, `selectionType`}.
+         *
+         */
+        topN = "TopN",
+        /**
+         * In bottom N (`threshold`) [items, percent, sum] of value category.
+                    
+                    Required Criteria: {`value`, `threshold`, `selectionType`}.
+         *
+         */
+        bottomN = "BottomN"
+    }
+    /**
+     *
      * Represents a built-in PivotTable style
      *
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -22143,6 +22837,16 @@ declare namespace Excel {
          * @param columnOffset The number of columns (positive, negative, or 0) by which the range is to be offset. Positive values are offset to the right, and negative values are offset to the left.
          */
         getOffsetRange(rowOffset: number, columnOffset: number): Excel.Range;
+        /**
+         * Gets a scoped collection of PivotTables that overlap with the range.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param fullyContained If true, returns only PivotTables that are fully contained within the range bounds. The default value is false.
+         * @returns
+         */
+        getPivotTables(fullyContained?: boolean): Excel.PivotTableScopedCollection;
         /**
          * Gets a Range object similar to the current Range object, but with its bottom-right corner expanded (or contracted) by some number of rows and columns.
          *
@@ -31069,6 +31773,14 @@ declare namespace Excel {
         context: RequestContext;
         /**
          *
+         * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly datetimeFormat: Excel.DatetimeFormatInfo;
+        /**
+         *
          * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
          *
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -31162,6 +31874,83 @@ declare namespace Excel {
         * Whereas the original Excel.NumberFormatInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.NumberFormatInfoData`) that contains shallow copies of any loaded child properties from the original object.
         */
         toJSON(): Excel.Interfaces.NumberFormatInfoData;
+    }
+    /**
+     *
+     * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class DatetimeFormatInfo extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         *
+         * Gets the string used as the date separator. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly dateSeparator: string;
+        /**
+         *
+         * Gets the format string for a long date value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly longDatePattern: string;
+        /**
+         *
+         * Gets the format string for a long time value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly longTimePattern: string;
+        /**
+         *
+         * Gets the format string for a short date value. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly shortDatePattern: string;
+        /**
+         *
+         * Gets the string used as the time separator. This is based on current system settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly timeSeparator: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.DatetimeFormatInfoLoadOptions): Excel.DatetimeFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.DatetimeFormatInfo;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.DatetimeFormatInfo;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original Excel.DatetimeFormatInfo object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.DatetimeFormatInfoData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.DatetimeFormatInfoData;
     }
     /**
      *
@@ -31405,6 +32194,74 @@ declare namespace Excel {
     }
     /**
      *
+     * Represents a scoped collection of PivotTables. The PivotTables are sorted based on the location of the PivotTable's top-left corner. They are ordered top to bottom and then left to right.
+     *
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class PivotTableScopedCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.PivotTable[];
+        /**
+         * Gets the number of PivotTables in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCount(): OfficeExtension.ClientResult<number>;
+        /**
+         * Gets the first PivotTable in the collection. The PivotTables in the collection are sorted top to bottom and left to right, such that top-left table is the first PivotTable in the collection.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getFirst(): Excel.PivotTable;
+        /**
+         * Gets a PivotTable by name.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param key Name of the PivotTable to be retrieved.
+         */
+        getItem(key: string): Excel.PivotTable;
+        /**
+         * Gets a PivotTable by name. If the PivotTable does not exist, will return a null object.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         */
+        getItemOrNullObject(name: string): Excel.PivotTable;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.PivotTableScopedCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.PivotTableScopedCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.PivotTableScopedCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.PivotTableScopedCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that is passed to it.)
+        * Whereas the original `Excel.PivotTableScopedCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.PivotTableScopedCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.PivotTableScopedCollectionData;
+    }
+    /**
+     *
      * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
      *
      * [Api set: ExcelApi 1.3]
@@ -31536,6 +32393,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.3]
          */
         readonly worksheet: Excel.Worksheet;
+        /**
+         *
+         * Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        allowMultipleFiltersPerField: boolean;
         /**
          *
          * Specifies whether the PivotTable allows values in the data body to be edited by the user.
@@ -32580,6 +33445,67 @@ declare namespace Excel {
         set(properties: Interfaces.PivotFieldUpdateData, options?: OfficeExtension.UpdateOptions): void;
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.PivotField): void;
+        /**
+         * Sets one or multiple of the field's current PivotFilters and applies them to the field.
+                    If the provided filter(s) are invalid or cannot be applied, an exception is thrown.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param filter A configured specific PivotFilter or a PivotFilters interface containing multiple configured filters.
+         */
+        applyFilter(filter: PivotValueFilter | PivotLabelFilter | PivotManualFilter | PivotDateFilter | PivotFilters): void;
+        /**
+         * Clears all criteria from all of the field's filters. This removes any active filtering on the field.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        clearAllFilters(): void;
+        /**
+         * Clears all existing criteria from the field's filter of the given type (if one is currently applied).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param filterType The type of filter on the field of which to clear all criteria.
+         */
+        clearFilter(filterType: Excel.PivotFilterType): void;
+        /**
+         * Clears all existing criteria from the field's filter of the given type (if one is currently applied).
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param filterType The type of filter on the field of which to clear all criteria.
+         */
+        clearFilter(filterType: "Unknown" | "Value" | "Manual" | "Label" | "Date"): void;
+        /**
+         * Gets all filters currently applied on the field.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns A PivotFilters interface with all active filters.
+         */
+        getFilters(): OfficeExtension.ClientResult<Excel.PivotFilters>;
+        /**
+         * Checks if there are any applied filters on the field.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param filterType The filter type to check. If no type is provided, this method will check if any filter is applied.
+         * @returns True if the field has a filter of type `filterType` applied. If filterType is not specified, true is returned if the field has any applied filters.
+         */
+        isFiltered(filterType?: Excel.PivotFilterType): OfficeExtension.ClientResult<boolean>;
+        /**
+         * Checks if there are any applied filters on the field.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @param filterType The filter type to check. If no type is provided, this method will check if any filter is applied.
+         * @returns True if the field has a filter of type `filterType` applied. If filterType is not specified, true is returned if the field has any applied filters.
+         */
+        isFiltered(filterType?: "Unknown" | "Value" | "Manual" | "Label" | "Date"): OfficeExtension.ClientResult<boolean>;
         /**
          * Sorts the PivotField. If a DataPivotHierarchy is specified, then sort will be applied based on it, if not sort will be based on the PivotField itself.
          *
@@ -48047,12 +48973,24 @@ declare namespace Excel {
         interface CustomXmlPartCollectionUpdateData {
             items?: Excel.Interfaces.CustomXmlPartData[];
         }
+        /** An interface for updating data on the PivotTableScopedCollection object, for use in `pivotTableScopedCollection.set({ ... })`. */
+        interface PivotTableScopedCollectionUpdateData {
+            items?: Excel.Interfaces.PivotTableData[];
+        }
         /** An interface for updating data on the PivotTableCollection object, for use in `pivotTableCollection.set({ ... })`. */
         interface PivotTableCollectionUpdateData {
             items?: Excel.Interfaces.PivotTableData[];
         }
         /** An interface for updating data on the PivotTable object, for use in `pivotTable.set({ ... })`. */
         interface PivotTableUpdateData {
+            /**
+             *
+             * Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * Specifies whether the PivotTable allows values in the data body to be edited by the user.
@@ -53676,6 +54614,14 @@ declare namespace Excel {
         interface CultureInfoData {
             /**
             *
+            * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            datetimeFormat?: Excel.Interfaces.DatetimeFormatInfoData;
+            /**
+            *
             * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -53710,6 +54656,49 @@ declare namespace Excel {
              */
             numberGroupSeparator?: string;
         }
+        /** An interface describing the data returned by calling `datetimeFormatInfo.toJSON()`. */
+        interface DatetimeFormatInfoData {
+            /**
+             *
+             * Gets the string used as the date separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dateSeparator?: string;
+            /**
+             *
+             * Gets the format string for a long date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            longDatePattern?: string;
+            /**
+             *
+             * Gets the format string for a long time value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            longTimePattern?: string;
+            /**
+             *
+             * Gets the format string for a short date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            shortDatePattern?: string;
+            /**
+             *
+             * Gets the string used as the time separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            timeSeparator?: string;
+        }
         /** An interface describing the data returned by calling `customXmlPartScopedCollection.toJSON()`. */
         interface CustomXmlPartScopedCollectionData {
             items?: Excel.Interfaces.CustomXmlPartData[];
@@ -53734,6 +54723,10 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.5]
              */
             namespaceUri?: string;
+        }
+        /** An interface describing the data returned by calling `pivotTableScopedCollection.toJSON()`. */
+        interface PivotTableScopedCollectionData {
+            items?: Excel.Interfaces.PivotTableData[];
         }
         /** An interface describing the data returned by calling `pivotTableCollection.toJSON()`. */
         interface PivotTableCollectionData {
@@ -53776,6 +54769,14 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.8]
             */
             rowHierarchies?: Excel.Interfaces.RowColumnPivotHierarchyData[];
+            /**
+             *
+             * Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * Specifies whether the PivotTable allows values in the data body to be edited by the user.
@@ -61772,6 +62773,14 @@ declare namespace Excel {
             $all?: boolean;
             /**
             *
+            * Defines the culturally appropriate format of displaying date and time. This is based on current system culture settings.
+            *
+            * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            datetimeFormat?: Excel.Interfaces.DatetimeFormatInfoLoadOptions;
+            /**
+            *
             * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
             *
             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -61815,6 +62824,59 @@ declare namespace Excel {
              * @beta
              */
             numberGroupSeparator?: boolean;
+        }
+        /**
+         *
+         * Defines the culturally appropriate format of displaying numbers. This is based on current system culture settings.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface DatetimeFormatInfoLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             *
+             * Gets the string used as the date separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dateSeparator?: boolean;
+            /**
+             *
+             * Gets the format string for a long date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            longDatePattern?: boolean;
+            /**
+             *
+             * Gets the format string for a long time value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            longTimePattern?: boolean;
+            /**
+             *
+             * Gets the format string for a short date value. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            shortDatePattern?: boolean;
+            /**
+             *
+             * Gets the string used as the time separator. This is based on current system settings.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            timeSeparator?: boolean;
         }
         /**
          *
@@ -61898,6 +62960,69 @@ declare namespace Excel {
         }
         /**
          *
+         * Represents a scoped collection of PivotTables. The PivotTables are sorted based on the location of the PivotTable's top-left corner. They are ordered top to bottom and then left to right.
+         *
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface PivotTableScopedCollectionLoadOptions {
+            /**
+              Specifying `$all` for the LoadOptions loads all the scalar properties (e.g.: `Range.address`) but not the navigational properties (e.g.: `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+            *
+            * For EACH ITEM in the collection: The PivotLayout describing the layout and visual structure of the PivotTable.
+            *
+            * [Api set: ExcelApi 1.8]
+            */
+            layout?: Excel.Interfaces.PivotLayoutLoadOptions;
+            /**
+            *
+            * For EACH ITEM in the collection: The worksheet containing the current PivotTable.
+            *
+            * [Api set: ExcelApi 1.3]
+            */
+            worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            allowMultipleFiltersPerField?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies whether the PivotTable allows values in the data body to be edited by the user.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            enableDataValueEditing?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Id of the PivotTable. Read-only.
+             *
+             * [Api set: ExcelApi 1.5]
+             */
+            id?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Name of the PivotTable.
+             *
+             * [Api set: ExcelApi 1.3]
+             */
+            name?: boolean;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies whether the PivotTable uses custom lists when sorting.
+             *
+             * [Api set: ExcelApi 1.9]
+             */
+            useCustomSortLists?: boolean;
+        }
+        /**
+         *
          * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
          *
          * [Api set: ExcelApi 1.3]
@@ -61921,6 +63046,14 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.3]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * For EACH ITEM in the collection: Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * For EACH ITEM in the collection: Specifies whether the PivotTable allows values in the data body to be edited by the user.
@@ -61976,6 +63109,14 @@ declare namespace Excel {
             * [Api set: ExcelApi 1.3]
             */
             worksheet?: Excel.Interfaces.WorksheetLoadOptions;
+            /**
+             *
+             * Specifies whether the PivotTable allows the application of multiple PivotFilters on a given PivotField in the table.
+             *
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            allowMultipleFiltersPerField?: boolean;
             /**
              *
              * Specifies whether the PivotTable allows values in the data body to be edited by the user.
