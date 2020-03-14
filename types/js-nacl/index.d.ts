@@ -1,4 +1,4 @@
-// Type definitions for js-nacl 1.2
+// Type definitions for js-nacl 1.3
 // Project: https://github.com/tonyg/js-nacl#readme
 // Definitions by: Ethan Frey <https://github.com/ethanfrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
