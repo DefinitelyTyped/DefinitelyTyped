@@ -1,4 +1,4 @@
-// Type definitions for puppeteer-core 2.0
+// Type definitions for puppeteer-core 2.1
 // Project: https://github.com/GoogleChrome/puppeteer#readme
 // Definitions by: Fumiaki Matsushima <https://github.com/mtsmfm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
