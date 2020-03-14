@@ -622,3 +622,17 @@ function testMock() {
     mock.restore();
     mock.verify();
 }
+
+async function testTimers() {
+    const clock = sinon.useFakeTimers();
+    clock.tick('500');
+    clock.tick(500);
+    clock.next();
+    clock.runAll();
+    clock.runToLastAsync();
+    await clock.tickAsync(500);
+    await clock.tickAsync('500');
+    await clock.nextAsync();
+    await clock.runAllAsync();
+    await clock.runToLastAsync();
+}

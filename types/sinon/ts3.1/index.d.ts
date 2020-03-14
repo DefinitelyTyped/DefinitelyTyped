@@ -870,6 +870,11 @@ declare namespace Sinon {
         setSystemTime(date: Date): void;
 
         countTimers(): number;
+
+        tickAsync(ms: number | string): Promise<number>;
+        nextAsync(): Promise<number>;
+        runAllAsync(): Promise<number>;
+        runToLastAsync(): Promise<number>;
     }
 
     interface SinonFakeTimersConfig {
