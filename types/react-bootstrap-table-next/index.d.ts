@@ -8,23 +8,25 @@
 
 import { CSSProperties, ReactElement, SyntheticEvent, Component } from 'react';
 
-export enum RowSelectionType {
-    ROW_SELECT_SINGLE = 'radio',
-    ROW_SELECT_MULTIPLE = 'checkbox',
-    ROW_SELECT_DISABLED = 'ROW_SELECT_DISABLED',
-}
+export const ROW_SELECT_SINGLE = 'radio';
+export const ROW_SELECT_MULTIPLE = 'checkbox';
+export const ROW_SELECT_DISABLED = 'ROW_SELECT_DISABLED';
+export const CHECKBOX_STATUS_INDETERMINATE = 'indeterminate';
+export const CHECKBOX_STATUS_CHECKED = 'checked';
+export const CHECKBOX_STATUS_UNCHECKED = 'unchecked';
+export const FILTERS_POSITION_INLINE = 'inline';
+export const FILTERS_POSITION_TOP = 'top';
+export const FILTERS_POSITION_BOTTOM = 'bottom';
 
-export enum TableCheckboxStatus {
-    CHECKBOX_STATUS_CHECKED = 'checked',
-    CHECKBOX_STATUS_INDETERMINATE = 'indeterminate',
-    CHECKBOX_STATUS_UNCHECKED = 'unchecked',
-}
-
-export enum FilterPosition {
-    FILTERS_POSITION_INLINE = 'inline',
-    FILTERS_POSITION_TOP = 'top',
-    FILTERS_POSITION_BOTTOM = 'bottom',
-}
+export type RowSelectionType = typeof ROW_SELECT_SINGLE | typeof ROW_SELECT_MULTIPLE | typeof ROW_SELECT_DISABLED;
+export type TableCheckboxStatus =
+    | typeof CHECKBOX_STATUS_INDETERMINATE
+    | typeof CHECKBOX_STATUS_CHECKED
+    | typeof CHECKBOX_STATUS_UNCHECKED;
+export type FilterPosition =
+    | typeof FILTERS_POSITION_INLINE
+    | typeof FILTERS_POSITION_TOP
+    | typeof FILTERS_POSITION_BOTTOM;
 
 /**
  * Table change event types
@@ -36,13 +38,7 @@ export enum TableChangeType {
     cellEdit = 'cellEdit',
 }
 
-export enum CellAlignment {
-    left = 'left',
-    center = 'center',
-    right = 'right',
-    start = 'start',
-    end = 'end',
-}
+export type CellAlignment = 'left' | 'center' | 'right' | 'start' | 'end' | string;
 
 /**
  * Filter comparators used for table filters
@@ -90,7 +86,7 @@ export type TableChangeState<T> = {
     };
 };
 
-export type HeaderFormatter<T> = (
+export type HeaderFormatter<T extends object = any> = (
     column: ColumnDescription<T>,
     colIndex: number,
     components: {
@@ -106,10 +102,12 @@ export type ColumnFormatter<R, E = any, C = any> = (
     formatExtraData: E,
 ) => JSX.Element | string | boolean | React.ReactText;
 
-export type ColumnDescription<T = any, E = any> = (
-    | { isDummyField: true; dataField?: string; formatter?: ColumnFormatter<T, E, never> }
-    | { dataField: T[keyof T] | string }
-) & {
+export type ColumnDescription<T extends object = any, E = any> = {
+    /**
+     * If set the column will not use cell values
+     */
+    isDummyField?: boolean;
+    dataField: T[keyof T] | string;
     formatter?: ColumnFormatter<T, E, any>;
     hidden?: boolean;
     /**
@@ -154,7 +152,7 @@ export type RowEventHandler<T> = (e: SyntheticEvent, row: T, rowIndex: number) =
 /**
  * Row level event handlers
  */
-export type RowEventHandlerProps<T> = Partial<{
+export type RowEventHandlerProps<T = any> = Partial<{
     onClick: RowEventHandler<T>;
     onDoubleClick: RowEventHandler<T>;
     onMouseEnter: RowEventHandler<T>;
@@ -270,6 +268,7 @@ export interface SelectRowProps<T> {
     clickToExpand?: boolean;
     clickToEdit?: boolean;
     hideSelectAll?: boolean;
+    selected?: Array<number | string>;
     onSelect?: (row: T, isSelected: boolean, rowIndex: number, e: SyntheticEvent) => void | boolean;
     /**
      * This callback function will be called when select/unselect all and it only work when you configure selectRow.mode as checkbox.
@@ -296,7 +295,39 @@ export interface SelectRowProps<T> {
     selectColumnPosition?: 'left' | 'right';
 }
 
-export interface BootstrapTableProps<T extends object = any> {
+export interface BootstrapTableRef<T extends object = any> {
+    table: {
+        props: {
+            data: Array<T>;
+        };
+    };
+    selectionContext?: {
+        selected?: Array<any>;
+    };
+    rowExpandContext?: {
+        state: {
+            expanded?: Array<any>;
+        };
+    };
+    paginationContext?: {
+        currPage: number;
+        currSizePerPage: number;
+    };
+    sortContext?: {
+        state: {
+            sortColumn: ColumnDescription<T>;
+            sortOrder: SortOrder;
+        };
+    };
+    filterContext?: {
+        currFilters: any;
+    };
+    cellEditContext?: {
+        startEditing: (rowIndex: number, columnIndex: number) => void;
+    };
+}
+
+export interface BootstrapTableProps<T = any> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -305,10 +336,10 @@ export interface BootstrapTableProps<T extends object = any> {
      *  Provides data for your table. It accepts a single Array object.
      */
     data: T[];
-    columns: Array<ColumnDescription<T>>;
+    columns: Array<ColumnDescription<T | any>>;
     bootstrap4?: boolean;
     remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
-    noDataIndication?: () => JSX.Element | JSX.Element;
+    noDataIndication?: () => JSX.Element | JSX.Element | string;
     striped?: boolean;
     bordered?: boolean;
     hover?: boolean;
@@ -331,7 +362,7 @@ export interface BootstrapTableProps<T extends object = any> {
     expandRow?: ExpandRowProps<T>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
-    rowEvents?: RowEventHandlerProps<T>;
+    rowEvents?: RowEventHandlerProps<any>;
     rowClasses?: ((row: T, rowIndex: number) => string) | string;
     filtersClasses?: string;
     filterPosition?: FilterPosition;
@@ -353,7 +384,7 @@ export interface BootstrapTableProps<T extends object = any> {
      * This callback function will be called only when data size change by search/filter etc.
      */
     onDataSizeChange?: (props: { dataSize: number }) => void;
-    search?: SearchProps<T>;
+    search?: SearchProps<T> | boolean;
 }
 
 declare class BootstrapTable<T extends object = any> extends Component<BootstrapTableProps<T>> {}
@@ -365,6 +396,7 @@ export default BootstrapTable;
  * Consult [documentation](https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/search-props.html)
  */
 export interface SearchProps<T> {
+    placeholder?: string;
     searchText?: string;
     defaultSearch?: string;
     /* custom search method, return true if matched and false if not */
