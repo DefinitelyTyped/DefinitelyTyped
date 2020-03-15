@@ -5,7 +5,13 @@ import BootstrapTable, {
     HeaderFormatter,
     ColumnFormatter,
 } from 'react-bootstrap-table-next';
-import filterFactory, { numberFilter, Comparator, selectFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, {
+    numberFilter,
+    Comparator,
+    selectFilter,
+    multiSelectFilter,
+    textFilter,
+} from 'react-bootstrap-table2-filter';
 import { render } from 'react-dom';
 
 interface Product {
@@ -101,43 +107,119 @@ const productColumns: Array<ColumnDescription<Product>> = [
 ];
 
 /**
- * filter test
+ * Number filter test
  */
 render(
     <BootstrapTable data={products} keyField="id" filter={filterFactory()} columns={productColumns} />,
     document.getElementById('app'),
 );
 
-// options as Object
-const selectOptionsObject = {
+/**
+ * Options as Object
+ */
+const selectOptionsObject: { [index: number]: string } = {
     0: 'good',
     1: 'Bad',
     2: 'unknown',
 };
 
-// options as Array
+/**
+ * Options as Array
+ */
 const selectOptionsList = [
     { value: 0, label: 'good' },
     { value: 1, label: 'Bad' },
     { value: 2, label: 'unknown' },
 ];
 
-// options as Function
+/**
+ * Options as Function
+ */
 const selectOptionsCreator = (column: ColumnDescription<Product>) => [
     { value: 0, label: 'good' },
     { value: 1, label: 'Bad' },
     { value: 2, label: 'unknown' },
 ];
 
-const filterColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-    { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+render(
+    <BootstrapTable
+        keyField="id"
+        data={products}
+        columns={[
+            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
+            { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+            {
+                dataField: 'quality',
+                text: 'Product Quailty',
+                // formatter: cell => selectOptionsObject[cell],
+                filter: selectFilter({
+                    options: selectOptionsObject,
+                    className: 'test-classname',
+                    withoutEmptyOption: true,
+                    defaultValue: 2,
+                    comparator: Comparator.LIKE, // default is Comparator.EQ
+                    style: { backgroundColor: 'pink' },
+                    getFilter: filter => {
+                        // qualityFilter was assigned once the component has been mounted.
+                    },
+                    onFilter: filterValue => {},
+                }),
+            },
+        ]}
+        filter={filterFactory()}
+    />,
+    document.getElementById('app'),
+);
+let qualityFilter: any;
+render(
+    <BootstrapTable
+        keyField="id"
+        data={products}
+        columns={[
+            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
+            {
+                dataField: 'name',
+                formatter: cell => cell,
+                align: CellAlignment.center,
+                sort: true,
+                text: 'Product Name',
+            },
+            {
+                dataField: 'quality',
+                text: 'Product Quailty',
+                formatter: (cell: number, row, rowIndex, formatExtraData) => selectOptionsObject[cell],
+                filter: multiSelectFilter({
+                    options: selectOptionsObject,
+                    className: 'test-classname',
+                    withoutEmptyOption: true,
+                    defaultValue: [0, 2],
+                    comparator: Comparator.LIKE, // default is Comparator.EQ
+                    style: { backgroundColor: 'pink' },
+                    getFilter: filter => {
+                        // qualityFilter was assigned once the component has been mounted.
+                        qualityFilter = filter;
+                    },
+                    onFilter: filterValue => {
+                        console.log(filterValue);
+                    },
+                }),
+            },
+        ]}
+        filter={filterFactory()}
+    />,
+    document.getElementById('app'),
+);
+
+/**
+ * Single select column test
+ */
+const selectColumns = [
     {
         dataField: 'quality',
         text: 'Product Quailty',
-        formatter: cell => selectOptionsObject[cell],
+        formatter: (cell: number) => selectOptionsList.find(val => val.value === cell)?.value ?? '',
         filter: selectFilter({
-            options: selectOptionsObject,
+            options: selectOptionsList,
             className: 'test-classname',
             withoutEmptyOption: true,
             defaultValue: 2,
@@ -145,13 +227,62 @@ const filterColumns: Array<ColumnDescription<Product>> = [
             style: { backgroundColor: 'pink' },
             getFilter: filter => {
                 // qualityFilter was assigned once the component has been mounted.
+                qualityFilter = filter;
+            },
+            onFilter: filterValue => {},
+        }),
+    },
+    {
+        dataField: 'quality',
+        text: 'Product Quailty',
+        formatter: (cell: number) => selectOptionsList.find(val => val.value === cell)?.value ?? '',
+        filter: selectFilter({
+            options: selectOptionsCreator,
+            className: 'test-classname',
+            withoutEmptyOption: true,
+            defaultValue: 2,
+            comparator: Comparator.LIKE, // default is Comparator.EQ
+            style: { backgroundColor: 'pink' },
+            getFilter: filter => {
+                // qualityFilter was assigned once the component has been mounted.
+                qualityFilter = filter;
             },
             onFilter: filterValue => {},
         }),
     },
 ];
-
 render(
-    <BootstrapTable keyField="id" data={products} columns={filterColumns} filter={filterFactory()} />,
+    <BootstrapTable keyField="id" data={products} columns={selectColumns} filter={filterFactory()} />,
     document.getElementById('app'),
 );
+
+/**
+ * Text filter test
+ */
+const textColumns = [
+    {
+        dataField: 'id',
+        text: 'Product ID',
+    },
+    {
+        dataField: 'name',
+        text: 'Product Name',
+        filter: textFilter({
+            placeholder: 'My Custom PlaceHolder', // custom the input placeholder
+            className: 'my-custom-text-filter', // custom classname on input
+            defaultValue: 'test', // default filtering value
+            comparator: Comparator.EQ, // default is Comparator.LIKE
+            caseSensitive: true, // default is false, and true will only work when comparator is LIKE
+            style: { backgroundColor: 'yellow' }, // your custom inline styles on input
+            delay: 1000, // how long will trigger filtering after user typing, default is 500 ms
+            onClick: e => console.log(e),
+        }),
+    },
+    {
+        dataField: 'price',
+        text: 'Product Price',
+        filter: textFilter(),
+    },
+];
+
+<BootstrapTable keyField="id" data={products} columns={textColumns} filter={filterFactory()} />;

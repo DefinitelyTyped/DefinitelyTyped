@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { TableColumnFilterProps, ColumnDescription } from 'react-bootstrap-table-next';
-import { CSSProperties } from 'react';
+import { CSSProperties, SyntheticEvent } from 'react';
 
 /**
  * Filter comparators used for table filters
@@ -25,12 +25,17 @@ export type TextFilterProps<T extends object = any> = TableColumnFilterProps<Tab
          *  default is false, and true will only work when comparator is LIKE
          */
         caseSensitive: boolean;
+        comparator: Comparator;
+        /**
+         * on filter element click event
+         */
+        onClick?: (e: SyntheticEvent) => void;
     }>;
 /**
  * text filter utility method
  * @param props
  */
-export function textFiler(props: Partial<TextFilterProps>): TableColumnFilterProps;
+export function textFilter(props?: Partial<TextFilterProps>): TableColumnFilterProps;
 
 /**
  * select filter option type
@@ -46,9 +51,15 @@ export type SelectFilterProps<T extends object = any> = TableColumnFilterProps<s
     withoutEmptyOption?: boolean;
 };
 
+/**
+ *
+ */
 export type MultiselectFilterOptions = { [index: string]: string };
 
-export type MultiselectFilterProps = {
+/**
+ *
+ */
+export type MultiselectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: MultiselectFilterOptions | (() => MultiselectFilterOptions);
     comparator?: Comparator;
     /**
@@ -56,7 +67,14 @@ export type MultiselectFilterProps = {
      */
     withoutEmptyOption?: boolean;
 };
+/**
+ *
+ */
+export function multiSelectFilter(props: Partial<MultiselectFilterProps>): TableColumnFilterProps;
 
+/**
+ *
+ */
 export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
     options?: number[];
     comparators?: Array<Comparator>;
