@@ -32,8 +32,8 @@ export type TextFilterProps<T extends object = any> = TableColumnFilterProps<Tab
         onClick?: (e: SyntheticEvent) => void;
     }>;
 /**
- * text filter utility method
- * @param props
+ * text column filter
+ * @param props text filter options
  */
 export function textFilter(props?: Partial<TextFilterProps>): TableColumnFilterProps;
 
@@ -52,28 +52,35 @@ export type SelectFilterProps<T extends object = any> = TableColumnFilterProps<s
 };
 
 /**
- *
+ * single select column filter
+ * @param props Select filter options
  */
-export type MultiselectFilterOptions = { [index: string]: string };
+export function selectFilter(props: Partial<SelectFilterProps>): TableColumnFilterProps;
 
+/**
+ * Datatype that can be used as the multiselect filter option
+ */
+export type MultiSelectFilterOptions = { [index: string]: string };
 /**
  *
  */
-export type MultiselectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
-    options: MultiselectFilterOptions | (() => MultiselectFilterOptions);
+export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
+    options: MultiSelectFilterOptions | (() => MultiSelectFilterOptions);
     comparator?: Comparator;
     /**
-     * When the default unset selection is hidden from dropdown
+     * When set the default selection is hidden from dropdown
      */
     withoutEmptyOption?: boolean;
 };
-/**
- *
- */
-export function multiSelectFilter(props: Partial<MultiselectFilterProps>): TableColumnFilterProps;
 
 /**
- *
+ * multiSelectFilter adds multi select filtering to a column
+ * @param props filter options
+ */
+export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): TableColumnFilterProps;
+
+/**
+ * Number filter configuration options
  */
 export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
     options?: number[];
@@ -91,7 +98,6 @@ export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<T
 };
 
 export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
-export function selectFilter(props: Partial<SelectFilterProps>): TableColumnFilterProps;
 
 /**
  * declaration for table filter sub module
