@@ -65,7 +65,7 @@ export type ColumnSortFunc<T, E extends keyof T = any> = (
     rowB: T,
 ) => number;
 
-export type TableChangeState<T> = {
+export interface TableChangeState<T> {
     page: number;
     sizePerPage: number;
     sortField: string;
@@ -77,7 +77,7 @@ export type TableChangeState<T> = {
         dataField: string;
         newValue: any;
     };
-};
+}
 
 export type HeaderFormatter<T extends object = any> = (
     column: ColumnDescription<T>,
@@ -95,13 +95,13 @@ export type ColumnFormatter<R, E = any, C = any> = (
     formatExtraData: E,
 ) => JSX.Element | string | boolean | React.ReactText;
 
-export type ColumnDescription<T extends object = any, E = any> = {
+export interface ColumnDescription<T extends object = any, E = any> {
     /**
      * If set the column will not use cell values
      */
     isDummyField?: boolean;
     dataField: T[keyof T] | string;
-    formatter?: ColumnFormatter<T, E, any>;
+    formatter?: ColumnFormatter<T, E>;
     hidden?: boolean;
     /**
      * Column header field
@@ -135,7 +135,7 @@ export type ColumnDescription<T extends object = any, E = any> = {
     footerTitle?: boolean;
     footerEvents?: { onClick: (e: any, column: ColumnDescription<T, E>, columnIndex: number) => void };
     footerAlign?: CellAlignment | ((column: ColumnDescription<T, E>, colIndex: number) => CellAlignment);
-};
+}
 
 /**
  * Generic row event handler
@@ -179,79 +179,79 @@ export type PaginationOptions = Partial<{
     totalSize: number;
     /**
      * first page will be 0, default is 1
-     **/
+     */
     pageStartIndex: number;
     /**
      * the pagination bar size, default is 5
-     **/
+     */
     paginationSize: number;
     /**
      * display pagination information
-     **/
+     */
     showTotal: boolean;
     /**
      * A numeric array is also available: [5, 10]. the purpose of above example is custom the text
-     **/
-    sizePerPageList: number[] | { text: string; value: number }[];
+     */
+    sizePerPageList: Array<number> | Array<{ text: string; value: number }>;
     /**
      * hide the going to first and last page button
-     **/
+     */
     withFirstAndLast: boolean;
     /**
      * always show the next and previous page button
-     **/
+     */
     alwaysShowAllBtns: boolean;
     /**
      * the text of first page button
-     **/
+     */
     firstPageText: string;
     /**
      * the text of previous page button
-     **/
+     */
     prePageText: string;
     /**
      * the text of next page button
-     **/
+     */
     nextPageText: string;
     /**
      * the text of last page button
-     **/
+     */
     lastPageText: string;
     /**
      * the title of next page button
-     **/
+     */
     nextPageTitle: string;
     /**
      * the title of previous page button
-     **/
+     */
     prePageTitle: string;
     /**
      * the title of first page button
-     **/
+     */
     firstPageTitle: string;
     /**
      * the title of last page button
-     **/
+     */
     lastPageTitle: string;
     /**
      * hide the size per page dropdown
-     **/
+     */
     hideSizePerPage: boolean;
     /**
      * hide pagination bar when only one page, default is false
-     **/
+     */
     hidePageListOnlyOnePage: boolean;
     /**
      * callback function when page was changing
-     **/
+     */
     onPageChange: (page: number, sizePerPage: number) => void;
     /**
      * callback function when page size was changing
-     **/
+     */
     onSizePerPageChange: (page: number, sizePerPage: number) => void;
     /**
      * custom the pagination total
-     **/
+     */
     paginationTotalRenderer: (from: number, to: number, size: number) => JSX.Element;
 }>;
 
@@ -291,15 +291,15 @@ export interface SelectRowProps<T> {
 export interface BootstrapTableRef<T extends object = any> {
     table: {
         props: {
-            data: Array<T>;
+            data: T[];
         };
     };
     selectionContext?: {
-        selected?: Array<any>;
+        selected?: any[];
     };
     rowExpandContext?: {
         state: {
-            expanded?: Array<any>;
+            expanded?: any[];
         };
     };
     paginationContext?: {
@@ -328,8 +328,8 @@ export interface BootstrapTableProps<T = any> {
     /**
      *  Provides data for your table. It accepts a single Array object.
      */
-    data: T[];
-    columns: Array<ColumnDescription<T | any>>;
+    data: any[];
+    columns: Array<ColumnDescription<T>>;
     bootstrap4?: boolean;
     remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
     noDataIndication?: () => JSX.Element | JSX.Element | string;
@@ -452,5 +452,5 @@ export type TableColumnFilterProps<FT = any, T extends object = any> = Partial<{
     /**
      * Register a listener which will be called when column filter being triggered. If you return an array value, react-bootstrap-table2 will adopt this value as the final filtered result.
      */
-    onFilter: (filterValue: FT) => void | Array<T>;
+    onFilter: (filterValue: FT) => void | T[];
 }>;

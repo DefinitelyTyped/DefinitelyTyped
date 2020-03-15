@@ -43,7 +43,7 @@ export function textFilter(props?: Partial<TextFilterProps>): TableColumnFilterP
 /**
  * select filter option type
  */
-export type SelectFilterOptions = { [index: string]: string } | { value: number; label: string }[];
+export type SelectFilterOptions = { [index: string]: string } | Array<{ value: number; label: string }>;
 
 export type SelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: SelectFilterOptions | ((column: ColumnDescription<T>) => SelectFilterOptions);
@@ -63,9 +63,11 @@ export function selectFilter(props: Partial<SelectFilterProps>): TableColumnFilt
 /**
  * Datatype that can be used as the multiselect filter option
  */
-export type MultiSelectFilterOptions = { [index: string]: string };
+export interface MultiSelectFilterOptions {
+    [index: string]: string;
+}
 /**
- *
+ * Multi Select filter options
  */
 export type MultiSelectFilterProps<T extends object = any> = TableColumnFilterProps<string, T> & {
     options: MultiSelectFilterOptions | (() => MultiSelectFilterOptions);
@@ -86,7 +88,7 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
  * Number filter configuration options
  */
 export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
-    options?: number[];
+    options?: Array<number>;
     comparators?: Array<Comparator>;
     /**
      * When set to true comparator dropdown does not show a "no selection" option

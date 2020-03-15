@@ -17,30 +17,30 @@ export interface InjectedSearchProps {
     onClear: () => void;
 }
 
-export type SearchMartchProps<T extends object = any> = {
+export interface SearchMatchProps<T extends object = any> {
     searchText: string;
     value: string;
     column: ColumnDescription<T>;
     row: T;
-};
+}
 
-export type TableSearchProps<T extends object = any> = Partial<{
-    searchFormatted: boolean;
-    defaultSearch: string;
-    placeholder: string;
-    onColumnMatch: (props: SearchMartchProps<T>) => void;
-    customMatchFunc: (props: SearchMartchProps<T>) => boolean;
-}>;
+export interface TableSearchProps<T extends object = any> {
+    searchFormatted?: boolean;
+    defaultSearch?: string;
+    placeholder?: string;
+    onColumnMatch?: (props: SearchMatchProps<T>) => void;
+    customMatchFunc?: (props: SearchMatchProps<T>) => boolean;
+}
 
-export type TableToolkitProps<T extends object = any> = {
+export interface TableToolkitProps<T extends object = any> {
     bootstrap4?: boolean;
     search?: TableSearchProps<T> | boolean;
     keyField: keyof T | string;
     data: T[];
     ref?: any;
-    columns: ColumnDescription<T>[];
+    columns: Array<ColumnDescription<T>>;
     children: (props: { baseProps: BootstrapTableProps<T>; searchProps: InjectedSearchProps }) => JSX.Element;
-};
+}
 
-declare function ToolkitProvider<T extends object = any>(props: TableToolkitProps<T>): JSX.Element;
+declare function ToolkitProvider(props: TableToolkitProps): JSX.Element;
 export default ToolkitProvider;
