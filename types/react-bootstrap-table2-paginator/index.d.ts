@@ -2,11 +2,11 @@
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
 // Definitions by: Wlad Meixner <https://github.com/gosticks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8.3
-
-import { PaginationOptions } from 'react-bootstrap-table-next';
+// TypeScript Version: 3.8
 
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
+
+import { PaginationOptions } from 'react-bootstrap-table-next';
 
 /**
  * declaration for table pagination sub module and factory

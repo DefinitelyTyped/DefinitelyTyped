@@ -1,7 +1,10 @@
 // Type definitions for react-bootstrap-table2-filter 1.3
 // Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
-// Definitions by: Wlad Meixner <https://github.com/me>
+// Definitions by: Wlad Meixner <https://github.com/gosticks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version 3.8
+
+// documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
 import { TableColumnFilterProps, ColumnDescription } from 'react-bootstrap-table-next';
 import { CSSProperties, SyntheticEvent } from 'react';

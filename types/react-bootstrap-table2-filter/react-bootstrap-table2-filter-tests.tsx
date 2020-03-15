@@ -14,6 +14,7 @@ import filterFactory, {
 } from 'react-bootstrap-table2-filter';
 import { render } from 'react-dom';
 
+// examples partially taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 interface Product {
     id: number;
     name: string;
