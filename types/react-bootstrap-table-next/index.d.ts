@@ -31,14 +31,12 @@ export type FilterPosition =
 /**
  * Table change event types
  */
-export enum TableChangeType {
-    filter = 'filter',
-    pagination = 'pagination',
-    sort = 'sort',
-    cellEdit = 'cellEdit',
-}
+export type TableChangeType = 'filter' | 'pagination' | 'sort' | 'cellEdit';
 
-export type CellAlignment = 'left' | 'center' | 'right' | 'start' | 'end' | string;
+/**
+ * Used to specify the text alignment for a column.
+ */
+export type CellAlignment = ('left' | 'center' | 'right' | 'start' | 'end') | string;
 
 /**
  * Filter comparators used for table filters
@@ -57,11 +55,6 @@ declare enum FilterComparator {
  * Sort Order values. 'asc' = ascending, 'desc' = descending.
  */
 export type SortOrder = 'asc' | 'desc';
-
-/**
- * Used to specify the text alignment for a column.
- */
-export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
 
 export type ColumnSortFunc<T, E extends keyof T = any> = (
     a: T[E],
