@@ -49,8 +49,8 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
 };
 
 const productColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-    { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
+    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
     {
         isDummyField: true,
         dataField: '',
@@ -69,6 +69,7 @@ const productColumns: Array<ColumnDescription<Product>> = [
      */
     {
         isDummyField: true,
+        dataField: '',
         sort: true,
         formatter: priceFormatter,
         text: 'Product Price',

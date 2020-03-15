@@ -59,8 +59,8 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
 let priceFilter: any;
 
 const productColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-    { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
+    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
     {
         isDummyField: true,
         dataField: '',
@@ -94,11 +94,9 @@ const productColumns: Array<ColumnDescription<Product>> = [
             onFilter: filterValue => {},
         }),
     },
-    /**
-     * test optional dataField for dummyFields
-     */
     {
         isDummyField: true,
+        dataField: '',
         sort: true,
         formatter: priceFormatter,
         text: 'Product Price',
@@ -146,8 +144,8 @@ render(
         keyField="id"
         data={products}
         columns={[
-            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-            { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+            { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
+            { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
             {
                 dataField: 'quality',
                 text: 'Product Quailty',
@@ -176,11 +174,11 @@ render(
         keyField="id"
         data={products}
         columns={[
-            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
+            { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
             {
                 dataField: 'name',
                 formatter: cell => cell,
-                align: CellAlignment.center,
+                align: 'center',
                 sort: true,
                 text: 'Product Name',
             },

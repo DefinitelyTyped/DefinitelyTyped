@@ -6,6 +6,7 @@ import BootstrapTable, {
     HeaderFormatter,
     ColumnDescription,
     RowSelectionType,
+    ROW_SELECT_SINGLE,
 } from 'react-bootstrap-table-next';
 
 interface Product {
@@ -48,8 +49,8 @@ const priceFormatter: ColumnFormatter<Product, { indexSquare: number }> = (cell,
 };
 
 const productColumns: Array<ColumnDescription<Product>> = [
-    { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-    { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+    { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
+    { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
     {
         isDummyField: true,
         dataField: '',
@@ -94,8 +95,8 @@ render(
         hover={true}
         keyField="id"
         columns={[
-            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
-            { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+            { dataField: 'id', align: 'center', sort: true, text: 'Product ID' },
+            { dataField: 'name', align: 'center', sort: true, text: 'Product Name' },
             {
                 isDummyField: true,
                 dataField: '',
@@ -115,6 +116,7 @@ render(
              */
             {
                 isDummyField: true,
+                dataField: '',
                 sort: true,
                 formatter: priceFormatter,
                 text: 'Product Price',
@@ -152,7 +154,7 @@ render(
         keyField="id"
         columns={productColumns}
         selectRow={{
-            mode: RowSelectionType.ROW_SELECT_SINGLE,
+            mode: ROW_SELECT_SINGLE,
         }}
     />,
     document.getElementById('app'),
