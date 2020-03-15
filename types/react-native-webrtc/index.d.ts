@@ -238,7 +238,7 @@ export class mediaDevices {
 
     static enumerateDevices(): Promise<any>;
 
-    static getUserMedia(constraints: MediaStreamConstraints): MediaStream;
+    static getUserMedia(constraints: MediaStreamConstraints): Promise<MediaStream | boolean>;
 }
 
 export function registerGlobals(): void;
