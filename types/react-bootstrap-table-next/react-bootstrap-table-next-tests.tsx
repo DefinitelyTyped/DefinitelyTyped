@@ -84,6 +84,48 @@ render(
 );
 
 /**
+ * Inline untyped columns test
+ */
+render(
+    <BootstrapTable
+        data={products}
+        bootstrap4
+        striped={true}
+        hover={true}
+        keyField="id"
+        columns={[
+            { dataField: 'id', align: CellAlignment.center, sort: true, text: 'Product ID' },
+            { dataField: 'name', align: CellAlignment.center, sort: true, text: 'Product Name' },
+            {
+                isDummyField: true,
+                dataField: '',
+                sort: true,
+                formatter: () => <span>Dummy Field</span>,
+                text: 'Dummy Columns',
+            },
+            {
+                dataField: 'price',
+                sort: true,
+                formatter: priceFormatter,
+                text: 'Product Price',
+                headerFormatter: priceHeaderFormatter,
+            },
+            /**
+             * test optional dataField for dummyFields
+             */
+            {
+                isDummyField: true,
+                sort: true,
+                formatter: priceFormatter,
+                text: 'Product Price',
+                headerFormatter: priceHeaderFormatter,
+            },
+        ]}
+    />,
+    document.getElementById('app'),
+);
+
+/**
  * Basic table with custom data indicator and caption
  */
 render(

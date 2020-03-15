@@ -108,8 +108,9 @@ export type ColumnFormatter<R, E = any, C = any> = (
 
 export type ColumnDescription<T = any, E = any> = (
     | { isDummyField: true; dataField?: string; formatter?: ColumnFormatter<T, E, never> }
-    | { dataField: T[keyof T] | string; formatter?: ColumnFormatter<T, E, T[keyof T]> }
+    | { dataField: T[keyof T] | string }
 ) & {
+    formatter?: ColumnFormatter<T, E, any>;
     hidden?: boolean;
     /**
      * Column header field
