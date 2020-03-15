@@ -17,14 +17,14 @@ export interface InjectedSearchProps {
     onClear: () => void;
 }
 
-export type SearchMartchProps<T> = {
+export type SearchMartchProps<T extends object = any> = {
     searchText: string;
     value: string;
     column: ColumnDescription<T>;
     row: T;
 };
 
-export type TableSearchProps<T> = Partial<{
+export type TableSearchProps<T extends object = any> = Partial<{
     searchFormatted: boolean;
     defaultSearch: string;
     placeholder: string;
