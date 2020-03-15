@@ -19,10 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "app.d.ts",
-        "page.d.ts",
-        "common.d.ts",
-        "vue.d.ts",
         "uni-app-tests.ts"
     ]
 }

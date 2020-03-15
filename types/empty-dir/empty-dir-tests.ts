@@ -23,3 +23,9 @@ emptyDir('./', filter, (err, isEmpty) => {
 
 // $ExpectType boolean
 emptyDir.sync('./test/empty', filter);
+
+// $ExpectType Promise<boolean>
+emptyDir('./');
+
+// $ExpectType Promise<boolean>
+emptyDir('./', filter);

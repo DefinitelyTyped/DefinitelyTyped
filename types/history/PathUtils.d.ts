@@ -6,4 +6,4 @@ export function hasBasename(path: Path): boolean;
 export function stripBasename(path: Path, prefix: string): Path;
 export function stripTrailingSlash(path: Path): Path;
 export function parsePath(path: Path): Location;
-export function createPath(location: LocationDescriptorObject): Path;
+export function createPath<S>(location: LocationDescriptorObject<S>): Path;

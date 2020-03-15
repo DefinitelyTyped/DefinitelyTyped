@@ -29,6 +29,20 @@ type HasProperty<T, K> = K extends keyof T ? true : false;
             },
             name: 'confirmation',
             message: "Have you tried TypeScript?"
+        },
+        {
+            type: 'select',
+            name: 'so-many-options',
+            choices: [
+                {
+                    title: 'A',
+                    value: 'A'
+                },
+                {
+                    title: 'A',
+                    value: {foo: 'bar'}
+                },
+            ]
         }
     ]);
 })();

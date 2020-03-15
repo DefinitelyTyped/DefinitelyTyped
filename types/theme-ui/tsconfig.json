@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@styled-system/css": ["styled-system__css"],
+            "@theme-ui/components": ["theme-ui__components"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "theme-ui-tests.tsx"
+    ]
+}

@@ -1,20 +1,46 @@
-// Type definitions for express-rate-limit 3.3
+// Type definitions for express-rate-limit 5.0
 // Project: https://github.com/nfriedly/express-rate-limit
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 makepost <https://github.com/makepost>
 //                 Jeremy Forsythe <https://github.com/jdforsythe>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
-import express = require("express");
+import express = require('express');
 
-declare namespace RateLimit {
-    type StoreIncrementCallback = (err?: {}, hits?: number) => void;
+declare global {
+    namespace Express {
+        interface Request {
+            /**
+             * property is added to all requests with the limit, current,
+             * and remaining number of requests and, if the store provides it, a resetTime Date object.
+             * These may be used in your application code to take additional actions or inform the user of their status
+             */
+            rateLimit: rateLimit.RateLimitInfo;
+        }
+    }
+}
+
+declare namespace rateLimit {
+    interface RateLimit extends express.RequestHandler {
+        resetKey(key: string): void;
+        resetIp(key: string): void;
+    }
+
+    interface RateLimitInfo {
+        readonly limit: number;
+        readonly current: number;
+        readonly remaining: number;
+        readonly resetTime?: Date;
+    }
+
+    type StoreIncrementCallback = (err?: {}, hits?: number, resetTime?: Date) => void;
 
     interface Store {
         incr(key: string, cb: StoreIncrementCallback): void;
         decrement(key: string): void;
         resetKey(key: string): void;
+        resetAll(): void;
     }
 
     interface Message {
@@ -101,5 +127,6 @@ declare namespace RateLimit {
     }
 }
 
-declare var RateLimit: new (options: RateLimit.Options) => express.RequestHandler;
-export = RateLimit;
+declare function rateLimit(options?: rateLimit.Options): rateLimit.RateLimit;
+
+export = rateLimit;

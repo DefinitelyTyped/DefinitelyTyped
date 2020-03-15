@@ -1,40 +1,159 @@
-// Type definitions for chai 4.1
+// Type definitions for chai 4.2
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Josh Goldberg <https://github.com/joshuakgoldberg>
-//                 Shaun Luttin <https://github.com/shaunluttin>
-//                 Gintautas Miselis <https://github.com/Naktibalda>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Erik Schierboom <https://github.com/ErikSchierboom>
+//                 Josh Goldberg <https://github.com/joshuakgoldberg>,
+//                 Shaun Luttin <https://github.com/shaunluttin>,
+//                 Gintautas Miselis <https://github.com/Naktibalda>,
+//                 Satana Charuwichitratana <https://github.com/micksatana>,
+//                 Erik Schierboom <https://github.com/ErikSchierboom>,
+//                 Bogdan Paranytsia <https://github.com/bparan>,
+//                 CXuesong <https://github.com/CXuesong>,
+//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 3.0
 
 declare namespace Chai {
+    type Message = string | (() => string);
+    type ObjectProperty = string | symbol | number;
+
+    interface PathInfo {
+        parent: object;
+        name: string;
+        value?: any;
+        exists: boolean;
+    }
+
+    interface ErrorConstructor {
+        new(...args: any[]): Error;
+    }
+
+    interface ChaiUtils {
+        addChainableMethod(
+            // object to define the method on, e.g. chai.Assertion.prototype
+            ctx: object,
+            // method name
+            name: string,
+            // method itself; any arguments
+            method: (...args: any[]) => void,
+            // called when property is accessed
+            chainingBehavior?: () => void
+        ): void;
+        overwriteChainableMethod(
+            ctx: object,
+            name: string,
+            method: (...args: any[]) => void,
+            chainingBehavior?: () => void
+        ): void;
+        addLengthGuard(
+            fn: Function,
+            assertionName: string,
+            isChainable: boolean
+        ): void;
+        addMethod(ctx: object, name: string, method: Function): void;
+        addProperty(ctx: object, name: string, getter: () => any): void;
+        overwriteMethod(ctx: object, name: string, method: Function): void;
+        overwriteProperty(ctx: object, name: string, getter: () => any): void;
+        compareByInspect(a: object, b: object): -1 | 1;
+        expectTypes(obj: object, types: string[]): void;
+        flag(obj: object, key: string, value?: any): any;
+        getActual(obj: object, args: AssertionArgs): any;
+        getProperties(obj: object): string[];
+        getEnumerableProperties(obj: object): string[];
+        getOwnEnumerablePropertySymbols(obj: object): symbol[];
+        getOwnEnumerableProperties(obj: object): Array<string | symbol>;
+        getMessage(errorLike: Error | string): string;
+        getMessage(obj: any, args: AssertionArgs): string;
+        inspect(obj: any, showHidden?: boolean, depth?: number, colors?: boolean): void;
+        isProxyEnabled(): boolean;
+        objDisplay(obj: object): void;
+        proxify(obj: object, nonChainableMethodName: string): object;
+        test(obj: object, args: AssertionArgs): boolean;
+        transferFlags(assertion: Assertion, obj: object, includeAll?: boolean): void;
+        compatibleInstance(thrown: Error, errorLike: Error | ErrorConstructor): boolean;
+        compatibleConstructor(thrown: Error, errorLike: Error | ErrorConstructor): boolean;
+        compatibleMessage(thrown: Error, errMatcher: string | RegExp): boolean;
+        getConstructorName(constructorFn: Function): string;
+        getFuncName(constructorFn: Function): string | null;
+
+        // Reexports from pathval:
+        hasProperty(obj: object | undefined | null, name: ObjectProperty): boolean;
+        getPathInfo(obj: object, path: string): PathInfo;
+        getPathValue(obj: object, path: string): object | undefined;
+    }
+
+    type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
+
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
         /**
          * Provides a way to extend the internals of Chai
          */
-        use(fn: (chai: any, utils: any) => void): ChaiStatic;
+        use(fn: ChaiPlugin): ChaiStatic;
+        util: ChaiUtils;
         assert: AssertStatic;
         config: Config;
+        Assertion: AssertionStatic;
         AssertionError: typeof AssertionError;
         version: string;
     }
 
-    export interface ExpectStatic extends AssertionStatic {
-        fail(actual?: any, expected?: any, message?: string, operator?: Operator): void;
+    export interface ExpectStatic {
+        (val: any, message?: string): Assertion;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     export interface AssertStatic extends Assert {
     }
 
-    export interface AssertionStatic {
-        (target: any, message?: string): Assertion;
+    // chai.Assertion.prototype.assert arguments
+    type AssertionArgs = [
+        // 'expression to be tested'
+        // This parameter is unused and the docs list its type as
+        // 'Philosophical', which is mentioned nowhere else in the source. Do
+        // with that what you will!
+        any,
+        Message, // message if value fails
+        Message, // message if negated value fails
+        any, // expected value
+        any?, // actual value
+        boolean? // showDiff
+    ];
+
+    export interface AssertionPrototype {
+        assert(...args: AssertionArgs): void;
+        _obj: any;
+    }
+
+    export interface AssertionStatic extends AssertionPrototype {
+        prototype: AssertionPrototype;
+
+        new(target: any, message?: string, ssfi?: Function, lockSsfi?: boolean): Assertion;
+
+        // Deprecated properties:
+        includeStack: boolean;
+        showDiff: boolean;
+
+        // Partials of functions on ChaiUtils:
+        addProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        addMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        addChainableMethod(
+            name: string,
+            method: (this: AssertionStatic, ...args: any[]) => void,
+            chainingBehavior?: () => void
+        ): void;
+        overwriteProperty(name: string, getter: (this: AssertionStatic) => any): void;
+        overwriteMethod(name: string, method: (this: AssertionStatic, ...args: any[]) => any): void;
+        overwriteChainableMethod(
+            name: string,
+            method: (this: AssertionStatic, ...args: any[]) => void,
+            chainingBehavior?: () => void
+        ): void;
     }
 
     export type Operator = string; // "==" | "===" | ">" | ">=" | "<" | "<=" | "!=" | "!==";
@@ -50,12 +169,13 @@ declare namespace Chai {
 
     interface Should extends ShouldAssertion {
         not: ShouldAssertion;
-        fail(actual: any, expected: any, message?: string, operator?: Operator): void;
+        fail(message?: string): never;
+        fail(actual: any, expected: any, message?: string, operator?: Operator): never;
     }
 
     interface ShouldThrow {
-        (actual: Function, expected?: string|RegExp, message?: string): void;
-        (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
+        (actual: Function, expected?: string | RegExp, message?: string): void;
+        (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -63,6 +183,7 @@ declare namespace Chai {
         deep: Deep;
         ordered: Ordered;
         nested: Nested;
+        own: Own;
         any: KeyFilter;
         all: KeyFilter;
         a: TypeComparison;
@@ -87,8 +208,8 @@ declare namespace Chai {
         eql: Equal;
         eqls: Equal;
         property: Property;
-        ownProperty: OwnProperty;
-        haveOwnProperty: OwnProperty;
+        ownProperty: Property;
+        haveOwnProperty: Property;
         ownPropertyDescriptor: OwnPropertyDescriptor;
         haveOwnPropertyDescriptor: OwnPropertyDescriptor;
         length: Length;
@@ -165,7 +286,7 @@ declare namespace Chai {
     }
 
     interface InstanceOf {
-        (constructor: Object, message?: string): Assertion;
+        (constructor: any, message?: string): Assertion;
     }
 
     interface CloseTo {
@@ -173,9 +294,20 @@ declare namespace Chai {
     }
 
     interface Nested {
-      include: Include;
-      property: Property;
-      members: Members;
+        include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
+        property: Property;
+        members: Members;
+    }
+
+    interface Own {
+        include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
+        property: Property;
     }
 
     interface Deep {
@@ -183,10 +315,14 @@ declare namespace Chai {
         equals: Equal;
         eq: Equal;
         include: Include;
+        includes: Include;
+        contain: Include;
+        contains: Include;
         property: Property;
         members: Members;
         ordered: Ordered;
         nested: Nested;
+        own: Own;
     }
 
     interface Ordered {
@@ -203,10 +339,7 @@ declare namespace Chai {
     }
 
     interface Property {
-        (name: string, value?: any, message?: string): Assertion;
-    }
-
-    interface OwnProperty {
+        (name: string, value: any, message?: string): Assertion;
         (name: string, message?: string): Assertion;
     }
 
@@ -220,7 +353,7 @@ declare namespace Chai {
     }
 
     interface Include {
-        (value: Object | string | number, message?: string): Assertion;
+        (value: any, message?: string): Assertion;
         keys: Keys;
         deep: Deep;
         ordered: Ordered;
@@ -235,12 +368,12 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any>|Object): Assertion;
+        (keys: ReadonlyArray<any> | Object): Assertion;
     }
 
     interface Throw {
-        (expected?: string|RegExp, message?: string): Assertion;
-        (constructor: Error|Function, expected?: string|RegExp, message?: string): Assertion;
+        (expected?: string | RegExp, message?: string): Assertion;
+        (constructor: Error | Function, expected?: string | RegExp, message?: string): Assertion;
     }
 
     interface RespondTo {
@@ -256,7 +389,7 @@ declare namespace Chai {
     }
 
     interface PropertyChange {
-        (object: Object, property: string, message?: string): Assertion;
+        (object: Object, property?: string, message?: string): Assertion;
     }
 
     export interface Assert {
@@ -269,6 +402,14 @@ declare namespace Chai {
         /**
          * Throws a failure.
          *
+         * @param message    Message to display on error.
+         * @remarks Node.js assert module-compatible.
+         */
+        fail(message?: string): never;
+
+        /**
+         * Throws a failure.
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -276,7 +417,7 @@ declare namespace Chai {
          * @param operator   Comparison operator, if not strict equality.
          * @remarks Node.js assert module-compatible.
          */
-        fail<T>(actual?: T, expected?: T, message?: string, operator?: Operator): void;
+        fail<T>(actual: T, expected: T, message?: string, operator?: Operator): never;
 
         /**
          * Asserts that object is truthy.
@@ -412,7 +553,7 @@ declare namespace Chai {
         isBelow(valueToCheck: number, valueToBeBelow: number, message?: string): void;
 
         /**
-         * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtMost.
+         * Asserts valueToCheck is less than or equal to (<=) valueToBeAtMost.
          *
          * @param valueToCheck   Actual value.
          * @param valueToBeAtMost   Minimum Potential expected value.
@@ -475,7 +616,7 @@ declare namespace Chai {
         isNotNull<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -484,7 +625,7 @@ declare namespace Chai {
         isNaN<T>(value: T, message?: string): void;
 
         /**
-         * Asserts that value is not null.
+         * Asserts that value is not NaN.
          *
          * @type T   Type of value.
          * @param value   Actual value.
@@ -683,7 +824,7 @@ declare namespace Chai {
          * Asserts that haystack includes needle.
          *
          * @param haystack   Container string.
-         * @param needle   Potential expected substring of haystack.
+         * @param needle   Potential substring of haystack.
          * @param message   Message to display on error.
          */
         include(haystack: string, needle: string, message?: string): void;
@@ -692,47 +833,132 @@ declare namespace Chai {
          * Asserts that haystack includes needle.
          *
          * @type T   Type of values in haystack.
-         * @param haystack   Container array.
+         * @param haystack   Container array, set or map.
          * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        include<T>(haystack: ReadonlyArray<T>, needle: T, message?: string): void;
+        include<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack does not include needle.
+         * Asserts that haystack includes needle.
          *
-         * @param haystack   Container string or array.
-         * @param needle   Potential expected substring of haystack.
+         * @type T   Type of values in haystack.
+         * @param haystack   WeakSet container.
+         * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        notInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
+        include<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack includes needle.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        include<T>(haystack: T, needle: Partial<T>, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle.
          *
          * @param haystack   Container string.
-         * @param needle   Potential expected substring of haystack.
+         * @param needle   Potential substring of haystack.
          * @param message   Message to display on error.
+         */
+        notInclude(haystack: string, needle: string, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container array, set or map.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        notInclude<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   WeakSet container.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        notInclude<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        notInclude<T>(haystack: T, needle: Partial<T>, message?: string): void;
+
+        /**
+         * Asserts that haystack includes needle. Deep equality is used.
+         *
+         * @param haystack   Container string.
+         * @param needle   Potential substring of haystack.
+         * @param message   Message to display on error.
+         *
+         * @deprecated Does not have any effect on string. Use {@link Assert#include} instead.
          */
         deepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack includes needle. Can be used to assert the inclusion of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
-         * @param haystack
-         * @param needle
+         * @type T   Type of values in haystack.
+         * @param haystack   Container array, set or map.
+         * @param needle   Potential value contained in haystack.
          * @param message   Message to display on error.
          */
-        deepInclude<T>(haystack: any, needle: any, message?: string): void;
+        deepInclude<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack does not include needle. Can be used to assert the absence of a value in an array or a subset of properties in an object. Deep equality is used.
+         * Asserts that haystack does not includes needle.
          *
-         * @param haystack   Container string or array.
-         * @param needle   Potential expected substring of haystack.
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
          * @param message   Message to display on error.
          */
-        notDeepInclude(haystack: string | ReadonlyArray<any>, needle: any, message?: string): void;
+        deepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle. Deep equality is used.
+         *
+         * @param haystack   Container string.
+         * @param needle   Potential substring of haystack.
+         * @param message   Message to display on error.
+         *
+         * @deprecated Does not have any effect on string. Use {@link Assert#notInclude} instead.
+         */
+        notDeepInclude(haystack: string, needle: string, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle. Deep equality is used.
+         *
+         * @type T   Type of values in haystack.
+         * @param haystack   Container array, set or map.
+         * @param needle   Potential value contained in haystack.
+         * @param message   Message to display on error.
+         */
+        notDeepInclude<T>(haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>, needle: T, message?: string): void;
+
+        /**
+         * Asserts that haystack does not includes needle. Deep equality is used.
+         *
+         * @type T   Type of haystack.
+         * @param haystack   Object.
+         * @param needle   Potential subset of the haystack's properties.
+         * @param message   Message to display on error.
+         */
+        notDeepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
          * Asserts that ‘haystack’ includes ‘needle’. Can be used to assert the inclusion of a subset of properties in an object.
@@ -912,7 +1138,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        propertyNotVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
+        notPropertyVal<T, V>(object: T, property: string /* keyof T */, value: V, message?: string): void;
 
         /**
          * Asserts that object has a property named by property, which can be a string
@@ -938,7 +1164,7 @@ declare namespace Chai {
          * @param value   Potential expected property value.
          * @param message   Message to display on error.
          */
-        deepPropertyNotVal<T, V>(object: T, property: string, value: V, message?: string): void;
+        notDeepPropertyVal<T, V>(object: T, property: string, value: V, message?: string): void;
 
         /**
          * Asserts that object has a length property with the expected value.
@@ -956,7 +1182,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, message?: string): void;
+        throw(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -965,7 +1191,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, regExp: RegExp): void;
+        throw(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -974,7 +1200,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, constructor: Function, message?: string): void;
+        throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -984,7 +1210,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throw(fn: Function, constructor: Function, regExp: RegExp): void;
+        throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -992,7 +1218,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, message?: string): void;
+        throws(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1001,7 +1227,7 @@ declare namespace Chai {
          * @param errType  Potential expected message match or error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, errType: RegExp|Function, message?: string): void;
+        throws(fn: () => void, errType: RegExp | ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1011,7 +1237,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        throws(fn: Function, errType: Function, regExp: RegExp): void;
+        throws(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will throw an error.
@@ -1019,7 +1245,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, message?: string): void;
+        Throw(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1028,7 +1254,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, regExp: RegExp): void;
+        Throw(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -1037,7 +1263,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, errType: Function, message?: string): void;
+        Throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1047,7 +1273,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        Throw(fn: Function, errType: Function, regExp: RegExp): void;
+        Throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Asserts that fn will not throw an error.
@@ -1055,7 +1281,7 @@ declare namespace Chai {
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, message?: string): void;
+        doesNotThrow(fn: () => void, message?: string): void;
 
         /**
          * Asserts that function will throw an error with message matching regexp.
@@ -1064,7 +1290,7 @@ declare namespace Chai {
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, regExp: RegExp): void;
+        doesNotThrow(fn: () => void, regExp: RegExp): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
@@ -1073,7 +1299,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, errType: Function, message?: string): void;
+        doesNotThrow(fn: () => void, constructor: ErrorConstructor, message?: string): void;
 
         /**
          * Asserts that function will throw an error that is an instance of constructor
@@ -1083,7 +1309,7 @@ declare namespace Chai {
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: Function, errType: Function, regExp: RegExp): void;
+        doesNotThrow(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
 
         /**
          * Compares two values using operator.
@@ -1686,6 +1912,16 @@ declare namespace Chai {
          * Default: 40
          */
         truncateThreshold: number;
+
+        /**
+         * Default: true
+         */
+        useProxy: boolean;
+
+        /**
+         * Default: ['then', 'catch', 'inspect', 'toJSON']
+         */
+        proxyExcludedKeys: string[];
     }
 
     export class AssertionError {

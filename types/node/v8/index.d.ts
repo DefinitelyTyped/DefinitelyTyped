@@ -18,6 +18,7 @@
 //                 Alberto Schiabel <https://github.com/jkomyno>
 //                 Huw <https://github.com/hoo29>
 //                 Nicolas Even <https://github.com/n-e>
+//                 Nikita Galkin <https://github.com/galkin>
 //                 Bruno Scheufler <https://github.com/brunoscheufler>
 //                 Hoàng Văn Khải <https://github.com/KSXGitHub>
 //                 Lishude <https://github.com/islishude>

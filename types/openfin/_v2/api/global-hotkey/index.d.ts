@@ -13,12 +13,15 @@ export default class GlobalHotkey extends EmitterBase<GlobalHotkeyEvents> {
     constructor(wire: Transport);
     /**
      * Registers a global hotkey with the operating system.
+     * @param { string } hotkey a hotkey string
+     * @param { Function } listener called when the registered hotkey is pressed by the user.
      * @return {Promise.<void>}
      * @tutorial GlobalHotkey.register
      */
     register(hotkey: string, listener: (...args: any[]) => void): Promise<void>;
     /**
      * Unregisters a global hotkey with the operating system.
+     * @param { string } hotkey a hotkey string
      * @return {Promise.<void>}
      * @tutorial GlobalHotkey.unregister
      */
@@ -31,7 +34,8 @@ export default class GlobalHotkey extends EmitterBase<GlobalHotkeyEvents> {
     unregisterAll(): Promise<void>;
     /**
      * Checks if a given hotkey has been registered
-     * @return {Promise.<bookean>}
+     * @param { string } hotkey a hotkey string
+     * @return {Promise.<boolean>}
      * @tutorial GlobalHotkey.isRegistered
      */
     isRegistered(hotkey: string): Promise<boolean>;

@@ -7,6 +7,10 @@ let resultDate: Date;
 import faker = require('faker');
 faker.locale = 'en';
 
+faker.seedValue === undefined;
+faker.seed(123);
+faker.seedValue === 123;
+
 resultStr = faker.address.zipCode();
 resultStr = faker.address.zipCode('###');
 resultStr = faker.address.city();
@@ -61,8 +65,6 @@ resultDate = faker.date.between('foo', 'bar');
 resultDate = faker.date.between(new Date(), new Date());
 resultDate = faker.date.recent();
 resultDate = faker.date.recent(100);
-resultDate = faker.date.soon();
-resultDate = faker.date.soon(30);
 resultStr = faker.date.month();
 resultStr = faker.date.month({
 	abbr: true,
@@ -77,6 +79,7 @@ resultStr = faker.date.weekday({
 resultStr = faker.finance.account();
 resultStr = faker.finance.account(0);
 resultStr = faker.finance.accountName();
+resultStr = faker.finance.routingNumber();
 resultStr = faker.finance.mask();
 resultStr = faker.finance.mask(0, false, false);
 resultStr = faker.finance.amount();
@@ -86,10 +89,16 @@ resultStr = faker.finance.currencyCode();
 resultStr = faker.finance.currencyName();
 resultStr = faker.finance.currencySymbol();
 resultStr = faker.finance.bitcoinAddress();
-resultStr = faker.finance.ethereumAddress();
 resultStr = faker.finance.iban();
 resultStr = faker.finance.iban(true);
 resultStr = faker.finance.bic();
+
+resultStr = faker.git.branch();
+resultStr = faker.git.commitEntry();
+resultStr = faker.git.commitEntry({ merge: true });
+resultStr = faker.git.commitMessage();
+resultStr = faker.git.commitSha();
+resultStr = faker.git.shortSha();
 
 resultStr = faker.hacker.abbreviation();
 resultStr = faker.hacker.adjective();
@@ -112,6 +121,7 @@ resultStr = card.name;
 resultStr = card.address.streetA;
 const contextualCard = faker.helpers.contextualCard();
 resultStr = contextualCard.name;
+resultStr = contextualCard.avatar;
 resultStr = contextualCard.address.suite;
 const userCard = faker.helpers.userCard();
 resultStr = userCard.name;
@@ -182,6 +192,7 @@ resultNum = faker.random.number({
 });
 resultStr = faker.random.arrayElement();
 resultStr = faker.random.arrayElement(['foo', 'bar', 'quux']);
+resultStr = faker.random.arrayElement(['foo', 'bar', 'quux'] as ReadonlyArray<string>);
 resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
@@ -194,8 +205,6 @@ resultStr = faker.random.image();
 resultStr = faker.random.locale();
 resultStr = faker.random.alphaNumeric();
 resultStr = faker.random.alphaNumeric(0);
-resultStr = faker.random.hexaDecimal();
-resultStr = faker.random.hexaDecimal(3);
 
 resultStr = faker.system.fileName("foo", "bar");
 resultStr = faker.system.commonFileName("foo", "bar");
@@ -207,6 +216,14 @@ resultStr = faker.system.fileExt("foo");
 resultStr = faker.system.directoryPath();
 resultStr = faker.system.filePath();
 resultStr = faker.system.semver();
+
+resultStr = faker.vehicle.vehicle();
+resultStr = faker.vehicle.manufacturer();
+resultStr = faker.vehicle.model();
+resultStr = faker.vehicle.type();
+resultStr = faker.vehicle.fuel();
+resultStr = faker.vehicle.vin();
+resultStr = faker.vehicle.color();
 
 import fakerAz = require('faker/locale/az');
 resultStr = fakerAz.name.firstName();

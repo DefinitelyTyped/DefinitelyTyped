@@ -1,21 +1,15 @@
-// Type definitions for @hapi/bell 10.1
+// Type definitions for @hapi/bell 11.0
 // Project: https://github.com/hapijs/bell
 // Definitions by: Simon Schick <https://github.com/SimonSchick>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.1
 
-import { Server, Request, Plugin, AuthCredentials } from '@hapi/hapi';
+import { AuthMode, Server, Request, Plugin, AuthCredentials } from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
   interface ServerAuth {
     strategy(name: string, scheme: 'bell', options: BellOptions): void;
-    strategy(
-      name: string,
-      scheme: 'bell',
-      mode: boolean | 'required' | 'optional' | 'try',
-      options: BellOptions,
-    ): void;
   }
 }
 
@@ -25,12 +19,12 @@ export interface StringLikeMap {
 export type Provider =
   'arcgisonline' |
   'auth0' |
-  'azuread' |
+  'azure' |
   'bitbucket' |
+  'cognito' |
   'digitalocean' |
   'discord' |
   'dropbox' |
-  'dropboxV2' |
   'facebook' |
   'fitbit' |
   'foursquare' |
@@ -45,7 +39,6 @@ export type Provider =
   'meetup' |
   'mixer' |
   'nest' |
-  'office365' |
   'okta' |
   'phabricator' |
   'pingfed' |
@@ -262,6 +255,8 @@ export interface CustomProtocol1 extends CustomProtocol {
   profile: ProfileGetter<Credentials1>;
 }
 
+export type PkceSetting = 'plain' | 'S256';
+
 export interface CustomProtocol2 extends CustomProtocol {
   /**
    * the authorization protocol used.
@@ -277,6 +272,11 @@ export interface CustomProtocol2 extends CustomProtocol {
    * Defaults to false.
    */
   useParamsAuth?: boolean;
+
+  /**
+   * If specified, uses proof key exchange.
+   */
+  pkce?: PkceSetting;
 
   /**
    * the scope separator character. Only required when a provider has a broken OAuth 2.0 implementation. Defaults to space (Facebook and GitHub default to comma).

@@ -1,4 +1,4 @@
-import JiraApi from 'jira-client';
+import * as JiraApi from 'jira-client';
 
 // Initialize
 const jira = new JiraApi({

@@ -40,6 +40,9 @@ babel.transformFromAstAsync(parsedAst!, sourceCode, options).then(transformFromA
     const { body } = ast!.program;
 });
 
+const pluginPath = babel.resolvePlugin('plugin-name', 'babelrcPath');
+const presetPath = babel.resolvePreset('preset-name', 'babelrcPath');
+
 function checkOptions(_options: babel.TransformOptions) {}
 function checkConfigFunction(_config: babel.ConfigFunction) {}
 
@@ -55,6 +58,30 @@ checkOptions({ caller: { name: '', tomato: true } });
 checkOptions({ rootMode: 'upward-optional' });
 // $ExpectError
 checkOptions({ rootMode: 'potato' });
+checkOptions({ exclude: '../node_modules' });
+// $ExpectError
+checkOptions({ exclude: 256 });
+checkOptions({ include: [/node_modules/, new RegExp('bower_components')] });
+// $ExpectError
+checkOptions({ include: [null] });
+checkOptions({ test: (fileName) => fileName ? fileName.endsWith('mjs') : false });
+// $ExpectError
+checkOptions({ test: (fileName) => fileName && fileName.endsWith('mjs') });
+checkOptions({
+    overrides: [
+        {
+            test: /^.*\.m?js$/,
+            compact: true,
+        }
+    ]
+});
+checkOptions({
+    overrides: {
+        // $ExpectError
+        test: /^.*\.m?js$/,
+        compact: true,
+    }
+});
 
 // $ExpectError
 checkConfigFunction(() => {});

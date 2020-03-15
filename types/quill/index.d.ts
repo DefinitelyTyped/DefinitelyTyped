@@ -22,7 +22,7 @@ export type DeltaOperation = { insert?: any, delete?: number, retain?: number } 
 export type Sources = "api" | "user" | "silent";
 
 export interface Key {
-    key: string;
+    key: string | number;
     shortKey?: boolean;
 }
 

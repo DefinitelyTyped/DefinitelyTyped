@@ -61,7 +61,6 @@ declare namespace BootstrapSwitch {
         animate(state: boolean): JQuery;
         disabled(): boolean;
         disabled(state: boolean): JQuery;
-        toggleDisabled(): JQuery;
         readonly(): boolean;
         readonly(state: boolean): JQuery;
         toggleReadOnly(): JQuery;

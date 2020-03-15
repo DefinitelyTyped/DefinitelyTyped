@@ -305,6 +305,24 @@ declare namespace Dockerode {
     resize(options: {}): Promise<any>;
   }
 
+  class Config {
+    constructor(modem: any, id: string);
+
+    modem: any;
+    id: string;
+
+    inspect(callback: Callback<ConfigInfo>): void;
+    inspect(): Promise<ConfigInfo>;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+    update(options?: {}): Promise<any>;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+    remove(options?: {}): Promise<any>;
+  }
+
   interface ImageInfo {
     Id: string;
     ParentId: string;
@@ -333,6 +351,16 @@ declare namespace Dockerode {
     NetworkSettings: {
       Networks: { [networkType: string]: NetworkInfo }
     };
+    Mounts: Array<{
+      Name?: string;
+      Type: string;
+      Source: string;
+      Destination: string;
+      Driver?: string;
+      Mode: string;
+      RW: boolean;
+      Propagation: string;
+    }>;
   }
 
   interface Port {
@@ -357,19 +385,38 @@ declare namespace Dockerode {
     MacAddress: string;
   }
 
-  // not complete definition of network inspection
-  // info which is returned by list / inspect
+  // Information returned from inspecting a network
   interface NetworkInspectInfo {
-    Id: string;
     Name: string;
-    Driver: string;
+    Id: string;
     Created: string;
     Scope: string;
+    Driver: string;
     EnableIPv6: boolean;
+    IPAM?: IPAM;
     Internal: boolean;
     Attachable: boolean;
     Ingress: boolean;
+    Containers?: { [id: string]: NetworkContainer };
+    Options?: { [key: string]: string };
+    Labels?: { [key: string]: string };
   }
+
+  interface NetworkContainer {
+    Name: string;
+    EndpointID: string;
+    MacAddress: string;
+    Ipv4Address: string;
+    IPv6Address: string;
+  }
+
+  /* tslint:disable:interface-name */
+  interface IPAM {
+    Driver: string;
+    Config?: { [key: string]: string };
+    Options?: Array<{ [key: string]: string }>;
+  }
+  /* tslint:enable:interface-name */
 
   interface VolumeInspectInfo {
     Name: string;
@@ -404,6 +451,16 @@ declare namespace Dockerode {
       Error: string;
       StartedAt: string;
       FinishedAt: string;
+      Health?: {
+        Status: string;
+        FailingStreak: number;
+        Log: Array<{
+          Start: string;
+          End: string;
+          ExitCode: number;
+          Output: string;
+        }>;
+      };
     };
     Image: string;
     ResolvConfPath: string;
@@ -427,6 +484,7 @@ declare namespace Dockerode {
       }
     };
     Mounts: Array<{
+      Name?: string;
       Source: string;
       Destination: string;
       Mode: string;
@@ -716,6 +774,11 @@ declare namespace Dockerode {
         DeviceSize: string;
       }
     };
+    RootFS: {
+      Type: string;
+      Layers?: string[];
+      BaseLayer?: string;
+    };
   }
 
   interface AuthConfig {
@@ -855,6 +918,7 @@ declare namespace Dockerode {
     MacAddress?: boolean;
     ExposedPorts?: { [port: string]: {} };
     StopSignal?: string;
+    StopTimeout?: number;
     HostConfig?: HostConfig;
     NetworkingConfig?: {
       EndpointsConfig?: EndpointsConfig;
@@ -879,6 +943,12 @@ declare namespace Dockerode {
     Promise?: typeof Promise;
   }
 
+  interface GetEventsOptions {
+    since?: number;
+    until?: number;
+    filters?: string;
+  }
+
   interface SecretVersion {
     Index: number;
   }
@@ -893,6 +963,24 @@ declare namespace Dockerode {
     CreatedAt: string;
     UpdatedAt?: string;
     Spec?: ServiceSpec;
+  }
+
+  interface ConfigInfo {
+    ID: string;
+    Version: SecretVersion;
+    CreatedAt: string;
+    UpdatedAt?: string;
+    Spec?: ConfigSpec;
+  }
+
+  interface ConfigSpec {
+    Name: string;
+    Labels: { [label: string]: string };
+    Data: string;
+  }
+
+  interface ConfigVersion {
+    Index: number;
   }
 
   interface PluginInfo {
@@ -1103,6 +1191,8 @@ declare class Dockerode {
 
   getExec(id: string): Dockerode.Exec;
 
+  getConfig(id: string): Dockerode.Config;
+
   listContainers(options: {}, callback: Callback<Dockerode.ContainerInfo[]>): void;
   listContainers(callback: Callback<Dockerode.ContainerInfo[]>): void;
   listContainers(options?: {}): Promise<Dockerode.ContainerInfo[]>;
@@ -1148,8 +1238,15 @@ declare class Dockerode {
   listNetworks(callback: Callback<any[]>): void;
   listNetworks(options?: {}): Promise<any[]>;
 
+  listConfigs(options: {}, callback: Callback<Dockerode.ConfigInfo[]>): void;
+  listConfigs(callback: Callback<Dockerode.ConfigInfo[]>): void;
+  listConfigs(options?: {}): Promise<Dockerode.ConfigInfo[]>;
+
   createSecret(options: {}, callback: Callback<any>): void;
   createSecret(options: {}): Promise<any>;
+
+  createConfig(options: {}, callback: Callback<any>): void;
+  createConfig(options: {}): Promise<any>;
 
   createPlugin(options: {}, callback: Callback<any>): void;
   createPlugin(options: {}): Promise<any>;
@@ -1194,9 +1291,9 @@ declare class Dockerode {
   ping(callback: Callback<any>): void;
   ping(): Promise<any>;
 
-  getEvents(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
+  getEvents(options: Dockerode.GetEventsOptions, callback: Callback<NodeJS.ReadableStream>): void;
   getEvents(callback: Callback<NodeJS.ReadableStream>): void;
-  getEvents(options?: {}): Promise<NodeJS.ReadableStream>;
+  getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
   pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
   pull(repoTag: string, options: {}, auth?: {}): Promise<any>;

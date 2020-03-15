@@ -16,8 +16,8 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.exec('uptime', (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) throw err;
+    conn.exec('uptime', (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) throw err;
         stream
             .on('close', (code: any, signal: any) => {
                 console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
@@ -42,8 +42,8 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.shell( (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) throw err;
+    conn.shell( (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) throw err;
         stream.on('close', () => {
             console.log('Stream :: close');
             conn.end();
@@ -68,8 +68,8 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.forwardOut('192.168.100.102', 8000, '127.0.0.1', 80, (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) throw err;
+    conn.forwardOut('192.168.100.102', 8000, '127.0.0.1', 80, (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) throw err;
         stream.on('close', () => {
             console.log('TCP :: CLOSED');
             conn.end();
@@ -99,7 +99,7 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.forwardIn('127.0.0.1', 8000, (err: Error) => {
+    conn.forwardIn('127.0.0.1', 8000, (err?: Error) => {
         if (err) throw err;
         console.log('Listening for connections on server on port 8000!');
     });
@@ -133,10 +133,10 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.sftp( (err: Error, sftp: ssh2.SFTPWrapper) => {
-        if (err) throw err;
-        sftp.readdir('foo', (err: Error, list: ssh2_streams.FileEntry[]) => {
-            if (err) throw err;
+    conn.sftp( (err?: Error, sftp?: ssh2.SFTPWrapper) => {
+        if (err || !sftp) throw err;
+        sftp.readdir('foo', (err?: Error, list?: ssh2_streams.FileEntry[]) => {
+            if (err || list === undefined) throw err;
             console.dir(list);
             conn.end();
         });
@@ -157,8 +157,8 @@ var conn1 = new Client(),
 
 conn1.on('ready', () => {
     console.log('FIRST :: connection ready');
-    conn1.exec('nc 192.168.1.2 22', (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) {
+    conn1.exec('nc 192.168.1.2 22', (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) {
             console.log('FIRST :: exec error: ' + err);
             return conn1.end();
         }
@@ -176,8 +176,8 @@ conn1.on('ready', () => {
 
 conn2.on('ready', () => {
     console.log('SECOND :: connection ready');
-    conn2.exec('uptime', (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) {
+    conn2.exec('uptime', (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) {
             console.log('SECOND :: exec error: ' + err);
             return conn1.end();
         }
@@ -207,8 +207,8 @@ conn.on('x11', (info: any, accept: any, reject: any) => {
 });
 
 conn.on('ready', () => {
-    conn.exec('xeyes', { x11: true }, (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) throw err;
+    conn.exec('xeyes', { x11: true }, (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) throw err;
         var code = 0;
         stream.on('end', () => {
             if (code !== 0)
@@ -246,8 +246,8 @@ socks.createServer( (info: any, accept: any, deny: any) => {
             info.srcPort,
             info.dstAddr,
             info.dstPort,
-             (err: Error, stream: ssh2.ClientChannel) => {
-                if (err) {
+             (err?: Error, stream?: ssh2.ClientChannel) => {
+                if (err || !stream) {
                     conn.end();
                     return deny();
                 }
@@ -281,8 +281,8 @@ var conn = new Client();
 
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.subsys('netconf', (err: Error, stream: ssh2.ClientChannel) => {
-        if (err) throw err;
+    conn.subsys('netconf', (err?: Error, stream?: ssh2.ClientChannel) => {
+        if (err || !stream) throw err;
         stream.on('data', (data: any) => {
             console.log(data);
         }).write(xmlhello);
@@ -428,8 +428,3 @@ new ssh2.Server({
 }).listen(0, '127.0.0.1', function () {
         console.log('Listening on port ' + this.address().port);
     });
-
-
-
-
-

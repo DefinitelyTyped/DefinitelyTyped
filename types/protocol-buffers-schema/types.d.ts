@@ -41,6 +41,7 @@ export interface Message {
     extends: Extend[];
     extensions: Extension[];
     messages: Message[];
+    options: Options;
     fields: Field[];
 }
 
@@ -77,5 +78,5 @@ export interface Schema {
     messages: Message[];
     options: Options;
     extends: Extend[];
-    service?: Service[];
+    services?: Service[];
 }

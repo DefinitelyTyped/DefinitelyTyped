@@ -370,8 +370,9 @@ interface RaygunV2 {
             | "saveIfOffline",
         value: boolean
     ): void;
+	(key: "filterSensitiveData", values: Array<string | RegExp>): void;
     (
-        key: "filterSensitiveData" | "whitelistCrossOriginDomains" | "withTags",
+        key: "whitelistCrossOriginDomains" | "withTags",
         values: string[]
     ): void;
     (key: "send" | "withCustomData", value: any): void;
@@ -412,6 +413,6 @@ interface Window {
     Raygun: RaygunStatic;
 }
 
-export { RaygunStatic, RaygunV2 };
+export { RaygunStatic, RaygunV2, RaygunV2UserDetails, RaygunOptions };
 
 export default rg4js;

@@ -1,13 +1,14 @@
-import { Base, EmitterBase } from '../base';
+import { Base } from '../base';
 import { Identity } from '../../identity';
-import Bounds from './bounds';
-import { Transition, TransitionOptions } from './transition';
 import { Application } from '../application/application';
 import Transport from '../../transport/transport';
 import { WindowEvents } from '../events/window';
-import { AnchorType } from './anchor-type';
+import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
 import { WindowOption } from './windowOption';
 import { EntityType } from '../frame/frame';
+import { ExternalWindow } from '../external-window/external-window';
+import { WebContents } from '../webcontents/webcontents';
+import { View } from '../view/view';
 /**
  * @lends Window
  */
@@ -76,6 +77,88 @@ export interface Area {
     x: number;
     y: number;
 }
+export interface PrinterInfo {
+    name: string;
+    description: string;
+    status: number;
+    isDefault: boolean;
+}
+interface Margins {
+    marginType?: ('default' | 'none' | 'printableArea' | 'custom');
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+}
+interface Dpi {
+    horizontal?: number;
+    vertical?: number;
+}
+export interface PrintOptions {
+    silent?: boolean;
+    printBackground?: boolean;
+    deviceName?: string;
+    color?: boolean;
+    margins?: Margins;
+    landscape?: boolean;
+    scaleFactor?: number;
+    pagesPerSheet?: number;
+    collate?: boolean;
+    copies?: number;
+    pageRanges?: Record<string, number>;
+    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge');
+    dpi?: Dpi;
+}
+interface WindowMovementOptions {
+    moveIndependently: boolean;
+}
+export interface FindInPageOptions {
+    forward?: boolean;
+    findNext?: boolean;
+    matchCase?: boolean;
+    wordStart?: boolean;
+    medialCapitalAsWordStart?: boolean;
+}
+/**
+ * @typedef { object } Margins
+ * @property { string } [marginType]
+ * Can be `default`, `none`, `printableArea`, or `custom`. If `custom` is chosen,
+ * you will also need to specify `top`, `bottom`, `left`, and `right`.
+ *
+ * @property { number } [top] The top margin of the printed web page, in pixels.
+ * @property { number } [bottom] The bottom margin of the printed web page, in pixels.
+ * @property { number } [left] The left margin of the printed web page, in pixels.
+ * @property { number } [right] The right margin of the printed web page, in pixels.
+*/
+/**
+ * @typedef { object } Dpi
+ * @property { number } [horizontal] The horizontal dpi
+ * @property { number } [vertical] The vertical dpi
+*/
+/**
+ * @typedef { object } PrintOptions
+ * @property { boolean } [silent=false] Don't ask user for print settings.
+ * @property { boolean } [printBackground=false] Prints the background color and image of the web page.
+ * @property { string } [deviceName=''] Set the printer device name to use.
+ * @property { boolean } [color=true] Set whether the printed web page will be in color or grayscale.
+ * @property { Margins } [margins] Set margins for the printed web page
+ * @property { boolean } [landscape=false] Whether the web page should be printed in landscape mode.
+ * @property { number } [scaleFactor] The scale factor of the web page.
+ * @property { number } [pagesPerSheet] The number of pages to print per page sheet.
+ * @property { boolean } [collate] Whether the web page should be collated.
+ * @property { number } [copies] The number of copies of the web page to print.
+ * @property { Record<string, number> } [pageRanges] The page range to print. Should have two keys: from and to.
+ * @property { string } [duplexMode] Set the duplex mode of the printed web page. Can be simplex, shortEdge, or longEdge.
+ * @property { Dpi } [dpi] Set dpi for the printed web page
+ */
+/**
+* PrinterInfo interface
+* @typedef { object } PrinterInfo
+* @property { string } name Printer Name
+* @property { string } description Printer Description
+* @property { number } status Printer Status
+* @property { boolean } isDefault Indicates that system's default printer
+*/
 /**
  * @typedef {object} Window~options
  * @summary Window creation options.
@@ -114,6 +197,21 @@ export interface Area {
  * `Ctrl` + `Scroll` _(Zoom In & Out)_<br>
  * `Ctrl` + `0` _(Restore to 100%)_
  *
+ * @property {object} [alphaMask] - _Experimental._  _Updatable._
+ * <br>
+ * alphaMask turns anything of matching RGB value transparent.
+ * <br>
+ * Caveats:
+ * * runtime key --disable-gpu is required. Note: Unclear behavior on remote Desktop support
+ * * User cannot click-through transparent regions
+ * * Not supported on Mac
+ * * Windows Aero must be enabled
+ * * Won't make visual sense on Pixel-pushed environments such as Citrix
+ * * Not supported on rounded corner windows
+ * @property {number} [alphaMask.red=-1] 0-255
+ * @property {number} [alphaMask.green=-1] 0-255
+ * @property {number} [alphaMask.blue=-1] 0-255
+ *
  * @property {boolean} [alwaysOnTop=false] - _Updatable._
  * A flag to always position the window at the top of the window stack.
  *
@@ -124,6 +222,8 @@ export interface Area {
  *
  * @property {boolean} [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
  * @property {boolean} [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
+ *
+ * @property {string} [applicationIcon = ""] - _Deprecated_ - use `icon` instead.
  *
  * @property {number} [aspectRatio=0] - _Updatable._
  * The aspect ratio of width to height to enforce for the window. If this value is equal to or less than zero,
@@ -141,13 +241,21 @@ export interface Area {
  * Default is white.
  *
  * @property {object} [contentNavigation]
- * Restrict navigation to URLs that match a whitelisted pattern. See [here](https://developer.chrome.com/extensions/match_patterns)
- * for more details.
+ * Restrict navigation to URLs that match a whitelisted pattern.
+ * In the lack of a whitelist, navigation to URLs that match a blacklisted pattern would be prohibited.
+ * See [here](https://developer.chrome.com/extensions/match_patterns) for more details.
  * @property {string[]} [contentNavigation.whitelist=[]] List of whitelisted URLs.
- *
+ * @property {string[]} [contentNavigation.blacklist=[]] List of blacklisted URLs.
+
  * @property {boolean} [contextMenu=true] - _Updatable._
  * A flag to show the context menu when right-clicking on a window.
  * Gives access to the devtools for the window.
+ *
+ * @property {object} [contextMenuSettings] - _Updatable._
+ * Configure the context menu when right-clicking on a window.
+ * @property {boolean} [contextMenuSettings.enable=true] Should the context menu display on right click.
+ * @property {boolean} [contextMenuSettings.devtools=true] Should the context menu contain a button for opening devtools.
+ * @property {boolean} [contextMenuSettings.reload=true] Should the context menu contain a button for reloading the page.
  *
  * @property {object} [cornerRounding] - _Updatable._
  * Defines and applies rounded corners for a frameless window. **NOTE:** On macOS corner is not ellipse but circle rounded by the
@@ -155,12 +263,22 @@ export interface Area {
  * @property {number} [cornerRounding.height=0] The height in pixels.
  * @property {number} [cornerRounding.width=0] The width in pixels.
  *
- * @property {string} [customData=""] - _Updatable._
+ * @property {any} [customData=""] - _Updatable._
  * A field that the user can attach serializable data to to be ferried around with the window options.
  * _When omitted, the default value of this property is the empty string (`""`)._
  *
- * @property {customRequestHeaders[]} [customRequestHeaders]
- * Defines list of {@link customRequestHeaders} for requests sent by the window.
+ * @property {any} [customContext=""] - _Updatable._
+ * A field that the user can use to attach serializable data that will be saved when {@link Platform#getSnapshot Platform.getSnapshot}
+ * is called.  If a window in a Platform is trying to update or retrieve its own context, it can use the
+ * {@link Platform#setContext Platform.setContext} and {@link Platform#getContext Platform.getContext} calls.
+ * When omitted, the default value of this property is the empty string (`""`).
+ * As opposed to customData this is meant for frequent updates and sharing with other contexts. [Example]{@tutorial customContext}
+ *
+ * @property {object[]} [customRequestHeaders]
+ * Defines list of custom headers for requests sent by the window.
+ * @property {string[]} [customRequestHeaders.urlPatterns=[]] The URL patterns for which the headers will be applied
+ * @property {object[]} [customRequestHeaders.headers=[]] Objects representing headers and their values,
+ * where the object key is the name of header and value at key is the value of the header
  *
  * @property {boolean} [defaultCentered=false]
  * Centers the window in the primary monitor. This option overrides `defaultLeft` and `defaultTop`. When `saveWindowState` is `true`,
@@ -255,6 +373,8 @@ export interface Area {
  * * `"minimized"`
  * * `"normal"`
  *
+ * @property {string} [taskbarIcon=string] - Deprecated - use `icon` instead._Windows_.
+ *
  * @property {string} [taskbarIconGroup=<application uuid>] - _Windows_.
  * Specify a taskbar group for the window.
  * _If omitted, defaults to app's uuid (`fin.Application.getCurrentSync().identity.uuid`)._
@@ -274,11 +394,25 @@ export interface Area {
  * When set to `false`, the window will appear immediately without waiting for content to be loaded.
  */
 /**
- * @typedef { Object } Area
+ * @typedef { object } Area
  * @property { number } height Area's height
  * @property { number } width Area's width
  * @property { number } x X coordinate of area's starting point
  * @property { number } y Y coordinate of area's starting point
+ */
+/**
+ * @typedef { object } WindowMovementOptions
+ * @property { boolean } moveIndependently - Move a window independently of its group or along with its group. Defaults to false.
+ */
+/**
+ * @typedef {object} FindInPageOptions
+ * @property {boolean} [forward=true] Whether to search forward or backward.
+ * @property {boolean} [findNext=false] Whether the operation is first request or a follow up.
+ * @property {boolean} [matchCase=false] Whether search should be case-sensitive.
+ * @property {boolean} [wordStart=false] Whether to look only at the start of words.
+ * @property {boolean} [medialCapitalAsWordStart=false]
+ * When combined with wordStart, accepts a match in the middle of a word if the match begins with an uppercase letter followed by a<br>
+ * lowercase or non-letter. Accepts several other intra-word matches.
  */
 /**
  * @typedef {object} Transition
@@ -333,7 +467,7 @@ this animation onto the end of the animation queue.
  * @alias Window
  * @hideconstructor
  */
-export declare class _Window extends EmitterBase<WindowEvents> {
+export declare class _Window extends WebContents<WindowEvents> {
     identity: Identity;
     constructor(wire: Transport, identity: Identity);
     /**
@@ -413,6 +547,104 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @instance
      * @tutorial Window.EventEmitter
      */
+    /**
+    * Returns the zoom level of the window.
+    * @function getZoomLevel
+    * @memberOf Window
+    * @instance
+    * @return {Promise.<number>}
+    * @tutorial Window.getZoomLevel
+    */
+    /**
+     * Sets the zoom level of the window.
+     * @param { number } level The zoom level
+     * @function setZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.setZoomLevel
+     */
+    /**
+     * Find and highlight text on a page.
+     * @param { string } searchTerm Term to find in page
+     * @param { FindInPageOptions } options Search options
+     * @function findInPage
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.findInPage
+     */
+    /**
+     * Stops any findInPage call with the provided action.
+     * @param {string} action
+     * Action to execute when stopping a find in page:<br>
+     * "clearSelection" - Clear the selection.<br>
+     * "keepSelection" - Translate the selection into a normal selection.<br>
+     * "activateSelection" - Focus and click the selection node.<br>
+     * @function stopFindInPage
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.stopFindInPage
+     */
+    /**
+     * Navigates the window to a specified URL. The url must contain the protocol prefix such as http:// or https://.
+     * @param {string} url - The URL to navigate the window to.
+     * @function navigate
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.navigate
+     */
+    /**
+     * Navigates the window back one page.
+     * @function navigateBack
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.navigateBack
+     */
+    /**
+     * Navigates the window forward one page.
+     * @function navigateForward
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.navigateForward
+     */
+    /**
+     * Stops any current navigation the window is performing.
+     * @function stopNavigation
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.stopNavigation
+     */
+    /**
+    * Reloads the window current page
+    * @function reload
+    * @memberOf Window
+    * @instance
+    * @return {Promise.<void>}
+    * @tutorial Window.reload
+    */
+    /**
+    * Prints the window's web page
+    * @param { PrintOptions } [options] Printer Options
+    * @function print
+    * @memberOf Window
+    * @instance
+    * @return {Promise.<void>}
+    * @tutorial Window.print
+    */
+    /**
+    * Returns an array with all system printers
+    * @function getPrinters
+    * @memberOf Window
+    * @instance
+    * @return { Promise.Array.<PrinterInfo> }
+    * @tutorial Window.getPrinters
+    */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -435,6 +667,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @tutorial Window.focus
      */
     focus(): Promise<void>;
+    /**
+     * Centers the window on its current screen.
+     * @return {Promise.<void>}
+     * @tutorial Window.center
+     */
+    center(): Promise<void>;
     /**
      * Removes focus from the window.
      * @return {Promise.<void>}
@@ -476,6 +714,13 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @tutorial Window.getNativeId
      */
     getNativeId(): Promise<string>;
+    /**
+    * Retrieves window's attached views.
+    * @experimental
+    * @return {Promise.Array.<View>}
+    * @tutorial Window.getCurrentViews
+    */
+    getCurrentViews(): Promise<Array<View>>;
     disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.
@@ -494,10 +739,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * Executes Javascript on the window, restricted to windows you own or windows owned by
      * applications you have created.
      * @param { string } code JavaScript code to be executed on the window.
+     * @function executeJavaScript
+     * @memberOf Window
+     * @instance
      * @return {Promise.<void>}
      * @tutorial Window.executeJavaScript
      */
-    executeJavaScript(code: string): Promise<void>;
     /**
      * Flashes the window’s frame and taskbar icon until stopFlashing is called or until a focus event is fired.
      * @return {Promise.<void>}
@@ -514,10 +761,10 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * Retrieves an array containing wrapped fin.Windows that are grouped with this window.
      * If a window is not in a group an empty array is returned. Please note that
      * calling window is included in the result array.
-     * @return {Promise.<Array<_Window>>}
+     * @return {Promise.<Array<_Window|ExternalWindow>>}
      * @tutorial Window.getGroup
      */
-    getGroup(): Promise<Array<_Window>>;
+    getGroup(): Promise<Array<_Window | ExternalWindow>>;
     /**
      * Gets an information object for the window.
      * @return {Promise.<WindowInfo>}
@@ -576,17 +823,12 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     isShowing(): Promise<boolean>;
     /**
      * Joins the same window group as the specified window.
-     * @param { _Window } target The window whose group is to be joined
+     * Joining a group with native windows is currently not supported(method will nack).
+     * @param { _Window | ExternalWindow } target The window whose group is to be joined
      * @return {Promise.<void>}
      * @tutorial Window.joinGroup
      */
-    joinGroup(target: _Window): Promise<void>;
-    /**
-     * Reloads the window current page
-     * @return {Promise.<void>}
-     * @tutorial Window.reload
-     */
-    reload(ignoreCache?: boolean): Promise<void>;
+    joinGroup(target: _Window | ExternalWindow): Promise<void>;
     /**
      * Leaves the current window group so that the window can be move independently of those in the group.
      * @return {Promise.<void>}
@@ -601,11 +843,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     maximize(): Promise<void>;
     /**
      * Merges the instance's window group with the same window group as the specified window
-     * @param { _Window } target The window whose group is to be merged with
+     * @param { _Window | ExternalWindow } target The window whose group is to be merged with
      * @return {Promise.<void>}
      * @tutorial Window.mergeGroups
      */
-    mergeGroups(target: _Window): Promise<void>;
+    mergeGroups(target: _Window | ExternalWindow): Promise<void>;
     /**
      * Minimizes the window.
      * @return {Promise.<void>}
@@ -616,18 +858,20 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * Moves the window by a specified amount.
      * @param { number } deltaLeft The change in the left position of the window
      * @param { number } deltaTop The change in the top position of the window
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.moveBy
      */
-    moveBy(deltaLeft: number, deltaTop: number): Promise<void>;
+    moveBy(deltaLeft: number, deltaTop: number, options?: WindowMovementOptions): Promise<void>;
     /**
      * Moves the window to a specified location.
      * @param { number } left The left position of the window
      * @param { number } top The top position of the window
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.moveTo
      */
-    moveTo(left: number, top: number): Promise<void>;
+    moveTo(left: number, top: number, options?: WindowMovementOptions): Promise<void>;
     /**
      * Resizes the window by a specified amount.
      * @param { number } deltaWidth The change in the width of the window
@@ -635,10 +879,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
      * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
      * If undefined, the default is "top-left"
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.resizeBy
      */
-    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType): Promise<void>;
+    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, options?: WindowMovementOptions): Promise<void>;
     /**
      * Resizes the window to the specified dimensions.
      * @param { number } width The change in the width of the window
@@ -646,10 +891,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @param { AnchorType } anchor Specifies a corner to remain fixed during the resize.
      * Can take the values: "top-left", "top-right", "bottom-left", or "bottom-right".
      * If undefined, the default is "top-left"
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.resizeTo
      */
-    resizeTo(width: number, height: number, anchor: AnchorType): Promise<void>;
+    resizeTo(width: number, height: number, anchor: AnchorType, options?: WindowMovementOptions): Promise<void>;
     /**
      * Restores the window to its normal state (i.e., unminimized, unmaximized).
      * @return {Promise.<void>}
@@ -665,10 +911,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     /**
      * Sets the window's size and position.
      * @property { Bounds } bounds This is a * @type {string} name - name of the window.object that holds the propertys of
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.setBounds
      */
-    setBounds(bounds: Bounds): Promise<void>;
+    setBounds(bounds: Bounds, options?: WindowMovementOptions): Promise<void>;
     /**
      * Shows the window if it is hidden.
      * @param { boolean } [force = false] Show will be prevented from showing when force is false and
@@ -685,10 +932,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
      * @param { number } top The right position of the window
      * @param { boolean } force Show will be prevented from closing when force is false and
      * ‘show-requested’ has been subscribed to for application’s main window
+     * @param { WindowMovementOptions } options Optional parameters to modify window movement
      * @return {Promise.<void>}
      * @tutorial Window.showAt
      */
-    showAt(left: number, top: number, force?: boolean): Promise<void>;
+    showAt(left: number, top: number, force?: boolean, options?: WindowMovementOptions): Promise<void>;
     /**
      * Shows the Chromium Developer Tools
      * @return {Promise.<void>}
@@ -705,48 +953,11 @@ export declare class _Window extends EmitterBase<WindowEvents> {
     updateOptions(options: any): Promise<void>;
     /**
      * Provides credentials to authentication requests
-     * @param { string } userName userName to provide to the authentication challange
-     * @param { string } password password to provide to the authentication challange
+     * @param { string } userName userName to provide to the authentication challenge
+     * @param { string } password password to provide to the authentication challenge
      * @return {Promise.<void>}
      * @tutorial Window.authenticate
      */
     authenticate(userName: string, password: string): Promise<void>;
-    /**
-     * Returns the zoom level of the window.
-     * @return {Promise.<number>}
-     * @tutorial Window.getZoomLevel
-     */
-    getZoomLevel(): Promise<number>;
-    /**
-     * Sets the zoom level of the window.
-     * @param { number } level The zoom level
-     * @return {Promise.<void>}
-     * @tutorial Window.setZoomLevel
-     */
-    setZoomLevel(level: number): Promise<void>;
-    /**
-     * Navigates the window to a specified URL. The url must contain the protocol prefix such as http:// or https://.
-     * @param {string} url - The URL to navigate the window to.
-     * @return {Promise.<void>}
-     * @tutorial Window.navigate
-     */
-    navigate(url: string): Promise<void>;
-    /**
-     * Navigates the window back one page.
-     * @return {Promise.<void>}
-     * @tutorial Window.navigateBack
-     */
-    navigateBack(): Promise<void>;
-    /**
-     * Navigates the window forward one page.
-     * @return {Promise.<void>}
-     * @tutorial Window.navigateForward
-     */
-    navigateForward(): Promise<void>;
-    /**
-     * Stops any current navigation the window is performing.
-     * @return {Promise.<void>}
-     * @tutorial Window.stopNavigation
-     */
-    stopNavigation(): Promise<void>;
 }
+export {};

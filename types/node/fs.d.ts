@@ -8,8 +8,9 @@ declare module "fs" {
      */
     type PathLike = string | Buffer | URL;
 
-    type BinaryData = Buffer | DataView | NodeJS.TypedArray;
-    class Stats {
+    type NoParamCallback = (err: NodeJS.ErrnoException | null) => void;
+
+    interface StatsBase<T> {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -17,6 +18,7 @@ declare module "fs" {
         isSymbolicLink(): boolean;
         isFIFO(): boolean;
         isSocket(): boolean;
+
         dev: number;
         ino: number;
         mode: number;
@@ -37,6 +39,12 @@ declare module "fs" {
         birthtime: Date;
     }
 
+    interface Stats extends StatsBase<number> {
+    }
+
+    class Stats {
+    }
+
     class Dirent {
         isFile(): boolean;
         isDirectory(): boolean;
@@ -46,6 +54,46 @@ declare module "fs" {
         isFIFO(): boolean;
         isSocket(): boolean;
         name: string;
+    }
+
+    /**
+     * A class representing a directory stream.
+     */
+    class Dir {
+        readonly path: string;
+
+        /**
+         * Asynchronously iterates over the directory via `readdir(3)` until all entries have been read.
+         */
+        [Symbol.asyncIterator](): AsyncIterableIterator<Dirent>;
+
+        /**
+         * Asynchronously close the directory's underlying resource handle.
+         * Subsequent reads will result in errors.
+         */
+        close(): Promise<void>;
+        close(cb: NoParamCallback): void;
+
+        /**
+         * Synchronously close the directory's underlying resource handle.
+         * Subsequent reads will result in errors.
+         */
+        closeSync(): void;
+
+        /**
+         * Asynchronously read the next directory entry via `readdir(3)` as an `Dirent`.
+         * After the read is completed, a value is returned that will be resolved with an `Dirent`, or `null` if there are no more directory entries to read.
+         * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
+         */
+        read(): Promise<Dirent | null>;
+        read(cb: (err: NodeJS.ErrnoException | null, dirEnt: Dirent | null) => void): void;
+
+        /**
+         * Synchronously read the next directory entry via `readdir(3)` as a `Dirent`.
+         * If there are no more directory entries to read, null will be returned.
+         * Directory entries returned by this function are in no particular order as provided by the operating system's underlying directory mechanisms.
+         */
+        readSync(): Dirent;
     }
 
     interface FSWatcher extends events.EventEmitter {
@@ -59,22 +107,27 @@ declare module "fs" {
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "close", listener: () => void): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         on(event: "error", listener: (error: Error) => void): this;
+        on(event: "close", listener: () => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         once(event: "error", listener: (error: Error) => void): this;
+        once(event: "close", listener: () => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "close", listener: () => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
 
     class ReadStream extends stream.Readable {
@@ -146,7 +199,7 @@ declare module "fs" {
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function rename(oldPath: PathLike, newPath: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rename {
@@ -174,14 +227,14 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param len If not specified, defaults to `0`.
      */
-    function truncate(path: PathLike, len: number | undefined | null, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
 
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function truncate(path: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace truncate {
@@ -205,13 +258,13 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param len If not specified, defaults to `0`.
      */
-    function ftruncate(fd: number, len: number | undefined | null, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
 
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
      */
-    function ftruncate(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function ftruncate(fd: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace ftruncate {
@@ -234,7 +287,7 @@ declare module "fs" {
      * Asynchronous chown(2) - Change ownership of a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function chown(path: PathLike, uid: number, gid: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace chown {
@@ -255,7 +308,7 @@ declare module "fs" {
      * Asynchronous fchown(2) - Change ownership of a file.
      * @param fd A file descriptor.
      */
-    function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function fchown(fd: number, uid: number, gid: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fchown {
@@ -276,7 +329,7 @@ declare module "fs" {
      * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function lchown(path: PathLike, uid: number, gid: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lchown {
@@ -298,7 +351,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function chmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function chmod(path: PathLike, mode: string | number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace chmod {
@@ -322,7 +375,7 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function fchmod(fd: number, mode: string | number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function fchmod(fd: number, mode: string | number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fchmod {
@@ -346,7 +399,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
      */
-    function lchmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function lchmod(path: PathLike, mode: string | number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lchmod {
@@ -433,7 +486,7 @@ declare module "fs" {
      * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function link(existingPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function link(existingPath: PathLike, newPath: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace link {
@@ -442,7 +495,7 @@ declare module "fs" {
          * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+        function __promisify__(existingPath: PathLike, newPath: PathLike): Promise<void>;
     }
 
     /**
@@ -459,14 +512,14 @@ declare module "fs" {
      * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
      * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function symlink(target: PathLike, path: PathLike, type: symlink.Type | undefined | null, callback: NoParamCallback): void;
 
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
      * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
      * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
      */
-    function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function symlink(target: PathLike, path: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace symlink {
@@ -662,7 +715,7 @@ declare module "fs" {
      * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function unlink(path: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace unlink {
@@ -679,11 +732,41 @@ declare module "fs" {
      */
     function unlinkSync(path: PathLike): void;
 
+    interface RmDirOptions {
+        /**
+         * If `true`, perform a recursive directory removal. In
+         * recursive mode, errors are not reported if `path` does not exist, and
+         * operations are retried on failure.
+         * @experimental
+         * @default false
+         */
+        recursive?: boolean;
+    }
+
+    interface RmDirAsyncOptions extends RmDirOptions {
+        /**
+         * The amount of time in milliseconds to wait between retries.
+         * This option is ignored if the `recursive` option is not `true`.
+         * @default 100
+         */
+        retryDelay?: number;
+        /**
+         * If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or
+         * `EPERM` error is encountered, Node.js will retry the operation with a linear
+         * backoff wait of `retryDelay` ms longer on each try. This option represents the
+         * number of retries. This option is ignored if the `recursive` option is not
+         * `true`.
+         * @default 0
+         */
+        maxRetries?: number;
+    }
+
     /**
      * Asynchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function rmdir(path: PathLike, callback: NoParamCallback): void;
+    function rmdir(path: PathLike, options: RmDirAsyncOptions, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace rmdir {
@@ -691,16 +774,16 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function __promisify__(path: PathLike): Promise<void>;
+        function __promisify__(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
     }
 
     /**
      * Synchronous rmdir(2) - delete a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function rmdirSync(path: PathLike): void;
+    function rmdirSync(path: PathLike, options?: RmDirOptions): void;
 
-    export interface MakeDirectoryOptions {
+    interface MakeDirectoryOptions {
         /**
          * Indicates whether parent folders should be created.
          * @default false
@@ -719,13 +802,13 @@ declare module "fs" {
      * @param options Either the file mode, or an object optionally specifying the file mode and whether parent folders
      * should be created. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
      */
-    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function mkdir(path: PathLike, options: number | string | MakeDirectoryOptions | undefined | null, callback: NoParamCallback): void;
 
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function mkdir(path: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace mkdir {
@@ -858,7 +941,7 @@ declare module "fs" {
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdir(path: PathLike, options: { withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
+    function readdir(path: PathLike, options: { encoding?: string | null; withFileTypes: true }, callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace readdir {
@@ -888,7 +971,7 @@ declare module "fs" {
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          * @param options If called with `withFileTypes: true` the result data will be an array of Dirent
          */
-        function __promisify__(path: PathLike, options: { withFileTypes: true }): Promise<Dirent[]>;
+        function __promisify__(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Promise<Dirent[]>;
     }
 
     /**
@@ -913,17 +996,17 @@ declare module "fs" {
     function readdirSync(path: PathLike, options?: { encoding?: string | null; withFileTypes?: false } | string | null): string[] | Buffer[];
 
     /**
-     * Asynchronous readdir(3) - read a directory.
+     * Synchronous readdir(3) - read a directory.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      * @param options If called with `withFileTypes: true` the result data will be an array of Dirent.
      */
-    function readdirSync(path: PathLike, options: { withFileTypes: true }): Dirent[];
+    function readdirSync(path: PathLike, options: { encoding?: string | null; withFileTypes: true }): Dirent[];
 
     /**
      * Asynchronous close(2) - close a file descriptor.
      * @param fd A file descriptor.
      */
-    function close(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function close(fd: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace close {
@@ -976,7 +1059,7 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace utimes {
@@ -1003,7 +1086,7 @@ declare module "fs" {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace futimes {
@@ -1028,7 +1111,7 @@ declare module "fs" {
      * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
      * @param fd A file descriptor.
      */
-    function fsync(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function fsync(fd: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fsync {
@@ -1052,7 +1135,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    function write<TBuffer extends BinaryData>(
+    function write<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
         offset: number | undefined | null,
@@ -1067,7 +1150,7 @@ declare module "fs" {
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      */
-    function write<TBuffer extends BinaryData>(
+    function write<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
         offset: number | undefined | null,
@@ -1080,7 +1163,7 @@ declare module "fs" {
      * @param fd A file descriptor.
      * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    function write<TBuffer extends BinaryData>(
+    function write<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
         offset: number | undefined | null,
@@ -1091,7 +1174,7 @@ declare module "fs" {
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
      * @param fd A file descriptor.
      */
-    function write<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void): void;
+    function write<TBuffer extends NodeJS.ArrayBufferView>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void): void;
 
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -1132,7 +1215,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        function __promisify__<TBuffer extends BinaryData>(
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
             fd: number,
             buffer?: TBuffer,
             offset?: number,
@@ -1157,7 +1240,7 @@ declare module "fs" {
      * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    function writeSync(fd: number, buffer: BinaryData, offset?: number | null, length?: number | null, position?: number | null): number;
+    function writeSync(fd: number, buffer: NodeJS.ArrayBufferView, offset?: number | null, length?: number | null, position?: number | null): number;
 
     /**
      * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
@@ -1176,7 +1259,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    function read<TBuffer extends BinaryData>(
+    function read<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
         offset: number,
@@ -1194,7 +1277,13 @@ declare module "fs" {
          * @param length The number of bytes to read.
          * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
          */
-        function __promisify__<TBuffer extends BinaryData>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+        function __promisify__<TBuffer extends NodeJS.ArrayBufferView>(
+            fd: number,
+            buffer: TBuffer,
+            offset: number,
+            length: number,
+            position: number | null
+        ): Promise<{ bytesRead: number, buffer: TBuffer }>;
     }
 
     /**
@@ -1205,7 +1294,7 @@ declare module "fs" {
      * @param length The number of bytes to read.
      * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
      */
-    function readSync(fd: number, buffer: BinaryData, offset: number, length: number, position: number | null): number;
+    function readSync(fd: number, buffer: NodeJS.ArrayBufferView, offset: number, length: number, position: number | null): number;
 
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1322,7 +1411,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'w'` is used.
      */
-    function writeFile(path: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function writeFile(path: PathLike | number, data: any, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -1331,7 +1420,7 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    function writeFile(path: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function writeFile(path: PathLike | number, data: any, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace writeFile {
@@ -1376,7 +1465,7 @@ declare module "fs" {
      * If `mode` is a string, it is parsed as an octal integer.
      * If `flag` is not supplied, the default of `'a'` is used.
      */
-    function appendFile(file: PathLike | number, data: any, options: WriteFileOptions, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function appendFile(file: PathLike | number, data: any, options: WriteFileOptions, callback: NoParamCallback): void;
 
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -1385,7 +1474,7 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function appendFile(file: PathLike | number, data: any, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace appendFile {
@@ -1663,6 +1752,13 @@ declare module "fs" {
 
         /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
         const S_IXOTH: number;
+
+        /**
+         * When set, a memory file mapping is used to access the file. This flag
+         * is available on Windows operating systems only. On other operating systems,
+         * this flag is ignored.
+         */
+        const UV_FS_O_FILEMAP: number;
     }
 
     /**
@@ -1670,14 +1766,14 @@ declare module "fs" {
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function access(path: PathLike, mode: number | undefined, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function access(path: PathLike, mode: number | undefined, callback: NoParamCallback): void;
 
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * URL support is _experimental_.
      */
-    function access(path: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function access(path: PathLike, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace access {
@@ -1707,6 +1803,10 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        /**
+         * @default false
+         */
+        emitClose?: boolean;
         start?: number;
         end?: number;
         highWaterMark?: number;
@@ -1723,14 +1823,16 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        emitClose?: boolean;
         start?: number;
+        highWaterMark?: number;
     }): WriteStream;
 
     /**
      * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
      * @param fd A file descriptor.
      */
-    function fdatasync(fd: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function fdatasync(fd: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace fdatasync {
@@ -1756,7 +1858,7 @@ declare module "fs" {
      * @param src A path to the source file.
      * @param dest A path to the destination file.
      */
-    function copyFile(src: PathLike, dest: PathLike, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function copyFile(src: PathLike, dest: PathLike, callback: NoParamCallback): void;
     /**
      * Asynchronously copies src to dest. By default, dest is overwritten if it already exists.
      * No arguments other than a possible exception are given to the callback function.
@@ -1767,7 +1869,7 @@ declare module "fs" {
      * @param dest A path to the destination file.
      * @param flags An integer that specifies the behavior of the copy operation. The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
-    function copyFile(src: PathLike, dest: PathLike, flags: number, callback: (err: NodeJS.ErrnoException | null) => void): void;
+    function copyFile(src: PathLike, dest: PathLike, flags: number, callback: NoParamCallback): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace copyFile {
@@ -1797,6 +1899,59 @@ declare module "fs" {
      * The only supported flag is fs.constants.COPYFILE_EXCL, which causes the copy operation to fail if dest already exists.
      */
     function copyFileSync(src: PathLike, dest: PathLike, flags?: number): void;
+
+    /**
+     * Write an array of ArrayBufferViews to the file specified by fd using writev().
+     * position is the offset from the beginning of the file where this data should be written.
+     * It is unsafe to use fs.writev() multiple times on the same file without waiting for the callback. For this scenario, use fs.createWriteStream().
+     * On Linux, positional writes don't work when the file is opened in append mode.
+     * The kernel ignores the position argument and always appends the data to the end of the file.
+     */
+    function writev(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+    function writev(
+        fd: number,
+        buffers: NodeJS.ArrayBufferView[],
+        position: number,
+        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void
+    ): void;
+
+    interface WriteVResult {
+        bytesWritten: number;
+        buffers: NodeJS.ArrayBufferView[];
+    }
+
+    namespace writev {
+        function __promisify__(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
+    }
+
+    /**
+     * See `writev`.
+     */
+    function writevSync(fd: number, buffers: NodeJS.ArrayBufferView[], position?: number): number;
+
+    interface OpenDirOptions {
+        encoding?: BufferEncoding;
+        /**
+         * Number of directory entries that are buffered
+         * internally when reading from the directory. Higher values lead to better
+         * performance but higher memory usage.
+         * @default 32
+         */
+        bufferSize?: number;
+    }
+
+    function opendirSync(path: string, options?: OpenDirOptions): Dir;
+
+    function opendir(path: string, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    function opendir(path: string, options: OpenDirOptions, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+
+    namespace opendir {
+        function __promisify__(path: string, options?: OpenDirOptions): Promise<Dir>;
+    }
 
     namespace promises {
         interface FileHandle {
@@ -1846,7 +2001,7 @@ declare module "fs" {
              * @param length The number of bytes to read.
              * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
              */
-            read<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+            read<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
 
             /**
              * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
@@ -1898,7 +2053,7 @@ declare module "fs" {
              * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
              * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
              */
-            write<TBuffer extends Buffer | Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+            write<TBuffer extends Uint8Array>(buffer: TBuffer, offset?: number | null, length?: number | null, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
 
             /**
              * Asynchronously writes `string` to the file.
@@ -1923,6 +2078,11 @@ declare module "fs" {
              * If `flag` is not supplied, the default of `'w'` is used.
              */
             writeFile(data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string | number } | string | null): Promise<void>;
+
+            /**
+             * See `fs.writev` promisified version.
+             */
+            writev(buffers: NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
 
             /**
              * Asynchronous close(2) - close a `FileHandle`.
@@ -1967,7 +2127,7 @@ declare module "fs" {
          * @param position The offset from the beginning of the file from which data should be read. If
          * `null`, data will be read from the current position.
          */
-        function read<TBuffer extends Buffer | Uint8Array>(
+        function read<TBuffer extends Uint8Array>(
             handle: FileHandle,
             buffer: TBuffer,
             offset?: number | null,
@@ -1985,7 +2145,7 @@ declare module "fs" {
          * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
          * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
          */
-        function write<TBuffer extends Buffer | Uint8Array>(
+        function write<TBuffer extends Uint8Array>(
             handle: FileHandle,
             buffer: TBuffer,
             offset?: number | null,
@@ -2029,7 +2189,7 @@ declare module "fs" {
          * Asynchronous rmdir(2) - delete a directory.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
-        function rmdir(path: PathLike): Promise<void>;
+        function rmdir(path: PathLike, options?: RmDirAsyncOptions): Promise<void>;
 
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -2292,5 +2452,7 @@ declare module "fs" {
          * If a flag is not provided, it defaults to `'r'`.
          */
         function readFile(path: PathLike | FileHandle, options?: { encoding?: string | null, flag?: string | number } | string | null): Promise<string | Buffer>;
+
+        function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
     }
 }

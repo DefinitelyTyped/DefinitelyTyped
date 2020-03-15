@@ -1,3 +1,4 @@
+declare type global_Error = Error;
 declare module Meteor {
     /** Global props **/
     var isClient: boolean;
@@ -22,7 +23,7 @@ declare module Meteor {
         verified: boolean;
     }
     interface User {
-        _id?: string;
+        _id: string;
         username?: string;
         emails?: UserEmail[];
         createdAt?: Date;
@@ -111,7 +112,7 @@ declare module Meteor {
 
     function wrapAsync(func: Function, context?: Object): any;
 
-    function bindEnvironment(func: Function): any;
+    function bindEnvironment<TFunc extends Function>(func: TFunc): TFunc;
     /** utils **/
 
     /** Pub/Sub **/
@@ -220,7 +221,7 @@ declare module Meteor {
     function onConnection(callback: Function): void;
     /** Connection **/
 
-    function publish(name: string, func: (this: Subscription, ...args: any[]) => void): void;
+    function publish(name: string | null, func: (this: Subscription, ...args: any[]) => void, options?: {is_auto: boolean}): void;
 
     function _debug(...args: any[]): void;
 }

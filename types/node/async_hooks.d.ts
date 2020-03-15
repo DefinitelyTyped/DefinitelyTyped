@@ -8,6 +8,20 @@ declare module "async_hooks" {
     function executionAsyncId(): number;
 
     /**
+     * The resource representing the current execution.
+     *  Useful to store data within the resource.
+     *
+     * Resource objects returned by `executionAsyncResource()` are most often internal
+     * Node.js handle objects with undocumented APIs. Using any functions or properties
+     * on the object is likely to crash your application and should be avoided.
+     *
+     * Using `executionAsyncResource()` in the top-level execution context will
+     * return an empty object as there is no handle or request object to use,
+     * but having an object representing the top-level can be helpful.
+     */
+    function executionAsyncResource(): object;
+
+    /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
@@ -20,7 +34,7 @@ declare module "async_hooks" {
          * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.

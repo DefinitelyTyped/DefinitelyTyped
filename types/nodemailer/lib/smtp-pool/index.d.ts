@@ -54,7 +54,7 @@ declare class SMTPPool extends EventEmitter implements Transport {
 
     idling: boolean;
 
-    constructor(options: SMTPPool.Options | string);
+    constructor(options?: SMTPPool.Options | string);
 
     /** Placeholder function for creating proxy sockets. This method immediatelly returns without a socket */
     getSocket(options: SMTPPool.Options, callback: (err: Error | null, socketOptions: any) => void): void;

@@ -420,3 +420,5 @@ declare namespace CbServer {
 
     let ClearBlade: ClearBladeGlobal;
 }
+
+declare var ClearBlade: CbServer.ClearBladeGlobal;

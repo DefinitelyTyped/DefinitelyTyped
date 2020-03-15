@@ -1,14 +1,23 @@
-// Type definitions for react-map-gl 4.1
+// Type definitions for react-map-gl 5.2
 // Project: https://github.com/uber/react-map-gl#readme
 // Definitions by: Robert Imig <https://github.com/rimig>
 //                 Fabio Berta <https://github.com/fnberta>
 //                 Sander Siim <https://github.com/sandersiim>
+//                 Otto Urpelainen <https://github.com/oturpe>
+//                 Arman Safikhani <https://github.com/Arman92>
+//                 William Chiu <https://github.com/chiuhow>
+//                 David Baumgold <https://github.com/singingwolfboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
+
+/// <reference lib='dom' />
 
 import * as React from 'react';
 import * as MapboxGL from 'mapbox-gl';
 import * as GeoJSON from 'geojson';
+import WebMercatorViewport from 'viewport-mercator-project';
+
+export { WebMercatorViewport } from 'viewport-mercator-project';
 
 export interface ViewState {
     latitude: number;
@@ -73,22 +82,37 @@ export interface QueryRenderedFeaturesParams {
     filter?: any[];
 }
 
-export class StaticMap extends React.Component<StaticMapProps> {
+export class StaticMap extends React.PureComponent<StaticMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams,
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export interface ExtraState {
-    isDragging: boolean;
-    isHovering: boolean;
+    inTransition?: boolean;
+    isDragging?: boolean;
+    isHovering?: boolean;
+    isPanning?: boolean;
+    isRotating?: boolean;
+    isZooming?: boolean;
 }
 
 export interface PositionInput {
     pos: [number, number];
 }
 
+export type ViewportChangeHandler = (viewState: ViewportProps) => void;
+
+export type ContextViewportChangeHandler = (
+    viewState: ViewportProps,
+    interactionState: ExtraState,
+    oldViewState: ViewportProps,
+) => void;
+
 export interface MapControllerOptions {
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewportChange?: ContextViewportChangeHandler;
     onStateChange?: (state: MapState) => void;
     eventManager?: any;
     isInteractive: boolean;
@@ -114,7 +138,7 @@ export interface ViewportProps {
     minZoom: number;
     maxPitch: number;
     minPitch: number;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -193,7 +217,8 @@ export type EasingFunction = (t: number) => number;
 export enum TRANSITION_EVENTS {
     BREAK = 1,
     SNAP_TO_END = 2,
-    IGNORE = 3
+    IGNORE = 3,
+    UPDATE = 4,
 }
 
 export class TransitionInterpolator {}
@@ -202,21 +227,40 @@ export class LinearInterpolator extends TransitionInterpolator {
     constructor(transitionProps?: string[]);
 }
 
-export class FlyToInterpolator extends TransitionInterpolator {}
+export interface FlyToInterpolatorProps {
+    curve?: number;
+    speed?: number;
+    screenSpeed?: number;
+    maxDuraiton?: number;
+}
+
+export class FlyToInterpolator extends TransitionInterpolator {
+    constructor(props?: FlyToInterpolatorProps);
+}
 
 export interface ViewStateChangeInfo {
-    viewState: ViewState;
+    viewState: ViewportProps;
 }
+
+export interface ContextViewStateChangeInfo {
+    viewState: ViewportProps;
+    interactionState: ExtraState;
+    newViewState: ViewportProps;
+}
+
+export type ViewStateChangeHandler = (info: ViewStateChangeInfo) => void;
+
+export type ContextViewStateChangeHandler = (info: ContextViewStateChangeInfo) => void;
 
 export interface InteractiveMapProps extends StaticMapProps {
     maxZoom?: number;
     minZoom?: number;
     maxPitch?: number;
     minPitch?: number;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
     onInteractionStateChange?: (state: ExtraState) => void;
-    transitionDuration?: number;
+    transitionDuration?: number | 'auto';
     transitionInterpolator?: TransitionInterpolator;
     transitionInterruption?: TRANSITION_EVENTS;
     transitionEasing?: EasingFunction;
@@ -252,12 +296,30 @@ export interface InteractiveMapProps extends StaticMapProps {
     controller?: MapController;
 }
 
-export class InteractiveMap extends React.Component<InteractiveMapProps> {
+export class InteractiveMap extends React.PureComponent<InteractiveMapProps> {
     getMap(): MapboxGL.Map;
-    queryRenderedFeatures(geometry?: MapboxGL.PointLike | MapboxGL.PointLike[], parameters?: QueryRenderedFeaturesParams): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
+    queryRenderedFeatures(
+        geometry?: MapboxGL.PointLike | MapboxGL.PointLike[],
+        parameters?: QueryRenderedFeaturesParams,
+    ): Array<GeoJSON.Feature<GeoJSON.GeometryObject>>;
 }
 
 export default InteractiveMap;
+
+// class EventManager from mjolnir.js
+export type EventManager = any;
+
+export interface MapContextProps {
+    viewport?: WebMercatorViewport;
+    map?: MapboxGL.Map;
+    mapContainer: HTMLElement | null;
+    onViewStateChange?: ContextViewStateChangeHandler;
+    onViewportChange?: ContextViewportChangeHandler;
+    isDragging: boolean;
+    eventManager?: EventManager;
+}
+
+export const _MapContext: React.Context<MapContextProps>;
 
 export interface BaseControlProps {
     captureScroll?: boolean;
@@ -266,26 +328,10 @@ export interface BaseControlProps {
     captureDoubleClick?: boolean;
 }
 
-export class BaseControl<T extends BaseControlProps> extends React.Component<T> {}
-
-export interface DragEvent {
-    lngLat: [number, number];
-    [key: string]: any;
+export class BaseControl<T extends BaseControlProps, S extends Element> extends React.PureComponent<T> {
+    _containerRef: React.RefObject<S>;
+    _context: MapContextProps;
 }
-
-export interface MarkerProps extends BaseControlProps {
-    className?: string;
-    longitude: number;
-    latitude: number;
-    offsetLeft?: number;
-    offsetTop?: number;
-    draggable?: boolean;
-    onDrag?: (event: DragEvent) => void;
-    onDragEnd?: (event: DragEvent) => void;
-    onDragStart?: (event: DragEvent) => void;
-}
-
-export class Marker extends BaseControl<MarkerProps> {}
 
 export interface PopupProps extends BaseControlProps {
     className?: string;
@@ -303,36 +349,61 @@ export interface PopupProps extends BaseControlProps {
     onClose?: () => void;
 }
 
-export class Popup extends BaseControl<PopupProps> {}
+export class Popup extends BaseControl<PopupProps, HTMLDivElement> {}
 
 export interface NavigationControlProps extends BaseControlProps {
     className?: string;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewport: ViewState) => void;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
     showCompass?: boolean;
     showZoom?: boolean;
+    zoomInLabel?: string;
+    zoomOutLabel?: string;
+    compassLabel?: string;
 }
 
-export class NavigationControl extends BaseControl<NavigationControlProps> {}
+export class NavigationControl extends BaseControl<NavigationControlProps, HTMLDivElement> {}
 
 export interface FullscreenControlProps extends BaseControlProps {
     className?: string;
     container?: HTMLElement | null;
 }
 
-export class FullscreenControl extends BaseControl<FullscreenControlProps> {}
+export class FullscreenControl extends BaseControl<FullscreenControlProps, HTMLDivElement> {}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
+interface PositionOptions {
+    enableHighAccuracy?: boolean;
+    timeout: number;
+    maximumAge: number;
+}
 
 export interface GeolocateControlProps extends BaseControlProps {
     className?: string;
+    label?: string;
     positionOptions?: MapboxGL.PositionOptions;
     fitBoundsOptions?: MapboxGL.FitBoundsOptions;
     trackUserLocation?: boolean;
     showUserLocation?: boolean;
-    onViewStateChange?: (info: ViewStateChangeInfo) => void;
-    onViewportChange?: (viewState: ViewState) => void;
+    onViewStateChange?: ViewStateChangeHandler;
+    onViewportChange?: ViewportChangeHandler;
+    onGeolocate?: (options: PositionOptions) => void;
+    style?: React.CSSProperties;
 }
 
-export class GeolocateControl extends BaseControl<GeolocateControlProps> {}
+export class GeolocateControl extends BaseControl<GeolocateControlProps, HTMLDivElement> {}
+
+export interface ScaleControlProps extends BaseControlProps {
+    maxWidth?: number;
+    unit?: 'imperial' | 'metric' | 'nautical';
+}
+
+export class ScaleControl extends BaseControl<ScaleControlProps, HTMLDivElement> {}
+
+export interface DragEvent {
+    lngLat: [number, number];
+    [key: string]: any;
+}
 
 export interface DraggableControlProps extends BaseControlProps {
     draggable?: boolean;
@@ -341,7 +412,17 @@ export interface DraggableControlProps extends BaseControlProps {
     onDragStart?: (event: DragEvent) => void;
 }
 
-export class DraggableControl extends BaseControl<DraggableControlProps> {}
+export class DraggableControl<T extends DraggableControlProps> extends BaseControl<T, HTMLDivElement> {}
+
+export interface MarkerProps extends DraggableControlProps {
+    className?: string;
+    longitude: number;
+    latitude: number;
+    offsetLeft?: number;
+    offsetTop?: number;
+}
+
+export class Marker extends DraggableControl<MarkerProps> {}
 
 export interface HTMLRedrawOptions {
     width: number;
@@ -355,7 +436,7 @@ export interface HTMLOverlayProps extends BaseControlProps {
     style?: React.CSSProperties;
 }
 
-export class HTMLOverlay extends BaseControl<HTMLOverlayProps> {}
+export class HTMLOverlay extends BaseControl<HTMLOverlayProps, HTMLDivElement> {}
 
 export interface CanvasRedrawOptions extends HTMLRedrawOptions {
     ctx: CanvasRenderingContext2D;
@@ -365,7 +446,7 @@ export interface CanvasOverlayProps extends BaseControlProps {
     redraw: (opts: CanvasRedrawOptions) => void;
 }
 
-export class CanvasOverlay extends BaseControl<CanvasOverlayProps> {}
+export class CanvasOverlay extends BaseControl<CanvasOverlayProps, HTMLCanvasElement> {}
 
 export type SVGRedrawOptions = HTMLRedrawOptions;
 
@@ -374,4 +455,55 @@ export interface SVGOverlayProps extends BaseControlProps {
     style?: React.CSSProperties;
 }
 
-export class SVGOverlay extends BaseControl<SVGOverlayProps> {}
+export class SVGOverlay extends BaseControl<SVGOverlayProps, Element> {}
+
+export interface SourceProps {
+    id?: string;
+    type: string;
+    url?: string;
+    tiles?: string[];
+    tileSize?: number;
+    bounds?: number[];
+    schema?: 'xyz' | 'tms';
+    minzoom?: number;
+    maxzoom?: number;
+    attribution?: string;
+    encoding?: 'terrarium' | 'mapbox';
+    data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
+    buffer?: number;
+    tolerance?: number;
+    cluster?: boolean;
+    clusterRadius?: number;
+    clusterProperties?: object;
+    clusterMaxZoom?: number;
+    lineMetrics?: boolean;
+    generateId?: boolean;
+    coordinates?: number[][];
+    urls?: string[];
+    children?: React.ReactNode;
+}
+
+export class Source extends React.PureComponent<SourceProps> {}
+
+export interface LayerProps {
+    id?: string;
+    type: string;
+    source?: string;
+    beforeId?: string;
+    layout?: MapboxGL.AnyLayout;
+    paint:
+        | MapboxGL.BackgroundPaint
+        | MapboxGL.FillPaint
+        | MapboxGL.FillExtrusionPaint
+        | MapboxGL.LinePaint
+        | MapboxGL.SymbolPaint
+        | MapboxGL.RasterPaint
+        | MapboxGL.CirclePaint
+        | MapboxGL.HeatmapPaint
+        | MapboxGL.HillshadePaint;
+    filter?: any[];
+    minzoom?: number;
+    maxzoom?: number;
+}
+
+export class Layer extends React.PureComponent<LayerProps> {}

@@ -32,8 +32,8 @@ declare namespace RNModalDropdown {
         renderRow?: (option: any, index: number, isSelected: boolean) => any;
         renderSeparator?: () => any;
         renderButtonText?: (text: any) => any;
-        onDropdownWillShow?: () => boolean;
-        onDropdownWillHide?: () => boolean;
+        onDropdownWillShow?: () => any;
+        onDropdownWillHide?: () => any;
         onSelect?: (index: number, option: any) => void;
         accessible?: boolean;
         keyboardShouldPersistTaps?: "always" | "never" | "handled";

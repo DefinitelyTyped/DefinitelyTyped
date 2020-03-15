@@ -86,6 +86,7 @@ declare namespace google {
             setCallback(method:Function):Picker;
             setRelayUrl(url:string):Picker;
             setVisible(visible:boolean):Picker;
+            dispose():void;
         }
 
         /**
@@ -128,6 +129,9 @@ declare namespace google {
 
             // Allows the user to select folders from Team Drives.
             setEnableTeamDrives(enabled:boolean):DocsView;
+
+            // Set the MIME types which will be included in the view. Use commas to separate MIME types if more than one is required.
+            setMimeTypes(mimeTypes:string):DocsView;
         }
 
         /**

@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from "react";
+import * as React from 'react';
 
 export interface TrackingProp<P = {}> {
     trackEvent(data: Partial<P>): any;
@@ -16,7 +16,7 @@ export interface TrackingProp<P = {}> {
     getTrackingData(): {};
 }
 
-type Falsy = false | null | undefined | "";
+type Falsy = false | null | undefined | '';
 
 export interface Options<T> {
     /**
@@ -51,7 +51,7 @@ export interface Options<T> {
     process?(ownTrackingData: T): T | Falsy;
 }
 
-export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T);
+export type TrackingInfo<T, P, S> = T | ((props: P, state: S, args: any[any]) => T | Falsy);
 
 // Duplicated from ES6 lib to remove the `void` typing, otherwise `track` can’t be used as a HOC function that passes
 // through a JSX component that be used without casting.

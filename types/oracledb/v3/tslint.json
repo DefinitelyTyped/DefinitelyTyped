@@ -1,0 +1,15 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "callable-types": false,
+        "comment-format": false,
+        "eofline": false,
+        "export-just-namespace": false,
+        "max-line-length": false,
+        "no-redundant-jsdoc": false,
+        "no-void-expression": false,
+        "prefer-method-signature": false,
+        "unified-signatures": false
+    }
+}

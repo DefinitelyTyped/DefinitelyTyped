@@ -1,16 +1,20 @@
-// Type definitions for morgan 1.7
+// Type definitions for morgan 1.9
 // Project: https://github.com/expressjs/morgan
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 //                 Paolo Scanferla <https://github.com/pscanf>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 import express = require('express');
 
 declare namespace morgan {
-    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string;
+    type FormatFn = (tokens: TokenIndexer, req: express.Request, res: express.Response) => string | undefined | null;
 
-    type TokenCallbackFn = (req: express.Request, res: express.Response, arg?: string | number | boolean) => string;
+    type TokenCallbackFn = (
+        req: express.Request,
+        res: express.Response,
+        arg?: string | number | boolean,
+    ) => string | undefined;
 
     interface TokenIndexer {
         [tokenName: string]: TokenCallbackFn;
@@ -134,6 +138,7 @@ declare namespace morgan {
         /***
          * Buffer duration before writing logs to the stream, defaults to false.
          * When set to true, defaults to 1000 ms.
+         * @deprecated
          */
         buffer?: boolean;
 

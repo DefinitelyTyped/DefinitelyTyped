@@ -836,6 +836,13 @@ export interface ExecOptions extends child.ExecOptions {
 	silent?: boolean;
 
 	/**
+	 * Exit when command return code is non-zero.
+	 *
+	 * @default false
+	 */
+	fatal?: boolean;
+
+	/**
 	 * Asynchronous execution.
 	 *
 	 * If a callback is provided, it will be set to `true`, regardless of the passed value.

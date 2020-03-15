@@ -1,8 +1,17 @@
-import { CreateOrderRequest } from 'square-connect';
+import { Money } from 'square-connect';
 
-const createOrderRequest: CreateOrderRequest = {
-    idempotency_key: 'optional',
-    order: {
-        location_id: 'required',
-    },
+enum CustomCurrencyEnum {
+    CAD = 'CAD',
+}
+
+// Should work with string
+const moneyUSD: Money = {
+    amount: 1,
+    currency: 'USD',
+};
+
+// Should work with custom enum
+const moneyCAD: Money = {
+    amount: 1,
+    currency: CustomCurrencyEnum.CAD,
 };

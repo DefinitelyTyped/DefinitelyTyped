@@ -115,6 +115,9 @@ function JQueryStatic() {
         $('span', $('p'));
 
         // $ExpectType JQuery<HTMLElement>
+        $('span', 'p');
+
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
         // $ExpectType JQuery<SVGLineElement>
@@ -190,9 +193,6 @@ function JQueryStatic() {
                 target;
             });
             const myDocForced: JQuery<Document> = $(document);
-            const myWindow = $(window);
-            // $ExpectType JQuery<Window>
-            myWindow;
             const myWindowForced: JQuery<Window> = $(window);
             // $ExpectType JQuery<Window>
             myWindowForced;
@@ -6385,6 +6385,7 @@ function JQuery_AjaxSettings() {
             return 'filtered';
         },
         dataType: 'mycustomtype',
+        enctype: 'application/x-www-form-urlencoded',
         error(jqXHR, textStatus, errorThrown) {
             // $ExpectType any
             this;
@@ -8013,6 +8014,54 @@ function JQuery_TypeEventHandlers() {
             // $ExpectType HTMLElement
             this;
             // $ExpectType MouseUpEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        drag(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragend(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEndEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragenter(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragEnterEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragexit(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragExitEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragleave(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragLeaveEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragover(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragOverEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        dragstart(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DragStartEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
+            event;
+        },
+        drop(event) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType DropEvent<HTMLElement, undefined, HTMLElement, HTMLElement>
             event;
         },
         keydown(event) {

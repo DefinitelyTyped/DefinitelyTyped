@@ -363,6 +363,12 @@ declare const Buffer: {
     from(data: number[]): Buffer;
     from(data: Uint8Array): Buffer;
     /**
+     * Creates a new buffer containing the coerced value of an object
+     * A `TypeError` will be thrown if {obj} has not mentioned methods or is not of other type appropriate for `Buffer.from()` variants.
+     * @param obj An object supporting `Symbol.toPrimitive` or `valueOf()`.
+     */
+    from(obj: { valueOf(): string | object } | { [Symbol.toPrimitive](hint: 'string'): string }, byteOffset?: number, length?: number): Buffer;
+    /**
      * Creates a new Buffer containing the given JavaScript string {str}.
      * If provided, the {encoding} parameter identifies the character encoding.
      * If not provided, {encoding} defaults to 'utf8'.
@@ -820,7 +826,7 @@ declare namespace NodeJS {
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: ProcessEnv;
         exit(code?: number): never;
-        exitCode: number;
+        exitCode?: number;
         getgid(): number;
         setgid(id: number | string): void;
         getuid(): number;
@@ -1081,21 +1087,25 @@ declare namespace NodeJS {
     }
 
     interface Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Immediate {
-        ref(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
         _onImmediate: Function; // to distinguish it from the Timeout class
     }
 
     class Timeout implements Timer {
-        ref(): void;
-        refresh(): void;
-        unref(): void;
+        hasRef(): boolean;
+        ref(): this;
+        refresh(): this;
+        unref(): this;
     }
 
     class Module {
@@ -1119,4 +1129,8 @@ declare namespace NodeJS {
     }
 
     type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
+
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
 }

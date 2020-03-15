@@ -341,10 +341,11 @@ export function connectHitsPerPage(Composed: React.ComponentType<any>): React.Co
 export interface InfiniteHitsProvided<THit = any> {
   /** the records that matched the search */
   hits: THit[];
-  /** a function to toggle the refinement */
-  refine: (...args: any[]) => any;
   /** indicates if there are more pages to load */
   hasMore: boolean;
+  hasPrevious: boolean;
+  refineNext: (...args: any[]) => any;
+  refinePrevious: (...args: any[]) => any;
 }
 
 /**

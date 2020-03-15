@@ -1,6 +1,8 @@
-// Type definitions for google-protobuf 3.2
+// Type definitions for google-protobuf 3.7
 // Project: https://github.com/google/google-protobuf
 // Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
+//                 Chaitanya Kamatham <https://github.com/kamthamc>
+//                 Austin Bonander <https://github.com/abonander>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
@@ -109,8 +111,8 @@ export abstract class Message {
   static equals(m1: Message, m2: Message): boolean;
   static compareExtensions(extension1: {}, extension2: {}): boolean;
   static compareFields(field1: any, field2: any): boolean;
-  cloneMessage(): Message;
-  clone(): Message;
+  cloneMessage(): this;
+  clone(): this;
   static clone<T extends Message>(msg: T): T;
   static cloneMessage<T extends Message>(msg: T): T;
   static copyInto(fromMessage: Message, toMessage: Message): void;

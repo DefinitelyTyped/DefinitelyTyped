@@ -12,9 +12,9 @@ function FuncComp() {
     return null;
 }
 
-// $ExpectType Requireable<number | null>
+// $ExpectType Requireable<number | null | undefined>
 AirbnbPropTypes.and([PropTypes.number]);
-// $ExpectType Requireable<number | null>
+// $ExpectType Requireable<number | null | undefined>
 AirbnbPropTypes.and([PropTypes.number, AirbnbPropTypes.nonNegativeInteger]);
 // $ExpectType Validator<number>
 AirbnbPropTypes.and([PropTypes.number, AirbnbPropTypes.integer()], 'foo').isRequired;
@@ -87,7 +87,7 @@ interface ForbidShape {
     baz?: boolean | null;
 }
 
-// $ExpectType ValidationMap<{ foo: string | null; bar: number; baz: boolean | null; }>
+// $ExpectType ValidationMap<{ foo: string | null | undefined; bar: number; baz: boolean | null | undefined; }>
 AirbnbPropTypes.forbidExtraProps({
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired,
@@ -155,7 +155,7 @@ AirbnbPropTypes.range<5>(0, 10);
 // $ExpectType Requireable<ReactLegacyRefLike<HTMLElement>>
 AirbnbPropTypes.ref();
 
-// $ExpectType Requireable<string | null>
+// $ExpectType Requireable<string | null | undefined>
 AirbnbPropTypes.requiredBy('foo', PropTypes.string);
 // $ExpectType Validator<number>
 AirbnbPropTypes.requiredBy('bar', PropTypes.number, 42).isRequired;
@@ -177,11 +177,11 @@ interface ShapeShape {
     bar?: number | null;
 }
 
-// $ExpectType Requireable<{ foo: string | null; }>
+// $ExpectType Requireable<{ foo: string | null | undefined; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
 });
-// $ExpectType Requireable<{ foo: string | null; bar: number | null; }>
+// $ExpectType Requireable<{ foo: string | null | undefined; bar: number | null | undefined; }>
 AirbnbPropTypes.shape({
     foo: PropTypes.string,
     bar: PropTypes.number,
@@ -200,5 +200,5 @@ AirbnbPropTypes.uniqueArray();
 // $ExpectType Requireable<string[]>
 AirbnbPropTypes.uniqueArray<string>();
 
-// $ExpectType Requireable<{ [key: string]: number | null; }>
+// $ExpectType Requireable<{ [key: string]: number | null | undefined; }>
 AirbnbPropTypes.valuesOf(PropTypes.number);

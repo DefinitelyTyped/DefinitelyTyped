@@ -20,11 +20,21 @@ import {
 export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
+export interface GetTreeItemChildren {
+    done: (children: TreeItem[]) => void;
+    node: TreeItem;
+    path: NumberOrStringArray;
+    lowerSiblingCounts: number[];
+    treeIndex: number;
+}
+
+export type GetTreeItemChildrenFn = (data: GetTreeItemChildren) => void;
+
 export interface TreeItem {
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     expanded?: boolean;
-    children?: TreeItem[];
+    children?: TreeItem[] | GetTreeItemChildrenFn;
     [x: string]: any;
 }
 
@@ -47,7 +57,7 @@ export interface FullTree {
 export interface NodeData extends TreeNode, TreePath, TreeIndex { }
 
 export interface FlatDataItem extends TreeNode, TreePath {
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     parentNode: TreeItem;
 }
 
@@ -57,7 +67,7 @@ export interface SearchData extends NodeData {
 
 export interface ExtendedNodeData extends NodeData {
     parentNode: TreeItem;
-    lowerSiblingsCounts: number[];
+    lowerSiblingCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
 }
@@ -93,7 +103,7 @@ export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
     nextParentNode: TreeItem | null;
 }
 
-export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
+export type NodeRenderer = React.ComponentType<NodeRendererProps>;
 
 export interface NodeRendererProps {
     node: TreeItem;
@@ -116,6 +126,7 @@ export interface NodeRendererProps {
     swapLength?: number;
     listIndex: number;
     treeId: string;
+    rowDirection?: "ltr" | "rtl";
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
@@ -129,7 +140,7 @@ export interface NodeRendererProps {
     canDrop?: boolean;
 }
 
-export type PlaceholderRenderer = React.ComponentClass<PlaceholderRendererProps>;
+export type PlaceholderRenderer = React.ComponentType<PlaceholderRendererProps>;
 
 export interface PlaceholderRendererProps {
     isOver: boolean;
@@ -139,7 +150,7 @@ export interface PlaceholderRendererProps {
 
 type NumberOrStringArray = Array<string | number>;
 
-export type TreeRenderer = React.ComponentClass<TreeRendererProps>;
+export type TreeRenderer = React.ComponentType<TreeRendererProps>;
 
 export interface TreeRendererProps {
     treeIndex: number;
@@ -149,9 +160,11 @@ export interface TreeRendererProps {
     swapLength?: number;
     scaffoldBlockPxWidth: number;
     lowerSiblingCounts: number[];
+    rowDirection?: 'ltr' | 'rtl';
 
     listIndex: number;
     children: JSX.Element[];
+    style?: React.CSSProperties;
 
     // Drop target
     connectDropTarget: ConnectDropTarget;
@@ -205,8 +218,8 @@ export interface ReactSortableTreeProps extends ThemeTreeProps {
     isVirtualized?: boolean;
 }
 
-declare const SortableTree: React.ComponentClass<ReactSortableTreeProps>;
+declare const SortableTree: React.ComponentType<ReactSortableTreeProps>;
 
-export const SortableTreeWithoutDndContext: React.ComponentClass<ReactSortableTreeProps>;
+export const SortableTreeWithoutDndContext: React.ComponentType<ReactSortableTreeProps>;
 
 export default SortableTree;

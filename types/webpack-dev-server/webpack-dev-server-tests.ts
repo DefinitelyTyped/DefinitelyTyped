@@ -18,6 +18,7 @@ const config: WebpackDevServer.Configuration = {
 
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
+    contentBasePublicPath: "/serve-content-base-at-this-url",
 
     public: 'public-host.ru',
     // Public host for server
@@ -90,10 +91,35 @@ const c4: WebpackDevServer.Configuration = {
 const c5: WebpackDevServer.Configuration = {
     proxy: [{context: (pathname: string) => true}]
 };
+const c6: WebpackDevServer.Configuration = {
+    historyApiFallback: {
+        disableDotRule: true,
+        htmlAcceptHeaders: ['text/html'],
+        index: '/app/',
+        logger: () => {},
+        rewrites: [
+            {
+                from: /\/page/,
+                to: '/page.html'
+            },
+            {
+                from: /^\/images\/.*$/,
+                to: (context) => '/assets/' + context.parsedUrl.pathname
+            }
+        ],
+        verbose: true
+    }
+};
 
 // API example
 server = new WebpackDevServer(compiler, config);
 server.listen(8080, "localhost", () => { });
+
+// test the socket writer
+server.sockWrite(server.sockets, "type1");
+server.sockWrite(server.sockets, "type2", {message: "OK"});
+
+server.close();
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {

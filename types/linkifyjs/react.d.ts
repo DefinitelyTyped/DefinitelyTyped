@@ -1,11 +1,9 @@
 import * as React from "react";
-import { LinkifyOptions } from "./index";
+import { Options } from "./index";
 
 export interface LinkifyProps {
-    options?: LinkifyOptions;
+    options?: Options;
     tagName?: string;
 }
 
-declare class Linkify extends React.Component<LinkifyProps> {}
-
-export default Linkify;
+export default class Linkify extends React.Component<LinkifyProps> {}

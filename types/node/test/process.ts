@@ -23,6 +23,7 @@ import { EventEmitter } from "events";
     process.prependListener("exit", (code: number) => { });
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error) => { });
+    process.once("uncaughtExceptionMonitor", (error: Error) => { });
     process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
@@ -63,4 +64,17 @@ import { EventEmitter } from "events";
         r = process.send({ msg: "foo"}, {}, { swallowErrors: true });
         r = process.send({ msg: "foo"}, {}, { swallowErrors: true }, (err: Error | null) => {});
     }
+}
+
+{
+    const usage: NodeJS.ResourceUsage = process.resourceUsage();
+}
+
+{
+    const usage: NodeJS.MemoryUsage = process.memoryUsage();
+    const rss: number = usage.rss;
+    const heapTotal: number = usage.heapTotal;
+    const heapUsed: number = usage.heapUsed;
+    const external: number = usage.external;
+    const arrayBuffers: number = usage.arrayBuffers;
 }

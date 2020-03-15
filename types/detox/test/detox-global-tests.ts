@@ -6,6 +6,7 @@ declare var test: (test: string, callback: () => void) => void;
 describe("Test", () => {
     beforeAll(async () => {
         await device.reloadReactNative();
+        await device.takeScreenshot("test screenshot");
     });
 
     afterAll(async () => {

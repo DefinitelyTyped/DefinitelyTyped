@@ -1,4 +1,4 @@
-// Type definitions for signale 1.2
+// Type definitions for signale 1.4
 // Project: https://github.com/klaussinani/signale
 // Definitions by: Resi Respati <https://github.com/resir014>
 //                 Kingdaro <https://github.com/kingdaro>
@@ -59,6 +59,7 @@ declare namespace signale {
         underlinePrefix?: boolean;
         underlineSuffix?: boolean;
         uppercaseLabel?: boolean;
+        logLevel?: string;
     }
 
     interface SignaleOptions<TTypes extends string = DefaultMethods> {
@@ -122,6 +123,30 @@ declare namespace signale {
             label?: string,
             span?: number
         ): { label: string; span?: number };
+        /**
+         * Disables the logging functionality of all loggers belonging to a specific instance.
+         */
+        disable(): void;
+        /**
+         * Enables the logging functionality of all loggers belonging to a specific instance.
+         */
+        enable(): void;
+        /**
+         * Checks whether the logging functionality of a specific instance is enabled.
+         *
+         * @returns a boolean that describes whether or not the logger is enabled.
+         */
+        isEnabled(): boolean;
+        /**
+         * Adds new secrets/sensitive-information to the targeted Signale instance.
+         *
+         * @param secrets Array holding the secrets/sensitive-information to be filtered out.
+         */
+        addSecrets(secrets: string[] | number[]): void;
+        /**
+         * Removes all secrets/sensitive-information from the targeted Signale instance.
+         */
+        clearSecrets(): void;
     }
 
     type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void;

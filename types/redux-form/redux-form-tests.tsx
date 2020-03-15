@@ -160,7 +160,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent = ({
+const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
     children
 }) => null;
 
@@ -169,20 +169,19 @@ const MyArrayField: React.StatelessComponent = ({
 interface MyFieldValue {
     num: number;
 }
+
 interface MyFieldArrayCustomProps {
     foo: string;
+    bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps> = ({
+const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
-    foo
+    fields,
+    foo,
+    bar
 }) => null;
 
-type MyFieldArrayProps = MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>;
-const MyFieldArray: React.StatelessComponent<MyFieldArrayProps> = ({
-    children,
-    fields
-}) => null;
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
@@ -243,7 +242,16 @@ const testFormWithChangeFunctionDecorator = reduxForm<TestFormData, TestFormComp
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm<TestFormData>({
-    form : "test"
+    form : "test",
+    shouldError: ({
+        values,
+        nextProps,
+        props,
+        initialRender,
+        lastFieldValidatorKeys,
+        fieldValidatorKeys,
+        structure
+    }) => true,
 })(
     class Test extends React.Component<TestProps> {
         handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: {}) => {};
@@ -329,10 +337,22 @@ const Test = reduxForm<TestFormData>({
                                 component={ MyArrayField }
                             />
 
+                            {/* Passing child props via explicit props arg (TS-preferable)*/}
+                            <FieldArrayCustom
+                                name="field10"
+                                component={ MyCustomArrayField }
+                                props={{
+                                    foo: 'bar',
+                                    bar: 123
+                                }}
+                            />
+
+                            {/* Passing child props via extra props passed to parent */}
                             <FieldArrayCustom
                                 name="field10"
                                 component={ MyCustomArrayField }
                                 foo="bar"
+                                bar={23}
                             />
                         </FormSection>
                     </FormCustom>

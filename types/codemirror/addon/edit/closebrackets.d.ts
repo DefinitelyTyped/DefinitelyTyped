@@ -1,4 +1,4 @@
-// Type definitions for CodeMirror
+// Type definitions for codemirror
 // Project: https://github.com/codemirror/CodeMirror
 // Definitions by: ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,6 +42,6 @@ declare module "codemirror" {
          * By default, it'll auto-close ()[]{}''"", but you can pass it a string similar to that (containing pairs of matching characters),
          * or an object with pairs and optionally explode properties to customize it.
          */
-        autoCloseBrackets?: AutoCloseBrackets | string;
+        autoCloseBrackets?: AutoCloseBrackets | boolean | string;
     }
 }

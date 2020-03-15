@@ -385,6 +385,11 @@ declare namespace algoliasearchHelper {
     enableExactOnSingleWordQuery?: boolean;
   }
 
+  type ValueTypes<T> = T extends Array<infer U> ? U : never;
+  type ManagedParameters = {
+    [K in ValueTypes<SearchParameters["managedParameters"]>]: SearchParameters[K]
+  };
+
   export class SearchParameters implements QueryParameters {
     index?: string ;
     disjunctiveFacets?: string[] ;
@@ -451,6 +456,13 @@ declare namespace algoliasearchHelper {
     nbShards?: number ;
     userData?: string | object ;
 
+    managedParameters: [
+      'index',
+      'facets', 'disjunctiveFacets', 'facetsRefinements',
+      'facetsExcludes', 'disjunctiveFacetsRefinements',
+      'numericRefinements', 'tagRefinements', 'hierarchicalFacets', 'hierarchicalFacetsRefinements'
+    ];
+
     constructor(newParameters?: QueryParameters)
 
     /* Add a disjunctive facet to the disjunctiveFacets attribute of the helper configuration, if it isn't already present. */
@@ -478,6 +490,7 @@ declare namespace algoliasearchHelper {
     getHierarchicalRefinement(facetName: string): string[];
     getNumericRefinements(facetName: string): SearchParameters.OperatorList[];
     getNumericRefinement(attribute: string, operator: SearchParameters.Operator): Array<number | number[]>;
+    getQueryParams(): Partial<ManagedParameters>;
     getQueryParameter(paramName: string): any;
     getRefinedDisjunctiveFacets(facet: string, value: any): string[];
     getRefinedHierarchicalFacets(facet: string, value: any): string[];

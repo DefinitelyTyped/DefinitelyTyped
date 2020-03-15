@@ -46,7 +46,7 @@ declare namespace MimeNode {
  * the options, assumes this is the root.
  */
 declare class MimeNode {
-    constructor(contentType: string, options?: MimeNode.Options);
+    constructor(contentType?: string, options?: MimeNode.Options);
 
     /** Creates and appends a child node.Arguments provided are passed to MimeNode constructor */
     createChild(contentType: string, options?: MimeNode.Options): MimeNode;
@@ -87,8 +87,9 @@ declare class MimeNode {
      */
     setContent(content: string | Buffer | Readable): this;
 
-    /** Generate the message and return it with a callback */
+    /** Generate the message and return it with a callback or promise */
     build(callback: (err: Error | null, buf: Buffer) => void): void;
+    build(): Promise<Buffer>;
 
     getTransferEncoding(): string;
 
