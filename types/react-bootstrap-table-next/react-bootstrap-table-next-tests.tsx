@@ -69,6 +69,7 @@ const productColumns: Array<ColumnDescription<Product>> = [
      */
     {
         isDummyField: true,
+        dataField: '',
         sort: true,
         formatter: priceFormatter,
         text: 'Product Price',
