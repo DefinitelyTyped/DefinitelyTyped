@@ -3,13 +3,11 @@
 // Definitions by:  Adam Zerella <https://github.com/adamzerella>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
-type SourceType = 'default' | 'math' | 'crypto' | Buffer;
+type SourceType = 'default' | 'math' | 'crypto';
 
 interface GeneratorOptions {
     source: SourceType;
-    chars: string|string[];
+    chars: string;
 }
 
 declare class RandToken {
