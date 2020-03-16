@@ -119,7 +119,7 @@ mca[2] = { regexp: /a/gi, backref: 'asdf' };
 class XRegExpMatchSubstringImpl extends String implements XRegExp.MatchSubString {
     constructor(value?: any) {
         super(value);
-        Object.setPrototypeOf(this, Object.create(XRegExpExecArrayImpl.prototype));
+        Object.setPrototypeOf(this, Object.create(XRegExpMatchSubstringImpl.prototype));
     }
     groups?: XRegExp.NamedGroupsArray;
 }
