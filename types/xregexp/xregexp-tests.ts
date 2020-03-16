@@ -46,10 +46,10 @@ let pat: XRegExp.Pattern = '/a/';
 pat = /a/gi;
 
 // NamedGroups
-let ng: XRegExp.NamedGroups = null;
+let ng: XRegExp.NamedGroupsArray = {};
 
 // MatchChainArray
-let mca: XRegExp.MatchChainArray = [];
+const mca: XRegExp.MatchChainArray = [];
 mca[0] = /a/gi;
 
 // ReplacementValue
@@ -66,7 +66,7 @@ ucr = { name: 'b', inverseOf: 'a-z' };
 //#region interfaces
 
 // TokenOptions
-let to: XRegExp.TokenOptions = {};
+const to: XRegExp.TokenOptions = {};
 to.scope = ts1;
 to.flag = tf;
 to.optionalFlags = 'gi';
@@ -79,37 +79,37 @@ const ng_str1: string = ng['name'] + ng['val'];
 
 // MatchArray
 class XRegExpMatchArrayImpl extends Array<string> implements XRegExp.MatchArray {
-    constructor(items?: Array<string>) {
+    constructor(...items: Array<string>) {
         super(...items);
-        Object.setPrototypeOf(this, Object.create(XRegExpExecArrayImpl.prototype));
+        Object.setPrototypeOf(this, Object.create(XRegExpMatchArrayImpl.prototype));
     }
-    groups?: XRegExp.NamedGroups;
+    groups?: XRegExp.NamedGroupsArray;
     input?: string;
     index?: number;
 }
-let ma: XRegExp.MatchArray = new XRegExpMatchArrayImpl(['asdf', 'qwerty']);
+let ma: XRegExp.MatchArray = new XRegExpMatchArrayImpl('asdf', 'qwerty');
 ma.index = 0;
 ma.input = 'a';
 ma.groups = ng;
 ma['namedMatch'] = 'b';
-const ma_str1: string | undefined = ma["namedMatch"] as string;
+const ma_str1: string | undefined = ma['namedMatch'] as string;
 
 // ExecArray
 class XRegExpExecArrayImpl extends Array<string> implements XRegExp.ExecArray {
-    constructor(items?: Array<string>) {
+    constructor(...items: Array<string>) {
         super(...items);
         Object.setPrototypeOf(this, Object.create(XRegExpExecArrayImpl.prototype));
     }
-    groups?: XRegExp.NamedGroups;
-    input: string;
-    index: number;
+    groups?: XRegExp.NamedGroupsArray;
+    input = '';
+    index = 0;
 }
-let ea: XRegExp.ExecArray = new XRegExpExecArrayImpl(['asdf', 'qwerty']);
+const ea: XRegExp.ExecArray = new XRegExpExecArrayImpl('asdf', 'qwerty');
 ea.groups = ng;
 ma.index = 0;
 ma.input = 'a';
 ea['namedMatch'] = 'b';
-const ea_str1: string | undefined = ea["namedMatch"] as string;
+const ea_str1: string | undefined = ea['namedMatch'] as string;
 
 // ChainArrayElement
 mca[1] = { regexp: /a/gi, backref: 1 };
@@ -121,12 +121,12 @@ class XRegExpMatchSubstringImpl extends String implements XRegExp.MatchSubString
         super(value);
         Object.setPrototypeOf(this, Object.create(XRegExpExecArrayImpl.prototype));
     }
-    groups?: XRegExp.NamedGroups;
+    groups?: XRegExp.NamedGroupsArray;
 }
-let mss: XRegExp.MatchSubString = new XRegExpMatchSubstringImpl('asdf');
+const mss: XRegExp.MatchSubString = new XRegExpMatchSubstringImpl('asdf');
 mss.groups = ng;
 mss['namedMatch'] = 'b';
-const mss_str1: string | undefined = mss["namedMatch"] as string;
+const mss_str1: string | undefined = mss['namedMatch'] as string;
 
 // ReplacementDetail
 let rd: XRegExp.ReplacementDetail = [/a/gi, rv];
@@ -135,19 +135,19 @@ rd = [/a/gi, rv, ms];
 rd = [/a/gi, rv, ms, 'undefined indexes will be ignored'];
 
 // UnionOptions
-let uo: XRegExp.UnionOptions = {};
+const uo: XRegExp.UnionOptions = {};
 uo.conjunction = null;
 uo.conjunction = 'or';
 uo.conjunction = 'none';
 
 // MatchRecursiveOptions
-let mro: XRegExp.MatchRecursiveOptions = {};
+const mro: XRegExp.MatchRecursiveOptions = {};
 mro.escapeChar = null;
 mro.escapeChar = '\\';
 mro.valueNames = null;
 
 // MatchRecursiveValueNames
-let mrvn: XRegExp.MatchRecursiveValueNames = [null, null, null, null, 'undefined indexes will be ignored'];
+const mrvn: XRegExp.MatchRecursiveValueNames = [null, null, null, null, 'undefined indexes will be ignored'];
 mrvn[0] = 'pre';
 mrvn[1] = 'left';
 mrvn[2] = 'inside';
