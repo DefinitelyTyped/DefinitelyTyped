@@ -11,7 +11,7 @@ import IORedis = require('ioredis');
 import { Store, StoreIncrementCallback } from 'express-rate-limit';
 
 declare namespace RedisStore {
-    interface RedisStoreOptions {
+    interface Options {
         expiry?: number;
         prefix?: string;
         resetExpiryOnChange?: boolean;
@@ -21,7 +21,7 @@ declare namespace RedisStore {
 }
 
 declare class RedisStore implements Store {
-    constructor(options?: RedisStore.RedisStoreOptions);
+    constructor(options?: RedisStore.Options);
     incr(key: string, cb: StoreIncrementCallback): void;
     decrement(key: string): void;
     resetKey(key: string): void;
