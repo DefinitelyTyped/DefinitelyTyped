@@ -120,11 +120,6 @@ declare namespace XRegExp {
     type Pattern = RegExp | string;
 
     /**
-     * A set of named capture groups accessable via the string indexer or as properties.
-     */
-    type NamedGroups = NamedGroupsArray | null;
-
-    /**
      * An array of valid items to use for chain matching.
      */
     type MatchChainArray = Array<ChainArrayElement | RegExp>;
@@ -139,7 +134,7 @@ declare namespace XRegExp {
      *     - {XRegExp.NamedGroups} args[n+3]  - If the `namespacing` feature is turned on, the last parameter is the groups object. If the
      *       `namespacing` feature is off, then this argument is not present.
      */
-    type ReplacementFunction = ((substring: MatchSubString, ...args: (string | number | NamedGroups)[]) => string);
+    type ReplacementFunction = ((substring: MatchSubString, ...args: (string | number | NamedGroupsArray)[]) => string);
 
     /**
      *   Replacement strings can include special replacement syntax:
@@ -241,7 +236,7 @@ declare namespace XRegExp {
          * This is only present if the the `namespacing` feature is installed
          * using the `XRegExp.install` method.
          */
-        groups?: NamedGroups;
+        groups?: NamedGroupsArray;
     }
 
     /**
@@ -258,7 +253,7 @@ declare namespace XRegExp {
          * This is only present if the the `namespacing` feature is installed
          * using the `XRegExp.install` method.
          */
-        groups?: NamedGroups;
+        groups?: NamedGroupsArray;
     }
 
     /**
@@ -290,7 +285,7 @@ declare namespace XRegExp {
          * This is only present if the the `namespacing` feature is installed
          * using the `XRegExp.install` method.
          */
-        groups?: NamedGroups;
+        groups?: NamedGroupsArray;
     }
 
     /**
