@@ -1781,6 +1781,34 @@ describe("User scenarios", () => {
     });
 });
 
+describe("handles overloaded functions in spies", () => {
+    class MyClass {
+        myFunc(x: number): number;
+        myFunc(x: string, y: string): string;
+        myFunc(...p: any[]): number|string {
+            return 4;
+        }
+    }
+
+    it("works for one parameter overload", () => {
+        const s = new MyClass();
+        spyOn(s, "myFunc").and.returnValue(5);
+        const r = s.myFunc(4);
+        expect(s.myFunc).toHaveBeenCalledWith(4);
+        expect(r).toBe(5);
+        spyOn(s, "myFunc").and.returnValues(5, 6, 7, 8);
+    });
+
+    it("works for two parameter overload", () => {
+        const s = new MyClass();
+        spyOn(s, "myFunc").and.returnValue("s");
+        const r = s.myFunc("a", "b");
+        expect(s.myFunc).toHaveBeenCalledWith("a", "b");
+        expect(r).toBe("s");
+        spyOn(s, "myFunc").and.returnValues("s", "r", "t");
+    });
+});
+
 (() => {
     // from boot.js
     const env = jasmine.getEnv();
