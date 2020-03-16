@@ -1,8 +1,9 @@
-// Type definitions for bookshelfjs v1.0.1
+// Type definitions for bookshelfjs v1.1.0
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
 //                 Ian Serpa <http://github.com/ianldgs>
+//                 Alejandro Oviedo <http://github.com/a0viedo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
