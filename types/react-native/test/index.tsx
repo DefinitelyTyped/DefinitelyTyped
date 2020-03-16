@@ -93,6 +93,7 @@ import {
     AccessibilityInfo,
     YellowBox,
     useWindowDimensions,
+    HostComponent,
 } from "react-native";
 
 declare module "react-native" {
@@ -922,18 +923,26 @@ const PickerTest = () => (
     </Picker>
 );
 
+const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>("NativeBridgedComponent"); // $ExpectType HostComponent<{ nativeProp: string; }>
+
 class BridgedComponentTest extends React.Component {
     static propTypes = {
         jsProp: PropTypes.string.isRequired,
         ...ViewPropTypes,
     };
 
+    nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null
+
+    measureNativeComponent() {
+        if (this.nativeComponentRef) {
+            this.nativeComponentRef.measure((x, y, width, height, pageX, pageY) => x + y + width + height + pageX + pageY)
+        }
+    }
+
     render() {
-        return <NativeBridgedComponent {...this.props} nativeProp="test" />;
+        return <NativeBridgedComponent {...this.props} nativeProp="test" ref={ref => this.nativeComponentRef = ref} />;
     }
 }
-
-const NativeBridgedComponent = requireNativeComponent("NativeBridgedComponent");
 
 const SwitchColorTest = () => <Switch trackColor={{ true: "pink", false: "red" }} />;
 

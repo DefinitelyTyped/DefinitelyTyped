@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.61
+// Type definitions for react-native 0.62
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -277,7 +277,8 @@ declare class EventEmitter {
     removeListener(eventType: string, listener: (...args: any[]) => any): void;
 }
 
-/** NativeMethodsMixin provides methods to access the underlying native component directly.
+/**
+ * NativeMethods provides methods to access the underlying native component directly.
  * This can be useful in cases when you want to focus a view or measure its on-screen dimensions,
  * for example.
  * The methods described here are available on most of the default components provided by React Native.
@@ -286,7 +287,7 @@ declare class EventEmitter {
  * For more information, see [Direct Manipulation](http://facebook.github.io/react-native/docs/direct-manipulation.html).
  * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
  */
-export interface NativeMethodsMixinStatic {
+export interface NativeMethods {
     /**
      * Determines the location on screen, width, and height of the given view and
      * returns the values via an async callback. If successful, the callback will
@@ -359,6 +360,27 @@ export interface NativeMethodsMixinStatic {
     refs: {
         [key: string]: React.Component<any, any>;
     };
+}
+
+/**
+ * @deprecated Use NativeMethods instead.
+ */
+export type NativeMethodsMixin = NativeMethods;
+/**
+ * @deprecated Use NativeMethods instead.
+ */
+export type NativeMethodsMixinType = NativeMethods;
+
+/**
+ * Represents a native component, such as those returned from `requireNativeComponent`.
+ *
+ * @see https://github.com/facebook/react-native/blob/v0.62.0-rc.5/Libraries/Renderer/shims/ReactNativeTypes.js
+ *
+ * @todo This should eventually be defined as an AbstractComponent, but that
+ *       should first be introduced in the React typings.
+ */
+export interface HostComponent<P> extends Pick<React.ComponentClass<P>, Exclude<keyof React.ComponentClass<P>, "new">> {
+    new (props: P, context?: any): React.Component<P> & Readonly<NativeMethods>;
 }
 
 // see react-jsx.d.ts
@@ -902,7 +924,7 @@ export interface TextProps extends TextPropsIOS, TextPropsAndroid, Accessibility
  * A React component for displaying text which supports nesting, styling, and touch handling.
  */
 declare class TextComponent extends React.Component<TextProps> { }
-declare const TextBase: Constructor<NativeMethodsMixin> & typeof TextComponent;
+declare const TextBase: Constructor<NativeMethodsMixinType> & typeof TextComponent;
 export class Text extends TextBase { }
 
 type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 'none' | 'all';
@@ -1547,7 +1569,7 @@ interface TextInputState {
  * @see https://facebook.github.io/react-native/docs/textinput.html#methods
  */
 declare class TextInputComponent extends React.Component<TextInputProps> { }
-declare const TextInputBase: Constructor<NativeMethodsMixin> & Constructor<TimerMixin> & typeof TextInputComponent;
+declare const TextInputBase: Constructor<NativeMethodsMixinType> & Constructor<TimerMixin> & typeof TextInputComponent;
 export class TextInput extends TextInputBase {
     /**
      * Access the current focus state.
@@ -1701,7 +1723,7 @@ export interface ToolbarAndroidProps extends ViewProps {
  * [0]: https://developer.android.com/reference/android/support/v7/widget/Toolbar.html
  */
 declare class ToolbarAndroidComponent extends React.Component<ToolbarAndroidProps> { }
-declare const ToolbarAndroidBase: Constructor<NativeMethodsMixin> & typeof ToolbarAndroidComponent;
+declare const ToolbarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ToolbarAndroidComponent;
 export class ToolbarAndroid extends ToolbarAndroidBase { }
 
 /**
@@ -2338,7 +2360,7 @@ export interface ViewProps
  * whether that is a UIView, <div>, android.view, etc.
  */
 declare class ViewComponent extends React.Component<ViewProps> { }
-declare const ViewBase: Constructor<NativeMethodsMixin> & typeof ViewComponent;
+declare const ViewBase: Constructor<NativeMethodsMixinType> & typeof ViewComponent;
 export class View extends ViewBase {
     /**
      * Is 3D Touch / Force Touch available (i.e. will touch events include `force`)
@@ -2417,7 +2439,7 @@ export interface ViewPagerAndroidProps extends ViewProps {
 }
 
 declare class ViewPagerAndroidComponent extends React.Component<ViewPagerAndroidProps> { }
-declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixin> & typeof ViewPagerAndroidComponent;
+declare const ViewPagerAndroidBase: Constructor<NativeMethodsMixinType> & typeof ViewPagerAndroidComponent;
 export class ViewPagerAndroid extends ViewPagerAndroidBase {
     /**
      * A helper function to scroll to a specific page in the ViewPager.
@@ -2517,7 +2539,7 @@ export interface SegmentedControlIOSProps extends ViewProps {
  * such as rounded corners or camera notches (aka sensor housing area on iPhone X).
  */
 declare class SafeAreaViewComponent extends React.Component<ViewProps> { }
-declare const SafeAreaViewBase: Constructor<NativeMethodsMixin> & typeof SafeAreaViewComponent;
+declare const SafeAreaViewBase: Constructor<NativeMethodsMixinType> & typeof SafeAreaViewComponent;
 export class SafeAreaView extends SafeAreaViewBase { }
 
 /**
@@ -2561,7 +2583,7 @@ export interface InputAccessoryViewProps {
  * ````
  */
 declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> { }
-declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixin> & typeof SegmentedControlIOSComponent;
+declare const SegmentedControlIOSBase: Constructor<NativeMethodsMixinType> & typeof SegmentedControlIOSComponent;
 export class SegmentedControlIOS extends SegmentedControlIOSBase { }
 
 export interface NavigatorIOSProps {
@@ -2712,7 +2734,7 @@ export interface ActivityIndicatorProps extends ViewProps {
 }
 
 declare class ActivityIndicatorComponent extends React.Component<ActivityIndicatorProps> { }
-declare const ActivityIndicatorBase: Constructor<NativeMethodsMixin> & typeof ActivityIndicatorComponent;
+declare const ActivityIndicatorBase: Constructor<NativeMethodsMixinType> & typeof ActivityIndicatorComponent;
 export class ActivityIndicator extends ActivityIndicatorBase { }
 
 /**
@@ -2801,7 +2823,7 @@ export interface DatePickerIOSProps extends ViewProps {
 }
 
 declare class DatePickerIOSComponent extends React.Component<DatePickerIOSProps> { }
-declare const DatePickerIOSBase: Constructor<NativeMethodsMixin> & typeof DatePickerIOSComponent;
+declare const DatePickerIOSBase: Constructor<NativeMethodsMixinType> & typeof DatePickerIOSComponent;
 export class DatePickerIOS extends DatePickerIOSBase { }
 
 export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> { }
@@ -2904,7 +2926,7 @@ interface DrawerPosition {
 }
 
 declare class DrawerLayoutAndroidComponent extends React.Component<DrawerLayoutAndroidProps> { }
-declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixin> & typeof DrawerLayoutAndroidComponent;
+declare const DrawerLayoutAndroidBase: Constructor<NativeMethodsMixinType> & typeof DrawerLayoutAndroidComponent;
 export class DrawerLayoutAndroid extends DrawerLayoutAndroidBase {
     /**
      * drawer's positions.
@@ -3038,7 +3060,7 @@ export interface PickerIOSProps extends ViewProps {
  * @see PickerIOS.ios.js
  */
 declare class PickerIOSComponent extends React.Component<PickerIOSProps> { }
-declare const PickerIOSBase: Constructor<NativeMethodsMixin> & typeof PickerIOSComponent;
+declare const PickerIOSBase: Constructor<NativeMethodsMixinType> & typeof PickerIOSComponent;
 export class PickerIOS extends PickerIOSBase {
     static Item: typeof PickerIOSItem;
 }
@@ -3091,7 +3113,7 @@ export interface ProgressBarAndroidProps extends ViewProps {
  * that the app is loading or there is some activity in the app.
  */
 declare class ProgressBarAndroidComponent extends React.Component<ProgressBarAndroidProps> { }
-declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixin> & typeof ProgressBarAndroidComponent;
+declare const ProgressBarAndroidBase: Constructor<NativeMethodsMixinType> & typeof ProgressBarAndroidComponent;
 export class ProgressBarAndroid extends ProgressBarAndroidBase { }
 
 /**
@@ -3130,7 +3152,7 @@ export interface ProgressViewIOSProps extends ViewProps {
     trackImage?: ImageURISource | ImageURISource[];
 }
 declare class ProgressViewIOSComponent extends React.Component<ProgressViewIOSProps> { }
-declare const ProgressViewIOSBase: Constructor<NativeMethodsMixin> & typeof ProgressViewIOSComponent;
+declare const ProgressViewIOSBase: Constructor<NativeMethodsMixinType> & typeof ProgressViewIOSComponent;
 export class ProgressViewIOS extends ProgressViewIOSBase { }
 
 export interface RefreshControlPropsIOS extends ViewProps {
@@ -3199,7 +3221,7 @@ export interface RefreshControlProps extends RefreshControlPropsIOS, RefreshCont
  * in the `onRefresh` function otherwise the refresh indicator will stop immediately.
  */
 declare class RefreshControlComponent extends React.Component<RefreshControlProps> { }
-declare const RefreshControlBase: Constructor<NativeMethodsMixin> & typeof RefreshControlComponent;
+declare const RefreshControlBase: Constructor<NativeMethodsMixinType> & typeof RefreshControlComponent;
 export class RefreshControl extends RefreshControlBase {
     static SIZE: Object; // Undocumented
 }
@@ -3347,7 +3369,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
  * A component used to select a single value from a range of values.
  */
 declare class SliderComponent extends React.Component<SliderProps> { }
-declare const SliderBase: Constructor<NativeMethodsMixin> & typeof SliderComponent;
+declare const SliderBase: Constructor<NativeMethodsMixinType> & typeof SliderComponent;
 export class Slider extends SliderBase { }
 export type SliderIOS = Slider;
 
@@ -3766,7 +3788,7 @@ export interface ImageProps extends ImagePropsBase {
 }
 
 declare class ImageComponent extends React.Component<ImageProps> { }
-declare const ImageBase: Constructor<NativeMethodsMixin> & typeof ImageComponent;
+declare const ImageBase: Constructor<NativeMethodsMixinType> & typeof ImageComponent;
 export class Image extends ImageBase {
     static getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
     static prefetch(url: string): any;
@@ -3786,7 +3808,7 @@ export interface ImageBackgroundProps extends ImagePropsBase {
 }
 
 declare class ImageBackgroundComponent extends React.Component<ImageBackgroundProps> { }
-declare const ImageBackgroundBase: Constructor<NativeMethodsMixin> & typeof ImageBackgroundComponent;
+declare const ImageBackgroundBase: Constructor<NativeMethodsMixinType> & typeof ImageBackgroundComponent;
 export class ImageBackground extends ImageBackgroundBase {
     resizeMode: ImageResizeMode;
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any;
@@ -4671,7 +4693,7 @@ interface MaskedViewIOSProps extends ViewProps {
  * @see https://facebook.github.io/react-native/docs/maskedviewios.html
  */
 declare class MaskedViewComponent extends React.Component<MaskedViewIOSProps> { }
-declare const MaskedViewBase: Constructor<NativeMethodsMixin> & typeof MaskedViewComponent;
+declare const MaskedViewBase: Constructor<NativeMethodsMixinType> & typeof MaskedViewComponent;
 export class MaskedViewIOS extends MaskedViewBase { }
 
 export interface ModalBaseProps {
@@ -4971,7 +4993,7 @@ export interface TouchableHighlightProps extends TouchableWithoutFeedbackProps {
  * @see https://facebook.github.io/react-native/docs/touchablehighlight.html
  */
 declare class TouchableHighlightComponent extends React.Component<TouchableHighlightProps> { }
-declare const TouchableHighlightBase: Constructor<NativeMethodsMixin> &
+declare const TouchableHighlightBase: Constructor<NativeMethodsMixinType> &
     Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
     typeof TouchableHighlightComponent;
@@ -4999,7 +5021,7 @@ export interface TouchableOpacityProps extends TouchableWithoutFeedbackProps {
 declare class TouchableOpacityComponent extends React.Component<TouchableOpacityProps> { }
 declare const TouchableOpacityBase: Constructor<TimerMixin> &
     Constructor<TouchableMixin> &
-    Constructor<NativeMethodsMixin> &
+    Constructor<NativeMethodsMixinType> &
     typeof TouchableOpacityComponent;
 export class TouchableOpacity extends TouchableOpacityBase {
     /**
@@ -6516,7 +6538,7 @@ export interface SnapshotViewIOSProps extends ViewProps {
 }
 
 declare class SnapshotViewIOSComponent extends React.Component<SnapshotViewIOSProps> { }
-declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixin> & typeof SnapshotViewIOSComponent;
+declare const SnapshotViewIOSBase: Constructor<NativeMethodsMixinType> & typeof SnapshotViewIOSComponent;
 export class SnapshotViewIOS extends SnapshotViewIOSBase { }
 
 // Deduced from
@@ -7974,6 +7996,8 @@ export interface UIManagerStatic {
      * has been completed in native. If you need the measurements as soon as
      * possible, consider using the [`onLayout`
      * prop](docs/view.html#onlayout) instead.
+     *
+     * @deprecated Use `ref.measure` instead.
      */
     measure(node: number, callback: MeasureOnSuccessCallback): void;
 
@@ -7991,6 +8015,8 @@ export interface UIManagerStatic {
      *
      * Note that these measurements are not available until after the rendering
      * has been completed in native.
+     *
+     * @deprecated Use `ref.measureInWindow` instead.
      */
     measureInWindow(node: number, callback: MeasureInWindowOnSuccessCallback): void;
 
@@ -8001,6 +8027,8 @@ export interface UIManagerStatic {
      *
      * As always, to obtain a native node handle for a component, you can use
      * `React.findNodeHandle(component)`.
+     *
+     * @deprecated Use `ref.measureLayout` instead.
      */
     measureLayout(
         node: number,
@@ -8132,7 +8160,7 @@ export interface SwitchProps extends SwitchPropsIOS {
  * the supplied `value` prop instead of the expected result of any user actions.
  */
 declare class SwitchComponent extends React.Component<SwitchProps> { }
-declare const SwitchBase: Constructor<NativeMethodsMixin> & typeof SwitchComponent;
+declare const SwitchBase: Constructor<NativeMethodsMixinType> & typeof SwitchComponent;
 export class Switch extends SwitchBase { }
 
 /**
@@ -8873,12 +8901,6 @@ export type LayoutAnimation = LayoutAnimationStatic;
 export const Linking: LinkingStatic;
 export type Linking = LinkingStatic;
 
-export const NativeMethodsMixin: NativeMethodsMixinStatic;
-export type NativeMethodsMixin = NativeMethodsMixinStatic;
-
-export const NativeComponent: NativeMethodsMixinStatic;
-export type NativeComponent = NativeMethodsMixinStatic;
-
 export const PanResponder: PanResponderStatic;
 export type PanResponder = PanResponderStatic;
 
@@ -8976,10 +8998,10 @@ export const PixelRatio: PixelRatioStatic;
  *   const View = requireNativeComponent('RCTView');
  *
  * The concrete return type of `requireNativeComponent` is a string, but the declared type is
- * `any` because TypeScript assumes anonymous JSX intrinsics (`string` instead of `"div", for
- * example) not to have any props.
+ * `HostComponent` because TypeScript assumes anonymous JSX intrinsics (e.g. a `string`) not
+ * to have any props.
  */
-export function requireNativeComponent(viewName: string): any;
+export function requireNativeComponent<T>(viewName: string): HostComponent<T>;
 
 export function findNodeHandle(
     componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>,
