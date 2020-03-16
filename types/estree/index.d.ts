@@ -439,7 +439,7 @@ export interface AssignmentProperty extends Property {
 
 export interface ObjectPattern extends BasePattern {
   type: "ObjectPattern";
-  properties: Array<AssignmentProperty>;
+  properties: Array<AssignmentProperty | RestElement>;
 }
 
 export interface ArrayPattern extends BasePattern {
