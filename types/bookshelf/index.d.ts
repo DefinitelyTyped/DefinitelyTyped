@@ -124,6 +124,7 @@ declare namespace Bookshelf {
          */
         fetch(options?: FetchOptions): BlueBird<T>;
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
+        fetchPage(options?: FetchPageOptions): BlueBird<Collection<T>>;
         hasMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             foreignKey?: string,
@@ -435,6 +436,17 @@ declare namespace Bookshelf {
     }
 
     interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
+    
+    interface FetchPageOptions {
+        pageSize?: number,
+        page?: number,
+        limit?: number,
+        offset?: number,
+        /** @default false */
+        disableCount?: boolean,
+        /** @default false */
+        debug?: boolean
+    }
 }
 
 export = Bookshelf;
