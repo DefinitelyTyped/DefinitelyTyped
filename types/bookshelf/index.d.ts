@@ -437,7 +437,7 @@ declare namespace Bookshelf {
     }
 
     interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
-    
+
     interface FetchPageOptions {
         pageSize?: number,
         page?: number,
