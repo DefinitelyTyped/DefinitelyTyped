@@ -36,7 +36,7 @@
 //                 Sam Kim <https://github.com/rlaace423>
 //                 Dongjun Lee <https://github.com/ChazEpps>
 //                 Valentin Agachi <https://github.com/avaly>
-//		             Jan Nemcik <https://github.com/JanNemcik>
+//		           Jan Nemcik <https://github.com/JanNemcik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
