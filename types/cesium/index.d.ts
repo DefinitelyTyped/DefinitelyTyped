@@ -3544,6 +3544,7 @@ declare namespace Cesium {
         preloadSiblings: boolean;
         preloadAncestors: boolean;
         showSkirts: boolean;
+        showGroundAtmosphere: boolean;
         dynamicAtmosphereLightingFromSun: boolean;
         dynamicAtmosphereLighting: boolean;
         show: boolean;

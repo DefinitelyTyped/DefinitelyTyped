@@ -69,12 +69,10 @@ export * from './tools';
 export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
 /**
- * Adds two numbers (or strings). Equivalent to a + b but curried.
+ * Adds two numbers. Equivalent to a + b but curried.
  */
 export function add(a: number, b: number): number;
-export function add(a: string, b: string): string;
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /**
  * Creates a new list iteration function from an existing one by adding two new parameters to its callback
