@@ -1,23 +1,10 @@
-import { DataFactory } from 'rdf-js'
+import { BaseQuad, Quad } from 'rdf-js';
+import { Client, ClientOptions, Query, Store } from '.';
 
-declare namespace BaseClient {
-    interface ClientOptions {
-        endpointUrl?: string
-        factory?: DataFactory
-        fetch?: typeof fetch
-        headers?: HeadersInit
-        password?: string
-        storeUrl?: string
-        updateUrl?: string
-        user?: string
-        Query?: Query
-        Store?: Store
-    }
-}
-
-declare class BaseClient {
-    constructor(options: BaseClient.ClientOptions)
-    mergeHeaders(args: HeadersInit): Headers
+declare class BaseClient<TQuery extends Query, Q extends BaseQuad = Quad, TStore extends Store<Q> = never> implements Client<TQuery, Q, TStore> {
+    constructor(options: ClientOptions<TQuery, Q, TStore>);
+    query: TQuery;
+    store: TStore;
 }
 
 export = BaseClient;
