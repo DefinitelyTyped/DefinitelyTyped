@@ -18,6 +18,7 @@
         "esModuleInterop": true
     },
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "openzeppelin-test-helpers-tests.ts"
     ]
 }
