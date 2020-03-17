@@ -22,4 +22,6 @@ interface Options {
 
 declare function imageCompression(image: File | Blob, options: Options): Promise<File | Blob>;
 
+export as namespace imageCompression;
+
 export = imageCompression;
