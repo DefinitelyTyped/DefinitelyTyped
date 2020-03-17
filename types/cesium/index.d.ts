@@ -3987,9 +3987,9 @@ declare namespace Cesium {
         readonly tileHeight: number;
         readonly tilingScheme: TilingScheme;
         getTileCredits(x: number, y: number, level: number): Credit[];
-        requestImage(x: number, y: number, level: number, request?: Request): Promise<HTMLImageElement | HTMLCanvasElement>;
-        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]>;
-        static loadImage(imageryProvider: ImageryProvider, url: string): Promise<HTMLImageElement | HTMLCanvasElement>;
+        requestImage(x: number, y: number, level: number, request?: Request): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
+        pickFeatures(x: number, y: number, level: number, longitude: number, latitude: number): Promise<ImageryLayerFeatureInfo[]> | undefined;
+        static loadImage(imageryProvider: ImageryProvider, url: string): Promise<HTMLImageElement | HTMLCanvasElement> | undefined;
     }
 
     class Label {
@@ -6188,7 +6188,7 @@ declare namespace Cesium {
 
     function buildModuleUrl(value: string): string;
 
-    function defaultValue<T>(v: T, defaultValue: T): T;
+    function defaultValue<T,D>(value: T, defaultValue: D): T | D;
 
     namespace defaultValue {
         const EMPTY_OBJECT: any;
