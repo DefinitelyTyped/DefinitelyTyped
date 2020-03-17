@@ -6,7 +6,8 @@
 
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { ColumnDescription, BootstrapTableProps } from 'react-bootstrap-table-next';
+import { CSSProperties, ReactNode } from 'react';
+import { ColumnDescription } from 'react-bootstrap-table-next';
 
 /**
  * declaration for table toolkit sub module
@@ -39,8 +40,81 @@ export interface TableToolkitProps<T extends object = any> {
     data: T[];
     ref?: any;
     columns: Array<ColumnDescription<T>>;
-    children: (props: { baseProps: BootstrapTableProps<T>; searchProps: InjectedSearchProps }) => JSX.Element;
+    children: (props: ToolkitContextType) => JSX.Element;
 }
 
-declare function ToolkitProvider(props: TableToolkitProps): JSX.Element;
+export interface ToolkitContextType {
+    searchProps: InjectedSearchProps;
+    csvProps: {
+        onExport: () => void;
+    };
+    columnToggleProps: {
+        columns: ColumnDescription[];
+        /**
+         * array of toggled columns
+         */
+        toggles: boolean[];
+        onColumnToggle: (dataField: string) => void;
+    };
+    baseProps: {
+        /**
+         * table key field
+         */
+        keyField: any;
+        columns: ColumnDescription[];
+        data: any[];
+        bootstrap4?: boolean;
+    };
+}
+
+export interface ToggleListProps {
+    columns: ColumnDescription[];
+    /**
+     * array of toggled columns
+     */
+    toggles: boolean[];
+    onColumnToggle: (dataField: string) => void;
+    btnClassName?: string;
+    className?: string;
+    contextual?: string;
+}
+
+export namespace ColumnToggle {
+    function ToggleList(props: ToggleListProps): React.ReactElement | null;
+}
+
+export interface ExportCSVButtonProps {
+    children: ReactNode;
+    onExport: () => void;
+    style?: CSSProperties;
+    className?: string;
+}
+
+export namespace CSVExport {
+    function ToggleList(props: ExportCSVButtonProps): React.ReactElement | null;
+}
+
+export interface SearchBarProps {
+    onSearch: (searchText: string) => void;
+    className?: string;
+    placeholder?: string;
+    style?: CSSProperties;
+    delay?: number;
+    searchText?: string;
+    tableId?: string;
+}
+export interface ClearSearchButtonProps {
+    onClear?: () => void;
+    className?: string;
+    text?: string;
+}
+
+export namespace Search {
+    function SearchBar(props: SearchBarProps): React.ReactElement | null;
+    function ClearSearchButton(props: ExportCSVButtonProps): React.ReactElement | null;
+}
+
+export const ToolkitContext: React.Context<ToolkitContextType>;
+
+declare function ToolkitProvider(props: TableToolkitProps): React.ReactElement | null;
 export default ToolkitProvider;

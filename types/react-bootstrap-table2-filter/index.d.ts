@@ -9,6 +9,14 @@
 import { TableColumnFilterProps, ColumnDescription } from 'react-bootstrap-table-next';
 import { CSSProperties, SyntheticEvent } from 'react';
 
+export enum FILTER_TYPES {
+    TEXT = 'TEXT',
+    SELECT = 'SELECT',
+    MULTISELECT = 'MULTISELECT',
+    NUMBER = 'NUMBER',
+    DATE = 'DATE',
+}
+
 /**
  * Filter comparators used for table filters
  */
@@ -88,8 +96,8 @@ export function multiSelectFilter(props: Partial<MultiSelectFilterProps>): Table
  * Number filter configuration options
  */
 export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<TableColumnFilterProps, T> & {
-    options?: Array<number>;
-    comparators?: Array<Comparator>;
+    options?: number[];
+    comparators?: Comparator[];
     /**
      * When set to true comparator dropdown does not show a "no selection" option
      */
@@ -103,6 +111,35 @@ export type NumberFilterProps<T extends object = any> = TableColumnFilterProps<T
 };
 
 export function numberFilter(props: Partial<NumberFilterProps>): TableColumnFilterProps;
+
+/**
+ * Date filter options
+ */
+export interface DateFilter<T extends object = any> extends TableColumnFilterProps<TableColumnFilterProps, T> {
+    withoutEmptyComparatorOption?: boolean;
+    defaultValue?: {
+        date: Date;
+        comparator: Comparator;
+    };
+    comparator?: Comparator[];
+    comparatorClassName?: string;
+    dateClassName?: string;
+    comparatorStyle?: CSSProperties;
+    dateStyle?: CSSProperties;
+}
+
+export function dateFilter(props: DateFilter): TableColumnFilterProps;
+
+/**
+ * Custom filter
+ */
+export interface CustomFilterProps {
+    type?: string | FILTER_TYPES;
+    comparator?: Comparator;
+    caseSensitive?: boolean;
+}
+
+export function customFilter(props: CustomFilterProps): TableColumnFilterProps;
 
 /**
  * declaration for table filter sub module

@@ -60,7 +60,7 @@ export type ColumnSortFunc<T, E extends keyof T = any> = (
     a: T[E],
     b: T[E],
     order: 'asc' | 'desc',
-    dataField: string,
+    dataField: any,
     rowA: T,
     rowB: T,
 ) => number;
@@ -74,7 +74,7 @@ export interface TableChangeState<T> {
     data: T[];
     cellEdit: {
         rowId: string;
-        dataField: string;
+        dataField: any;
         newValue: any;
     };
 }
@@ -100,7 +100,7 @@ export interface ColumnDescription<T extends object = any, E = any> {
      * If set the column will not use cell values
      */
     isDummyField?: boolean;
-    dataField: T[keyof T] | string;
+    dataField: any;
     formatter?: ColumnFormatter<T, E>;
     hidden?: boolean;
     /**
@@ -192,7 +192,7 @@ export type PaginationOptions = Partial<{
     /**
      * A numeric array is also available: [5, 10]. the purpose of above example is custom the text
      */
-    sizePerPageList: Array<number> | Array<{ text: string; value: number }>;
+    sizePerPageList: number[] | Array<{ text: string; value: number }>;
     /**
      * hide the going to first and last page button
      */
@@ -320,7 +320,7 @@ export interface BootstrapTableRef<T extends object = any> {
     };
 }
 
-export interface BootstrapTableProps<T = any> {
+export interface BootstrapTableProps<T extends object = any> {
     /**
      * Tells react-bootstrap-table2 which column is unique.
      */
@@ -355,14 +355,14 @@ export interface BootstrapTableProps<T = any> {
     expandRow?: ExpandRowProps<T>;
     parentClassName?: string | ((isExpand: boolean, row: T, rowIndex: number) => string);
     rowStyle?: ((row: T, rowIndex: number) => CSSProperties) | CSSProperties;
-    rowEvents?: RowEventHandlerProps<any>;
+    rowEvents?: RowEventHandlerProps;
     rowClasses?: ((row: T, rowIndex: number) => string) | string;
     filtersClasses?: string;
     filterPosition?: FilterPosition;
     footerClasses?: string;
-    defaultSorted?: [{ dataField: string; order: SortOrder }];
+    defaultSorted?: [{ dataField: any; order: SortOrder }];
     sort?: {
-        dataField?: string;
+        dataField?: any;
         order: SortOrder;
         sortFunc?: any;
         sortCaret?: any;
@@ -408,10 +408,10 @@ export interface ExpandHeaderColumnRenderer {
 
 export interface ExpandRowProps<T> {
     renderer: (row: T, rowIndex: number) => JSX.Element;
-    expanded?: Array<number>;
+    expanded?: number[];
     onExpand?: (row: T, isExpand: boolean, rowIndex: number, e: SyntheticEvent) => void;
-    onExpandAll: (isExpandAll: boolean, results: Array<number>, e: SyntheticEvent) => void;
-    nonExpandable: Array<number>;
+    onExpandAll: (isExpandAll: boolean, results: number[], e: SyntheticEvent) => void;
+    nonExpandable: number[];
     showExpandColumn?: boolean;
     onlyOneExpanding?: boolean;
     expandByColumnOnly?: boolean;
