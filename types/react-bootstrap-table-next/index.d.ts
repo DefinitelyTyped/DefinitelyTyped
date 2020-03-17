@@ -329,7 +329,7 @@ export interface BootstrapTableProps<T extends object = any> {
      *  Provides data for your table. It accepts a single Array object.
      */
     data: any[];
-    columns: Array<ColumnDescription<T>>;
+    columns: ColumnDescription[];
     bootstrap4?: boolean;
     remote?: boolean | Partial<{ pagination: boolean; filter: boolean; sort: boolean; cellEdit: boolean }>;
     noDataIndication?: () => JSX.Element | JSX.Element | string;
