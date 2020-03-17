@@ -190,11 +190,11 @@ export interface MUIDataTableOptions {
     ) => React.ReactNode;
     disableToolbarSelect?: boolean;
     download?: boolean;
-    downloadOptions?: {
+    downloadOptions?: Partial<{
         filename: string;
         separator: string;
-        filterOptions?: { useDisplayedColumnsOnly: boolean; useDisplayedRowsOnly: boolean };
-    };
+        filterOptions: { useDisplayedColumnsOnly?: boolean; useDisplayedRowsOnly?: boolean };
+    }>;
     elevation?: number;
     expandableRows?: boolean;
     expandableRowsOnClick?: boolean;
