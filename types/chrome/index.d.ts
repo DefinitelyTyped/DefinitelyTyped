@@ -3745,8 +3745,7 @@ declare namespace chrome.idle {
      */
     export function setDetectionInterval(intervalInSeconds: number): void;
     /**
-     * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically.
-     * @requires(CrOS) Currently supported on Chrome OS only.
+     * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
      * @param callback The callback parameter should be a function that looks like this:
      * function(integer delay) {...};
      * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
