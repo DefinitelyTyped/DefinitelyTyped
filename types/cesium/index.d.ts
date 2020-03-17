@@ -6188,7 +6188,7 @@ declare namespace Cesium {
 
     function buildModuleUrl(value: string): string;
 
-    function defaultValue<T>(v:T, defaultValue:T):T;
+    function defaultValue<T>(v: T, defaultValue: T): T;
 
     namespace defaultValue {
         const EMPTY_OBJECT: any;
