@@ -1,25 +1,17 @@
-// Type definitions for @openzeppelin/test-helpers 0.1
-// Project: https://github.com/OpenZeppelin/openzeppelin-test-helpers
+// Type definitions for @openzeppelin/test-helpers 0.5
+// Project: https://github.com/OpenZeppelin/openzeppelin-test-helpers#readme
 // Definitions by: John Kim <https://github.com/johnplutusds/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * @author: john@plutusds.com
- * @version: 0.11, 03/13/2020
- */
 declare module "@openzeppelin/test-helpers" {
 
     import BN from 'bn.js';
 
     namespace time {
-
         function advanceBlock(): Promise<any>;
-
         function latest(): Promise<BN>;
-
         function latestBlock(): Promise<BN>;
-
-        function increase (duration: string|number|BN): Promise<any>;
+        function increase(duration: string | number | BN): Promise<any>;
 
         /**
          * Beware that due to the need of calling two separate ganache methods and rpc calls overhead
@@ -28,42 +20,34 @@ declare module "@openzeppelin/test-helpers" {
          *
          * @param target time in seconds
          */
-        function increaseTo (target: string|BN): Promise<any>;
-
+        function increaseTo(target: string | BN): Promise<any>;
         const duration: Duration;
     }
 
     interface Duration {
-        seconds: (val: string|number) => BN;
-        minutes: (val: string|number) => BN;
-        hours: (val: string|number) => BN;
-        days: (val: string|number) => BN;
-        weeks: (val: string|number) => BN;
-        years: (val: string|number) => BN;
+        seconds: (val: string | number) => BN;
+        minutes: (val: string | number) => BN;
+        hours: (val: string | number) => BN;
+        days: (val: string | number) => BN;
+        weeks: (val: string | number) => BN;
+        years: (val: string | number) => BN;
     }
 
     namespace singletons {
-
-        function ERC1820Registry(funder: string): Promise<any>; //TruffleContract
-
+        function ERC1820Registry(funder: string): Promise<any>;
     }
 
     namespace expectRevert {
-
         function assertion(promise: Promise<any>, expectedError?: string): void;
         function outOfGas(promise: Promise<any>, expectedError?: string): void;
         function unspecified(promise: Promise<any>, expectedError?: string): void;
-
     }
 
-    function expectRevert(promise: Promise<any>, expectedError?: string): void
+    function expectRevert(promise: Promise<any>, expectedError?: string): void;
 
     namespace send {
-
         function transaction(target: any, name: string, argsTypes: any, argsValues: any, opts?: any): Promise<TransactionReceipt>;
-
-        function ether(from: string, to: string, value: number|BN): Promise<TransactionReceipt>;
-
+        function ether(from: string, to: string, value: number | BN): Promise<TransactionReceipt>;
     }
 
     interface TransactionReceipt {
@@ -84,7 +68,7 @@ declare module "@openzeppelin/test-helpers" {
         };
     }
 
-    export interface Log {
+    interface Log {
         address: string;
         data: string;
         topics: string[];
@@ -95,7 +79,7 @@ declare module "@openzeppelin/test-helpers" {
         blockNumber: number;
     }
 
-    export interface EventLog {
+    interface EventLog {
         event: string;
         address: string;
         returnValues: any;
@@ -104,27 +88,25 @@ declare module "@openzeppelin/test-helpers" {
         transactionHash: string;
         blockHash: string;
         blockNumber: number;
-        raw?: {data: string; topics: any[]};
+        raw?: { data: string; topics: any[] };
     }
 
-
     namespace makeInterfaceId {
-
         function ERC165(functionSignatures: any[]): string;
-
-        function ERC1820(interfaceName: string): string|null;
+        function ERC1820(interfaceName: string): string | null;
     }
 
     namespace expectEvent {
-
-        function inConstruction(account: string, unit: 'WillNeverBeEmitted'|'String'|'Boolean'|'ShortUint'|'UnemittedEvent', eventArgs?: any): Promise<BN>;
-
+        function inConstruction(account: string, unit: 'WillNeverBeEmitted' | 'String' | 'Boolean' | 'ShortUint' | 'UnemittedEvent', eventArgs?: any): Promise<BN>;
         function inTransaction(txHash: string, emitter: any, eventName: string, eventArgs?: any): Promise<Tracker>;
     }
 
-    function expectEvent(account: string, unit: 'LongInt'|'Argumentless'|'IndirectString'|'LongUintBooleanString'|'Bytes'|'Address'|'LongUint'|'String'|'Boolean'|'ShortUint'|'ShortInt'|'UnemittedEvent', eventArgs?: any): any;
+    function expectEvent(
+        account: string,
+        unit: 'LongInt' | 'Argumentless' | 'IndirectString' | 'LongUintBooleanString' | 'Bytes' | 'Address' | 'LongUint' | 'String' | 'Boolean' | 'ShortUint' | 'ShortInt' | 'UnemittedEvent',
+        eventArgs?: any): any;
 
-    function ether(n: string|BN): BN;
+    function ether(n: string | BN): BN;
 
     namespace constants {
         const ZERO_ADDRESS: string;
@@ -134,22 +116,20 @@ declare module "@openzeppelin/test-helpers" {
     }
 
     namespace balance {
-        function current(account: string, unit?: 'wei'|'ether'|'gwei'): Promise<BN>;
-        function tracker(owner: string, unit?: 'wei'|'ether'|'gwei'): Promise<Tracker>;
+        function current(account: string, unit?: 'wei' | 'ether' | 'gwei'): Promise<BN>;
+
+        function tracker(owner: string, unit?: 'wei' | 'ether' | 'gwei'): Promise<Tracker>;
     }
 
     class Tracker {
-
         constructor(account: string, unit: 'wei|ether');
 
         account: string;
-        unit: 'wei'|'ether';
+        unit: 'wei' | 'ether';
         prev: BN;
 
-        delta(unit?: 'wei'|'ether'): Promise<BN>;
+        delta(unit?: 'wei' | 'ether'): Promise<BN>;
 
-        get(unit?: 'wei'|'ether'): Promise<BN>;
+        get(unit?: 'wei' | 'ether'): Promise<BN>;
     }
-
 }
-
