@@ -1042,6 +1042,9 @@ describe("jasmine.objectContaining", () => {
         a: number;
         b: number;
         bar: string;
+        nested: {
+            child: string;
+        };
     }
     var foo: fooType;
 
@@ -1049,7 +1052,10 @@ describe("jasmine.objectContaining", () => {
         foo = {
             a: 1,
             b: 2,
-            bar: "baz"
+            bar: "baz",
+            nested: {
+                child: 'child-baz'
+            },
         };
     });
 
@@ -1063,7 +1069,7 @@ describe("jasmine.objectContaining", () => {
             foo: 2,
         }));
 
-        // Contrary to the test in ../jasmine-tests.ts, this does not cause an error
+        // Contrary to the test in ../v2/jasmine-tests.ts, this does not cause an error
         // even though `b` is defined as number in fooType.
         //
         // This is because the type definition of jasmine.Expected<T> matches the return type of jasmine.objectContaining(),
@@ -1082,6 +1088,21 @@ describe("jasmine.objectContaining", () => {
         expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
             bar: '',
             foo: 1, // $ExpectError
+        }));
+    });
+
+    it("matches objects with jasmine matchers as property values when providing a generic type", () => {
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            b: jasmine.any(Number),
+            bar: jasmine.stringMatching('ba'),
+        }));
+    });
+
+    it("matches objects with jasmine matchers as nested property values when providing a generic type", () => {
+        expect(foo).not.toEqual(jasmine.objectContaining<fooType>({
+            nested: jasmine.objectContaining({
+                child: jasmine.stringMatching('child')
+            })
         }));
     });
 
