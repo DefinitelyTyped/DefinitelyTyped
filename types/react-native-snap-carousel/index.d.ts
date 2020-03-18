@@ -340,15 +340,15 @@ export interface PaginationProps {
     /**
      * Length of dot animation (milliseconds)
      */
-    animatedDuration: number;
+    animatedDuration?: number;
     /**
      * Controls "bounciness"/overshoot on dot animation
      */
-    animatedFriction: number;
+    animatedFriction?: number;
     /**
      * Controls speed dot animation
      */
-    animatedTension: number;
+    animatedTension?: number;
     /**
      * Number of dots to display
      */
@@ -373,7 +373,7 @@ export interface PaginationProps {
     /**
      * Delay in ms, from the start of the touch, before onPressIn is called on dot
      */
-    delayPressInDot: number;
+    delayPressInDot?: number;
     /**
      * Background color of the active dot.
      * Use this if you want to animate the change between active and inactive colors,
