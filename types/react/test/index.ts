@@ -244,6 +244,10 @@ const LegacyStatelessComponent3: React.SFC<SCProps> =
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
+// undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
+// leaving here to document limitation and inspect error message
+const FunctionComponent5: React.FunctionComponent = () => false; // $ExpectError
+
 // React.createFactory
 const factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
