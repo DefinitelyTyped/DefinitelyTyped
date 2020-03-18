@@ -46,6 +46,7 @@ export interface QueryOptionsPaginated<TResult> extends QueryOptions<TResult> {
 }
 
 export interface QueryResult<TResult, TVariables> {
+    status: 'loading' | 'error' | 'success' | 'manual';
     data: null | TResult;
     error: null | Error;
     isLoading: boolean;
