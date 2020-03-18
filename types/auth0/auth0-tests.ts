@@ -203,3 +203,10 @@ management.linkUsers('primaryId', { user_id: 'secondaryId' })
 management.linkUsers('primaryId', { user_id: 'secondaryId' },
   (err: Error, result: any) => {});
 
+
+// Rules configurations
+management.setRulesConfig({key: 'test'}, {value: 'test'}).then((config) => console.log(config))
+management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => console.log(config))
+
+management.deleteRulesConfig({key: 'test'}).then(() => {})
+management.deleteRulesConfig({key: 'test'}, (err) => {})

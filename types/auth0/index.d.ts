@@ -107,6 +107,20 @@ export interface Rule {
   order?: number;
 }
 
+export interface RulesConfig {
+  /**
+   * Key for a rules config variable.
+   */
+  key: string;
+}
+
+export interface RulesConfigData {
+  /**
+   * Value for a rules config variable.
+   */
+  value: string
+}
+
 export interface Client {
   /**
    * The name of the client.
@@ -717,6 +731,18 @@ export class ManagementClient {
 
   deleteRule(params: ObjectWithId): Promise<void>;
   deleteRule(params: ObjectWithId, cb: (err: Error) => void): void;
+
+
+  // Rules Configurations
+  getRulesConfigs(): Promise<RulesConfig[]>;
+  getRulesConfigs(cb: (err: Error, rulesConfigs: RulesConfig[]) => void): void;
+
+  setRulesConfig(params: RulesConfig, data: RulesConfigData): Promise<RulesConfig & RulesConfigData>;
+  setRulesConfig(params: RulesConfig, data: RulesConfigData, 
+    cb: (err: Error, rulesConfig: RulesConfig & RulesConfigData) => void):void;
+  
+  deleteRulesConfig(params: RulesConfig): Promise<void>;
+  deleteRulesConfig(params: RulesConfig, cb: (err: Error) => void): void
 
 
   // Users
