@@ -14,7 +14,7 @@
         ],
         "paths": {
             "uuid": [
-                "uuid/v3"
+                "uuid/v3/index.d.ts"
             ],
             "uuid/*": [
                 "uuid/v3/*"
