@@ -2074,6 +2074,11 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
      * An accessibility hint helps users understand what will happen when they perform an action on the accessibility element when that result is not obvious from the accessibility label.
      */
     accessibilityHint?: string;
+    /**
+     * Represents the current value of a component. It can be a textual description of a component's value, or for range-based components, such as sliders and progress bars,
+     * it contains range information (minimum, current, and maximum).
+     */
+    accessibilityValue?: AccessibilityValue;
 
     /**
      * When `accessible` is true, the system will try to invoke this function when the user performs an accessibility custom action.
@@ -2153,6 +2158,28 @@ export interface AccessibilityState {
      *  When present, informs accessible tools the element is expanded or collapsed
      */
     expanded?: boolean;
+}
+
+export interface AccessibilityValue {
+    /**
+     * The minimum value of this component's range. (should be an integer)
+     */
+    min?: number,
+
+    /**
+     * The maximum value of this component's range. (should be an integer)
+     */
+    max?: number,
+
+    /**
+     * The current value of this component's range. (should be an integer)
+     */
+    now?: number,
+
+    /**
+     * A textual description of this component's value. (will override minimum, current, and maximum if set)
+     */
+    text?: string,
 }
 
 export type AccessibilityRole =

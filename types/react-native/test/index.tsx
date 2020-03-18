@@ -878,6 +878,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityStates={["selected"]}
                 accessibilityState={{checked: true}}
                 accessibilityHint="Very importent header"
+                accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
             >
