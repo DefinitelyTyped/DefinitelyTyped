@@ -444,6 +444,7 @@ type RefComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType R
 type RefCarryingComponentAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType undefined
 type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
 type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
+type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
 
 //
 // Attributes

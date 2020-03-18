@@ -99,21 +99,31 @@ declare namespace React {
      *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
      * - JSX intrinsics like `div` will give you their DOM instance. For `React.ElementRef<'div'>` that would be
      *   `HTMLDivElement`. For `React.ElementRef<'input'>` that would be `HTMLInputElement`.
+     * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
+     *   to component.
      *
      * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * 
+     * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
+     *       `React.forwardRef()` returns.
      */
     type ElementRef<
         C extends
-            | { new (props: any): React.Component<any> }
+            | { new (props: any): Component<any> }
             | (() => JSX.Element)
             | keyof JSX.IntrinsicElements
-    > = C extends { new (props: any): React.Component<any> }
+            | ForwardRefExoticComponent<any>
+    > = C extends { new (props: any): Component<any> }
         ? InstanceType<C>
         : C extends (() => JSX.Element)
         ? undefined
         : C extends keyof JSX.IntrinsicElements
         ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
             ? E
+            : never
+        : C extends ForwardRefExoticComponent<infer FP>
+        ? FP extends RefAttributes<infer FC>
+            ? FC
             : never
         : never;
 
