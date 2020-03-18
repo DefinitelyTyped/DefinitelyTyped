@@ -1519,6 +1519,10 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
+        mapValues<T extends object, TResult>(object: T, callback: (value: T[keyof T], key: keyof T, collection: T) => TResult): { [K in keyof T]: TResult };
+        /**
+         * @see _.mapValues
+         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues
