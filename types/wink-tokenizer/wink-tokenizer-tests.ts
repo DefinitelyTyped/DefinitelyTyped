@@ -14,7 +14,7 @@ tokenizer.getTokensFP();
 // https://winkjs.org/wink-tokenizer/Tokenizer.html#getTokensFP
 // Adding a regex for an existing tag
 tokenizer.addRegex(/\(oo\)/gi, 'emoticon');
-tokenizer.tokenize('(oo) Hi!')
+tokenizer.tokenize('(oo) Hi!');
 // -> [ { value: '(oo)', tag: 'emoticon' },
 //      { value: 'Hi', tag: 'word' },
 //      { value: '!', tag: 'punctuation' } ]
