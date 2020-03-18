@@ -39,7 +39,7 @@ export interface SourceAndMapMixin {
     };
 }
 
-export class CachedSource {
+export class CachedSource extends Source {
     _source: Source;
     _cachedSource: string;
     _cachedSize: number;
