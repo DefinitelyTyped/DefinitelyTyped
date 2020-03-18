@@ -46,14 +46,16 @@ export class CachedSource extends Source {
     _cachedMaps: {
         [prop: string]: RawSourceMap
     };
-    node: (options: any) => SourceNode;
-    listMap: (options: any) => SourceListMap;
 
     constructor(source: Source);
 
     source(): string;
 
     size(): number;
+
+    node(options: any): SourceNode;
+
+    listMap(options: any): SourceListMap;
 
     sourceAndMap(options: any): {
         source: string;
