@@ -440,6 +440,11 @@ function RefCarryingComponent() {
     );
 }
 
+type RefComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
+type RefCarryingComponentAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType undefined
+type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
+type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
+
 //
 // Attributes
 // --------------------------------------------------------------------------

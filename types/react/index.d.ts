@@ -90,6 +90,32 @@ declare namespace React {
     type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
+    /**
+     * Gets the instance type for a React element. The instance will be different for various component types:
+     *
+     * - React class components will be the class instance. So if you had `class Foo extends React.Component<{}> {}`
+     *   and used `React.ElementRef<typeof Foo>` then the type would be the instance of `Foo`.
+     * - React stateless functional components do not have a backing instance and so `React.ElementRef<typeof Bar>`
+     *   (when `Bar` is `function Bar() {}`) will give you the `undefined` type.
+     * - JSX intrinsics like `div` will give you their DOM instance. For `React.ElementRef<'div'>` that would be
+     *   `HTMLDivElement`. For `React.ElementRef<'input'>` that would be `HTMLInputElement`.
+     *
+     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     */
+    type ElementRef<
+        C extends
+            | ComponentClass<any>
+            | FunctionComponent<any>
+            | keyof JSX.IntrinsicElements
+    > = C extends ComponentClass<any>
+        ? InstanceType<C>
+        : C extends FunctionComponent<any>
+        ? undefined
+        : C extends keyof JSX.IntrinsicElements
+        ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
+            ? E
+            : never
+        : never;
 
     type ComponentState = any;
 
