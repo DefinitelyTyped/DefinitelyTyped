@@ -105,7 +105,7 @@ class MyMap extends React.Component<{}, State> {
                         captureDoubleClick={true}
                     />
 
-                    <Source type="geojson" data={geojson}>
+                    <Source type="geojson" data={geojson} scheme={undefined}>
                         <Layer
                             type="point"
                             paint={{
