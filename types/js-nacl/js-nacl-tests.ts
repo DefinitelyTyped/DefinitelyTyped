@@ -9,6 +9,7 @@ nacl.instantiate((inst: nacl.Nacl) => {
     demo_box(inst);
     demo_secret_box(inst);
     demo_derived(inst);
+    demo_random(inst);
 });
 
 function demo_hex(inst: nacl.Nacl): void {
@@ -70,4 +71,8 @@ function demo_derived(inst: nacl.Nacl): void {
     inst.crypto_sign_seed_keypair(seed); // $ExpectType SignKeyPair
     inst.crypto_box_seed_keypair(seed); // $ExpectType BoxKeyPair
     inst.crypto_box_keypair_from_raw_sk(seed); // $ExpectType BoxKeyPair
+}
+
+function demo_random(inst: nacl.Nacl): void {
+    inst.random_bytes(32); // $ExpectType Uint8Array
 }
