@@ -16,7 +16,7 @@ export interface Algorithm {
 export interface PublicState {
   max: number;
   min: number;
-  values: number[];
+  values: [number, number];
 }
 
 export interface Events {
@@ -45,7 +45,7 @@ export interface Props extends Events {
   progressBar?: React.ReactType;
   snap?: boolean;
   snapPoints?: number[];
-  values?: number[];
+  values?: [number, number];
 }
 
 export default class Rheostat extends React.Component<Props, never> {}
