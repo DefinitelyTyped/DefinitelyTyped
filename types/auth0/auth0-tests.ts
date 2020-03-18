@@ -210,3 +210,6 @@ management.setRulesConfig({key: 'test'}, {value: 'test'}, (err, config) => conso
 
 management.deleteRulesConfig({key: 'test'}).then(() => {})
 management.deleteRulesConfig({key: 'test'}, (err) => {})
+
+management.getRulesConfigs().then((configs) => console.log(configs))
+management.getRulesConfigs((err, configs) => console.log(configs));
