@@ -124,7 +124,7 @@ class MyMap extends React.Component<{}, State> {
                         <Layer
                             id="raster-layer"
                             type="raster"
-                            source="raster-tiles"
+                            source="raster-tiles-source"
                             paint={{}}
                             minzoom={0}
                             maxzoom={22}
