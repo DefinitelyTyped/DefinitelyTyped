@@ -9,14 +9,15 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typeRoots": ["../"],
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "cloudevents-sdk-tests.ts"
+        "rascal-tests.ts"
     ]
 }
