@@ -241,7 +241,7 @@ export interface ArrayExpression extends BaseExpression {
 
 export interface ObjectExpression extends BaseExpression {
   type: "ObjectExpression";
-  properties: Array<Property>;
+  properties: Array<Property | SpreadElement>;
 }
 
 export interface Property extends BaseNode {
@@ -439,7 +439,7 @@ export interface AssignmentProperty extends Property {
 
 export interface ObjectPattern extends BasePattern {
   type: "ObjectPattern";
-  properties: Array<AssignmentProperty>;
+  properties: Array<AssignmentProperty | RestElement>;
 }
 
 export interface ArrayPattern extends BasePattern {
