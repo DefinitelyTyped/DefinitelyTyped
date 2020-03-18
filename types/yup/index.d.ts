@@ -303,7 +303,7 @@ export interface ValidateOptions {
      */
     strict?: boolean;
     /**
-     * Teturn from validation methods on the first error rather than after all validations run. Default - true
+     * Return from validation methods on the first error rather than after all validations run. Default - true
      */
     abortEarly?: boolean;
     /**
