@@ -103,19 +103,19 @@ declare namespace React {
      *   to component.
      *
      * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
-     * 
+     *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
      */
     type ElementRef<
         C extends
             | { new (props: any): Component<any> }
-            | (() => JSX.Element)
+            | (() => ReactElement | null)
             | keyof JSX.IntrinsicElements
             | ForwardRefExoticComponent<any>
     > = C extends { new (props: any): Component<any> }
         ? InstanceType<C>
-        : C extends (() => JSX.Element)
+        : C extends (() => ReactElement | null)
         ? undefined
         : C extends keyof JSX.IntrinsicElements
         ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
