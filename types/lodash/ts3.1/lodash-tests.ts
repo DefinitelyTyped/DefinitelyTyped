@@ -5428,7 +5428,7 @@ fp.now(); // $ExpectType number
     // $ExpectType { a: string; b: string; c: string; }
     _.mapValues(abcObjectRecord, (value, key, collection) => {
         value;  // $ExpectType string
-        key; // $ExpectType string
+        key; // $ExpectType "a" | "b" | "c"
         collection; // $ExpectType Record<"a" | "b" | "c", string>
         return "";
     });
@@ -5463,7 +5463,7 @@ fp.now(); // $ExpectType number
     // $ExpectType { a: string; b: string; c: string; }
     _.mapValues(abcObject, (value, key, collection) => {
         value;  // $ExpectType string | number | boolean
-        key; // $ExpectType string
+        key; // $ExpectType "a" | "b" | "c"
         collection; // $ExpectType AbcObject
         return "";
     });
