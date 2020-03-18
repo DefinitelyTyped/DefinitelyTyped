@@ -2,7 +2,7 @@
 // Project: https://guidesmiths.github.io/rascal/
 // Definitions by: ethan <https://github.com/zijin-m>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 3.2
 
 /// <reference types="node" />
 
