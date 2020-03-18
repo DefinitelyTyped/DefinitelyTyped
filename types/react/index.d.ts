@@ -104,12 +104,12 @@ declare namespace React {
      */
     type ElementRef<
         C extends
-            | ComponentClass<any>
-            | FunctionComponent<any>
+            | { new (props: any): React.Component<any> }
+            | (() => JSX.Element)
             | keyof JSX.IntrinsicElements
-    > = C extends ComponentClass<any>
+    > = C extends { new (props: any): React.Component<any> }
         ? InstanceType<C>
-        : C extends FunctionComponent<any>
+        : C extends (() => JSX.Element)
         ? undefined
         : C extends keyof JSX.IntrinsicElements
         ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
