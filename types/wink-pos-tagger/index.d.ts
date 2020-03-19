@@ -1,5 +1,8 @@
 // Type definitions for wink-pos-tagger
 // Project: http://winkjs.org/
+// Definitions by: Lars Klein <https://github.com/lhk>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import { Token } from 'wink-tokenizer';
 
 declare class Tagger {
