@@ -43585,6 +43585,10 @@ declare namespace ej {
             /** Specifies the value for datepicker of Custom Cell type.
              */
             value?: string;
+			
+			/** Specifies the format for datepicker.
+             */
+            format?: string;
         }
 
         export interface XLCellType {
