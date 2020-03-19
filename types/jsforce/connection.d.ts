@@ -24,12 +24,14 @@ export interface RestApiOptions {
 }
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
-// the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
+// the oauth options can either be in the `oauth2` property OR spread across the main connection
 export interface PartialOAuth2Options {
     clientId?: string;
     clientSecret?: string;
     loginUrl?: string;
     redirectUri?: string;
+    tokenServiceUrl?: string;
+    authzServiceUrl?: string;
 }
 
 export interface RequestInfo {
