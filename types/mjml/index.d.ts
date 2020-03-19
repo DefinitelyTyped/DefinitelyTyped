@@ -3,15 +3,17 @@
 // Definitions by: aahoughton <https://github.com/aahoughton>
 //                 marpstar   <https://github.com/marpstar>
 //                 eiskalteschatten   <https://github.com/eiskalteschatten>
+//                 emrah88    <https://github.com/emrah88>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MJMLParsingOpts {
-    fonts?: { [key: string]: string; };
+    fonts?: { [key: string]: string };
     keepComments?: boolean;
     beautify?: boolean;
     minify?: boolean;
     validationLevel?: 'strict' | 'soft' | 'skip';
     filePath?: string;
+    minifyOptions?: MJMLMinifyOptions;
 }
 
 interface MJMLParseError {
@@ -31,6 +33,12 @@ interface MJMLJsonObject {
     attributes: object;
     children?: MJMLJsonObject[];
     content?: string;
+}
+
+interface MJMLMinifyOptions {
+    collapseWhitespace?: boolean;
+    minifyCSS?: boolean;
+    removeEmptyAttributes?: boolean;
 }
 
 declare function mjml2html(inp: string | MJMLJsonObject, opts?: MJMLParsingOpts): MJMLParseResults;
