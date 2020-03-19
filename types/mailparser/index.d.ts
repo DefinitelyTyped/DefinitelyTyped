@@ -199,7 +199,7 @@ interface ParsedMail {
 	 * If the message included embedded images as cid: urls then these are all
 	 * replaced with base64 formatted data: URIs.
 	 */
-	html: string | boolean;
+	html: string | false;
 	/**
 	 * The plaintext body of the message.
 	 */
