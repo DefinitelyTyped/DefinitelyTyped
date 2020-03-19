@@ -1505,3 +1505,15 @@ function testRef() {
     <ConnectedClassComponent ref={React.createRef<string>()}></ConnectedClassComponent>; // $ExpectError
     <ConnectedClassComponent ref={(ref: string) => {}}></ConnectedClassComponent>; // $ExpectError
 }
+
+function testChildren() {
+    const FunctionalComponent: React.FC = () => null;
+    class ClassComponent extends React.Component {}
+
+    const ConnectedFunctionalComponent = connect()(FunctionalComponent);
+    const ConnectedClassComponent = connect()(ClassComponent);
+
+    // Allow passing of children to connected components
+    <ConnectedFunctionalComponent>{'child'}</ConnectedFunctionalComponent>;
+    <ConnectedClassComponent>{'child'}</ConnectedClassComponent>;
+}

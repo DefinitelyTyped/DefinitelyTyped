@@ -26,7 +26,8 @@ import {
     ComponentType,
     StatelessComponent,
     Context,
-    NamedExoticComponent
+    NamedExoticComponent,
+    ReactNode
 } from 'react';
 
 import {
@@ -100,7 +101,7 @@ export type Shared<
 
 // Infers prop type from component C
 export type GetProps<C> = C extends ComponentType<infer P>
-    ? C extends ComponentClass<P> ? ClassAttributes<C> & P : P
+    ? (C extends ComponentClass<P> ? ClassAttributes<C> & P : P) & { children?: ReactNode }
     : never;
 
 // Applies LibraryManagedAttributes (proper handling of defaultProps
