@@ -441,6 +441,7 @@ function RefCarryingComponent() {
 }
 
 const MemoizedForwardingRefComponent = React.memo(ForwardingRefComponent);
+const LazyRefComponent = React.lazy(() => Promise.resolve({ default: RefComponent }));
 
 type RefComponentAsRef = React.ElementRef<typeof RefComponent>; // $ExpectType RefComponent
 type RefCarryingComponentAsRef = React.ElementRef<typeof RefCarryingComponent>; // $ExpectType undefined
@@ -448,6 +449,7 @@ type HTMLIntrinsicAsRef = React.ElementRef<'div'>; // $ExpectType HTMLDivElement
 type SVGIntrinsicAsRef = React.ElementRef<'svg'>; // $ExpectType SVGSVGElement
 type ForwardingRefComponentAsRef = React.ElementRef<typeof ForwardingRefComponent>; // $ExpectType RefComponent
 type MemoizedForwardingRefComponentAsRef = React.ElementRef<typeof MemoizedForwardingRefComponent>; // $ExpectType RefComponent
+type LazyForwardingRefComponentAsRef = React.ElementRef<typeof LazyRefComponent>; // $ExpectType RefComponent
 
 //
 // Attributes
