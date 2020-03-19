@@ -28,15 +28,15 @@ type MaybeModel<T> = T extends DS.Model ? T : never;
 
 type UnboxBelongsTo<T> =
     T extends DS.PromiseObject<infer C> ? MaybeModel<C>
-      : T extends Ember.ComputedProperty<infer C & DS.PromiseObject<infer C>, infer C> ? MaybeModel<C>
-      : T extends Ember.ComputedProperty<infer C> ? MaybeModel<C>
+    //   : T extends Ember.ComputedProperty<infer C & DS.PromiseObject<infer C>, infer C> ? MaybeModel<C>
+    //   : T extends Ember.ComputedProperty<infer C> ? MaybeModel<C>
       : MaybeModel<T>;
 
 type UnboxHasMany<T> =
     T extends DS.PromiseManyArray<infer C> ? MaybeModel<C>
       : T extends Ember.Array<infer C> ? MaybeModel<C>
-      : T extends Ember.ComputedProperty<DS.PromiseManyArray<infer C>, Ember.Array<infer C>> ? MaybeModel<C>
-      : T extends Ember.ComputedProperty<DS.ManyArray<infer C>> ? MaybeModel<C>
+    //   : T extends Ember.ComputedProperty<DS.PromiseManyArray<infer C>, Ember.Array<infer C>> ? MaybeModel<C>
+    //   : T extends Ember.ComputedProperty<DS.ManyArray<infer C>> ? MaybeModel<C>
       : never;
 
 type BelongsToModels<Model extends DS.Model> = {
