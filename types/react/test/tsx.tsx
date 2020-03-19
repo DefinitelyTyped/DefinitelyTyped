@@ -12,6 +12,7 @@ FunctionComponent.defaultProps = {
     foo: 42
 };
 <FunctionComponent />;
+<slot name="slot1"></slot>;
 
 const FunctionComponent2: React.FunctionComponent<SCProps> = ({ foo, children }) => {
     return <div>{foo}{children}</div>;

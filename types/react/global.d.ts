@@ -68,6 +68,7 @@ interface HTMLParamElement extends HTMLElement { }
 interface HTMLPreElement extends HTMLElement { }
 interface HTMLProgressElement extends HTMLElement { }
 interface HTMLQuoteElement extends HTMLElement { }
+interface HTMLSlotElement extends HTMLElement { }
 interface HTMLScriptElement extends HTMLElement { }
 interface HTMLSelectElement extends HTMLElement { }
 interface HTMLSourceElement extends HTMLElement { }
