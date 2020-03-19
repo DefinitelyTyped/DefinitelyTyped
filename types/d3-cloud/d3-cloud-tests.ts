@@ -15,6 +15,14 @@ interface ICompTextSize {
     rotate?: number;
 }
 
+function archimedeanSpiral(size: [number, number]): (t: number) => [number, number] {
+    var e = size[0] / size[1];
+    return (t: number) => {
+        const s = t * 0.1;
+        return [e * s * Math.sin(s), s * Math.cos(s)];
+    };
+}
+
 var fill = d3.scale.category20<number>();
 d3.layout
     .cloud()
@@ -32,6 +40,7 @@ d3.layout
     .fontSize(function(d: ICompTextSize) {
         return d.size;
     })
+    .spiral(archimedeanSpiral)
     .on('end', draw)
     .random()
     .canvas()

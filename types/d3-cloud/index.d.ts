@@ -59,9 +59,9 @@ declare module 'd3' {
             text(text: string): Cloud<T>;
             text(text: (datum: T, index: number) => string): Cloud<T>;
 
-            spiral(): (size: number) => (t: number) => [number, number];
+            spiral(): (size: [number, number]) => (t: number) => [number, number];
             spiral(name: string): Cloud<T>;
-            spiral(spiral: (size: number) => (t: number) => [number, number]): Cloud<T>;
+            spiral(spiral: (size: [number, number]) => (t: number) => [number, number]): Cloud<T>;
 
             fontSize(): (datum: T, index: number) => number;
             fontSize(size: number): Cloud<T>;
