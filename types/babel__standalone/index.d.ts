@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 
-import { TransformOptions, types, FileResultCallback } from '@babel/core';
+import { TransformOptions, types, FileResultCallback, BabelFileResult } from '@babel/core';
 
-export function transform(code: string, options: TransformOptions): string;
+export function transform(code: string, options: TransformOptions): BabelFileResult;
 
 export function transformFromAst(ast: types.Node, code: string | undefined, opts: TransformOptions | undefined, callback?: FileResultCallback): void;
 

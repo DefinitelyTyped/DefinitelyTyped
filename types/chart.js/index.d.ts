@@ -718,7 +718,7 @@ declare namespace Chart {
         afterUpdate?(scale?: any): void;
         afterSetDimension?(scale?: any): void;
         afterDataLimits?(scale?: any): void;
-        afterBuildTicks?(scale?: any): void;
+        afterBuildTicks?(scale: any, ticks: number[]): number[];
         afterTickToLabelConversion?(scale?: any): void;
         afterCalculateTickRotation?(scale?: any): void;
         afterFit?(scale?: any): void;

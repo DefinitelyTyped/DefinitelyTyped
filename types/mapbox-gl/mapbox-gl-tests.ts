@@ -687,6 +687,7 @@ expectType<mapboxgl.LngLatLike>({ lon: 0, lat: 0 });
 
 new mapboxgl.LngLat(0, 0);
 expectType<mapboxgl.LngLat>(mapboxgl.LngLat.convert(lnglatlike));
+expectType<number>(new mapboxgl.LngLat(0, 0).distanceTo(new mapboxgl.LngLat(0, 0)));
 
 /*
  * LngLatBoundsLike

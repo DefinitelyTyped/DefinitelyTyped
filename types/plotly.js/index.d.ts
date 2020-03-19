@@ -15,8 +15,8 @@
 //                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
+//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import * as _d3 from "d3";
 export as namespace Plotly;
