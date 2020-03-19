@@ -580,6 +580,7 @@ webpack({
         cached: true,
         children: true,
         chunks: true,
+        chunkGroups: true,
         chunkModules: true,
         chunkOrigins: true,
         chunksSort: "field",
