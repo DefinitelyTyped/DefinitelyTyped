@@ -20,6 +20,7 @@ type QueryParamScopeTypes = 'controller' | 'model';
 export interface ControllerMixin extends ActionHandler {
     replaceRoute(name: string, ...args: any[]): void;
     transitionToRoute(name: string, ...args: any[]): void;
+    transitionToRoute(...args: any[]): void;
     model: any;
     queryParams: string | string[] | Array<{ [key: string]: {
         type?: QueryParamTypes,

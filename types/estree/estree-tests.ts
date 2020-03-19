@@ -179,7 +179,9 @@ var expressionOrSpread: ESTree.Expression | ESTree.SpreadElement
 
 // ObjectExpression
 var objectExpression: ESTree.ObjectExpression;
-property = objectExpression.properties[0];
+var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
+    = objectExpression.properties[0];
+
 string = property.type;
 expression = property.key;
 expressionOrPattern = property.value;

@@ -1326,6 +1326,9 @@ declare namespace IORedis {
 
         rpushBuffer(key: string, ...values: Buffer[]): Promise<number>;
 
+        lpop(key: KeyType, callback: (err: Error, res: string) => void): void;
+        lpop(key: KeyType): Promise<string>;
+
         lpopBuffer(key: KeyType, callback: (err: Error, res: Buffer) => void): void;
         lpopBuffer(key: KeyType): Promise<Buffer>;
 

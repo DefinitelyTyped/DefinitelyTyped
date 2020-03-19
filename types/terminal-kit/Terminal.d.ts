@@ -4,7 +4,7 @@ type Terminal = Terminal.Impl & EventEmitter;
 
 export = Terminal;
 
-type Callback<T> = ((err: any) => void) | ((err: undefined, arg: T) => void);
+type Callback<T> = (err: any, arg: T) => void;
 
 declare namespace Terminal {
   interface Impl {
@@ -210,13 +210,13 @@ declare namespace Terminal {
       promise?: Promise<boolean>;
     };
 
-    inputField(options: InputFieldOptions, callback: Callback<string>): void;
-    inputField(callback: Callback<string>): void;
-    inputField(
-      options?: InputFieldOptions
-    ): {
+    inputField(options: InputFieldOptions, callback?: Callback<string | undefined>): {
       abort: () => void;
-      promise?: Promise<boolean>;
+      promise: Promise<string | undefined>;
+    };
+    inputField(callback: Callback<string | undefined>): {
+      abort: () => void;
+      promise: Promise<string | undefined>;
     };
 
     fileInput(options: IFileInputOptions, callback: Callback<string>): void;

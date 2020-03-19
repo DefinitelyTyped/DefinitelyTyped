@@ -305,7 +305,7 @@ export type Scheduler = (callback: () => void) => void;
  * allowing different implementations that may e.g. create a changeset of
  * the modifications.
  */
-export type Unarray<T> = T extends Array<infer U> ? U : T;
+export type Unarray<T> = T extends Array<infer U> | ReadonlyArray<infer U> ? U : T;
 export type Primitive = string | number | boolean | null | undefined;
 
 export interface RecordProxy<T = {}> {

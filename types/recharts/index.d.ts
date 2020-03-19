@@ -19,6 +19,7 @@
 //                 Eliot Ball <https://github.com/eliotball>
 //                 Ville Kentta <https://github.com/vkentta>
 //                 Fabien Caylus <https://github.com/fcaylus>
+//                 Samuel Weckstrom <https://github.com/samuelweckstrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -326,6 +327,7 @@ export interface CartesianGridProps extends Partial<PresentationAttributes> {
 export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps extends Partial<PresentationAttributes> {
+    className?: string;
     onClick?: RechartsFunction;
     onMouseEnter?: RechartsFunction;
     onMouseLeave?: RechartsFunction;

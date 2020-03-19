@@ -10,6 +10,7 @@
 //                 Billy Le <https://github.com/billy-le>
 //                 Chris Paterson <https://github.com/chrispaterson>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 William Artero <https://github.com/wwmoraes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -354,6 +355,8 @@ declare module 'webpack' {
 }
 
 declare class WebpackDevServer {
+    sockets: NodeJS.EventEmitter[];
+
     constructor(webpack: webpack.Compiler | webpack.MultiCompiler, config?: WebpackDevServer.Configuration);
 
     static addDevServerEntrypoints(
@@ -367,6 +370,8 @@ declare class WebpackDevServer {
     listen(port: number, callback?: (error?: Error) => void): http.Server;
 
     close(callback?: () => void): void;
+
+    sockWrite(sockets: NodeJS.EventEmitter[], type: string, data?: any): void;
 }
 
 export = WebpackDevServer;

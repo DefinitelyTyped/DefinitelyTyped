@@ -115,6 +115,12 @@ const c6: WebpackDevServer.Configuration = {
 server = new WebpackDevServer(compiler, config);
 server.listen(8080, "localhost", () => { });
 
+// test the socket writer
+server.sockWrite(server.sockets, "type1");
+server.sockWrite(server.sockets, "type2", {message: "OK"});
+
+server.close();
+
 // HTTPS example
 server = new WebpackDevServer(compiler, {
     publicPath: "/assets/",
