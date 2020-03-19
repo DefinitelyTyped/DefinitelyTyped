@@ -10,7 +10,7 @@
 export as namespace dagre;
 
 export namespace graphlib {
-    class Graph<T={}> {
+    class Graph<T = {}> {
         constructor(opt?: {directed?: boolean, multigraph?: boolean, compound?: boolean});
 
         graph(): GraphLabel;
@@ -116,7 +116,7 @@ export interface GraphEdge {
     [key: string]: any;
 }
 
-export type Node<T={}> = T & {
+export type Node<T = {}> = T & {
     x: number;
     y: number;
     width: number;
