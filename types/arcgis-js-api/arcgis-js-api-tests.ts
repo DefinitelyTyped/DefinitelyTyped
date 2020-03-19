@@ -25,4 +25,9 @@ class MapController {
       zoom: 13
     });
   }
+
+  filter_with_custom_return_type() {
+    // $ExpectType Collection<FeatureLayer>
+    const filteredLayers = this.map.layers.filter<__esri.FeatureLayer>(l => l.type === "feature");
+  }
 }
