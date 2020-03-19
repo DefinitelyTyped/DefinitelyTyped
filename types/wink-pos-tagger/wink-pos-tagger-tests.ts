@@ -4,7 +4,6 @@ import * as Tokenizer from 'wink-tokenizer';
 const myTagger = new Tagger();
 const myTokenizer = new Tokenizer();
 
-
 // examples taken from official API: https://winkjs.org/wink-pos-tagger/
 // There will not be any effect:
 myTagger.defineConfig({ lemma: false });

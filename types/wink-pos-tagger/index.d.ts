@@ -1,4 +1,4 @@
-// Type definitions for wink-pos-tagger
+// Type definitions for wink-pos-tagger 2.2.2
 // Project: http://winkjs.org/
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,7 +64,7 @@ declare namespace Tagger {
 		tag: Tag;
 		normal: string;
 		pos: PosTag;
-		lemma?: string
+		lemma?: string;
 	}
 }
 
