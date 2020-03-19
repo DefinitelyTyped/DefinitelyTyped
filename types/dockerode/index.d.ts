@@ -8,6 +8,7 @@
 //                 Rob Moran <https://github.com/thegecko>
 //                 Cameron Diver <https://github.com/CameronDiver>
 //                 Pascal Sthamer <https://github.com/p4sca1>
+//                 Stuart Thomson <https://github.com/stuartthomson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -695,6 +696,8 @@ declare namespace Dockerode {
     CpusetCpus?: string;
     CpusetMems?: string;
     Devices?: any;
+    DeviceCgroupRules?: string[];
+    DeviceRequests?: DeviceRequest[];
     DiskQuota?: number;
     KernelMemory?: number;
     Memory?: number;
@@ -822,6 +825,14 @@ declare namespace Dockerode {
     PathOnHost: string;
     PathInContainer: string;
     CgroupPermissions: string;
+  }
+
+  interface DeviceRequest {
+    Driver?: string;
+    Count?: number;
+    DeviceIDs?: string[];
+    Capabilities?: string[][];
+    Options?: { [key: string]: string };
   }
 
   /* tslint:disable:interface-name */
