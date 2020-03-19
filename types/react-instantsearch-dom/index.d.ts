@@ -148,7 +148,7 @@ export interface VoiceListeningState {
   status: Status;
   transcript: string;
   isSpeechFinal: boolean;
-  errorCode?: any;
+  errorCode?: "no-speech" | "aborted" | "audio-capture" | "network" | "not-allowed" | "service-not-allowed" | "bad-grammar" | "language-not-supported";
 }
 
 export interface VoiceSearchHelper {
