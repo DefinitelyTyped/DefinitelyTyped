@@ -1236,7 +1236,7 @@ export interface ShellConfig {
 	fatal: boolean;
 
 	/**
-	 * Will print each executed command to the screen. Default is true.
+	 * Will print each executed command to the screen. Default is false.
 	 */
 	verbose: boolean;
 
