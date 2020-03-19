@@ -86,17 +86,17 @@ browserClock.tick('08');
 nodeClock.tick(7);
 nodeClock.tick('08:03');
 
-browserClock.tickAsync(7).then((val: number) => val.toExponential());
-browserClock.tickAsync('08').then((val: number) => val.toExponential());
+browserClock.tickAsync(7).then(val => val.toExponential());
+browserClock.tickAsync('08').then(val => val.toExponential());
 
-nodeClock.tickAsync(7).then((val: number) => val.toExponential());
-nodeClock.tickAsync('08:03').then((val: number) => val.toExponential());
+nodeClock.tickAsync(7).then(val => val.toExponential());
+nodeClock.tickAsync('08:03').then(val => val.toExponential());
 
 browserClock.next();
 nodeClock.next();
 
-browserClock.nextAsync().then((val: number) => val.toExponential());
-nodeClock.nextAsync().then((val: number) => val.toExponential());
+browserClock.nextAsync().then(val => val.toExponential());
+nodeClock.nextAsync().then(val => val.toExponential());
 
 browserClock.reset();
 nodeClock.reset();
@@ -104,8 +104,8 @@ nodeClock.reset();
 browserClock.runAll();
 nodeClock.runAll();
 
-browserClock.runAllAsync().then((val: number) => val.toExponential());
-nodeClock.runAllAsync().then((val: number) => val.toExponential());
+browserClock.runAllAsync().then(val => val.toExponential());
+nodeClock.runAllAsync().then(val => val.toExponential());
 
 nodeClock.runMicrotasks();
 
