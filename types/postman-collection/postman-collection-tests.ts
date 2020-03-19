@@ -339,7 +339,7 @@ pmCollection.HeaderList.isHeaderList(headerList); // $ExpectType boolean
 
 const itemDef: pmCollection.ItemDefinition = {};
 itemDef.request; // $ExpectType RequestDefinition | undefined
-itemDef.responses; // $ExpectType ResponseDefinition[] | undefined
+itemDef.response; // $ExpectType ResponseDefinition[] | undefined
 itemDef.events; // $ExpectType EventDefinition[] | undefined
 
 // Item Tests
