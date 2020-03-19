@@ -1,4 +1,4 @@
-// Type definitions for wink-pos-tagger 2.2.2
+// Type definitions for wink-pos-tagger 2.2
 // Project: http://winkjs.org/
 // Definitions by: Lars Klein <https://github.com/lhk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
