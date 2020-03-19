@@ -33,19 +33,19 @@ export namespace graphlib {
 
         children(parentName: string): string|undefined;
         hasNode(name: string): boolean;
-        neighbors(name: string): Node<T>[]|undefined;
+        neighbors(name: string): Array<Node<T>>|undefined;
         node(id: string|Label): Node<T>;
         nodeCount(): number;
         nodes(): string[];
         parent(childName: string): string|undefined;
-        predecessors(name: string): Node<T>[]|undefined;
+        predecessors(name: string): Array<Node<T>>|undefined;
         removeNode(name: string): Graph;
         setDefaultNodeLabel(callback: string|((nodeId: string) => string|Label)): Graph;
         setNode(name: string, label: string|Label): Graph;
         setParent(childName: string, parentName: string): void;
-        sinks(): Node<T>[];
-        sources(): Node<T>[];
-        successors(name: string): Node<T>[]|undefined;
+        sinks(): Array<Node<T>>;
+        sources(): Array<Node<T>>;
+        successors(name: string): Array<Node<T>>|undefined;
     }
 
     namespace json {
@@ -116,7 +116,7 @@ export interface GraphEdge {
     [key: string]: any;
 }
 
-export type Node<T> = T & {
+export type Node<T={}> = T & {
     x: number;
     y: number;
     width: number;
