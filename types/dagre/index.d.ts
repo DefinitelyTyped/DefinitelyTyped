@@ -121,4 +121,4 @@ export type Node<T={}> = T & {
     y: number;
     width: number;
     height: number;
-}
+};
