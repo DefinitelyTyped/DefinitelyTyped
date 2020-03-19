@@ -109,21 +109,21 @@ declare namespace React {
      */
     type ElementRef<
         C extends
-            | { new (props: any): Component<any> }
-            | (() => ReactElement | null)
-            | keyof JSX.IntrinsicElements
             | ForwardRefExoticComponent<any>
-    > = C extends { new (props: any): Component<any> }
+            | { new (props: any): Component<any> }
+            | ((props: any, context?: any) => ReactElement | null)
+            | keyof JSX.IntrinsicElements
+    > = C extends ForwardRefExoticComponent<infer FP>
+        ? FP extends RefAttributes<infer FC>
+            ? FC
+            : never
+        : C extends { new (props: any): Component<any> }
         ? InstanceType<C>
-        : C extends (() => ReactElement | null)
+        : C extends ((props: any, context?: any) => ReactElement | null)
         ? undefined
         : C extends keyof JSX.IntrinsicElements
         ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
             ? E
-            : never
-        : C extends ForwardRefExoticComponent<infer FP>
-        ? FP extends RefAttributes<infer FC>
-            ? FC
             : never
         : never;
 
