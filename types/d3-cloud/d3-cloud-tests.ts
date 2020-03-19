@@ -61,7 +61,7 @@ function draw(words: ICompTextSize[]) {
             return d.size + 'px';
         })
         .style('font-family', 'Impact')
-        .style('fill', function(d: ICompTextSize, i: number) {
+        .style('fill', function(_d: ICompTextSize, i: number) {
             return fill(i);
         })
         .attr('text-anchor', 'middle')
