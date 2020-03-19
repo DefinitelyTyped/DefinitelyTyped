@@ -1,6 +1,5 @@
 import { EventsKey } from '../events';
 import BaseEvent from '../events/Event';
-import Target from '../events/Target';
 
 export interface Entry {
     key_: string;
@@ -8,7 +7,7 @@ export interface Entry {
     older: any;
     value_: any;
 }
-export default class LRUCache<T> extends Target {
+export default class LRUCache<T> {
     constructor(opt_highWaterMark?: number);
     canExpireCache(): boolean;
     clear(): void;

@@ -40,6 +40,7 @@ export default class Graticule extends VectorLayer {
     getMeridians(): LineString[];
     getParallels(): LineString[];
     loaderFunction(extent: Extent, resolution: number, projection: Projection): void;
+    strategyFunction(extent: Extent, resolution: number): Extent[];
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

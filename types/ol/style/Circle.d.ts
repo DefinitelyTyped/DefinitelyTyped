@@ -6,6 +6,7 @@ export interface Options {
     fill?: Fill;
     radius: number;
     stroke?: Stroke;
+    displacement?: number[];
 }
 export default class CircleStyle extends RegularShape {
     constructor(opt_options?: Options);
