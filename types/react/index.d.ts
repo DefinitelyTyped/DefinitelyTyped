@@ -404,7 +404,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     // tslint:disable-next-line:no-empty-interface
-    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS> { }
+    interface Component<P = {}, S = {}, SS = any> extends ComponentLifecycle<P, S, SS>, StaticLifecycle<P, S> { }
     class Component<P, S> {
         // tslint won't let me format the sample code in a way that vscode likes it :(
         /**
