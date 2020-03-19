@@ -29,10 +29,6 @@ folder.set('parent', folder);
 folder.set('parent', folder.get('parent'));
 folder.set('parent', store.findRecord('folder', 3));
 
-assertType<Folder|null>(
-    folder.belongsTo('parent').value()
-);
-assertType<Folder|null>(
-    folder.belongsTo('parentSync').value()
-);
+folder.belongsTo('parent').value()!; // $ExpectType Folder
+folder.belongsTo('parentSync').value()!; // $ExpectType Folder
 folder.belongsTo('non-existing').value(); // $ExpectError

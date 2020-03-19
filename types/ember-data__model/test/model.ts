@@ -106,34 +106,23 @@ reloaded = user.reload({ adapterOptions: { fastAsCanBe: 'yessirree' } });
 const human = Human.create();
 
 function testBelongsTo() {
-    assertType<DS.BelongsToReference<Human>>(
-        human.belongsTo('mother')
-    );
+    human.belongsTo('mother').value()!; // $ExpectType Human
 
-    assertType<DS.BelongsToReference<Human>>(
-        human.belongsTo('motherSync')
-    );
+    human.belongsTo('motherSync').value()!; // $ExpectType Human
 
-    assertType<DS.BelongsToReference<never>>(
-        human.belongsTo('children') // wrong relationship kind
-    );
+    // wrong relationship kind
+    human.belongsTo('children').value()!; // $ExpectType never
 
     human.belongsTo('undefined').value()!; // $ExpectError
 }
 
 function testHasMany() {
-    assertType<DS.HasManyReference<Human>>(
-        human.hasMany('children')
-    );
+    human.hasMany('children').value()!; // $ExpectType ManyArray<Human>
 
-    assertType<DS.HasManyReference<Human>>(
-        human.hasMany('childrenSync')
-    );
+    human.hasMany('childrenSync').value()!; // $ExpectType ManyArray<Human>
 
-    // errors
-    assertType<DS.HasManyReference<never>>(
-        human.hasMany('mother') // wrong relationship kind
-    );
+    // wrong relationship kind
+    human.hasMany('mother').value()!; // $ExpectType ManyArray<never>
 
     human.hasMany('undefined').value()!; // $ExpectError
 }
