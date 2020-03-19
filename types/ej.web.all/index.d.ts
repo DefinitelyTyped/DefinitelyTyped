@@ -43584,8 +43584,7 @@ declare namespace ej {
 
             /** Specifies the value for datepicker of Custom Cell type.
              */
-            value?: string;			
-			
+            value?: string;
         }
 
         export interface XLCellType {
