@@ -12,8 +12,8 @@ declare class Tagger {
 	constructor();
 
 	/**
-	 * This API has no effect. It has been maintained for compatibility purpose. 
-	 * The wink-tokenizer will now always add lemma and normal forms. 
+	 * This API has no effect. It has been maintained for compatibility purpose.
+	 * The wink-tokenizer will now always add lemma and normal forms.
 	 * Note, lemmas are added only for nouns (excluding proper noun), verbs and adjectives.
 	 * @param config configuration object
 	 * @returns object with active configuration
@@ -29,7 +29,7 @@ declare class Tagger {
 	tag(tokens: Token[]): Tagger.PosTaggedToken[];
 
 	/**
-	 * Tags the raw tokens with their pos. 
+	 * Tags the raw tokens with their pos.
 	 * Note, it only categorizes each token in to one of the following 3-categories (a) word, or (b) punctuation, or (c) number.
 	 * @param tokens to be pos tagged. They are simple array of string.
 	 * @return pos tagged tokens
