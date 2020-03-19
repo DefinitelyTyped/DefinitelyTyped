@@ -16,6 +16,7 @@
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Nico Koenig <https://github.com/nicokoenig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _d3 from "d3";
@@ -605,7 +606,7 @@ export type ScatterData = PlotData;
 export interface PlotData {
 	type: 'bar' | 'box' | 'candlestick' | 'choropleth' | 'contour' | 'heatmap' | 'histogram' | 'indicator' | 'mesh3d' |
 	'ohlc' | 'parcoords' | 'pie' | 'pointcloud' | 'scatter' | 'scatter3d' | 'scattergeo' | 'scattergl' |
-	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea';
+	'scatterpolar' | 'scatterternary' | 'surface' | 'treemap' | 'waterfall' | 'funnel' | 'funnelarea' | 'sunburst';
 	x: Datum[] | Datum[][] | TypedArray;
 	y: Datum[] | Datum[][] | TypedArray;
 	z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
@@ -706,6 +707,10 @@ export interface PlotData {
 		y: number[];
 	}>;
 	title: Partial<DataTitle>;
+	outsidetextfont: {
+		size?: number; color?: Color
+	};
+	leaf: { opacity: number };
 }
 
 /**
