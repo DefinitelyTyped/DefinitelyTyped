@@ -82,8 +82,6 @@ declare namespace React {
         | ((props: P) => ReactElement | null)
         | (new (props: P) => Component<P, any>);
 
-    type Key = string | number;
-
     interface RefObject<T> {
         readonly current: T | null;
     }
@@ -128,6 +126,8 @@ declare namespace React {
         : never;
 
     type ComponentState = any;
+
+    type Key = string | number;
 
     /**
      * @internal You shouldn't need to use this type since you never see these attributes
