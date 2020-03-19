@@ -8,6 +8,7 @@
 //                 Mathias Lorenzen <https://github.com/ffMathy>,
 //                 Leonardo Lombardi <https://github.com/ltlombardi>
 //                 Retsam <https://github.com/Retsam>
+//                 Rey Pena <https://github.com/ReyPena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -946,15 +947,16 @@ interface KnockoutComputedContext {
 // and used Union Types to simplify overloads (requires TypeScript 1.4)
 //
 declare namespace KnockoutComponentTypes {
-
-    interface Config {
-        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+    type ViewModel = ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+    
+    interface Config<T> {
+        viewModel?: T;
         template: string | Node[] | DocumentFragment | TemplateElement | AMDModule;
         synchronous?: boolean;
     }
 
-    interface ComponentConfig {
-        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
+    interface ComponentConfig<T = ViewModel> {
+        viewModel?: T;
         template: any;
         createViewModel?: any;
     }
@@ -1026,7 +1028,7 @@ interface KnockoutComponents {
      * @param componentName Component name. Will be used for your custom HTML tag name.
      * @param config Component configuration.
      */
-    register(componentName: string, config: KnockoutComponentTypes.Config | KnockoutComponentTypes.EmptyConfig): void;
+    register<T = KnockoutComponentTypes.ViewModel>(componentName: string, config: KnockoutComponentTypes.Config<T> | KnockoutComponentTypes.EmptyConfig): void;
     /**
      * Determine if a component with the specified name is already registered in the default component loader.
      * @param componentName Component name.

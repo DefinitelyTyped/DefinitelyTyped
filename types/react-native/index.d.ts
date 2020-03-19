@@ -31,6 +31,9 @@
 //                 Sergey Sychev <https://github.com/SychevSP>
 //                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
+//                 Abe Dolinger <https://github.com/256hz>
+//                 Dominique Richard <https://github.com/doumart>
+//                 Mohamed Shaban <https://github.com/drmas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -163,7 +166,14 @@ interface EmitterSubscription extends EventSubscription {
     remove(): void;
 }
 
-interface EventEmitterListener {
+declare class EventEmitter {
+    /**
+     *
+     * @param subscriber - Optional subscriber instance
+     *   to use. If omitted, a new subscriber will be created for the emitter.
+     */
+    constructor(subscriber?: EventSubscriptionVendor | null);
+
     /**
      * Adds a listener to be invoked when events of the specified type are
      * emitted. An optional calling context may be provided. The data arguments
@@ -176,15 +186,6 @@ interface EventEmitterListener {
      *   listener
      */
     addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
-}
-
-interface EventEmitter extends EventEmitterListener {
-    /**
-     *
-     * @param subscriber - Optional subscriber instance
-     *   to use. If omitted, a new subscriber will be created for the emitter.
-     */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter;
 
     /**
      * Similar to addListener, except that the listener is removed after it is
@@ -459,7 +460,7 @@ export type AppConfig = {
     run?: Runnable;
 };
 
-// https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
+// https://github.com/facebook/react-native/blob/master/Libraries/ReactNative/AppRegistry.js
 /**
  * `AppRegistry` is the JS entry point to running all React Native apps.  App
  * root components should register themselves with
@@ -991,6 +992,21 @@ export interface TextInputIOSProps {
     keyboardAppearance?: 'default' | 'light' | 'dark';
 
     /**
+     * Provide rules for your password.
+     * For example, say you want to require a password with at least eight characters consisting of a mix of uppercase and lowercase letters, at least one number, and at most two consecutive characters.
+     * "required: upper; required: lower; required: digit; max-consecutive: 2; minlength: 8;"
+     */
+    passwordRules?: string | null;
+
+    /**
+     * If `true`, allows TextInput to pass touch events to the parent component.
+     * This allows components to be swipeable from the TextInput on iOS,
+     * as is the case on Android by default.
+     * If `false`, TextInput always asks to handle the input (except when disabled).
+     */
+    rejectResponderTermination?: boolean | null;
+
+    /**
      * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
      */
     selectionState?: DocumentSelectionState;
@@ -1192,14 +1208,18 @@ export interface TextInputAndroidProps {
     textAlignVertical?: 'auto' | 'top' | 'bottom' | 'center';
 }
 
-export type KeyboardType = 'default' | 'email-address' | 'numeric' | 'phone-pad';
+export type KeyboardType =
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 export type KeyboardTypeIOS =
     | 'ascii-capable'
     | 'numbers-and-punctuation'
     | 'url'
-    | 'number-pad'
     | 'name-phone-pad'
-    | 'decimal-pad'
     | 'twitter'
     | 'web-search';
 export type KeyboardTypeAndroid = 'visible-password';
@@ -2194,6 +2214,12 @@ export interface AccessibilityPropsIOS {
     accessibilityViewIsModal?: boolean;
 
     /**
+     * When accessibile is true, the system will invoke this function when the user performs the escape gesture (scrub with two fingers).
+     * @platform ios
+     */
+    onAccessibilityEscape?: () => void;
+
+    /**
      * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
      * @platform ios
      */
@@ -2994,7 +3020,7 @@ export class Picker extends React.Component<PickerProps> {
      */
     static MODE_DROPDOWN: string;
 
-    static Item: React.Component<PickerItemProps>;
+    static Item: React.ComponentType<PickerItemProps>;
 }
 
 /**
@@ -3994,39 +4020,29 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     removeClippedSubviews?: boolean;
 }
 
-export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
-    /**
-     * Exports some data, e.g. for perf investigations or analytics.
-     */
-    getMetrics: () => {
-        contentLength: number;
-        totalRows: number;
-        renderedRows: number;
-        visibleRows: number;
-    };
-
+export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>> {
     /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd: (params?: { animated?: boolean }) => void;
+    scrollToEnd: (params?: { animated?: boolean | null }) => void;
 
     /**
      * Scrolls to the item at the specified index such that it is positioned in the viewable area
      * such that viewPosition 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * Cannot scroll to locations outside the render window without specifying the getItemLayout prop.
      */
-    scrollToIndex: (params: { animated?: boolean; index: number; viewOffset?: number; viewPosition?: number }) => void;
+    scrollToIndex: (params: { animated?: boolean | null; index: number; viewOffset?: number; viewPosition?: number }) => void;
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean; item: ItemT; viewPosition?: number }) => void;
+    scrollToItem: (params: { animated?: boolean | null; item: ItemT; viewPosition?: number }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset: (params: { animated?: boolean; offset: number }) => void;
+    scrollToOffset: (params: { animated?: boolean | null; offset: number }) => void;
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
@@ -4039,6 +4055,21 @@ export class FlatList<ItemT> extends React.Component<FlatListProps<ItemT>> {
      * Displays the scroll indicators momentarily.
      */
     flashScrollIndicators: () => void;
+
+    /**
+     * Provides a handle to the underlying scroll responder.
+     */
+    getScrollResponder: () => JSX.Element | null | undefined;
+
+    /**
+     * Provides a reference to the underlying host component
+     */
+    getNativeScrollRef: () => React.RefObject<View> | React.RefObject<ScrollViewComponent> | null | undefined;
+
+    getScrollableNode: () => any;
+
+    // TODO: use `unknown` instead of `any` for Typescript >= 3.0
+    setNativeProps: (props: {[key: string]: any}) => void;
 }
 
 /**
@@ -4222,7 +4253,7 @@ export interface SectionListScrollParams {
     viewPosition?: number;
 }
 
-export class SectionList<SectionT> extends React.Component<SectionListProps<SectionT>> {
+export class SectionList<SectionT = any> extends React.Component<SectionListProps<SectionT>> {
     /**
      * Scrolls to the item at the specified sectionIndex and itemIndex (within the section)
      * positioned in the viewable area such that viewPosition 0 places it at the top
@@ -5150,7 +5181,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten<T>(style?: StyleProp<T>): T;
+    export function flatten<T>(style?: StyleProp<T>): T extends (infer U)[] ? U : T;
 
     /**
      * Combines two styles such that style2 will override any styles in style1.
@@ -5715,11 +5746,24 @@ export type PromiseTask = {
 
 export type Handle = number;
 
-export interface InteractionManagerStatic extends EventEmitterListener {
+export interface InteractionManagerStatic {
     Events: {
         interactionStart: string;
         interactionComplete: string;
     };
+
+    /**
+     * Adds a listener to be invoked when events of the specified type are
+     * emitted. An optional calling context may be provided. The data arguments
+     * emitted will be passed to the listener function.
+     *
+     * @param eventType - Name of the event to listen to
+     * @param listener - Function to invoke when the specified event is
+     *   emitted
+     * @param context - Optional context object to use when invoking the
+     *   listener
+     */
+    addListener(eventType: string, listener: (...args: any[]) => any, context?: any): EmitterSubscription;
 
     /**
      * Schedule a function to run after all interactions have completed.
@@ -6849,22 +6893,27 @@ export interface AlertStatic {
 export type AlertType = 'default' | 'plain-text' | 'secure-text' | 'login-password';
 
 /**
- * AppStateIOS can tell you if the app is in the foreground or background,
+ * AppState can tell you if the app is in the foreground or background,
  * and notify you when the state changes.
  *
- * AppStateIOS is frequently used to determine the intent and proper behavior
+ * AppState is frequently used to determine the intent and proper behavior
  * when handling push notifications.
  *
- * iOS App States
+ * App State Events
+ *      change - This even is received when the app state has changed.
+ *      focus [Android] - Received when the app gains focus (the user is interacting with the app).
+ *      blur [Android] - Received when the user is not actively interacting with the app.
+ *
+ * App States
  *      active - The app is running in the foreground
  *      background - The app is running in the background. The user is either in another app or on the home screen
- *      inactive - This is a transition state that currently never happens for typical React Native apps.
+ *      inactive [iOS] - This is a transition state that currently never happens for typical React Native apps.
  *
  * For more information, see Apple's documentation: https://developer.apple.com/library/ios/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TheAppLifeCycle/TheAppLifeCycle.html
  *
- * @see https://facebook.github.io/react-native/docs/appstateios.html#content
+ * @see https://facebook.github.io/react-native/docs/appstate#app-states
  */
-export type AppStateEvent = 'change' | 'memoryWarning';
+export type AppStateEvent = 'change' | 'memoryWarning' | 'blur' | 'focus';
 export type AppStateStatus = 'active' | 'background' | 'inactive';
 
 export interface AppStateStatic {
@@ -6962,12 +7011,17 @@ export type BackPressEventName = 'hardwareBackPress';
  * Detect hardware back button presses, and programmatically invoke the
  * default back button functionality to exit the app if there are no
  * listeners or if none of the listeners return true.
- * Methods don't have more detailed documentation as of 0.25.
+* The event subscriptions are called in reverse order
+ * (i.e. last registered subscription first), and if one subscription
+ * returns true then subscriptions registered earlier
+ * will not be called.
+ *
+ * @see https://reactnative.dev/docs/backhandler.html
  */
 export interface BackHandlerStatic {
     exitApp(): void;
-    addEventListener(eventName: BackPressEventName, handler: () => void): NativeEventSubscription;
-    removeEventListener(eventName: BackPressEventName, handler: () => void): void;
+    addEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): NativeEventSubscription;
+    removeEventListener(eventName: BackPressEventName, handler: () => boolean | null | undefined): void;
 }
 
 export interface ButtonProps {
@@ -7075,22 +7129,6 @@ export interface CameraRollStatic {
      * @deprecated use saveToCameraRoll instead
      */
     saveImageWithTag(tag: string): Promise<string>;
-
-    /**
-     * Saves the photo or video to the camera roll / gallery.
-     *
-     * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
-     *
-     * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
-     * or a local video file URI (remote or data URIs are not supported for saving video at this time).
-     *
-     * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
-     * it will be treated as a photo. To override the automatic choice, you can pass an optional
-     * `type` parameter that must be one of 'photo' or 'video'.
-     *
-     * Returns a Promise which will resolve with the new URI.
-     */
-    saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>;
 
     /**
      * Saves the photo or video to the camera roll / gallery.
@@ -7243,6 +7281,15 @@ export interface LinkingStatic extends NativeEventEmitter {
      * Open the Settings app and displays the app’s custom settings, if it has any.
      */
     openSettings(): Promise<void>;
+
+    /**
+     * Sends an Android Intent - a broad surface to express Android functions.  Useful for deep-linking to settings pages,
+     * opening an SMS app with a message draft in place, and more.  See https://developer.android.com/reference/kotlin/android/content/Intent?hl=en
+     */
+    sendIntent(
+        action: string,
+        extras?: Array<{key: string, value: string | number | boolean}>,
+    ): Promise<void>;
 }
 
 export interface PanResponderGestureState {
@@ -8315,7 +8362,7 @@ export namespace Animated {
     export const timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
 
     interface TimingAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | AnimatedInterpolation;
         easing?: (value: number) => number;
         duration?: number;
         delay?: number;
@@ -8467,21 +8514,38 @@ export namespace Animated {
      */
     export function event<T>(argMapping: Array<Mapping | null>, config?: EventConfig<T>): (...args: any[]) => void;
 
+    export type ComponentProps<T> = T extends React.ComponentType<infer P> | React.Component<infer P> ? P : never;
+
+    export interface WithAnimatedValue<T>
+      extends ThisType<
+        T extends object
+          ? { [K in keyof T]?: WithAnimatedValue<T[K]> }
+          : T extends (infer P)[]
+          ? WithAnimatedValue<P>[]
+          : T | Value | AnimatedInterpolation
+        > {}
+
+    export type AnimatedProps<T> = { [key in keyof T]: WithAnimatedValue<T[key]> };
+
+    export interface AnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>> extends React.FC<AnimatedProps<ComponentProps<T>>> {
+        getNode: () => T;
+    }
+
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent(component: any): any;
+    export function createAnimatedComponent<T extends React.ComponentType<ComponentProps<T>> | React.Component<ComponentProps<T>>>(component: T): AnimatedComponent<T extends React.ComponentClass<ComponentProps<T>> ? InstanceType<T> : T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
      * props and style.
      */
-    export const View: any;
-    export const Image: any;
-    export const Text: any;
-    export const ScrollView: any;
-    export const FlatList: any;
-    export const SectionList: any;
+    export const View: AnimatedComponent<View>;
+    export const Image: AnimatedComponent<Image>;
+    export const Text: AnimatedComponent<Text>;
+    export const ScrollView: AnimatedComponent<ScrollView>;
+    export const FlatList: AnimatedComponent<FlatList>;
+    export const SectionList: AnimatedComponent<SectionList>;
 }
 
 // tslint:disable-next-line:interface-name
@@ -8862,12 +8926,18 @@ export const ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 //////////// Plugins //////////////
 
 export const DeviceEventEmitter: DeviceEventEmitterStatic;
+
 /**
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter { }
-export const NativeEventEmitter: NativeEventEmitter;
+export class NativeEventEmitter extends EventEmitter {
+    /**
+     * @param eventType  name of the event whose registered listeners to remove
+     */
+    removeAllListeners(eventType: string): void;
+}
+
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
  * adding all event listeners directly to RCTNativeAppEventEmitter.
@@ -8976,6 +9046,9 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void;
         debug(message?: any, ...optionalParams: any[]): void;
         table(...data: any[]): void;
+        groupCollapsed(label?: string): void;
+        groupEnd(): void;
+        group(label?: string): void;
         disableYellowBox: boolean;
         ignoredYellowBox: string[];
     }

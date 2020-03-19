@@ -18,6 +18,7 @@ const config: WebpackDevServer.Configuration = {
 
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
+    contentBasePublicPath: "/serve-content-base-at-this-url",
 
     public: 'public-host.ru',
     // Public host for server
@@ -113,6 +114,12 @@ const c6: WebpackDevServer.Configuration = {
 // API example
 server = new WebpackDevServer(compiler, config);
 server.listen(8080, "localhost", () => { });
+
+// test the socket writer
+server.sockWrite(server.sockets, "type1");
+server.sockWrite(server.sockets, "type2", {message: "OK"});
+
+server.close();
 
 // HTTPS example
 server = new WebpackDevServer(compiler, {

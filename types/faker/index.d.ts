@@ -3,7 +3,8 @@
 // Definitions by: Ben Swartz <https://github.com/bensw>,
 //                 Bas Pennings <https://github.com/basp>,
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
-//                 Matt Bishop <https://github.com/mattbishop>
+//                 Matt Bishop <https://github.com/mattbishop>,
+//                 Leonardo Testa <https://github.com/testica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare const fakerStatic: Faker.FakerStatic;
@@ -15,7 +16,6 @@ declare namespace Faker {
 
 		address: {
 			zipCode(format?: string): string;
-			zipCodeByState(state: string): string;
 			city(format?: number): string;
 			cityPrefix(): string;
 			citySuffix(): string;
@@ -69,7 +69,6 @@ declare namespace Faker {
 			future(years?: number, refDate?: string|Date): Date;
 			between(from: string|number|Date, to: string|Date): Date;
 			recent(days?: number): Date;
-			soon(days?: number): Date;
 			month(options?: { abbr?: boolean, context?: boolean }): string;
 			weekday(options?: { abbr?: boolean, context?: boolean }): string;
 		};
@@ -87,9 +86,6 @@ declare namespace Faker {
 			currencyName(): string;
 			currencySymbol(): string;
 			bitcoinAddress(): string;
-			creditCardNumber(provider?: string): string;
-			creditCardCVV(): string;
-			ethereumAddress(): string;
 			iban(formatted?: boolean): string
 			bic(): string
 		};
@@ -117,9 +113,6 @@ declare namespace Faker {
 			slugify(string?: string): string;
 			replaceSymbolWithNumber(string?: string, symbol?: string): string;
 			replaceSymbols(string?: string): string;
-			replaceCreditCardSymbols(string: string, symbol?: string): string;
-			repeatString(string: string, num?: number): string;
-			regexpStyleStringParse(string: string): string;
 			shuffle<T>(o: T[]): T[];
 			shuffle(): string[];
 			mustache(str: string, data: { [key: string]: string|((substring: string, ...args: any[]) => string) }): string;
@@ -184,7 +177,6 @@ declare namespace Faker {
 			lastName(gender?: number): string;
 			findName(firstName?: string, lastName?: string, gender?: number): string;
 			jobTitle(): string;
-			gender(): string;
 			prefix(): string;
 			suffix(): string;
 			title(): string;
@@ -202,8 +194,6 @@ declare namespace Faker {
 		random: {
 			number(max?: number): number;
 			number(options?: { min?: number, max?: number, precision?: number }): number;
-			float(precision?: number): number;
-			float(options?: { min?: number, max?: number, precision?: number }): number;
 			arrayElement(): string;
 			arrayElement<T>(array: T[]): T;
 			arrayElement<T>(array: ReadonlyArray<T>): T;
@@ -216,7 +206,6 @@ declare namespace Faker {
 			image(): string;
 			locale(): string;
 			alphaNumeric(count?: number): string;
-			hexaDecimal(count?: number): string;
 		};
 
 		system: {

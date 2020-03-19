@@ -1,6 +1,7 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "no-declare-current-package": false
-  }
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "indent": [true, "spaces", 4],
+        "no-declare-current-package": false
+    }
 }

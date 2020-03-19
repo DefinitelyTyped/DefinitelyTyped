@@ -38,6 +38,7 @@ queryNested.data; // $ExpectType number | null
 
 // Paginated mode
 const queryPaginated = useQuery('key', () => Promise.resolve({data: [1, 2, 3], next: true}), {
+    refetchInterval: 1000,
     paginated: true,
     getCanFetchMore: (lastPage, allPages) => lastPage.next
 });

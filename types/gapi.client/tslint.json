@@ -1,9 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": [false],
-        "ban-types": [false],
-        "await-promise": [true, "Request"],
         "no-unnecessary-generics": false
     }
 }

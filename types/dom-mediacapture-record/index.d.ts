@@ -1,6 +1,7 @@
 // Type definitions for non-npm package w3c MediaStream Recording 1.0
 // Project: https://w3c.github.io/mediacapture-record
 // Definitions by: Elias Meire <https://github.com/eliasmeire>
+//                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MediaRecorderErrorEventInit extends EventInit {
@@ -32,6 +33,15 @@ interface MediaRecorderOptions {
 
 type RecordingState = 'inactive' | 'recording' | 'paused';
 
+interface MediaRecorderEventMap {
+    "dataavailable": BlobEvent;
+    "error": MediaRecorderErrorEvent;
+    "pause": Event;
+    "resume": Event;
+    "start": Event;
+    "stop": Event;
+}
+
 declare class MediaRecorder extends EventTarget {
     readonly stream: MediaStream;
     readonly mimeType: string;
@@ -47,6 +57,11 @@ declare class MediaRecorder extends EventTarget {
     onstop: EventListener | null;
 
     constructor(stream: MediaStream, options?: MediaRecorderOptions);
+
+    addEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MediaRecorderEventMap>(type: K, listener: (this: AudioTrackList, ev: MediaRecorderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 
     start(timeslice?: number): void;
     stop(): void;

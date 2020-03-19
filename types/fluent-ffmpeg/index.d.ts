@@ -292,16 +292,16 @@ declare namespace Ffmpeg {
         setAspectRatio(aspect: string | number): FfmpegCommand;
         aspect(aspect: string | number): FfmpegCommand;
         aspectRatio(aspect: string | number): FfmpegCommand;
-        applyAutopadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        applyAutopad(pad: boolean, color: string): FfmpegCommand;
-        applyAutoPad(pad: boolean, color: string): FfmpegCommand;
-        withAutopadding(pad: boolean, color: string): FfmpegCommand;
-        withAutoPadding(pad: boolean, color: string): FfmpegCommand;
-        withAutopad(pad: boolean, color: string): FfmpegCommand;
-        withAutoPad(pad: boolean, color: string): FfmpegCommand;
-        autoPad(pad: boolean, color: string): FfmpegCommand;
-        autopad(pad: boolean, color: string): FfmpegCommand;
+        applyAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        applyAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPadding(pad?: boolean, color?: string): FfmpegCommand;
+        withAutopad(pad?: boolean, color?: string): FfmpegCommand;
+        withAutoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autoPad(pad?: boolean, color?: string): FfmpegCommand;
+        autopad(pad?: boolean, color?: string): FfmpegCommand;
 
         // options/output
         addOutput(target: string | stream.Writable, pipeopts?: { end?: boolean }): FfmpegCommand;

@@ -32,14 +32,44 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](http://www.t
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
+#### Versiones más viejas de Typescript (2.7 y anteriores)
 
-### Otros métodos
+Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
+Actualmente, las versiones 2.8 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 2.7, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Versiones soportadas:
 
-Estos pueden ser utilizados por TypeScript 1.0.
+Versión | Liberado | Fin de soporte
+-- | -- | --
+2.8 | Marzo 2018 | Marzo 2020
+2.9 | Mayo 2018 | Mayo 2020
+3.0 | Julio 2018 | Julio 2020
+3.1 | Septiembre 2018 | Septiembre 2020
+3.2 | Noviembre 2018 | Noviembre 2020
+3.3 | Enero 2019 | Enero 2020
+3.4 | Marzo 2019 | Marzo 2021
+3.5 | Mayo 2019 | Mayo 2021
+3.6 | Agosto 2019 | Agosto 2021
+3.7 | Noviembre 2019 | Noviembre 2021
+3.8 | Febrero 2020 | Febrero 2022
 
-* [Typings](https://github.com/typings/typings)
-* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
+Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
+Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
+
+|Etiqueta | Versión|
+|----|---------|
+|latest| 16.9.23|
+|ts2.0| 15.0.1|
+| ... | ... |
+|ts2.5| 16.0.36|
+|ts2.6| 16.4.7|
+|ts2.7| 16.4.7|
+| ... | ... |
+
+#### Typescript 1.*
+
 * Descárguelo manualmente desde la `master` branch de este repositorio
+* [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
+* ~~[NuGet](http://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
 
 Tal vez debas añadir manualmente las [referencias](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 

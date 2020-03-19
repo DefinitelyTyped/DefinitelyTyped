@@ -162,7 +162,7 @@ declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.An
      * @param limit The number of points to return (set to `Infinity` for all points).
      * @param offset The amount of points to skip (for pagination).
      */
-    getLeaves(clusterId: number, limit?: number, offset?: number): Array<Supercluster.ClusterFeature<C> | Supercluster.PointFeature<P>>; // Cluster[];
+    getLeaves(clusterId: number, limit?: number, offset?: number): Array<Supercluster.PointFeature<P>>;
 
     /**
      * Returns the zoom level on which the cluster expands into several

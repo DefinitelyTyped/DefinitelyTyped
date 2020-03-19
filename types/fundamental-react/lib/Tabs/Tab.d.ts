@@ -1,19 +1,17 @@
 import * as React from "react";
+import { IconGlyph } from "../Icon/Icon";
 
 export type TabProps = {
     className?: string;
-    customStyles?: {[x: string]: any};
-    disabled?: boolean;
     disableStyles?: boolean;
-    /* Icon to display on the tab. */
-    glyph?: string;
+    glyph?: IconGlyph;
     id?: string;
-    /* Additional props to be spread to the tab\'s <a> element. */
-    linkProps?: { [x: string]: any };
-    /* Additional props to be spread to the tab content's <div> element. */
-    tabContentProps?: { [x: string]: any };
-    /* Localized text to display on the tab. */
+    index?: number;
+    linkProps?: any;
+    selected?: boolean;
+    tabContentProps?: any;
     title?: string;
+    onClick?: (...args: any[]) => any;
 } & { [x: string]: any };
 
 declare const Tab: React.FunctionComponent<TabProps> & {

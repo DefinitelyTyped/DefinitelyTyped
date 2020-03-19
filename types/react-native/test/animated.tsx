@@ -18,6 +18,10 @@ function TestAnimatedAPI() {
         outputRange: [0, 200],
     });
 
+    Animated.timing(v2, {
+        toValue: v1.interpolate({ inputRange: [0, 1], outputRange: [0, 200] }),
+    });
+
     // ValueXY
     const position = new Animated.ValueXY({ x: 0, y: 0 });
 
@@ -84,7 +88,7 @@ function TestAnimatedAPI() {
                 ]}
             />
 
-            <Animated.Image style={position.getTranslateTransform()} />
+            <Animated.Image style={position.getTranslateTransform()} source={{uri: 'https://picsum.photos/200'}} />
         </View>
     );
 }

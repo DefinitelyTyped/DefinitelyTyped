@@ -6,7 +6,6 @@ const ap1: Transformer = autoprefixer();
 
 // Default options
 const ap2: Transformer = autoprefixer({
-    browsers: [],
     overrideBrowserslist: [],
     env: 'test',
     cascade: true,
@@ -19,19 +18,21 @@ const ap2: Transformer = autoprefixer({
     ignoreUnknownVersions: false,
 });
 
+const deprecationTest = autoprefixer({
+    browser: 'defaults',
+    browsers: 'defaults',
+    browserslist: 'defaults',
+});
+
+autoprefixer.info(); // $ExpectedType () => void
+autoprefixer.data; // $ExpectType { browsers: any; prefixes: any; }
+autoprefixer.defaults; // $ExpectedType string
+
 // Using environment map in "overrideBrowserslist"
 const ap3: Transformer = autoprefixer({
     overrideBrowserslist: {
-        production: [
-            '> 1%',
-            'ie 10',
-        ],
-        modern: [
-            'last 1 chrome version',
-            'last 1 firefox version',
-        ],
-        ssr: [
-            'node 12',
-        ],
+        production: ['> 1%', 'ie 10'],
+        modern: ['last 1 chrome version', 'last 1 firefox version'],
+        ssr: ['node 12'],
     },
 });

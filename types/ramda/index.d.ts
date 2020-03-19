@@ -69,12 +69,10 @@ export * from './tools';
 export const __: Placeholder; /* This is used in examples throughout the docs, but I it only seems to be directly explained here: https://ramdajs.com/0.9/docs/#op */
 
 /**
- * Adds two numbers (or strings). Equivalent to a + b but curried.
+ * Adds two numbers. Equivalent to a + b but curried.
  */
 export function add(a: number, b: number): number;
-export function add(a: string, b: string): string;
 export function add(a: number): (b: number) => number;
-export function add(a: string): (b: string) => string;
 
 /**
  * Creates a new list iteration function from an existing one by adding two new parameters to its callback
@@ -1533,11 +1531,11 @@ export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
  * value according to strict equality (`===`).  Most likely used to
  * filter a list.
  */
-export function propEq<T>(name: string | number, val: T, obj: any): boolean;
-export function propEq<T>(name: string | number, val: T): (obj: any) => boolean;
-export function propEq(name: string | number): {
-    <T>(val: T, obj: any): boolean;
-    <T>(val: T): (obj: any) => boolean;
+export function propEq<K extends string | number, V>(name: K, val: V, obj: Record<K, V>): boolean;
+export function propEq<K extends string | number, V>(name: K, val: V): (obj: Record<K, V>) => boolean;
+export function propEq<K extends string | number>(name: K): {
+    <V>(val: V, obj: Record<K, V>): boolean;
+    <V>(val: V): (obj: Record<K, V>) => boolean;
 };
 
 /**

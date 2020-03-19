@@ -77,6 +77,8 @@ lexer.next();
 lexer.reset('a different line\n', info);
 lexer.next();
 
+Array.from(lexer.reset('lex this'));
+
 // Transform: https://github.com/no-context/moo#transform
 moo.compile({
     STRING: [

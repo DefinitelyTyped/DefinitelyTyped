@@ -83,7 +83,7 @@ interface EmscriptenModule {
         imports: Emscripten.WebAssemblyImports,
         successCallback: (module: WebAssembly.Module) => void
     ): Emscripten.WebAssemblyExports;
-    locateFile(url: string): string;
+    locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
 
     // USE_TYPED_ARRAYS == 1
@@ -217,11 +217,7 @@ declare namespace FS {
     function createLazyFile(parent: string | FSNode, name: string, url: string, canRead: boolean, canWrite: boolean): FSNode;
     function createPreloadedFile(parent: string | FSNode, name: string, url: string,
         canRead: boolean, canWrite: boolean, onload?: () => void, onerror?: () => void, dontCreateFile?: boolean, canOwn?: boolean): void;
-    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean): FSNode;
-}
-
-interface Math {
-    imul(a: number, b: number): number;
+    function createDataFile(parent: string | FSNode, name: string, data: ArrayBufferView, canRead: boolean, canWrite: boolean, canOwn: boolean): FSNode;
 }
 
 declare var MEMFS: Emscripten.FileSystemType;
@@ -275,7 +271,7 @@ declare function writeAsciiToMemory(str: string, buffer: number, dontAddNull: bo
 declare function addRunDependency(id: any): void;
 declare function removeRunDependency(id: any): void;
 
-declare function addFunction(func: () => any, signature?: string): number;
+declare function addFunction(func: (...args: any[]) => any, signature?: string): number;
 declare function removeFunction(funcPtr: number): void;
 
 declare var ALLOC_NORMAL: number;

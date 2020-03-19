@@ -189,7 +189,8 @@ map.on('load', function() {
 					[-122.49378204345702, 37.83368330777276]
 				]
 			}
-		}
+        },
+        promoteId: {"original": "COUNTY"}
 	});
 
 	map.addLayer({
@@ -226,6 +227,12 @@ map.on('load', function() {
             ]
 		}
 	});
+
+    // Add a vector source
+    map.addSource("vector-source", {
+        type: "vector",
+        promoteId: {"original": "COUNTY"}
+    });
 
 	// Add a custom layer
 	map.addLayer({
@@ -365,8 +372,9 @@ map.removeFeatureState(featureIdentifier);
 /**
  * Popup
  */
-const popupOptions = {
-	closeOnClick: false,
+const popupOptions: mapboxgl.PopupOptions = {
+    closeOnClick: false,
+    closeOnMove: true,
 	closeButton: true,
 	anchor: 'top-right' as mapboxgl.Anchor,
 	offset: {
@@ -376,7 +384,7 @@ const popupOptions = {
 	className: 'custom-class',
 	maxWidth: '400px'
 };
-expectType<mapboxgl.PopupOptions>(popupOptions);
+
 const popup = new mapboxgl.Popup(popupOptions)
 	.setLngLat([-50, 50])
 	.trackPointer()
@@ -398,7 +406,7 @@ var mapStyle = {
 	"sources": {
 		"mapbox": {
 			"type": "vector",
-			"url": "mapbox://mapbox.mapbox-streets-v6"
+            "url": "mapbox://mapbox.mapbox-streets-v6"
 		},
 		"overlay": {
 			"type": "image",
@@ -638,6 +646,11 @@ bool = bounds.isEmpty();
 expectType<boolean>(bounds.contains([37, 50]));
 
 /*
+ * GeolocateControl
+ */
+const geolocateControl = new mapboxgl.GeolocateControl({showAccuracyCircle: true});
+
+/*
  * AttributionControl
  */
 let attributionControl = new mapboxgl.AttributionControl({ compact: false, customAttribution: '© YourCo' });
@@ -674,6 +687,7 @@ expectType<mapboxgl.LngLatLike>({ lon: 0, lat: 0 });
 
 new mapboxgl.LngLat(0, 0);
 expectType<mapboxgl.LngLat>(mapboxgl.LngLat.convert(lnglatlike));
+expectType<number>(new mapboxgl.LngLat(0, 0).distanceTo(new mapboxgl.LngLat(0, 0)));
 
 /*
  * LngLatBoundsLike

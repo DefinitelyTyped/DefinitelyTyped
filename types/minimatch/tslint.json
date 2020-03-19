@@ -1,7 +1,6 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "no-redundant-jsdoc-2": false
+        "interface-name": false
     }
 }

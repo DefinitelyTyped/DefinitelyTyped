@@ -24,6 +24,7 @@ export namespace Plaid {
         onEvent?: OnEvent;
         onLoad?: OnLoad;
         language?: Language;
+        linkCustomizationName?: string;
         countryCodes?: Country[];
         webhook?: string;
         userLegalName?: string;
@@ -59,6 +60,7 @@ export namespace Plaid {
         | 'EXIT'
         | 'LOADING'
         | 'MFA'
+        | 'NUMBERS'
         | 'RECAPTCHA'
         | 'SELECT_ACCOUNT'
         | 'SELECT_INSTITUTION';

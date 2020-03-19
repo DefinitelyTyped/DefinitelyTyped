@@ -411,6 +411,18 @@ const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentPr
 const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
 ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
 
+// render function tests
+// need the explicit type declaration for typescript < 3.1
+const ForwardRefRenderFunctionWithPropTypes: { (): null, propTypes?: {} } = () => null;
+// Warning: forwardRef render functions do not support propTypes or defaultProps
+// $ExpectError
+React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
+
+const ForwardRefRenderFunctionWithDefaultProps: { (): null, defaultProps?: {} } = () => null;
+// Warning: forwardRef render functions do not support propTypes or defaultProps
+// $ExpectError
+React.forwardRef(ForwardRefRenderFunctionWithDefaultProps);
+
 function RefCarryingComponent() {
     const ref = React.createRef<RefComponent>();
     // Without the explicit type argument, TypeScript infers `{ref: React.RefObject<RefComponent>}`

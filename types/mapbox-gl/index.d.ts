@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS 1.6
+// Type definitions for Mapbox GL JS 1.8
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 //                 Patrick Reames <https://github.com/patrickr>
@@ -704,7 +704,7 @@ declare namespace mapboxgl {
      * Geolocate
      */
     export class GeolocateControl extends Control {
-        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean });
+        constructor(options?: { positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showAccuracyCircle?: boolean, showUserLocation?: boolean });
         trigger(): boolean;
     }
 
@@ -820,6 +820,11 @@ declare namespace mapboxgl {
 
         closeOnClick?: boolean;
 
+        /**
+        * @param {boolean} [options.closeOnMove=false] If `true`, the popup will closed when the map moves.
+        */
+        closeOnMove?: boolean;
+
         anchor?: Anchor;
 
         offset?: number | PointLike | { [key: string]: PointLike; };
@@ -863,6 +868,8 @@ declare namespace mapboxgl {
     export interface Sources {
         [sourceName: string]: AnySourceData;
     }
+
+    export type PromoteIdSpecification = {[key: string]: string} | string;
 
     export type AnySourceData = GeoJSONSourceRaw | VideoSourceRaw | ImageSourceRaw | CanvasSourceRaw | VectorSource | RasterSource | RasterDemSource
 
@@ -914,6 +921,8 @@ declare namespace mapboxgl {
         lineMetrics?: boolean;
 
         generateId?: boolean;
+
+        promoteId?: PromoteIdSpecification;
     }
 
     /**
@@ -1002,6 +1011,7 @@ declare namespace mapboxgl {
         minzoom?: number;
         maxzoom?: number;
         attribution?: string;
+        promoteId?: PromoteIdSpecification;
     }
 
     interface RasterSource extends Source {
@@ -1045,6 +1055,10 @@ declare namespace mapboxgl {
 
         /** Return a LngLat as a string */
         toString(): string;
+
+        /** Returns the approximate distance between a pair of coordinates in meters
+         * Uses the Haversine Formula (from R.W. Sinnott, "Virtues of the Haversine", Sky and Telescope, vol. 68, no. 2, 1984, p. 159) */
+        distanceTo(lngLat: LngLat): number;
 
         toBounds(radius: number): LngLatBounds;
 

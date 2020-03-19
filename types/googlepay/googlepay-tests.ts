@@ -1,4 +1,4 @@
-const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>(
+const allowedCardNetworks = new Array<google.payments.api.CardNetwork>(
     'AMEX',
     'DISCOVER',
     'JCB',
@@ -7,7 +7,7 @@ const allowedCardNetworks = new Array<google.payments.api.AllowedCardNetwork>(
     'INTERAC'
 );
 
-const allowedPaymentMethods = new Array<google.payments.api.PaymentMethod>({
+const allowedPaymentMethods = new Array<google.payments.api.PaymentMethodSpecification>({
     type: 'CARD',
     parameters: {
         allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
@@ -16,18 +16,25 @@ const allowedPaymentMethods = new Array<google.payments.api.PaymentMethod>({
         billingAddressParameters: {
             format: 'MIN'
         }
+    },
+    tokenizationSpecification: {
+        type: 'PAYMENT_GATEWAY',
+        parameters: {
+            gateway: 'example',
+            gatewayMerchantId: 'abc123'
+        }
     }
 });
 
-const tokenizationSpecification: google.payments.api.PaymentMethodTokenizationSpecification = {
-    type: 'PAYMENT_GATEWAY',
-    parameters: {
-        gateway: 'example',
-        gatewayMerchantId: 'abc123'
-    }
+const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
+    return new google.payments.api.PaymentsClient({
+        environment: env,
+        paymentDataCallbacks: {
+            onPaymentAuthorized: (paymentData) => ({ transactionState: 'SUCCESS' }),
+            onPaymentDataChanged: (paymentData) => ({})
+        }
+    });
 };
-
-const getGooglePaymentsClient = (env?: google.payments.api.EnvironmentType) => new google.payments.api.PaymentsClient({ environment: env });
 
 function onGooglePayLoaded() {
     const client = getGooglePaymentsClient();

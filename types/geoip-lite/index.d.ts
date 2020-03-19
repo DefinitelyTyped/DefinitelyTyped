@@ -13,7 +13,7 @@ declare namespace mod {
         ll: Array<number>; // latitude, longitude
     }
 
-    export function lookup(ip: string): Lookup;
+    export function lookup(ip: string): null | Lookup;
     export function pretty(ip: number): string;
     export function startWatchingDataUpdate(): void;
     export function stopWatchingDataUpdate(): void;

@@ -10,6 +10,7 @@ export {
   ThemeProps,
   ThemeProvider,
   withTheme,
+  useTheme,
 } from './index';
 
 import {
@@ -205,6 +206,14 @@ export interface ReactNativeStyledInterface<T extends object> extends ReactNativ
     typeof ReactNative.ViewPagerAndroid,
     T
   >;
+  FlatList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.FlatList,
+    T
+  >;
+  SectionList: ReactNativeThemedStyledFunction<
+    typeof ReactNative.SectionList,
+    T
+  >;
 }
 
 export interface ReactNativeThemedStyledComponentsModule<
@@ -219,6 +228,7 @@ export interface ReactNativeThemedStyledComponentsModule<
   ThemeProvider: ThemeProviderComponent<T, U>;
   ThemeConsumer: React.Consumer<T>;
   ThemeContext: React.Context<T>;
+  useTheme(): T;
 
   // This could be made to assert `target is StyledComponent<any, T>` instead, but that feels not type safe
   isStyledComponent: typeof isStyledComponent;

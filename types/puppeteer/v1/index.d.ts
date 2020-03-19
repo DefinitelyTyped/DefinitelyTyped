@@ -234,7 +234,7 @@ export interface JSEvalable<A = any> {
     evaluate<T extends EvaluateFn<A>>(
       pageFunction: T,
       ...args: SerializableOrJSHandle[],
-    ): Promise<EvaluateFnReturnType<T>>;
+    ): Promise<EvaluateFnReturnType<T> extends PromiseLike<infer U> ? U : EvaluateFnReturnType<T>>;
     /**
      * The only difference between `evaluate` and `evaluateHandle` is that `evaluateHandle` returns in-page object (`JSHandle`).
      * If the function, passed to the `evaluateHandle`, returns a `Promise`, then `evaluateHandle` would wait for the

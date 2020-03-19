@@ -342,6 +342,6 @@ declare namespace ReactGridLayout {
     }
 
     function WidthProvider<P>(
-        component: React.ComponentClass<P>
+        component: React.ComponentClass<P> | React.FunctionComponent<P>
     ): React.ComponentClass<P & WidthProviderProps>;
 }

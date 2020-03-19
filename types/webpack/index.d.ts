@@ -19,6 +19,7 @@
 //                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
+//                 Daniel Chin <https://github.com/danielthank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -99,11 +100,13 @@ declare namespace webpack {
          * - "atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.
          * - "electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin for browser
          *   environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
+         * - "electron-preload" Compile for Electron for renderer process, providing a target using NodeTemplatePlugin with asyncChunkLoading set to true,
+         *   FunctionModulePlugin for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.
          * - "electron-main" Compile for Electron for main process.
          * - "atom" Alias for electron-main.
          * - "electron" Alias for electron-main.
          */
-        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-preload' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -943,13 +946,55 @@ declare namespace webpack {
             createModule: SyncBailHook;
             module: SyncWaterfallHook;
             createParser: HookMap;
-            parser: HookMap;
+            parser: HookMap<normalModuleFactory.Parser>;
             createGenerator: HookMap;
             generator: HookMap;
         }
 
         class NormalModuleFactory extends Tapable {
             hooks: NormalModuleFactoryHooks;
+        }
+
+        namespace normalModuleFactory {
+            interface ParserHooks {
+                evaluateTypeof: HookMap;
+                evaluate: HookMap;
+                evaluateIdentifier: HookMap;
+                evaluateDefinedIdentifier: HookMap;
+                evaluateCallExpressionMember: HookMap;
+                statement: SyncBailHook;
+                statementIf: SyncBailHook;
+                label: HookMap;
+                import: SyncBailHook;
+                importSpecifier: SyncBailHook;
+                export: SyncBailHook;
+                exportImport: SyncBailHook;
+                exportDeclaration: SyncBailHook;
+                exportExpression: SyncBailHook;
+                exportSpecifier: SyncBailHook;
+                exportImportSpecifier: SyncBailHook;
+                varDeclaration: SyncBailHook;
+                varDeclarationLet: HookMap;
+                varDeclarationConst: HookMap;
+                varDeclarationVar: HookMap;
+                canRename: HookMap;
+                rename: HookMap;
+                assigned: HookMap;
+                typeof: HookMap;
+                importCall: SyncBailHook;
+                call: HookMap;
+                callAnyMember: HookMap;
+                new: HookMap;
+                expression: HookMap;
+                expressionAnyMember: HookMap;
+                expressionConditionalOperator: SyncBailHook;
+                expressionLogicalOperator: SyncBailHook;
+                program: SyncBailHook;
+            }
+
+            class Parser extends Tapable {
+                hooks: ParserHooks;
+            }
         }
 
         interface ContextModuleFactoryHooks {
@@ -1540,7 +1585,7 @@ declare namespace webpack {
                 name: string;
                 size: number;
             }>;
-            assetsByChunkName?: Record<string, Record<string, string[]>>;
+            assetsByChunkName?: Record<string, string | string[]>;
             builtAt?: number;
             children?: Array<ToJsonOutput & { name?: string }>;
             chunks?: Array<{
@@ -1622,7 +1667,23 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: { [key: string]: any });
+        constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
+        static runtimeValue(
+            fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
+            fileDependencies?: string[]
+        ): DefinePlugin.RuntimeValue;
+    }
+
+    namespace DefinePlugin {
+        class RuntimeValue {
+            constructor(
+                fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
+                fileDependencies?: string[]
+            );
+            exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
+        }
+        type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
+        type CodeValueObject = CodeValuePrimitive | {[key: string]: CodeValueObject};
     }
 
     class DllPlugin extends Plugin {
