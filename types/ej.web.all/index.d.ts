@@ -43582,7 +43582,7 @@ declare namespace ej {
              */
             isChecked?: boolean;
 
-            /** Specifies the datepicker of Custom Cell type.
+            /** Specifies the value for datepicker of Custom Cell type.
              */
             value?: string;
         }
