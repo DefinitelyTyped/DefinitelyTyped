@@ -6,11 +6,6 @@
 
 // Types taken from https://github.com/leeoniya/uPlot/pull/153, all credit goes to Bob Klosinski <https://github.com/fluxin>
 
-type CanvasStrokeStyle = CanvasRenderingContext2D['strokeStyle'];
-type CanvasLineWidth = CanvasRenderingContext2D['lineWidth'];
-type CanvasFillStyle = CanvasRenderingContext2D['fillStyle'];
-type CanvasLineDash = number[];
-
 declare class UPlot {
     constructor(opts: UPlot.Options, data: UPlot.Data, ctx: HTMLElement);
     readonly width: number;
@@ -35,6 +30,11 @@ declare class UPlot {
 }
 
 declare namespace UPlot {
+    type CanvasStrokeStyle = CanvasRenderingContext2D['strokeStyle'];
+    type CanvasLineWidth = CanvasRenderingContext2D['lineWidth'];
+    type CanvasFillStyle = CanvasRenderingContext2D['fillStyle'];
+    type CanvasLineDash = number[];
+
     type Data = readonly number[][];
     interface BBox {
         left: number;
@@ -44,9 +44,13 @@ declare namespace UPlot {
     }
     interface Options {
         title?: string;
+        /** optional HTML attribute to set on the chart's container <div> (uplot.root) */
         id?: string;
+        /** optional HTML attribute to set on the chart's container <div> (uplot.root) */
         class?: string;
+        /** width of the plotting area, excluding title or legend dimensions */
         width: number;
+        /** height of the plotting area, excluding title or legend dimensions */
         height: number;
         series: Series[];
         scales?: ScaleMap;
@@ -99,6 +103,7 @@ declare namespace UPlot {
     type ValueFunction = (u: UPlot, v: number) => void;
     interface Series {
         show?: boolean;
+        /** set to true to connect null data points */
         spanGaps?: boolean;
         label?: string;
         band?: boolean;
