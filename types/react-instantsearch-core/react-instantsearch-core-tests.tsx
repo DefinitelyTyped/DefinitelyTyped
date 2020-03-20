@@ -322,8 +322,10 @@ import {
             return <>{refinement.items.map(i => renderRefinement(i.label, i.value, refine))}</>;
           }
 
-          // typescript pre 3.2 doesn't infer this correctly yet, which is no big deal IMO
-          return renderRefinement(refinement.currentRefinement as string, refinement.value, refine);
+          // extra assert for typescript < 3.2
+          if (typeof refinement.currentRefinement === 'string') {
+            return renderRefinement(refinement.currentRefinement, refinement.value, refine);
+          }
         })}
       </>
     );
