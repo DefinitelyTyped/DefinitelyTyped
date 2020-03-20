@@ -28,7 +28,7 @@ export interface Node {
      */
     position?: Position;
 
-    [key: string]: unknown;
+    [key: string]: any;
 }
 
 /**
@@ -37,7 +37,7 @@ export interface Node {
  * implementing unist.
  */
 export interface Data {
-    [key: string]: unknown;
+    [key: string]: any;
 }
 
 /**
@@ -94,5 +94,5 @@ export interface Parent extends Node {
  * Nodes containing a value.
  */
 export interface Literal extends Node {
-    value: unknown;
+    value: any;
 }
