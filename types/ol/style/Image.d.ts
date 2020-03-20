@@ -7,11 +7,13 @@ export interface Options {
     rotateWithView: boolean;
     rotation: number;
     scale: number;
+    displacement: number[];
 }
 export default abstract class ImageStyle {
     constructor(options: Options);
     clone(): ImageStyle;
     abstract getAnchor(): number[];
+    getDisplacement(): number[];
     abstract getHitDetectionImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;
     abstract getHitDetectionImageSize(): Size;
     abstract getImage(pixelRatio: number): HTMLCanvasElement | HTMLVideoElement | HTMLImageElement;

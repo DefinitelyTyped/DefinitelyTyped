@@ -14,6 +14,7 @@ export default class Control extends BaseObject {
     protected element: HTMLElement;
     protected listenerKeys: EventsKey[];
     getMap(): PluggableMap;
+    render(mapEvent: MapEvent): void;
     setMap(map: PluggableMap): void;
     setTarget(target: HTMLElement | string): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

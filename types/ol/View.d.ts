@@ -72,6 +72,7 @@ export interface ViewOptions {
     multiWorld?: boolean;
     constrainResolution?: boolean;
     smoothResolutionConstraint?: boolean;
+    showFullExtent?: boolean;
     projection?: ProjectionLike;
     resolution?: number;
     resolutions?: number[];
@@ -139,6 +140,7 @@ export default class View extends BaseObject {
     setMinZoom(zoom: number): void;
     setResolution(resolution: number | undefined): void;
     setRotation(rotation: number): void;
+    setViewportSize(opt_size?: Size): void;
     setZoom(zoom: number): void;
     updateAnimations_(): void;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

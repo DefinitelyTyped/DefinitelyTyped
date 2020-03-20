@@ -21,5 +21,6 @@ export default abstract class Tile extends Target {
     inTransition(id: string): boolean;
     abstract load(): void;
     refreshInterimChain(): void;
+    release(): void;
     setState(state: TileState): void;
 }

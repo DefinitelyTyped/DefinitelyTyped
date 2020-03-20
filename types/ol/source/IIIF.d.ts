@@ -33,7 +33,7 @@ export interface Options {
     zDirection?: number;
 }
 export default class IIIF extends TileImage {
-    constructor(opt_options: Options);
+    constructor(opt_options?: Options);
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     un(type: string | string[], listener: (p0: any) => void): void;

@@ -22,6 +22,7 @@ export default class PointerInteraction extends Interaction {
     protected handleDragEvent(mapBrowserEvent: MapBrowserPointerEvent): void;
     protected handleMoveEvent(mapBrowserEvent: MapBrowserPointerEvent): void;
     protected handleUpEvent(mapBrowserEvent: MapBrowserPointerEvent): boolean;
+    getPointerCount(): number;
     stopDown(handled: boolean): boolean;
     on(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];
     once(type: string | string[], listener: (p0: any) => void): EventsKey | EventsKey[];

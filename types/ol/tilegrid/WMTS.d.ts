@@ -12,7 +12,6 @@ export interface Options {
     sizes?: Size[];
     tileSize?: number | Size;
     tileSizes?: Size[];
-    widths?: number[];
 }
 export default class WMTSTileGrid extends TileGrid {
     constructor(options: Options);

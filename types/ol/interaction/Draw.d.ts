@@ -10,11 +10,12 @@ import LineString from '../geom/LineString';
 import SimpleGeometry from '../geom/SimpleGeometry';
 import VectorLayer from '../layer/Vector';
 import { ObjectEvent } from '../Object';
+import Projection from '../proj/Projection';
 import VectorSource from '../source/Vector';
 import { StyleFunction, StyleLike } from '../style/Style';
 import PointerInteraction from './Pointer';
 
-export type GeometryFunction = (p0: SketchCoordType, p1?: SimpleGeometry) => SimpleGeometry;
+export type GeometryFunction = (p0: SketchCoordType, p1: SimpleGeometry | undefined, p2: Projection) => SimpleGeometry;
 export type LineCoordType = Coordinate[];
 export interface Options {
     type: GeometryType;
@@ -44,6 +45,7 @@ export enum DrawEventType {
 }
 export default class Draw extends PointerInteraction {
     constructor(options: Options);
+    appendCoordinates(coordinates: LineCoordType): void;
     extend(feature: Feature<LineString>): void;
     finishDrawing(): void;
     getOverlay(): VectorLayer;
