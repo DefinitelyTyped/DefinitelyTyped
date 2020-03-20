@@ -1,4 +1,4 @@
-import { SearchApi, INDEX_MODES } from 'js-worker-search';
+import SearchApi, { INDEX_MODES } from 'js-worker-search';
 
 let searchApi: SearchApi = new SearchApi();
 
