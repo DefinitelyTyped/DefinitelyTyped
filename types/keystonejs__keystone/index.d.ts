@@ -248,7 +248,7 @@ declare module '@keystonejs/keystone' {
 
         // The return type is actually important info here. I don't believe this generic is unnecessary.
         // tslint:disable-next-line:no-unnecessary-generics
-        executeQuery<Output = any>(query: string, config: QueryExecutionSchema = { variables = {}, context = {} }): Output;
+        executeQuery<Output = any>(query: string, config?: QueryExecutionSchema): Output;
         connect(): Promise<void>;
         disconnect(): Promise<void>;
 
