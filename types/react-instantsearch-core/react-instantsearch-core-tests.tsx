@@ -319,12 +319,11 @@ import {
            * nested items object that contains a label and a value function to use to remove a single filter.
            * https://community.algolia.com/react-instantsearch/connectors/connectCurrentRefinements.html
            */
-          if ('items' in refinement) {
+          if (refinement.items) {
             str = refinement.currentRefinement; // $ExpectError
             return <>{refinement.items.map(i => renderRefinement(i.label, i.value, refine))}</>;
           }
 
-          console.log(refinement.items); // $ExpectError
           return renderRefinement(refinement.currentRefinement, refinement.value, refine);
         })}
       </>

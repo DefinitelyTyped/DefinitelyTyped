@@ -185,9 +185,7 @@ export interface AutocompleteExposed {
 }
 
 // tslint:disable-next-line:no-unnecessary-generics
-export function connectAutoComplete<TDoc = BasicDoc>(
-  stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>
-): React.ComponentClass<AutocompleteExposed>;
+export function connectAutoComplete<TDoc = BasicDoc>(stateless: React.StatelessComponent<AutocompleteProvided<TDoc>>): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
   Composed: React.ComponentType<Props>
 ): ConnectedComponentClass<Props, AutocompleteProvided<TDoc>, AutocompleteExposed>;
@@ -340,9 +338,7 @@ export interface HitsProvided<THit> {
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
 // tslint:disable-next-line:no-unnecessary-generics
-export function connectHits<THit = BasicDoc>(
-  stateless: React.StatelessComponent<HitsProvided<THit>>
-): React.ComponentClass;
+export function connectHits<THit = BasicDoc>(stateless: React.StatelessComponent<HitsProvided<THit>>): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(
   ctor: React.ComponentType<TProps>
 ): ConnectedComponentClass<TProps, HitsProvided<THit>>;
