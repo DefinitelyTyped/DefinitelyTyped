@@ -51,34 +51,42 @@ export interface Options extends Partial<RequiredOptions> {}
 export interface RequiredOptions extends doc.printer.Options {
     /**
      * Print semicolons at the ends of statements.
+     * @default true
      */
     semi: boolean;
     /**
      * Use single quotes instead of double quotes.
+     * @default false
      */
     singleQuote: boolean;
     /**
      * Use single quotes in JSX.
+     * @default false
      */
     jsxSingleQuote: boolean;
     /**
      * Print trailing commas wherever possible.
+     * @default 'none'
      */
     trailingComma: 'none' | 'es5' | 'all';
     /**
      * Print spaces between brackets in object literals.
+     * @default true
      */
     bracketSpacing: boolean;
     /**
      * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     * @default false
      */
     jsxBracketSameLine: boolean;
     /**
      * Format only a segment of a file.
+     * @default 0
      */
     rangeStart: number;
     /**
      * Format only a segment of a file.
+     * @default Infinity
      */
     rangeEnd: number;
     /**
@@ -92,6 +100,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * Prettier can restrict itself to only format files that contain a special comment, called a pragma, at the top of the file.
      * This is very useful when gradually transitioning large, unformatted codebases to prettier.
+     * @default false
      */
     requirePragma: boolean;
     /**
@@ -99,6 +108,7 @@ export interface RequiredOptions extends doc.printer.Options {
      * the file has been formatted with prettier. This works well when used in tandem with
      * the --require-pragma option. If there is already a docblock at the top of
      * the file then this option will add a newline to it with the @format marker.
+     * @default false
      */
     insertPragma: boolean;
     /**
@@ -112,6 +122,7 @@ export interface RequiredOptions extends doc.printer.Options {
         | 'preserve';
     /**
      * Include parentheses around a sole arrow function parameter.
+     * @default 'avoid'
      */
     arrowParens: 'avoid' | 'always';
     /**
@@ -120,18 +131,22 @@ export interface RequiredOptions extends doc.printer.Options {
     plugins: Array<string | Plugin>;
     /**
      * How to handle whitespaces in HTML.
+     * @default 'css'
      */
     htmlWhitespaceSensitivity: 'css' | 'strict' | 'ignore';
     /**
      * Which end of line characters to apply.
+     * @default 'auto'
      */
     endOfLine: 'auto' | 'lf' | 'crlf' | 'cr';
     /**
      * Change when properties in objects are quoted.
+     * @default 'as-needed'
      */
     quoteProps: 'as-needed' | 'consistent' | 'preserve';
     /**
      * Whether or not to indent the code inside <script> and <style> tags in Vue files.
+     * @default false
      */
     vueIndentScriptAndStyle: boolean;
 }
@@ -487,14 +502,17 @@ export namespace doc {
         interface Options {
             /**
              * Specify the line length that the printer will wrap on.
+             * @default 80
              */
             printWidth: number;
             /**
              * Specify the number of spaces per indentation-level.
+             * @default 2
              */
             tabWidth: number;
             /**
              * Indent lines with tabs instead of spaces
+             * @default
              */
             useTabs: boolean;
         }
