@@ -1,3 +1,4 @@
+import { Collection as MongoCollection, Db as MongoDb } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 declare module "meteor/mongo" {
     // Based on https://github.com/microsoft/TypeScript/issues/28791#issuecomment-443520161
@@ -166,8 +167,8 @@ declare module "meteor/mongo" {
                 transform?: Function | null;
             }): T | undefined;
             insert(doc: OptionalId<T>, callback?: Function): string;
-            rawCollection(): any;
-            rawDatabase(): any;
+            rawCollection(): MongoCollection<T>;
+            rawDatabase(): MongoDb;
             remove(selector: Selector<T> | ObjectID | string, callback?: Function): number;
             update(selector: Selector<T> | ObjectID | string, modifier: Modifier<T>, options?: {
                 multi?: boolean;
