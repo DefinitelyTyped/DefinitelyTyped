@@ -5105,6 +5105,25 @@ declare namespace Office {
         type: EventType;
     }
     /**
+     * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
+     * 
+     * @beta
+     * 
+     * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the 
+     * {@link Office.UI} object.
+     * 
+     */
+    interface DialogParentMessageReceivedEventArgs {
+        /**
+         * Gets the content of the message sent from the parent page, which can be any string or stringified data.
+         */
+        message: string;
+        /**
+         * Get an {@link Office.EventType} enumeration value that identifies the kind of event that was raised.
+         */
+        type: EventType;
+    }
+    /**
      * Represents a slice of a document file. The Slice object is accessed with the `File.getSliceAsync` method.
      */
     interface Slice {
