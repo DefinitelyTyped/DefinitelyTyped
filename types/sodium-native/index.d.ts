@@ -112,6 +112,14 @@ export const crypto_secretstream_xchacha20poly1305_TAG_FINAL: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_MESSAGE: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_PUSH: number;
 export const crypto_secretstream_xchacha20poly1305_TAG_REKEY: number;
+export const crypto_sign_PUBLICKEYBYTES: number;
+export const crypto_sign_SECRETKEYBYTES: number;
+export const crypto_sign_BYTES: number;
+export const crypto_sign_SEEDBYTES: number;
+export const crypto_auth_BYTES: number;
+export const crypto_auth_KEYBYTES: number;
+export const crypto_scalarmult_BYTES: number;
+export const crypto_scalarmult_SCALARBYTES: number;
 /** NOTE: Unofficial constant */
 export const crypto_secretstream_xchacha20poly1305_TAGBYTES: number;
 export const crypto_box_SEALBYTES: number;
