@@ -443,7 +443,7 @@ declare namespace Chart {
         mode?: InteractionMode;
         animationDuration?: number;
         intersect?: boolean;
-        axis?: string;
+        axis?: 'x' | 'y' | 'xy';
         onHover?(this: Chart, event: MouseEvent, activeElements: Array<{}>): any;
     }
 
