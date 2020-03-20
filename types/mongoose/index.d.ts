@@ -2994,8 +2994,7 @@ declare module "mongoose" {
     translateAliases(raw: any): any;
 
     /**
-     * Sends multiple insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or 
-     operations to the MongoDB server in one command. This is faster than sending multiple independent operations (like) if you use create()) because with bulkWrite() there is only one round trip to MongoDB.
+     * Sends multiple insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany operations to the MongoDB server in one command. This is faster than sending multiple independent operations (like) if you use create()) because with bulkWrite() there is only one round trip to MongoDB.
      * Mongoose will perform casting on all operations you provide.
      * This function does not trigger any middleware, not save() nor update(). If you need to trigger save() middleware for every document use create() instead.
      * @param writes Operations
