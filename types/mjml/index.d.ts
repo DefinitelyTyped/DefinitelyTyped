@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MJMLParsingOpts {
-    fonts?: { [key: string]: string };
+    fonts?: { [key: string]: string; };
     keepComments?: boolean;
     beautify?: boolean;
     minify?: boolean;
