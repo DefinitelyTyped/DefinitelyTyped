@@ -232,6 +232,11 @@ declare module '@keystonejs/keystone' {
         mutations?: GraphQLExtension[];
     }
 
+    interface QueryExecutionSchema {
+        variables?:any = {},
+        context?:any = {}
+    }
+
     class Keystone<ListNames extends string = string> {
         constructor(options: KeystoneOptions);
 
@@ -243,7 +248,7 @@ declare module '@keystonejs/keystone' {
 
         // The return type is actually important info here. I don't believe this generic is unnecessary.
         // tslint:disable-next-line:no-unnecessary-generics
-        executeQuery<Output = any>(query: string, config: { variables: any; context: any }): Output;
+        executeQuery<Output = any>(query: string, config: QueryExecutionSchema = { variables = {}, context = {} }): Output;
         connect(): Promise<void>;
         disconnect(): Promise<void>;
 
