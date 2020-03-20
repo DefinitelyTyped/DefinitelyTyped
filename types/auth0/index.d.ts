@@ -980,9 +980,9 @@ export class ManagementClient<A=AppMetadata, U=UserMetadata> {
   getRulesConfigs(cb: (err: Error, rulesConfigs: RulesConfig[]) => void): void;
 
   setRulesConfig(params: RulesConfig, data: RulesConfigData): Promise<RulesConfig & RulesConfigData>;
-  setRulesConfig(params: RulesConfig, data: RulesConfigData, 
+  setRulesConfig(params: RulesConfig, data: RulesConfigData,
     cb: (err: Error, rulesConfig: RulesConfig & RulesConfigData) => void):void;
-  
+
   deleteRulesConfig(params: RulesConfig): Promise<void>;
   deleteRulesConfig(params: RulesConfig, cb: (err: Error) => void): void;
 
