@@ -31,7 +31,7 @@ declare var baseExpression: ESTree.BaseExpression;
 declare var thisExpression: ESTree.ThisExpression;
 declare var arrayExpression: ESTree.ArrayExpression;
 declare var objectExpression: ESTree.ObjectExpression;
-declare var property: ESTree.Property;
+declare var property: ESTree.Property | ESTree.SpreadElement;
 declare var functionExpression: ESTree.FunctionExpression;
 declare var sequenceExpression: ESTree.SequenceExpression;
 declare var unaryExpression: ESTree.UnaryExpression;
@@ -86,6 +86,7 @@ declare var exportSpecifier: ESTree.ExportSpecifier;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
+declare var importExpression: ESTree.ImportExpression;
 
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
@@ -183,9 +184,11 @@ var propertyOrSpread: ESTree.Property | ESTree.SpreadElement
     = objectExpression.properties[0];
 
 string = property.type;
-expression = property.key;
-expressionOrPattern = property.value;
-string = property.kind;
+if (property.type === 'Property') {
+  expression = property.key;
+  expressionOrPattern = property.value;
+  string = property.kind;
+}
 
 // FunctionExpression
 var functionExpression: ESTree.FunctionExpression;
@@ -432,6 +435,9 @@ switch (node.type) {
   case 'AwaitExpression':
     awaitExpression = node;
     break;
+  case 'ImportExpression':
+    importExpression = node;
+    break;
   // end narrowing of Expression
 
   case 'Property':
@@ -642,6 +648,9 @@ switch (expression.type) {
     break;
   case 'AwaitExpression':
     awaitExpression = expression;
+    break;
+  case 'ImportExpression':
+    importExpression = expression;
     break;
   default:
     never = expression;
