@@ -1,7 +1,8 @@
-// Type definitions for @keystonejs/keystone 5.2
+// Type definitions for @keystonejs/keystone 6.0
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -48,7 +49,16 @@ declare module '@keystonejs/keystone' {
     }
 
     interface AuthenticationContext {
-        authentication: { item: any }; // TODO
+        authentication: {
+            item: {
+                id: string;
+                name: string;
+                email: string;
+                isAdmin: boolean;
+                password: string;
+            };
+            listKey: string;
+        };
     }
 
     interface GraphQLWhereClause {
