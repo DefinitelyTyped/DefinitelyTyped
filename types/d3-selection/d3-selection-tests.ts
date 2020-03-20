@@ -836,16 +836,19 @@ newDiv = body.append(function(d, i, g) {
     const index: number = i;
     const group: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement> = g;
     console.log('Body element foo property: ', d.foo); // data of type BodyDatum
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('div'); // this-type HTMLBodyElement
 });
 
 // $ExpectError
 newDiv = body.append<HTMLDivElement>(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by type parameter, HTMLAnchorElement returned
 });
 
 // $ExpectError
 newDiv = body.append(function(d) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('a'); // fails, HTMLDivElement expected by inference, HTMLAnchorElement returned
 });
 
@@ -870,6 +873,7 @@ const typeValueFunction = function(
   i: number,
   g: HTMLBodyElement[] | d3Selection.ArrayLike<HTMLBodyElement>
 ) {
+    // tslint:disable-next-line:no-unnecessary-type-assertion
     return this.ownerDocument!.createElement('p'); // this-type HTMLParagraphElement
 };
 
