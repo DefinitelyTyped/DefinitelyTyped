@@ -58,6 +58,11 @@ declare module '@keystonejs/keystone' {
                 password: string;
             };
             listKey: string;
+            operation: string;
+            originalInput?: any; // TODO: types
+            gqlName: string;
+            itemId?: any; // TODO: types
+            itemIds?: any; // TODO: types
         };
     }
 
