@@ -77,6 +77,10 @@ const chart: Chart = new Chart(ctx, {
                                 return `${value}`;
                             }
 
+                            if (value === 30) {
+                                return undefined;
+                            }
+
                             return null;
                         },
                         sampleSize: 10,
