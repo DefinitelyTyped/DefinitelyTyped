@@ -5105,11 +5105,11 @@ declare namespace Office {
         type: EventType;
     }
     /**
-     * Provides information about the message from the parent page that raised the "DialogParentMessageReceived" event.
+     * Provides information about the message from the parent page that raised the `DialogParentMessageReceived` event.
      * 
      * @beta
      * 
-     * To add an event handler for the "DialogParentMessageReceived" event, use the `addHandlerAsync` method of the 
+     * To add an event handler for the `DialogParentMessageReceived` event, use the `addHandlerAsync` method of the 
      * {@link Office.UI} object.
      * 
      */
