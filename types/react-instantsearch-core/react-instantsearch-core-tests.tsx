@@ -313,14 +313,12 @@ import {
     return (
       <>
         {items.map(refinement => {
-          let str: string = refinement.currentRefinement; // $ExpectError
           /*
            * When existing several refinements for the same atribute name, then you get a
            * nested items object that contains a label and a value function to use to remove a single filter.
            * https://community.algolia.com/react-instantsearch/connectors/connectCurrentRefinements.html
            */
           if (refinement.items) {
-            str = refinement.currentRefinement; // $ExpectError
             return <>{refinement.items.map(i => renderRefinement(i.label, i.value, refine))}</>;
           }
 
