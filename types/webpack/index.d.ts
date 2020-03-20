@@ -20,6 +20,7 @@
 //                 Anders Kaseorg <https://github.com/andersk>
 //                 Felix Haus <https://github.com/ofhouse>
 //                 Daniel Chin <https://github.com/danielthank>
+//                 Daiki Ihara <https://github.com/sasurau4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1414,6 +1415,8 @@ declare namespace webpack {
             cachedAssets?: boolean;
             /** Add children information */
             children?: boolean;
+            /** Add information about the `namedChunkGroups` */
+            chunkGroups?: boolean;
             /** Add built modules information to chunk information */
             chunkModules?: boolean;
             /** Add the origins of chunks and chunk merging info */
