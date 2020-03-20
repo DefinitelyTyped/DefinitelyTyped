@@ -233,8 +233,8 @@ declare module '@keystonejs/keystone' {
     }
 
     interface QueryExecutionSchema {
-        variables?:any = {},
-        context?:any = {}
+        variables?: any,
+        context?: any
     }
 
     class Keystone<ListNames extends string = string> {
