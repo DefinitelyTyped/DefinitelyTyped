@@ -11662,7 +11662,10 @@ declare namespace Office {
          */
         setSelectedDataAsync(data: string, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, this `setSignatureAsync` only works on messages. As such, to set the signature on an appointment,
+         * you can instead use APIs like `Body.setAsync` (introduced in Mailbox 1.3) or `Body.appendOnSendAsync` (currently in preview).
          *
          * [Api set: Mailbox Preview]
          *
@@ -11688,7 +11691,10 @@ declare namespace Office {
          */
         setSignatureAsync(data: string, options?: Office.AsyncContextOptions & CoercionTypeOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
-         * Adds or replaces the signature of the email body.
+         * Adds or replaces the signature of the item body.
+         * 
+         * **Important**: In Outlook on the web, this `setSignatureAsync` only works on messages. As such, to set the signature on an appointment,
+         * you can instead use APIs like `Body.setAsync` (introduced in Mailbox 1.3) or `Body.appendOnSendAsync` (currently in preview).
          *
          * [Api set: Mailbox Preview]
          *
@@ -14025,7 +14031,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(options?: Office.AsyncContextOptions, callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Disables the Outlook client signature.
          *  
@@ -14043,7 +14049,7 @@ declare namespace Office {
          * @param callback - Optional. When the method completes, the function passed in the callback parameter is called with a single parameter,
          *                `asyncResult`, which is an `Office.AsyncResult` object.
          */
-        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;        
+        disableClientSignatureAsync(callback?: (asyncResult: Office.AsyncResult<void>) => void): void;
         /**
          * Gets an attachment from a message or appointment and returns it as an `AttachmentContent` object.
          * 
@@ -14395,7 +14401,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                   type `Office.AsyncResult`.
          */
-        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(options: Office.AsyncContextOptions, callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Gets if the client signature is enabled.
          * 
@@ -14415,7 +14421,7 @@ declare namespace Office {
          * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                   type `Office.AsyncResult`.
          */
-        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;        
+        isClientSignatureEnabledAsync(callback: (asyncResult: Office.AsyncResult<boolean>) => void): void;
         /**
          * Asynchronously loads custom properties for this add-in on the selected item.
          *
