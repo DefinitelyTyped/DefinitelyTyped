@@ -1,8 +1,9 @@
-// Type definitions for @keystonejs/adapter-knex 5.1
+// Type definitions for @keystonejs/adapter-knex 6.3
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
+// TypeScript Version: 3.8
 
 // Because this is a scoped package, without this line Typescript doesn't associate the
 // types with the right package.
@@ -15,6 +16,7 @@ declare module '@keystonejs/adapter-knex' {
         knexOptions?: Config;
         schemaName?: string;
         listAdapterClass?: any;
+        dropDatabase?: boolean;        
     }
     class KnexAdapter extends BaseKeystoneAdapter {
         constructor(options?: KnexAdaptorOptions);
