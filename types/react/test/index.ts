@@ -439,6 +439,17 @@ function RefCarryingComponent() {
         },
     );
 }
+const ForwardingRefComponent2 = React.forwardRef<HTMLElement>((props, ref) => {
+    return React.createElement('div', {
+        ref(e: HTMLDivElement) {
+            if (typeof ref === 'function') {
+                ref(e);
+            } else if (ref) {
+                ref.current = e;
+            }
+        }
+    });
+});
 
 const MemoizedForwardingRefComponent = React.memo(ForwardingRefComponent);
 const LazyComponent = React.lazy(() => Promise.resolve({ default: RefComponent }));

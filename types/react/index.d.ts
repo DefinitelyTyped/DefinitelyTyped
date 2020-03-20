@@ -560,7 +560,7 @@ declare namespace React {
     }
 
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: Ref<T>): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
         displayName?: string;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -575,7 +575,7 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use ForwardRefRenderingFunction. forwardRef doesn't accept a
+     * @deprecated Use ForwardRefRenderFunction. forwardRef doesn't accept a
      *             "real" component.
      */
     interface RefForwardingComponent <T, P = {}> extends ForwardRefRenderFunction<T, P> {}
