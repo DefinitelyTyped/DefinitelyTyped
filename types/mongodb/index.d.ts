@@ -341,6 +341,13 @@ export interface MongoClientOptions extends
     useUnifiedTopology?: boolean;
 
     /**
+     * With `useUnifiedTopology`, the MongoDB driver will try to find a server to send any given operation to
+     * and keep retrying for `serverSelectionTimeoutMS` milliseconds.
+     * Default: 30000
+     */
+    serverSelectionTimeoutMS?: number;
+
+    /**
      * number of retries for a tailable cursor
      * @default 5
      */
