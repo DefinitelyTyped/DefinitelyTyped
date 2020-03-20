@@ -16,7 +16,7 @@ declare module '@keystonejs/adapter-knex' {
         knexOptions?: Config;
         schemaName?: string;
         listAdapterClass?: any;
-        dropDatabase?: boolean;        
+        dropDatabase?: boolean;
     }
     class KnexAdapter extends BaseKeystoneAdapter {
         constructor(options?: KnexAdaptorOptions);
