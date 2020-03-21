@@ -52,12 +52,16 @@ declare namespace atImport {
          * the path(s). If you do not return an absolute path, your path will be resolved to an absolute path using the default resolver. You can use
          * [resolve](https://github.com/substack/node-resolve) for this.
          */
-        resolve?: (id: string, basedir: string, importOptions: AtImportOptions) => string;
+        resolve?: (
+            id: string,
+            basedir: string,
+            importOptions: AtImportOptions,
+        ) => string | string[] | PromiseLike<string | string[]>;
 
         /**
          * You can overwrite the default loading way by setting this option. This function gets `(filename, importOptions)` arguments and returns content or promised content.
          */
-        load?: (filename: string, importOptions: AtImportOptions) => string;
+        load?: (filename: string, importOptions: AtImportOptions) => string | Promise<string>;
 
         /**
          * By default, similar files (based on the same content) are being skipped. It's to optimize output and skip similar files like `normalize.css` for example. If this behavior is not what you
