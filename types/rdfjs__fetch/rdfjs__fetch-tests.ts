@@ -12,6 +12,10 @@ function noOptions(): Promise<RdfFetchResponse> {
     return fetch('http://example.com/');
 }
 
+function allOptionsOptional(): Promise<RdfFetchResponse> {
+    return fetch('http://example.com/', {});
+}
+
 async function fetchString(): Promise<string> {
     const response = await fetch('http://example.com', { formats });
     return response.text();
