@@ -382,9 +382,9 @@ export interface SSLOptions {
      */
     checkServerIdentity?: boolean | typeof checkServerIdentity;
     /**
-     * Array of valid certificates either as Buffers or Strings
+     * Valid certificates either as Buffers or Strings
      */
-    sslCA?: ReadonlyArray<Buffer | string>;
+    sslCA?: ReadonlyArray<Buffer | string> | Buffer | string;
     /**
      * SSL Certificate revocation list binary buffer
      */
