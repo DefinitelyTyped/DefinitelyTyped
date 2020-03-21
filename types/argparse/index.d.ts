@@ -5,6 +5,7 @@
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Kannan Goundan <https://github.com/cakoose>
 //                 Halvor Holsten Strand <https://github.com/ondkloss>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -14,6 +15,8 @@ export class ArgumentParser extends ArgumentGroup {
     parseArgs(args?: string[], ns?: Namespace | object): any;
     printUsage(): void;
     printHelp(): void;
+    prog: Required<ArgumentParserOptions>['prog'];
+    formatterClass: Required<ArgumentParserOptions>['formatterClass'];
     formatUsage(): string;
     formatHelp(): string;
     parseKnownArgs(args?: string[], ns?: Namespace | object): any[];

@@ -349,3 +349,9 @@ console.log('-----------');
 args = constExample.parseArgs('--foo x --bar --baz y --qux z a b c d e'.split(' '));
 console.dir(args);
 console.log('-----------');
+
+console.log(new (new ArgumentParser()).formatterClass() !== null);
+console.log('-----------');
+
+console.log(new ArgumentParser({ prog: 'foo' }).prog);
+console.log('-----------');
