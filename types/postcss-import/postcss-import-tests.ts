@@ -1,5 +1,5 @@
-import * as postcss from 'postcss';
-import * as atImport from 'postcss-import';
+import postcss = require('postcss');
+import atImport = require('postcss-import');
 
 postcss().use(atImport());
 postcss().use(atImport({ root: '' }));
