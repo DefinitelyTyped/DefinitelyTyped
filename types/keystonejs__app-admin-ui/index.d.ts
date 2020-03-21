@@ -27,11 +27,12 @@ declare module '@keystonejs/app-admin-ui' {
     
     interface PrepareMiddlewareOptions {
         keystone: Keystone;
-        dev?: boolean;
+        dev: boolean;
+        distDir?: any;
     }
 
     class AdminUIApp<ListNames extends string = string, UserType extends {} = any> extends BaseApp {
         constructor(options?: AdminUIOptions<ListNames, UserType>);
-        prepareMiddleware(options: PrepareMiddlewareOptions): void;
+        prepareMiddleware(options: PrepareMiddlewareOptions): any; // TODO: returns Router
     }
 }
