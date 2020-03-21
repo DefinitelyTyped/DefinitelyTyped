@@ -1,7 +1,8 @@
-// Type definitions for @keystonejs/app-graphql 5.0
+// Type definitions for @keystonejs/app-graphql 5.1
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -35,7 +36,7 @@ declare module '@keystonejs/app-graphql' {
         constructor(opts?: GraphQLAppOptions);
 
         build(): void;
-        prepareMiddleware(options: PrepareMiddlewareOptions): void;
+        prepareMiddleware(options: PrepareMiddlewareOptions): any; // Returns Express app
     }
 
     const validation: GraphQLValidation;
