@@ -147,4 +147,9 @@ const attrFn: AttrFn = (chunk) => {
 
     // Should return component on default property
     const entry: { default: React.ComponentType } = requireEntrypoint();
+  
+    interface Props {}
+  
+    // Should return given props component on default property
+    const point: { default: React.ComponentType<Props> } = requireEntrypoint<Props>()
 }
