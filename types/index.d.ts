@@ -7,7 +7,7 @@ import { AtRule, Comment, Rule } from 'css';
 
 export = api;
 
-declare function api(input: string, pattern: api.Pattern | api.Pattern[], options?: api.Options): string;
+declare function api(inputStylesheet: string, ignorePattern: api.Pattern | api.Pattern[], options?: api.Options): string;
 
 declare namespace api {
     type Context = 'type' | 'media' | 'selector' | 'declarationProperty' | 'declarationValue';
