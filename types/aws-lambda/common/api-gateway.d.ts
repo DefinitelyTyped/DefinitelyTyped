@@ -8,6 +8,13 @@ export interface APIGatewayAuthorizerResultContext {
     [name: string]: string | number | boolean | null | undefined;
 }
 
+export interface APIGatewayError {
+  message: string;
+  messageString: string;
+  responseType: string;
+  validationErrorString: string;
+}
+
 // Default authorizer type, prefer using a specific type with the "...WithAuthorizer..." variant types.
 // Note that this doesn't have to be a context from a custom lambda outhorizer, AWS also has a cognito
 // authorizer type and could add more, so the property won't always be a string.
@@ -28,25 +35,27 @@ export interface APIGatewayEventRequestContextWithAuthorizer<TAuthorizerContext>
     // This lets us allow parameterizing the authorizer for proxy events that know what authorizer
     // context values they have.
     authorizer: TAuthorizerContext;
-    connectedAt?: number;
-    connectionId?: string;
+    awsEndpointRequestId?: string;
     domainName?: string;
     domainPrefix?: string;
+    error?: APIGatewayError;
     eventType?: string;
     extendedRequestId?: string;
-    protocol: string;
     httpMethod: string;
-    identity: APIGatewayEventIdentity;
-    messageDirection?: string;
-    messageId?: string | null;
+    identity?: APIGatewayEventIdentity;
     path: string;
-    stage: string;
+    protocol: string;
     requestId: string;
+    requestOverride?: APIGatewayEventRequestOverride;
+    responseOverride?: APIGatewayEventResponseOverride;
     requestTime?: string;
     requestTimeEpoch: number;
     resourceId: string;
     resourcePath: string;
-    routeKey?: string;
+    stage: string;
+    wafResponseCode?: string;
+    webaclArn?: string;
+    xrayTraceId?: string;
 }
 
 export interface APIGatewayEventIdentity {
@@ -64,4 +73,23 @@ export interface APIGatewayEventIdentity {
     user: string | null;
     userAgent: string | null;
     userArn: string | null;
+}
+
+export interface APIGatewayEventRequestOverride {
+  header: {
+    [name: string]: string;
+  };
+  path: {
+    [name: string]: string;
+  };
+  querystring: {
+    [name: string]: string;
+  };
+}
+
+export interface APIGatewayEventResponseOverride {
+  header: {
+    [name: string]: string;
+  };
+  status: string;
 }
