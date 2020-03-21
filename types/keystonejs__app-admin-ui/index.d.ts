@@ -10,6 +10,7 @@
 // tslint:disable-next-line:no-single-declare-module
 declare module '@keystonejs/app-admin-ui' {
     import { BaseAuthStrategy, BaseApp } from '@keystonejs/keystone';
+
     interface AdminUIOptions<ListNames extends string = string, UserType extends {} = any> {
         adminPath?: string;
         apiPath?: string;
@@ -22,8 +23,14 @@ declare module '@keystonejs/app-admin-ui' {
             authentication: { item: UserType; list: ListNames };
         }) => boolean;
     }
+    
+    interface PrepareMiddlewareOptions {
+        keystone: Keystone;
+        dev?: boolean;
+    }
 
     class AdminUIApp<ListNames extends string = string, UserType extends {} = any> extends BaseApp {
         constructor(options?: AdminUIOptions<ListNames, UserType>);
+        prepareMiddleware(options: PrepareMiddlewareOptions): void;
     }
 }
