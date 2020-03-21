@@ -77,7 +77,7 @@ export class ChunkExtractor {
 	/**
 	 * Require the entrypoint of your application as a commonjs module.
 	 */
-	requireEntrypoint(name?: string): { default: ComponentType };
+	requireEntrypoint<P = {}>(name?: string): { default: ComponentType<P> };
 
 	/**
 	 * Get scripts as a string of `<script>` tags
