@@ -1,6 +1,7 @@
 // Type definitions for bootstrap-fileinput
 // Project: https://github.com/kartik-v/bootstrap-fileinput
 // Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
+//                 Ali Emre Taşkın <https://https://github.com/aliemre1990>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -10,8 +11,32 @@ export = BootstrapFileInput;
 export as namespace BootstrapFileInput;
 
 declare global {
-   interface JQuery {
-        fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;
+    interface JQuery {
+        fileinput:
+        ((options?: BootstrapFileInput.FileInputOptions) => JQuery)
+        & ((method:
+            'disable' |
+            'enable' |
+            'reset' |
+            'destroy' |
+            'refresh' |
+            'clear' |
+            'upload' |
+            'cancel' |
+            'pause' |
+            'resume' |
+            'lock' |
+            'unlock') => JQuery)
+        & ((method: 'addToStack', fileObj: File | Blob | FileList, id: string) => undefined)
+        & ((method: 'clearFileStack') => undefined)
+        & ((method: 'getFileStack') => { [key: string]: { file: string, name: string, relativePath: string, size: number, nameFmt: string, sizeFmt: string } })
+        & ((method: 'getFileList') => (File & { lastModifiedDate: Date, webkitRelativePath: string })[])
+        & ((method: 'getFilesCount') => number)
+        & ((method: 'readFiles', files: FileList) => undefined)
+        & ((method: 'zoom', frameId: string) => undefined)
+        & ((method: 'getPreview') => { content: string[], config: BootstrapFileInput.PreviewConfig[], tags: { [key: string]: string }[] })
+        & ((method: 'getExif', frameId: string) => any)
+        & ((method: 'getFrames', cssFilter?: string) => JQuery[]);
     }
 }
 
