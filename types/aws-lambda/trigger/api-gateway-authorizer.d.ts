@@ -36,18 +36,15 @@ export interface APIGatewayTokenAuthorizerEvent {
 // Worse, it will include "body" and "isBase64Encoded" properties, unlike the real call!
 export interface APIGatewayRequestAuthorizerEvent {
     type: "REQUEST";
+    methodArn: string;
     resource: string;
     path: string;
     httpMethod: string;
     headers: { [name: string]: string } | null;
-    multiValueHeaders: { [name: string]: string[] } | null;
     pathParameters: { [name: string]: string } | null;
     queryStringParameters: { [name: string]: string } | null;
-    multiValueQueryStringParameters: { [name: string]: string[] } | null;
-    stageVariables: { [name: string]: string } | null;
     requestContext: APIGatewayEventRequestContextWithAuthorizer<undefined>;
-    domainName: string;
-    apiId: string;
+    stageVariables: { [name: string]: string } | null;
 }
 
 export interface APIGatewayAuthorizerResult {
