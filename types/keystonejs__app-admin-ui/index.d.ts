@@ -1,7 +1,8 @@
-// Type definitions for @keystonejs/app-admin-ui 5.1
+// Type definitions for @keystonejs/app-admin-ui 5.9
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
