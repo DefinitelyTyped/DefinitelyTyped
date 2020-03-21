@@ -1,7 +1,8 @@
-// Type definitions for @keystonejs/app-next 5.0
+// Type definitions for @keystonejs/app-next 5.1
 // Project: https://github.com/keystonejs/keystone
 // Definitions by: Kevin Brown <https://github.com/thekevinbrown>
 //                 Timothee Clain <https://github.com/tclain>
+//                 Abhijith Vijayan <https://github.com/abhijithvijayan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -18,7 +19,7 @@ declare module '@keystonejs/app-next' {
     class NextApp extends BaseApp {
         constructor(options?: NextOptions);
 
-        prepareMiddleware({ dev }: { dev?: boolean }): Promise<void>;
+        prepareMiddleware({ dev, distDir }: { dev?: boolean, distDir?: any }): Promise<any>;
         build(): Promise<void>;
     }
 }
