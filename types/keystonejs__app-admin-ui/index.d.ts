@@ -10,7 +10,7 @@
 // types with the right package.
 // tslint:disable-next-line:no-single-declare-module
 declare module '@keystonejs/app-admin-ui' {
-    import { BaseAuthStrategy, BaseApp } from '@keystonejs/keystone';
+    import { BaseAuthStrategy, BaseApp, Keystone } from '@keystonejs/keystone';
 
     interface AdminUIOptions<ListNames extends string = string, UserType extends {} = any> {
         adminPath?: string;
