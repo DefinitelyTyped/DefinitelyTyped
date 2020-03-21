@@ -1,8 +1,8 @@
-// Type definitions for @carbon/icons-react 10.9.2
+// Type definitions for @carbon/icons-react 10.9
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8.3
+// TypeScript Version: 3.8
 
 export interface CarbonIconProps extends Omit<React.SVGProps<SVGElement>, 'tabIndex' | 'aria-hidden'> {
     'aria-hidden'?: string;
