@@ -114,6 +114,7 @@ export interface RequiredOptions extends doc.printer.Options {
     /**
      * By default, Prettier will wrap markdown text as-is since some services use a linebreak-sensitive renderer.
      * In some cases you may want to rely on editor/viewer soft wrapping instead, so this option allows you to opt out.
+     * @default 'preserve'
      */
     proseWrap:
         | boolean // deprecated
@@ -512,7 +513,7 @@ export namespace doc {
             tabWidth: number;
             /**
              * Indent lines with tabs instead of spaces
-             * @default
+             * @default false
              */
             useTabs: boolean;
         }
