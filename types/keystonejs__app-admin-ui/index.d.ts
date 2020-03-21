@@ -28,7 +28,7 @@ declare module '@keystonejs/app-admin-ui' {
     interface PrepareMiddlewareOptions {
         keystone: Keystone;
         dev: boolean;
-        distDir?: any;
+        distDir?: any; // TODO: this field is required if dev is false => thus not optional (investigate)
     }
 
     class AdminUIApp<ListNames extends string = string, UserType extends {} = any> extends BaseApp {
