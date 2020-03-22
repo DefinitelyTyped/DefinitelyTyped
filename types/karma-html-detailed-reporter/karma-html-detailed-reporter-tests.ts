@@ -1,4 +1,5 @@
 import karma = require('karma');
+import karmaHtmlDetailedReporter = require('karma-html-detailed-reporter');
 
 // See https://github.com/karma-runner/karma-coverage/blob/v1.1.2/README.md#basic
 module.exports = (config: karma.Config) => {
@@ -21,3 +22,6 @@ module.exports = (config: karma.Config) => {
         },
     });
 };
+
+const [factory, preprocessor] = karmaHtmlDetailedReporter['preprocessor:htmlDetailed'];
+const [type, reporter] = karmaHtmlDetailedReporter['reporter:htmlDetailed'];

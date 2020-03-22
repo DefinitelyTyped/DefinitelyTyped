@@ -62,3 +62,10 @@ declare module 'karma' {
         useHostedBootstrap?: boolean;
     }
 }
+
+declare const exp: {
+    'preprocessor:htmlDetailed': ['factory', any];
+    'reporter:htmlDetailed': ['type', any];
+};
+
+export = exp;
